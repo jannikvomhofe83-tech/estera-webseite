@@ -23,13 +23,22 @@
   --hh: 356px;
   --zoom: 1;
 
-  /* Sechs Blaustufen für die Bausteine */
-  --ton-1: #16305A;  --kante-1: #0D1C34;
-  --ton-2: #1D3C68;  --kante-2: #11233E;
-  --ton-3: #244875;  --kante-3: #152B49;
-  --ton-4: #2B5480;  --kante-4: #193253;
-  --ton-5: #33608B;  --kante-5: #1D3A5E;
-  --ton-6: #3B6C96;  --kante-6: #214268;
+  /* Hausfarben statt Blau in Blau. Fenster in einem tiefen Blaugrau, wie
+     lackierte Rahmen mit dunkler Scheibe; die Tuer in Eiche. Bewusst
+     entsaettigt gehalten — die Seite vertraegt kein Bilderbuchrot.
+     Reihenfolge: Giebelfenster, Rundfenster, Fenster quadratisch,
+     Fenster hoch, TUER, Fenster quer. */
+  --ton-1: #2E4C66;  --kante-1: #17293A;
+  --ton-2: #33536E;  --kante-2: #1A2E40;
+  --ton-3: #2B4860;  --kante-3: #152636;
+  --ton-4: #365673;  --kante-4: #1C3143;
+  --ton-5: #7A5433;  --kante-5: #432D1B;   /* Tuer, Eiche */
+  --ton-6: #30506B;  --kante-6: #182B3C;
+
+  --wand:  #F5F0E7;   /* warmes Off-White */
+  --wand-schatten: #E4DCCE;
+  --dach:  #A8553F;   /* entsaettigtes Ziegelrot */
+  --dach-tief: #7E3B2B;
 
   display: grid;
   justify-items: center;
@@ -75,11 +84,13 @@
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
 .haus__lage:first-child {
-  background: linear-gradient(148deg, #FDFCFA 0%, #F3F5F8 52%, #E9EDF3 100%);
+  background: linear-gradient(148deg, #FBF7F0 0%, var(--wand) 54%, #EDE6DA 100%);
 }
-.haus__lage:nth-child(n + 4) { background: #DFE4EC; }
-.haus__lage:nth-child(n + 7) { background: #CDD5E0; }
-.haus__lage:last-child       { background: #B9C3D2; }
+/* Nach hinten abdunkeln — die Tiefe der Laibung wird dadurch lesbar. */
+.haus__lage:nth-child(n + 6)  { background: #EDE5D8; }
+.haus__lage:nth-child(n + 12) { background: #E2D9C9; }
+.haus__lage:nth-child(n + 19) { background: var(--wand-schatten); }
+.haus__lage:last-child        { background: #D6CCBB; }
 
 /* --- Das Dach ------------------------------------------------------------- */
 /* Eigene Fläche in Navy, damit das Haus nicht einfarbig ist. Sie liegt
@@ -89,12 +100,43 @@
   inset: 0;
   z-index: 2;
   transform: translateZ(0.6px);
-  background: linear-gradient(160deg, #24406B 0%, #16294A 70%);
+  background: linear-gradient(160deg, #B75F47 0%, var(--dach) 46%, var(--dach-tief) 100%);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%22%2F%3E%3C%2Fsvg%3E");
           mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%22%2F%3E%3C%2Fsvg%3E");
   -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
+
+/* --- Die Seitenwand ------------------------------------------------------- */
+/* Der Scheibenstapel allein bildet zwar Tiefe, aber keine Flaeche, in die
+   man Fenster setzen koennte. Deshalb hier eine echte Ebene: an der linken
+   Hauskante angesetzt und um 90 Grad nach hinten geklappt.
+   rotateY(90deg) mit transform-origin auf der linken Kante schickt sie nach
+   HINTEN; bei -90deg klappte sie nach vorn zum Betrachter.
+   Die Seitenfenster sind rein dekorativ — dort fliegt nichts hinein. */
+.haus__seite {
+  position: absolute;
+  left: 0;
+  top: 112px;                 /* Unterkante des Giebels */
+  width: 104px;               /* = Wandtiefe, 26 Scheiben x 4 px */
+  height: 244px;              /* Hoehe des Baukoerpers */
+  transform-origin: 0% 50%;
+  transform: rotateY(90deg);
+  background: linear-gradient(100deg, var(--wand-schatten) 0%, #DAD1C1 100%);
+}
+.haus__seitenfenster {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 46px;
+  margin: -23px -17px;
+  translate: var(--sx) var(--sy);
+  border-radius: 3px;
+  background: linear-gradient(150deg, #3A5C79 0%, #24405A 70%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+.haus__seitenfenster--klein { width: 26px; height: 34px; margin: -17px -13px; }
 
 /* --- Die Bausteine -------------------------------------------------------- */
 .haus__halter {
