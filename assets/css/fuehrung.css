@@ -1,0 +1,143 @@
+/* ===========================================================================
+   GESCHÄFTSFÜHRUNG — Anordnung nach dem Vorbild von baulig.de
+
+   Zwei Blöcke untereinander, spiegelverkehrt: Person 1 Text links und
+   Porträt rechts, Person 2 umgekehrt. Name groß, darunter ein kurzer
+   Strich, darunter mehrere kurze Absätze.
+
+   ENTSCHEIDEND: Bei Baulig sind BEIDE Personen auf einen Blick sichtbar.
+   Deshalb ist hier alles auf Kompaktheit gerechnet — Porträthöhe, Zeilenmaß
+   und Abstände sind so gesetzt, dass die zwei Blöcke zusammen unter die
+   Höhe eines üblichen Fensters passen. Ein Block, der eine ganze Bildschirm-
+   höhe füllt, wäre zwar bequemer zu setzen, zerstört aber genau die
+   Gegenüberstellung, die den Abschnitt ausmacht.
+
+   Hintergrund WEISS wie alle Abschnitte dieser Seite. Die Referenz steht
+   auf Schwarz; das ist der einzige Punkt, an dem bewusst abgewichen wird.
+   Weil die beiden Porträts selbst dunkle Hintergründe haben, können sie
+   nicht wie dort in die Fläche auslaufen — sie stehen deshalb als klar
+   begrenzte Flächen mit dem Bildradius der Seite.
+
+   Bildformat: Beide Aufnahmen sind QUADRATISCH und der Kopf sitzt jeweils
+   dicht unter der oberen Kante. In einem querformatigen Rahmen schneidet
+   „cover" deshalb zwangsläufig die Haare ab. Der Rahmen ist darum
+   hochformatig (4:5) — dann beschneidet „cover" die Seiten und die volle
+   Bildhöhe bleibt stehen, Kopf und Haare also vollständig sichtbar.
+   =========================================================================== */
+
+.fuehr {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  padding: clamp(2.4rem, 5vh, 4.2rem) 0;
+}
+
+.fuehr__inner {
+  /* Schmaler als die übrigen Abschnitte: das Porträt ist in der Höhe
+     gedeckelt und damit auch in der Breite. Ein 1240 px breiter Umschlag
+     ließe daneben ein Textfeld von über 900 px stehen — unlesbar lang und
+     optisch aus dem Gleichgewicht. */
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(1.8rem, 4vh, 3rem);
+}
+
+/* --- Ein Block je Person -------------------------------------------------- */
+.fuehr__block {
+  display: grid;
+  /* Die Bildspalte richtet sich nach der Bildhöhe (auto + aspect-ratio),
+     nicht nach einem Bruchteil der Breite. Nur so bleibt das Hochformat
+     über alle Fensterbreiten erhalten. Die Textspalte ist auf ein lesbares
+     Zeilenmaß gedeckelt; der Rest wird als Luft dazwischen verteilt. */
+  grid-template-columns: minmax(0, 32rem) auto;
+  justify-content: space-between;
+  gap: clamp(1.6rem, 4vw, 3.4rem);
+  align-items: center;
+}
+/* Person 2 spiegelverkehrt. Über die Rasterspalten statt über die
+   Reihenfolge im Markup — so bleibt die Lesereihenfolge für Screenreader
+   und Tastatur unverändert Name, Text, Bild. */
+.fuehr__block--gedreht { grid-template-columns: auto minmax(0, 32rem); }
+.fuehr__block--gedreht .fuehr__text { grid-column: 2; grid-row: 1; }
+.fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: 1; }
+
+/* --- Der Text ------------------------------------------------------------- */
+.fuehr__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.9vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.12;
+  color: var(--ink-black);
+}
+/* Kurzer Strich unter dem Namen, wie in der Referenz */
+.fuehr__strich {
+  display: block;
+  width: 118px;
+  height: 3px;
+  margin: clamp(0.9rem, 2vh, 1.3rem) 0 clamp(1.2rem, 2.6vh, 1.7rem);
+  background: var(--navy-800);
+}
+.fuehr__text p {
+  font-size: clamp(0.94rem, 1.02vw, 1.02rem);
+  line-height: 1.62;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.fuehr__text p + p { margin-top: 0.85em; }
+.fuehr__text p:first-of-type { color: var(--ink-black); }
+
+/* --- Das Porträt ---------------------------------------------------------- */
+/* Höhe in vh statt in vw: die Nebenbedingung ist die FENSTERHÖHE — beide
+   Blöcke müssen zusammen hineinpassen. Die Breite folgt aus dem Format. */
+.fuehr__bild {
+  position: relative;
+  height: clamp(250px, 33vh, 350px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-img);
+  background: var(--navy-900);
+}
+.fuehr__bild img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Hochformat aus quadratischer Vorlage: beschnitten wird links und
+     rechts, die Höhe bleibt vollständig. Beide Personen stehen mittig. */
+  object-position: 50% 50%;
+}
+/* Goldhaarlinie als Randung — dieselbe Zierform wie bei den Kundenstimmen */
+.fuehr__bild::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line-gold);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* --- Hinweis -------------------------------------------------------------- */
+.fuehr__hinweis {
+  /* Kein eigener Abstand — der Abstand kommt bereits vom Raster des
+     Umschlags. Doppelt gesetzt kostet er die Höhe, die beide Blöcke
+     brauchen, um zusammen ins Fenster zu passen. */
+  margin-top: 0;
+  text-align: center;
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+  color: var(--gold-text);
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 860px) {
+  /* Gestapelt: Porträt oben, Text darunter — bei beiden Personen gleich
+     herum, sonst wirkt die Spiegelung wie ein Fehler. */
+  .fuehr__block,
+  .fuehr__block--gedreht { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
+  .fuehr__text { max-width: none; }
+  .fuehr__block--gedreht .fuehr__text,
+  .fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: auto; }
+  .fuehr__bild { height: auto; width: min(320px, 72vw); justify-self: center; order: -1; }
+  .fuehr__block--gedreht .fuehr__bild { order: -1; }
+}

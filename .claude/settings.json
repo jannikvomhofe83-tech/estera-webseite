@@ -1,7 +1,23 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(python3 -c ' *)",
+      "Bash(node faq-check.mjs)",
+      "Bash(node pruef.mjs)",
+      "Bash(sed -i '' 's/return { x: Math.round\\(r.x+scrollX\\), y: Math.round\\(r.y+scrollY\\), w: Math.round\\(r.width\\), h: Math.round\\(r.height\\) }/return { x: Math.round\\(r.x+scrollX\\), y: Math.round\\(r.y+scrollY\\), width: Math.round\\(r.width\\), height: Math.round\\(r.height\\) }/' gegenprobe.mjs)",
+      "Bash(node gegenprobe.mjs)",
+      "Bash(node faq-kontrast.mjs)",
+      "Bash(sips -c 400 900 --cropOffset 320 780 f-1512.png --out crop-unten.png)",
+      "Bash(node faq-marke.mjs)",
+      "Bash(awk '/^[.@}]/ || /^\\\\/\\\\* ---/' assets/css/fuehrung.css)",
+      "Bash(node faq-interaktion.mjs)",
+      "Bash(sips -s format jpeg -s formatOptions 88 --resampleWidth 900 \"Bilder/Bild 1.jpeg\" --out assets/img/gf-meilbeck.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 88 --resampleWidth 900 \"Bilder/Bild 2.jpeg\" --out assets/img/gf-orfanides.jpg)",
+      "Bash(rm -f assets/img/gf-meilbeck.jpg assets/img/gf-orfanides.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 88 \"Bilder/Bild 1.jpeg\" --out assets/img/gf-meilbeck.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 88 \"Bilder/Bild 2.jpeg\" --out assets/img/gf-orfanidis.jpg)",
+      "Bash(cd \"/Users/jannikvomhofe/Desktop/Webdesign/Estera Webseite 2\" && rm -f test-fuehrung.html && git add -A ':!test-faq.html' && git commit -q -m \"Geschaeftsfuehrung: weisser Hintergrund, echte Portraets, beide auf einen Blick *)"
     ]
   }
 }
