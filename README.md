@@ -322,20 +322,6 @@ deshalb nur unruhig gesetzt, nicht bedrohlich.
 
 ---
 
-## Section 7 — Werte und Selektion
-
-Der einzige Abschnitt in voller Navy-Fläche. S. 20: „Dunkle Vollflächen nur
-als bewusste Spannungsmomente." Deshalb eine gefärbte Fläche und kein Bild —
-die beiden Bildbänder in Abschnitt 5 sind bereits dunkel.
-
-Die drei Markenworte müssen in **eine** Zeile passen, sonst bricht das letzte
-um und der zugehörige Goldstrich hängt am Zeilenende ins Leere. Die Größe ist
-daraus gerechnet (rund 3,3 vw); unter 900 px stehen die Worte untereinander.
-
-Die vier Punkte unter „Wann Estera bewusst Nein sagt" stehen wörtlich auf S. 16.
-
----
-
 ## Section 9 — Wissen, Karriere und Abschluss
 
 S. 18/19. Nur die **Fragen**, keine Antworten — die gehören laut S. 3 auf die

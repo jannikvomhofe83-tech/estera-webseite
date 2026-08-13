@@ -26,9 +26,13 @@
   /* Hausfarben statt Blau in Blau. Fenster in einem tiefen Blaugrau, wie
      lackierte Rahmen mit dunkler Scheibe; die Tuer in Eiche. Bewusst
      entsaettigt gehalten — die Seite vertraegt kein Bilderbuchrot.
-     Reihenfolge: Giebelfenster, Rundfenster, Fenster quadratisch,
-     Fenster hoch, TUER, Fenster quer. */
-  --ton-1: #2E4C66;  --kante-1: #17293A;
+     Reihenfolge: GIEBEL, Rundfenster, Fenster quadratisch,
+     Fenster hoch, TUER, Fenster quer.
+
+     Der Giebel traegt Dachfarbe, nicht Fensterfarbe: er sitzt im Dach und
+     gehoert dazu. Beim Einrasten schliesst sich das Dach dadurch sichtbar
+     — eine Nuance heller als die Flaeche, damit die Kante lesbar bleibt. */
+  --ton-1: #B75F47;  --kante-1: #7E3B2B;
   --ton-2: #33536E;  --kante-2: #1A2E40;
   --ton-3: #2B4860;  --kante-3: #152636;
   --ton-4: #365673;  --kante-4: #1C3143;
