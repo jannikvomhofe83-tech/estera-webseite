@@ -100,14 +100,21 @@
 .verg__knopf[aria-pressed='true'] { color: #fff; }
 .verg__knopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
 
-/* --- Die sechs Bausteine -------------------------------------------------- */
+/* --- Buehne: links die Animation, rechts die sechs Bausteine ------------- */
+.verg__buehne {
+  margin: clamp(2.6rem, 6vh, 4.2rem) auto 0;
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+  align-items: center;
+}
+
 .verg__karten {
   position: relative;
-  margin: clamp(2.6rem, 6vh, 4.2rem) auto 0;
-  max-width: 1180px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.2rem, 2.2vw, 2rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
 }
 
 /* Die Verbindungslinie erscheint erst im Estera-Zustand: dort sind die
@@ -116,7 +123,7 @@
   position: absolute;
   z-index: 0;
   left: 0; right: 0;
-  top: calc(50% - 1.5px);
+  top: calc(66.6% - 1.5px);
   height: 3px;
   background: linear-gradient(to bottom,
     var(--linie) 0 1px, transparent 1px 2px, var(--linie) 2px 3px);
@@ -228,8 +235,9 @@
 }
 
 /* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 1000px) {
-  .verg__karten { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+  /* Unter 900 px steht die Animation ueber den Karten statt daneben. */
+  .verg__buehne { grid-template-columns: 1fr; gap: clamp(2rem, 5vh, 3rem); }
   .verg__band { display: none; }
 }
 @media (max-width: 640px) {
