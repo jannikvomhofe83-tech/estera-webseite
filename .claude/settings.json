@@ -17,7 +17,8 @@
       "Bash(rm -f assets/img/gf-meilbeck.jpg assets/img/gf-orfanides.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 88 \"Bilder/Bild 1.jpeg\" --out assets/img/gf-meilbeck.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 88 \"Bilder/Bild 2.jpeg\" --out assets/img/gf-orfanidis.jpg)",
-      "Bash(cd \"/Users/jannikvomhofe/Desktop/Webdesign/Estera Webseite 2\" && rm -f test-fuehrung.html && git add -A ':!test-faq.html' && git commit -q -m \"Geschaeftsfuehrung: weisser Hintergrund, echte Portraets, beide auf einen Blick *)"
+      "Bash(cd \"/Users/jannikvomhofe/Desktop/Webdesign/Estera Webseite 2\" && rm -f test-fuehrung.html && git add -A ':!test-faq.html' && git commit -q -m \"Geschaeftsfuehrung: weisser Hintergrund, echte Portraets, beide auf einen Blick *)",
+      "Bash(python3 -c \"import sys,json;[print\\(s['id'],s['name'],s['ssl_url']\\) for s in json.load\\(sys.stdin\\) if 'estera' in s['name'].lower\\(\\)]\")"
     ]
   }
 }

@@ -1,20 +1,21 @@
 /* ===========================================================================
    SECTION 9 UND FUSS
-   Section 7 (Werte und Selektion) ist auf Wunsch entfernt. Das CSS dafuer
-   liegt in der Historie — wiederherstellbar aus dem Commit davor.
-   =========================================================================== */
 
-/* ===========================================================================
-   SECTION 9 — WISSEN, KARRIERE UND ABSCHLUSS (Briefing S.7, S.18, S.19)
-   „Ein kurzer Einstieg in Wissen & Fragen, ein kompakter Karriere-Teaser
-    und anschliessend ein klarer Abschluss-CTA."
+   Auf Kundenwunsch entfernt und nur noch in der Versionsgeschichte:
+   Section 7 (Werte und Selektion) sowie der Abschluss-CTA "Der naechste
+   Schritt ist ein Gespraech" samt seinen Regeln .abschluss*.
+
+   Briefing S.7, S.18, S.19: „Ein kurzer Einstieg in Wissen & Fragen und
+   ein kompakter Karriere-Teaser."
    =========================================================================== */
 
 .schluss {
   position: relative;
   z-index: 1;
   background: var(--paper);
-  padding: clamp(3.5rem, 9vh, 7rem) 0 0;
+  /* Unten wieder eigener Abstand: der Abschluss-CTA, der ihn frueher
+     mitgebracht hat, ist auf Kundenwunsch entfallen. */
+  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(3.5rem, 9vh, 6rem);
 }
 .schluss__inner {
   max-width: 1180px;
@@ -113,33 +114,6 @@
 }
 .karriere__link:hover::after { background: var(--gold); }
 .karriere__link[aria-disabled='true'] { cursor: default; }
-
-/* --- Abschluss ------------------------------------------------------------ */
-.abschluss {
-  margin-top: clamp(3.5rem, 9vh, 6.5rem);
-  padding: clamp(3rem, 8vh, 6rem) 0 clamp(3.5rem, 9vh, 7rem);
-  border-top: 1px solid var(--line-soft);
-  text-align: center;
-}
-.abschluss__h2 {
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
-}
-.abschluss__satz {
-  margin: clamp(1.2rem, 2.8vh, 1.8rem) auto 0;
-  max-width: 40rem;
-  font-size: clamp(1.02rem, 1.16vw, 1.16rem);
-  line-height: 1.58;
-  color: var(--ink-soft);
-  text-wrap: pretty;
-}
-.abschluss__aktion {
-  margin-top: clamp(1.8rem, 4vh, 2.6rem);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
 
 /* ===========================================================================
    FUSS
