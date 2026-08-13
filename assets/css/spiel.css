@@ -34,7 +34,7 @@
   display: grid;
   justify-items: center;
   perspective: 1500px;
-  perspective-origin: 50% 46%;
+  perspective-origin: 56% 46%;
 }
 
 /* Der Rahmen trägt die LAYOUT-Größe; scale() allein ändert das Layout nicht
@@ -55,8 +55,10 @@
   margin: calc(var(--hh) / -2) calc(var(--w) / -2);
   transform-style: preserve-3d;
   /* Leicht von oben und zur Seite gedreht: nur so sieht man die Wandstärke
-     und die Laibung der Öffnungen. */
-  transform: scale(var(--zoom)) rotateX(9deg) rotateY(-26deg);
+     und die Laibung der Öffnungen.
+     rotateY ist POSITIV — das Haus wendet sich nach rechts, den sechs
+     Punkten daneben zu. Mit negativem Wert schaute es von ihnen weg. */
+  transform: scale(var(--zoom)) rotateX(9deg) rotateY(24deg);
 }
 
 /* --- Die Wand ------------------------------------------------------------- */
