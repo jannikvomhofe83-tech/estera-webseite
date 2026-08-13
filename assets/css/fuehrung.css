@@ -18,11 +18,14 @@
    nicht wie dort in die Fläche auslaufen — sie stehen deshalb als klar
    begrenzte Flächen mit dem Bildradius der Seite.
 
-   Bildformat: Beide Aufnahmen sind QUADRATISCH und der Kopf sitzt jeweils
-   dicht unter der oberen Kante. In einem querformatigen Rahmen schneidet
-   „cover" deshalb zwangsläufig die Haare ab. Der Rahmen ist darum
-   hochformatig (4:5) — dann beschneidet „cover" die Seiten und die volle
-   Bildhöhe bleibt stehen, Kopf und Haare also vollständig sichtbar.
+   Bildformat: Der Rahmen ist breit (Querformat). Beide Aufnahmen sind
+   QUADRATISCH und der Kopf sitzt jeweils dicht unter der oberen Kante —
+   bei Bild 1 beginnt das Haar bei 1,6 %, bei Bild 2 bei 1,3 % der Bildhöhe.
+   Ein breiter Rahmen muss also oben oder unten beschneiden. Deshalb ist das
+   Bild oben BÜNDIG verankert (object-position 50% 0%): beschnitten wird
+   ausschließlich unten, Haare und Gesicht bleiben vollständig stehen.
+   Ein mittiger oder auch nur leicht nach unten verschobener Anschnitt
+   schneidet dagegen sofort die Haare ab — genau das war vorher der Fehler.
    =========================================================================== */
 
 .fuehr {
@@ -94,7 +97,7 @@
 .fuehr__bild {
   position: relative;
   height: clamp(250px, 33vh, 350px);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1.38;
   overflow: hidden;
   border-radius: var(--radius-img);
   background: var(--navy-900);
@@ -103,9 +106,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Hochformat aus quadratischer Vorlage: beschnitten wird links und
-     rechts, die Höhe bleibt vollständig. Beide Personen stehen mittig. */
-  object-position: 50% 50%;
+  /* Oben bündig: der Anschnitt fällt vollständig auf den unteren Bildrand,
+     nie auf den Kopf. Waagerecht mittig — beide Personen stehen mittig. */
+  object-position: 50% 0%;
 }
 /* Goldhaarlinie als Randung — dieselbe Zierform wie bei den Kundenstimmen */
 .fuehr__bild::after {
@@ -138,6 +141,6 @@
   .fuehr__text { max-width: none; }
   .fuehr__block--gedreht .fuehr__text,
   .fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: auto; }
-  .fuehr__bild { height: auto; width: min(320px, 72vw); justify-self: center; order: -1; }
+  .fuehr__bild { height: auto; width: 100%; order: -1; }
   .fuehr__block--gedreht .fuehr__bild { order: -1; }
 }
