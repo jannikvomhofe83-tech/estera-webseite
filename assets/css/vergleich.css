@@ -105,7 +105,7 @@
   margin: clamp(2.6rem, 6vh, 4.2rem) auto 0;
   max-width: 1280px;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(1.6rem, 4vw, 3.6rem);
   align-items: center;
 }
@@ -113,62 +113,57 @@
 .verg__karten {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  grid-template-columns: 1fr;
 }
 
-/* Die Verbindungslinie erscheint erst im Estera-Zustand: dort sind die
-   Bausteine nicht mehr einzelne Aufgaben, sondern ein Ablauf. */
-.verg__band {
-  position: absolute;
-  z-index: 0;
-  left: 0; right: 0;
-  top: calc(66.6% - 1.5px);
-  height: 3px;
-  background: linear-gradient(to bottom,
-    var(--linie) 0 1px, transparent 1px 2px, var(--linie) 2px 3px);
-  opacity: 0;
-  transform: scaleX(0.82);
-  transition: opacity 0.5s var(--ease) 0.15s, transform 0.6s var(--ease-soft) 0.15s;
-}
-.verg[data-modus='estera'] .verg__band { opacity: 1; transform: scaleX(1); }
-
+/* --- Die sechs Bausteine als Liste --------------------------------------- */
+/* KEINE Kästen mehr. Sechs gerahmte Kacheln nebeneinander lasen sich wie ein
+   Formular: gleicher Rahmen, gleicher Rhythmus, kein Gewicht — und sie
+   konkurrierten mit dem Haus daneben statt es zu ergänzen.
+   Jetzt sechs Zeilen an einer durchgehenden Haarlinie: Name links, Status
+   rechts, der Satz darunter. Das liest sich als Ablauf und nimmt dem Bild
+   nichts weg. */
 .verg__karte {
   position: relative;
-  z-index: 1;
-  padding: clamp(1.3rem, 2.2vw, 1.9rem) clamp(1.3rem, 2.2vw, 1.8rem);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius-img);
-  background: var(--paper);
-  /* Im ersten Zustand stehen die Karten versetzt — „verteilt und offen".
-     Der Versatz kommt aus --v und wird beim Umschalten auf null gefahren. */
-  transform: translateY(var(--v, 0px));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(1rem, 2.4vw, 2.2rem);
+  align-items: baseline;
+  padding: clamp(1rem, 2.4vh, 1.5rem) 0;
+  border-bottom: 1px solid var(--line-soft);
+  /* Im ersten Zustand stehen die Zeilen leicht eingerückt und ungleich —
+     „verteilt und offen". Beim Umschalten fluchten sie auf einer Kante. */
+  transform: translateX(var(--v, 0px));
   transition: transform 0.6s var(--ease-soft), border-color 0.5s var(--ease);
 }
+.verg__karte:first-child { border-top: 1px solid var(--line-soft); }
 .verg[data-modus='estera'] .verg__karte {
-  transform: translateY(0);
-  border-color: rgba(30, 66, 112, 0.28);
+  transform: translateX(0);
+  border-color: rgba(30, 66, 112, 0.22);
 }
 
 .verg__name {
+  grid-column: 1;
   font-family: var(--font-display);
-  font-size: clamp(1.08rem, 1.3vw, 1.3rem);
+  font-size: clamp(1.08rem, 1.28vw, 1.28rem);
   font-weight: 500;
   line-height: 1.2;
   color: var(--ink-black);
 }
 
 /* Beide Fassungen liegen übereinander in derselben Rasterzelle. Dadurch ist
-   die Karte immer so hoch wie die längere von beiden und springt beim
+   die Zeile immer so hoch wie die längere von beiden und springt beim
    Umschalten nicht. */
 .verg__texte {
+  grid-column: 1 / -1;
   display: grid;
-  margin-top: clamp(0.7rem, 1.6vh, 1rem);
+  margin-top: clamp(0.4rem, 1vh, 0.6rem);
+  max-width: 34rem;
 }
 .verg__text {
   grid-area: 1 / 1;
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  line-height: 1.56;
+  font-size: clamp(0.88rem, 0.97vw, 0.97rem);
+  line-height: 1.55;
   color: var(--ink-soft);
   text-wrap: pretty;
   opacity: 0;
@@ -182,17 +177,18 @@
    einzuordnen"; Estera-Zustand „vorausgewählt", „aufbereitet",
    „eingeordnet", „koordiniert". */
 .verg__status {
+  grid-column: 2;
+  grid-row: 1;
   display: grid;
-  margin-top: clamp(1rem, 2.2vh, 1.4rem);
-  padding-top: clamp(0.8rem, 1.8vh, 1.1rem);
-  border-top: 1px solid var(--line-soft);
+  justify-items: end;
 }
 .verg__stand {
   grid-area: 1 / 1;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: clamp(0.7rem, 0.78vw, 0.78rem);
+  gap: 0.55rem;
+  white-space: nowrap;
+  font-size: clamp(0.66rem, 0.74vw, 0.74rem);
   font-weight: 500;
   letter-spacing: 0.14em;
   text-indent: 0.14em;
@@ -203,7 +199,7 @@
 .verg__stand::before {
   content: '';
   flex: 0 0 auto;
-  width: 7px;
+  width: 6px;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid currentColor;
@@ -238,10 +234,8 @@
 @media (max-width: 900px) {
   /* Unter 900 px steht die Animation ueber den Karten statt daneben. */
   .verg__buehne { grid-template-columns: 1fr; gap: clamp(2rem, 5vh, 3rem); }
-  .verg__band { display: none; }
 }
 @media (max-width: 640px) {
-  .verg__karten { grid-template-columns: 1fr; }
   .verg__karte { transform: none; }
   .verg__schalter { width: 100%; }
   .verg__knopf { padding-inline: 0.8rem; font-size: 0.74rem; letter-spacing: 0.1em; }

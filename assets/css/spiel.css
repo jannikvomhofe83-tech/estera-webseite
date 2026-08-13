@@ -1,32 +1,29 @@
 /* ===========================================================================
-   DER FORMENSORTIERER — die Animation zu Abschnitt 6
+   DAS HAUS — die Animation zu Abschnitt 6
 
-   Ein gekipptes Steckbrett mit sechs Löchern und sechs Bausteinen.
-   „Selbst koordinieren": die Teile fliegen auf FALSCHE Löcher, stoßen auf,
-   wackeln, ziehen ab und probieren das nächste — endlos und jedes für sich.
-   „Mit Estera begleitet": jedes kommt aus der Luft und geht auf Anhieb hinein.
+   Baukörper und Giebel sind EINE Silhouette, elfmal in die Tiefe gestapelt.
+   Dadurch hat die Wand Stärke, und die sechs Öffnungen werden zu echten
+   Durchbrüchen mit sichtbarer Laibung — der Baustein fährt hinein, nicht
+   dagegen.
 
-   ECHTES 3D, kein Trompe-l'œil: perspective + preserve-3d. Das Volumen
-   entsteht nicht durch Schatten, sondern durch gestapelte Ebenen — jeder
-   Baustein besteht aus zwölf Scheiben im Abstand von 3 px, jedes Loch aus
-   sieben Scheiben nach unten, das Brett aus neun. Gekippt betrachtet ergeben
-   die Stapel echte Seitenflächen.
+   „Selbst koordinieren": jeder Baustein fliegt auf eine FREMDE Öffnung,
+   stößt an die Wand, wackelt und zieht wieder ab. Alle sechs im Gleichtakt,
+   ihre Ziele sind zyklische Verschiebungen — dadurch sitzt nie mehr als
+   einer vor derselben Öffnung.
+   „Mit Estera begleitet": jeder kommt aus der Luft und geht auf Anhieb in
+   seine eigene Öffnung.
 
-   Warum Stapel und keine einzeln modellierten Seitenwände: die funktionieren
-   nur bei Vielecken. Ein Kreis bräuchte ein Dutzend Segmente und wäre trotzdem
-   kantig. Der Stapel funktioniert für JEDE Silhouette gleich.
-
-   Keine 3D-Bibliothek: kein CDN (DSGVO), kein Bauschritt, kein Skript.
+   Formklassen liegen ausschließlich auf BLATTELEMENTEN. clip-path und
+   mask-image sind Gruppierungseigenschaften: an einem Elternteil zwingen
+   sie sämtliche Kinder in eine Ebene, und der Stapel wäre wieder flach.
    =========================================================================== */
 
 .spiel {
-  --brett: 460px;
-  --teil: 78px;
+  --w: 340px;
+  --hh: 356px;
   --zoom: 1;
 
-  /* Alles in Blau, nur in Stufen. Der warme Ton von vorher fiel aus der
-     Reihe; sechs Abstufungen derselben Familie wirken ruhiger und lassen
-     die Formen trotzdem auseinandertreten. */
+  /* Sechs Blaustufen für die Bausteine */
   --ton-1: #16305A;  --kante-1: #0D1C34;
   --ton-2: #1D3C68;  --kante-2: #11233E;
   --ton-3: #244875;  --kante-3: #152B49;
@@ -36,279 +33,211 @@
 
   display: grid;
   justify-items: center;
-  perspective: 1250px;
-  perspective-origin: 50% 44%;
+  perspective: 1500px;
+  perspective-origin: 50% 46%;
 }
 
-/* Der Rahmen trägt die LAYOUT-Größe. Die Szene ist immer 460 px groß und
-   wird nur per scale() verkleinert — scale ändert das Layout nicht. Ohne
-   diesen Rahmen liefe die Bühne auf schmalen Fenstern über den Seitenrand
-   hinaus; genau das war vorher der Fall (54 px Überlauf bei 390 px). */
+/* Der Rahmen trägt die LAYOUT-Größe; scale() allein ändert das Layout nicht
+   und die Bühne liefe auf schmalen Fenstern über den Seitenrand. */
 .spiel__rahmen {
   position: relative;
-  width: calc(var(--brett) * var(--zoom));
-  height: calc(var(--brett) * var(--zoom) * 0.94);
+  width: calc(var(--w) * var(--zoom) * 1.5);
+  height: calc(var(--hh) * var(--zoom) * 1.16);
   max-width: 100%;
 }
 
-.spiel__szene {
+.haus {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: var(--brett);
-  height: var(--brett);
-  margin: calc(var(--brett) / -2);
+  width: var(--w);
+  height: var(--hh);
+  margin: calc(var(--hh) / -2) calc(var(--w) / -2);
   transform-style: preserve-3d;
-  /* Steiler gekippt als zuvor: dadurch werden die Materialstärken sichtbar. */
-  transform: scale(var(--zoom)) rotateX(64deg) rotateZ(-28deg);
+  /* Leicht von oben und zur Seite gedreht: nur so sieht man die Wandstärke
+     und die Laibung der Öffnungen. */
+  transform: scale(var(--zoom)) rotateX(9deg) rotateY(-26deg);
 }
 
-/* --- Das Brett ------------------------------------------------------------ */
-/* Die sechs Löcher werden WIRKLICH aus der Platte herausgeschnitten. Ohne
-   das ist die Platte undurchsichtig, verdeckt die Schächte darunter und der
-   Baustein verschwindet beim Eintauchen hinter dem Brett statt darin.
-   Umgesetzt als Maske aus einem eingebetteten SVG: ein Pfad mit dem
-   Brettumriss und den sechs Silhouetten, `fill-rule: evenodd` stanzt sie
-   aus. Ein CSS-Verlauf könnte das für Dreieck, Sechseck und Raute nicht. */
-.spiel__brett,
-.spiel__platte {
-  -webkit-mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20460%20460%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M30.0%2C0.0%20H430.0%20A30%2C30%200%200%201%20460.0%2C30.0%20V430.0%20A30%2C30%200%200%201%20430.0%2C460.0%20H30.0%20A30%2C30%200%200%201%200.0%2C430.0%20V30.0%20A30%2C30%200%200%201%2030.0%2C0.0%20Z%20M46.6%2C90.0%20a37.44%2C37.44%200%201%200%2074.88%2C0%20a37.44%2C37.44%200%201%200%20-74.88%2C0%20Z%20M197.6%2C52.6%20H262.4%20A5%2C5%200%200%201%20267.4%2C57.6%20V122.4%20A5%2C5%200%200%201%20262.4%2C127.4%20H197.6%20A5%2C5%200%200%201%20192.6%2C122.4%20V57.6%20A5%2C5%200%200%201%20197.6%2C52.6%20Z%20M376.0%2C54.9%20L411.1%2C121.2%20L340.9%2C121.2%20Z%20M64.5%2C334.9%20L103.5%2C334.9%20L120.7%2C370.0%20L103.5%2C405.1%20L64.5%2C405.1%20L47.3%2C370.0%20Z%20M183.6%2C348.5%20H276.4%20A5%2C5%200%200%201%20281.4%2C353.5%20V386.5%20A5%2C5%200%200%201%20276.4%2C391.5%20H183.6%20A5%2C5%200%200%201%20178.6%2C386.5%20V353.5%20A5%2C5%200%200%201%20183.6%2C348.5%20Z%20M376.0%2C333.3%20L412.7%2C370.0%20L376.0%2C406.7%20L339.3%2C370.0%20Z%22%2F%3E%3C%2Fsvg%3E');
-          mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20460%20460%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M30.0%2C0.0%20H430.0%20A30%2C30%200%200%201%20460.0%2C30.0%20V430.0%20A30%2C30%200%200%201%20430.0%2C460.0%20H30.0%20A30%2C30%200%200%201%200.0%2C430.0%20V30.0%20A30%2C30%200%200%201%2030.0%2C0.0%20Z%20M46.6%2C90.0%20a37.44%2C37.44%200%201%200%2074.88%2C0%20a37.44%2C37.44%200%201%200%20-74.88%2C0%20Z%20M197.6%2C52.6%20H262.4%20A5%2C5%200%200%201%20267.4%2C57.6%20V122.4%20A5%2C5%200%200%201%20262.4%2C127.4%20H197.6%20A5%2C5%200%200%201%20192.6%2C122.4%20V57.6%20A5%2C5%200%200%201%20197.6%2C52.6%20Z%20M376.0%2C54.9%20L411.1%2C121.2%20L340.9%2C121.2%20Z%20M64.5%2C334.9%20L103.5%2C334.9%20L120.7%2C370.0%20L103.5%2C405.1%20L64.5%2C405.1%20L47.3%2C370.0%20Z%20M183.6%2C348.5%20H276.4%20A5%2C5%200%200%201%20281.4%2C353.5%20V386.5%20A5%2C5%200%200%201%20276.4%2C391.5%20H183.6%20A5%2C5%200%200%201%20178.6%2C386.5%20V353.5%20A5%2C5%200%200%201%20183.6%2C348.5%20Z%20M376.0%2C333.3%20L412.7%2C370.0%20L376.0%2C406.7%20L339.3%2C370.0%20Z%22%2F%3E%3C%2Fsvg%3E');
-  -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-}
-
-.spiel__brett {
+/* --- Die Wand ------------------------------------------------------------- */
+/* Elf Scheiben nach hinten. Die vorderste ist die Fassade, die dahinter
+   liegenden bilden Wandstärke und Laibung. */
+.haus__lage {
   position: absolute;
   inset: 0;
-  border-radius: 30px;
-  /* Warmes Off-White mit Verlauf statt reinem Weiß — sonst wirkt die Platte
-     wie ein leeres Rechteck. */
-  background: linear-gradient(152deg, #FBFAF7 0%, #F2F4F7 46%, #E7EBF1 100%);
-  box-shadow: 0 0 0 1px rgba(16, 41, 73, 0.09);
-  transform-style: preserve-3d;
-}
-/* Goldene Haarlinie als Einlage. Sie liegt als eigenes Element knapp ueber
-   der Platte, damit die Lochmaske sie nicht mit zerschneidet. */
-.spiel__einlage {
-  position: absolute;
-  inset: 17px;
-  border: 1px solid rgba(168, 135, 79, 0.34);
-  border-radius: 18px;
-  transform: translateZ(0.5px);
-  pointer-events: none;
-}
-/* Materialstärke: neun Platten nach unten */
-.spiel__platte {
-  position: absolute;
-  inset: 0;
-  border-radius: 30px;
-  background: #D7DEE7;
   transform: translateZ(var(--z));
+  background: #F1F3F6;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20V356%20H0%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%20M59.0%2C182.0%20a27.0%2C27.0%200%201%200%2054.0%2C0%20a27.0%2C27.0%200%201%200%20-54.0%2C0%20Z%20M231.0%2C155.0%20H277.0%20A4%2C4%200%200%201%20281.0%2C159.0%20V205.0%20A4%2C4%200%200%201%20277.0%2C209.0%20H231.0%20A4%2C4%200%200%201%20227.0%2C205.0%20V159.0%20A4%2C4%200%200%201%20231.0%2C155.0%20Z%20M67.0%2C253.0%20H105.0%20A4%2C4%200%200%201%20109.0%2C257.0%20V327.0%20A4%2C4%200%200%201%20105.0%2C331.0%20H67.0%20A4%2C4%200%200%201%2063.0%2C327.0%20V257.0%20A4%2C4%200%200%201%2067.0%2C253.0%20Z%20M141.0%2C351.0%20V270.0%20A29.0%2C29.0%200%200%201%20199.0%2C270.0%20V351.0%20Z%20M219.0%2C269.0%20H289.0%20A4%2C4%200%200%201%20293.0%2C273.0%20V311.0%20A4%2C4%200%200%201%20289.0%2C315.0%20H219.0%20A4%2C4%200%200%201%20215.0%2C311.0%20V273.0%20A4%2C4%200%200%201%20219.0%2C269.0%20Z%22%2F%3E%3C%2Fsvg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20V356%20H0%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%20M59.0%2C182.0%20a27.0%2C27.0%200%201%200%2054.0%2C0%20a27.0%2C27.0%200%201%200%20-54.0%2C0%20Z%20M231.0%2C155.0%20H277.0%20A4%2C4%200%200%201%20281.0%2C159.0%20V205.0%20A4%2C4%200%200%201%20277.0%2C209.0%20H231.0%20A4%2C4%200%200%201%20227.0%2C205.0%20V159.0%20A4%2C4%200%200%201%20231.0%2C155.0%20Z%20M67.0%2C253.0%20H105.0%20A4%2C4%200%200%201%20109.0%2C257.0%20V327.0%20A4%2C4%200%200%201%20105.0%2C331.0%20H67.0%20A4%2C4%200%200%201%2063.0%2C327.0%20V257.0%20A4%2C4%200%200%201%2067.0%2C253.0%20Z%20M141.0%2C351.0%20V270.0%20A29.0%2C29.0%200%200%201%20199.0%2C270.0%20V351.0%20Z%20M219.0%2C269.0%20H289.0%20A4%2C4%200%200%201%20293.0%2C273.0%20V311.0%20A4%2C4%200%200%201%20289.0%2C315.0%20H219.0%20A4%2C4%200%200%201%20215.0%2C311.0%20V273.0%20A4%2C4%200%200%201%20219.0%2C269.0%20Z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
-.spiel__platte:nth-child(n + 5) { background: #CAD3DE; }
-.spiel__platte:last-child { background: #BAC4D2; }
+.haus__lage:first-child {
+  background: linear-gradient(148deg, #FDFCFA 0%, #F3F5F8 52%, #E9EDF3 100%);
+}
+.haus__lage:nth-child(n + 4) { background: #DFE4EC; }
+.haus__lage:nth-child(n + 7) { background: #CDD5E0; }
+.haus__lage:last-child       { background: #B9C3D2; }
 
-/* --- Die Löcher ----------------------------------------------------------- */
-.spiel__loch {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: var(--teil);
-  height: var(--teil);
-  margin: calc(var(--teil) / -2);
-  translate: var(--x) var(--y);
-  transform-style: preserve-3d;
-}
-/* Der Schacht: sieben Scheiben nach unten, nach innen dunkler. Dadurch sieht
-   man den Baustein tatsächlich HINEINFAHREN statt nur darauf landen. */
-.spiel__schacht {
+/* --- Das Dach ------------------------------------------------------------- */
+/* Eigene Fläche in Navy, damit das Haus nicht einfarbig ist. Sie liegt
+   knapp vor der Fassade und deckt nur den Giebel ab. */
+.haus__dach {
   position: absolute;
   inset: 0;
-  background: #AEBACA;
-  transform: translateZ(var(--z));
+  z-index: 2;
+  transform: translateZ(0.6px);
+  background: linear-gradient(160deg, #24406B 0%, #16294A 70%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%22%2F%3E%3C%2Fsvg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
-.spiel__schacht:nth-child(n + 3) { background: #93A2B6; }
-.spiel__schacht:nth-child(n + 5) { background: #7A8AA1; }
-.spiel__schacht:last-child       { background: #5E6E86; }
 
 /* --- Die Bausteine -------------------------------------------------------- */
-.spiel__halter {
+.haus__halter {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: var(--teil);
-  height: var(--teil);
-  margin: calc(var(--teil) / -2);
+  width: var(--b);
+  height: var(--h);
+  margin: calc(var(--h) / -2) calc(var(--b) / -2);
   translate: var(--x) var(--y);
   transform-style: preserve-3d;
 }
 
-/* Bewegt wird nur der Körper — alle Flugstrecken sind dadurch Abstände zum
-   eigenen Loch und lassen sich je Zustand neu setzen. */
-.spiel__koerper {
+.haus__koerper {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transform: translateZ(-14px);
+  transform: translateZ(-20px);
 }
-.spiel__lagen   { position: absolute; inset: 0; transform-style: preserve-3d; }
+.haus__scheiben { position: absolute; inset: 0; transform-style: preserve-3d; }
 
-.spiel__lage {
+.haus__scheibe {
   position: absolute;
   inset: 0;
   background: var(--kante);
   transform: translateZ(var(--z));
 }
-/* Nur die oberste Scheibe trägt den hellen Ton, darunter die Kantenfarbe.
-   So liest sich der Stapel als Körper mit Deckfläche, nicht als Stapel. */
-.spiel__lage:last-child {
+.haus__scheibe:last-child {
   background: linear-gradient(150deg,
     color-mix(in srgb, var(--ton) 86%, #ffffff 14%) 0%, var(--ton) 72%);
 }
 
-/* Formen. Sie liegen nur auf BLATTELEMENTEN — Scheibe, Schacht, Schatten,
-   Einrastring. Dort ist die Einebnung folgenlos. */
-.spiel__form--kreis    { border-radius: 50%; }
-.spiel__form--quadrat  { border-radius: 5px; }
-.spiel__form--dreieck  { clip-path: polygon(50% 5%, 95% 90%, 5% 90%); }
-.spiel__form--sechseck { clip-path: polygon(25% 5%, 75% 5%, 97% 50%, 75% 95%, 25% 95%, 3% 50%); }
-.spiel__form--raute    { clip-path: polygon(50% 3%, 97% 50%, 50% 97%, 3% 50%); }
-.spiel__form--balken   { border-radius: 5px; }
-/* Nur die Groesse — KEINE Formklasse an Halter und Loch. Ein clip-path dort
-   waere eine Gruppierungseigenschaft und wuerde saemtliche Kinder in eine
-   Ebene zwingen: die gestapelten Scheiben lagen dadurch flach aufeinander,
-   und Dreieck, Sechseck und Raute hatten kein Volumen. */
-.spiel__loch.spiel__gross,
-.spiel__halter.spiel__gross {
-  width: calc(var(--teil) * 1.36);
-  height: calc(var(--teil) * 0.58);
-  margin: calc(var(--teil) * -0.29) calc(var(--teil) * -0.68);
-}
+/* Formen — dieselbe Silhouette wie die zugehörige Öffnung in der Maske */
+.haus__form--rund    { border-radius: 50%; }
+.haus__form--quadrat { border-radius: 4px; }
+.haus__form--hoch    { border-radius: 4px; }
+.haus__form--quer    { border-radius: 4px; }
+.haus__form--dreieck { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+.haus__form--tuer    { border-radius: 50% 50% 4px 4px / 26% 26% 4px 4px; }
 
-/* --- Schlagschatten auf dem Brett ---------------------------------------- */
-/* Ohne ihn sieht man die Flughöhe nicht — die Teile wirken aufgeklebt. */
-.spiel__schatten {
+/* --- Schatten auf der Wand ------------------------------------------------ */
+.haus__schatten {
   position: absolute;
   inset: 0;
   background: rgba(16, 41, 73, 0.4);
-  filter: blur(8px);
+  filter: blur(9px);
 }
 
 /* --- Einrast-Effekt ------------------------------------------------------- */
-/* Ein Ring, der beim Sitzen einmal aufspringt und vergeht. Er liegt in der
-   Brettebene und zeigt: der Baustein ist DRIN, nicht nur darauf. */
-.spiel__klick {
+.haus__klick {
   position: absolute;
   inset: -7px;
-  border: 1.5px solid rgba(168, 135, 79, 0.9);
-  border-radius: 4px;
+  z-index: 3;
+  border: 1.5px solid rgba(168, 135, 79, 0.95);
+  border-radius: 5px;
   opacity: 0;
-  transform: translateZ(3px) scale(0.92);
+  transform: translateZ(4px) scale(0.92);
   pointer-events: none;
 }
-.spiel__klick.spiel__form--kreis { border-radius: 50%; }
+.haus__klick.haus__form--rund { border-radius: 50%; }
 
 /* ===========================================================================
    ZUSTAND 1 — SELBST KOORDINIEREN
-   Drei falsche Löcher nacheinander. Jedes Teil hat eine eigene Dauer, damit
-   die sechs nicht im Gleichschritt fliegen, sondern jedes für sich.
    =========================================================================== */
 @keyframes daneben {
-  0%   { transform: translate3d(var(--fx1), var(--fy1), 96px) rotateZ(0deg); }
-  10%  { transform: translate3d(var(--fx1), var(--fy1), 22px) rotateZ(0deg); }
-  13%  { transform: translate3d(var(--fx1), var(--fy1), 17px) rotateZ(-8deg); }
-  16%  { transform: translate3d(var(--fx1), var(--fy1), 17px) rotateZ(7deg); }
-  19%  { transform: translate3d(var(--fx1), var(--fy1), 17px) rotateZ(-5deg); }
-  28%  { transform: translate3d(var(--fx1), var(--fy1), 96px) rotateZ(0deg); }
-  36%  { transform: translate3d(var(--fx2), var(--fy2), 96px) rotateZ(0deg); }
-  44%  { transform: translate3d(var(--fx2), var(--fy2), 22px) rotateZ(0deg); }
-  47%  { transform: translate3d(var(--fx2), var(--fy2), 17px) rotateZ(9deg); }
-  50%  { transform: translate3d(var(--fx2), var(--fy2), 17px) rotateZ(-7deg); }
-  53%  { transform: translate3d(var(--fx2), var(--fy2), 17px) rotateZ(4deg); }
-  62%  { transform: translate3d(var(--fx2), var(--fy2), 96px) rotateZ(0deg); }
-  70%  { transform: translate3d(var(--fx3), var(--fy3), 96px) rotateZ(0deg); }
-  78%  { transform: translate3d(var(--fx3), var(--fy3), 22px) rotateZ(0deg); }
-  81%  { transform: translate3d(var(--fx3), var(--fy3), 17px) rotateZ(-6deg); }
-  84%  { transform: translate3d(var(--fx3), var(--fy3), 17px) rotateZ(8deg); }
-  87%  { transform: translate3d(var(--fx3), var(--fy3), 17px) rotateZ(-3deg); }
-  96%  { transform: translate3d(var(--fx3), var(--fy3), 96px) rotateZ(0deg); }
-  100% { transform: translate3d(var(--fx1), var(--fy1), 96px) rotateZ(0deg); }
+  0%   { transform: translate3d(var(--fx1), var(--fy1), 150px) rotateZ(0deg); }
+  10%  { transform: translate3d(var(--fx1), var(--fy1), 26px) rotateZ(0deg); }
+  13%  { transform: translate3d(var(--fx1), var(--fy1), 20px) rotateZ(-8deg); }
+  16%  { transform: translate3d(var(--fx1), var(--fy1), 20px) rotateZ(7deg); }
+  19%  { transform: translate3d(var(--fx1), var(--fy1), 20px) rotateZ(-5deg); }
+  28%  { transform: translate3d(var(--fx1), var(--fy1), 150px) rotateZ(0deg); }
+  36%  { transform: translate3d(var(--fx2), var(--fy2), 150px) rotateZ(0deg); }
+  44%  { transform: translate3d(var(--fx2), var(--fy2), 26px) rotateZ(0deg); }
+  47%  { transform: translate3d(var(--fx2), var(--fy2), 20px) rotateZ(9deg); }
+  50%  { transform: translate3d(var(--fx2), var(--fy2), 20px) rotateZ(-7deg); }
+  53%  { transform: translate3d(var(--fx2), var(--fy2), 20px) rotateZ(4deg); }
+  62%  { transform: translate3d(var(--fx2), var(--fy2), 150px) rotateZ(0deg); }
+  70%  { transform: translate3d(var(--fx3), var(--fy3), 150px) rotateZ(0deg); }
+  78%  { transform: translate3d(var(--fx3), var(--fy3), 26px) rotateZ(0deg); }
+  81%  { transform: translate3d(var(--fx3), var(--fy3), 20px) rotateZ(-6deg); }
+  84%  { transform: translate3d(var(--fx3), var(--fy3), 20px) rotateZ(8deg); }
+  87%  { transform: translate3d(var(--fx3), var(--fy3), 20px) rotateZ(-3deg); }
+  96%  { transform: translate3d(var(--fx3), var(--fy3), 150px) rotateZ(0deg); }
+  100% { transform: translate3d(var(--fx1), var(--fy1), 150px) rotateZ(0deg); }
 }
 @keyframes schatten-daneben {
-  0%   { transform: translate3d(var(--fx1), var(--fy1), 2px) scale(1.4); opacity: 0.1; }
-  10%  { transform: translate3d(var(--fx1), var(--fy1), 2px) scale(1.06); opacity: 0.32; }
-  19%  { transform: translate3d(var(--fx1), var(--fy1), 2px) scale(1.06); opacity: 0.32; }
-  28%  { transform: translate3d(var(--fx1), var(--fy1), 2px) scale(1.4); opacity: 0.1; }
-  36%  { transform: translate3d(var(--fx2), var(--fy2), 2px) scale(1.4); opacity: 0.1; }
-  44%  { transform: translate3d(var(--fx2), var(--fy2), 2px) scale(1.06); opacity: 0.32; }
-  53%  { transform: translate3d(var(--fx2), var(--fy2), 2px) scale(1.06); opacity: 0.32; }
-  62%  { transform: translate3d(var(--fx2), var(--fy2), 2px) scale(1.4); opacity: 0.1; }
-  70%  { transform: translate3d(var(--fx3), var(--fy3), 2px) scale(1.4); opacity: 0.1; }
-  78%  { transform: translate3d(var(--fx3), var(--fy3), 2px) scale(1.06); opacity: 0.32; }
-  87%  { transform: translate3d(var(--fx3), var(--fy3), 2px) scale(1.06); opacity: 0.32; }
-  96%  { transform: translate3d(var(--fx3), var(--fy3), 2px) scale(1.4); opacity: 0.1; }
-  100% { transform: translate3d(var(--fx1), var(--fy1), 2px) scale(1.4); opacity: 0.1; }
+  0%   { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.45); opacity: 0.08; }
+  10%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
+  19%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
+  28%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.45); opacity: 0.08; }
+  36%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.45); opacity: 0.08; }
+  44%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
+  53%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
+  62%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.45); opacity: 0.08; }
+  70%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.45); opacity: 0.08; }
+  78%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
+  87%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
+  96%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.45); opacity: 0.08; }
+  100% { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.45); opacity: 0.08; }
 }
 
 /* ===========================================================================
    ZUSTAND 2 — MIT ESTERA BEGLEITET
-   ALLE sechs kommen aus der Luft — keines sitzt zu Beginn schon drin.
-
-   Dafür ist `both` als fill-mode entscheidend: während der Verzögerung zeigt
-   CSS sonst den RUHEZUSTAND, und der ist die Sitzposition. Genau deshalb
-   erschienen vorher einzelne Bausteine sofort im Loch.
+   `both` als fill-mode ist entscheidend: während der Verzögerung zeigt CSS
+   sonst den Ruhezustand, und der ist die Sitzposition — dann erschienen
+   einzelne Bausteine sofort in der Öffnung, statt hereinzufliegen.
    =========================================================================== */
 @keyframes einrasten {
-  0%   { transform: translate3d(0, 0, 210px) rotateZ(-16deg); }
-  58%  { transform: translate3d(0, 0, 42px) rotateZ(0deg); }
-  /* Endlage NEGATIV: der Baustein sinkt in den Schacht ein, statt oben
-     aufzusitzen. Er ist 33 px hoch, 14 davon verschwinden im Brett. */
-  76%  { transform: translate3d(0, 0, -22px) rotateZ(0deg); }
-  86%  { transform: translate3d(0, 0, -10px) rotateZ(0deg); }
-  100% { transform: translate3d(0, 0, -14px) rotateZ(0deg); }
+  0%   { transform: translate3d(0, 0, 320px) rotateZ(-16deg); }
+  58%  { transform: translate3d(0, 0, 48px) rotateZ(0deg); }
+  76%  { transform: translate3d(0, 0, -28px) rotateZ(0deg); }
+  86%  { transform: translate3d(0, 0, -16px) rotateZ(0deg); }
+  100% { transform: translate3d(0, 0, -20px) rotateZ(0deg); }
 }
 @keyframes schatten-einrasten {
-  0%   { transform: translate3d(0, 0, 2px) scale(1.6); opacity: 0.05; }
-  58%  { transform: translate3d(0, 0, 2px) scale(1.16); opacity: 0.26; }
-  76%  { transform: translate3d(0, 0, 2px) scale(0.98); opacity: 0.16; }
-  100% { transform: translate3d(0, 0, 2px) scale(1); opacity: 0.15; }
+  0%   { transform: translate3d(0, 0, 1px) scale(1.7); opacity: 0.04; }
+  58%  { transform: translate3d(0, 0, 1px) scale(1.16); opacity: 0.26; }
+  76%  { transform: translate3d(0, 0, 1px) scale(0.98); opacity: 0.14; }
+  100% { transform: translate3d(0, 0, 1px) scale(1); opacity: 0.12; }
 }
 @keyframes klick {
-  0%   { opacity: 0; transform: translateZ(3px) scale(0.92); }
-  60%  { opacity: 0; transform: translateZ(3px) scale(0.92); }
-  72%  { opacity: 1; transform: translateZ(3px) scale(1); }
-  100% { opacity: 0; transform: translateZ(3px) scale(1.55); }
+  0%   { opacity: 0; transform: translateZ(4px) scale(0.92); }
+  60%  { opacity: 0; transform: translateZ(4px) scale(0.92); }
+  72%  { opacity: 1; transform: translateZ(4px) scale(1); }
+  100% { opacity: 0; transform: translateZ(4px) scale(1.5); }
 }
 
 /* --- Zuordnung ------------------------------------------------------------ */
-/* ALLE SECHS IM GLEICHTAKT — kein animation-delay.
-   Die drei Ziele je Baustein sind zyklische Verschiebungen um +2, +5 und +3
-   Plaetze. Solange alle dieselbe Phase haben, ist jede dieser Verschiebungen
-   eine Permutation ohne Fixpunkt: sechs Bausteine auf sechs verschiedenen
-   Loechern, keiner auf dem eigenen.
-   Mit versetztem Start war genau das kaputt — die Teile standen in
-   unterschiedlichen Phasen und landeten zu dritt auf demselben Loch. */
-.spiel__koerper {
-  animation: daneben 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
-}
-.spiel__schatten {
-  animation: schatten-daneben 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
-}
+/* Kein animation-delay im Selbst-Zustand: nur im Gleichtakt sind die drei
+   Ziele Permutationen ohne Fixpunkt, also sechs Bausteine vor sechs
+   verschiedenen Öffnungen. */
+.haus__koerper  { animation: daneben 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
+.haus__schatten { animation: schatten-daneben 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
 
-.verg[data-modus='estera'] .spiel__koerper {
+.verg[data-modus='estera'] .haus__koerper {
   animation: einrasten 1.6s cubic-bezier(0.34, 0, 0.16, 1) both;
-  animation-delay: calc(var(--i) * 0.17s);
+  animation-delay: calc(var(--i, 0) * 0.15s);
 }
-.verg[data-modus='estera'] .spiel__schatten {
+.verg[data-modus='estera'] .haus__schatten {
   animation: schatten-einrasten 1.6s cubic-bezier(0.34, 0, 0.16, 1) both;
-  animation-delay: calc(var(--i) * 0.17s);
+  animation-delay: calc(var(--i, 0) * 0.15s);
 }
-.verg[data-modus='estera'] .spiel__klick {
+.verg[data-modus='estera'] .haus__klick {
   animation: klick 1.6s cubic-bezier(0.2, 0, 0.2, 1) both;
-  animation-delay: calc(var(--i) * 0.17s);
+  animation-delay: calc(var(--i) * 0.15s);
 }
 
 /* --- Bildunterschrift ----------------------------------------------------- */
@@ -324,34 +253,26 @@
   color: var(--ink-mute);
   transition: color 0.4s var(--ease);
 }
-.spiel__hinweis > span {
-  grid-area: 1 / 1;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-}
+.spiel__hinweis > span { grid-area: 1 / 1; opacity: 0; transition: opacity 0.4s var(--ease); }
 .verg:not([data-modus='estera']) .spiel__hinweis--selbst { opacity: 1; }
 .verg[data-modus='estera'] .spiel__hinweis--estera { opacity: 1; }
 .verg[data-modus='estera'] .spiel__hinweis { color: var(--gold-text); }
 
 /* --- Maßstab -------------------------------------------------------------- */
-@media (max-width: 1500px) { .spiel { --zoom: 0.88; } }
-@media (max-width: 1300px) { .spiel { --zoom: 0.74; } }
-@media (max-width: 1100px) { .spiel { --zoom: 0.62; } }
-@media (max-width: 900px)  { .spiel { --zoom: 0.8;  } }
-@media (max-width: 620px)  { .spiel { --zoom: 0.6;  } }
-@media (max-width: 430px)  { .spiel { --zoom: 0.48; } }
+@media (max-width: 1500px) { .spiel { --zoom: 0.9;  } }
+@media (max-width: 1300px) { .spiel { --zoom: 0.78; } }
+@media (max-width: 1100px) { .spiel { --zoom: 0.66; } }
+@media (max-width: 900px)  { .spiel { --zoom: 0.86; } }
+@media (max-width: 620px)  { .spiel { --zoom: 0.62; } }
+@media (max-width: 430px)  { .spiel { --zoom: 0.5;  } }
 
-/* Ohne Bewegung sitzt alles: eine endlos danebengehende Animation wäre hier
-   nur Unruhe. */
 @media (prefers-reduced-motion: reduce) {
-  .spiel__koerper,
-  .verg[data-modus='estera'] .spiel__koerper { animation: none; transform: none; }
-  .spiel__schatten,
-  .verg[data-modus='estera'] .spiel__schatten {
-    animation: none;
-    transform: translateZ(2px);
-    opacity: 0.15;
+  .haus__koerper,
+  .verg[data-modus='estera'] .haus__koerper { animation: none; transform: translateZ(-20px); }
+  .haus__schatten,
+  .verg[data-modus='estera'] .haus__schatten {
+    animation: none; transform: translateZ(1px); opacity: 0.12;
   }
-  .spiel__klick,
-  .verg[data-modus='estera'] .spiel__klick { animation: none; opacity: 0; }
+  .haus__klick,
+  .verg[data-modus='estera'] .haus__klick { animation: none; opacity: 0; }
 }

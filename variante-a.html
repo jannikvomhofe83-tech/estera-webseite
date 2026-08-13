@@ -629,70 +629,64 @@
 
     <div class="verg__buehne">
 
-      <!-- Formensortierer. Sechs Bausteine, sechs Loecher — je einer pro Punkt
-           rechts daneben. "Selbst koordinieren": die Teile fliegen auf FALSCHE
-           Loecher, stossen auf, wackeln und ziehen wieder ab. "Mit Estera
-           begleitet": jedes kommt aus der Luft und geht auf Anhieb hinein.
-           Rein dekorativ, deshalb aria-hidden — die Aussage steht als Text in
-           den Karten daneben. -->
+      <!-- Das Haus. Baukoerper und Giebel sind EINE Silhouette, in die Tiefe
+           gestapelt; die sechs Oeffnungen sind echte Durchbrueche mit
+           Laibung. Die Bausteine fliegen von vorn hinein: bei "Selbst
+           koordinieren" jeder auf eine fremde Oeffnung, bei "Mit Estera
+           begleitet" jeder in seine eigene.
+           Rein dekorativ, deshalb aria-hidden. -->
       <div class="spiel" aria-hidden="true">
         <div class="spiel__rahmen">
-          <div class="spiel__szene">
-            <span class="spiel__einlage"></span>
-            <span class="spiel__platte" style="--z:-4px"></span><span class="spiel__platte" style="--z:-8px"></span><span class="spiel__platte" style="--z:-12px"></span><span class="spiel__platte" style="--z:-16px"></span><span class="spiel__platte" style="--z:-20px"></span><span class="spiel__platte" style="--z:-24px"></span><span class="spiel__platte" style="--z:-28px"></span><span class="spiel__platte" style="--z:-32px"></span><span class="spiel__platte" style="--z:-36px"></span><div class="spiel__brett"></div>
-            <span class="spiel__loch" data-form="kreis" style="--x:-146px; --y:-140px; --i:0"><span class="spiel__schacht" style="--z:-3px"></span><span class="spiel__schacht" style="--z:-6px"></span><span class="spiel__schacht" style="--z:-9px"></span><span class="spiel__schacht" style="--z:-12px"></span><span class="spiel__schacht" style="--z:-15px"></span><span class="spiel__schacht" style="--z:-18px"></span><span class="spiel__schacht" style="--z:-21px"></span></span>
-            <span class="spiel__loch" data-form="quadrat" style="--x:0px; --y:-140px; --i:1"><span class="spiel__schacht" style="--z:-3px"></span><span class="spiel__schacht" style="--z:-6px"></span><span class="spiel__schacht" style="--z:-9px"></span><span class="spiel__schacht" style="--z:-12px"></span><span class="spiel__schacht" style="--z:-15px"></span><span class="spiel__schacht" style="--z:-18px"></span><span class="spiel__schacht" style="--z:-21px"></span></span>
-            <span class="spiel__loch" data-form="dreieck" style="--x:146px; --y:-140px; --i:2"><span class="spiel__schacht" style="--z:-3px"></span><span class="spiel__schacht" style="--z:-6px"></span><span class="spiel__schacht" style="--z:-9px"></span><span class="spiel__schacht" style="--z:-12px"></span><span class="spiel__schacht" style="--z:-15px"></span><span class="spiel__schacht" style="--z:-18px"></span><span class="spiel__schacht" style="--z:-21px"></span></span>
-            <span class="spiel__loch" data-form="sechseck" style="--x:-146px; --y:140px; --i:3"><span class="spiel__schacht" style="--z:-3px"></span><span class="spiel__schacht" style="--z:-6px"></span><span class="spiel__schacht" style="--z:-9px"></span><span class="spiel__schacht" style="--z:-12px"></span><span class="spiel__schacht" style="--z:-15px"></span><span class="spiel__schacht" style="--z:-18px"></span><span class="spiel__schacht" style="--z:-21px"></span></span>
-            <span class="spiel__loch spiel__gross" style="--x:0px; --y:140px; --i:4"><span class="spiel__schacht" style="--z:-3px"></span><span class="spiel__schacht" style="--z:-6px"></span><span class="spiel__schacht" style="--z:-9px"></span><span class="spiel__schacht" style="--z:-12px"></span><span class="spiel__schacht" style="--z:-15px"></span><span class="spiel__schacht" style="--z:-18px"></span><span class="spiel__schacht" style="--z:-21px"></span></span>
-            <span class="spiel__loch" data-form="raute" style="--x:146px; --y:140px; --i:5"><span class="spiel__schacht" style="--z:-3px"></span><span class="spiel__schacht" style="--z:-6px"></span><span class="spiel__schacht" style="--z:-9px"></span><span class="spiel__schacht" style="--z:-12px"></span><span class="spiel__schacht" style="--z:-15px"></span><span class="spiel__schacht" style="--z:-18px"></span><span class="spiel__schacht" style="--z:-21px"></span></span>
-            <span class="spiel__halter" style="--x:-146px; --y:-140px">
-              <span class="spiel__schatten spiel__form--kreis"
-                    style="--i:0; --dauer:7.4s; --fx1:292px; --fy1:0px; --fx2:292px; --fy2:280px; --fx3:0px; --fy3:280px"></span>
-              <span class="spiel__koerper" style="--ton:var(--ton-1); --kante:var(--kante-1); --i:0; --dauer:7.4s; --fx1:292px; --fy1:0px; --fx2:292px; --fy2:280px; --fx3:0px; --fy3:280px">
-                <span class="spiel__lagen"><span class="spiel__lage spiel__form--kreis" style="--z:0px"></span><span class="spiel__lage spiel__form--kreis" style="--z:3px"></span><span class="spiel__lage spiel__form--kreis" style="--z:6px"></span><span class="spiel__lage spiel__form--kreis" style="--z:9px"></span><span class="spiel__lage spiel__form--kreis" style="--z:12px"></span><span class="spiel__lage spiel__form--kreis" style="--z:15px"></span><span class="spiel__lage spiel__form--kreis" style="--z:18px"></span><span class="spiel__lage spiel__form--kreis" style="--z:21px"></span><span class="spiel__lage spiel__form--kreis" style="--z:24px"></span><span class="spiel__lage spiel__form--kreis" style="--z:27px"></span><span class="spiel__lage spiel__form--kreis" style="--z:30px"></span><span class="spiel__lage spiel__form--kreis" style="--z:33px"></span></span>
+          <div class="haus">
+            <span class="haus__dach"></span>
+            <span class="haus__lage" style="--z:0px"></span><span class="haus__lage" style="--z:-6px"></span><span class="haus__lage" style="--z:-12px"></span><span class="haus__lage" style="--z:-18px"></span><span class="haus__lage" style="--z:-24px"></span><span class="haus__lage" style="--z:-30px"></span><span class="haus__lage" style="--z:-36px"></span><span class="haus__lage" style="--z:-42px"></span><span class="haus__lage" style="--z:-48px"></span><span class="haus__lage" style="--z:-54px"></span><span class="haus__lage" style="--z:-60px"></span>
+            <span class="haus__halter" style="--i:0; --x:0px; --y:-116px; --b:50px; --h:44px">
+              <span class="haus__schatten haus__form--dreieck"
+                    style="--fx1:84px; --fy1:120px; --fx2:84px; --fy2:230px; --fx3:-84px; --fy3:230px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-1); --kante:var(--kante-1); --fx1:84px; --fy1:120px; --fx2:84px; --fy2:230px; --fx3:-84px; --fy3:230px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--dreieck" style="--z:0px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:3px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:6px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:9px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:12px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:15px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:18px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:21px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:24px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:27px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:30px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:33px"></span></span>
               </span>
-              <span class="spiel__klick spiel__form--kreis" style="--i:0"></span>
+              <span class="haus__klick haus__form--dreieck" style="--i:0"></span>
             </span>
-            <span class="spiel__halter" style="--x:0px; --y:-140px">
-              <span class="spiel__schatten spiel__form--quadrat"
-                    style="--i:1; --dauer:8.2s; --fx1:-146px; --fy1:280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:280px"></span>
-              <span class="spiel__koerper" style="--ton:var(--ton-2); --kante:var(--kante-2); --i:1; --dauer:8.2s; --fx1:-146px; --fy1:280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:280px">
-                <span class="spiel__lagen"><span class="spiel__lage spiel__form--quadrat" style="--z:0px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:3px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:6px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:9px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:12px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:15px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:18px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:21px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:24px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:27px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:30px"></span><span class="spiel__lage spiel__form--quadrat" style="--z:33px"></span></span>
+            <span class="haus__halter" style="--i:1; --x:-84px; --y:4px; --b:54px; --h:54px">
+              <span class="haus__schatten haus__form--rund"
+                    style="--fx1:0px; --fy1:110px; --fx2:84px; --fy2:-120px; --fx3:84px; --fy3:114px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-2); --kante:var(--kante-2); --fx1:0px; --fy1:110px; --fx2:84px; --fy2:-120px; --fx3:84px; --fy3:114px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--rund" style="--z:0px"></span><span class="haus__scheibe haus__form--rund" style="--z:3px"></span><span class="haus__scheibe haus__form--rund" style="--z:6px"></span><span class="haus__scheibe haus__form--rund" style="--z:9px"></span><span class="haus__scheibe haus__form--rund" style="--z:12px"></span><span class="haus__scheibe haus__form--rund" style="--z:15px"></span><span class="haus__scheibe haus__form--rund" style="--z:18px"></span><span class="haus__scheibe haus__form--rund" style="--z:21px"></span><span class="haus__scheibe haus__form--rund" style="--z:24px"></span><span class="haus__scheibe haus__form--rund" style="--z:27px"></span><span class="haus__scheibe haus__form--rund" style="--z:30px"></span><span class="haus__scheibe haus__form--rund" style="--z:33px"></span></span>
               </span>
-              <span class="spiel__klick spiel__form--quadrat" style="--i:1"></span>
+              <span class="haus__klick haus__form--rund" style="--i:1"></span>
             </span>
-            <span class="spiel__halter" style="--x:146px; --y:-140px">
-              <span class="spiel__schatten spiel__form--dreieck"
-                    style="--i:2; --dauer:6.8s; --fx1:-146px; --fy1:280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:280px"></span>
-              <span class="spiel__koerper" style="--ton:var(--ton-3); --kante:var(--kante-3); --i:2; --dauer:6.8s; --fx1:-146px; --fy1:280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:280px">
-                <span class="spiel__lagen"><span class="spiel__lage spiel__form--dreieck" style="--z:0px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:3px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:6px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:9px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:12px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:15px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:18px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:21px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:24px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:27px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:30px"></span><span class="spiel__lage spiel__form--dreieck" style="--z:33px"></span></span>
+            <span class="haus__halter" style="--i:2; --x:84px; --y:4px; --b:54px; --h:54px">
+              <span class="haus__schatten haus__form--quadrat"
+                    style="--fx1:-84px; --fy1:114px; --fx2:-168px; --fy2:0px; --fx3:0px; --fy3:110px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-3); --kante:var(--kante-3); --fx1:-84px; --fy1:114px; --fx2:-168px; --fy2:0px; --fx3:0px; --fy3:110px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quadrat" style="--z:0px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:3px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:6px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:9px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:12px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:15px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:18px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:21px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:24px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:27px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:30px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:33px"></span></span>
               </span>
-              <span class="spiel__klick spiel__form--dreieck" style="--i:2"></span>
+              <span class="haus__klick haus__form--quadrat" style="--i:2"></span>
             </span>
-            <span class="spiel__halter" style="--x:-146px; --y:140px">
-              <span class="spiel__schatten spiel__form--sechseck"
-                    style="--i:3; --dauer:9.0s; --fx1:292px; --fy1:0px; --fx2:292px; --fy2:-280px; --fx3:0px; --fy3:-280px"></span>
-              <span class="spiel__koerper" style="--ton:var(--ton-4); --kante:var(--kante-4); --i:3; --dauer:9.0s; --fx1:292px; --fy1:0px; --fx2:292px; --fy2:-280px; --fx3:0px; --fy3:-280px">
-                <span class="spiel__lagen"><span class="spiel__lage spiel__form--sechseck" style="--z:0px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:3px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:6px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:9px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:12px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:15px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:18px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:21px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:24px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:27px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:30px"></span><span class="spiel__lage spiel__form--sechseck" style="--z:33px"></span></span>
+            <span class="haus__halter" style="--i:3; --x:-84px; --y:114px; --b:46px; --h:78px">
+              <span class="haus__schatten haus__form--hoch"
+                    style="--fx1:168px; --fy1:0px; --fx2:168px; --fy2:-110px; --fx3:84px; --fy3:-230px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-4); --kante:var(--kante-4); --fx1:168px; --fy1:0px; --fx2:168px; --fy2:-110px; --fx3:84px; --fy3:-230px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--hoch" style="--z:0px"></span><span class="haus__scheibe haus__form--hoch" style="--z:3px"></span><span class="haus__scheibe haus__form--hoch" style="--z:6px"></span><span class="haus__scheibe haus__form--hoch" style="--z:9px"></span><span class="haus__scheibe haus__form--hoch" style="--z:12px"></span><span class="haus__scheibe haus__form--hoch" style="--z:15px"></span><span class="haus__scheibe haus__form--hoch" style="--z:18px"></span><span class="haus__scheibe haus__form--hoch" style="--z:21px"></span><span class="haus__scheibe haus__form--hoch" style="--z:24px"></span><span class="haus__scheibe haus__form--hoch" style="--z:27px"></span><span class="haus__scheibe haus__form--hoch" style="--z:30px"></span><span class="haus__scheibe haus__form--hoch" style="--z:33px"></span></span>
               </span>
-              <span class="spiel__klick spiel__form--sechseck" style="--i:3"></span>
+              <span class="haus__klick haus__form--hoch" style="--i:3"></span>
             </span>
-            <span class="spiel__halter spiel__gross" style="--x:0px; --y:140px">
-              <span class="spiel__schatten spiel__form--balken"
-                    style="--i:4; --dauer:7.9s; --fx1:-146px; --fy1:-280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:-280px"></span>
-              <span class="spiel__koerper" style="--ton:var(--ton-5); --kante:var(--kante-5); --i:4; --dauer:7.9s; --fx1:-146px; --fy1:-280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:-280px">
-                <span class="spiel__lagen"><span class="spiel__lage spiel__form--balken" style="--z:0px"></span><span class="spiel__lage spiel__form--balken" style="--z:3px"></span><span class="spiel__lage spiel__form--balken" style="--z:6px"></span><span class="spiel__lage spiel__form--balken" style="--z:9px"></span><span class="spiel__lage spiel__form--balken" style="--z:12px"></span><span class="spiel__lage spiel__form--balken" style="--z:15px"></span><span class="spiel__lage spiel__form--balken" style="--z:18px"></span><span class="spiel__lage spiel__form--balken" style="--z:21px"></span><span class="spiel__lage spiel__form--balken" style="--z:24px"></span><span class="spiel__lage spiel__form--balken" style="--z:27px"></span><span class="spiel__lage spiel__form--balken" style="--z:30px"></span><span class="spiel__lage spiel__form--balken" style="--z:33px"></span></span>
+            <span class="haus__halter" style="--i:4; --x:0px; --y:118px; --b:58px; --h:110px">
+              <span class="haus__schatten haus__form--tuer"
+                    style="--fx1:0px; --fy1:-234px; --fx2:-84px; --fy2:-4px; --fx3:-84px; --fy3:-114px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-5); --kante:var(--kante-5); --fx1:0px; --fy1:-234px; --fx2:-84px; --fy2:-4px; --fx3:-84px; --fy3:-114px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--tuer" style="--z:0px"></span><span class="haus__scheibe haus__form--tuer" style="--z:3px"></span><span class="haus__scheibe haus__form--tuer" style="--z:6px"></span><span class="haus__scheibe haus__form--tuer" style="--z:9px"></span><span class="haus__scheibe haus__form--tuer" style="--z:12px"></span><span class="haus__scheibe haus__form--tuer" style="--z:15px"></span><span class="haus__scheibe haus__form--tuer" style="--z:18px"></span><span class="haus__scheibe haus__form--tuer" style="--z:21px"></span><span class="haus__scheibe haus__form--tuer" style="--z:24px"></span><span class="haus__scheibe haus__form--tuer" style="--z:27px"></span><span class="haus__scheibe haus__form--tuer" style="--z:30px"></span><span class="haus__scheibe haus__form--tuer" style="--z:33px"></span></span>
               </span>
-              <span class="spiel__klick spiel__form--balken" style="--i:4"></span>
+              <span class="haus__klick haus__form--tuer" style="--i:4"></span>
             </span>
-            <span class="spiel__halter" style="--x:146px; --y:140px">
-              <span class="spiel__schatten spiel__form--raute"
-                    style="--i:5; --dauer:8.6s; --fx1:-146px; --fy1:-280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:-280px"></span>
-              <span class="spiel__koerper" style="--ton:var(--ton-6); --kante:var(--kante-6); --i:5; --dauer:8.6s; --fx1:-146px; --fy1:-280px; --fx2:-146px; --fy2:0px; --fx3:0px; --fy3:-280px">
-                <span class="spiel__lagen"><span class="spiel__lage spiel__form--raute" style="--z:0px"></span><span class="spiel__lage spiel__form--raute" style="--z:3px"></span><span class="spiel__lage spiel__form--raute" style="--z:6px"></span><span class="spiel__lage spiel__form--raute" style="--z:9px"></span><span class="spiel__lage spiel__form--raute" style="--z:12px"></span><span class="spiel__lage spiel__form--raute" style="--z:15px"></span><span class="spiel__lage spiel__form--raute" style="--z:18px"></span><span class="spiel__lage spiel__form--raute" style="--z:21px"></span><span class="spiel__lage spiel__form--raute" style="--z:24px"></span><span class="spiel__lage spiel__form--raute" style="--z:27px"></span><span class="spiel__lage spiel__form--raute" style="--z:30px"></span><span class="spiel__lage spiel__form--raute" style="--z:33px"></span></span>
+            <span class="haus__halter" style="--i:5; --x:84px; --y:114px; --b:78px; --h:46px">
+              <span class="haus__schatten haus__form--quer"
+                    style="--fx1:-168px; --fy1:-110px; --fx2:-84px; --fy2:4px; --fx3:0px; --fy3:-110px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-6); --kante:var(--kante-6); --fx1:-168px; --fy1:-110px; --fx2:-84px; --fy2:4px; --fx3:0px; --fy3:-110px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quer" style="--z:0px"></span><span class="haus__scheibe haus__form--quer" style="--z:3px"></span><span class="haus__scheibe haus__form--quer" style="--z:6px"></span><span class="haus__scheibe haus__form--quer" style="--z:9px"></span><span class="haus__scheibe haus__form--quer" style="--z:12px"></span><span class="haus__scheibe haus__form--quer" style="--z:15px"></span><span class="haus__scheibe haus__form--quer" style="--z:18px"></span><span class="haus__scheibe haus__form--quer" style="--z:21px"></span><span class="haus__scheibe haus__form--quer" style="--z:24px"></span><span class="haus__scheibe haus__form--quer" style="--z:27px"></span><span class="haus__scheibe haus__form--quer" style="--z:30px"></span><span class="haus__scheibe haus__form--quer" style="--z:33px"></span></span>
               </span>
-              <span class="spiel__klick spiel__form--raute" style="--i:5"></span>
+              <span class="haus__klick haus__form--quer" style="--i:5"></span>
             </span>
           </div>
         </div>
@@ -703,7 +697,6 @@
       </div>
 
       <ul class="verg__karten">
-      <span class="verg__band" aria-hidden="true"></span>
         <li class="verg__karte" style="--v:0px">
           <p class="verg__name">Objekt & Lage</p>
           <div class="verg__texte">
@@ -715,7 +708,7 @@
             <span class="verg__stand verg__stand--estera">Vorausgewählt</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:26px">
+        <li class="verg__karte" style="--v:23px">
           <p class="verg__name">Wirtschaftlichkeit</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Kaufpreis, Miete, Hausgeld, laufende Kosten und eigenen Beitrag zusammenführen.</p>
@@ -726,7 +719,7 @@
             <span class="verg__stand verg__stand--estera">Eingeordnet</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:12px">
+        <li class="verg__karte" style="--v:10px">
           <p class="verg__name">Objektunterlagen</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Teilungserklärung, Energieausweis, Mietunterlagen und weitere Dokumente selbst sichten.</p>
@@ -737,7 +730,7 @@
             <span class="verg__stand verg__stand--estera">Aufbereitet</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:34px">
+        <li class="verg__karte" style="--v:30px">
           <p class="verg__name">WEG-Unterlagen</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Wirtschaftspläne, Jahresabrechnungen und WEG-Protokolle selbst sichten.</p>
@@ -748,7 +741,7 @@
             <span class="verg__stand verg__stand--estera">Einbezogen</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:8px">
+        <li class="verg__karte" style="--v:7px">
           <p class="verg__name">Finanzierung</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Finanzierungswege, Bankunterlagen und Konditionen selbst abstimmen.</p>
@@ -759,7 +752,7 @@
             <span class="verg__stand verg__stand--estera">Koordiniert</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:22px">
+        <li class="verg__karte" style="--v:19px">
           <p class="verg__name">Kaufprozess</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Ansprechpartner, Unterlagen, Fristen und Schritte bis zum Notar zusammenhalten.</p>
@@ -1003,7 +996,7 @@
 <!-- Nur für die interne Abstimmung -->
 <div class="variant-switch">
   <a href="./index.html">Variante B · Empfehlung</a>
-  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-157</a>
+  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-159</a>
 </div>
 
 <script src="assets/js/site.js"></script>
