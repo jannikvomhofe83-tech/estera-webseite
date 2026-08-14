@@ -1,71 +1,72 @@
 /* ===========================================================================
-   SECTION 6 — VIELE BAUSTEINE. EIN STRUKTURIERTER WEG. (Briefing S.7, S.14)
-   „Ein Umschalter zeigt dieselben Themen in zwei Zuständen: zunächst
-    verteilt und offen, anschließend klar geordnet und von Estera begleitet."
+   ABSCHNITT — VIELE BAUSTEINE. EIN STRUKTURIERTER WEG.
 
-   Die sichtbare Veränderung ist die Aussage. Deshalb ändert der Umschalter
-   nicht nur den Text, sondern die ORDNUNG: im ersten Zustand stehen die
-   sechs Bausteine gegeneinander versetzt und ohne Verbindung, im zweiten
-   fluchten sie auf einer Linie und sind durch eine Haarlinie verbunden.
+   Ein Umschalter zeigt dieselben sechs Themen in zwei Zustaenden: zunaechst
+   verteilt und offen, anschliessend geordnet und begleitet.
 
-   Briefing S.7: „Die Wirkung entsteht durch konkrete Entlastung und
-   Kompetenz – nicht durch Angstkommunikation." Und S.14: „Keine
-   Schockzahlen, Privatinsolvenz-Szenarien oder garantierten
-   Sicherheitsversprechen." Der linke Zustand ist deshalb nicht bedrohlich
-   gesetzt, sondern nur unruhig — mehr Einzelteile, kein Alarm.
+   Aufbau
+   ------
+   Kopf (mittig)  ->  Umschalter (mittig)  ->  Buehne  ->  Hinweis
+   Buehne: links das Objektblatt (5 Spalten), rechts die Liste (7 Spalten).
+
+   Was sich gegenueber der alten Fassung geaendert hat
+   ---------------------------------------------------
+   Das gestapelte 3D-Spielzeughaus ist ersatzlos entfallen. Es bestand aus
+   26 Tiefenlagen, sechs fliegenden Formen und mehreren Keyframes und wirkte
+   wie ein Baukasten — fuer ein Unternehmen, das Kapitalanlageimmobilien
+   vermittelt, das falsche Bild. An seiner Stelle steht ein echtes Gebaeude
+   als Objektblatt: das Foto im Passepartout, darunter eine Achse mit sechs
+   feinen Markierungen. Diese Markierungen stehen fuer die sechs Bausteine
+   rechts. Im Zustand „Selbst koordinieren" liegen sie ungleich verteilt auf
+   einer unterbrochenen Linie und sind nur Kontur; im Zustand „Mit Estera
+   begleitet" ruecken sie auf gleiche Abstaende, die Linie schliesst sich und
+   die Punkte fuellen sich in Gold. Keine Drehung, keine Perspektive, keine
+   springenden Objekte.
+
+   Alle Farben, Schriftstufen, Abstaende, Radien und Bewegungswerte stammen
+   aus system.css. Diese Datei definiert keine eigenen.
    =========================================================================== */
 
+/* ===========================================================================
+   1 — ABSCHNITT UND KOPF
+   =========================================================================== */
 .verg {
-  --linie: #8CA0B8;
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
 }
 
-.verg__inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-
-/* --- Kopf ----------------------------------------------------------------- */
-.verg__head {
-  max-width: 940px;
-  margin: 0 auto;
+.verg__kopf {
   text-align: center;
 }
-.verg__h2 {
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
-}
 .verg__lead {
-  margin: clamp(1.6rem, 3.4vh, 2.4rem) auto 0;
-  max-width: 46rem;
-  font-size: clamp(1.12rem, 1.42vw, 1.42rem);
-  line-height: 1.5;
-  color: var(--ink-soft);
-  text-wrap: pretty;
+  margin-inline: auto;
+  margin-block: var(--raum-h2-lead) 0;
+  text-align: center;
 }
-.verg__lead .hl { color: var(--ink-black); }
 
-/* --- Der Umschalter ------------------------------------------------------- */
-/* Zwei Schaltflächen in einer Fassung, dahinter ein wandernder Schieber.
-   Der Schieber liegt als eigenes Element hinter den Beschriftungen und
-   wird per transform bewegt — dadurch läuft er weich, ohne dass sich das
-   Raster verschiebt. */
+/* ===========================================================================
+   2 — DER UMSCHALTER
+   Zwei Beschriftungen in einer Fassung, dahinter ein gleitender Hintergrund.
+   Der Schieber liegt als eigenes Element hinter den Beschriftungen und wird
+   ueber transform bewegt: so laeuft er weich, ohne dass sich das Raster
+   verschiebt und ohne dass beim Wechsel etwas hart umspringt.
+   =========================================================================== */
 .verg__schalter {
   position: relative;
-  width: max-content;
+  isolation: isolate;
+  width: clamp(680px, 52vw, 760px);
   max-width: 100%;
-  margin: clamp(2.4rem, 6vh, 4rem) auto 0;
-  display: grid;
-  grid-auto-flow: column;
+  height: clamp(68px, 5vw, 76px);
+  margin: clamp(36px, 4vw, 56px) auto 0;
   padding: 5px;
-  border: 1px solid var(--line-gold);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--estera-line-gold);
   border-radius: 999px;
-  background: var(--paper);
+  background: var(--estera-white);
 }
+
+/* Der gleitende aktive Hintergrund. */
 .verg__schieber {
   position: absolute;
   z-index: 0;
@@ -74,177 +75,330 @@
   left: 5px;
   width: calc(50% - 5px);
   border-radius: 999px;
-  background: var(--navy-800);
-  transition: transform 0.55s var(--ease-soft);
+  background: var(--estera-navy-800);
+  /* dezenter innerer Schatten — gibt der aktiven Flaeche Tiefe, ohne dass
+     ein Schlagschatten nach aussen entsteht */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10),
+              inset 0 -2px 6px rgba(7, 24, 43, 0.45);
+  transition: transform var(--t-komp) var(--ease-soft);
 }
 .verg[data-modus='estera'] .verg__schieber { transform: translateX(100%); }
 
 .verg__knopf {
   position: relative;
   z-index: 1;
-  padding: clamp(0.7rem, 1.6vh, 1rem) clamp(1.2rem, 2.6vw, 2.2rem);
-  border: 0;
-  background: none;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: clamp(0.78rem, 0.88vw, 0.9rem);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-indent: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-mute);
-  transition: color 0.4s var(--ease);
-}
-.verg__knopf[aria-pressed='true'] { color: #fff; }
-.verg__knopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
-
-/* --- Buehne: links die Animation, rechts die sechs Bausteine ------------- */
-.verg__buehne {
-  margin: clamp(2.6rem, 6vh, 4.2rem) auto 0;
-  max-width: 1280px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(1.6rem, 4vw, 3.6rem);
+  display: flex;
   align-items: center;
+  justify-content: center;
+  padding-inline: clamp(16px, 2vw, 28px);
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-nav);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--estera-blue-grey-700);
+  transition: color var(--t-komp) var(--ease);
+}
+.verg__knopf[aria-pressed='true'] { color: var(--estera-ivory-50); }
+.verg__knopf:hover[aria-pressed='false'] { color: var(--estera-navy-800); }
+.verg__knopf:focus-visible { outline: 2px solid var(--estera-gold-600); outline-offset: 4px; }
+
+/* ===========================================================================
+   3 — BUEHNE: LINKS DAS OBJEKTBLATT, RECHTS DIE LISTE
+   5 zu 7 Spalten, Abstand 48–72 px.
+   =========================================================================== */
+.verg__buehne {
+  margin-top: var(--raum-lead-inhalt);
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(48px, 4vw, 72px);
+  align-items: start;
 }
 
-.verg__karten {
-  position: relative;
+/* ===========================================================================
+   4 — DAS OBJEKTBLATT
+   Weisse Karte im Passepartout: oben das Gebaeude, unten die Achse mit den
+   sechs Markierungen. Die Karte darf mitlaufen (sticky), weil die Liste
+   daneben hoeher ist.
+   =========================================================================== */
+.verg__objekt {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  margin: 0;
+  height: clamp(440px, 39vw, 560px);
+  padding: 20px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 24px;
+  background: var(--estera-white);
+  border: 1px solid var(--estera-line-light);
+  border-radius: var(--radius-karte);
+  box-shadow: var(--schatten-karte);
 }
 
-/* --- Die sechs Bausteine als Liste --------------------------------------- */
-/* KEINE Kästen mehr. Sechs gerahmte Kacheln nebeneinander lasen sich wie ein
-   Formular: gleicher Rahmen, gleicher Rhythmus, kein Gewicht — und sie
-   konkurrierten mit dem Haus daneben statt es zu ergänzen.
-   Jetzt sechs Zeilen an einer durchgehenden Haarlinie: Name links, Status
-   rechts, der Satz darunter. Das liest sich als Ablauf und nimmt dem Bild
-   nichts weg. */
-.verg__karte {
+/* --- Das Gebaeude --------------------------------------------------------- */
+.verg__bild {
   position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--estera-ivory-100);
+}
+.verg__bild img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 43%;
+  display: block;
+}
+/* Ein sehr leichter warmer Schleier holt das kuehle Foto an die
+   Elfenbeinflaeche der Seite heran, ohne es aufzuhellen. */
+.verg__bild::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(247, 244, 238, 0.10);
+  box-shadow: inset 0 0 0 1px rgba(7, 24, 43, 0.07);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Vier feine Winkel wie auf einem Objektblatt. Haarlinie in Gold,
+   ausschliesslich in den ruhigen Ecken des Bildes. */
+.verg__winkel {
+  position: absolute;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  border: 0 solid var(--estera-gold-600);
+  opacity: 0.7;
+}
+.verg__winkel--lo { top: 14px; left: 14px; border-top-width: 1px; border-left-width: 1px; }
+.verg__winkel--ro { top: 14px; right: 14px; border-top-width: 1px; border-right-width: 1px; }
+.verg__winkel--lu { bottom: 14px; left: 14px; border-bottom-width: 1px; border-left-width: 1px; }
+.verg__winkel--ru { bottom: 14px; right: 14px; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* --- Die Achse mit den sechs Markierungen --------------------------------- */
+/* Die Markierungen stehen in derselben Reihenfolge wie die Bausteine rechts.
+   Zustandswechsel: ungleiche Abstaende und Kontur  ->  gleiche Abstaende,
+   geschlossene Linie und Fuellung in Gold. */
+.verg__achse {
+  position: relative;
+  height: 26px;
+}
+.verg__linie {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  transition: opacity var(--t-komp) var(--ease);
+}
+/* offen: unterbrochene Linie */
+.verg__linie--offen {
+  background-image: linear-gradient(90deg, var(--estera-line-mid) 0 5px, transparent 5px 11px);
+  background-size: 11px 1px;
+  background-repeat: repeat-x;
+  opacity: 1;
+}
+/* geordnet: durchgehende Haarlinie in Gold */
+.verg__linie--ordnung {
+  background: var(--estera-line-gold);
+  opacity: 0;
+}
+.verg[data-modus='estera'] .verg__linie--offen   { opacity: 0; }
+.verg[data-modus='estera'] .verg__linie--ordnung { opacity: 1; }
+
+.verg__marke {
+  position: absolute;
+  top: 50%;
+  left: var(--po);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid var(--estera-blue-grey-400);
+  background: var(--estera-white);
+  transform: translate(-50%, calc(-50% + var(--dy, 0px)));
+  transition: left var(--t-komp) var(--ease-soft),
+              transform var(--t-komp) var(--ease-soft),
+              background-color var(--t-komp) var(--ease),
+              border-color var(--t-komp) var(--ease);
+}
+.verg[data-modus='estera'] .verg__marke {
+  left: var(--p);
+  transform: translate(-50%, -50%);
+  background: var(--estera-gold-600);
+  border-color: var(--estera-gold-600);
+}
+
+/* ===========================================================================
+   5 — DIE SECHS BAUSTEINE ALS LISTE
+   Eine Zeile: links der Name und darunter der Satz zum aktiven Zustand,
+   rechts der Status. Feine Trennlinie darunter.
+
+   Damit beim Umschalten NICHTS springt:
+   – beide Textfassungen liegen uebereinander in derselben Rasterzelle, die
+     Zeile ist also immer so hoch wie die laengere der beiden;
+   – die Statusspalte hat eine feste Breite, damit die Textspalte in beiden
+     Zustaenden exakt gleich breit bleibt und die Zeilenumbrueche halten.
+   =========================================================================== */
+.verg__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--estera-line-light);
+}
+
+.verg__zeile {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: clamp(1rem, 2.4vw, 2.2rem);
-  align-items: baseline;
-  padding: clamp(1rem, 2.4vh, 1.5rem) 0;
-  border-bottom: 1px solid var(--line-soft);
-  /* Im ersten Zustand stehen die Zeilen leicht eingerückt und ungleich —
-     „verteilt und offen". Beim Umschalten fluchten sie auf einer Kante. */
-  transform: translateX(var(--v, 0px));
-  transition: transform 0.6s var(--ease-soft), border-color 0.5s var(--ease);
+  /* max-content: die Statusspalte ist so breit wie die laengste Statuszeile
+     ueberhaupt. Beide Fassungen liegen in derselben Rasterzelle, die Breite
+     ist damit in beiden Zustaenden identisch — die Textspalte behaelt ihre
+     Breite und die Zeilenumbrueche halten. */
+  grid-template-columns: minmax(0, 1fr) max-content;
+  column-gap: clamp(20px, 2vw, 32px);
+  align-items: start;
+  padding-block: 15px;
+  border-bottom: 1px solid var(--estera-line-light);
+  transition: border-color var(--t-komp) var(--ease);
 }
-.verg__karte:first-child { border-top: 1px solid var(--line-soft); }
-.verg[data-modus='estera'] .verg__karte {
-  transform: translateX(0);
-  border-color: rgba(30, 66, 112, 0.22);
-}
+.verg[data-modus='estera'] .verg__liste,
+.verg[data-modus='estera'] .verg__zeile { border-color: var(--estera-line-gold); }
 
 .verg__name {
   grid-column: 1;
-  font-family: var(--font-display);
-  font-size: clamp(1.08rem, 1.28vw, 1.28rem);
+  grid-row: 1;
+  margin: 0;
+  font-family: var(--font-ui);
   font-weight: 500;
-  line-height: 1.2;
+  font-size: var(--fs-h4);
+  line-height: 1.3;
   color: var(--ink-black);
 }
 
-/* Beide Fassungen liegen übereinander in derselben Rasterzelle. Dadurch ist
-   die Zeile immer so hoch wie die längere von beiden und springt beim
-   Umschalten nicht. */
+/* Beide Saetze in derselben Rasterzelle. min-height haelt die Zeile auch
+   dann auf zwei Textzeilen, wenn beide Fassungen kurz sind. */
 .verg__texte {
-  grid-column: 1 / -1;
+  grid-column: 1;
+  grid-row: 2;
   display: grid;
-  margin-top: clamp(0.4rem, 1vh, 0.6rem);
-  max-width: 34rem;
+  margin-top: 6px;
+  font-size: var(--fs-klein);
+  line-height: 1.6;
+  min-height: 3.2em;
 }
 .verg__text {
   grid-area: 1 / 1;
-  font-size: clamp(0.88rem, 0.97vw, 0.97rem);
-  line-height: 1.55;
-  color: var(--ink-soft);
-  text-wrap: pretty;
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--estera-blue-grey-700);
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transform: translateY(6px);
+  transition: opacity var(--t-komp) var(--ease),
+              transform var(--t-komp) var(--ease-soft);
 }
-.verg:not([data-modus='estera']) .verg__text--selbst { opacity: 1; }
-.verg[data-modus='estera'] .verg__text--estera { opacity: 1; }
+.verg:not([data-modus='estera']) .verg__text--selbst,
+.verg[data-modus='estera'] .verg__text--estera {
+  opacity: 1;
+  transform: none;
+}
 
-/* --- Statuszeile ---------------------------------------------------------- */
-/* Wortlaut aus Briefing S.14: erster Zustand „noch offen", „noch
-   einzuordnen"; Estera-Zustand „vorausgewählt", „aufbereitet",
-   „eingeordnet", „koordiniert". */
+/* --- Status --------------------------------------------------------------- */
 .verg__status {
   grid-column: 2;
   grid-row: 1;
   display: grid;
   justify-items: end;
+  padding-top: 5px;
 }
 .verg__stand {
   grid-area: 1 / 1;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 9px;
   white-space: nowrap;
-  font-size: clamp(0.66rem, 0.74vw, 0.74rem);
+  font-family: var(--font-ui);
   font-weight: 500;
+  font-size: var(--fs-label);
   letter-spacing: 0.14em;
   text-indent: 0.14em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transform: translateY(4px);
+  transition: opacity var(--t-komp) var(--ease),
+              transform var(--t-komp) var(--ease-soft);
 }
+/* Der Punkt: offen nur Kontur, erledigt in Gold gefuellt. */
 .verg__stand::before {
   content: '';
   flex: 0 0 auto;
-  width: 6px;
-  aspect-ratio: 1;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  border: 1px solid currentColor;
+  border: 1px solid var(--estera-blue-grey-400);
 }
-.verg__stand--selbst { color: var(--ink-mute); }
-.verg__stand--estera { color: var(--gold-text); }
-.verg__stand--estera::before { background: var(--gold); border-color: var(--gold); }
-.verg:not([data-modus='estera']) .verg__stand--selbst { opacity: 1; }
-.verg[data-modus='estera'] .verg__stand--estera { opacity: 1; }
+.verg__stand--selbst { color: var(--estera-blue-grey-700); }
+.verg__stand--estera { color: var(--estera-gold-text); }
+.verg__stand--estera::before {
+  background: var(--estera-gold-600);
+  border-color: var(--estera-gold-600);
+}
+.verg:not([data-modus='estera']) .verg__stand--selbst,
+.verg[data-modus='estera'] .verg__stand--estera {
+  opacity: 1;
+  transform: none;
+}
 
-/* --- Hinweis unter dem Vergleich ----------------------------------------- */
-/* Briefing S.14: „Die Tabelle ist eine Arbeitsgrundlage und kein pauschales
-   Prüf- oder Haftungsversprechen." Das gehört sichtbar auf die Seite. */
+/* ===========================================================================
+   6 — HINWEIS UNTER DEM VERGLEICH
+   =========================================================================== */
 .verg__hinweis {
-  margin: clamp(2.2rem, 5vh, 3.4rem) auto 0;
+  margin: clamp(40px, 4vw, 64px) auto 0;
   max-width: 52rem;
   text-align: center;
-  font-size: clamp(0.86rem, 0.94vw, 0.94rem);
-  line-height: 1.6;
-  color: var(--ink-mute);
+  font-size: var(--fs-klein);
+  line-height: 1.7;
+  color: var(--estera-blue-grey-600);
 }
 .verg__hinweis::before {
   content: '';
   display: block;
   width: 34px;
   height: 1px;
-  margin: 0 auto 1rem;
-  background: var(--line-gold);
+  margin: 0 auto 20px;
+  background: var(--estera-line-gold);
 }
 
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 900px) {
-  /* Unter 900 px steht die Animation ueber den Karten statt daneben. */
-  .verg__buehne { grid-template-columns: 1fr; gap: clamp(2rem, 5vh, 3rem); }
+/* ===========================================================================
+   7 — SCHMALE FENSTER
+   =========================================================================== */
+@media (max-width: 1100px) {
+  .verg__buehne { grid-template-columns: 1fr; }
+  .verg__objekt { position: static; height: clamp(340px, 46vw, 440px); }
 }
-@media (max-width: 640px) {
-  .verg__karte { transform: none; }
-  .verg__schalter { width: 100%; }
-  .verg__knopf { padding-inline: 0.8rem; font-size: 0.74rem; letter-spacing: 0.1em; }
-  .verg__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+
+@media (max-width: 760px) {
+  .verg__schalter { width: 100%; height: 64px; }
+  .verg__knopf { font-size: var(--fs-label); padding-inline: 10px; white-space: normal; text-align: center; }
+  .verg__zeile { grid-template-columns: minmax(0, 1fr); row-gap: 0; padding-block: 18px; }
+  .verg__name { grid-column: 1; grid-row: 1; }
+  .verg__status { grid-column: 1; grid-row: 2; justify-items: start; padding-top: 10px; }
+  .verg__texte { grid-column: 1; grid-row: 3; margin-top: 10px; min-height: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .verg__karte, .verg__band, .verg__schieber, .verg__text, .verg__stand {
-    transition: none;
-  }
-  .verg__karte { transform: none; }
+  .verg__schieber,
+  .verg__marke,
+  .verg__linie,
+  .verg__text,
+  .verg__stand { transition: none; }
+  .verg__text,
+  .verg__stand { transform: none; }
 }

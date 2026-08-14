@@ -1,305 +1,326 @@
 /* ===========================================================================
-   SECTION 5 — DAS FINANZIELLE PRINZIP (Briefing S.7 und S.10/11)
-   „Eine ruhige Visualisierung zeigt das Zusammenspiel von Finanzierung,
-    Immobilie, Miete, Tilgung, laufenden Kosten und möglicher steuerlicher
-    Wirkung. Die Seite nennt keine pauschale monatliche Belastung und kein
-    ‚ab 0 Euro‘."
+   ABSCHNITT 5 — WIE SICH EINE KAPITALANLAGE TRÄGT
 
-   Bewusst OHNE Diagramm mit Kästen und Pfeilen: der Abschnitt davor ist
-   genau das. Hier tragen Typografie und zwei waagerechte Haarlinien —
-   eine Tafel, kein Schaubild. „Ruhig" heißt hier wörtlich ruhig.
+   Alle Farben, Schriftstufen, Abstände, Radien und Bewegungen kommen aus
+   system.css. Diese Datei setzt ausschliesslich die Anordnung.
 
-   Ebenso bewusst OHNE Icons. In Abschnitt 4 sitzt in jedem Kasten eins;
-   zweimal dieselbe Geste hintereinander nutzt sie ab. Und drei der sechs
-   Symbole (Bank, Waage, Balken) wären dieselben gewesen.
+   Was sich gegenüber dem ersten Stand geändert hat:
+
+   1. Die vier ineinandergreifenden Ringe sind ersatzlos entfallen. Sie waren
+      als Audi-Zitat lesbar, und die Überschneidungen liessen offen, welcher
+      Text zu welchem Kreis gehört. An ihre Stelle tritt eine Kette aus vier
+      gleich breiten Karten an einer waagerechten Achse mit goldenen
+      Verbindungspunkten in den Zwischenräumen.
+   2. Das Kopfband ist flacher, der Verlauf läuft von links nach rechts:
+      unter dem Text trägt er voll, zum rechten Rand hin gibt er die Aufnahme
+      frei. Keine Zeile steht mehr über unruhigen Fassadendetails.
+   3. „Was bewusst offenbleibt" ist kein schmaler Strich mehr, sondern ein
+      Übergangsband im 12-Spalten-Raster mit fester, kompakter Höhe.
    =========================================================================== */
 
 .prinzip {
-  --linie: #8CA0B8;
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  /* Oben kein Polster: das Kopfband setzt buendig an der Sectionkante an. */
-  padding: 0 0 clamp(4rem, 10vh, 8rem);
+  /* Elfenbein statt Weiss: nur so lesen sich die weissen Karten als Karten. */
+  background: var(--estera-ivory-50);
+  /* Oben kein Polster — das Kopfband setzt bündig an der Abschnittskante an. */
+  padding: 0 0 var(--sect-gross);
 }
 
-.prinzip__inner {
-  /* Deutlich schmaler als die uebrigen Abschnitte — eine Lesespalte wie in
-     der Referenz, nicht die volle Seitenbreite. */
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
+.prinzip__inner { padding-top: var(--sect-normal); }
 
-/* --- Kopfband ueber die volle Breite -------------------------------------- */
+/* ---------------------------------------------------------------------------
+   1 — KOPFBAND
+   Kompaktere Höhe als zuvor (vorher bis 480 px). Der Text sitzt im normalen
+   Seitenraster links, nicht mittig: dadurch braucht der Verlauf nur eine
+   Richtung und bleibt ruhig.
+   --------------------------------------------------------------------------- */
 .prinzip__band {
   position: relative;
   display: grid;
-  place-items: center;
-  min-height: clamp(300px, 32vw, 480px);
-  padding: clamp(3.5rem, 8vh, 6rem) var(--gutter);
+  align-items: center;
+  min-height: clamp(230px, 17.5vw, 288px);
+  padding-block: clamp(36px, 3.2vw, 52px);
   overflow: hidden;
-  background: #0A121F;
+  background: var(--estera-navy-950);
 }
-.prinzip__band img {
+.prinzip__band > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 52%;
-  filter: brightness(1.5) contrast(0.96) saturate(1.05);
+  /* Blickachse in die Strasse hinein: rechts bleibt die ruhige Flucht sichtbar. */
+  object-position: 54% 46%;
+  /* Die Aufnahme ist eine blaue Stunde und im Original sehr dunkel. */
+  filter: brightness(1.34) contrast(0.97) saturate(1.03);
 }
 .prinzip__band::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* Waagerecht UND senkrecht: der Satz steht mittig, das Bild ist zu den
-     Raendern hin heller. Ein reiner Verlauf von unten reichte dafuer nicht. */
   background:
-    /* Nur unter dem Satz dunkel, zu den Raendern hin offen */
-    radial-gradient(ellipse 70% 62% at 50% 50%,
-      rgba(6, 14, 26, 0.68) 0%, rgba(6, 14, 26, 0.44) 55%,
-      rgba(6, 14, 26, 0.16) 100%),
-    linear-gradient(to bottom,
-      rgba(6, 14, 26, 0.34) 0%, rgba(6, 14, 26, 0.14) 45%,
-      rgba(6, 14, 26, 0.38) 100%);
+    linear-gradient(90deg,
+      rgba(7, 24, 43, 0.93) 0%,
+      rgba(7, 24, 43, 0.90) 40%,
+      rgba(7, 24, 43, 0.66) 58%,
+      rgba(7, 24, 43, 0.32) 78%,
+      rgba(7, 24, 43, 0.20) 100%),
+    linear-gradient(180deg,
+      rgba(7, 24, 43, 0.34) 0%,
+      rgba(7, 24, 43, 0.08) 42%,
+      rgba(7, 24, 43, 0.30) 100%);
 }
-
-/* --- Kopf ----------------------------------------------------------------- */
-.prinzip__head {
+.prinzip__band-inhalt {
   position: relative;
   z-index: 2;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
 }
-.prinzip__h2 {
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
-  color: #fff;
-}
+.prinzip__head { max-width: 42rem; }
+.prinzip__h2 { color: #fff; }
 .prinzip__lead {
-  margin: clamp(1.4rem, 3vh, 2.1rem) auto 0;
-  max-width: 46rem;
-  font-size: clamp(1.12rem, 1.42vw, 1.42rem);
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.78);
+  margin-top: var(--raum-h2-lead);
+  max-width: 40ch;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: rgba(255, 255, 255, 0.84);
   text-wrap: pretty;
 }
-.prinzip__lead .hl { color: #fff; }
+.prinzip__lead .hl { color: #fff; font-weight: 400; }
 
-/* --- Zwischentitel zwischen zwei Goldhaarlinien -------------------------- */
+/* ---------------------------------------------------------------------------
+   ZWISCHENZEILEN
+   Label links, Haarlinie füllt den Rest der Zeile. Linksbündig, weil auch
+   die Karten darunter linksbündig stehen.
+   --------------------------------------------------------------------------- */
 .prinzip__kicker {
-  margin-top: clamp(3rem, 8vh, 5.5rem);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: clamp(0.9rem, 2vw, 1.6rem);
+  gap: clamp(16px, 1.6vw, 24px);
 }
-.prinzip__kicker::before,
 .prinzip__kicker::after {
   content: '';
-  width: clamp(28px, 6vw, 90px);
+  flex: 1 1 auto;
   height: 1px;
-  background: var(--line-gold);
+  background: var(--estera-line-gold);
 }
-.prinzip__kicker span {
-  font-size: clamp(0.8rem, 0.86vw, 0.89rem);
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-indent: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold-text);
-  white-space: nowrap;
-}
+.prinzip__kicker span { white-space: nowrap; }
+.prinzip__kicker--zweit { margin-top: var(--sect-kompakt); }
 
-/* --- Die vier Ringe ------------------------------------------------------- */
-/* Nach dem Vorbild der Audi-Ringe: vier Kreise, die ineinandergreifen.
-   Jeder Ring ist 120 % seiner Rasterspalte breit und ragt mit je 10 % nach
-   beiden Seiten heraus — daraus ergibt sich die Ueberschneidung von rund
-   17 % der Ringbreite. Bewusst kein SVG: so waechst alles mit der Spalte,
-   ohne dass Koordinaten nachgefuehrt werden muessen. */
-.prinzip__traeger {
-  margin: clamp(2.4rem, 5.5vh, 3.6rem) auto 0;
-  /* Platz fuer den Ueberstand der beiden aeusseren Ringe */
-  padding-inline: 2.6%;
+/* ---------------------------------------------------------------------------
+   2 — VIER VERBUNDENE BAUSTEINE
+   Die Achse liegt auf halber Kartenhöhe und läuft hinter den Karten durch.
+   Sichtbar bleibt sie in den drei Zwischenräumen; dort sitzt jeweils ein
+   goldener Punkt. Keine Kreisform, keine Überschneidung.
+   --------------------------------------------------------------------------- */
+.kette {
+  --kette-gap: 24px;
+  /* 4 × 288 px + 3 × 24 px. Deutlich schmaler als der Container, damit die
+     Karten im Zielmass 280–300 px bleiben und die Achse links und rechts
+     sichtbar auslaufen kann. */
+  --kette-breite: 1224px;
+  position: relative;
+  margin-top: clamp(24px, 2.4vw, 34px);
+}
+.kette::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--estera-line-light);
+}
+.kette__reihe {
+  position: relative;
+  max-width: var(--kette-breite);
+  margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 0;
+  gap: var(--kette-gap);
 }
-.prinzip__posten { min-width: 0; }
-
-.prinzip__ring {
+.kette__glied {
   position: relative;
-  display: grid;
-  place-items: center;
-  width: 120%;
-  margin-inline: -10%;
-  aspect-ratio: 1;
-  border: 2px solid var(--linie);
+  display: flex;
+  min-width: 0;
+}
+/* Verbindungspunkt genau in der Mitte des Zwischenraums, auf der Achse. */
+.kette__glied:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: calc(var(--kette-gap) / -2);
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  transition: border-color 0.5s var(--ease);
-}
-.prinzip__posten:hover .prinzip__ring { border-color: var(--navy-600); }
-
-.prinzip__ring-name {
-  /* Bleibt innerhalb von rund 170 px und stoesst dadurch nicht an den
-     Strich des Nachbarrings. */
-  max-width: 78%;
-  text-align: center;
-  font-size: clamp(0.66rem, 0.78vw, 0.78rem);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-indent: 0.16em;
-  text-transform: uppercase;
-  line-height: 1.3;
-  color: var(--navy-800);
+  background: var(--estera-gold-600);
+  transform: translate(50%, -50%);
 }
 
-.prinzip__satz {
-  margin-top: clamp(1rem, 2.4vh, 1.6rem);
-  padding-inline: clamp(0.3rem, 0.8vw, 0.7rem);
-  font-size: clamp(0.82rem, 0.92vw, 0.92rem);
-  line-height: 1.55;
-  color: var(--ink-soft);
-  text-align: center;
+.baustein {
+  width: 100%;
+  /* Knapperes Polster als die Standardkarte: die Karte ist nur rund 288 px
+     breit, das Lesemass darf darin nicht unter 30 Zeichen fallen. */
+  padding: clamp(22px, 1.9vw, 28px);
+}
+.kette__glied:hover .baustein { border-color: var(--estera-line-gold); }
+.baustein__name {
+  margin-top: 14px;
+  color: var(--estera-navy-800);
+}
+.baustein__satz {
+  margin-top: 10px;
+  font-size: var(--fs-klein);
+  line-height: 1.62;
+  color: var(--estera-blue-grey-700);
   text-wrap: pretty;
 }
 
-/* --- Zweiter Zwischentitel ------------------------------------------------ */
-.prinzip__kicker--zweit { margin-top: clamp(3rem, 7vh, 5rem); }
-
-/* --- Das Bild mit den beiden Posten -------------------------------------- */
+/* ---------------------------------------------------------------------------
+   3 — DAS BILD MIT DEN ZWEI PUNKTEN
+   Gleicher Radius, gleiches Grading und gleicher Verlauf wie die übrigen
+   Bildflächen. Der Verlauf trägt dort voll, wo Schrift steht, und läuft
+   darüber auf null aus.
+   --------------------------------------------------------------------------- */
 .prinzip__bild {
   position: relative;
-  margin-top: clamp(2.2rem, 5vh, 3.4rem);
-  aspect-ratio: 16 / 11;
+  max-width: var(--kette-breite, 1224px);
+  margin: clamp(32px, 3.2vw, 48px) auto 0;
+  aspect-ratio: 21 / 9;
   overflow: hidden;
   border-radius: var(--radius-img);
-  background: #0A121F;
+  background: var(--estera-navy-950);
 }
 .prinzip__bild img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 45%;
-  /* Die blaue Stunde ist im Original sehr dunkel; angehoben bleibt die
-     Fassade sichtbar, ohne dass die Stimmung kippt. */
-  filter: brightness(1.55) contrast(0.96) saturate(1.05);
+  object-position: 50% 46%;
+  filter: brightness(1.38) contrast(0.97) saturate(1.03);
 }
-/* Traeger fuer die weisse Schrift. Das Bild ist bereits dunkel; der Verlauf
-   sichert die Lesbarkeit unabhaengig davon, wo Lichter im Bild sitzen. */
 .prinzip__bild::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* Nur noch dort dunkel, wo die Schrift steht. Darueber laeuft der
-     Verlauf auf null aus, damit das Bild sichtbar bleibt. */
   background: linear-gradient(to top,
-    rgba(6, 14, 26, 0.86) 0%,
-    rgba(6, 14, 26, 0.66) 26%,
-    rgba(6, 14, 26, 0.16) 52%,
-    rgba(6, 14, 26, 0) 74%);
+    rgba(7, 24, 43, 0.92) 0%,
+    rgba(7, 24, 43, 0.88) 24%,
+    rgba(7, 24, 43, 0.76) 42%,
+    rgba(7, 24, 43, 0.40) 62%,
+    rgba(7, 24, 43, 0.12) 82%,
+    rgba(7, 24, 43, 0) 100%);
 }
 .prinzip__bild-txt {
   position: absolute;
   z-index: 2;
-  left: 0; right: 0; bottom: 0;
-  padding: clamp(1.4rem, 3.2vw, 2.6rem);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(24px, 2.6vw, 44px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.4rem, 3.4vw, 2.8rem);
+  gap: clamp(24px, 3vw, 48px);
 }
+.prinzip__folge { max-width: 46ch; }
 .prinzip__folge-name {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.7vw, 1.7rem);
-  font-weight: 500;
-  line-height: 1.2;
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
   color: #fff;
 }
 .prinzip__folge-satz {
-  margin-top: clamp(0.5rem, 1.2vh, 0.8rem);
-  font-size: clamp(0.86rem, 0.96vw, 0.96rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.8);
+  margin-top: 10px;
+  font-size: var(--fs-klein);
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.86);
   text-wrap: pretty;
 }
 
-/* --- Eine Zeile zum Aufklappen ------------------------------------------- */
+/* ---------------------------------------------------------------------------
+   4 — ÜBERGANGSBAND „WAS BEWUSST OFFENBLEIBT"
+   12 Spalten: Überschrift 1–5, Erklärung 6–10, Knopf 11–12. Feine Linie oben
+   und unten, Inhalt senkrecht zentriert, geschlossene Höhe unter 360 px.
+   --------------------------------------------------------------------------- */
 .offen {
-  margin-top: clamp(2.6rem, 6vh, 4.2rem);
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
+  margin-top: var(--sect-kompakt);
+  border-top: 1px solid var(--estera-line-light);
+  border-bottom: 1px solid var(--estera-line-light);
 }
 .offen__kopf {
   width: 100%;
-  padding: clamp(1.4rem, 3vh, 2.2rem) 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr) auto;
+  min-height: clamp(190px, 15vw, 240px);
+  align-content: center;
   align-items: center;
-  gap: clamp(1.2rem, 3vw, 2.6rem);
   text-align: left;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
 }
 .offen__titel {
+  grid-column: 1 / span 5;
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.1vw, 2.1rem);
-  font-weight: 400;
-  line-height: 1.15;
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
   color: var(--ink-black);
+  text-wrap: balance;
 }
 .offen__titel em {
   font-style: italic;
-  color: var(--ink-mute);
+  /* Blaugrau 700, nicht 600: 600 erreicht auf Elfenbein nur 4,4:1. */
+  color: var(--estera-blue-grey-700);
 }
 .offen__beisatz {
-  font-size: clamp(0.86rem, 0.96vw, 0.96rem);
-  line-height: 1.55;
-  color: var(--ink-mute);
+  grid-column: 6 / span 5;
+  font-size: var(--fs-klein);
+  line-height: 1.62;
+  color: var(--estera-blue-grey-700);
+  text-wrap: pretty;
 }
 .offen__knopf {
-  display: grid;
-  place-items: center;
-  width: clamp(40px, 3.6vw, 50px);
-  aspect-ratio: 1;
-  border: 1px solid var(--line-gold);
-  border-radius: 50%;
-  color: var(--navy-800);
-  transition: transform 0.5s var(--ease-soft), border-color 0.4s var(--ease),
-              background 0.4s var(--ease);
+  grid-column: 11 / span 2;
+  justify-self: end;
+  /* Die Drehung zeigt den Zustand; die Bewegung beim Überfahren bleibt die
+     des Designsystems — 4 px zur Seite, mehr nicht. */
+  transition: transform var(--t-komp) var(--ease-soft),
+              border-color var(--t-micro) var(--ease),
+              background var(--t-micro) var(--ease);
 }
-.offen__knopf svg { width: 44%; height: 44%; }
-.offen__kopf:hover .offen__knopf { border-color: var(--gold); }
-.offen[data-offen] .offen__knopf { transform: rotate(90deg); background: rgba(168,135,79,0.08); }
-.offen__kopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
+.offen__kopf:hover .offen__knopf {
+  border-color: var(--estera-gold-600);
+  background: rgba(169, 130, 69, 0.06);
+}
+.offen__kopf:hover .offen__knopf svg { transform: translateX(4px); }
+.offen[data-offen] .offen__knopf { transform: rotate(90deg); }
+.offen__kopf:focus-visible { outline-offset: -4px; }
 
-/* Aufklappen ueber die Rasterzeile: 0fr auf 1fr laesst sich weich
-   ueberfuehren, eine Hoehe von auto nicht. */
+/* Aufklappen über die Rasterzeile: 0fr auf 1fr lässt sich weich überführen,
+   eine Höhe von auto nicht. */
 .offen__inhalt {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.55s var(--ease-soft);
+  transition: grid-template-rows var(--t-komp) var(--ease-soft);
 }
-.offen__innen { overflow: hidden; }
+.offen__innen {
+  overflow: hidden;
+  align-content: start;
+}
 .offen[data-offen] .offen__inhalt { grid-template-rows: 1fr; }
 
 .offen__liste {
+  grid-column: 1 / span 5;
   display: grid;
-  gap: clamp(0.7rem, 1.6vh, 1.05rem);
-  padding-bottom: clamp(1rem, 2.4vh, 1.6rem);
+  gap: 12px;
+  padding-bottom: clamp(32px, 3.4vw, 52px);
 }
 .offen__liste li {
   position: relative;
-  padding-left: 1.15em;
-  font-size: clamp(0.96rem, 1.06vw, 1.06rem);
-  line-height: 1.55;
+  padding-left: 22px;
+  font-size: var(--fs-klein);
+  line-height: 1.62;
   color: var(--ink-black);
 }
 .offen__liste li::before {
@@ -307,57 +328,93 @@
   position: absolute;
   left: 0;
   top: 0.72em;
-  width: 6px;
+  width: 8px;
   height: 1px;
-  background: var(--gold);
+  background: var(--estera-gold-600);
 }
 .offen__fuss {
-  padding-bottom: clamp(1.4rem, 3vh, 2.2rem);
-  max-width: 44rem;
-  font-size: clamp(0.9rem, 0.98vw, 0.98rem);
-  line-height: 1.55;
-  color: var(--ink-mute);
+  grid-column: 6 / span 5;
+  padding-bottom: clamp(32px, 3.4vw, 52px);
+  font-size: var(--fs-klein);
+  line-height: 1.62;
+  color: var(--estera-blue-grey-700);
+  text-wrap: pretty;
 }
 
-/* --- Verweis auf die Vertiefung ------------------------------------------ */
-.prinzip__mehr {
-  margin-top: clamp(2.4rem, 6vh, 4rem);
-  text-align: center;
-}
-.prinzip__mehr a {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.4em;
-  font-family: var(--font-display);
-  font-size: clamp(0.98rem, 1.1vw, 1.1rem);
-  font-weight: 500;
-  color: var(--navy-800);
-}
-.prinzip__mehr a::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  background: var(--line-gold);
-  transition: background 0.4s var(--ease);
-}
-.prinzip__mehr a:hover::after { background: var(--gold); }
-.prinzip__mehr a[aria-disabled='true'] { cursor: default; }
+/* --- Verweis auf die Vertiefung ------------------------------------------- */
+.prinzip__mehr { margin-top: clamp(24px, 2.4vw, 36px); }
 
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 760px) {
-  /* Vier Ringe nebeneinander werden zu klein — zwei Reihen zu zwei. */
-  .prinzip__traeger {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: clamp(1.8rem, 4vh, 2.6rem);
+/* ---------------------------------------------------------------------------
+   SCHMALE FENSTER
+   Die Achse kippt: senkrechte Linie links, die vier Bausteine untereinander,
+   die goldenen Punkte sitzen auf der Linie.
+   --------------------------------------------------------------------------- */
+@media (max-width: 1079px) {
+  .kette {
+    --kette-gap: 20px;
+    --rail-x: 9px;
+    --rail-abstand: 38px;
+    padding-left: var(--rail-abstand);
+  }
+  .kette::before {
+    left: var(--rail-x);
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    height: auto;
+  }
+  .kette__reihe {
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .kette__glied:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: calc(var(--kette-gap) / -2);
+    left: calc(var(--rail-x) - var(--rail-abstand));
+    transform: translate(-50%, 50%);
+  }
+  .prinzip__bild { aspect-ratio: 16 / 9; }
+}
+
+@media (max-width: 860px) {
+  .prinzip__head { max-width: none; }
+  .prinzip__band::after {
+    background:
+      linear-gradient(90deg,
+        rgba(7, 24, 43, 0.92) 0%,
+        rgba(7, 24, 43, 0.86) 62%,
+        rgba(7, 24, 43, 0.62) 100%),
+      linear-gradient(180deg,
+        rgba(7, 24, 43, 0.30) 0%,
+        rgba(7, 24, 43, 0.12) 45%,
+        rgba(7, 24, 43, 0.34) 100%);
   }
   .prinzip__bild { aspect-ratio: 4 / 5; }
-  .prinzip__bild-txt { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
-  .offen__kopf { grid-template-columns: minmax(0, 1fr) auto; }
-  .offen__beisatz { grid-column: 1 / -1; grid-row: 2; }
-  .prinzip__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+  .prinzip__bild-txt {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(18px, 3vh, 26px);
+  }
+  /* Auf schmalen Fenstern trägt das Band drei Zeilen untereinander. */
+  .offen__kopf {
+    min-height: 0;
+    padding-block: clamp(28px, 6vw, 44px);
+    row-gap: 16px;
+  }
+  .offen__titel { grid-column: 1 / span 10; }
+  .offen__beisatz { grid-column: 1 / span 12; }
+  .offen__knopf {
+    grid-column: 11 / span 2;
+    grid-row: 1;
+    align-self: start;
+  }
+  .offen__liste,
+  .offen__fuss { grid-column: 1 / span 12; }
+  .offen__liste { padding-bottom: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .offen__inhalt, .offen__knopf { transition: none; }
+  .offen__inhalt,
+  .offen__knopf { transition: none; }
 }

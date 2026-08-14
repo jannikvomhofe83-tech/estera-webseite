@@ -1,453 +1,267 @@
 /* ===========================================================================
-   KUNDEN, DIE UNS VERTRAUEN
-   Ein Fries über die volle Breite: oben und unten eine Goldhaarlinie,
-   dazwischen vier Spalten, durch Haarlinien getrennt.
+   KUNDEN, DIE UNS VERTRAUEN — Neuaufbau im 12-Spalten-Raster
 
-   Bewusst KEIN gerahmter Kasten mit Radius wie in der Referenz. Ein
-   abgerundetes Rechteck mit heller Kontur ist die Formsprache eines
-   UI-Baukastens; der Rest der Seite arbeitet mit gestochenen Haarlinien.
+   Vorher standen in diesem Abschnitt gleichzeitig: ein Google-Siegel, vier
+   Firmenlogos, vier kleine Portraets, ein aufklappendes grosses Portrait und
+   ein langes Zitat. Das war zu viel auf einmal — der Blick fand keinen
+   Anfang. Der Abschnitt ist deshalb auf genau eine Aussage reduziert:
+   ein hervorgehobener Kundenfall, daneben drei ruhige Belege.
 
-   Die vier Größenstufen tragen die Wirkung:
-     Zitat    groß, kursiv      — der eigentliche Inhalt
-     Name     mittel            — die Unterschrift darunter
-     Logo     klein             — die Marke, nicht der Held
-     Rolle    sehr klein, Kapitälchen mit Sperrsatz
-   Ohne diesen Kontrast liest sich die Tafel wie ein Formular. Die Rangfolge
-   macht die GRÖSSE, nicht die Entsättigung — Logos und Porträts stehen
-   deshalb in voller Farbe.
+   Siegel und Logos sind ERSATZLOS entfallen; sie stehen jetzt in der
+   Trust-Bar direkt unter dem Hero. Hier taucht keine fremde Marke mehr auf.
+
+   Aufbau ab 1181 px:
+     Kopfzeile   Spalten 1–3 bewusst leer (nur eine Goldhaarlinie auf der
+                 Grundlinie der Ueberschrift), Ueberschrift Spalten 4–12.
+     Inhalt      Kundenfall Spalten 1–7, drei Karten Spalten 8–12.
+
+   Die drei Karten sind exakt gleich hoch. Das leistet `grid-template-rows:
+   repeat(3, 1fr)` an der Liste: bei unbestimmter Hoehe waechst jede Zeile
+   auf das Mass der groessten, bei bestimmter Hoehe (die Liste wird vom
+   aeusseren Raster auf die Zeilenhoehe gedehnt) teilt sie die Hoehe zu
+   gleichen Teilen. In beiden Faellen ist die Abweichung 0 px.
+
+   Alle Farben, Schriftstufen, Abstaende, Radien und Zeiten stammen aus
+   system.css. Dieses Blatt setzt keinen einzigen eigenen Farbwert.
    =========================================================================== */
 
 .ref {
-  /* Innenabstand der Spalten — steht hier oben, weil der Fries ihn unten
-     als negative Außenmarge wieder herauszieht. */
-  --ref-pad: clamp(1.6rem, 2.6vw, 2.8rem);
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(2rem, 5vh, 4rem);
+  /* Weisse Flaeche: die Rollenzeile und der Platzhalterhinweis erreichen nur
+     auf Weiss sicher 4,5:1. Auf Elfenbein faellt die sekundaere Stufe
+     darunter — deshalb hier bewusst kein warmer Grund. */
+  background: var(--estera-white);
+  padding-block: var(--sect-normal);
 }
 
-/* Deutlich breiter als die Textabschnitte — der Fries soll quer über die
-   Seite laufen, nicht in der Spalte stehen. */
-.ref__inner {
-  max-width: 1760px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-
-/* --- Kopf ----------------------------------------------------------------- */
-/* Der Kopf laeuft ueber die volle Breite, damit das Google-Siegel links
-   aussen sitzen kann. Die Ueberschrift bleibt trotzdem auf der Seitenmitte —
-   sie wird eigenmittig begrenzt, nicht der Kopf. */
-.ref__head {
-  position: relative;
+/* --- Kopfzeile ------------------------------------------------------------
+   Links stand bisher die Google-Bewertung. Sie ist in die Trust-Bar
+   gewandert; passender vorhandener Text fuer diese Stelle existiert nicht,
+   also bleibt der Platz leer. Damit die Leere gewollt aussieht und nicht
+   wie ein Loch, liegt dort eine Goldhaarlinie — genau auf der Grundlinie
+   der ersten Ueberschriftszeile (`align-items: baseline`).              */
+.ref__kopf {
   display: grid;
-  place-items: center;
-  min-height: clamp(56px, 6vw, 76px);
+  grid-template-columns: repeat(var(--spalten), minmax(0, 1fr));
+  gap: var(--spalten-gap);
+  align-items: baseline;
+}
+.ref__kopflinie {
+  grid-column: 1 / 4;
+  display: block;
+  height: 1px;
+  background: var(--estera-line-gold);
 }
 .ref__h2 {
-  max-width: 900px;
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
-  text-align: center;
+  grid-column: 4 / -1;
+  /* Ueberschrift bleibt woertlich: „Kunden, die uns vertrauen." */
+  margin: 0;
 }
 
-/* --- Google-Siegel -------------------------------------------------------- */
-/* Sitzt auf der linken Kante des Satzspiegels — also exakt dort, wo darunter
-   das erste Logo und der erste Name beginnen. */
-.ref__siegel {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: clamp(0.6rem, 1vw, 0.85rem);
-  padding: 0.5rem 0;
-  color: var(--ink-black);
-  text-decoration: none;
-}
-.ref__siegel-g {
-  flex: 0 0 auto;
-  width: clamp(22px, 1.9vw, 27px);
-  height: auto;
-}
-.ref__siegel-txt {
+/* --- Inhaltsraster -------------------------------------------------------- */
+.ref__raster {
+  margin-top: var(--raum-lead-inhalt);
   display: grid;
-  gap: 0.22em;
-  line-height: 1.25;
-}
-
-/* Googles Gelb, nicht Estera-Gold: das Siegel ist ein Fremdkoerper mit
-   Beleg-Funktion — es soll als Google-Bewertung erkennbar sein und sich
-   nicht in die Seite einfuegen. */
-.ref__siegel-sterne {
-  display: flex;
-  gap: 1.5px;
-  color: #F4B400;
-}
-.ref__siegel-sterne svg {
-  width: clamp(12px, 1.05vw, 14px);
-  height: auto;
-  fill: currentColor;
-  display: block;
-}
-
-.ref__siegel-wert {
-  font-family: var(--font-display);
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  font-weight: 500;
-  color: var(--ink-black);
-}
-/* Anzahl und Quelle stehen bewusst dabei: wer mit einem Bewertungsschnitt
-   wirbt, muss erkennbar machen, worauf er beruht und woher er stammt. */
-.ref__siegel-quelle {
-  position: relative;
-  align-self: start;
-  font-size: clamp(0.66rem, 0.72vw, 0.73rem);
-  letter-spacing: 0.08em;
-  color: var(--ink-mute);
-}
-.ref__siegel-quelle::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: -2px;
-  height: 1px;
-  background: var(--line-gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s var(--ease);
-}
-.ref__siegel:hover .ref__siegel-quelle::after,
-.ref__siegel:focus-visible .ref__siegel-quelle::after { transform: scaleX(1); }
-
-/* --- Der Fries ------------------------------------------------------------ */
-.ref__tafel {
-  margin-top: clamp(2.6rem, 6.5vh, 4.5rem);
-  /* Zwei Goldhaarlinien fassen den Fries oben und unten ein.
-     Gold für die Klammer, Navy-Grau für die Spaltenlinien darin —
-     die Rangfolge muss auch in den Linien lesbar sein. */
-  border-top: 1px solid var(--line-gold);
-  border-bottom: 1px solid var(--line-gold);
-  /* Der Fries wird um genau den Spalten-Innenabstand nach außen gezogen.
-     Dadurch steht der Text der ersten Spalte exakt auf dem Seitenrand,
-     ALLE vier Spalten behalten aber dieselbe Zeilenbreite. Zog man
-     stattdessen nur außen das Padding ab, waren Spalte 1 und 4 breiter
-     und brachen anders um als 2 und 3.
-     Die Goldlinien laufen dadurch etwas über den Satzspiegel hinaus —
-     genau das lässt den Fries über die ganze Seite laufen. */
-  margin-inline: calc(-1 * min(var(--ref-pad), var(--gutter)));
-  display: grid;
-  /* Reine fr-Werte, KEIN minmax(): nur so lassen sich die Spalten beim
-     Aufklappen weich ineinander ueberfuehren. Das min-width:0 dafuer
-     steht an der Karte. */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.ref__karte {
-  position: relative;
-  min-width: 0;
-  overflow: hidden;
-  padding: clamp(2.4rem, 4.5vh, 3.6rem) var(--ref-pad);
-  display: flex;
+  grid-template-columns: repeat(var(--spalten), minmax(0, 1fr));
+  gap: var(--spalten-gap);
+  /* stretch ist der Vorgabewert und hier tragend: die Liste bekommt dadurch
+     dieselbe Hoehe wie der Kundenfall. */
   align-items: stretch;
-  text-align: left;
 }
 
-/* Die feste Spalte: Logo, Name, Taetigkeit, Strich, Portraet.
-   Sie behaelt beim Aufklappen ihre Breite — der zusaetzliche Platz geht
-   komplett an das Zitat rechts daneben. Deshalb `max-width` statt einer
-   Prozentbreite: bis dahin waechst sie mit, dann steht sie.
-   Alle Zeilen darin haben feste Hoehen bzw. genau eine Zeile — sie
-   fluchten dadurch ueber alle vier Spalten hinweg auch ohne subgrid. */
-.ref__inhalt {
-  /* Feste Basis, kein Wachstum: dadurch bekommt die linke Spalte im
-     Ruhezustand die ganze Karte (sie schrumpft auf deren Breite) und beim
-     Aufklappen geht der komplette Zuwachs an das Zitat rechts. */
-  flex: 0 1 clamp(180px, 19.5vw, 300px);
-  min-width: 0;
-  align-self: flex-start;
-  display: grid;
-  align-content: start;
-  justify-items: stretch;
-  gap: clamp(1.1rem, 2.4vh, 1.7rem);
-}
-
-/* Etwas mehr Luft zwischen Marke und Mensch als zwischen den Textzeilen —
-   das Logo gehoert der Firma, alles darunter der Person. */
-.ref__logo { margin-bottom: clamp(0.5rem, 1.3vh, 0.95rem); }
-
-/* Rechte Spalte. Sie ist schlicht der Rest der Karte: im Ruhezustand geht
-   die Karte in der Breite der linken Spalte auf, es bleibt nichts uebrig.
-   Klappt die Karte auf, waechst der Rest — ohne eigene Breitenanimation. */
-.ref__aussage {
-  flex: 1 1 0;
-  min-width: 0;
-  align-self: flex-end;
-  overflow: hidden;
-}
-
-/* Goldhaarlinie zwischen Unterschrift und Zitat — als eigenes Element,
-   damit sie beim Einklappen mit dem Zitat zusammen verschwindet. */
-.ref__strich {
-  width: 48px;
-  height: 1px;
-  background: var(--line-gold);
-  transition: opacity 0.4s var(--ease), width 0.6s var(--ease-soft);
-}
-
-/* Spaltenlinien, oben und unten eingerückt — sie sollen die Goldlinien
-   nicht berühren, sonst entsteht wieder ein Gitter. */
-.ref__karte + .ref__karte::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: clamp(1.8rem, 3.4vh, 2.8rem);
-  bottom: clamp(1.8rem, 3.4vh, 2.8rem);
-  width: 1px;
-  background: var(--line-soft);
-}
-
-/* --- Logo ----------------------------------------------------------------- */
-/* Feste Höhe, nicht feste Breite: Logos gleicht man optisch über die Höhe
-   aus. `--logo-scale` am <li> justiert einzelne Marken nach, die trotz
-   gleicher Höhe zu groß oder zu klein wirken. */
-.ref__logo {
+/* ===========================================================================
+   DER HERVORGEHOBENE KUNDENFALL — Spalten 1–7
+   Bild oben, darunter Name, Taetigkeit und Zitat. Kein Aufklappen mehr:
+   der Aufbau ist statisch, es bewegt sich nichts ausser dem Einblenden.
+   =========================================================================== */
+.ref__fall {
+  grid-column: 1 / span 7;
   display: flex;
-  align-items: center;
-  height: clamp(36px, 3.4vw, 48px);
-}
-.ref__logo img,
-.ref__logo svg {
-  /* Fremde Logos haben unbekannte Seitenverhaeltnisse — vom quadratischen
-     Signet bis zur breiten Wortmarke. `contain` haelt jedes in der Zeile,
-     `left center` setzt alle auf dieselbe linke Kante. */
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: left center;
-  transform: scale(var(--logo-scale, 1));
-  transform-origin: left center;
+  flex-direction: column;
+  min-width: 0;
 }
 
-/* Platzhalter, solange kein echtes Logo vorliegt. Ersetzt wird der GESAMTE
-   Inhalt von .ref__logo durch <img src="assets/img/logos/….svg" alt="Firma">. */
-.ref__logo--platzhalter {
-  gap: 0.62rem;
-  color: var(--ink-mute);
-}
-.ref__logo-monogramm {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: clamp(28px, 2.6vw, 34px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid var(--line-gold);
-  font-family: var(--font-display);
-  font-size: clamp(0.74rem, 0.86vw, 0.88rem);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-indent: 0.06em;
-  color: var(--gold-text);
-}
-.ref__logo-wort {
-  font-family: var(--font-display);
-  font-size: clamp(0.7rem, 0.8vw, 0.82rem);
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-indent: 0.22em;
-  text-transform: uppercase;
-  line-height: 1.28;
-  white-space: nowrap;
-}
-
-/* --- Unterschrift --------------------------------------------------------- */
-.ref__person {
-  /* Hoehe fuer den GROSSEN Namen dauerhaft reservieren. Sonst waechst die
-     Karte beim Aufklappen um die Differenz der Schriftgroessen und die
-     ganze Seite darunter springt. Die Rechnung nutzt exakt dieselben
-     clamp-Werte wie .ref__name (Zeilenhoehe 1,25) und .ref__rolle
-     (0,5em Abstand + 1,5 Zeilenhoehe = 2em). */
-  min-height: calc(clamp(1.5rem, 1.95vw, 1.95rem) * 1.25
-                 + clamp(0.65rem, 0.71vw, 0.71rem) * 2);
-  display: grid;
-  justify-items: start;
-  /* Ohne `start` verteilt der Grid-Container die Resthöhe der subgrid-Zeile
-     auf seine Zeilen — die Namen liefen dann auseinander, je nachdem wie
-     lang die Rollenzeile daneben umbricht. */
-  align-content: start;
-}
-.ref__name {
-  font-family: var(--font-display);
-  font-size: var(--name-gr, clamp(1.08rem, 1.3vw, 1.3rem));
-  font-weight: 500;
-  line-height: 1.25;
-  color: var(--ink-black);
-  transition: font-size 0.6s var(--ease-soft);
-}
-.ref__rolle {
-  margin-top: 0.5em;
-  font-size: clamp(0.65rem, 0.71vw, 0.71rem);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  line-height: 1.5;
-  color: var(--ink-mute);
-}
-
-/* --- Zitat ---------------------------------------------------------------- */
-/* Die größte Stufe im Abschnitt. Kursiv, weil es gesprochene Rede ist. */
-.ref__zitat {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.15rem, 1.48vw, 1.48rem);
-  line-height: 1.44;
-  color: var(--ink-black);
-  /* FESTE Satzbreite, nicht 100 % der Spalte. Sonst umbricht der Text
-     waehrend des Aufklappens staendig neu — und im Ruhezustand, wo die
-     Spalte 0 px breit ist, laeuft er auf hunderte Zeilen und zieht die
-     ganze Karte auf. So bleibt der Zeilenfall konstant, die Spalte klippt
-     ihn nur. */
-  width: clamp(220px, 19.5vw, 330px);
-  text-wrap: pretty;
-  /* Der Abstand sitzt am Text, nicht an der Spalte: so kann die Spalte im
-     Ruhezustand auf 0 zusammenlaufen, ohne dass ein Polster stehen bleibt. */
-  margin-left: clamp(1.4rem, 2.2vw, 2.4rem);
-  opacity: 0;
-  transition: opacity 0.45s var(--ease);
-  /* Hängende Interpunktion: das öffnende „ wird in den linken Rand gezogen,
-     damit der erste BUCHSTABE auf der Spaltenkante steht und nicht das
-     Anführungszeichen. Nur die erste Zeile ist betroffen. */
-  text-indent: -0.42em;
-}
-/* --- Porträt -------------------------------------------------------------- */
-/* FESTE Hoehe, keine aspect-ratio: waere die Hoehe an die Breite gekoppelt,
-   wuerde die Karte beim Auf- und Zuklappen hoeher und niedriger und der
-   ganze Abschnitt darunter wuerde springen. So bleibt die Bauhoehe gleich,
-   nur der Bildausschnitt aendert sich. */
-.ref__foto {
-  width: 100%;
-  height: clamp(190px, 18.5vw, 285px);
+/* 4:3 statt 16:10. Beide Formate waeren erlaubt; 4:3 laesst von einer
+   hochformatigen Aufnahme (800 × 1200) die Haelfte der Bildhoehe stehen,
+   16:10 nur 41 %. Nur mit 4:3 passt der ganze Kopf in den Ausschnitt. */
+.ref__fall-bild {
+  /* 3:2 statt 4:3 — der hervorgehobene Fall war das hoechste Einzelelement
+     der Seite; der Beschnitt bleibt oben unveraendert. */
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  border-radius: 2px;
-  background: var(--navy-800);
+  border-radius: var(--radius-img);
+  background: var(--estera-navy-900);
 }
-.ref__foto img {
+.ref__fall-bild img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 22%;
+  /* Senkrechter Anschnitt: der Kopf beginnt bei rund 7 % der Bildhoehe.
+     13 % schieben das Sichtfenster so weit nach unten, dass Haaransatz und
+     Kinn zusammen im Bild bleiben. */
+  object-position: 50% 13%;
 }
 
-/* --- Hinweis unter dem Fries --------------------------------------------- */
-/* Nur solange Platzhalter stehen — fliegt mit den echten Referenzen raus. */
-.ref__platzhalter-hinweis {
-  margin-top: clamp(1.4rem, 3vh, 2.2rem);
-  text-align: center;
-  font-size: 0.84rem;
+/* Unter dem Bild stehen Unterschrift und Zitat NEBENEINANDER, nicht
+   untereinander: ein Zitat in lesbarem Zeilenmass (rund 57 Zeichen) waere
+   sonst nur halb so breit wie das Bild darueber und liesse rechts daneben
+   eine leere Ecke stehen. Die Goldlinie oben fasst beides zusammen. */
+.ref__fall-text {
+  margin-top: clamp(22px, 2vw, 32px);
+  padding-top: clamp(20px, 1.8vw, 28px);
+  border-top: 1px solid var(--estera-line-gold);
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  gap: var(--spalten-gap);
+  align-items: start;
+  min-width: 0;
+}
+.ref__fall-person { min-width: 0; }
+
+/* ===========================================================================
+   DIE DREI WEITEREN STIMMEN — Spalten 8–12
+   Untereinander, gleiche Hoehe, gleicher Aufbau. Kein wechselndes Layout.
+   =========================================================================== */
+.ref__liste {
+  grid-column: 8 / -1;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--karten-gap);
+  min-width: 0;
+}
+
+.ref__karte {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Kopf der Karte: kleines Portraet, daneben Name und Taetigkeit. */
+.ref__karte-kopf {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.2vw, 20px);
+}
+.ref__portrait {
+  flex: 0 0 auto;
+  width: clamp(60px, 4.6vw, 72px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--estera-navy-900);
+}
+.ref__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Quadratischer Ausschnitt aus 2:3 — sichtbar sind zwei Drittel der
+     Bildhoehe. 4 % setzen das Gesicht in die Mitte des Kreises. */
+  object-position: 50% 4%;
+}
+
+/* --- Unterschrift --------------------------------------------------------- */
+.ref__name {
+  color: var(--ink-black);
+  margin: 0;
+}
+.ref__name--gross { font-weight: 500; }
+
+/* Taetigkeit: Typostufe des Systemlabels, aber im Fliesstextton statt im
+   sekundaeren Ton. Der sekundaere Ton erreicht auf Weiss nur 4,58:1 und
+   damit zu wenig Reserve fuer 12,5-px-Versalien; dieser Ton liegt bei
+   6,5:1. Beides sind Systemwerte, es kommt kein neuer Farbwert dazu. */
+.ref__rolle {
+  margin-top: 0.55em;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--estera-blue-grey-700);
+}
+
+/* Goldhaarlinie zwischen Unterschrift und Zitat. */
+.ref__strich {
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin-block: clamp(18px, 1.6vw, 26px);
+  background: var(--estera-line-gold);
+}
+
+/* --- Zitate --------------------------------------------------------------- */
+/* Kursive Antiqua, weil es gesprochene Rede ist. Zwei Stufen: der
+   hervorgehobene Fall in der Lead-Stufe, die drei Karten eine Stufe
+   darunter. Der Rang entsteht ueber die Groesse, nicht ueber die Farbe. */
+.ref__zitat {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--estera-blue-grey-700);
+  text-wrap: pretty;
+  margin: 0;
+  /* Haengende Interpunktion: das oeffnende Anfuehrungszeichen wird in den
+     Rand gezogen, damit der erste BUCHSTABE auf der Spaltenkante steht. */
+  text-indent: -0.4em;
+}
+.ref__zitat--gross {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--ink-black);
+}
+.ref__karte .ref__zitat {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+
+/* --- Platzhalterhinweis ---------------------------------------------------
+   Bleibt woertlich stehen, solange KI-Portraets und Beispielfirmen im
+   Abschnitt sind. Sitzt auf der Textachse der Ueberschrift.             */
+.ref__hinweis {
+  margin: clamp(28px, 2.8vw, 44px) 0 0;
+  font-size: var(--fs-klein);
   letter-spacing: 0.02em;
-  color: var(--gold-text);
+  color: var(--estera-gold-text);
 }
 
-/* --- Responsive ----------------------------------------------------------- */
-/* Ab hier laeuft das Siegel in die Ueberschrift hinein — es rueckt darueber. */
-@media (max-width: 960px) {
-  .ref__head { gap: clamp(1.2rem, 3vh, 1.8rem); }
-  .ref__siegel {
-    position: static;
-    transform: none;
-    justify-content: center;
+/* ===========================================================================
+   RESPONSIVE
+   =========================================================================== */
+
+/* Unter 1181 px reicht die Breite fuer 7 + 5 Spalten nicht mehr: der
+   Kundenfall geht ueber die volle Breite, die drei Karten stehen als Reihe
+   darunter. Gleich hoch bleiben sie dort ueber das Dehnen der Rasterzeile.
+
+   Das Bild bleibt bei 4:3 — ein flacheres Format wuerde den Kopf oben oder
+   unten anschneiden. Damit es ueber die volle Breite nicht 800 px hoch
+   wird, steht der Text jetzt NEBEN dem Bild statt darunter.             */
+@media (max-width: 1180px) {
+  .ref__fall {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 4fr 3fr;
+    gap: var(--spalten-gap);
+    align-items: start;
+  }
+  .ref__fall-text { margin-top: 0; }
+  .ref__liste {
+    grid-column: 1 / -1;
+    margin-top: var(--karten-gap);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto;
   }
 }
 
-@media (max-width: 1200px) {
-  .ref__tafel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(6, auto);
-  }
-  /* Erste Spalte jeder Reihe ohne Senkrechte, dafür Waagerechte vor Reihe 2 */
-  .ref__karte:nth-child(2n + 1)::before { display: none; }
-  .ref__karte:nth-child(n + 3)::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--line-soft);
-  }
-  /* Ohne Akkordeon steht das Zitat einfach unter dem Bild. */
-  .ref__aussage { flex: 0 0 100%; align-self: auto; }
-  .ref__karte { flex-wrap: wrap; }
-  .ref__inhalt { flex: 0 1 min(300px, 100%); }
-  .ref__zitat { width: auto; max-width: 30rem; margin-left: 0; margin-top: clamp(1.2rem, 2.6vh, 1.8rem); opacity: 1; }
+@media (max-width: 860px) {
+  .ref__kopf { display: block; }
+  .ref__kopflinie { width: 96px; margin-bottom: clamp(18px, 3vw, 26px); }
+  .ref__fall { grid-template-columns: minmax(0, 1fr); }
+  .ref__fall-text { margin-top: clamp(20px, 3vw, 28px); }
+  .ref__liste { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 680px) {
-  .ref__tafel {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, auto);
-  }
-  .ref__tafel { margin-inline: 0; }
-  .ref__karte { padding-left: 0; padding-right: 0; }
-  .ref__karte::before { display: none; }
-  .ref__karte:nth-child(n + 2)::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: var(--line-soft);
-  }
-  .ref__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
-  .ref__zitat { width: auto; max-width: none; font-size: clamp(1.15rem, 5vw, 1.35rem); margin-left: 0; opacity: 1; }
-  .ref__inhalt { flex: 0 1 min(320px, 100%); }
+  .ref__fall-text { grid-template-columns: minmax(0, 1fr); gap: clamp(14px, 3vw, 20px); }
 }
-
-
-/* ===========================================================================
-   AKKORDEON — eine Spalte faehrt auf, das Zitat kommt rechts neben das Bild
-   Nur ab 1201 px: darunter stehen zwei bzw. eine Spalte, da ist kein Platz.
-   Gesteuert ueber data-aktiv am Fries und data-offen an der Karte, gesetzt
-   in site.js — dadurch funktioniert es mit Maus, Tastatur UND Fingertipp,
-   nicht nur mit :hover.
-
-   Die Kartenhoehe aendert sich dabei NICHT: die linke Spalte bleibt gleich
-   hoch, das Zitat erscheint daneben statt darunter. Deshalb braucht der
-   Fries keine feste Bauhoehe und nichts darunter springt.
-   =========================================================================== */
-@media (min-width: 1201px) {
-  .ref__tafel { transition: grid-template-columns 0.72s var(--ease-soft); }
-  .ref__karte { cursor: pointer; }
-  .ref__karte:focus-visible { outline: 1px solid var(--navy-600); outline-offset: -4px; }
-
-  /* 2,5 zu 0,833 — die offene Spalte nimmt die Haelfte des Frieses ein. */
-  .ref__tafel[data-aktiv='1'] { grid-template-columns: 2.5fr 0.833fr 0.833fr 0.833fr; }
-  .ref__tafel[data-aktiv='2'] { grid-template-columns: 0.833fr 2.5fr 0.833fr 0.833fr; }
-  .ref__tafel[data-aktiv='3'] { grid-template-columns: 0.833fr 0.833fr 2.5fr 0.833fr; }
-  .ref__tafel[data-aktiv='4'] { grid-template-columns: 0.833fr 0.833fr 0.833fr 2.5fr; }
-
-  /* Eingeklappt: Name kleiner, Taetigkeit weg — in 17 % Spaltenbreite haette
-     die gesperrte Zeile keinen lesbaren Zeilenfall mehr. */
-  .ref__tafel[data-aktiv] .ref__karte { --name-gr: clamp(0.92rem, 1vw, 1rem); }
-  .ref__tafel[data-aktiv] .ref__karte .ref__rolle { opacity: 0; }
-
-  /* Aufgeklappt: Name deutlich groesser, Strich laenger, Zitat sichtbar. */
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] { --name-gr: clamp(1.5rem, 1.95vw, 1.95rem); }
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] .ref__rolle { opacity: 1; }
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] .ref__strich { width: 72px; }
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] .ref__zitat {
-    opacity: 1;
-    /* Erst einblenden, wenn die Spalte breit genug ist — sonst sieht man
-       den Text waehrend des Umbruchs zappeln. */
-    transition-delay: 0.26s;
-  }
-
-  .ref__rolle { transition: opacity 0.4s var(--ease); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ref__tafel, .ref__zitat, .ref__name, .ref__strich, .ref__rolle {
-    transition: none !important;
-  }
-}
-

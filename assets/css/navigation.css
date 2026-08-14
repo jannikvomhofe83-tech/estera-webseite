@@ -1,0 +1,684 @@
+/* ===========================================================================
+   ESTERA — KOPFZEILE, MENÜ-OVERLAY, FUSSZEILE
+
+   Diese Datei wird NACH base.css, system.css und den Abschnitts-Stylesheets
+   geladen und setzt die aelteren Regeln aus base.css (Kopf, Menue) und
+   schluss.css (Fuss) bewusst ausser Kraft. Beide Dateien bleiben unangetastet.
+
+   Alle Farben, Schriftstufen, Radien, Abstaende und Zeiten stammen aus
+   system.css. Wo hier dennoch ein Zahlenwert fuer Farbe steht, ist es
+   ausschliesslich eine Deckkraft-Variante eines Systemtons (Verlauf,
+   Glasflaeche, Haarlinie auf dunklem Grund) — jeweils im Kommentar benannt.
+
+   Aufbau:
+     1  Kopfzeile — Geruest und Zustaende
+     2  Kopfnavigation und Unterpunkte
+     3  Erstgespraech-Knopf im Kopf
+     4  Wortmarke und Menueknopf
+     5  Menue-Overlay
+     6  Fusszeile
+   =========================================================================== */
+
+
+/* ===========================================================================
+   1  KOPFZEILE — GERUEST UND ZUSTAENDE
+
+   Der Kopf steht dauerhaft fest (position: fixed) statt wie frueher erst ab
+   dem Scrollen. Der Wechsel absolut -> fixed hat den Kopf beim Umschalten um
+   die bereits gescrollte Strecke springen lassen; fest steht er ruhig.
+
+   Der seitliche Innenabstand folgt derselben Rechnung wie .cont: bis 1320 px
+   der Gutter, darueber die halbe Restbreite. Dadurch stehen Navigation und
+   Seiteninhalt exakt auf derselben Flucht.
+   =========================================================================== */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  height: var(--header-h);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2));
+  pointer-events: none;
+  color: var(--estera-navy-800);
+}
+.site-header > * { pointer-events: auto; }
+
+/* Traeger fuer die helle Schrift ueber dem Bild. Ohne diesen Verlauf steht
+   Off-White ueber einer hellen Fassade unlesbar da. Er laeuft nach unten auf
+   null aus, damit keine sichtbare Kante entsteht.
+   Farbe: --estera-navy-950 mit fallender Deckkraft. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(var(--header-h) * 1.9);
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(7, 24, 43, 0.56) 0%,
+    rgba(7, 24, 43, 0.32) 46%,
+    rgba(7, 24, 43, 0.11) 76%,
+    rgba(7, 24, 43, 0) 100%);
+  opacity: 0;
+  transition: opacity var(--t-komp) var(--ease);
+}
+.site-header--invert:not(.site-header--sticky)::before { opacity: 1; }
+
+/* Die warme weisse Platte des gescrollten Zustands liegt als eigene Ebene
+   dahinter und wird ein-/ausgeblendet. So laesst sich der Wechsel sauber in
+   300 ms fahren, und die Milchglas-Unschaerfe ist nur dann aktiv, wenn die
+   Platte auch wirklich sichtbar ist.
+   Farbe: --estera-ivory-50 mit 86 % Deckkraft.
+   Abschluss unten: eine feine Linie als inset-Schatten, KEIN Schlagschatten. */
+.site-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: rgba(251, 250, 247, 0.86);
+  box-shadow: inset 0 -1px 0 var(--estera-line-light);
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+}
+.site-header--sticky {
+  position: fixed;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 0;
+}
+.site-header--sticky::after {
+  opacity: 1;
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+}
+
+
+/* ===========================================================================
+   2  KOPFNAVIGATION UND UNTERPUNKTE
+
+   Hoechstens sechs Hauptpunkte plus Knopf. „Prinzip", „Struktur" und
+   „Qualitaet" sind keine eigenen Punkte mehr, sondern haengen als
+   Unterpunkte an „Konzept" — sichtbar erst beim Anfahren oder beim
+   Tastaturfokus, ohne eine Zeile Javascript.
+
+   Die Listen sind so hoch wie der Kopf. Nur dadurch beginnt das Aufklappfeld
+   exakt an der Unterkante des Kopfes und nicht irgendwo mittendrin.
+   =========================================================================== */
+.kopfnav { display: none; }
+
+.site-header .kopfnav > ul {
+  display: flex;
+  align-items: stretch;
+  height: var(--header-h);
+  gap: clamp(20px, 2vw, 32px);
+}
+.site-header .kopfnav > ul > li { display: flex; align-items: center; }
+
+.site-header .kopfnav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-block: 8px;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--fs-nav);
+  letter-spacing: 0.012em;
+  text-indent: 0;
+  line-height: 1.2;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--estera-blue-grey-700);
+  transition: color var(--t-micro) var(--ease);
+}
+.site-header .kopfnav a:hover { color: var(--estera-navy-800); }
+
+/* Haarlinie faehrt beim Anfahren von links nach rechts auf. */
+.site-header .kopfnav a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--estera-gold-600);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms var(--ease);
+}
+.site-header .kopfnav a:hover::after,
+.site-header .kopfnav a:focus-visible::after { transform: scaleX(1); }
+
+/* Aktiver Punkt: eine goldene Haarlinie, keine Flaeche, kein Kasten. */
+.site-header .kopfnav a[aria-current='page'],
+.site-header .kopfnav a[aria-current='true'] { color: var(--estera-navy-800); }
+.site-header .kopfnav a[aria-current='page']::after,
+.site-header .kopfnav a[aria-current='true']::after { transform: scaleX(1); }
+
+/* Ziel noch nicht gebaut: sichtbar, aber nicht ausloesbar (site.js). */
+.site-header .kopfnav a[aria-disabled='true'] { cursor: default; }
+.site-header .kopfnav a[aria-disabled='true']:hover::after { transform: scaleX(0); }
+
+/* --- Kleiner Winkel am Punkt mit Unterpunkten --------------------------- */
+.kopfnav__chev {
+  width: 9px; height: 5px;
+  flex: 0 0 auto;
+  background: currentColor;
+  opacity: 0.7;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 5'%3E%3Cpath d='M0.6 0.9 4.5 4.1 8.4 0.9' fill='none' stroke='%23000' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 5'%3E%3Cpath d='M0.6 0.9 4.5 4.1 8.4 0.9' fill='none' stroke='%23000' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+  transition: transform var(--t-micro) var(--ease);
+}
+.kopfnav__hat:hover .kopfnav__chev,
+.kopfnav__hat:focus-within .kopfnav__chev { transform: translateY(1px); }
+
+/* --- Aufklappfeld -------------------------------------------------------- */
+.kopfnav__hat { position: relative; }
+
+.site-header .kopfnav .kopfnav__unter {
+  position: absolute;
+  top: 100%;
+  /* Nicht mittig unter dem Punkt, sondern so versetzt, dass die Schrift der
+     Unterpunkte genau unter der Schrift von „Konzept" steht — das ist die
+     ruhigere Flucht. -22 px ist der seitliche Innenabstand der Zeilen. */
+  left: -22px;
+  z-index: 2;
+  display: grid;
+  align-items: initial;
+  height: auto;
+  gap: 0;
+  min-width: 196px;
+  padding: 10px 0;
+  background: var(--estera-ivory-50);
+  border: 1px solid var(--estera-line-light);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-btn) var(--radius-btn);
+  box-shadow: 0 14px 30px rgba(7, 24, 43, 0.09);   /* --estera-navy-950, sehr weich */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--t-micro) var(--ease),
+              transform var(--t-micro) var(--ease),
+              visibility var(--t-micro) var(--ease);
+}
+.site-header .kopfnav .kopfnav__unter > li { display: block; }
+.site-header .kopfnav .kopfnav__unter a {
+  display: block;
+  width: 100%;
+  padding: 9px 22px;
+  color: var(--estera-blue-grey-700);
+  transition: color var(--t-micro) var(--ease), background var(--t-micro) var(--ease);
+}
+.site-header .kopfnav .kopfnav__unter a::after { display: none; }
+.site-header .kopfnav .kopfnav__unter a:hover {
+  color: var(--estera-navy-800);
+  background: var(--estera-ivory-100);
+}
+.kopfnav__hat:hover > .kopfnav__unter,
+.kopfnav__hat:focus-within > .kopfnav__unter {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* --- Zustand ueber dem dunklen Bild -------------------------------------- */
+/* Off-White statt reinem Weiss: gleicher Ton wie die Wortmarke. */
+.site-header--invert:not(.site-header--sticky) .kopfnav a {
+  color: rgba(251, 250, 247, 0.90);            /* --estera-ivory-50, 90 % */
+}
+.site-header--invert:not(.site-header--sticky) .kopfnav a:hover {
+  color: var(--estera-ivory-50);
+}
+.site-header--invert:not(.site-header--sticky) .kopfnav a::after {
+  background: var(--estera-gold-500);
+}
+/* Das Aufklappfeld bleibt in beiden Zustaenden hell — Navy auf Elfenbein ist
+   dort immer lesbar, ein zweiter dunkler Kasten waere unruhig. */
+.site-header--invert:not(.site-header--sticky) .kopfnav .kopfnav__unter a {
+  color: var(--estera-blue-grey-700);
+}
+.site-header--invert:not(.site-header--sticky) .kopfnav .kopfnav__unter a:hover {
+  color: var(--estera-navy-800);
+}
+.site-header .kopfnav a,
+.site-header .kopfnav__cta > a {
+  transition: color var(--t-komp) var(--ease), background var(--t-komp) var(--ease),
+              border-color var(--t-komp) var(--ease), transform var(--t-micro) var(--ease);
+}
+
+
+/* ===========================================================================
+   3  ERSTGESPRAECH-KNOPF IM KOPF
+   50 px hoch, 24 px Innenabstand, Radius 8 px — die kompakte Fassung des
+   Systemknopfs (.btn ist 56 px hoch und waere im 92-px-Kopf zu massiv).
+   =========================================================================== */
+.site-header .kopfnav__cta {
+  border-left: 0;
+  padding-left: 0;
+  margin-left: clamp(8px, 1vw, 16px);
+}
+.site-header .kopfnav__cta > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  height: 50px;
+  padding-block: 0;
+  padding-inline: 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-btn);
+  background: var(--estera-navy-800);
+  color: var(--estera-ivory-50);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.site-header .kopfnav__cta > a::after { display: none; }
+.site-header .kopfnav__cta > a:hover {
+  background: var(--estera-navy-700);
+  color: var(--estera-ivory-50);
+  transform: translateY(-2px);
+}
+
+/* Ueber dem Bild: nur eine Kontur, damit der Kopf dort schwebt statt zu
+   kleben. Fuellung und Kontur sind Deckkraft-Varianten von --estera-ivory-50. */
+.site-header--invert:not(.site-header--sticky) .kopfnav__cta > a {
+  background: transparent;
+  border-color: rgba(251, 250, 247, 0.46);
+  color: var(--estera-ivory-50);
+}
+.site-header--invert:not(.site-header--sticky) .kopfnav__cta > a:hover {
+  background: rgba(251, 250, 247, 0.13);
+  border-color: rgba(251, 250, 247, 0.80);
+  color: var(--estera-ivory-50);
+  transform: translateY(-2px);
+}
+
+
+/* ===========================================================================
+   4  WORTMARKE UND MENUEKNOPF
+   Die Wortmarke sitzt in Spalte 2 des Rasters 1fr auto 1fr und steht dadurch
+   exakt mittig — unabhaengig davon, wie lang die beiden Reihen sind.
+   =========================================================================== */
+.site-header .wordmark { grid-column: 2; justify-self: center; padding: 6px 4px; }
+.site-header .wordmark__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  letter-spacing: var(--track-logo);
+  text-indent: var(--track-logo);
+  color: var(--estera-navy-800);
+  transition: color var(--t-komp) var(--ease);
+}
+.site-header .wordmark__sub {
+  font-family: var(--font-wordmark-sub);
+  font-weight: 400;
+  font-size: 0.625rem;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  /* Nicht --blue-grey-600: der Zusatz steht bei 10 px und weiter Sperrung
+     sehr fein, und 600 erreicht auf Elfenbein nur 4,4:1. 700 liegt bei
+     6,3:1 und ist damit auch in dieser Groesse sicher lesbar. */
+  color: var(--estera-blue-grey-700);
+  transition: color var(--t-komp) var(--ease);
+}
+.site-header--invert:not(.site-header--sticky) .wordmark__name { color: var(--estera-ivory-50); }
+.site-header--invert:not(.site-header--sticky) .wordmark__sub  { color: rgba(251, 250, 247, 0.72); }
+
+/* --- Menueknopf ---------------------------------------------------------- */
+.site-header .burger {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  padding: 10px 0 10px 14px;
+}
+.site-header .burger__label {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  color: var(--estera-blue-grey-700);
+  transition: color var(--t-komp) var(--ease);
+}
+.site-header .burger__lines { display: grid; gap: 6px; width: 26px; flex: 0 0 auto; }
+.site-header .burger__lines span {
+  height: 1px;
+  background: var(--estera-navy-800);
+  transform-origin: right;
+  transition: width var(--t-komp) var(--ease), background var(--t-komp) var(--ease);
+}
+.site-header .burger:hover .burger__label { color: var(--estera-navy-800); }
+.site-header--invert:not(.site-header--sticky) .burger__label { color: rgba(251, 250, 247, 0.78); }
+.site-header--invert:not(.site-header--sticky) .burger__lines span { background: var(--estera-ivory-50); }
+.site-header--invert:not(.site-header--sticky) .burger:hover .burger__label { color: var(--estera-ivory-50); }
+
+/* --- Ab hier steht die Waagerechte statt des Menueknopfs. Bei 1280 px
+       gemessen, nicht geschaetzt: drei Punkte links, drei plus Knopf rechts
+       stehen dort mit rund 260 px Reserve umbruchfrei.
+       Dieser Block MUSS nach der .burger-Grundregel stehen — bei gleicher
+       Spezifitaet entscheidet die Reihenfolge, sonst bliebe der Knopf sichtbar
+       und wuerde als zweite Rasterzeile unter den Kopf rutschen. ---------- */
+@media (min-width: 1200px) {
+  .kopfnav { display: block; }
+  .kopfnav--links  { grid-column: 1; justify-self: end;   margin-right: clamp(16px, 2vw, 34px); margin-left: 0; }
+  .kopfnav--rechts { grid-column: 3; justify-self: start; margin-left:  clamp(16px, 2vw, 34px); margin-right: 0; }
+  .site-header .burger { display: none; }
+}
+
+
+/* ===========================================================================
+   5  MENUE-OVERLAY
+   Gleiches System wie der Rest der Seite: Jost fuer alles Bedienbare,
+   Cormorant nur fuer die grossen Zeilen, gleiche Radien, ruhiger Rhythmus.
+   Der Wortlaut bleibt unveraendert.
+   =========================================================================== */
+.menu {
+  background: var(--estera-navy-950);
+  color: var(--estera-ivory-50);
+  grid-template-rows: var(--header-h) 1fr auto;
+  padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2));
+}
+
+.menu .menu__bar { height: var(--header-h); }
+.menu .menu__bar .wordmark__name {
+  font-family: var(--font-display);
+  color: var(--estera-ivory-50);
+}
+.menu .menu__bar .wordmark__sub { color: var(--estera-blue-grey-400); }
+
+.menu .menu__close {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  color: var(--estera-blue-grey-400);
+  gap: 14px;
+}
+.menu .menu__close:hover { color: var(--estera-ivory-50); }
+/* Ohne feste Groesse quetscht das Flex-Raster das Kreuz auf schmalen
+   Fenstern auf null Breite — der Knopf haette dort nur noch das Wort. */
+.menu .menu__close svg { width: 18px; height: 18px; flex: 0 0 auto; }
+.menu .menu__close { min-width: 0; }
+
+/* Gruppentitel: kleines goldenes Label, sonst nichts. */
+.menu .menu__gruppe {
+  margin-bottom: 18px;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  color: var(--estera-gold-500);
+}
+.menu .menu__gruppe + .menu__nav { margin-bottom: clamp(28px, 4vh, 48px); }
+
+.menu .menu__body {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  row-gap: 0;
+  max-width: var(--container);
+  padding-block: clamp(32px, 5vh, 64px);
+}
+
+/* Der Koerper hat fuenf Kinder: zwei Gruppentitel, zwei Listen und die
+   Randspalte. Ohne feste Zuordnung verteilt das Raster sie abwechselnd auf
+   beide Spalten — der Titel stuende links, die zugehoerige Liste rechts.
+   Deshalb liegen die vier Navigationsbloecke fest in Spalte 1, die
+   Randspalte ueberspannt sie in Spalte 2. */
+.menu .menu__body > .menu__gruppe,
+.menu .menu__body > .menu__nav { grid-column: 1; }
+.menu .menu__body > .menu__aside {
+  grid-column: 2;
+  grid-row: 1 / 5;
+  /* Ueber die volle Hoehe: die senkrechte Haarlinie trennt dann wirklich die
+     beiden Spalten, statt als kurzes Stueck in der Mitte zu haengen. */
+  align-self: stretch;
+  align-content: start;
+}
+
+.menu .menu__nav li { border-top: 1px solid var(--estera-line-invers); }
+.menu .menu__nav li:last-child { border-bottom: 1px solid var(--estera-line-invers); }
+
+.menu .menu__link {
+  gap: 22px;
+  padding-block: clamp(10px, 1.3vh, 16px);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  color: var(--estera-ivory-50);
+  transition: color var(--t-micro) var(--ease), transform var(--t-komp) var(--ease);
+}
+.menu .menu__link:hover { color: var(--estera-ivory-50); transform: translateX(12px); }
+.menu .menu__link[aria-disabled='true'] { cursor: default; }
+.menu .menu__link .num {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  font-variant-numeric: lining-nums;
+  color: var(--estera-gold-500);
+  opacity: 1;
+}
+
+.menu .menu__aside {
+  gap: clamp(24px, 3vh, 36px);
+  border-left: 1px solid var(--estera-line-invers);
+  padding-left: clamp(24px, 3vw, 48px);
+}
+.menu .menu__aside .kicker {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  color: var(--estera-gold-500);
+}
+.menu .menu__aside p {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--estera-blue-grey-400);
+}
+.menu .menu__aside p a { color: var(--estera-ivory-50); }
+.menu .menu__aside p a:hover { color: var(--estera-ivory-50); }
+.menu .menu__aside .kicker + p { margin-top: 10px; }
+
+.menu .menu__aside .btn {
+  height: 56px;
+  padding-inline: 28px;
+  border-radius: var(--radius-btn);
+  background: var(--estera-ivory-50);
+  border-color: transparent;
+  color: var(--estera-navy-950);
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-nav);
+  justify-content: center;
+}
+.menu .menu__aside .btn:hover {
+  background: var(--estera-white);
+  border-color: transparent;
+  color: var(--estera-navy-950);
+  transform: translateY(-2px);
+}
+
+.menu .menu__foot {
+  padding: 20px 0 28px;
+  border-top: 1px solid var(--estera-line-invers);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--fs-klein);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--estera-blue-grey-400);
+}
+.menu .menu__foot a { padding-block: 10px; color: var(--estera-blue-grey-400); transition: color var(--t-micro) var(--ease); }
+.menu .menu__foot a:hover { color: var(--estera-ivory-50); }
+.menu .menu__foot > span { padding-block: 10px; }
+.menu .menu__foot ul { gap: 28px; }
+
+@media (max-width: 860px) {
+  .menu .menu__body { grid-template-columns: 1fr; align-content: start; }
+  /* Einspaltig: der Knopf steht damit ganz unten im Menue. */
+  .menu .menu__body > .menu__aside { grid-column: 1; grid-row: auto; align-self: start; margin-top: 8px; }
+  .menu .menu__aside { border-left: 0; border-top: 1px solid var(--estera-line-invers); padding-left: 0; padding-top: 28px; }
+  .menu .menu__aside .btn { width: 100%; }
+  .menu .menu__link { font-size: var(--fs-h4); }
+}
+
+
+/* ===========================================================================
+   6  FUSSZEILE
+   Vier Spalten: Marke — Seiten — Kontakt — Rechtliches.
+   Gold ausschliesslich fuer die kleinen Spaltenueberschriften. Off-White
+   traegt alles Wichtige, Blue-Grey nur das Zweitrangige. Auf --navy-950
+   erreicht --blue-grey-600 nur 3,9:1 und faellt damit unter AA; deshalb
+   steht hier durchgehend --blue-grey-400 (7,0:1).
+   =========================================================================== */
+.fuss {
+  position: relative;
+  z-index: 1;
+  background: var(--estera-navy-950);
+  color: var(--estera-blue-grey-400);
+  padding: clamp(80px, 6.5vw, 96px) var(--gutter) clamp(32px, 2.6vw, 40px);
+  font-family: var(--font-ui);
+}
+
+.fuss .fuss__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 3vw, 56px);
+  align-items: start;
+}
+
+/* --- Spalte 1: Marke ----------------------------------------------------- */
+/* justify-self wirkt in aktuellen Browsern auch im normalen Blockfluss. Ohne
+   das Zuruecksetzen wuerde die Wortmarke die Zeile aus base.css erben und
+   mitten in der Spalte stehen statt an deren linker Kante. */
+.fuss .fuss__marke .wordmark {
+  display: block;
+  justify-self: start;
+  text-align: left;
+  padding: 0;
+}
+.fuss .fuss__marke .wordmark__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: var(--track-logo);
+  text-indent: var(--track-logo);
+  color: var(--estera-ivory-50);
+}
+.fuss .fuss__marke .wordmark__sub {
+  margin-top: 0.6em;
+  font-family: var(--font-wordmark-sub);
+  font-size: 0.625rem;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  text-transform: uppercase;
+  color: var(--estera-blue-grey-400);
+}
+.fuss .fuss__anker {
+  margin-top: 22px;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-h4);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--estera-ivory-50);
+}
+
+/* --- Spaltenueberschriften ----------------------------------------------- */
+.fuss .fuss__titel {
+  margin: 0 0 18px;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+  color: var(--estera-gold-500);
+}
+
+/* --- Listen -------------------------------------------------------------- */
+.fuss .fuss__liste { display: grid; gap: 11px; justify-items: start; }
+.fuss .fuss__liste a,
+.fuss .fuss__liste span {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--fs-klein);
+  line-height: 1.5;
+  color: var(--estera-ivory-50);
+  transition: color var(--t-micro) var(--ease);
+}
+/* Zweitrangiges — Platzhalter, die noch keine Angabe sind. */
+.fuss .fuss__liste span { color: var(--estera-blue-grey-400); }
+
+.fuss .fuss__liste a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: var(--estera-gold-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms var(--ease);
+}
+.fuss .fuss__liste a:hover::after { transform: scaleX(1); }
+.fuss .fuss__liste a[aria-disabled='true'] { cursor: default; }
+.fuss .fuss__liste a[aria-disabled='true']:hover::after { transform: scaleX(0); }
+
+/* --- Abschluss: Risikohinweis, Linie, Copyright -------------------------- */
+.fuss .fuss__abschluss { max-width: var(--container); margin-inline: auto; }
+
+.fuss .fuss__risiko {
+  margin: clamp(48px, 4.5vw, 72px) 0 0;
+  max-width: 92ch;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--fs-klein);
+  line-height: 1.65;
+  color: var(--estera-blue-grey-400);
+  text-wrap: pretty;
+}
+
+.fuss .fuss__unten {
+  margin: clamp(24px, 2.4vw, 34px) 0 0;
+  padding-top: clamp(18px, 1.8vw, 24px);
+  border-top: 1px solid var(--estera-line-invers);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px clamp(20px, 2.4vw, 40px);
+  font-family: var(--font-ui);
+  font-size: var(--fs-klein);
+  line-height: 1.5;
+  color: var(--estera-blue-grey-400);
+}
+
+/* --- Fuss auf schmalen Fenstern ------------------------------------------ */
+@media (max-width: 1024px) {
+  .fuss .fuss__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: clamp(32px, 5vw, 48px); }
+  .fuss .fuss__marke { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .fuss .fuss__inner { grid-template-columns: 1fr; }
+  .fuss .fuss__unten { justify-content: flex-start; }
+}

@@ -1,232 +1,420 @@
 /* ===========================================================================
-   VARIANTE A — Bildband + eingelegter Kasten
-   Prinzip MLP: niedriges, vollbreites Bildband.
-   Prinzip Imperia: Text links, Objektbild rechts, Headline zweizeilig mit
-   farbig abgesetzter zweiter Zeile.
-   Der Kasten ist bewusst breit und flach — er soll das Band rahmen,
-   nicht ersetzen.
+   ESTERA — HERO (Variante A) und VERTRAUENSLEISTE
+
+   Aufbau des Hero:
+     1. Architekturband über die volle Breite (band-v2.jpg), 520–580 px hoch
+     2. ein einheitliches dunkles Navy-Grading darüber
+     3. darauf, um 260 px überlappend, die Karte in Off-White
+     4. in der Karte ein 12-Spalten-Raster: Text 1–6, Spalte 7 frei, Bild 8–12
+
+   Es gibt bewusst nur ZWEI Bildebenen: das Band und das Objektbild in der
+   Karte. Die frühere Marmortextur (marble.jpg / marble2.jpg) ist ersatzlos
+   entfallen — drei konkurrierende Flächen haben den Kopf der Seite unruhig
+   gemacht.
+
+   Alle Farben, Schriftstufen, Radien und Zeiten kommen aus system.css.
+   Einzige Ausnahme ist Googles Markengelb im Bewertungssiegel; es ist eine
+   Vorgabe von Google und keine Gestaltungsentscheidung.
    =========================================================================== */
 
+/* ===========================================================================
+   1 — ABSCHNITT
+   =========================================================================== */
 .heroA {
-  --panel-pad: clamp(1.8rem, 5vw, 5rem);
+  /* Bandhöhe fällt mit wachsender Fensterbreite leicht ab. Grund: die Karte
+     wird bei mehr Breite höher (die Zeilen laufen länger), und die
+     Gesamthöhe des Hero soll über alle Desktopbreiten im Fenster von
+     760–860 px bleiben. */
+  --band-h: clamp(520px, 610px - 6vw, 580px);
+  --ueberlappung: 260px;         /* Karte beißt so weit in das Band hinein */
+  --karte-pad-x: clamp(56px, 4vw, 72px);
+  --karte-pad-y: 56px;
+
   position: relative;
-  background: var(--paper-warm);
-  padding-bottom: clamp(2rem, 5vh, 4rem);
+  isolation: isolate;
+  background: var(--estera-white);
+  /* Kein unterer Innenabstand: die Vertrauensleiste bringt ihren eigenen
+     mit. Nur so ist die Hero-Höhe exakt band + karte − überlappung. */
+  padding-bottom: 0;
 }
 
-/* --- Bildband ------------------------------------------------------------- */
+/* ===========================================================================
+   2 — BILDBAND
+   =========================================================================== */
 .heroA__band {
   position: relative;
-  height: clamp(340px, 48vh, 540px);
+  height: var(--band-h);
   overflow: hidden;
-  background: var(--navy-800);
+  background: var(--estera-navy-900);
 }
 .heroA__band img {
+  position: absolute;
+  left: 0;
+  top: -6%;
   width: 100%;
-  height: 112%;
+  height: 112%;               /* Reserve für die sanfte Parallaxe */
   object-fit: cover;
-  object-position: 50% 46%;
+  object-position: 50% 44%;
+  /* Das Band ist Tonträger, nicht Motiv: entsättigt und abgedunkelt.
+     Scharf und hell bleibt nur das Objektbild in der Karte. */
+  filter: saturate(0.32) contrast(1.06) brightness(0.84);
   transform: translateY(var(--shift, 0));
-  /* Das Band ist Tonträger — hell und scharf bleibt nur das Objektbild. */
-  filter: saturate(0.24) contrast(1.12) brightness(0.76);
   will-change: transform;
 }
-.heroA__band::after {
-  content: '';
+
+/* Einheitliches Navy-Grading. Ein einziger, sehr flacher Verlauf zwischen
+   zwei Navy-Stufen — er wirkt als geschlossene Fläche, hat aber oben und
+   unten genug Tiefe für die helle Kopfzeile bzw. die Kartenkante. */
+.heroA__grading {
   position: absolute;
   inset: 0;
-  /* EIN durchgehender vertikaler Verlauf — ein zweiter, seitlicher Verlauf
-     erzeugte eine sichtbare Kante bei ~65 % Breite. */
+  pointer-events: none;
   background: linear-gradient(to bottom,
-    rgba(10,25,46,0.66) 0%, rgba(10,25,46,0.40) 44%, rgba(10,25,46,0.52) 100%);
-  pointer-events: none;
+    var(--estera-navy-950) 0%,
+    var(--estera-navy-900) 46%,
+    var(--estera-navy-950) 100%);
+  opacity: 0.58;
 }
 
-/* --- Der eingelegte Kasten ------------------------------------------------ */
-.heroA__panel {
+/* ===========================================================================
+   3 — KARTE
+   =========================================================================== */
+.heroA__buehne {
   position: relative;
-  z-index: 3;
-  /* Flacher Überstand: der Kasten sitzt tiefer, damit mehr Band sichtbar
-     bleibt. Er beißt nur noch mit knapp einem Drittel seiner Höhe hinein. */
-  margin: clamp(-150px, -14vh, -95px) auto 0;
-  max-width: 1460px;
-  width: calc(100% - var(--gutter) * 2);
-  background: none;
+  z-index: 2;
+}
+
+.heroA__karte {
+  max-width: var(--container);        /* 1320 px */
+  margin-inline: auto;
+  margin-top: calc(-1 * var(--ueberlappung));
+  padding: var(--karte-pad-y) var(--karte-pad-x);
+  background: var(--estera-ivory-50);
+  border: 1px solid var(--estera-line-light);
+  border-radius: var(--radius-gross);
+  box-shadow: var(--schatten-karte);
+}
+
+.heroA__raster {
   display: grid;
-  /* Textspalte dominiert — der Satz soll in die Breite laufen, nicht stapeln */
-  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
-  gap: clamp(1.5rem, 3vw, 3rem);
+  grid-template-columns: repeat(var(--spalten), minmax(0, 1fr));
+  gap: var(--spalten-gap);
   align-items: center;
-  /* nur oben rund — unten läuft der Kasten in die Seite aus */
-  border-radius: var(--radius-img) var(--radius-img) 0 0;
-  isolation: isolate;
 }
 
-/* Der Kasten ist in drei Zonen aufgebaut:
-   oben deckendes Weiß (er liegt auf dem dunklen Bildband und muss decken),
-   in der Mitte die Marmorierung,
-   unten löst er sich in das Seitenpapier auf — dadurch gibt es keine
-   sichtbare Kante und keine optisch getrennten Abschnitte.
+/* Spalte 7 bleibt frei — die Ruhezone zwischen Satz und Bild. */
+.heroA__text  { grid-column: 1 / span 6; }
+.heroA__figur { grid-column: 8 / span 5; }
 
-   Bewusst ohne mask-image/mask-composite aufgebaut: Mehrschicht-Masken mit
-   Composite-Modus rendern in Safari und älteren Engines abweichend. Hier
-   liegt stattdessen der Marmor als Vollfläche unten und wird von oben mit
-   ganz normalen Verläufen abgedeckt — das funktioniert überall gleich. */
-
-/* Schicht 1: Marmor, volle Fläche */
-.heroA__panel::after {
+/* --- Textbereich ---------------------------------------------------------- */
+.heroA__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+/* Haarlinie vor dem Label — dieselbe Machart wie die Goldlinien der Seite. */
+.heroA__eyebrow::before {
   content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  /* Calacatta mit feiner, scharf gezeichneter Äderung. Bewusst OHNE
-     Multiply-Verdopplung: die hat die Fläche flächig angeschmutzt statt die
-     Adern zu schärfen — das sah nach Schmutzspur aus, nicht nach Stein. */
-  background: #FFFFFF url('../img/marble2.jpg') center / cover no-repeat;
-}
-
-/* Schicht 2: Verläufe darüber.
-   REIHENFOLGE IST ENTSCHEIDEND: In der background-Kurzschreibweise liegt der
-   zuerst genannte Verlauf oben. Der senkrechte muss deshalb zuerst stehen —
-   sonst überschreibt das deckende Weiß des waagerechten die Auflösung ins
-   Seitenpapier auf der rechten Seite, und der Kasten bekommt unter dem Bild
-   wieder eine sichtbare Kante. */
-.heroA__panel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: inherit;
-  background:
-    /* senkrecht — oben deckendes Weiß, unten Seitenpapier, über die VOLLE Breite */
-    linear-gradient(to bottom,
-      #FFFFFF 0%,
-      #FFFFFF 11%,
-      rgba(255,255,255,0.42) 28%,
-      rgba(255,255,255,0.42) 56%,
-      rgba(252,250,247,0.72) 76%,
-      var(--paper-warm) 91%,
-      var(--paper-warm) 100%),
-    /* waagerecht darunter — nimmt den Marmor zur Bildspalte hin zurück */
-    linear-gradient(100deg,
-      rgba(255,255,255,0) 34%,
-      rgba(255,255,255,0.78) 62%,
-      #FFFFFF 80%);
-}
-
-/* Umrandung als eigene Lage: oben und an den Seiten sichtbar, nach unten
-   ausblendend. Eine geschlossene Linie würde die Auflösung des Kastens in
-   die Seite zunichtemachen — deshalb die Maske. */
-.heroA__rahmen {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  border: 1px solid rgba(16, 41, 73, 0.22);
-  /* Unten KEINE Linie: dort soll der Kasten einfach weiterlaufen. */
-  border-bottom: 0;
-  border-radius: inherit;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, rgba(0,0,0,0.35) 76%, transparent 92%);
-          mask-image: linear-gradient(to bottom, #000 0%, #000 52%, rgba(0,0,0,0.35) 76%, transparent 92%);
-}
-
-.heroA__text, .heroA__figure { position: relative; z-index: 2; }
-
-.heroA__text {
-  display: grid;
-  align-content: center;
-  padding: var(--panel-pad) 0 var(--panel-pad) var(--panel-pad);
+  width: 34px;
+  height: 1px;
+  background: var(--estera-gold-600);
+  flex: 0 0 auto;
 }
 
 .heroA__h1 {
-  /* Zwei Zeilen — Größe so gebunden, dass Zeile 1 nicht umbricht */
-  font-size: clamp(1.9rem, 2.75vw, 2.75rem);
-  line-height: 1.1;
-  font-weight: 300;
-  max-width: 100%;
+  margin-top: clamp(12px, 1.2vw, 18px);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+  /* „Kapitalanlageimmobilien" ist ein 23 Zeichen langes Wort. In der
+     schmalen Textspalte muss es notfalls trennen dürfen, sonst läuft die
+     Zeile aus der Karte heraus. */
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
-.heroA__h1 .accent {
-  display: block;
-  color: var(--accent);
-}
+.heroA__h1 .rotator { color: var(--estera-navy-600); }
 
 .heroA__lead {
-  margin-top: 32px;
-  max-width: 100%;
-  /* Optischer Ausgleich der kleineren x-Höhe von Jost — siehe hero-b.css */
-  font-size: clamp(1.37rem, 2.08vw, 2.08rem);
-  line-height: 1.34;
-  font-weight: 400;
-  color: var(--ink-black);
+  margin-top: var(--raum-h2-lead);
+  max-width: 620px;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--estera-blue-grey-700);
   text-wrap: pretty;
 }
 
-.heroA__actions {
-  margin-top: 40px;
+.heroA__aktionen {
+  margin-top: clamp(24px, 2.2vw, 32px);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
+/* Knöpfe nur so breit wie ihr Text — keine gestreckten Flächen. */
+.heroA__aktionen .btn,
+.heroA__aktionen .btn--ghost { flex: 0 0 auto; }
 
-/* --- Objektbild rechts, Querformat --------------------------------------- */
-.heroA__figure {
+/* --- Objektbild ----------------------------------------------------------- */
+/* Die Klasse heisst bewusst nicht mehr heroA__rahmen: unter diesem Namen
+   liegt in der alten Hero-Auszeichnung ein leerer Rahmen-Span. */
+.heroA__figur { position: relative; }
+.heroA__bildfeld {
   position: relative;
-  padding: var(--panel-pad) var(--panel-pad) var(--panel-pad) 0;
-}
-.heroA__figure > div {
-  position: relative;
-  aspect-ratio: 5 / 4;      /* etwas höher als 4:3 — Gebäude steht trotzdem vollständig */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: var(--radius-btn);
-  background: var(--navy-800);
+  border-radius: var(--radius-karte);
+  background: var(--estera-navy-800);
 }
-.heroA__figure img {
-  width: 100%; height: 100%;
+.heroA__figur img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: 50% 55%;
-  /* Einziger heller, scharfer Bildträger — bewusst nicht so dunkel wie das Band */
-  filter: saturate(0.44) contrast(1.05);
+  object-position: 50% 56%;
+  /* Deutlich entsättigt: der Himmel des Motivs ist kräftig blau und würde
+     sonst das farbigste Element der ganzen Seite sein. Hell und scharf
+     bleibt das Bild trotzdem — es ist der einzige Bildträger mit Motiv. */
+  filter: saturate(0.34) contrast(1.05) brightness(1.02);
   transform: scale(1.02);
   transition: transform 2.2s var(--ease-soft);
 }
-.heroA__panel:hover .heroA__figure img { transform: scale(1.055); }
-.heroA__figure figcaption {
+.heroA__karte:hover .heroA__figur img { transform: scale(1.05); }
+
+/* Die Bildunterschrift steht auf einer eigenen, deckenden Navy-Fläche.
+   Ein Verlauf über dem Foto reicht nicht: je nach Bildausschnitt säße
+   heller Text auf heller Fassade. */
+.heroA__figur figcaption {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 3rem 1.2rem 1rem;
-  background: linear-gradient(to top, rgba(10,25,46,0.86) 0%, rgba(10,25,46,0.5) 45%, rgba(10,25,46,0) 100%);
-  color: #fff;
-  font-size: 0.77rem;
+  left: 16px;
+  bottom: 16px;
+  padding: 9px 16px;
+  border-radius: var(--radius-btn);
+  background: var(--estera-navy-950);
+  color: var(--estera-ivory-50);
+  font-family: var(--font-ui);
   font-weight: 500;
+  font-size: var(--fs-label);
   letter-spacing: 0.2em;
+  text-indent: 0.2em;
   text-transform: uppercase;
+  line-height: 1.2;
 }
 
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 980px) {
-  .heroA { --panel-pad: clamp(1.4rem, 5vw, 2.2rem); }
-  .heroA__panel {
-    grid-template-columns: 1fr;
-    margin-top: clamp(-120px, -12vh, -70px);
-    gap: 0;
+/* ===========================================================================
+   4 — VERTRAUENSLEISTE
+   Google-Siegel und vier Beispiel-Logos in einer Reihe. Die Leiste trägt
+   keinen Schatten und keine Fläche — sie ist eine Zeile, kein Kasten.
+   =========================================================================== */
+.trust {
+  /* Gleicher Wert wie der Innenabstand der Hero-Karte — Custom Properties
+     erben nicht über Abschnittsgrenzen hinweg, deshalb hier noch einmal. */
+  --karte-pad-x: clamp(56px, 4vw, 72px);
+  background: var(--estera-white);
+  padding-top: clamp(28px, 3vw, 44px);
+  padding-bottom: clamp(22px, 2.4vw, 34px);
+}
+
+.trust__leiste {
+  display: flex;
+  align-items: center;
+  min-height: 108px;                 /* Vorgabe: 96–120 px */
+  /* Gleicher Innenabstand wie die Karte darüber: das Siegel steht damit
+     exakt auf der linken Kante der Überschrift, das letzte Logo auf der
+     rechten Kante des Objektbildes. */
+  padding-inline: var(--karte-pad-x);
+  border-top: 1px solid var(--estera-line-light);
+  border-bottom: 1px solid var(--estera-line-light);
+}
+
+.trust__einheit {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: clamp(14px, 1.8vw, 30px);
+}
+.trust__einheit--siegel {
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  padding-left: 0;
+}
+/* Feine Senkrechte zwischen den Einheiten */
+.trust__einheit + .trust__einheit::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 44px;
+  background: var(--estera-line-light);
+}
+
+/* --- Logos ---------------------------------------------------------------- */
+/* Alle vier Kästchen sind exakt gleich hoch (40 px). Die Breite steuert je
+   Logo, wie gross das Zeichen darin tatsächlich erscheint — Bildmarken
+   dürfen nicht so hoch werden wie zweizeilige Wortmarken, sonst erschlagen
+   sie die Reihe. Deshalb --lb je Logo einzeln. */
+.trust__logo {
+  position: relative;
+  display: block;
+  line-height: 0;
+}
+.trust__logo img {
+  height: 40px;
+  width: var(--lb, 120px);
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  /* Schritt 1: alles auf eine schwarze Silhouette reduzieren. */
+  filter: grayscale(1) brightness(0);
+  transition: opacity var(--t-micro) var(--ease);
+  opacity: 0.9;
+}
+/* Schritt 2: die Silhouette einfärben. „lighten" lässt den hellen Grund
+   unberührt und hebt nur das Schwarz auf den Blaugrauton der Seite —
+   dadurch sind alle vier Logos garantiert einfarbig. */
+.trust__logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--estera-blue-grey-700);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+.trust__logo:hover img { opacity: 1; }
+
+/* --- Google-Bewertungssiegel ---------------------------------------------- */
+/* Die Auszeichnung stammt unverändert aus dem Abschnitt „Kunden, die uns
+   vertrauen". Dort liegt sie absolut positioniert auf der Kante der
+   Überschrift; hier steht sie in der Reihe. Die Regeln sind deshalb
+   vollständig neu gesetzt und höher gewichtet als die in referenzen.css. */
+.trust .ref__siegel {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  color: var(--ink-black);
+  text-decoration: none;
+}
+.trust .ref__siegel-g {
+  flex: 0 0 auto;
+  width: 26px;
+  height: auto;
+}
+.trust .ref__siegel-txt {
+  display: grid;
+  gap: 3px;
+  line-height: 1.25;
+}
+/* Googles Gelb, nicht Estera-Gold: das Siegel ist ein Beleg und soll als
+   Google-Bewertung erkennbar bleiben. */
+.trust .ref__siegel-sterne {
+  display: flex;
+  gap: 1.5px;
+  color: #F4B400;
+}
+.trust .ref__siegel-sterne svg {
+  width: 13px;
+  height: auto;
+  fill: currentColor;
+  display: block;
+}
+.trust .ref__siegel-wert {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--fs-klein);
+  color: var(--ink-black);
+}
+.trust .ref__siegel-quelle {
+  position: relative;
+  align-self: start;
+  font-family: var(--font-ui);
+  font-size: var(--fs-label);
+  letter-spacing: 0.04em;
+  color: var(--estera-blue-grey-700);
+}
+.trust .ref__siegel-quelle::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: var(--estera-line-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-komp) var(--ease);
+}
+.trust .ref__siegel:hover .ref__siegel-quelle::after,
+.trust .ref__siegel:focus-visible .ref__siegel-quelle::after { transform: scaleX(1); }
+
+/* --- Platzhalterhinweis --------------------------------------------------- */
+/* Fliegt mit den echten Referenzen raus. Gleiche Machart wie die übrigen
+   Hinweise im Projekt: kleine Zeile, blaugrau, direkt unter dem Bauteil. */
+.trust__hinweis {
+  margin-top: 14px;
+  padding-inline: var(--karte-pad-x);
+  font-family: var(--font-ui);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  color: var(--estera-blue-grey-700);
+}
+
+/* ===========================================================================
+   5 — SCHMALERE FENSTER
+   =========================================================================== */
+
+/* Ab hier passt das Bild nicht mehr neben den Satz. */
+@media (max-width: 1080px) {
+  .heroA {
+    --band-h: clamp(380px, 42vw, 460px);
+    --ueberlappung: clamp(120px, 14vw, 180px);
+    --karte-pad-x: clamp(28px, 4vw, 44px);
+    --karte-pad-y: clamp(32px, 4vw, 44px);
   }
-  /* Text und Bild auf EINER gemeinsamen linken Kante */
-  .heroA__text   { padding: var(--panel-pad) var(--panel-pad) 0; }
-  .heroA__figure { padding: var(--panel-pad); }
-  .heroA__h1 { font-size: clamp(1.95rem, 5.2vw, 2.5rem); }
+  .heroA__raster { gap: clamp(28px, 4vw, 40px); }
+  .heroA__text,
+  .heroA__figur { grid-column: 1 / -1; }
+  .heroA__bildfeld { aspect-ratio: 16 / 9; }
+
+  .trust__leiste {
+    min-height: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(18px, 3vw, 32px) 0;
+    padding-block: 24px;
+    padding-inline: 0;
+  }
+  .trust__einheit--siegel {
+    flex: 1 0 100%;
+    justify-content: center;
+    padding-left: clamp(14px, 1.8vw, 30px);
+  }
+  .trust__einheit--siegel + .trust__einheit::before { display: none; }
+  .trust__hinweis { padding-inline: 0; text-align: center; }
 }
 
 @media (max-width: 620px) {
-  .heroA__band { height: 300px; }
-  .heroA__h1 {
-    font-size: clamp(1.45rem, 6.4vw, 2.3rem);
-    hyphens: auto;
-    overflow-wrap: break-word;
-  }
-  .heroA__actions { flex-direction: column; align-items: stretch; }
-  .heroA__actions .btn { justify-content: center; }
+  .heroA { --band-h: 300px; --ueberlappung: 90px; }
+  /* Auf dem Telefon steht die Headline eine Stufe kleiner — sonst muss
+     „Kapitalanlageimmobilien" mitten im Wort trennen. Damit die Rangfolge
+     erhalten bleibt, geht der Lead eine Stufe mit nach unten. */
+  .heroA__h1   { font-size: var(--fs-h3); }
+  .heroA__lead { font-size: var(--fs-body); }
+  .heroA__aktionen { flex-direction: column; align-items: stretch; }
+  .heroA__aktionen .btn,
+  .heroA__aktionen .btn--ghost { flex: 1 1 auto; }
+  /* Siegel auf eigener Zeile, darunter die vier Logos als 2 × 2. */
+  .trust__einheit { flex: 0 0 50%; padding-block: 6px; }
+  .trust__einheit--siegel { flex: 1 0 100%; }
+  .trust__einheit + .trust__einheit::before { display: none; }
+}
+
+/* Ohne Bewegungswunsch steht das Band still. */
+@media (prefers-reduced-motion: reduce) {
+  .heroA__band img,
+  .heroA__figur img { transform: none; transition: none; }
 }

@@ -1,8 +1,16 @@
 /* ===========================================================================
-   SECTION 9 UND FUSS
+   ABSCHLUSS DER STARTSEITE — FRAGEN UND KARRIERE
+
+   Zwei eigenstaendige Abschnitte auf hellem Grund:
+   1. „Fragen, die vor der ersten Immobilie kommen." — sechs Verweise auf
+      die Unterseite wissen.html, zweispaltig, in der Anmutung eines FAQ.
+   2. Karriere — ein grossflaechiger Navy-Block als Abschluss der Seite.
+
+   Alle Farben, Schriftstufen, Abstaende, Radien und Zeiten kommen aus
+   system.css. Diese Datei definiert keine eigenen Werte.
 
    Auf Kundenwunsch entfernt und nur noch in der Versionsgeschichte:
-   Section 7 (Werte und Selektion) sowie der Abschluss-CTA "Der naechste
+   Section 7 (Werte und Selektion) sowie der Abschluss-CTA „Der naechste
    Schritt ist ein Gespraech" samt seinen Regeln .abschluss*.
 
    Briefing S.7, S.18, S.19: „Ein kurzer Einstieg in Wissen & Fragen und
@@ -12,108 +20,242 @@
 .schluss {
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  /* Unten wieder eigener Abstand: der Abschluss-CTA, der ihn frueher
-     mitgebracht hat, ist auf Kundenwunsch entfallen. */
-  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(3.5rem, 9vh, 6rem);
-}
-.schluss__inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+  background: var(--estera-white);
 }
 
-/* --- Wissen & Fragen ------------------------------------------------------ */
-.wissen__kopf { max-width: 900px; }
-.wissen__h2 {
-  font-size: clamp(1.7rem, 2.7vw, 2.7rem);
-  line-height: 1.14;
-}
-.wissen__lead {
-  margin-top: clamp(1rem, 2.4vh, 1.5rem);
-  max-width: 40rem;
-  font-size: clamp(1.02rem, 1.14vw, 1.14rem);
-  line-height: 1.58;
-  color: var(--ink-soft);
-}
+/* Die beiden Abschnitte lesen sich als eine zusammenhaengende helle Flaeche:
+   der Fragenteil bringt den grossen Abstand nach oben mit, der Karriereteil
+   den grossen Abstand nach unten zum Fuss. */
+.schluss--wissen   { padding-block: var(--sect-gross) var(--sect-normal); }
+.schluss--karriere { padding-block: var(--sect-kompakt) var(--sect-gross); }
 
-/* Nur die Fragen, keine Antworten: die Antworten gehoeren laut Briefing S.3
-   auf die Unterseite, nicht auf die Startseite. */
+/* ===========================================================================
+   FRAGEN — Kopf
+   Ueberschrift oben links, darunter die kurze Einleitung. Beides steht
+   woertlich so im Text; hier wird ausschliesslich gesetzt, nicht getextet.
+   =========================================================================== */
+.wissen__kopf { max-width: 100%; }
+
+.wissen__h2 { color: var(--ink-black); }
+
+.wissen__lead { margin-top: var(--raum-h2-lead); }
+
+/* ===========================================================================
+   FRAGEN — Liste
+
+   WICHTIG: Hier stehen nur die FRAGEN, keine Antworten. Die Antworten
+   gehoeren laut Briefing S.3 auf die Unterseite wissen.html. Deshalb ist
+   dies KEIN Akkordeon, sondern eine Liste von Verweisen — und deshalb zeigt
+   der Indikator nach RECHTS und nicht nach unten. Ein nach unten zeigender
+   Pfeil wuerde ein Aufklappen versprechen, das es nicht gibt.
+
+   SOBALD wissen.html existiert UND echte Antworten geliefert sind, kann
+   daraus ein echtes Akkordeon werden: aus dem <a> wird ein <button
+   aria-expanded>, der Pfeil dreht sich um 90 Grad (transform: rotate(90deg)
+   auf .wissen__frage::after), und unter jeder Frage oeffnet sich ein
+   Antwortfeld. Die Zeilenhoehe, die Linien und der Raster bleiben dabei
+   unveraendert — es aendert sich nur der Zustand, nicht die Anmutung.
+   Bis dahin: KEINE erfundenen Antworten.
+
+   Zwei Spalten, hoechstens drei Fragen je Spalte. Der Fluss laeuft
+   spaltenweise (1–3 links, 4–6 rechts), damit die Lesereihenfolge der
+   Tabulator-Reihenfolge entspricht.
+   =========================================================================== */
 .wissen__fragen {
-  margin-top: clamp(2rem, 4.5vh, 3rem);
+  margin-top: var(--raum-lead-inhalt);
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 clamp(2rem, 5vw, 4.5rem);
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-columns: minmax(0, 1fr);
+  /* Spaltenabstand laut Vorgabe zwischen 64 und 96 px. */
+  column-gap: clamp(64px, 5vw, 96px);
 }
+
 .wissen__frage {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 1rem;
-  padding: clamp(1rem, 2.2vh, 1.4rem) 0;
-  border-bottom: 1px solid var(--line-soft);
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.16vw, 1.16rem);
+  column-gap: clamp(16px, 1.6vw, 28px);
+  /* Grosszuegige Klickflaeche — deutlich ueber den geforderten 56 px. */
+  min-height: 84px;
+  padding-block: clamp(22px, 2vw, 30px);
+  border-top: 1px solid var(--estera-line-light);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--fs-h4);
   line-height: 1.35;
   color: var(--ink-black);
-  transition: color 0.4s var(--ease);
-}
-.wissen__frage::after {
-  content: '';
-  width: 18px;
-  height: 1px;
-  background: var(--line-gold);
-  transition: width 0.4s var(--ease-soft);
-}
-.wissen__frage:hover { color: var(--navy-600); }
-.wissen__frage:hover::after { width: 30px; }
-.wissen__frage[aria-disabled='true'] { cursor: default; }
-
-/* --- Karriere ------------------------------------------------------------- */
-.karriere {
-  margin-top: clamp(3.5rem, 9vh, 6.5rem);
-  padding: clamp(2rem, 4.5vw, 3.6rem);
-  border: 1px solid var(--line-gold);
-  border-radius: var(--radius-img);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-  gap: clamp(1.4rem, 4vw, 3.4rem);
-  align-items: center;
-}
-.karriere__titel {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.1vw, 2.1rem);
-  font-weight: 400;
-  line-height: 1.18;
-  color: var(--ink-black);
-}
-.karriere__titel em { font-style: italic; color: var(--ink-mute); }
-.karriere__satz {
-  font-size: clamp(1rem, 1.1vw, 1.1rem);
-  line-height: 1.6;
-  color: var(--ink-soft);
   text-wrap: pretty;
+  transition: color var(--t-micro) var(--ease);
 }
-.karriere__link {
-  display: inline-block;
-  margin-top: clamp(1rem, 2.2vh, 1.4rem);
-  position: relative;
-  padding-bottom: 0.4em;
-  font-family: var(--font-display);
-  font-size: clamp(0.98rem, 1.1vw, 1.1rem);
-  font-weight: 500;
-  color: var(--navy-800);
-}
-.karriere__link::after {
+
+/* Die letzte Frage jeder Spalte schliesst die Liste unten ab. */
+.wissen__frage:nth-child(3),
+.wissen__frage:nth-child(6) { border-bottom: 1px solid var(--estera-line-light); }
+
+/* Goldene Haarlinie, die beim Ueberfahren ueber die obere Linie laeuft. */
+.wissen__frage::before {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  inset-inline: 0;
+  top: -1px;
   height: 1px;
-  background: var(--line-gold);
-  transition: background 0.4s var(--ease);
+  background: var(--estera-gold-600);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--t-komp) var(--ease-soft);
 }
-.karriere__link:hover::after { background: var(--gold); }
-.karriere__link[aria-disabled='true'] { cursor: default; }
+
+/* Pfeil nach rechts — dieselbe Kontur wie .link-pfeil in system.css. */
+.wissen__frage::after {
+  content: '';
+  width: 22px;
+  height: 10px;
+  background: var(--estera-blue-grey-400);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath d='M0 4h13.5M10.5 1 14 4l-3.5 3' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath d='M0 4h13.5M10.5 1 14 4l-3.5 3' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center / contain;
+  transition: transform var(--t-micro) var(--ease), background var(--t-micro) var(--ease);
+}
+
+.wissen__frage__t {
+  display: block;
+  transition: transform var(--t-komp) var(--ease-soft);
+}
+
+.wissen__frage:hover,
+.wissen__frage:focus-visible { color: var(--estera-navy-700); }
+.wissen__frage:hover::before,
+.wissen__frage:focus-visible::before { transform: scaleX(1); }
+.wissen__frage:hover::after,
+.wissen__frage:focus-visible::after { background: var(--estera-gold-600); transform: translateX(6px); }
+.wissen__frage:hover .wissen__frage__t,
+.wissen__frage:focus-visible .wissen__frage__t { transform: translateX(6px); }
+
+/* Gesperrter Zustand: Die Zeile bleibt voll lesbar, nur der Zeiger und der
+   Indikator zeigen, dass es (noch) nicht weitergeht. Kein Abdunkeln — der
+   Text muss auch gesperrt seinen Kontrast behalten. */
+.wissen__frage[aria-disabled='true'] { cursor: default; }
+.wissen__frage[aria-disabled='true']:hover::before { transform: scaleX(0); }
+.wissen__frage[aria-disabled='true']:hover::after { transform: none; background: var(--estera-line-mid); }
+
+/* ===========================================================================
+   KARRIERE — Navy-Abschluss
+
+   Ersetzt die frueher alleinstehende helle Box. Ein geeignetes Teamfoto gibt
+   es nicht, deshalb traegt eine sehr zurueckhaltende Liniengrafik
+   (reines SVG, 1 px, weiss mit 10–16 % Deckung) die rechte Haelfte.
+   =========================================================================== */
+.karriere {
+  /* Eine Spalte des 12er-Rasters und die daraus abgeleiteten Textbreiten.
+     Beides folgt --container und --spalten-gap aus system.css. */
+  --spalte:  calc((var(--container) - 11 * var(--spalten-gap)) / 12);
+  --breite6: calc(6 * var(--spalte) + 5 * var(--spalten-gap));
+  --breite5: calc(5 * var(--spalte) + 4 * var(--spalten-gap));
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--radius-gross);
+  background: var(--estera-navy-800);
+  min-height: clamp(420px, 34vw, 520px);
+  padding: clamp(40px, 4.4vw, 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Liniengrafik: rechte Haelfte, unten buendig, nie ueber dem Text. */
+.karriere__linien {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: min(48%, 600px);
+  height: min(88%, 460px);
+  pointer-events: none;
+}
+.karriere__linien path { vector-effect: non-scaling-stroke; }
+
+/* Textbereich: sechs Spalten. */
+.karriere__text {
+  width: 100%;
+  max-width: min(var(--breite6), 100%);
+}
+
+/* Das kleine goldene Zeichen — die einzige Stelle, an der auf Navy Gold
+   erscheint. Rein grafisch, kein Text. */
+.karriere__strich {
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: var(--estera-gold-600);
+  margin-bottom: clamp(20px, 2vw, 32px);
+}
+
+.karriere__titel {
+  color: var(--estera-ivory-50);
+  font-family: var(--font-display);
+  font-weight: 300;
+}
+.karriere__titel em { font-style: italic; font-weight: 300; }
+
+/* Der Fliesstext steht auf 4–5 Spalten, nicht auf der vollen Textbreite. */
+.karriere__satz {
+  max-width: min(var(--breite5), 100%);
+  margin-top: clamp(16px, 1.6vw, 24px);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: rgba(255, 255, 255, 0.78);
+  text-wrap: pretty;
+}
+
+/* Die Aktion: helle Schaltflaeche aus system.css, damit sie auf Navy sofort
+   als Aktion gelesen wird. Bewusst NICHT zusaetzlich .btn — sonst greift
+   .btn[aria-disabled] mit opacity 0.45 und der Kontrast bricht ein. */
+.karriere__link { margin-top: clamp(28px, 2.8vw, 40px); }
+
+/* karriere.html gibt es noch nicht; site.js sperrt solche Verweise und setzt
+   aria-disabled. Gesperrt heisst hier: sichtbar zurueckgenommen, aber immer
+   noch klar lesbar (rund 7:1 auf Navy). Ein blosses opacity waere auf
+   dunklem Grund nicht barrierefrei. */
+.karriere__link[aria-disabled='true'] {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.72);
+  box-shadow: none;
+  transform: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ===========================================================================
+   RESPONSIVE — Fragen und Karriere
+   Die abschliessende Regelgruppe fuer den Fuss bleibt unveraendert; die
+   dortige Angabe .wissen__fragen { grid-template-columns: 1fr } ergaenzt
+   den hier gesetzten Zeilenfluss.
+   =========================================================================== */
+@media (max-width: 900px) {
+  .wissen__fragen { grid-auto-flow: row; grid-template-rows: none; }
+  .wissen__frage:nth-child(3) { border-bottom: 0; }
+  .wissen__frage:last-child   { border-bottom: 1px solid var(--estera-line-light); }
+
+  .karriere { padding-bottom: clamp(150px, 28vw, 220px); }
+  .karriere__linien { width: 100%; height: 34%; }
+}
+
+@media (max-width: 560px) {
+  /* Die Beschriftung der Schaltflaeche ist lang und darf umbrechen. */
+  .karriere__link {
+    height: auto;
+    min-height: 56px;
+    padding-block: 14px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+  }
+}
 
 /* ===========================================================================
    FUSS
