@@ -1,453 +1,291 @@
 /* ===========================================================================
-   KUNDEN, DIE UNS VERTRAUEN
-   Ein Fries über die volle Breite: oben und unten eine Goldhaarlinie,
-   dazwischen vier Spalten, durch Haarlinien getrennt.
+   GOOGLE-REZENSIONEN   (Briefing 02 Punkt 2, Briefing 03 A)
 
-   Bewusst KEIN gerahmter Kasten mit Radius wie in der Referenz. Ein
-   abgerundetes Rechteck mit heller Kontur ist die Formsprache eines
-   UI-Baukastens; der Rest der Seite arbeitet mit gestochenen Haarlinien.
+   Aufbau: links Überschrift und Google-Siegel, senkrecht mittig; rechts die
+   Rezensionen als endlos laufende Reihe. Die Reihe läuft bis an den rechten
+   Fensterrand — deshalb hat der Umschlag rechts keinen Rand und die Karten
+   werden an der Kante weich ausgeblendet.
 
-   Die vier Größenstufen tragen die Wirkung:
-     Zitat    groß, kursiv      — der eigentliche Inhalt
-     Name     mittel            — die Unterschrift darunter
-     Logo     klein             — die Marke, nicht der Held
-     Rolle    sehr klein, Kapitälchen mit Sperrsatz
-   Ohne diesen Kontrast liest sich die Tafel wie ein Formular. Die Rangfolge
-   macht die GRÖSSE, nicht die Entsättigung — Logos und Porträts stehen
-   deshalb in voller Farbe.
+   Die Karte folgt der Vorlage des Kunden (WhatsApp 14.08.2026): rundes
+   Porträt, das zur Hälfte über die Oberkante hinausragt, darunter fünf
+   gefüllte Sterne in Navy, der Text mittig in Anführungszeichen, unten die
+   Unterschrift in Handschrift. Warmes Elfenbein auf Weiß, weicher Schatten,
+   grosser Eckenradius, keine Kontur.
+
+   Gleiche Kartenhöhe: die Spur steht auf align-items: stretch, dadurch sind
+   alle Zellen einer Reihe exakt gleich hoch. Die Karte füllt ihre Zelle
+   (flex: 1), und die Unterschrift wird mit margin-top: auto nach unten
+   gedrückt — sie steht dadurch auch bei kurzen Rezensionen auf der
+   Unterkante und schwebt nicht in der Mitte.
+
+   Die Bewegung und der Knopf „Mehr" liegen in assets/js/rezensionen.js.
    =========================================================================== */
 
 .ref {
-  /* Innenabstand der Spalten — steht hier oben, weil der Fries ihn unten
-     als negative Außenmarge wieder herauszieht. */
-  --ref-pad: clamp(1.6rem, 2.6vw, 2.8rem);
+  --rez-karte:    #F6F2EC;   /* warmes Elfenbein der Karte                     */
+  --rez-schrift:  #1B2A3D;   /* Text auf der Karte, 13.2:1 auf Elfenbein       */
+  --rez-breite:   clamp(304px, 25vw, 376px);
+  --rez-luft:     clamp(22px, 1.9vw, 30px);   /* Innenrand der Karte           */
+  --rez-abstand:  clamp(20px, 1.8vw, 28px);   /* Abstand zwischen den Karten   */
+  --rez-portraet: clamp(78px, 6vw, 92px);     /* Durchmesser des Porträts      */
+  --rez-kreis:    #EAE3D8;   /* Scheibe hinter den Initialen, warmer Sand      */
+
   position: relative;
   z-index: 1;
   background: var(--paper);
-  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(2rem, 5vh, 4rem);
+  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
+  overflow: hidden;   /* die laufende Reihe darf die Seite nicht verbreitern */
 }
 
-/* Deutlich breiter als die Textabschnitte — der Fries soll quer über die
-   Seite laufen, nicht in der Spalte stehen. */
+/* Zwei Spalten: links der feste Textblock, rechts die Reihe bis zum Rand. */
 .ref__inner {
-  max-width: 1760px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-
-/* --- Kopf ----------------------------------------------------------------- */
-/* Der Kopf laeuft ueber die volle Breite, damit das Google-Siegel links
-   aussen sitzen kann. Die Ueberschrift bleibt trotzdem auf der Seitenmitte —
-   sie wird eigenmittig begrenzt, nicht der Kopf. */
-.ref__head {
-  position: relative;
   display: grid;
-  place-items: center;
-  min-height: clamp(56px, 6vw, 76px);
-}
-.ref__h2 {
-  max-width: 900px;
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
-  text-align: center;
-}
-
-/* --- Google-Siegel -------------------------------------------------------- */
-/* Sitzt auf der linken Kante des Satzspiegels — also exakt dort, wo darunter
-   das erste Logo und der erste Name beginnen. */
-.ref__siegel {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
+  grid-template-columns: minmax(280px, 25vw) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
-  gap: clamp(0.6rem, 1vw, 0.85rem);
-  padding: 0.5rem 0;
-  color: var(--ink-black);
-  text-decoration: none;
-}
-.ref__siegel-g {
-  flex: 0 0 auto;
-  width: clamp(22px, 1.9vw, 27px);
-  height: auto;
-}
-.ref__siegel-txt {
-  display: grid;
-  gap: 0.22em;
-  line-height: 1.25;
+  padding-left: var(--gutter);
 }
 
-/* Googles Gelb, nicht Estera-Gold: das Siegel ist ein Fremdkoerper mit
-   Beleg-Funktion — es soll als Google-Bewertung erkennbar sein und sich
-   nicht in die Seite einfuegen. */
-.ref__siegel-sterne {
-  display: flex;
-  gap: 1.5px;
-  color: #F4B400;
-}
-.ref__siegel-sterne svg {
-  width: clamp(12px, 1.05vw, 14px);
-  height: auto;
-  fill: currentColor;
-  display: block;
+/* --- Linke Spalte --------------------------------------------------------- */
+.ref__h2 {
+  font-size: clamp(1.9rem, 2.9vw, 2.9rem);
+  line-height: 1.1;
 }
 
+/* Das Siegel trägt nur noch Sterne und Wert. Die Zeile „5 Bewertungen auf
+   Google" ist auf Kundenwunsch (14.08.2026) entfallen und kommt nicht
+   zurück — die Zahl der Bewertungen soll nicht ausgestellt werden. */
+.ref__siegel {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.7rem, 1.2vw, 1rem);
+  margin-top: clamp(1.4rem, 3vh, 2rem);
+  padding: clamp(0.7rem, 1.4vh, 0.95rem) clamp(1rem, 1.6vw, 1.3rem);
+  border: 1px solid var(--line-gold);
+  border-radius: var(--radius-btn);
+  transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+.ref__siegel:hover { border-color: var(--gold); background: rgba(168, 135, 79, 0.05); }
+.ref__siegel-g { width: 26px; height: 26px; flex: 0 0 auto; }
+.ref__siegel-txt { display: grid; gap: 3px; }
+.ref__siegel-sterne { display: flex; gap: 2px; }
+.ref__siegel-sterne svg { width: 13px; height: 13px; fill: var(--gold); }
 .ref__siegel-wert {
   font-family: var(--font-display);
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   font-weight: 500;
   color: var(--ink-black);
 }
-/* Anzahl und Quelle stehen bewusst dabei: wer mit einem Bewertungsschnitt
-   wirbt, muss erkennbar machen, worauf er beruht und woher er stammt. */
-.ref__siegel-quelle {
+
+/* Der Platzhalterhinweis bleibt sichtbar stehen, solange Demo-Texte laufen.
+   Er verhindert, dass erfundene Bewertungen versehentlich live gehen. */
+.ref__hinweis {
+  margin-top: clamp(1.4rem, 3vh, 2rem);
+  max-width: 30rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--gold-text);
+}
+
+/* --- Die laufende Reihe --------------------------------------------------- */
+.rez__band {
   position: relative;
-  align-self: start;
-  font-size: clamp(0.66rem, 0.72vw, 0.73rem);
-  letter-spacing: 0.08em;
-  color: var(--ink-mute);
+  overflow: hidden;
+  /* Weiche Kante links und rechts, damit die Karten nicht abgeschnitten
+     wirken, sondern in die Fläche hineinlaufen. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 72px, #000 calc(100% - 96px), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 72px, #000 calc(100% - 96px), transparent 100%);
 }
-.ref__siegel-quelle::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: -2px;
-  height: 1px;
-  background: var(--line-gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s var(--ease);
-}
-.ref__siegel:hover .ref__siegel-quelle::after,
-.ref__siegel:focus-visible .ref__siegel-quelle::after { transform: scaleX(1); }
+/* Ohne Javascript bleibt die Reihe stehen und lässt sich seitlich schieben. */
+.rez__band:not([data-laeuft]) { overflow-x: auto; scrollbar-width: none; }
+.rez__band:not([data-laeuft])::-webkit-scrollbar { display: none; }
 
-/* --- Der Fries ------------------------------------------------------------ */
-.ref__tafel {
-  margin-top: clamp(2.6rem, 6.5vh, 4.5rem);
-  /* Zwei Goldhaarlinien fassen den Fries oben und unten ein.
-     Gold für die Klammer, Navy-Grau für die Spaltenlinien darin —
-     die Rangfolge muss auch in den Linien lesbar sein. */
-  border-top: 1px solid var(--line-gold);
-  border-bottom: 1px solid var(--line-gold);
-  /* Der Fries wird um genau den Spalten-Innenabstand nach außen gezogen.
-     Dadurch steht der Text der ersten Spalte exakt auf dem Seitenrand,
-     ALLE vier Spalten behalten aber dieselbe Zeilenbreite. Zog man
-     stattdessen nur außen das Padding ab, waren Spalte 1 und 4 breiter
-     und brachen anders um als 2 und 3.
-     Die Goldlinien laufen dadurch etwas über den Satzspiegel hinaus —
-     genau das lässt den Fries über die ganze Seite laufen. */
-  margin-inline: calc(-1 * min(var(--ref-pad), var(--gutter)));
-  display: grid;
-  /* Reine fr-Werte, KEIN minmax(): nur so lassen sich die Spalten beim
-     Aufklappen weich ineinander ueberfuehren. Das min-width:0 dafuer
-     steht an der Karte. */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+.rez__lauf {
+  --dauer: 90s;
+  display: flex;
+  width: max-content;
+}
+/* Läuft nach RECHTS: von -50 % (die geklonte zweite Spur steht dann im Bild)
+   auf 0. Weil beide Spuren identisch sind und der Weg exakt einer Spurbreite
+   entspricht, ist der Umschlagpunkt nicht zu sehen. */
+[data-laeuft] .rez__lauf {
+  animation: rez-lauf var(--dauer) linear infinite;
+}
+@keyframes rez-lauf {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+/* Angehalten, solange eine Karte offen ist oder der Fokus per Tastatur in
+   der Reihe steht. animation-play-state friert ein, ohne zu springen. */
+[data-pause] .rez__lauf,
+[data-fokus] .rez__lauf { animation-play-state: paused; }
+
+.rez__spur {
+  display: flex;
+  align-items: stretch;          /* macht alle Karten einer Reihe gleich hoch */
+  gap: var(--rez-abstand);
+  /* Seitlich je die halbe Lücke: an der Nahtstelle zwischen Original und
+     Klon entsteht dadurch genau derselbe Abstand wie zwischen zwei Karten
+     innerhalb einer Spur. Sonst wäre der Umlauf an der Naht messbar. */
+  padding: calc(var(--rez-portraet) / 2 + 16px) calc(var(--rez-abstand) / 2) 26px;
+  margin: 0;
+  list-style: none;
+}
+.rez {
+  display: flex;                 /* damit die Karte die volle Zellhöhe füllt */
+  flex: 0 0 var(--rez-breite);
+  width: var(--rez-breite);
 }
 
-.ref__karte {
+/* --- Die Karte ------------------------------------------------------------ */
+.rez__karte {
   position: relative;
-  min-width: 0;
-  overflow: hidden;
-  padding: clamp(2.4rem, 4.5vh, 3.6rem) var(--ref-pad);
+  flex: 1;
   display: flex;
-  align-items: stretch;
-  text-align: left;
-}
-
-/* Die feste Spalte: Logo, Name, Taetigkeit, Strich, Portraet.
-   Sie behaelt beim Aufklappen ihre Breite — der zusaetzliche Platz geht
-   komplett an das Zitat rechts daneben. Deshalb `max-width` statt einer
-   Prozentbreite: bis dahin waechst sie mit, dann steht sie.
-   Alle Zeilen darin haben feste Hoehen bzw. genau eine Zeile — sie
-   fluchten dadurch ueber alle vier Spalten hinweg auch ohne subgrid. */
-.ref__inhalt {
-  /* Feste Basis, kein Wachstum: dadurch bekommt die linke Spalte im
-     Ruhezustand die ganze Karte (sie schrumpft auf deren Breite) und beim
-     Aufklappen geht der komplette Zuwachs an das Zitat rechts. */
-  flex: 0 1 clamp(180px, 19.5vw, 300px);
-  min-width: 0;
-  align-self: flex-start;
-  display: grid;
-  align-content: start;
-  justify-items: stretch;
-  gap: clamp(1.1rem, 2.4vh, 1.7rem);
-}
-
-/* Etwas mehr Luft zwischen Marke und Mensch als zwischen den Textzeilen —
-   das Logo gehoert der Firma, alles darunter der Person. */
-.ref__logo { margin-bottom: clamp(0.5rem, 1.3vh, 0.95rem); }
-
-/* Rechte Spalte. Sie ist schlicht der Rest der Karte: im Ruhezustand geht
-   die Karte in der Breite der linken Spalte auf, es bleibt nichts uebrig.
-   Klappt die Karte auf, waechst der Rest — ohne eigene Breitenanimation. */
-.ref__aussage {
-  flex: 1 1 0;
-  min-width: 0;
-  align-self: flex-end;
-  overflow: hidden;
-}
-
-/* Goldhaarlinie zwischen Unterschrift und Zitat — als eigenes Element,
-   damit sie beim Einklappen mit dem Zitat zusammen verschwindet. */
-.ref__strich {
-  width: 48px;
-  height: 1px;
-  background: var(--line-gold);
-  transition: opacity 0.4s var(--ease), width 0.6s var(--ease-soft);
-}
-
-/* Spaltenlinien, oben und unten eingerückt — sie sollen die Goldlinien
-   nicht berühren, sonst entsteht wieder ein Gitter. */
-.ref__karte + .ref__karte::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: clamp(1.8rem, 3.4vh, 2.8rem);
-  bottom: clamp(1.8rem, 3.4vh, 2.8rem);
-  width: 1px;
-  background: var(--line-soft);
-}
-
-/* --- Logo ----------------------------------------------------------------- */
-/* Feste Höhe, nicht feste Breite: Logos gleicht man optisch über die Höhe
-   aus. `--logo-scale` am <li> justiert einzelne Marken nach, die trotz
-   gleicher Höhe zu groß oder zu klein wirken. */
-.ref__logo {
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  height: clamp(36px, 3.4vw, 48px);
-}
-.ref__logo img,
-.ref__logo svg {
-  /* Fremde Logos haben unbekannte Seitenverhaeltnisse — vom quadratischen
-     Signet bis zur breiten Wortmarke. `contain` haelt jedes in der Zeile,
-     `left center` setzt alle auf dieselbe linke Kante. */
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: left center;
-  transform: scale(var(--logo-scale, 1));
-  transform-origin: left center;
+  padding: calc(var(--rez-portraet) / 2 + var(--rez-luft) * 0.72) var(--rez-luft) var(--rez-luft);
+  border-radius: 30px;
+  background: var(--rez-karte);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.05), 0 18px 44px rgba(16, 41, 73, 0.08);
+  text-align: center;
 }
 
-/* Platzhalter, solange kein echtes Logo vorliegt. Ersetzt wird der GESAMTE
-   Inhalt von .ref__logo durch <img src="assets/img/logos/….svg" alt="Firma">. */
-.ref__logo--platzhalter {
-  gap: 0.62rem;
-  color: var(--ink-mute);
-}
-.ref__logo-monogramm {
+/* Porträt ragt zur Hälfte über die Oberkante, wie in der Vorlage. Kein Ring:
+   in der Vorlage steht der Kreis frei, der Rand entsteht nur durch den
+   weichen Schatten. */
+.rez__bild {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--rez-portraet);
+  height: var(--rez-portraet);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--rez-kreis);
+  box-shadow: 0 6px 16px rgba(16, 41, 73, 0.14);
   display: grid;
   place-items: center;
-  flex: 0 0 auto;
-  width: clamp(28px, 2.6vw, 34px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid var(--line-gold);
-  font-family: var(--font-display);
-  font-size: clamp(0.74rem, 0.86vw, 0.88rem);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-indent: 0.06em;
-  color: var(--gold-text);
 }
-.ref__logo-wort {
+.rez__bild img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+
+/* Ersatz, wenn kein Profilbild vorliegt: die Initialen im Kreis — dieselbe
+   Lösung, die Google selbst verwendet, wenn im Konto kein Bild hinterlegt
+   ist. Sechs der zehn Demo-Rezensionen laufen darüber. Der Kreis bleibt
+   hell und warm (#EAE3D8), damit die Reihe nicht von dunklen Scheiben
+   zerhackt wird; die Buchstaben stehen in Navy, 11.5:1. Für Screenreader ist der Kreis
+   aria-hidden — der Name steht ohnehin als Unterschrift in der Karte. */
+.rez__initialen {
   font-family: var(--font-display);
-  font-size: clamp(0.7rem, 0.8vw, 0.82rem);
+  font-size: calc(var(--rez-portraet) * 0.38);
   font-weight: 500;
-  letter-spacing: 0.22em;
-  text-indent: 0.22em;
-  text-transform: uppercase;
-  line-height: 1.28;
-  white-space: nowrap;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--navy-800);
+  font-variant-numeric: lining-nums;
 }
+
+/* Fünf gefüllte Sterne in Navy, Grösse und Abstand nach der Vorlage. */
+.rez__sterne {
+  display: flex;
+  gap: 7px;
+  margin-bottom: clamp(13px, 1.5vh, 17px);
+}
+.rez__sterne svg { width: 20px; height: 20px; fill: var(--navy-800); }
+
+/* --- Text ----------------------------------------------------------------- */
+/* Eingeklappt auf sechs Zeilen. Was darüber hinausgeht, holt der Knopf
+   „Mehr" hervor; assets/js/rezensionen.js blendet ihn nur dort ein, wo
+   tatsächlich etwas abgeschnitten ist. */
+.rez__text {
+  /* Zweites auto-Mass neben dem der Unterschrift: der freie Rest einer Karte
+     verteilt sich dadurch je zur Hälfte über und unter den Text. Kurze
+     Rezensionen sitzen so optisch in der Mitte, statt oben zu kleben und
+     unten ein Loch zu lassen. Die Unterschrift bleibt trotzdem auf der
+     Unterkante — sie ist das letzte Element im Kasten. */
+  margin-top: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  overflow: hidden;
+}
+.rez__karte[data-offen] .rez__text {
+  display: block;
+  -webkit-line-clamp: none;
+  line-clamp: none;
+  overflow: visible;
+}
+.rez__text p {
+  font-size: clamp(0.94rem, 1vw, 1rem);
+  line-height: 1.62;
+  color: var(--rez-schrift);
+  text-wrap: pretty;
+}
+
+.rez__mehr {
+  margin-top: 12px;
+  padding: 3px 2px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--navy-600);          /* 9.1:1 auf dem Elfenbein der Karte */
+  border-bottom: 1px solid var(--line-gold);
+  cursor: pointer;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.rez__mehr:hover { color: var(--navy-800); border-color: var(--gold); }
+/* Deutlicher Fokusring: der Knopf liegt auf farbiger Fläche, die 1px-Linie
+   aus base.css wäre dort zu leise. */
+.rez__mehr:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+.rez__mehr[hidden] { display: none; }
 
 /* --- Unterschrift --------------------------------------------------------- */
-.ref__person {
-  /* Hoehe fuer den GROSSEN Namen dauerhaft reservieren. Sonst waechst die
-     Karte beim Aufklappen um die Differenz der Schriftgroessen und die
-     ganze Seite darunter springt. Die Rechnung nutzt exakt dieselben
-     clamp-Werte wie .ref__name (Zeilenhoehe 1,25) und .ref__rolle
-     (0,5em Abstand + 1,5 Zeilenhoehe = 2em). */
-  min-height: calc(clamp(1.5rem, 1.95vw, 1.95rem) * 1.25
-                 + clamp(0.65rem, 0.71vw, 0.71rem) * 2);
-  display: grid;
-  justify-items: start;
-  /* Ohne `start` verteilt der Grid-Container die Resthöhe der subgrid-Zeile
-     auf seine Zeilen — die Namen liefen dann auseinander, je nachdem wie
-     lang die Rollenzeile daneben umbricht. */
-  align-content: start;
-}
-.ref__name {
-  font-family: var(--font-display);
-  font-size: var(--name-gr, clamp(1.08rem, 1.3vw, 1.3rem));
-  font-weight: 500;
-  line-height: 1.25;
-  color: var(--ink-black);
-  transition: font-size 0.6s var(--ease-soft);
-}
-.ref__rolle {
-  margin-top: 0.5em;
-  font-size: clamp(0.65rem, 0.71vw, 0.71rem);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  line-height: 1.5;
-  color: var(--ink-mute);
-}
-
-/* --- Zitat ---------------------------------------------------------------- */
-/* Die größte Stufe im Abschnitt. Kursiv, weil es gesprochene Rede ist. */
-.ref__zitat {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.15rem, 1.48vw, 1.48rem);
-  line-height: 1.44;
-  color: var(--ink-black);
-  /* FESTE Satzbreite, nicht 100 % der Spalte. Sonst umbricht der Text
-     waehrend des Aufklappens staendig neu — und im Ruhezustand, wo die
-     Spalte 0 px breit ist, laeuft er auf hunderte Zeilen und zieht die
-     ganze Karte auf. So bleibt der Zeilenfall konstant, die Spalte klippt
-     ihn nur. */
-  width: clamp(220px, 19.5vw, 330px);
-  text-wrap: pretty;
-  /* Der Abstand sitzt am Text, nicht an der Spalte: so kann die Spalte im
-     Ruhezustand auf 0 zusammenlaufen, ohne dass ein Polster stehen bleibt. */
-  margin-left: clamp(1.4rem, 2.2vw, 2.4rem);
-  opacity: 0;
-  transition: opacity 0.45s var(--ease);
-  /* Hängende Interpunktion: das öffnende „ wird in den linken Rand gezogen,
-     damit der erste BUCHSTABE auf der Spaltenkante steht und nicht das
-     Anführungszeichen. Nur die erste Zeile ist betroffen. */
-  text-indent: -0.42em;
-}
-/* --- Porträt -------------------------------------------------------------- */
-/* FESTE Hoehe, keine aspect-ratio: waere die Hoehe an die Breite gekoppelt,
-   wuerde die Karte beim Auf- und Zuklappen hoeher und niedriger und der
-   ganze Abschnitt darunter wuerde springen. So bleibt die Bauhoehe gleich,
-   nur der Bildausschnitt aendert sich. */
-.ref__foto {
-  width: 100%;
-  height: clamp(190px, 18.5vw, 285px);
-  overflow: hidden;
-  border-radius: 2px;
-  background: var(--navy-800);
-}
-.ref__foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 22%;
-}
-
-/* --- Hinweis unter dem Fries --------------------------------------------- */
-/* Nur solange Platzhalter stehen — fliegt mit den echten Referenzen raus. */
-.ref__platzhalter-hinweis {
-  margin-top: clamp(1.4rem, 3vh, 2.2rem);
-  text-align: center;
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
-  color: var(--gold-text);
+/* margin-top: auto schiebt die Unterschrift auf die Unterkante der Karte.
+   Weil alle Karten gleich hoch sind, stehen alle Unterschriften auf einer
+   Linie — auch bei sehr kurzen Rezensionen. */
+.rez__name {
+  margin-top: auto;
+  padding-top: clamp(14px, 1.8vh, 20px);
+  font-family: 'Caveat', 'Segoe Script', cursive;
+  font-weight: 600;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--ink-black);         /* 12.2:1 auf dem Elfenbein der Karte */
 }
 
 /* --- Responsive ----------------------------------------------------------- */
-/* Ab hier laeuft das Siegel in die Ueberschrift hinein — es rueckt darueber. */
-@media (max-width: 960px) {
-  .ref__head { gap: clamp(1.2rem, 3vh, 1.8rem); }
-  .ref__siegel {
-    position: static;
-    transform: none;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 1200px) {
-  .ref__tafel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(6, auto);
-  }
-  /* Erste Spalte jeder Reihe ohne Senkrechte, dafür Waagerechte vor Reihe 2 */
-  .ref__karte:nth-child(2n + 1)::before { display: none; }
-  .ref__karte:nth-child(n + 3)::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--line-soft);
-  }
-  /* Ohne Akkordeon steht das Zitat einfach unter dem Bild. */
-  .ref__aussage { flex: 0 0 100%; align-self: auto; }
-  .ref__karte { flex-wrap: wrap; }
-  .ref__inhalt { flex: 0 1 min(300px, 100%); }
-  .ref__zitat { width: auto; max-width: 30rem; margin-left: 0; margin-top: clamp(1.2rem, 2.6vh, 1.8rem); opacity: 1; }
-}
-
-@media (max-width: 680px) {
-  .ref__tafel {
+@media (max-width: 1100px) {
+  /* Untereinander: die Reihe braucht sonst mehr Breite, als übrig bleibt. */
+  .ref__inner {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, auto);
+    gap: clamp(2rem, 5vh, 3rem);
+    padding-right: 0;
   }
-  .ref__tafel { margin-inline: 0; }
-  .ref__karte { padding-left: 0; padding-right: 0; }
-  .ref__karte::before { display: none; }
-  .ref__karte:nth-child(n + 2)::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: var(--line-soft);
+  .ref__seite { max-width: 46rem; }
+  /* Einspaltig läuft die Reihe über die ganze Fensterbreite — sonst bliebe
+     links ein weisser Streifen, an dem die Karten hart abgeschnitten wirken. */
+  .rez__band {
+    margin-left: calc(var(--gutter) * -1);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 44px, #000 calc(100% - 56px), transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 44px, #000 calc(100% - 56px), transparent 100%);
   }
-  .ref__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
-  .ref__zitat { width: auto; max-width: none; font-size: clamp(1.15rem, 5vw, 1.35rem); margin-left: 0; opacity: 1; }
-  .ref__inhalt { flex: 0 1 min(320px, 100%); }
+}
+@media (max-width: 640px) {
+  .ref { --rez-breite: min(300px, 82vw); }
+  .rez__band {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 36px), transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 36px), transparent 100%);
+  }
 }
 
-
-/* ===========================================================================
-   AKKORDEON — eine Spalte faehrt auf, das Zitat kommt rechts neben das Bild
-   Nur ab 1201 px: darunter stehen zwei bzw. eine Spalte, da ist kein Platz.
-   Gesteuert ueber data-aktiv am Fries und data-offen an der Karte, gesetzt
-   in site.js — dadurch funktioniert es mit Maus, Tastatur UND Fingertipp,
-   nicht nur mit :hover.
-
-   Die Kartenhoehe aendert sich dabei NICHT: die linke Spalte bleibt gleich
-   hoch, das Zitat erscheint daneben statt darunter. Deshalb braucht der
-   Fries keine feste Bauhoehe und nichts darunter springt.
-   =========================================================================== */
-@media (min-width: 1201px) {
-  .ref__tafel { transition: grid-template-columns 0.72s var(--ease-soft); }
-  .ref__karte { cursor: pointer; }
-  .ref__karte:focus-visible { outline: 1px solid var(--navy-600); outline-offset: -4px; }
-
-  /* 2,5 zu 0,833 — die offene Spalte nimmt die Haelfte des Frieses ein. */
-  .ref__tafel[data-aktiv='1'] { grid-template-columns: 2.5fr 0.833fr 0.833fr 0.833fr; }
-  .ref__tafel[data-aktiv='2'] { grid-template-columns: 0.833fr 2.5fr 0.833fr 0.833fr; }
-  .ref__tafel[data-aktiv='3'] { grid-template-columns: 0.833fr 0.833fr 2.5fr 0.833fr; }
-  .ref__tafel[data-aktiv='4'] { grid-template-columns: 0.833fr 0.833fr 0.833fr 2.5fr; }
-
-  /* Eingeklappt: Name kleiner, Taetigkeit weg — in 17 % Spaltenbreite haette
-     die gesperrte Zeile keinen lesbaren Zeilenfall mehr. */
-  .ref__tafel[data-aktiv] .ref__karte { --name-gr: clamp(0.92rem, 1vw, 1rem); }
-  .ref__tafel[data-aktiv] .ref__karte .ref__rolle { opacity: 0; }
-
-  /* Aufgeklappt: Name deutlich groesser, Strich laenger, Zitat sichtbar. */
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] { --name-gr: clamp(1.5rem, 1.95vw, 1.95rem); }
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] .ref__rolle { opacity: 1; }
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] .ref__strich { width: 72px; }
-  .ref__tafel[data-aktiv] .ref__karte[data-offen] .ref__zitat {
-    opacity: 1;
-    /* Erst einblenden, wenn die Spalte breit genug ist — sonst sieht man
-       den Text waehrend des Umbruchs zappeln. */
-    transition-delay: 0.26s;
-  }
-
-  .ref__rolle { transition: opacity 0.4s var(--ease); }
-}
-
+/* Ohne Bewegung: die Reihe steht still und bleibt seitlich scrollbar. */
 @media (prefers-reduced-motion: reduce) {
-  .ref__tafel, .ref__zitat, .ref__name, .ref__strich, .ref__rolle {
-    transition: none !important;
-  }
+  .rez__lauf { animation: none !important; }
+  .rez__band { overflow-x: auto; }
 }
-

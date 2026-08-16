@@ -1,21 +1,26 @@
 /* ===========================================================================
-   DAS HAUS — die Animation zu Abschnitt 6
+   DAS HAUS — der Blickfang in Abschnitt 6
 
-   Baukörper und Giebel sind EINE Silhouette, elfmal in die Tiefe gestapelt.
-   Dadurch hat die Wand Stärke, und die sechs Öffnungen werden zu echten
-   Durchbrüchen mit sichtbarer Laibung — der Baustein fährt hinein, nicht
-   dagegen.
+   Das Haus steht MITTIG im Abschnitt, links und rechts daneben liegen die
+   Punktkarten. Zwischen Haus und Karten schweben die sechs losen Bausteine:
+   Giebeldreieck, Rundfenster, rechteckiges Sprossenfenster, Schornstein,
+   Rundbogentuer und Fensterrahmen.
 
-   „Selbst koordinieren": jeder Baustein fliegt auf eine FREMDE Öffnung,
-   stößt an die Wand, wackelt und zieht wieder ab. Alle sechs im Gleichtakt,
-   ihre Ziele sind zyklische Verschiebungen — dadurch sitzt nie mehr als
-   einer vor derselben Öffnung.
-   „Mit Estera begleitet": jeder kommt aus der Luft und geht auf Anhieb in
-   seine eigene Öffnung.
+   Baukoerper und Dach sind EINE Silhouette, sechsundzwanzigmal in die Tiefe
+   gestapelt. Dadurch hat die Wand Staerke, und die sechs Oeffnungen werden zu
+   echten Durchbruechen mit sichtbarer Laibung — der Baustein faehrt hinein,
+   nicht dagegen.
 
-   Formklassen liegen ausschließlich auf BLATTELEMENTEN. clip-path und
-   mask-image sind Gruppierungseigenschaften: an einem Elternteil zwingen
-   sie sämtliche Kinder in eine Ebene, und der Stapel wäre wieder flach.
+   „Selbst koordinieren": jeder Baustein verlaesst seinen Ruheplatz und fliegt
+   nacheinander an DREI falsche Stellen, stoesst an die Wand, wackelt und zieht
+   wieder ab. Die falschen Stellen liegen fuer jeden Baustein in einem eigenen
+   Band — dadurch liegen nie zwei Bausteine gleichzeitig auf derselben Stelle.
+   „Mit Estera begleitet": jeder kommt aus seinem Ruheplatz und geht auf Anhieb
+   in seine eigene Oeffnung, bestaetigt durch einen kurzen goldenen Ring.
+
+   Formklassen liegen ausschliesslich auf BLATTELEMENTEN. clip-path, mask-image,
+   filter und opacity sind Gruppierungseigenschaften: an einem Elternteil zwingen
+   sie saemtliche Kinder in eine Ebene, und der Stapel waere wieder flach.
    =========================================================================== */
 
 .spiel {
@@ -23,38 +28,43 @@
   --hh: 356px;
   --zoom: 1;
 
-  /* Hausfarben statt Blau in Blau. Fenster in einem tiefen Blaugrau, wie
-     lackierte Rahmen mit dunkler Scheibe; die Tuer in Eiche. Bewusst
-     entsaettigt gehalten — die Seite vertraegt kein Bilderbuchrot.
-     Reihenfolge: GIEBEL, Rundfenster, Fenster quadratisch,
-     Fenster hoch, TUER, Fenster quer.
+  /* Farben nach Vorlage: elfenbeinfarbene Waende, terrakottafarbenes
+     Ziegeldach, dunkelblauer Sockel, dunkelblaue Tuer und Fenster,
+     helle Schornsteine und Rahmen. */
+  --wand:          #F6EEE2;
+  --wand-hell:     #FDFAF3;
+  --wand-schatten: #E7DCC8;
+  --dach:          #C05A3C;
+  --dach-hell:     #D06B4A;
+  --dach-tief:     #8E3B27;
+  --sockel:        #17304E;
+  --blau:          #1B3A5F;
+  --blau-tief:     #0E2036;
+  --hell:          #EFE5D2;
+  --hell-tief:     #C9B999;
 
-     Der Giebel traegt Dachfarbe, nicht Fensterfarbe: er sitzt im Dach und
-     gehoert dazu. Beim Einrasten schliesst sich das Dach dadurch sichtbar
-     — eine Nuance heller als die Flaeche, damit die Kante lesbar bleibt. */
-  --ton-1: #B75F47;  --kante-1: #7E3B2B;
-  --ton-2: #33536E;  --kante-2: #1A2E40;
-  --ton-3: #2B4860;  --kante-3: #152636;
-  --ton-4: #365673;  --kante-4: #1C3143;
-  --ton-5: #7A5433;  --kante-5: #432D1B;   /* Tuer, Eiche */
-  --ton-6: #30506B;  --kante-6: #182B3C;
-
-  --wand:  #F5F0E7;   /* warmes Off-White */
-  --wand-schatten: #E4DCCE;
-  --dach:  #A8553F;   /* entsaettigtes Ziegelrot */
-  --dach-tief: #7E3B2B;
+  /* Reihenfolge der Bausteine:
+     1 Giebeldreieck, 2 Rundfenster, 3 Sprossenfenster,
+     4 Schornstein, 5 Rundbogentuer, 6 Fensterrahmen. */
+  --ton-1: var(--dach);  --kante-1: var(--dach-tief);
+  --ton-2: var(--blau);  --kante-2: var(--blau-tief);
+  --ton-3: var(--blau);  --kante-3: var(--blau-tief);
+  --ton-4: var(--hell);  --kante-4: var(--hell-tief);
+  --ton-5: var(--blau);  --kante-5: var(--blau-tief);
+  --ton-6: var(--hell);  --kante-6: var(--hell-tief);
 
   display: grid;
   justify-items: center;
-  perspective: 1500px;
-  perspective-origin: 56% 46%;
+  perspective: 1600px;
+  perspective-origin: 50% 50%;
 }
 
-/* Der Rahmen trägt die LAYOUT-Größe; scale() allein ändert das Layout nicht
-   und die Bühne liefe auf schmalen Fenstern über den Seitenrand. */
+/* Der Rahmen traegt die LAYOUT-Groesse; scale() allein aendert das Layout
+   nicht, und die Buehne liefe auf schmalen Fenstern ueber den Seitenrand.
+   Die Breite haelt auch die Ruheplaetze der Bausteine (+-295 px). */
 .spiel__rahmen {
   position: relative;
-  width: calc(var(--w) * var(--zoom) * 1.5);
+  width: calc(var(--w) * var(--zoom) * 1.85);
   height: calc(var(--hh) * var(--zoom) * 1.16);
   max-width: 100%;
 }
@@ -67,80 +77,148 @@
   height: var(--hh);
   margin: calc(var(--hh) / -2) calc(var(--w) / -2);
   transform-style: preserve-3d;
-  /* Leicht von oben und zur Seite gedreht: nur so sieht man die Wandstärke
-     und die Laibung der Öffnungen.
-     rotateY ist POSITIV — das Haus wendet sich nach rechts, den sechs
-     Punkten daneben zu. Mit negativem Wert schaute es von ihnen weg. */
-  transform: scale(var(--zoom)) rotateX(9deg) rotateY(24deg);
+  /* Leicht von oben und zur Seite gedreht: nur so sieht man die Wandstaerke
+     und die Laibung der Oeffnungen. Die Drehung schiebt die sichtbare Mitte
+     nach links, --korr holt sie zurueck — gemessen gegen die Abschnittsmitte. */
+  transform: scale(var(--zoom)) translateX(var(--korr, 11.2px))
+             rotateX(-5deg) rotateY(13deg);
+}
+
+/* Weicher Bodenschatten unter dem Haus. Liegt als eigenes Kastenelement
+   hinter der 3D-Ebene — filter auf dem Rahmen selbst wuerde den Stapel
+   flachdruecken. */
+.spiel__rahmen::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: calc(50% - var(--hh) * var(--zoom) / 2 - 6px);
+  width: calc(var(--w) * var(--zoom) * 1.02);
+  height: calc(26px * var(--zoom));
+  margin-left: calc(var(--w) * var(--zoom) * -0.51);
+  border-radius: 50%;
+  background: rgba(16, 41, 73, 0.16);
+  filter: blur(13px);
 }
 
 /* --- Die Wand ------------------------------------------------------------- */
-/* Elf Scheiben nach hinten. Die vorderste ist die Fassade, die dahinter
-   liegenden bilden Wandstärke und Laibung. */
+/* Sechsundzwanzig Scheiben nach hinten. Die vorderste ist die Fassade, die
+   dahinter liegenden bilden Wandstaerke und Laibung. Oberhalb der Traufe
+   (112/356 = 31.46 %) traegt der Stapel Dachfarbe, darunter Wandfarbe. */
 .haus__lage {
   position: absolute;
   inset: 0;
   transform: translateZ(var(--z));
-  background: #F1F3F6;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20V356%20H0%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%20M59.0%2C182.0%20a27.0%2C27.0%200%201%200%2054.0%2C0%20a27.0%2C27.0%200%201%200%20-54.0%2C0%20Z%20M231.0%2C155.0%20H277.0%20A4%2C4%200%200%201%20281.0%2C159.0%20V205.0%20A4%2C4%200%200%201%20277.0%2C209.0%20H231.0%20A4%2C4%200%200%201%20227.0%2C205.0%20V159.0%20A4%2C4%200%200%201%20231.0%2C155.0%20Z%20M67.0%2C253.0%20H105.0%20A4%2C4%200%200%201%20109.0%2C257.0%20V327.0%20A4%2C4%200%200%201%20105.0%2C331.0%20H67.0%20A4%2C4%200%200%201%2063.0%2C327.0%20V257.0%20A4%2C4%200%200%201%2067.0%2C253.0%20Z%20M141.0%2C351.0%20V270.0%20A29.0%2C29.0%200%200%201%20199.0%2C270.0%20V351.0%20Z%20M219.0%2C269.0%20H289.0%20A4%2C4%200%200%201%20293.0%2C273.0%20V311.0%20A4%2C4%200%200%201%20289.0%2C315.0%20H219.0%20A4%2C4%200%200%201%20215.0%2C311.0%20V273.0%20A4%2C4%200%200%201%20219.0%2C269.0%20Z%22%2F%3E%3C%2Fsvg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20V356%20H0%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%20M59.0%2C182.0%20a27.0%2C27.0%200%201%200%2054.0%2C0%20a27.0%2C27.0%200%201%200%20-54.0%2C0%20Z%20M231.0%2C155.0%20H277.0%20A4%2C4%200%200%201%20281.0%2C159.0%20V205.0%20A4%2C4%200%200%201%20277.0%2C209.0%20H231.0%20A4%2C4%200%200%201%20227.0%2C205.0%20V159.0%20A4%2C4%200%200%201%20231.0%2C155.0%20Z%20M67.0%2C253.0%20H105.0%20A4%2C4%200%200%201%20109.0%2C257.0%20V327.0%20A4%2C4%200%200%201%20105.0%2C331.0%20H67.0%20A4%2C4%200%200%201%2063.0%2C327.0%20V257.0%20A4%2C4%200%200%201%2067.0%2C253.0%20Z%20M141.0%2C351.0%20V270.0%20A29.0%2C29.0%200%200%201%20199.0%2C270.0%20V351.0%20Z%20M219.0%2C269.0%20H289.0%20A4%2C4%200%200%201%20293.0%2C273.0%20V311.0%20A4%2C4%200%200%201%20289.0%2C315.0%20H219.0%20A4%2C4%200%200%201%20215.0%2C311.0%20V273.0%20A4%2C4%200%200%201%20219.0%2C269.0%20Z%22%2F%3E%3C%2Fsvg%3E");
+  background: linear-gradient(to bottom,
+    var(--dach-tief) 0 31.46%, var(--wand-schatten) 31.46% 100%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%20M65%2C168%20A27%2C27%200%201%200%20119%2C168%20A27%2C27%200%201%200%2065%2C168%20Z%20M229%2C141%20H275%20A3%2C3%200%200%201%20278%2C144%20V192%20A3%2C3%200%200%201%20275%2C195%20H229%20A3%2C3%200%200%201%20226%2C192%20V144%20A3%2C3%200%200%201%20229%2C141%20Z%20M120%2C336%20V287%20A29%2C29%200%200%201%20178%2C287%20V336%20Z%20M225%2C252%20H285%20A3%2C3%200%200%201%20288%2C255%20V309%20A3%2C3%200%200%201%20285%2C312%20H225%20A3%2C3%200%200%201%20222%2C309%20V255%20A3%2C3%200%200%201%20225%2C252%20Z%22%2F%3E%3C%2Fsvg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%20M65%2C168%20A27%2C27%200%201%200%20119%2C168%20A27%2C27%200%201%200%2065%2C168%20Z%20M229%2C141%20H275%20A3%2C3%200%200%201%20278%2C144%20V192%20A3%2C3%200%200%201%20275%2C195%20H229%20A3%2C3%200%200%201%20226%2C192%20V144%20A3%2C3%200%200%201%20229%2C141%20Z%20M120%2C336%20V287%20A29%2C29%200%200%201%20178%2C287%20V336%20Z%20M225%2C252%20H285%20A3%2C3%200%200%201%20288%2C255%20V309%20A3%2C3%200%200%201%20285%2C312%20H225%20A3%2C3%200%200%201%20222%2C309%20V255%20A3%2C3%200%200%201%20225%2C252%20Z%22%2F%3E%3C%2Fsvg%3E");
   -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
-.haus__lage:first-child {
-  background: linear-gradient(148deg, #FBF7F0 0%, var(--wand) 54%, #EDE6DA 100%);
+/* Die 26 Wandscheiben stehen im Markup an Kindposition 5 bis 30 — davor
+   liegen Rueckwand, Dach, Sockel und Seitenwand. Deshalb hier die um vier
+   verschobenen Positionen statt :first-child / :last-child. */
+/* Die Fassade: warmes Elfenbein mit weichem Lichtverlauf. */
+.haus__lage:nth-child(5) {
+  background: linear-gradient(148deg, var(--wand-hell) 0%, var(--wand) 56%, #EEE3D1 100%);
 }
 /* Nach hinten abdunkeln — die Tiefe der Laibung wird dadurch lesbar. */
-.haus__lage:nth-child(n + 6)  { background: #EDE5D8; }
-.haus__lage:nth-child(n + 12) { background: #E2D9C9; }
-.haus__lage:nth-child(n + 19) { background: var(--wand-schatten); }
-.haus__lage:last-child        { background: #D6CCBB; }
+.haus__lage:nth-child(n + 12) {
+  background: linear-gradient(to bottom, #843623 0 31.46%, #D8CBB4 31.46% 100%);
+}
+.haus__lage:nth-child(n + 20) {
+  background: linear-gradient(to bottom, #78301F 0 31.46%, #CDBFA6 31.46% 100%);
+}
+.haus__lage:nth-child(30) {
+  background: linear-gradient(to bottom, #6B2A1B 0 31.46%, #C2B296 31.46% 100%);
+}
+
+/* --- Die Rueckwand -------------------------------------------------------- */
+/* Ohne sie sieht man durch die sechs Oeffnungen hindurch auf die Seite, und
+   die Durchbrueche wirken wie ausgeschnittenes Papier. Die Rueckwand traegt
+   die Silhouette OHNE Oeffnungen und steht hinter dem Scheibenstapel — die
+   leeren Oeffnungen bekommen dadurch einen dunklen Innenraum. */
+.haus__rueck {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(-106px);
+  background: linear-gradient(160deg, #6C6152 0%, #574E41 62%, #453D33 100%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%22%2F%3E%3C%2Fsvg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
 
 /* --- Das Dach ------------------------------------------------------------- */
-/* Eigene Fläche in Navy, damit das Haus nicht einfarbig ist. Sie liegt
-   knapp vor der Fassade und deckt nur den Giebel ab. */
+/* Ziegelrot mit feiner Reihenzeichnung, knapp vor der Fassade.
+   Giebeldreieck und Schornsteinschacht sind auch hier ausgespart. */
 .haus__dach {
   position: absolute;
   inset: 0;
   z-index: 2;
   transform: translateZ(0.6px);
-  background: linear-gradient(160deg, #B75F47 0%, var(--dach) 46%, var(--dach-tief) 100%);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%22%2F%3E%3C%2Fsvg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170.0%2C0%20L340%2C112%20Z%20M170.0%2C40.0%20L195.0%2C84.0%20L145.0%2C84.0%20Z%22%2F%3E%3C%2Fsvg%3E");
+  background:
+    repeating-linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.12) 0 1px, rgba(255, 255, 255, 0.05) 1px 2px,
+      transparent 2px 11px),
+    linear-gradient(160deg, var(--dach-hell) 0%, var(--dach) 48%, var(--dach-tief) 100%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%22%2F%3E%3C%2Fsvg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%22%2F%3E%3C%2Fsvg%3E");
   -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
 
+/* --- Der Sockel ----------------------------------------------------------- */
+/* Dunkelblaues Band am Fuss des Hauses, wie in der Vorlage. Die Tuer endet
+   genau auf seiner Oberkante. */
+.haus__sockel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+  z-index: 2;
+  transform: translateZ(0.9px);
+  background: linear-gradient(to bottom, #21406A 0%, var(--sockel) 60%, #0E243C 100%);
+}
+
 /* --- Die Seitenwand ------------------------------------------------------- */
-/* Der Scheibenstapel allein bildet zwar Tiefe, aber keine Flaeche, in die
-   man Fenster setzen koennte. Deshalb hier eine echte Ebene: an der linken
-   Hauskante angesetzt und um 90 Grad nach hinten geklappt.
-   rotateY(90deg) mit transform-origin auf der linken Kante schickt sie nach
-   HINTEN; bei -90deg klappte sie nach vorn zum Betrachter.
-   Die Seitenfenster sind rein dekorativ — dort fliegt nichts hinein. */
+/* Der Scheibenstapel bildet Tiefe, aber keine Flaeche, in die man Fenster
+   setzen koennte. Deshalb hier eine echte Ebene: an der LINKEN Hauskante
+   angesetzt und um 90 Grad nach hinten geklappt — sichtbar ist bei dieser
+   Drehung die linke Seite.
+   Die Seitenfenster sind rein dekorativ; dort fliegt nichts hinein. */
 .haus__seite {
   position: absolute;
   left: 0;
-  top: 112px;                 /* Unterkante des Giebels */
+  top: 112px;                 /* Unterkante der Traufe */
   width: 104px;               /* = Wandtiefe, 26 Scheiben x 4 px */
   height: 244px;              /* Hoehe des Baukoerpers */
   transform-origin: 0% 50%;
   transform: rotateY(90deg);
-  background: linear-gradient(100deg, var(--wand-schatten) 0%, #DAD1C1 100%);
+  background: linear-gradient(100deg, var(--wand-schatten) 0%, #D6C9B0 100%);
 }
 .haus__seitenfenster {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 34px;
-  height: 46px;
-  margin: -23px -17px;
+  width: 32px;
+  height: 44px;
+  margin: -22px -16px;
   translate: var(--sx) var(--sy);
   border-radius: 3px;
-  background: linear-gradient(150deg, #3A5C79 0%, #24405A 70%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+  background: linear-gradient(150deg, #2A4C6E 0%, var(--blau-tief) 74%);
+  box-shadow: 0 0 0 3px var(--hell), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
-.haus__seitenfenster--klein { width: 26px; height: 34px; margin: -17px -13px; }
+.haus__seitensockel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+  background: var(--sockel);
+}
 
 /* --- Die Bausteine -------------------------------------------------------- */
 .haus__halter {
@@ -170,22 +248,65 @@
 }
 .haus__scheibe:last-child {
   background: linear-gradient(150deg,
-    color-mix(in srgb, var(--ton) 86%, #ffffff 14%) 0%, var(--ton) 72%);
+    color-mix(in srgb, var(--ton) 88%, #ffffff 12%) 0%, var(--ton) 74%);
 }
 
-/* Formen — dieselbe Silhouette wie die zugehörige Öffnung in der Maske */
+/* Formen — dieselbe Silhouette wie die zugehoerige Oeffnung in der Maske.
+   Ausschliesslich auf Blattelementen. */
 .haus__form--rund    { border-radius: 50%; }
-.haus__form--quadrat { border-radius: 4px; }
-.haus__form--hoch    { border-radius: 4px; }
-.haus__form--quer    { border-radius: 4px; }
+.haus__form--quadrat { border-radius: 3px; }
+.haus__form--hoch    { border-radius: 3px; }
+.haus__form--quer    { border-radius: 3px; }
 .haus__form--dreieck { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
-.haus__form--tuer    { border-radius: 50% 50% 4px 4px / 26% 26% 4px 4px; }
+.haus__form--tuer    { border-radius: 50% 50% 3px 3px / 31% 31% 3px 3px; }
+
+/* Machart der einzelnen Bausteine, jeweils nur auf der vordersten Scheibe.
+   box-shadow und background-image gruppieren nicht — der Stapel bleibt tief. */
+.haus__koerper--rundfenster .haus__scheibe:last-child {
+  background: radial-gradient(120% 120% at 32% 26%, #33587D 0%, var(--blau) 46%, var(--blau-tief) 100%);
+  box-shadow: inset 0 0 0 7px var(--hell), inset 0 0 0 8px var(--hell-tief);
+}
+.haus__koerper--sprossen .haus__scheibe:last-child {
+  background:
+    linear-gradient(to right, transparent 0 46%, var(--hell) 46% 54%, transparent 54% 100%),
+    linear-gradient(to bottom, transparent 0 46%, var(--hell) 46% 54%, transparent 54% 100%),
+    linear-gradient(150deg, #2F5478 0%, var(--blau) 62%, var(--blau-tief) 100%);
+  box-shadow: inset 0 0 0 4px var(--hell), inset 0 0 0 5px var(--hell-tief);
+}
+/* Der Schornstein bekommt einen abgesetzten Kopf, damit er als Schornstein
+   lesbar ist und nicht als Kaestchen. */
+.haus__koerper--schornstein .haus__scheibe:last-child {
+  background: linear-gradient(to bottom,
+    #C6B18A 0 20%, #A8977A 20% 24%, #F9F3E6 24% 32%, var(--hell) 32% 100%);
+}
+.haus__koerper--tuer .haus__scheibe:last-child {
+  background: linear-gradient(150deg, #2C5075 0%, var(--blau) 58%, var(--blau-tief) 100%);
+  box-shadow: inset 0 0 0 4px rgba(239, 229, 210, 0.9);
+}
+.haus__koerper--tuer .haus__scheibe:last-child::after {
+  content: '';
+  position: absolute;
+  right: 9px;
+  top: 62%;
+  width: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--gold, #A8874F);
+}
+.haus__koerper--rahmen .haus__scheibe:last-child {
+  background: linear-gradient(150deg, #F7EFE0 0%, var(--hell) 70%);
+  box-shadow: inset 0 0 0 8px var(--hell), inset 0 0 0 9px var(--hell-tief),
+              inset 0 0 0 20px #E7DAC0;
+}
+.haus__koerper--giebel .haus__scheibe:last-child {
+  background: linear-gradient(160deg, var(--dach-hell) 0%, var(--dach) 52%, var(--dach-tief) 100%);
+}
 
 /* --- Schatten auf der Wand ------------------------------------------------ */
 .haus__schatten {
   position: absolute;
   inset: 0;
-  background: rgba(16, 41, 73, 0.4);
+  background: rgba(16, 41, 73, 0.42);
   filter: blur(9px);
 }
 
@@ -204,123 +325,117 @@
 
 /* ===========================================================================
    ZUSTAND 1 — SELBST KOORDINIEREN
+   Ruheplatz (--rx/--ry) neben dem Haus, dann nacheinander drei falsche
+   Stellen (--fx1/--fy1 bis --fx3/--fy3). Die Halteschritte sind hoechstens
+   2 % lang (bei 11 s also 220 ms) — es steht also nie eine halbe Sekunde
+   still, die Bewegung ist jederzeit messbar.
    =========================================================================== */
 @keyframes daneben {
-  0%   { transform: translate3d(var(--fx1), var(--fy1), 150px) rotateZ(0deg); }
-  10%  { transform: translate3d(var(--fx1), var(--fy1), 26px) rotateZ(0deg); }
-  13%  { transform: translate3d(var(--fx1), var(--fy1), 20px) rotateZ(-8deg); }
-  16%  { transform: translate3d(var(--fx1), var(--fy1), 20px) rotateZ(7deg); }
-  19%  { transform: translate3d(var(--fx1), var(--fy1), 20px) rotateZ(-5deg); }
-  28%  { transform: translate3d(var(--fx1), var(--fy1), 150px) rotateZ(0deg); }
-  36%  { transform: translate3d(var(--fx2), var(--fy2), 150px) rotateZ(0deg); }
-  44%  { transform: translate3d(var(--fx2), var(--fy2), 26px) rotateZ(0deg); }
-  47%  { transform: translate3d(var(--fx2), var(--fy2), 20px) rotateZ(9deg); }
-  50%  { transform: translate3d(var(--fx2), var(--fy2), 20px) rotateZ(-7deg); }
-  53%  { transform: translate3d(var(--fx2), var(--fy2), 20px) rotateZ(4deg); }
-  62%  { transform: translate3d(var(--fx2), var(--fy2), 150px) rotateZ(0deg); }
-  70%  { transform: translate3d(var(--fx3), var(--fy3), 150px) rotateZ(0deg); }
-  78%  { transform: translate3d(var(--fx3), var(--fy3), 26px) rotateZ(0deg); }
-  81%  { transform: translate3d(var(--fx3), var(--fy3), 20px) rotateZ(-6deg); }
-  84%  { transform: translate3d(var(--fx3), var(--fy3), 20px) rotateZ(8deg); }
-  87%  { transform: translate3d(var(--fx3), var(--fy3), 20px) rotateZ(-3deg); }
-  96%  { transform: translate3d(var(--fx3), var(--fy3), 150px) rotateZ(0deg); }
-  100% { transform: translate3d(var(--fx1), var(--fy1), 150px) rotateZ(0deg); }
+  0%   { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
+  2%   { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
+  12%  { transform: translate3d(var(--fx1), var(--fy1), 120px) rotateZ(0deg); }
+  19%  { transform: translate3d(var(--fx1), var(--fy1), 24px) rotateZ(0deg); }
+  22%  { transform: translate3d(var(--fx1), var(--fy1), 18px) rotateZ(-7deg); }
+  25%  { transform: translate3d(var(--fx1), var(--fy1), 18px) rotateZ(6deg); }
+  28%  { transform: translate3d(var(--fx1), var(--fy1), 18px) rotateZ(-3deg); }
+  33%  { transform: translate3d(var(--fx1), var(--fy1), 120px) rotateZ(0deg); }
+  38%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
+  40%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
+  46%  { transform: translate3d(var(--fx2), var(--fy2), 120px) rotateZ(0deg); }
+  53%  { transform: translate3d(var(--fx2), var(--fy2), 24px) rotateZ(0deg); }
+  56%  { transform: translate3d(var(--fx2), var(--fy2), 18px) rotateZ(8deg); }
+  59%  { transform: translate3d(var(--fx2), var(--fy2), 18px) rotateZ(-6deg); }
+  62%  { transform: translate3d(var(--fx2), var(--fy2), 18px) rotateZ(3deg); }
+  67%  { transform: translate3d(var(--fx2), var(--fy2), 120px) rotateZ(0deg); }
+  72%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
+  74%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
+  80%  { transform: translate3d(var(--fx3), var(--fy3), 120px) rotateZ(0deg); }
+  86%  { transform: translate3d(var(--fx3), var(--fy3), 24px) rotateZ(0deg); }
+  89%  { transform: translate3d(var(--fx3), var(--fy3), 18px) rotateZ(-6deg); }
+  92%  { transform: translate3d(var(--fx3), var(--fy3), 18px) rotateZ(7deg); }
+  95%  { transform: translate3d(var(--fx3), var(--fy3), 18px) rotateZ(-3deg); }
+  98%  { transform: translate3d(var(--fx3), var(--fy3), 120px) rotateZ(0deg); }
+  100% { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
 }
+/* Der Schatten liegt auf der Wand — auf dem Ruheplatz neben dem Haus faellt
+   keiner, deshalb dort deckungsgleich unsichtbar. */
 @keyframes schatten-daneben {
-  0%   { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.45); opacity: 0.08; }
-  10%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
+  0%   { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
+  12%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.4); opacity: 0.06; }
   19%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
-  28%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.45); opacity: 0.08; }
-  36%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.45); opacity: 0.08; }
-  44%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
+  28%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
+  33%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.4); opacity: 0.06; }
+  38%  { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
+  46%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.4); opacity: 0.06; }
   53%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
-  62%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.45); opacity: 0.08; }
-  70%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.45); opacity: 0.08; }
-  78%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
-  87%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
-  96%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.45); opacity: 0.08; }
-  100% { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.45); opacity: 0.08; }
+  62%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
+  67%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.4); opacity: 0.06; }
+  72%  { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
+  80%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.4); opacity: 0.06; }
+  86%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
+  95%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
+  98%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.4); opacity: 0.06; }
+  100% { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
 }
 
 /* ===========================================================================
    ZUSTAND 2 — MIT ESTERA BEGLEITET
-   `both` als fill-mode ist entscheidend: während der Verzögerung zeigt CSS
-   sonst den Ruhezustand, und der ist die Sitzposition — dann erschienen
-   einzelne Bausteine sofort in der Öffnung, statt hereinzufliegen.
+   `both` als fill-mode ist Pflicht: waehrend der Verzoegerung zeigt CSS sonst
+   den Ruhezustand, und der ist die Sitzposition — dann saessen einzelne
+   Bausteine von Anfang an in der Oeffnung, statt hereinzufliegen.
    =========================================================================== */
 @keyframes einrasten {
-  0%   { transform: translate3d(0, 0, 320px) rotateZ(-16deg); }
-  58%  { transform: translate3d(0, 0, 48px) rotateZ(0deg); }
-  76%  { transform: translate3d(0, 0, -28px) rotateZ(0deg); }
-  86%  { transform: translate3d(0, 0, -16px) rotateZ(0deg); }
+  0%   { transform: translate3d(var(--rx), var(--ry), 90px) rotateZ(-10deg); }
+  55%  { transform: translate3d(0, 0, 44px) rotateZ(0deg); }
+  76%  { transform: translate3d(0, 0, -26px) rotateZ(0deg); }
+  88%  { transform: translate3d(0, 0, -15px) rotateZ(0deg); }
   100% { transform: translate3d(0, 0, -20px) rotateZ(0deg); }
 }
 @keyframes schatten-einrasten {
-  0%   { transform: translate3d(0, 0, 1px) scale(1.7); opacity: 0.04; }
-  58%  { transform: translate3d(0, 0, 1px) scale(1.16); opacity: 0.26; }
+  0%   { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.6); opacity: 0; }
+  55%  { transform: translate3d(0, 0, 1px) scale(1.18); opacity: 0.26; }
   76%  { transform: translate3d(0, 0, 1px) scale(0.98); opacity: 0.14; }
   100% { transform: translate3d(0, 0, 1px) scale(1); opacity: 0.12; }
 }
 @keyframes klick {
   0%   { opacity: 0; transform: translateZ(4px) scale(0.92); }
-  60%  { opacity: 0; transform: translateZ(4px) scale(0.92); }
-  72%  { opacity: 1; transform: translateZ(4px) scale(1); }
+  62%  { opacity: 0; transform: translateZ(4px) scale(0.92); }
+  74%  { opacity: 1; transform: translateZ(4px) scale(1); }
   100% { opacity: 0; transform: translateZ(4px) scale(1.5); }
 }
 
 /* --- Zuordnung ------------------------------------------------------------ */
-/* Kein animation-delay im Selbst-Zustand: nur im Gleichtakt sind die drei
-   Ziele Permutationen ohne Fixpunkt, also sechs Bausteine vor sechs
-   verschiedenen Öffnungen. */
-.haus__koerper  { animation: daneben 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
-.haus__schatten { animation: schatten-daneben 8.4s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
+/* Kein animation-delay im Selbst-Zustand: alle sechs laufen im Gleichtakt,
+   und ihre falschen Stellen liegen je Baustein in einem eigenen Band. */
+.haus__koerper  { animation: daneben 11s cubic-bezier(0.45, 0, 0.25, 1) infinite both; }
+.haus__schatten { animation: schatten-daneben 11s cubic-bezier(0.45, 0, 0.25, 1) infinite both; }
 
 .verg[data-modus='estera'] .haus__koerper {
-  animation: einrasten 1.6s cubic-bezier(0.34, 0, 0.16, 1) both;
-  animation-delay: calc(var(--i, 0) * 0.15s);
+  animation: einrasten 1.5s cubic-bezier(0.34, 0, 0.16, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.12s);
 }
 .verg[data-modus='estera'] .haus__schatten {
-  animation: schatten-einrasten 1.6s cubic-bezier(0.34, 0, 0.16, 1) both;
-  animation-delay: calc(var(--i, 0) * 0.15s);
+  animation: schatten-einrasten 1.5s cubic-bezier(0.34, 0, 0.16, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.12s);
 }
 .verg[data-modus='estera'] .haus__klick {
-  animation: klick 1.6s cubic-bezier(0.2, 0, 0.2, 1) both;
-  animation-delay: calc(var(--i) * 0.15s);
+  animation: klick 1.5s cubic-bezier(0.2, 0, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 0.12s);
 }
 
-/* --- Bildunterschrift ----------------------------------------------------- */
-.spiel__hinweis {
-  display: grid;
-  justify-items: center;
-  margin-top: clamp(0.8rem, 2.2vh, 1.5rem);
-  font-size: clamp(0.72rem, 0.8vw, 0.8rem);
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-indent: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-  transition: color 0.4s var(--ease);
-}
-.spiel__hinweis > span { grid-area: 1 / 1; opacity: 0; transition: opacity 0.4s var(--ease); }
-.verg:not([data-modus='estera']) .spiel__hinweis--selbst { opacity: 1; }
-.verg[data-modus='estera'] .spiel__hinweis--estera { opacity: 1; }
-.verg[data-modus='estera'] .spiel__hinweis { color: var(--gold-text); }
-
-/* --- Maßstab -------------------------------------------------------------- */
+/* --- Massstab ------------------------------------------------------------- */
 @media (max-width: 1500px) { .spiel { --zoom: 0.9;  } }
 @media (max-width: 1300px) { .spiel { --zoom: 0.78; } }
-@media (max-width: 1100px) { .spiel { --zoom: 0.66; } }
-@media (max-width: 900px)  { .spiel { --zoom: 0.86; } }
-@media (max-width: 620px)  { .spiel { --zoom: 0.62; } }
-@media (max-width: 430px)  { .spiel { --zoom: 0.5;  } }
+@media (max-width: 1100px) { .spiel { --zoom: 0.7;  } }
+@media (max-width: 1040px) { .spiel { --zoom: 0.82; } }
+@media (max-width: 760px)  { .spiel { --zoom: 0.62; } }
+@media (max-width: 520px)  { .spiel { --zoom: 0.46; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .haus__koerper,
+  .haus__koerper { animation: none; transform: translate3d(var(--rx), var(--ry), 60px); }
   .verg[data-modus='estera'] .haus__koerper { animation: none; transform: translateZ(-20px); }
   .haus__schatten,
-  .verg[data-modus='estera'] .haus__schatten {
-    animation: none; transform: translateZ(1px); opacity: 0.12;
-  }
+  .verg[data-modus='estera'] .haus__schatten { animation: none; opacity: 0; }
   .haus__klick,
   .verg[data-modus='estera'] .haus__klick { animation: none; opacity: 0; }
 }

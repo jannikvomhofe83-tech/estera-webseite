@@ -1,85 +1,119 @@
 /* ===========================================================================
    GESCHÄFTSFÜHRUNG — Anordnung nach dem Vorbild von baulig.de
 
-   Zwei Blöcke untereinander, spiegelverkehrt: Person 1 Text links und
-   Porträt rechts, Person 2 umgekehrt. Name groß, darunter ein kurzer
-   Strich, darunter mehrere kurze Absätze.
+   Zwei Blöcke untereinander, editorial gespiegelt: Person 1 Text links und
+   Porträt rechts, Person 2 umgekehrt. Der Name sehr groß, darunter ein
+   kurzer kräftiger Strich, darunter der Text und das Zitat.
 
    ENTSCHEIDEND: Bei Baulig sind BEIDE Personen auf einen Blick sichtbar.
-   Deshalb ist hier alles auf Kompaktheit gerechnet — Porträthöhe, Zeilenmaß
-   und Abstände sind so gesetzt, dass die zwei Blöcke zusammen unter die
-   Höhe eines üblichen Fensters passen. Ein Block, der eine ganze Bildschirm-
-   höhe füllt, wäre zwar bequemer zu setzen, zerstört aber genau die
-   Gegenüberstellung, die den Abschnitt ausmacht.
+   Deshalb ist der ganze Abschnitt auf die FENSTERHÖHE gerechnet, nicht auf
+   die Breite. Alle Höhen hängen an einer einzigen Stellschraube (--gf-hoehe),
+   und die ist in vh angegeben. Ein Block, der eine ganze Bildschirmhöhe
+   füllt, wäre bequemer zu setzen, zerstört aber genau die Gegenüberstellung,
+   die den Abschnitt ausmacht. Der Kunde hat das bereits dreimal beanstandet.
 
-   Hintergrund WEISS wie alle Abschnitte dieser Seite. Die Referenz steht
-   auf Schwarz; das ist der einzige Punkt, an dem bewusst abgewichen wird.
-   Weil die beiden Porträts selbst dunkle Hintergründe haben, können sie
-   nicht wie dort in die Fläche auslaufen — sie stehen deshalb als klar
-   begrenzte Flächen mit dem Bildradius der Seite.
+   KEIN BILDFENSTER (Kundenwunsch nach dem Screenshot von baulig.de):
+   Die Personen stehen frei auf dem weißen Papier — kein Rahmen, keine Kante,
+   kein Eckenradius, kein Schatten, keine Fläche hinter der Figur. Möglich ist
+   das, weil beide Aufnahmen freigestellt wurden: der dunkle Studiohintergrund
+   ist entfernt, die Dateien tragen einen Alphakanal
+   (assets/img/gf-*-frei.png, erzeugt mit dem Vision-Framework von macOS).
+   Nach unten läuft die Figur über eine Maske weich aus, damit der Anschnitt
+   des Rumpfs nicht als abgeschnittene Kante liest, sondern in die Fläche
+   übergeht.
 
-   Bildformat: Der Rahmen ist breit (Querformat). Beide Aufnahmen sind
-   QUADRATISCH und der Kopf sitzt jeweils dicht unter der oberen Kante —
-   bei Bild 1 beginnt das Haar bei 1,6 %, bei Bild 2 bei 1,3 % der Bildhöhe.
-   Ein breiter Rahmen muss also oben oder unten beschneiden. Deshalb ist das
-   Bild oben BÜNDIG verankert (object-position 50% 0%): beschnitten wird
-   ausschließlich unten, Haare und Gesicht bleiben vollständig stehen.
-   Ein mittiger oder auch nur leicht nach unten verschobener Anschnitt
-   schneidet dagegen sofort die Haare ab — genau das war vorher der Fehler.
+   GLEICHE GRÖSSE BEIDER FIGUREN ist bauartbedingt, nicht nachgemessen:
+   Beim Freistellen wurden die von Vision gemessenen Gesichtsrahmen beider
+   Aufnahmen auf dasselbe Maß gebracht und die Gesichtsmitte auf denselben
+   Punkt EINER GEMEINSAMEN LEINWAND (616 × 686 px) gelegt. Beide Dateien sind
+   deshalb gleich groß, gleich skaliert und gleich verankert; im Stylesheet
+   genügt für beide dieselbe Kastengröße.
    =========================================================================== */
 
 .fuehr {
   position: relative;
   z-index: 1;
   background: var(--paper);
-  padding: clamp(2.4rem, 5vh, 4.2rem) 0;
+  padding: clamp(1.4rem, 3vh, 3rem) 0;
+
+  /* -----------------------------------------------------------------------
+     DIE STELLSCHRAUBEN DES ABSCHNITTS
+     Alles andere leitet sich daraus ab. Wer hier etwas ändert, ändert beide
+     Personen gleichzeitig.
+     ----------------------------------------------------------------------- */
+
+  /* Figurenhöhe. In vh, weil die Nebenbedingung die Fensterhöhe ist: zwei
+     Blöcke plus Abstände müssen zusammen unter die freie Fensterhöhe passen.
+     Obergrenze 380px, sonst laufen große Bildschirme aus dem Ruder. */
+  --gf-hoehe: clamp(230px, 38vh, 380px);
+
+  /* ▶ SEITENVERHÄLTNIS DER FIGUR (Breite ÷ Höhe) — HIER ANPASSEN.
+     Der Wert ist das Seitenverhältnis der beiden freigestellten Dateien:
+     616 ÷ 609 = 1.011. Beide Dateien haben dieselbe Leinwand, es gibt also
+     nur diesen einen Wert. Werden die beiden PNG jemals neu freigestellt,
+     muss hier das Verhältnis der neuen Dateien stehen — sonst staucht
+     object-fit die Figur zwar nicht, es entsteht aber seitlich Luft und die
+     Figur steht nicht mehr bündig in der Spalte. */
+  --gf-format: 1.011;
+
+  /* Abgeleitet: die Kastenbreite der Figur. Ein fester Wert, keine
+     Bruchteilspalte — nur so sind beide Figuren garantiert auf 0 px
+     identisch groß. */
+  --gf-breite: calc(var(--gf-hoehe) * var(--gf-format));
+
+  /* ▶ AUSLAUF NACH UNTEN. Ab dieser Höhe der Figur beginnt der Übergang ins
+     Weiße; darunter wird sie bis 100 % vollständig durchsichtig. Kleinerer
+     Wert = längerer, weicherer Auslauf. */
+  --gf-auslauf: 70%;
+
+  /* Lesbares Zeilenmaß der Textspalte. */
+  --gf-textbreite: 32rem;
 }
 
 .fuehr__inner {
-  /* Schmaler als die übrigen Abschnitte: das Porträt ist in der Höhe
-     gedeckelt und damit auch in der Breite. Ein 1240 px breiter Umschlag
-     ließe daneben ein Textfeld von über 900 px stehen — unlesbar lang und
-     optisch aus dem Gleichgewicht. */
-  max-width: 1060px;
+  /* Weit genug, dass Figur und lesbare Textspalte nebeneinander Platz haben,
+     ohne dass eines von beiden gequetscht wird. */
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 var(--gutter);
   display: grid;
-  gap: clamp(1.8rem, 4vh, 3rem);
+  gap: clamp(1.1rem, 2.8vh, 2.4rem);
 }
 
 /* --- Ein Block je Person -------------------------------------------------- */
 .fuehr__block {
   display: grid;
-  /* Die Bildspalte richtet sich nach der Bildhöhe (auto + aspect-ratio),
-     nicht nach einem Bruchteil der Breite. Nur so bleibt das Hochformat
-     über alle Fensterbreiten erhalten. Die Textspalte ist auf ein lesbares
-     Zeilenmaß gedeckelt; der Rest wird als Luft dazwischen verteilt. */
-  grid-template-columns: minmax(0, 32rem) auto;
+  /* Figurenspalte mit fester Breite, Textspalte gedeckelt. Der Rest der Zeile
+     wird über space-between als Luft zwischen beide gelegt — das ist der
+     großzügige, ruhige Raum, den die Referenz ausmacht. */
+  grid-template-columns: minmax(0, var(--gf-textbreite)) var(--gf-breite);
   justify-content: space-between;
   gap: clamp(1.6rem, 4vw, 3.4rem);
   align-items: center;
 }
 /* Person 2 spiegelverkehrt. Über die Rasterspalten statt über die
    Reihenfolge im Markup — so bleibt die Lesereihenfolge für Screenreader
-   und Tastatur unverändert Name, Text, Bild. */
-.fuehr__block--gedreht { grid-template-columns: auto minmax(0, 32rem); }
-.fuehr__block--gedreht .fuehr__text { grid-column: 2; grid-row: 1; }
-.fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: 1; }
+   und Tastatur unverändert Name, Text, Zitat, Bild. */
+.fuehr__block--gedreht { grid-template-columns: var(--gf-breite) minmax(0, var(--gf-textbreite)); }
+.fuehr__block--gedreht .fuehr__text  { grid-column: 2; grid-row: 1; }
+.fuehr__block--gedreht .fuehr__figur { grid-column: 1; grid-row: 1; }
 
 /* --- Der Text ------------------------------------------------------------- */
 .fuehr__name {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 2.9vw, 2.9rem);
+  /* Groß gesetzt wie in der Referenz — der Name trägt den Block. */
+  font-size: clamp(2.1rem, 3.6vw, 3.6rem);
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
   color: var(--ink-black);
 }
-/* Kurzer Strich unter dem Namen, wie in der Referenz */
+/* Kurzer kräftiger Strich unter dem Namen, wie in der Referenz */
 .fuehr__strich {
   display: block;
-  width: 118px;
-  height: 3px;
-  margin: clamp(0.9rem, 2vh, 1.3rem) 0 clamp(1.2rem, 2.6vh, 1.7rem);
+  width: 112px;
+  height: 4px;
+  margin: clamp(0.8rem, 1.8vh, 1.2rem) 0 clamp(1rem, 2.2vh, 1.5rem);
   background: var(--navy-800);
 }
 .fuehr__text p {
@@ -89,71 +123,54 @@
   text-wrap: pretty;
 }
 .fuehr__text p + p { margin-top: 0.85em; }
-.fuehr__text p:first-of-type { color: var(--ink-black); }
+/* Zwei Klassen tief, damit die Regel gegen `.fuehr__text p` gewinnt —
+   sonst schlägt der Fließtext Farbe und Größe dieser Zeile wieder zu. */
+.fuehr__text .fuehr__rolle { color: var(--ink-black); }
 
-/* --- Das Porträt ---------------------------------------------------------- */
-/* Höhe in vh statt in vw: die Nebenbedingung ist die FENSTERHÖHE — beide
-   Blöcke müssen zusammen hineinpassen. Die Breite folgt aus dem Format. */
-.fuehr__bild {
-  position: relative;
-  height: clamp(250px, 33vh, 350px);
-  aspect-ratio: 1.38;
-  overflow: hidden;
-  border-radius: var(--radius-img);
-  background: var(--navy-900);
+/* ---------------------------------------------------------------------------
+   DIE FREIGESTELLTE FIGUR
+
+   Bewusst KEINE Eigenschaft, die eine Bildkante erzeugen könnte: kein
+   background, kein border, kein border-radius, kein box-shadow, kein
+   overflow: hidden. Der Kasten ist reiner Platzhalter für die Figur; sichtbar
+   ist nur, was im PNG undurchsichtig ist.
+--------------------------------------------------------------------------- */
+.fuehr__figur {
+  height: var(--gf-hoehe);
+  width: var(--gf-breite);
+  margin: 0;
 }
-.fuehr__bild img {
+.fuehr__figur img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  /* Oben bündig: der Anschnitt fällt vollständig auf den unteren Bildrand,
-     nie auf den Kopf. Waagerecht mittig — beide Personen stehen mittig. */
-  object-position: 50% 0%;
-}
-/* Goldhaarlinie als Randung — dieselbe Zierform wie bei den Kundenstimmen */
-.fuehr__bild::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--line-gold);
-  border-radius: inherit;
-  pointer-events: none;
-}
+  /* contain statt cover: Die Figur darf unter keinen Umständen beschnitten
+     werden — der Anschnitt sitzt bereits in der Datei und ist dort auf beide
+     Personen gleich gelegt. Da Kastenformat und Dateiformat übereinstimmen
+     (--gf-format), entsteht dabei kein Leerrand. */
+  object-fit: contain;
+  /* Unten bündig verankert: sollte durch Rundung doch ein Bruchteil Luft
+     bleiben, liegt sie oben im ohnehin durchsichtigen Bereich und nicht
+     unten, wo der Auslauf sitzt. */
+  object-position: 50% 100%;
 
-/* --- Hinweis -------------------------------------------------------------- */
-.fuehr__hinweis {
-  /* Kein eigener Abstand — der Abstand kommt bereits vom Raster des
-     Umschlags. Doppelt gesetzt kostet er die Höhe, die beide Blöcke
-     brauchen, um zusammen ins Fenster zu passen. */
-  margin-top: 0;
-  text-align: center;
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
-  color: var(--gold-text);
-}
-
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 860px) {
-  /* Gestapelt: Porträt oben, Text darunter — bei beiden Personen gleich
-     herum, sonst wirkt die Spiegelung wie ein Fehler. */
-  .fuehr__block,
-  .fuehr__block--gedreht { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
-  .fuehr__text { max-width: none; }
-  .fuehr__block--gedreht .fuehr__text,
-  .fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: auto; }
-  .fuehr__bild { height: auto; width: 100%; order: -1; }
-  .fuehr__block--gedreht .fuehr__bild { order: -1; }
+  /* Weicher Auslauf nach unten: die Figur verfließt mit dem weißen Papier,
+     statt an einer waagerechten Kante zu enden. Ohne diese Maske läse der
+     Anschnitt des Rumpfes wie ein abgeschnittenes Foto — genau das, was
+     wegfallen sollte. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--gf-auslauf), transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 var(--gf-auslauf), transparent 100%);
 }
 
 /* ---------------------------------------------------------------------------
    ZITAT statt Historie (Briefing 03 D)
-   Die Historie der beiden ist entfallen; an ihrer Stelle steht ein Zitat.
-   Gesetzt wird es in der Auszeichnungsschrift, leicht groesser als der
-   Fliesstext und mit einer goldenen Haarlinie links — so liest es sich als
+   Die Historie der beiden ist auf Kundenwunsch entfallen; an ihrer Stelle
+   steht ein Zitat. Gesetzt in der Auszeichnungsschrift, etwas größer als der
+   Fließtext und mit einer goldenen Haarlinie links — so liest es sich als
    Aussage der Person und nicht als weiterer Absatz.
 --------------------------------------------------------------------------- */
 .fuehr__zitat {
-  margin: clamp(0.9rem, 2vh, 1.3rem) 0 0;
+  margin: clamp(0.8rem, 1.8vh, 1.2rem) 0 0;
   padding-left: clamp(0.9rem, 1.6vw, 1.4rem);
   border-left: 1px solid var(--line-gold);
 }
@@ -163,4 +180,40 @@
   font-style: italic;
   line-height: 1.5;
   color: var(--ink-black);
+}
+
+/* Freigabevermerk unter jedem Zitat.
+   Der Wortlaut der beiden Zitate ist ein VORSCHLAG. Ein Satz, den die Person
+   nie gesagt hat, darf nicht unbemerkt live gehen — deshalb steht der
+   Vermerk sichtbar am Zitat und nicht als Kommentar im Quelltext.
+   Machart wie .cta__platzhalter und .ref__hinweis: 0,84 rem, leicht gesperrt,
+   in der Goldschrift (5,12:1 auf Weiß, also über der AA-Schwelle).
+   Zwei Klassen tief aus demselben Grund wie bei .fuehr__rolle. */
+.fuehr__text .fuehr__freigabe {
+  margin: 0.6rem 0 0;
+  padding-left: clamp(0.9rem, 1.6vw, 1.4rem);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--gold-text);
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 860px) {
+  /* Gestapelt: Figur oben, Text darunter — bei beiden Personen gleich herum,
+     sonst wirkt die Spiegelung wie ein Fehler. Die Figur wird mittig gestellt
+     und in der Breite gedeckelt: über die volle Spaltenbreite gezogen wäre
+     sie auf dem Telefon fast einen halben Bildschirm hoch. */
+  .fuehr__block,
+  .fuehr__block--gedreht { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
+  .fuehr__block--gedreht .fuehr__text,
+  .fuehr__block--gedreht .fuehr__figur { grid-column: 1; grid-row: auto; }
+  .fuehr__figur {
+    width: min(100%, 240px);
+    height: auto;
+    aspect-ratio: var(--gf-format);
+    margin-inline: auto;
+    order: -1;
+  }
+  .fuehr__block--gedreht .fuehr__figur { order: -1; }
 }

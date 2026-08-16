@@ -146,16 +146,19 @@
 <section class="ref" id="bewertungen">
   <div class="ref__inner">
 
-    <header class="ref__head" data-reveal>
-      <!-- Google-Bewertungssiegel. Das vierfarbige G ist Googles Marke; sie darf
-           unveraendert zur Anzeige der EIGENEN echten Bewertung stehen, nicht
-           als Partnerschaftshinweis. Stand der Zahlen: 5,0 bei 5 Bewertungen —
-           vor Freischaltung noch einmal am Profil pruefen.
-           TODO: href durch die exakte URL des Google-Unternehmensprofils ersetzen. -->
+    <!-- LINKS: Ueberschrift und Google-Siegel, senkrecht mittig. -->
+    <div class="ref__seite" data-reveal>
+      <h2 class="display ref__h2">Kunden, die uns vertrauen.</h2>
+
+      <!-- Das vierfarbige G ist Googles Marke; sie darf unveraendert zur
+           Anzeige der EIGENEN echten Bewertung stehen, nicht als Hinweis auf
+           eine Partnerschaft.
+           TODO: href durch die exakte URL des Google-Unternehmensprofils
+           ersetzen und den Sternwert am Profil pruefen. -->
       <a class="ref__siegel"
          href="https://www.google.com/maps/search/?api=1&amp;query=Estera%20GmbH"
          target="_blank" rel="noopener noreferrer"
-         aria-label="5,0 von 5 Sternen bei 5 Bewertungen auf Google — Profil in neuem Tab oeffnen">
+         aria-label="5,0 von 5 Sternen auf Google — Profil in neuem Tab öffnen">
 
         <svg class="ref__siegel-g" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -165,105 +168,135 @@
         </svg>
 
         <span class="ref__siegel-txt">
-          <span class="ref__siegel-sterne" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </span>
+          <span class="ref__siegel-sterne" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span>
           <span class="ref__siegel-wert">5,0 von 5 Sternen</span>
-          <span class="ref__siegel-quelle">5 Bewertungen auf Google</span>
         </span>
       </a>
 
-      <h2 class="display ref__h2">Kunden, die uns vertrauen.</h2>
-    </header>
+      <p class="ref__hinweis">Platzhalter — zehn Demo-Rezensionen zur Ansicht. Vor der Freischaltung werden sie durch die echten Google-Rezensionen ersetzt.</p>
+    </div>
 
-    <ul class="ref__tafel">
-
-      <li class="ref__karte" tabindex="0" data-reveal style="--i:0; --logo-scale:0.7">
-        <div class="ref__inhalt">
-          <span class="ref__logo">
-            <img src="assets/img/logos/apple.svg" alt="Apple">
-          </span>
-          <div class="ref__person">
-            <p class="ref__name">Andreas Mustermann</p>
-            <p class="ref__rolle">Geschäftsführer</p>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <figure class="ref__foto" aria-hidden="true">
-            <img src="assets/img/personen/p1.jpg" alt="" loading="lazy" decoding="async">
-          </figure>
-        </div>
-        <div class="ref__aussage">
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige Satz, den die Person tatsächlich gesagt und zur Veröffentlichung freigegeben hat — üblicherweise drei bis sechs Zeilen, in denen sie ihre Ausgangssituation, die Zusammenarbeit und das Ergebnis in eigenen Worten beschreibt.“</p>
-        </div>
-      </li>
-
-      <li class="ref__karte" tabindex="0" data-reveal style="--i:1; --logo-scale:1">
-        <div class="ref__inhalt">
-          <span class="ref__logo">
-            <img src="assets/img/logos/baulig.svg" alt="Baulig Unternehmensgruppe">
-          </span>
-          <div class="ref__person">
-            <p class="ref__name">Claudia Beispiel</p>
-            <p class="ref__rolle">Geschäftsführerin</p>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <figure class="ref__foto" aria-hidden="true">
-            <img src="assets/img/personen/p2.jpg" alt="" loading="lazy" decoding="async">
-          </figure>
-        </div>
-        <div class="ref__aussage">
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. In der eingeklappten Spalte sind nur die ersten Zeilen zu sehen; beim Aufklappen steht der Satz vollständig da. Länge und Umbruch richten sich später nach dem echten Wortlaut.“</p>
-        </div>
-      </li>
-
-      <li class="ref__karte" tabindex="0" data-reveal style="--i:2; --logo-scale:0.8">
-        <div class="ref__inhalt">
-          <span class="ref__logo">
-            <img src="assets/img/logos/adidas.svg" alt="Adidas">
-          </span>
-          <div class="ref__person">
-            <p class="ref__name">Stefan Musterfeld</p>
-            <p class="ref__rolle">Geschäftsführer</p>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <figure class="ref__foto" aria-hidden="true">
-            <img src="assets/img/personen/p3.jpg" alt="" loading="lazy" decoding="async">
-          </figure>
-        </div>
-        <div class="ref__aussage">
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige Satz, den die Person gesagt und freigegeben hat. Der Text darf ruhig unterschiedlich lang sein — die Spalten gleichen das aus.“</p>
-        </div>
-      </li>
-
-      <li class="ref__karte" tabindex="0" data-reveal style="--i:3; --logo-scale:1">
-        <div class="ref__inhalt">
-          <span class="ref__logo">
-            <img src="assets/img/logos/fuermetz.svg" alt="Fürmetz Logistik">
-          </span>
-          <div class="ref__person">
-            <p class="ref__name">Jonas Platzhalter</p>
-            <p class="ref__rolle">Geschäftsführer</p>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <figure class="ref__foto" aria-hidden="true">
-            <img src="assets/img/personen/p4.jpg" alt="" loading="lazy" decoding="async">
-          </figure>
-        </div>
-        <div class="ref__aussage">
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige, wörtlich freigegebene Satz. Er wird nicht umformuliert, nicht gekürzt und nicht sinngemäß wiedergegeben — nur so ist er belastbar.“</p>
-        </div>
-      </li>
-
-    </ul>
-
-    <!-- Fliegt mit den echten Referenzen raus -->
-    <p class="ref__platzhalter-hinweis">
-      Platzhalter — vier echte Referenzen mit schriftlicher Freigabe folgen.
-    </p>
+    <!-- RECHTS: die Rezensionen als endlose Reihe. Aufbau der Karte nach der
+         Vorlage des Kunden: rundes Portraet ueber der Oberkante, darunter
+         fuenf Sterne, der Text mittig, unten die Unterschrift.
+         Die zweite Spur klont assets/js/rezensionen.js zur Laufzeit — ohne
+         Javascript steht die Reihe still und bleibt seitlich scrollbar. -->
+    <div class="rez__band" data-rez-band>
+      <div class="rez__lauf" data-rez-lauf>
+        <ul class="rez__spur" data-rez-spur>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><img src="assets/img/personen/p1.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Wir haben über Estera unsere erste Kapitalanlageimmobilie erworben und sind mit dem gesamten Ablauf sehr zufrieden. Besonders hervorzuheben ist die Transparenz: Es wurde von Anfang an klar gesagt, was geht und was nicht geht. Fragen wurden ruhig und verständlich beantwortet, auch die, die man sich als Laie kaum zu stellen traut. Die Finanzierung wurde vollständig koordiniert, bis zum Notartermin lief alles reibungslos.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Michael R.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">SK</span></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Sehr angenehme Zusammenarbeit. Ich hatte vorher keinerlei Berührung mit Immobilien und wurde Schritt für Schritt durch den gesamten Prozess geführt. Nichts wurde beschönigt, nichts überstürzt.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Sandra K.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><img src="assets/img/personen/p2.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Was mich überzeugt hat: Es wurde mir ein Objekt ausdrücklich abgeraten, obwohl daran verdient worden wäre. Genau diese Ehrlichkeit hat mein Vertrauen gewonnen. Beim zweiten Objekt hat dann alles gepasst — Lage, Zustand, Zahlen. Die Unterlagen waren vollständig aufbereitet, ich musste nichts hinterherlaufen. Vom ersten Gespräch bis zum Notar vergingen wenige Wochen, ohne dass es hektisch wurde.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Thomas B.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">JW</span></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Klare Kommunikation, verlässliche Termine, keine Verkaufsmasche. Kann ich uneingeschränkt weiterempfehlen.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Julia W.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><img src="assets/img/personen/p3.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Ich hatte im Vorfeld mit mehreren Anbietern gesprochen und war ehrlich gesagt skeptisch geworden. Bei Estera lief das Erstgespräch komplett anders: Zuerst wurde meine Situation eingeordnet, erst danach kam überhaupt ein Objekt zur Sprache. Diese Reihenfolge macht einen Unterschied. Die Zusammenarbeit war durchgehend professionell und auch nach dem Kauf steht man mir bei Fragen zur Verfügung.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Andreas M.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">KS</span></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Die Objektvorstellung war sehr gründlich aufbereitet — Zahlen, Unterlagen, offene Punkte, alles nachvollziehbar auf dem Tisch. So habe ich mir eine Beratung vorgestellt.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Katrin S.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">DH</span></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Kompetent, ruhig und ohne Druck. Genau richtig für jemanden, der sich zum ersten Mal mit dem Thema beschäftigt.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Daniel H.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><img src="assets/img/personen/p4.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Nach einer schlechten Erfahrung mit einem anderen Vermittler war ich vorsichtig. Hier wurde mir zuerst erklärt, welche Fragen eine Website und ein Erstgespräch überhaupt nicht beantworten können — und was erst bei der konkreten Objektvorstellung geklärt wird. Diese Zurückhaltung hat mich mehr überzeugt als jedes Versprechen. Der Kaufprozess lief anschließend strukturiert und ohne böse Überraschungen ab.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Petra L.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">SG</span></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Die Finanzierung wurde über das Netzwerk koordiniert, ich musste mich um kaum etwas selbst kümmern. Termine wurden eingehalten, Rückfragen kamen noch am selben Tag zurück.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Stefan G.</p>
+          </article>
+        </li>
+        <li class="rez">
+          <article class="rez__karte">
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">NF</span></figure>
+            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" data-rez-text>
+              <p>„Ich schätze vor allem, dass nichts versprochen wurde, was sich nicht halten lässt. Es wurde offen gesagt, welche Punkte von meiner persönlichen Situation abhängen und deshalb nicht pauschal beantwortet werden können. Am Ende habe ich eine Wohnung erworben, die zu meinen Zielen passt, und wurde bis zum Notartermin durchgehend begleitet.“</p>
+            </div>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
+            <p class="rez__name">Nicole F.</p>
+          </article>
+        </li>
+        </ul>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -277,95 +310,251 @@
        — die beiden Bilder dieser Section (Querbild und durchlaufende
          Fassade). Beide sind ersatzlos raus, es bleibt nur die Grafik.
 
-     UEBERNOMMEN: die Grafik der entfallenen Section „Lieber weniger
-     Empfehlungen" — der Verzweigungsbaum im Stil von Imperia. Sie steht
-     unveraendert, nur die Beschriftungen sind Platzhalter.
+     GRAFIK: 1:1 nach der vom Kunden gelieferten Vorlage
+     `Bilder/referenz-leistungen.png` — Aufbau, Proportionen, Kartenform,
+     Schatten, gestrichelte Verbindungen, gefuellte Pfeilspitzen und der
+     Estera-Kreis mit Winkeln und Gabel. Die Bauweise ist im Kopf von
+     assets/css/auswahl.css beschrieben.
 
-     OFFEN (Briefing 05): Der Inhalt kommt laut Briefing „von CJ" und liegt
-     noch nicht vor. Welche Quelle genau gemeint ist, ist ebenfalls offen.
-     Bis dahin stehen sichtbare Platzhalter — erfunden wird hier nichts.
-     Auch die sechs Symbole stammen noch aus der alten Section und muessen
-     mit den echten Leistungen getauscht werden.
+     ZWEI ABWEICHUNGEN, beide vom Auftrag gedeckt:
+       — SCHRIFT: die des Projekts (Cormorant Garamond), nicht die der
+         Vorlage.
+       — BESCHRIFTUNG: die Vorlage enthaelt Aussagen, die das Masterbriefing
+         untersagt. Was ersetzt wurde, steht als Kommentar direkt an der
+         jeweiligen Karte.
+       — Dazu zwei kleinere Eingriffe: unter den drei Quellkarten steht je
+         eine erklaerende Zeile (der Kunde verlangt Verstaendlichkeit ohne
+         Vorwissen; „Off-Market" allein ist Fachjargon), und das Symbol der
+         letzten Zeile der Zielkarte ist statt eines Handschlags ein
+         Personenpaar — der Handschlag der Vorlage ist als 1-px-Kontur auf
+         25 px nicht mehr lesbar.
+
+     INHALT: Alle Beschriftungen sind am Masterbriefing geprueft. Die
+     Reihenfolge der vier Leistungskarten folgt dem Estera-Prozess von S.6
+     und S.9. Erfunden ist nichts — keine Zahlen, keine Zertifikate, keine
+     Partnerschaften.
+
+     TON: Der Kunde hat vorgegeben, dass sich die Seite an Menschen ohne
+     jede Vorkenntnis richtet. Jeder Fachbegriff wird deshalb im selben
+     Satz miterklaert (Kapitalanlageimmobilie, Off-Market, Notartermin).
+
+     GRENZEN aus dem Masterbriefing, hier eingehalten: keine monatliche
+     Belastung, kein „ab 0 Euro", kein „ohne Eigenkapital", keine Rendite-,
+     Zins-, Steuer- oder Sicherheitsversprechen, keine Angstkommunikation,
+     die Woerter „Bautraeger" und „Direktverkaeufer" kommen nicht vor, und
+     statt „ausgewaehlte Wohnimmobilien" steht „Kapitalanlageimmobilie"
+     beziehungsweise „Off-Market-Objekte".
+
+     OFFEN: Der genaue Leistungsumfang muss vor der Veroeffentlichung von
+     Estera bestaetigt werden (Masterbriefing S.14). Der sichtbare Hinweis
+     unter der Grafik bleibt so lange stehen.
      ===================================================================== -->
 <section class="wahl" id="leistungen">
   <div class="wahl__inner">
 
     <header class="wahl__head" data-reveal>
       <h2 class="display wahl__h2">Unsere Leistungen.</h2>
+      <p class="wahl__marke">Estera</p>
     </header>
 
-    <div class="ableh" data-zeichnen>
+    <!-- Der Plan nach der Kundenvorlage Bilder/referenz-leistungen.png.
+         Fuenf Spalten: Quellen, gestrichelte Verbindung, die vier
+         Leistungskarten mit dem Estera-Kreis, gestrichelte Verbindung,
+         Zielkarte. Aufbau, Proportionen, Kartenform und Symbolsprache sind
+         1:1 uebernommen; Schrift und Beschriftung folgen dem Projekt
+         beziehungsweise dem Masterbriefing. -->
+    <div class="leist" data-zeichnen>
 
-      <div class="ableh__start">
-        <span class="ableh__start-txt">Platzhalter — Bereichstitel</span>
+      <!-- Der Haken sitzt sechzehnmal in der Grafik. Einmal als Symbol
+           abgelegt und per <use> geholt statt sechzehnmal ausgeschrieben. -->
+      <svg class="leist__sprite" aria-hidden="true" focusable="false" width="0" height="0">
+        <symbol id="l-haken" viewBox="0 0 20 20">
+          <path d="m5 10.4 3.2 3.2L15 6.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+      </svg>
+
+      <div class="leist__plan">
+
+        <!-- Spalte 1 — woher die Objekte kommen.
+             Die Vorlage nennt hier „Projektvertrieb" und „Direktverkauf".
+             Beides ist gesperrt: das Masterbriefing untersagt Bautraeger-
+             optik (S.2) und das Wort „Direktverkaeufer". An ihrer Stelle
+             stehen die Zugangsmerkmale, die das Briefing selbst benennt
+             (S.4 „selektiver Off-Market-Zugang", S.13 „Objektzugang
+             buendeln", S.6 „Kapitalanlageimmobilien"). -->
+        <div class="leist__quellen">
+          <article class="lq" style="--auf:0">
+            <span class="lq__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.4" cy="8.6" r="4.4"/><path d="M12.3 11.7 4 20M6.4 17.6l2.1 2.1M8.8 15.2l2.1 2.1"/></svg>
+            </span>
+            <h3 class="lq__titel">Off-Market</h3>
+            <p class="lq__sub">Objekte, die nicht öffentlich inseriert werden.</p>
+          </article>
+          <article class="lq" style="--auf:1">
+            <span class="lq__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20.6h18"/><path d="M5.4 20.6V8.4l5.4-3v15.2"/><path d="M14 20.6v-8.2h4.8v8.2"/><path d="M7.7 10.6h.01M7.7 13.4h.01M7.7 16.2h.01M16.4 15h.01M16.4 17.6h.01"/></svg>
+            </span>
+            <h3 class="lq__titel">Gebündelter Zugang</h3>
+            <p class="lq__sub">Mehrere Zugangswege laufen bei Estera zusammen.</p>
+          </article>
+          <article class="lq" style="--auf:2">
+            <span class="lq__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.4" cy="7" r="2.6"/><path d="M3.2 20.4v-2a4.4 4.4 0 0 1 4.4-4.4h.8"/><path d="M12.4 20.4v-6.6l4.4-3.4 4.4 3.4v6.6z"/><path d="M15.4 20.4v-3.4h2.8v3.4"/></svg>
+            </span>
+            <h3 class="lq__titel">Kapitalanlage&shy;immobilien</h3>
+            <p class="lq__sub">Wohnungen, die vermietet und nicht selbst bewohnt werden.</p>
+          </article>
+        </div>
+
+        <!-- Die drei Stichleitungen sammeln sich und laufen als eine Linie
+             mit gefuellter Spitze in die Leistungskarten. -->
+        <div class="lb lb--ein" aria-hidden="true" style="--auf:3">
+          <span class="lb__quer" style="--y:16.6667%"></span>
+          <span class="lb__quer" style="--y:50%"></span>
+          <span class="lb__quer" style="--y:83.3333%"></span>
+          <span class="lb__hoch"></span>
+          <span class="lb__lang"></span>
+        </div>
+
+        <!-- Spalte 3 — die vier Leistungen. Reihenfolge wie im
+             Masterbriefing S.6 und S.9: Erstgespraech, Auswahl und Pruefung,
+             Finanzierung, Notar und Betreuung danach. -->
+        <div class="leist__mitte">
+          <span class="lm__faden" aria-hidden="true" style="--auf:3"></span>
+          <article class="lk" style="--auf:4">
+            <span class="lk__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 6.4A1.8 1.8 0 0 1 4.6 4.6h9.6a1.8 1.8 0 0 1 1.8 1.8v4.8a1.8 1.8 0 0 1-1.8 1.8H8l-3.6 2.7v-2.7a1.8 1.8 0 0 1-1.6-1.8z"/><path d="M19 9.6a1.8 1.8 0 0 1 1.8 1.8v4.4a1.8 1.8 0 0 1-1.8 1.8v2.4l-3.2-2.4h-4.4"/></svg>
+            </span>
+            <h3 class="lk__titel">Erstgespräch &amp; Einordnung</h3>
+            <span class="lk__regel" aria-hidden="true"></span>
+            <ul class="lk__liste">
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Ziele und Situation klären</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Gegenseitige Eignung prüfen</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Erste Einschätzung</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Auch ein Nein ist möglich</li>
+            </ul>
+          </article>
+
+          <article class="lk" style="--auf:5">
+            <span class="lk__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.4" cy="10.4" r="6.6"/><path d="m15.3 15.3 5.4 5.4"/><path d="m7.4 11.1 3-2.6 3 2.6"/><path d="M8.4 10.4v3.4h4v-3.4"/></svg>
+            </span>
+            <h3 class="lk__titel">Standort- &amp; Objektanalyse</h3>
+            <span class="lk__regel" aria-hidden="true"></span>
+            <ul class="lk__liste">
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Lagebewertung</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Marktanalyse</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Zustandsprüfung</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Wirtschaftliche Einordnung</li>
+            </ul>
+          </article>
+          <!-- Die Vorlage fuehrt hier „Attraktive Zinskonditionen" und
+               „Eigene Finanzierungsexpertise". Beides faellt weg: das
+               Masterbriefing untersagt Konditionszusagen und stellt
+               ausdruecklich fest, dass Estera die Finanzierung ueber ein
+               spezialisiertes Netzwerk KOORDINIERT und die Entscheidung bei
+               den Finanzierungspartnern liegt (S.9). -->
+          <article class="lk" style="--auf:6">
+            <span class="lk__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 9.6 12 4.4l9.2 5.2"/><path d="M4.8 10.2v8.2M9.2 10.2v8.2M14.8 10.2v8.2M19.2 10.2v8.2"/><path d="M2.6 20.6h18.8"/></svg>
+            </span>
+            <h3 class="lk__titel">Finanzierung</h3>
+            <span class="lk__regel" aria-hidden="true"></span>
+            <ul class="lk__liste">
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Spezialisiertes Netzwerk</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Strukturierte Vorprüfung</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Unterlagen aufbereitet</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Entscheidung bei den Banken</li>
+            </ul>
+          </article>
+
+          <!-- Die Vorlage nennt diese Karte „Verwaltungsservice" und die
+               daneben „Erstvermietung" mit dem Punkt „Kostenlose
+               Erstvermietung". Eine Verwalterpositionierung schliesst das
+               Masterbriefing aus (S.22), eine kostenlose Leistung ist eine
+               Zusage, die Estera erst bestaetigen muss. Beides ist hier zu
+               dem zusammengefasst, was das Briefing deckt: Begleitung bis
+               zum Notar und Betreuung danach (S.9, S.13). -->
+          <article class="lk" style="--auf:7">
+            <span class="lk__kreis" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 13.6v-1.8a7.4 7.4 0 0 1 14.8 0v1.8"/><rect x="2.6" y="13" width="4" height="5.6" rx="1.8"/><rect x="17.4" y="13" width="4" height="5.6" rx="1.8"/><path d="M19.4 18.6v.6a2.4 2.4 0 0 1-2.4 2.4h-2.6"/></svg>
+            </span>
+            <h3 class="lk__titel">Begleitung &amp; Betreuung</h3>
+            <span class="lk__regel" aria-hidden="true"></span>
+            <ul class="lk__liste">
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Beteiligte zusammengeführt</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Begleitung bis zum Notar</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Persönlicher Ansprechpartner</li>
+              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Betreuung nach dem Kauf</li>
+            </ul>
+          </article>
+          <!-- Der Estera-Kreis im Schnittpunkt der vier Karten, gehalten von zwei
+               Winkeln nach oben und einer Gabel nach unten. Ihre Mitten liegen
+               hinter dem Kreis; sichtbar bleiben nur die Enden mit den
+               gefuellten Punkten an den Kartenkanten — wie in der Vorlage. -->
+          <span class="lm__bogen lm__bogen--links" aria-hidden="true" style="--auf:8"></span>
+          <span class="lm__bogen lm__bogen--rechts" aria-hidden="true" style="--auf:8"></span>
+          <span class="lm__gabel lm__gabel--links" aria-hidden="true" style="--auf:8"></span>
+          <span class="lm__gabel lm__gabel--rechts" aria-hidden="true" style="--auf:8"></span>
+          <span class="lm__kreis" aria-hidden="true" style="--auf:8">Estera</span>
+        </div>
+
+        <div class="lb lb--aus" aria-hidden="true" style="--auf:9">
+          <span class="lb__lang"></span>
+        </div>
+
+        <!-- Spalte 5 — wohin das fuehrt.
+             Die Vorlage fuehrt hier drei Zeilen, die das Masterbriefing
+             untersagt: „Attraktive Renditechancen durch ausgewaehlte
+             Immobilien" (Renditeversprechen, dazu die gesperrte Wendung
+             „ausgewaehlte Immobilien", S.6), „Langfristige Perspektiven und
+             stabile Ertraege" (Ertragszusage) und „Sichere Entscheidungen
+             durch fundierte Analysen" (Sicherheitsversprechen). Ersetzt sind
+             sie durch Aussagen aus dem Briefing selbst; die vierte Zeile der
+             Vorlage bleibt unveraendert. -->
+        <article class="lz" style="--auf:10">
+          <span class="lz__kreis" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 20.8h17.6"/><path d="M6 20.8v-5.2M10 20.8v-7.4M14 20.8v-4.4M18 20.8v-8.6"/><path d="m4.6 10.4 4-3.8 3.2 3 6-6"/><path d="M13.6 3.6h4.4V8"/></svg>
+          </span>
+          <h3 class="lz__titel">Kapitalanlage</h3>
+          <span class="lz__regel" aria-hidden="true"></span>
+          <p class="lz__text">Langfristig gedacht statt schnell entschieden — mit einem Ablauf, der zu Ihrer Situation passt.</p>
+          <ul class="lz__liste">
+            <li>
+              <span class="lz__symbol" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="0.9"/></svg>
+              </span>
+              <span class="lz__wort">Gesucht wird, was zu Ihren Zielen passt.</span>
+            </li>
+            <li>
+              <span class="lz__symbol" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="m15.4 8.6-2 5.4-5.4 2 2-5.4z"/></svg>
+              </span>
+              <span class="lz__wort">Langfristig angelegt, nicht auf den schnellen Abschluss.</span>
+            </li>
+            <li>
+              <span class="lz__symbol" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 5.2 6v5.6c0 4.3 2.8 7.6 6.8 9.2 4-1.6 6.8-4.9 6.8-9.2V6z"/><path d="M12 9.2v5.4"/></svg>
+              </span>
+              <span class="lz__wort">Zahlen und Unterlagen vor der Entscheidung auf dem Tisch.</span>
+            </li>
+            <li>
+              <span class="lz__symbol" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.2" cy="8.2" r="3"/><path d="M3.4 19.8a5.8 5.8 0 0 1 11.6 0"/><path d="M16.2 5.6a3 3 0 0 1 0 5.2"/><path d="M17.6 14.4a5.8 5.8 0 0 1 3 5.4"/></svg>
+              </span>
+              <span class="lz__wort">Persönliche Begleitung bei jedem Schritt.</span>
+            </li>
+          </ul>
+        </article>
+
       </div>
-      <span class="ableh__abgang" aria-hidden="true"></span>
-
-      <ol class="ableh__stufen">
-      <li class="ableh__stufe" style="--stufe:0">
-        <div class="ableh__kasten ableh__kasten--links">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.6v15M6 8.2h12M12 4.6a1 1 0 100-.1M8.6 8.4 5.4 15h6.4zM15.4 8.4 18.6 15h-6.4zM8.4 19.6h7.2"/></svg>
-          </span>
-          <p class="ableh__txt">Platzhalter — Leistung 01. Der Text wird geliefert.</p>
-        </div>
-        <span class="ableh__verbinder" aria-hidden="true">
-          <span class="ableh__arm ableh__arm--links"></span>
-          <span class="ableh__arm ableh__arm--rechts"></span>
-        </span>
-        <div class="ableh__kasten ableh__kasten--rechts">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s6.6-6.6 6.6-10.7a6.6 6.6 0 10-13.2 0c0 4.1 6.6 10.7 6.6 10.7z"/><circle cx="12" cy="10.3" r="2.4"/></svg>
-          </span>
-          <p class="ableh__txt">Platzhalter — Leistung 02. Der Text wird geliefert.</p>
-        </div>
-      </li>
-      <li class="ableh__stufe" style="--stufe:1">
-        <div class="ableh__kasten ableh__kasten--links">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 3.2h7.4l4 4v13.6H6.4zM13.8 3.2v4h4"/><path d="M10.4 12.4a1.7 1.7 0 112.4 1.6c-.6.3-.9.8-.9 1.4"/><path d="M11.9 17.5h.1"/></svg>
-          </span>
-          <p class="ableh__txt">Platzhalter — Leistung 03. Der Text wird geliefert.</p>
-        </div>
-        <span class="ableh__verbinder" aria-hidden="true">
-          <span class="ableh__arm ableh__arm--links"></span>
-          <span class="ableh__arm ableh__arm--rechts"></span>
-        </span>
-        <div class="ableh__kasten ableh__kasten--rechts">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.8h16M7.4 16.4v-4.2M12 16.4V7.6M16.6 16.4V10"/></svg>
-          </span>
-          <p class="ableh__txt">Platzhalter — Leistung 04. Der Text wird geliefert.</p>
-        </div>
-      </li>
-      <li class="ableh__stufe" style="--stufe:2">
-        <div class="ableh__kasten ableh__kasten--links">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 9.2 12 4.4l8.6 4.8M5.6 9.6v8.6M9.6 9.6v8.6M14.4 9.6v8.6M18.4 9.6v8.6M3.4 20.2h17.2"/></svg>
-          </span>
-          <p class="ableh__txt">Platzhalter — Leistung 05. Der Text wird geliefert.</p>
-        </div>
-        <span class="ableh__verbinder" aria-hidden="true">
-          <span class="ableh__arm ableh__arm--links"></span>
-          <span class="ableh__arm ableh__arm--rechts"></span>
-        </span>
-        <div class="ableh__kasten ableh__kasten--rechts">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.9"/><path d="M12 11.9h.1"/></svg>
-          </span>
-          <p class="ableh__txt">Platzhalter — Leistung 06. Der Text wird geliefert.</p>
-        </div>
-      </li>
-      </ol>
-
-      <!-- Wohin das alles fuehrt. Gerader Zulauf mit doppelter Spitze, wie
-           die sechs Pfeile daneben, nur senkrecht. -->
-      <span class="ableh__zulauf" aria-hidden="true"></span>
-      <p class="ableh__ergebnis">Platzhalter — Ergebniszeile</p>
     </div>
 
 
-    <p class="wahl__mehr" data-reveal>Platzhalter — die sechs Leistungen werden geliefert.</p>
+    <!-- Vom Masterbriefing S.14 ausdruecklich verlangt: ohne diesen Vorbehalt
+         liest sich die Aufzaehlung als pauschales Pruef- und
+         Haftungsversprechen. -->
+    <p class="wahl__hinweis" data-reveal>Hinweis für die Abstimmung: Der genaue Leistungsumfang wird vor der Veröffentlichung von Estera bestätigt — insbesondere, welche Unterlagen Estera selbst prüft, welche lediglich aufbereitet werden und wann rechtliche, steuerliche oder technische Fachpartner hinzukommen. Diese Darstellung ist eine Arbeitsgrundlage und kein Prüf- oder Haftungsversprechen.</p>
 
   </div>
 </section>
@@ -395,11 +584,22 @@
      Stand bisher als Section 3 direkt unter den Kundenstimmen.
 
      ENTFALLEN nach Briefing 04: die Historie der beiden. An ihrer Stelle
-     steht jetzt jeweils ein Zitat neben dem Bild; der Wortlaut wird von
-     Estera geliefert und steht bis dahin als Platzhalter.
+     steht jetzt jeweils ein Zitat neben dem Bild.
 
-     OFFEN: „Design deutlich optimieren" (Briefing 03 D) — noch nicht
-     umgesetzt, hier ist bisher nur die Struktur angepasst.
+     ZITATE: Der Wortlaut beider Zitate ist ein VORSCHLAG von uns, nicht ein
+     gesprochener Satz der beiden. Unter jedem Zitat steht deshalb sichtbar
+     ein Freigabevermerk. Beides bleibt stehen, bis Estera den Wortlaut
+     bestaetigt hat — erst dann darf der Vermerk entfernt werden.
+
+     BILDER: Die beiden Aufnahmen sind quadratisch (640 x 640) und der Kopf
+     sitzt jeweils dicht unter der Oberkante. Eine KI-Erweiterung des
+     Bildraums (Outpainting) war gewuenscht, ist aber NICHT ausgefuehrt —
+     dafuer fehlt in dieser Umgebung der Zugang zum vorgegebenen Bildmodell.
+     Bis erweiterte Fassungen vorliegen, steht der Rahmen im Querformat und
+     oben buendig, so dass Haare und Gesicht vollstaendig stehen bleiben und
+     ausschliesslich unten beschnitten wird. Der Tausch gegen weitlaeufigere
+     Dateien braucht kein neues Markup: in assets/css/fuehrung.css sind nur
+     --gf-format und --gf-anschnitt anzupassen.
 
      ACHTUNG: Das Masterbriefing untersagte auf S.2, S.17 und S.19
      Gruenderportraits und Personenmarke. Dieser Abschnitt steht auf
@@ -412,12 +612,17 @@
       <div class="fuehr__text">
         <h2 class="display fuehr__name">Sebastian Meilbeck</h2>
         <span class="fuehr__strich" aria-hidden="true"></span>
-        <p>Sebastian Meilbeck ist Geschäftsführer der Estera GmbH.</p>
-        <blockquote class="fuehr__zitat"><p>Platzhalter — hier steht das Zitat von Sebastian Meilbeck.</p></blockquote>
+        <p class="fuehr__rolle">Sebastian Meilbeck ist Geschäftsführer der Estera GmbH.</p>
+        <blockquote class="fuehr__zitat">
+          <p>„Eine Kapitalanlageimmobilie wird bei uns zuerst geprüft und dann vorgestellt — nicht umgekehrt. Bis zum Termin beim Notar bleibt derselbe Ansprechpartner zuständig.“</p>
+        </blockquote>
+        <p class="fuehr__freigabe">Vorschlag — der Wortlaut ist noch nicht gesprochen und muss von Estera freigegeben werden.</p>
       </div>
-      <figure class="fuehr__bild">
-        <img src="assets/img/gf-meilbeck.jpg" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
-             width="640" height="640" loading="lazy" decoding="async">
+      <!-- Freigestellte Aufnahme mit Alphakanal: kein Bildfenster, die Person
+           steht frei auf dem weissen Papier (siehe assets/css/fuehrung.css) -->
+      <figure class="fuehr__figur">
+        <img src="assets/img/gf-meilbeck-frei.png" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
+             width="616" height="609" loading="lazy" decoding="async">
       </figure>
     </div>
 
@@ -425,16 +630,17 @@
       <div class="fuehr__text">
         <h2 class="display fuehr__name">Ioannis Orfanidis</h2>
         <span class="fuehr__strich" aria-hidden="true"></span>
-        <p>Ioannis Orfanidis ist Geschäftsführer der Estera GmbH.</p>
-        <blockquote class="fuehr__zitat"><p>Platzhalter — hier steht das Zitat von Ioannis Orfanidis.</p></blockquote>
+        <p class="fuehr__rolle">Ioannis Orfanidis ist Geschäftsführer der Estera GmbH.</p>
+        <blockquote class="fuehr__zitat">
+          <p>„Off-Market-Objekte findet man nicht über eine Suchmaske, sondern über Beziehungen, die über Jahre gewachsen sind. Damit daraus etwas wird, muss die Finanzierung von Anfang an mitgedacht sein.“</p>
+        </blockquote>
+        <p class="fuehr__freigabe">Vorschlag — der Wortlaut ist noch nicht gesprochen und muss von Estera freigegeben werden.</p>
       </div>
-      <figure class="fuehr__bild">
-        <img src="assets/img/gf-orfanidis.jpg" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
-             width="640" height="640" loading="lazy" decoding="async">
+      <figure class="fuehr__figur">
+        <img src="assets/img/gf-orfanidis-frei.png" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
+             width="616" height="609" loading="lazy" decoding="async">
       </figure>
     </div>
-
-    <p class="fuehr__hinweis">Platzhalter — die beiden Zitate folgen von Estera.</p>
 
   </div>
 </section>
@@ -453,64 +659,224 @@
      (Link oder Screenshot, Briefing 05). Hier ist bisher nur umbenannt.
      ===================================================================== -->
 <section class="prinzip" id="vorteile">
-  <!-- Kopfband ueber die volle Fensterbreite. Ueber dem Bild liegt ein
-       Verlauf nach Navy — das Bild ist zwar dunkel, aber die Lesbarkeit der
-       Ueberschrift darf nicht davon abhaengen, wo Lichter im Bild sitzen. -->
-  <div class="prinzip__band">
-    <img src="assets/img/prinzip-kopf.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async">
-    <header class="prinzip__head" data-reveal>
-      <h2 class="display prinzip__h2">Die Vorteile von Kapitalanlagen.</h2>
-      <p class="prinzip__lead">
-        Warum eine vermietete Kapitalanlageimmobilie grundsätzlich interessant
-        sein kann — verständlich erklärt, aber <span class="hl">ohne Rechnung
-        und ohne festes Ergebnis</span>.
+  <!-- 1 — Kopfband ueber die volle Fensterbreite. Ueber dem Bild liegt eine
+       Navy-Ueberlagerung: das Bild ist zwar eine Nachtaufnahme, aber die
+       Lesbarkeit darf nicht davon abhaengen, wo Fensterlichter sitzen. -->
+  <div class="vt__band">
+    <img src="assets/img/prinzip-kopf.jpg" alt="" width="2000" height="1333" loading="lazy" decoding="async">
+    <header class="vt__kopf" data-reveal>
+      <h2 class="display vt__h2">Die Vorteile von Kapitalanlagen</h2>
+      <span class="vt__strich" aria-hidden="true"></span>
+      <p class="vt__lead">
+        Finanzierung, Miete, Tilgung und mögliche steuerliche Wirkung greifen
+        ineinander — verständlich erklärt, ohne Rechnung und ohne festes Ergebnis.
       </p>
     </header>
   </div>
 
-  <div class="prinzip__inner">
+  <div class="vt__inner">
 
-    <p class="prinzip__kicker" data-reveal><span>Was die Anlage trägt</span></p>
+    <!-- 2a — Zwischentitel, Unterzeile, Goldstrich (Reihenfolge wie Vorlage) -->
+    <header class="vt__zwischen" data-reveal>
+      <h3 class="display vt__h3">So entsteht Vermögensaufbau</h3>
+      <p class="vt__unter">
+        Vier Bausteine greifen ineinander. Wie stark, hängt vom Objekt und von
+        Ihrer Situation ab.
+      </p>
+      <span class="vt__strich vt__strich--dunkel" aria-hidden="true"></span>
+    </header>
 
-    <!-- Vier ineinandergreifende Ringe nach dem Vorbild der Audi-Ringe.
-         Jeder Ring traegt seinen Namen in der Mitte, der Satz steht darunter.
-         Die Ringe sind 120 % ihrer Rasterspalte breit und ragen mit je 10 %
-         nach beiden Seiten heraus — daraus ergibt sich die Ueberschneidung
-         von rund 17 % der Ringbreite. Kein SVG, damit alles mitwaechst. -->
-    <ul class="prinzip__traeger">
-      <li class="prinzip__posten" data-reveal style="--i:0">
-        <span class="prinzip__ring"><span class="prinzip__ring-name">Finanzierung</span></span>
-        <p class="prinzip__satz">Bankkapital kann den Erwerb einer Immobilie ermöglichen; Eigenkapitalbedarf und Konditionen hängen vom Einzelfall ab.</p>
-      </li>
-      <li class="prinzip__posten" data-reveal style="--i:1">
-        <span class="prinzip__ring"><span class="prinzip__ring-name">Miete</span></span>
-        <p class="prinzip__satz">Die laufende Miete trägt einen Teil der Finanzierung und Kosten.</p>
-      </li>
-      <li class="prinzip__posten" data-reveal style="--i:2">
-        <span class="prinzip__ring"><span class="prinzip__ring-name">Tilgung</span></span>
-        <p class="prinzip__satz">Mit jeder Tilgungsleistung sinkt die Darlehensschuld; dadurch kann langfristig Eigentum aufgebaut werden.</p>
-      </li>
-      <li class="prinzip__posten" data-reveal style="--i:3">
-        <span class="prinzip__ring"><span class="prinzip__ring-name">Steuern</span></span>
-        <p class="prinzip__satz">Bei einer vermieteten Kapitalanlage können der abschreibungsfähige Gebäudeanteil und bestimmte Aufwendungen steuerlich berücksichtigt werden.</p>
-      </li>
-    </ul>
+    <!-- 2b — Vier Karten, versetzt, mit Verbindern.
+         Jeder Verbinder ist EIN SVG: ein Pfad plus marker-end. Die Spitze
+         sitzt dadurch zwangslaeufig exakt auf dem Pfadende — genau der
+         Punkt, den die Vorlage falsch zeigt. Die Spalten der Verbinder sind
+         in px festgelegt und entsprechen exakt der viewBox-Breite, damit
+         nichts skaliert wird. -->
+    <div class="vt__fluss" data-reveal>
 
-    <p class="prinzip__kicker prinzip__kicker--zweit" data-reveal><span>Was von Ihrer Situation abhängt</span></p>
+      <span class="vt__flanke vt__flanke--links" aria-hidden="true">
+        <svg width="32" height="22" viewBox="0 0 32 22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="10" cy="11" r="8"/>
+          <path d="M19 11H32"/>
+        </svg>
+      </span>
 
-    <figure class="prinzip__bild" data-reveal>
-      <img src="assets/img/prinzip-nacht.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async">
-      <figcaption class="prinzip__bild-txt">
-        <div>
-          <p class="prinzip__folge-name">Ihr eigener Beitrag</p>
-          <p class="prinzip__folge-satz">Was Sie selbst aufbringen müssen, ergibt sich aus Finanzierung, Miete, Kosten, Rücklagen und individueller Steuerwirkung.</p>
-        </div>
-        <div>
-          <p class="prinzip__folge-name">Langfristigkeit</p>
-          <p class="prinzip__folge-satz">Kapitalanlageimmobilien sind langfristig gedacht. Finanzierung, Rücklagen und künftige Flexibilität müssen zur individuellen Situation passen.</p>
-        </div>
-      </figcaption>
-    </figure>
+      <div class="vt__zelle vt__zelle--hoch">
+        <article class="vt__karte">
+          <div class="vt__kopfzeile">
+            <span class="vt__ziffer" aria-hidden="true">01</span>
+            <span class="vt__sinnbild" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.2 21 8.4H3z"/>
+                <path d="M4.6 11v7.4M9.5 11v7.4M14.5 11v7.4M19.4 11v7.4"/>
+                <path d="M2.6 21h18.8M3.4 8.4h17.2"/>
+              </svg>
+            </span>
+          </div>
+          <h4 class="vt__titel">Finanzierung</h4>
+          <p class="vt__text">Bankkapital kann den Erwerb einer Immobilie ermöglichen; Eigenkapitalbedarf und Konditionen hängen vom Einzelfall ab.</p>
+        </article>
+      </div>
+
+      <span class="vt__brueck vt__brueck--ab" aria-hidden="true">
+        <svg width="74" height="34" viewBox="0 0 74 34" fill="none">
+          <defs>
+            <marker id="vt-spitze-1" viewBox="0 0 10 9" refX="10" refY="4.5"
+                    markerWidth="10" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M0 0 10 4.5 0 9Z" fill="currentColor" stroke="none"/>
+            </marker>
+          </defs>
+          <path d="M0 6H27A10 10 0 0 1 37 16V18A10 10 0 0 0 47 28H70"
+                stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+                marker-end="url(#vt-spitze-1)"/>
+        </svg>
+      </span>
+
+      <div class="vt__zelle vt__zelle--tief">
+        <article class="vt__karte">
+          <div class="vt__kopfzeile">
+            <span class="vt__ziffer" aria-hidden="true">02</span>
+            <span class="vt__sinnbild" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.2 11 12 3.6 20.8 11"/>
+                <path d="M5.4 9.4V20.4h13.2V9.4"/>
+                <path d="M14 12.6a3.1 3.1 0 1 0 0 4.6"/>
+                <path d="M9.2 14h4.1M9.2 15.9h4.1"/>
+              </svg>
+            </span>
+          </div>
+          <h4 class="vt__titel">Miete</h4>
+          <p class="vt__text">Die laufende Miete trägt einen Teil der Finanzierung und Kosten.</p>
+        </article>
+      </div>
+
+      <span class="vt__brueck vt__brueck--eben" aria-hidden="true">
+        <svg width="74" height="10" viewBox="0 0 74 10" fill="none">
+          <defs>
+            <marker id="vt-spitze-2" viewBox="0 0 10 9" refX="10" refY="4.5"
+                    markerWidth="10" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M0 0 10 4.5 0 9Z" fill="currentColor" stroke="none"/>
+            </marker>
+          </defs>
+          <path d="M0 5H70" stroke="currentColor" stroke-width="2"
+                marker-end="url(#vt-spitze-2)"/>
+        </svg>
+      </span>
+
+      <div class="vt__zelle vt__zelle--tief">
+        <article class="vt__karte">
+          <div class="vt__kopfzeile">
+            <span class="vt__ziffer" aria-hidden="true">03</span>
+            <span class="vt__sinnbild" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.6 20.4h16.8"/>
+                <path d="M6.6 20.4v-4.6M11 20.4v-7.2M15.4 20.4v-4"/>
+                <path d="M5.4 11.6 10 7.4l3.4 2.8 6.2-5.8"/>
+                <path d="M15.6 4.4h4v4"/>
+              </svg>
+            </span>
+          </div>
+          <h4 class="vt__titel">Tilgung</h4>
+          <p class="vt__text">Mit jeder Tilgungsleistung sinkt die Darlehensschuld; dadurch kann langfristig Eigentum aufgebaut werden.</p>
+        </article>
+      </div>
+
+      <span class="vt__brueck vt__brueck--auf" aria-hidden="true">
+        <svg width="74" height="34" viewBox="0 0 74 34" fill="none">
+          <defs>
+            <marker id="vt-spitze-3" viewBox="0 0 10 9" refX="10" refY="4.5"
+                    markerWidth="10" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M0 0 10 4.5 0 9Z" fill="currentColor" stroke="none"/>
+            </marker>
+          </defs>
+          <path d="M0 28H27A10 10 0 0 0 37 18V16A10 10 0 0 1 47 6H70"
+                stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+                marker-end="url(#vt-spitze-3)"/>
+        </svg>
+      </span>
+
+      <div class="vt__zelle vt__zelle--hoch">
+        <article class="vt__karte">
+          <div class="vt__kopfzeile">
+            <span class="vt__ziffer" aria-hidden="true">04</span>
+            <span class="vt__sinnbild" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h7l5 5v13H6z"/>
+                <path d="M13 3v5h5"/>
+                <path d="M14.6 12.4 9.4 17.6"/>
+                <circle cx="10.1" cy="13.1" r="1.25"/>
+                <circle cx="13.9" cy="16.9" r="1.25"/>
+              </svg>
+            </span>
+          </div>
+          <h4 class="vt__titel">Steuern</h4>
+          <p class="vt__text">Bei einer vermieteten Kapitalanlage können der abschreibungsfähige Gebäudeanteil und bestimmte Aufwendungen steuerlich berücksichtigt werden.</p>
+        </article>
+      </div>
+
+      <span class="vt__flanke vt__flanke--rechts" aria-hidden="true">
+        <svg width="32" height="22" viewBox="0 0 32 22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M0 11H13"/>
+          <circle cx="22" cy="11" r="8"/>
+        </svg>
+      </span>
+
+    </div>
+
+    <!-- 3 — Navy-Band: Signet, senkrechter Goldstrich, Titel, drei Punkte -->
+    <div class="vt__leiste" data-reveal>
+      <span class="vt__signet" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18"/>
+          <path d="M6.2 21V7.6L13 4v17"/>
+          <path d="M13 10.6h4.8V21"/>
+          <path d="M8.4 8.6v1.8M8.4 12.6v1.8M8.4 16.6v1.8M10.9 8.6v1.8M10.9 12.6v1.8M10.9 16.6v1.8M15.2 13.4v1.6M15.2 17.4v1.6"/>
+        </svg>
+      </span>
+      <span class="vt__teiler" aria-hidden="true"></span>
+      <div class="vt__leiste-text">
+        <h3 class="display vt__leiste-titel">Langfristig gedacht, nicht kurzfristig gerechnet</h3>
+        <ul class="vt__punkte">
+          <li>
+            <span class="vt__haken" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg>
+            </span>
+            Auf Jahrzehnte angelegt
+          </li>
+          <li>
+            <span class="vt__haken" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg>
+            </span>
+            Ohne pauschale Rechnung
+          </li>
+          <li>
+            <span class="vt__haken" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg>
+            </span>
+            Einordnung im persönlichen Gespräch
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4 — Fusszeile: Hinweis links, Schaltflaeche rechts -->
+    <div class="vt__fuss" data-reveal>
+      <p class="vt__hinweis">
+        <span class="vt__i" aria-hidden="true">i</span>
+        Individuelle Ergebnisse hängen von Objekt, Finanzierung und persönlicher Situation ab.
+      </p>
+      <a class="btn vt__cta" href="erstgespraech.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 6.5h16V21H4z"/>
+          <path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/>
+          <path d="M8 14.2h.01M12 14.2h.01M16 14.2h.01M8 17.6h.01M12 17.6h.01"/>
+        </svg>
+        Erstgespräch vereinbaren
+        <svg class="vt__pfeil" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
 
     <!-- Eine Zeile zum Aufklappen, Aufbau nach der Referenz: Titel links,
          Beisatz daneben, runder Knopf rechts. -->
@@ -536,14 +902,8 @@
             erst bei der Objektvorstellung eingeordnet — nicht auf einer Website.
           </p>
         </div>
-        <p class="spiel__hinweis" data-hinweis>
-          <span class="spiel__hinweis--selbst">Passt nicht auf Anhieb</span>
-          <span class="spiel__hinweis--estera">Sitzt</span>
-        </p>
       </div>
     </div>
-
-    <p class="prinzip__mehr" data-reveal><a href="wissen.html">Finanzierung und Steuern im Detail</a></p>
 
   </div>
 </section>
@@ -584,81 +944,17 @@
 
     <div class="verg__buehne">
 
-      <!-- Das Haus. Baukoerper und Giebel sind EINE Silhouette, in die Tiefe
-           gestapelt; die sechs Oeffnungen sind echte Durchbrueche mit
-           Laibung. Die Bausteine fliegen von vorn hinein: bei "Selbst
-           koordinieren" jeder auf eine fremde Oeffnung, bei "Mit Estera
-           begleitet" jeder in seine eigene.
-           Rein dekorativ, deshalb aria-hidden. -->
-      <div class="spiel" aria-hidden="true">
-        <div class="spiel__rahmen">
-          <div class="haus">
-            <span class="haus__dach"></span>
-            <span class="haus__seite">
-              <span class="haus__seitenfenster" style="--sx:26px; --sy:-34px"></span>
-              <span class="haus__seitenfenster" style="--sx:26px; --sy:38px"></span>
-              <span class="haus__seitenfenster haus__seitenfenster--klein" style="--sx:-30px; --sy:-34px"></span>
-            </span>
-            <span class="haus__lage" style="--z:0px"></span><span class="haus__lage" style="--z:-4px"></span><span class="haus__lage" style="--z:-8px"></span><span class="haus__lage" style="--z:-12px"></span><span class="haus__lage" style="--z:-16px"></span><span class="haus__lage" style="--z:-20px"></span><span class="haus__lage" style="--z:-24px"></span><span class="haus__lage" style="--z:-28px"></span><span class="haus__lage" style="--z:-32px"></span><span class="haus__lage" style="--z:-36px"></span><span class="haus__lage" style="--z:-40px"></span><span class="haus__lage" style="--z:-44px"></span><span class="haus__lage" style="--z:-48px"></span><span class="haus__lage" style="--z:-52px"></span><span class="haus__lage" style="--z:-56px"></span><span class="haus__lage" style="--z:-60px"></span><span class="haus__lage" style="--z:-64px"></span><span class="haus__lage" style="--z:-68px"></span><span class="haus__lage" style="--z:-72px"></span><span class="haus__lage" style="--z:-76px"></span><span class="haus__lage" style="--z:-80px"></span><span class="haus__lage" style="--z:-84px"></span><span class="haus__lage" style="--z:-88px"></span><span class="haus__lage" style="--z:-92px"></span><span class="haus__lage" style="--z:-96px"></span><span class="haus__lage" style="--z:-100px"></span>
-            <span class="haus__halter" style="--i:0; --x:0px; --y:-116px; --b:50px; --h:44px">
-              <span class="haus__schatten haus__form--dreieck"
-                    style="--fx1:84px; --fy1:120px; --fx2:84px; --fy2:230px; --fx3:-84px; --fy3:230px"></span>
-              <span class="haus__koerper" style="--ton:var(--ton-1); --kante:var(--kante-1); --fx1:84px; --fy1:120px; --fx2:84px; --fy2:230px; --fx3:-84px; --fy3:230px">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--dreieck" style="--z:0px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:3px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:6px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:9px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:12px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:15px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:18px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:21px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:24px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:27px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:30px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--dreieck" style="--i:0"></span>
-            </span>
-            <span class="haus__halter" style="--i:1; --x:-84px; --y:4px; --b:54px; --h:54px">
-              <span class="haus__schatten haus__form--rund"
-                    style="--fx1:0px; --fy1:110px; --fx2:84px; --fy2:-120px; --fx3:84px; --fy3:114px"></span>
-              <span class="haus__koerper" style="--ton:var(--ton-2); --kante:var(--kante-2); --fx1:0px; --fy1:110px; --fx2:84px; --fy2:-120px; --fx3:84px; --fy3:114px">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--rund" style="--z:0px"></span><span class="haus__scheibe haus__form--rund" style="--z:3px"></span><span class="haus__scheibe haus__form--rund" style="--z:6px"></span><span class="haus__scheibe haus__form--rund" style="--z:9px"></span><span class="haus__scheibe haus__form--rund" style="--z:12px"></span><span class="haus__scheibe haus__form--rund" style="--z:15px"></span><span class="haus__scheibe haus__form--rund" style="--z:18px"></span><span class="haus__scheibe haus__form--rund" style="--z:21px"></span><span class="haus__scheibe haus__form--rund" style="--z:24px"></span><span class="haus__scheibe haus__form--rund" style="--z:27px"></span><span class="haus__scheibe haus__form--rund" style="--z:30px"></span><span class="haus__scheibe haus__form--rund" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--rund" style="--i:1"></span>
-            </span>
-            <span class="haus__halter" style="--i:2; --x:84px; --y:4px; --b:54px; --h:54px">
-              <span class="haus__schatten haus__form--quadrat"
-                    style="--fx1:-84px; --fy1:114px; --fx2:-168px; --fy2:0px; --fx3:0px; --fy3:110px"></span>
-              <span class="haus__koerper" style="--ton:var(--ton-3); --kante:var(--kante-3); --fx1:-84px; --fy1:114px; --fx2:-168px; --fy2:0px; --fx3:0px; --fy3:110px">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quadrat" style="--z:0px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:3px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:6px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:9px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:12px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:15px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:18px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:21px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:24px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:27px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:30px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--quadrat" style="--i:2"></span>
-            </span>
-            <span class="haus__halter" style="--i:3; --x:-84px; --y:114px; --b:46px; --h:78px">
-              <span class="haus__schatten haus__form--hoch"
-                    style="--fx1:168px; --fy1:0px; --fx2:168px; --fy2:-110px; --fx3:84px; --fy3:-230px"></span>
-              <span class="haus__koerper" style="--ton:var(--ton-4); --kante:var(--kante-4); --fx1:168px; --fy1:0px; --fx2:168px; --fy2:-110px; --fx3:84px; --fy3:-230px">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--hoch" style="--z:0px"></span><span class="haus__scheibe haus__form--hoch" style="--z:3px"></span><span class="haus__scheibe haus__form--hoch" style="--z:6px"></span><span class="haus__scheibe haus__form--hoch" style="--z:9px"></span><span class="haus__scheibe haus__form--hoch" style="--z:12px"></span><span class="haus__scheibe haus__form--hoch" style="--z:15px"></span><span class="haus__scheibe haus__form--hoch" style="--z:18px"></span><span class="haus__scheibe haus__form--hoch" style="--z:21px"></span><span class="haus__scheibe haus__form--hoch" style="--z:24px"></span><span class="haus__scheibe haus__form--hoch" style="--z:27px"></span><span class="haus__scheibe haus__form--hoch" style="--z:30px"></span><span class="haus__scheibe haus__form--hoch" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--hoch" style="--i:3"></span>
-            </span>
-            <span class="haus__halter" style="--i:4; --x:0px; --y:118px; --b:58px; --h:110px">
-              <span class="haus__schatten haus__form--tuer"
-                    style="--fx1:0px; --fy1:-234px; --fx2:-84px; --fy2:-4px; --fx3:-84px; --fy3:-114px"></span>
-              <span class="haus__koerper" style="--ton:var(--ton-5); --kante:var(--kante-5); --fx1:0px; --fy1:-234px; --fx2:-84px; --fy2:-4px; --fx3:-84px; --fy3:-114px">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--tuer" style="--z:0px"></span><span class="haus__scheibe haus__form--tuer" style="--z:3px"></span><span class="haus__scheibe haus__form--tuer" style="--z:6px"></span><span class="haus__scheibe haus__form--tuer" style="--z:9px"></span><span class="haus__scheibe haus__form--tuer" style="--z:12px"></span><span class="haus__scheibe haus__form--tuer" style="--z:15px"></span><span class="haus__scheibe haus__form--tuer" style="--z:18px"></span><span class="haus__scheibe haus__form--tuer" style="--z:21px"></span><span class="haus__scheibe haus__form--tuer" style="--z:24px"></span><span class="haus__scheibe haus__form--tuer" style="--z:27px"></span><span class="haus__scheibe haus__form--tuer" style="--z:30px"></span><span class="haus__scheibe haus__form--tuer" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--tuer" style="--i:4"></span>
-            </span>
-            <span class="haus__halter" style="--i:5; --x:84px; --y:114px; --b:78px; --h:46px">
-              <span class="haus__schatten haus__form--quer"
-                    style="--fx1:-168px; --fy1:-110px; --fx2:-84px; --fy2:4px; --fx3:0px; --fy3:-110px"></span>
-              <span class="haus__koerper" style="--ton:var(--ton-6); --kante:var(--kante-6); --fx1:-168px; --fy1:-110px; --fx2:-84px; --fy2:4px; --fx3:0px; --fy3:-110px">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quer" style="--z:0px"></span><span class="haus__scheibe haus__form--quer" style="--z:3px"></span><span class="haus__scheibe haus__form--quer" style="--z:6px"></span><span class="haus__scheibe haus__form--quer" style="--z:9px"></span><span class="haus__scheibe haus__form--quer" style="--z:12px"></span><span class="haus__scheibe haus__form--quer" style="--z:15px"></span><span class="haus__scheibe haus__form--quer" style="--z:18px"></span><span class="haus__scheibe haus__form--quer" style="--z:21px"></span><span class="haus__scheibe haus__form--quer" style="--z:24px"></span><span class="haus__scheibe haus__form--quer" style="--z:27px"></span><span class="haus__scheibe haus__form--quer" style="--z:30px"></span><span class="haus__scheibe haus__form--quer" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--quer" style="--i:5"></span>
-            </span>
-          </div>
-        </div>
-        <p class="spiel__hinweis">
-          <span class="spiel__hinweis--selbst">Passt nicht auf Anhieb</span>
-          <span class="spiel__hinweis--estera">Sitzt</span>
-        </p>
-      </div>
-
-      <ul class="verg__karten">
-        <li class="verg__karte" style="--v:0px">
-          <p class="verg__name">Objekt & Lage</p>
+      <!-- Punktkarten links. Die Reihenfolge folgt den Ruheplaetzen der
+           Bausteine daneben: Giebeldreieck oben, Rundfenster in der Mitte,
+           Rundbogentuer unten. --dx und --dy setzen den Versatz im Zustand
+           "Selbst koordinieren"; im Zustand "Mit Estera begleitet" fluchten
+           alle Karten auf einer Kante. -->
+      <ul class="verg__karten verg__karten--links">
+        <li class="verg__karte" style="--dx:-30px; --dy:-14px">
+          <span class="verg__ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s6.6-5.4 6.6-10.4a6.6 6.6 0 1 0-13.2 0C5.4 15.6 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.5"/></svg>
+          </span>
+          <p class="verg__name">Objekt &amp; Lage</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Objekte finden und vergleichen; Makro- und Mikrolage selbst einordnen.</p>
             <p class="verg__text verg__text--estera">Passende Kapitalanlageimmobilien vorauswählen; Lage und Nachfrage strukturiert einordnen.</p>
@@ -668,7 +964,10 @@
             <span class="verg__stand verg__stand--estera">Vorausgewählt</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:23px">
+        <li class="verg__karte" style="--dx:12px; --dy:10px">
+          <span class="verg__ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6.5 20v-6.5M12 20V7.5M17.5 20v-9"/></svg>
+          </span>
           <p class="verg__name">Wirtschaftlichkeit</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Kaufpreis, Miete, Hausgeld, laufende Kosten und eigenen Beitrag zusammenführen.</p>
@@ -679,7 +978,10 @@
             <span class="verg__stand verg__stand--estera">Eingeordnet</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:10px">
+        <li class="verg__karte" style="--dx:-16px; --dy:26px">
+          <span class="verg__ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5Z"/><path d="M14 3.5V7.5H18"/><path d="M9 13h6M9 16.5h4"/></svg>
+          </span>
           <p class="verg__name">Objektunterlagen</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Teilungserklärung, Energieausweis, Mietunterlagen und weitere Dokumente selbst sichten.</p>
@@ -690,7 +992,86 @@
             <span class="verg__stand verg__stand--estera">Aufbereitet</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:30px">
+      </ul>
+
+      <!-- Das Haus, mittig als Blickfang. Baukoerper und Dach sind EINE
+           Silhouette, in die Tiefe gestapelt; die sechs Oeffnungen sind echte
+           Durchbrueche mit Laibung. Rings herum schweben die losen Bausteine:
+           bei "Selbst koordinieren" fliegen sie nacheinander an drei falsche
+           Stellen, bei "Mit Estera begleitet" rastet jeder sofort in seiner
+           eigenen Oeffnung ein.
+           Rein dekorativ, deshalb aria-hidden. -->
+      <div class="spiel" aria-hidden="true">
+        <div class="spiel__rahmen">
+          <div class="haus">
+            <span class="haus__rueck"></span>
+            <span class="haus__dach"></span>
+            <span class="haus__sockel"></span>
+            <span class="haus__seite">
+              <span class="haus__seitenfenster" style="--sx:-16px; --sy:-46px"></span>
+              <span class="haus__seitenfenster" style="--sx:-16px; --sy:34px"></span>
+              <span class="haus__seitensockel"></span>
+            </span>
+            <span class="haus__lage" style="--z:0px"></span><span class="haus__lage" style="--z:-4px"></span><span class="haus__lage" style="--z:-8px"></span><span class="haus__lage" style="--z:-12px"></span><span class="haus__lage" style="--z:-16px"></span><span class="haus__lage" style="--z:-20px"></span><span class="haus__lage" style="--z:-24px"></span><span class="haus__lage" style="--z:-28px"></span><span class="haus__lage" style="--z:-32px"></span><span class="haus__lage" style="--z:-36px"></span><span class="haus__lage" style="--z:-40px"></span><span class="haus__lage" style="--z:-44px"></span><span class="haus__lage" style="--z:-48px"></span><span class="haus__lage" style="--z:-52px"></span><span class="haus__lage" style="--z:-56px"></span><span class="haus__lage" style="--z:-60px"></span><span class="haus__lage" style="--z:-64px"></span><span class="haus__lage" style="--z:-68px"></span><span class="haus__lage" style="--z:-72px"></span><span class="haus__lage" style="--z:-76px"></span><span class="haus__lage" style="--z:-80px"></span><span class="haus__lage" style="--z:-84px"></span><span class="haus__lage" style="--z:-88px"></span><span class="haus__lage" style="--z:-92px"></span><span class="haus__lage" style="--z:-96px"></span><span class="haus__lage" style="--z:-100px"></span>
+            <!-- Giebeldreieck — Ruheplatz links oben, Karte "Objekt & Lage" -->
+            <span class="haus__halter" style="--i:0; --x:-30px; --y:-106px; --b:56px; --h:48px; --rx:-222px; --ry:-4px; --fx1:-115px; --fy1:-12px; --fx2:-58px; --fy2:-44px; --fx3:-90px; --fy3:-12px">
+              <span class="haus__schatten haus__form--dreieck"></span>
+              <span class="haus__koerper haus__koerper--giebel" style="--ton:var(--ton-1); --kante:var(--kante-1)">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--dreieck" style="--z:0px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:3px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:6px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:9px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:12px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:15px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:18px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:21px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:24px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:27px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:30px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--dreieck" style="--i:0"></span>
+            </span>
+            <!-- Rundfenster — Ruheplatz links mittig, Karte "Wirtschaftlichkeit" -->
+            <span class="haus__halter" style="--i:1; --x:-78px; --y:-10px; --b:54px; --h:54px; --rx:-184px; --ry:15px; --fx1:-62px; --fy1:-30px; --fx2:0px; --fy2:72px; --fx3:-72px; --fy3:-35px">
+              <span class="haus__schatten haus__form--rund"></span>
+              <span class="haus__koerper haus__koerper--rundfenster" style="--ton:var(--ton-2); --kante:var(--kante-2)">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--rund" style="--z:0px"></span><span class="haus__scheibe haus__form--rund" style="--z:3px"></span><span class="haus__scheibe haus__form--rund" style="--z:6px"></span><span class="haus__scheibe haus__form--rund" style="--z:9px"></span><span class="haus__scheibe haus__form--rund" style="--z:12px"></span><span class="haus__scheibe haus__form--rund" style="--z:15px"></span><span class="haus__scheibe haus__form--rund" style="--z:18px"></span><span class="haus__scheibe haus__form--rund" style="--z:21px"></span><span class="haus__scheibe haus__form--rund" style="--z:24px"></span><span class="haus__scheibe haus__form--rund" style="--z:27px"></span><span class="haus__scheibe haus__form--rund" style="--z:30px"></span><span class="haus__scheibe haus__form--rund" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--rund" style="--i:1"></span>
+            </span>
+            <!-- Rechteckiges Sprossenfenster — Ruheplatz rechts mittig, Karte "Finanzierung" -->
+            <span class="haus__halter" style="--i:2; --x:82px; --y:-10px; --b:52px; --h:54px; --rx:180px; --ry:10px; --fx1:58px; --fy1:-30px; --fx2:0px; --fy2:72px; --fx3:68px; --fy3:-35px">
+              <span class="haus__schatten haus__form--quadrat"></span>
+              <span class="haus__koerper haus__koerper--sprossen" style="--ton:var(--ton-3); --kante:var(--kante-3)">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quadrat" style="--z:0px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:3px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:6px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:9px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:12px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:15px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:18px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:21px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:24px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:27px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:30px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--quadrat" style="--i:2"></span>
+            </span>
+            <!-- Schornstein — Ruheplatz rechts oben, Karte "WEG-Unterlagen" -->
+            <span class="haus__halter" style="--i:3; --x:82px; --y:-90px; --b:32px; --h:44px; --rx:170px; --ry:-25px; --fx1:66px; --fy1:-35px; --fx2:6px; --fy2:-60px; --fx3:38px; --fy3:-28px">
+              <span class="haus__schatten haus__form--hoch"></span>
+              <span class="haus__koerper haus__koerper--schornstein" style="--ton:var(--ton-4); --kante:var(--kante-4)">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--hoch" style="--z:0px"></span><span class="haus__scheibe haus__form--hoch" style="--z:3px"></span><span class="haus__scheibe haus__form--hoch" style="--z:6px"></span><span class="haus__scheibe haus__form--hoch" style="--z:9px"></span><span class="haus__scheibe haus__form--hoch" style="--z:12px"></span><span class="haus__scheibe haus__form--hoch" style="--z:15px"></span><span class="haus__scheibe haus__form--hoch" style="--z:18px"></span><span class="haus__scheibe haus__form--hoch" style="--z:21px"></span><span class="haus__scheibe haus__form--hoch" style="--z:24px"></span><span class="haus__scheibe haus__form--hoch" style="--z:27px"></span><span class="haus__scheibe haus__form--hoch" style="--z:30px"></span><span class="haus__scheibe haus__form--hoch" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--hoch" style="--i:3"></span>
+            </span>
+            <!-- Rundbogentuer — Ruheplatz links unten, Karte "Objektunterlagen" -->
+            <span class="haus__halter" style="--i:4; --x:-21px; --y:119px; --b:58px; --h:78px; --rx:-227px; --ry:1px; --fx1:-97px; --fy1:-23px; --fx2:-109px; --fy2:31px; --fx3:-74px; --fy3:-49px">
+              <span class="haus__schatten haus__form--tuer"></span>
+              <span class="haus__koerper haus__koerper--tuer" style="--ton:var(--ton-5); --kante:var(--kante-5)">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--tuer" style="--z:0px"></span><span class="haus__scheibe haus__form--tuer" style="--z:3px"></span><span class="haus__scheibe haus__form--tuer" style="--z:6px"></span><span class="haus__scheibe haus__form--tuer" style="--z:9px"></span><span class="haus__scheibe haus__form--tuer" style="--z:12px"></span><span class="haus__scheibe haus__form--tuer" style="--z:15px"></span><span class="haus__scheibe haus__form--tuer" style="--z:18px"></span><span class="haus__scheibe haus__form--tuer" style="--z:21px"></span><span class="haus__scheibe haus__form--tuer" style="--z:24px"></span><span class="haus__scheibe haus__form--tuer" style="--z:27px"></span><span class="haus__scheibe haus__form--tuer" style="--z:30px"></span><span class="haus__scheibe haus__form--tuer" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--tuer" style="--i:4"></span>
+            </span>
+            <!-- Fensterrahmen — Ruheplatz rechts unten, Karte "Kaufprozess" -->
+            <span class="haus__halter" style="--i:5; --x:85px; --y:104px; --b:66px; --h:60px; --rx:165px; --ry:14px; --fx1:70px; --fy1:-38px; --fx2:5px; --fy2:64px; --fx3:70px; --fy3:-69px">
+              <span class="haus__schatten haus__form--quer"></span>
+              <span class="haus__koerper haus__koerper--rahmen" style="--ton:var(--ton-6); --kante:var(--kante-6)">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quer" style="--z:0px"></span><span class="haus__scheibe haus__form--quer" style="--z:3px"></span><span class="haus__scheibe haus__form--quer" style="--z:6px"></span><span class="haus__scheibe haus__form--quer" style="--z:9px"></span><span class="haus__scheibe haus__form--quer" style="--z:12px"></span><span class="haus__scheibe haus__form--quer" style="--z:15px"></span><span class="haus__scheibe haus__form--quer" style="--z:18px"></span><span class="haus__scheibe haus__form--quer" style="--z:21px"></span><span class="haus__scheibe haus__form--quer" style="--z:24px"></span><span class="haus__scheibe haus__form--quer" style="--z:27px"></span><span class="haus__scheibe haus__form--quer" style="--z:30px"></span><span class="haus__scheibe haus__form--quer" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--quer" style="--i:5"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Punktkarten rechts. Reihenfolge wie die Ruheplaetze daneben:
+           Schornstein oben, Sprossenfenster in der Mitte, Fensterrahmen unten. -->
+      <ul class="verg__karten verg__karten--rechts">
+        <li class="verg__karte" style="--dx:26px; --dy:-18px">
+          <span class="verg__ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m12 3.6 8.4 4.3-8.4 4.3-8.4-4.3Z"/><path d="m3.6 13 8.4 4.3 8.4-4.3"/><path d="m3.6 17.4 8.4 4.3 8.4-4.3"/></svg>
+          </span>
           <p class="verg__name">WEG-Unterlagen</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Wirtschaftspläne, Jahresabrechnungen und WEG-Protokolle selbst sichten.</p>
@@ -701,7 +1082,10 @@
             <span class="verg__stand verg__stand--estera">Einbezogen</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:7px">
+        <li class="verg__karte" style="--dx:-10px; --dy:12px">
+          <span class="verg__ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M17.6 6.6a6.9 6.9 0 1 0 0 10.8"/><path d="M4.6 10.4h8.2M4.6 13.6h8.2"/></svg>
+          </span>
           <p class="verg__name">Finanzierung</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Finanzierungswege, Bankunterlagen und Konditionen selbst abstimmen.</p>
@@ -712,7 +1096,10 @@
             <span class="verg__stand verg__stand--estera">Koordiniert</span>
           </div>
         </li>
-        <li class="verg__karte" style="--v:19px">
+        <li class="verg__karte" style="--dx:32px; --dy:24px">
+          <span class="verg__ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2.6 12.4 6 9h4.2l1.8 1.8"/><path d="M21.4 12.4 18 9h-4.2L12 10.8"/><path d="m10.2 12.6-1.8 1.8a1.5 1.5 0 0 0 2.1 2.1l.9-.9 2.1 2.1a1.4 1.4 0 0 0 2-2"/><path d="M2.6 12.4v2.2l2.6 2.6M21.4 12.4v2.2l-2.6 2.6"/></svg>
+          </span>
           <p class="verg__name">Kaufprozess</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Ansprechpartner, Unterlagen, Fristen und Schritte bis zum Notar zusammenhalten.</p>
@@ -725,6 +1112,22 @@
         </li>
       </ul>
 
+    </div>
+
+    <!-- Das Band unter dem Haus: Symbol, Satz, Schaltflaeche. -->
+    <div class="verg__band" data-reveal>
+      <span class="verg__bandsymbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4.5 21V7.6L12 3.2l7.5 4.4V21"/><path d="M2.5 21h19"/><path d="M9.8 21v-4.6h4.4V21"/><path d="M8 9.6h2.1M13.9 9.6H16M8 13h2.1M13.9 13H16"/></svg>
+      </span>
+      <p class="verg__bandtext">
+        Alle Bausteine müssen zusammenpassen –
+        <em>wir machen den Weg verständlich und strukturiert.</em>
+      </p>
+      <span class="verg__bandstrich" aria-hidden="true"></span>
+      <a class="verg__bandcta" href="erstgespraech.html">
+        Beratung anfragen
+        <svg viewBox="0 0 20 12" aria-hidden="true"><path d="M0.8 6h17.4M13.4 1.2 18.2 6l-4.8 4.8"/></svg>
+      </a>
     </div>
 
     <p class="verg__hinweis">
@@ -907,9 +1310,10 @@
 <!-- Nur für die interne Abstimmung -->
 <div class="variant-switch">
   <a href="./index.html">Variante B · Empfehlung</a>
-  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-200</a>
+  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-201</a>
 </div>
 
 <script src="assets/js/site.js"></script>
+<script src="assets/js/rezensionen.js"></script>
 </body>
 </html>

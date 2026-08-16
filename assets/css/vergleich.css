@@ -1,25 +1,33 @@
 /* ===========================================================================
    SECTION 6 — VIELE BAUSTEINE. EIN STRUKTURIERTER WEG. (Briefing S.7, S.14)
-   „Ein Umschalter zeigt dieselben Themen in zwei Zuständen: zunächst
-    verteilt und offen, anschließend klar geordnet und von Estera begleitet."
+   „Ein Umschalter zeigt dieselben Themen in zwei Zustaenden: zunaechst
+    verteilt und offen, anschliessend klar geordnet und von Estera begleitet."
 
-   Die sichtbare Veränderung ist die Aussage. Deshalb ändert der Umschalter
-   nicht nur den Text, sondern die ORDNUNG: im ersten Zustand stehen die
-   sechs Bausteine gegeneinander versetzt und ohne Verbindung, im zweiten
-   fluchten sie auf einer Linie und sind durch eine Haarlinie verbunden.
+   Aufbau nach Vorlage: Ueberschrift und Unterzeile mittig, darunter der
+   Umschalter als Pille. Das Haus steht MITTIG und gross als Blickfang, links
+   und rechts daneben je drei Punktkarten. Von jedem losen Baustein fuehrt eine
+   feine gestrichelte Linie zur zugehoerigen Karte. Unten ein breites Band mit
+   Symbol, Satz und Schaltflaeche.
+
+   Die sichtbare Veraenderung ist die Aussage: im Zustand „Selbst koordinieren"
+   stehen die Karten leicht durcheinander — ungleich eingerueckt, gegeneinander
+   hoehenversetzt. Im Zustand „Mit Estera begleitet" fluchten sie auf einer
+   Kante, mit gleichen Abstaenden.
 
    Briefing S.7: „Die Wirkung entsteht durch konkrete Entlastung und
    Kompetenz – nicht durch Angstkommunikation." Und S.14: „Keine
    Schockzahlen, Privatinsolvenz-Szenarien oder garantierten
-   Sicherheitsversprechen." Der linke Zustand ist deshalb nicht bedrohlich
+   Sicherheitsversprechen." Der erste Zustand ist deshalb nicht bedrohlich
    gesetzt, sondern nur unruhig — mehr Einzelteile, kein Alarm.
    =========================================================================== */
 
 .verg {
-  --linie: #8CA0B8;
+  --linie: rgba(16, 41, 73, 0.26);
+  --wechsel: 0.38s var(--ease-soft);   /* 380 ms, weich, nichts springt */
   position: relative;
   z-index: 1;
-  background: var(--paper);
+  overflow-x: clip;
+  background: linear-gradient(to bottom, var(--paper) 0%, #FCFAF6 22%, #FCFAF6 78%, var(--paper) 100%);
   padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
 }
 
@@ -40,9 +48,9 @@
   line-height: 1.12;
 }
 .verg__lead {
-  margin: clamp(1.6rem, 3.4vh, 2.4rem) auto 0;
+  margin: clamp(1.4rem, 3vh, 2.1rem) auto 0;
   max-width: 46rem;
-  font-size: clamp(1.12rem, 1.42vw, 1.42rem);
+  font-size: clamp(1.06rem, 1.32vw, 1.32rem);
   line-height: 1.5;
   color: var(--ink-soft);
   text-wrap: pretty;
@@ -50,21 +58,22 @@
 .verg__lead .hl { color: var(--ink-black); }
 
 /* --- Der Umschalter ------------------------------------------------------- */
-/* Zwei Schaltflächen in einer Fassung, dahinter ein wandernder Schieber.
-   Der Schieber liegt als eigenes Element hinter den Beschriftungen und
-   wird per transform bewegt — dadurch läuft er weich, ohne dass sich das
-   Raster verschiebt. */
+/* Zwei Schaltflaechen in einer Fassung, dahinter ein wandernder Schieber.
+   Der Schieber liegt als eigenes Element hinter den Beschriftungen und wird
+   per transform bewegt — dadurch laeuft er weich, ohne dass sich das Raster
+   verschiebt. */
 .verg__schalter {
   position: relative;
   width: max-content;
   max-width: 100%;
-  margin: clamp(2.4rem, 6vh, 4rem) auto 0;
+  margin: clamp(1.8rem, 4.4vh, 2.8rem) auto 0;
   display: grid;
   grid-auto-flow: column;
   padding: 5px;
   border: 1px solid var(--line-gold);
   border-radius: 999px;
   background: var(--paper);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03);
 }
 .verg__schieber {
   position: absolute;
@@ -75,14 +84,14 @@
   width: calc(50% - 5px);
   border-radius: 999px;
   background: var(--navy-800);
-  transition: transform 0.55s var(--ease-soft);
+  transition: transform 0.42s var(--ease-soft);
 }
 .verg[data-modus='estera'] .verg__schieber { transform: translateX(100%); }
 
 .verg__knopf {
   position: relative;
   z-index: 1;
-  padding: clamp(0.7rem, 1.6vh, 1rem) clamp(1.2rem, 2.6vw, 2.2rem);
+  padding: clamp(0.7rem, 1.6vh, 0.95rem) clamp(1.2rem, 2.6vw, 2.2rem);
   border: 0;
   background: none;
   border-radius: 999px;
@@ -95,106 +104,142 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--ink-mute);
-  transition: color 0.4s var(--ease);
+  transition: color var(--wechsel);
 }
 .verg__knopf[aria-pressed='true'] { color: #fff; }
 .verg__knopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
 
-/* --- Buehne: links die Animation, rechts die sechs Bausteine ------------- */
+/* --- Buehne: Karten links, Haus in der Mitte, Karten rechts --------------- */
+/* Beide Aussenspalten sind gleich breit (1fr), die Mittelspalte ist so breit
+   wie die Haus-Buehne. Dadurch steht das Haus exakt in der Abschnittsmitte. */
 .verg__buehne {
-  margin: clamp(2.6rem, 6vh, 4.2rem) auto 0;
-  max-width: 1280px;
+  margin: clamp(2.2rem, 5vh, 3.6rem) auto 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(1.6rem, 4vw, 3.6rem);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
+  gap: clamp(0.5rem, 1.4vw, 1.4rem);
 }
 
 .verg__karten {
-  position: relative;
   display: grid;
-  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2.2vh, 1.7rem);
+  width: 100%;
+  max-width: 22rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
+.verg__karten--links  { justify-self: end; }
+.verg__karten--rechts { justify-self: start; }
 
-/* --- Die sechs Bausteine als Liste --------------------------------------- */
-/* KEINE Kästen mehr. Sechs gerahmte Kacheln nebeneinander lasen sich wie ein
-   Formular: gleicher Rahmen, gleicher Rhythmus, kein Gewicht — und sie
-   konkurrierten mit dem Haus daneben statt es zu ergänzen.
-   Jetzt sechs Zeilen an einer durchgehenden Haarlinie: Name links, Status
-   rechts, der Satz darunter. Das liest sich als Ablauf und nimmt dem Bild
-   nichts weg. */
+/* --- Die Punktkarten ------------------------------------------------------ */
 .verg__karte {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: clamp(1rem, 2.4vw, 2.2rem);
-  align-items: baseline;
-  padding: clamp(1rem, 2.4vh, 1.5rem) 0;
-  border-bottom: 1px solid var(--line-soft);
-  /* Im ersten Zustand stehen die Zeilen leicht eingerückt und ungleich —
-     „verteilt und offen". Beim Umschalten fluchten sie auf einer Kante. */
-  transform: translateX(var(--v, 0px));
-  transition: transform 0.6s var(--ease-soft), border-color 0.5s var(--ease);
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(0.7rem, 1.1vw, 1rem);
+  align-items: center;
+  padding: clamp(0.85rem, 1.8vh, 1.15rem) clamp(0.95rem, 1.4vw, 1.3rem);
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
+              0 14px 30px -20px rgba(16, 41, 73, 0.3);
+  /* Im ersten Zustand stehen die Karten ungleich eingerueckt und gegeneinander
+     hoehenversetzt — „verteilt und offen". Beim Umschalten fluchten sie. */
+  transform: translate(var(--dx, 0px), var(--dy, 0px));
+  transition: transform var(--wechsel), border-color var(--wechsel),
+              box-shadow var(--wechsel);
 }
-.verg__karte:first-child { border-top: 1px solid var(--line-soft); }
 .verg[data-modus='estera'] .verg__karte {
-  transform: translateX(0);
-  border-color: rgba(30, 66, 112, 0.22);
+  transform: translate(0px, 0px);
+  border-color: rgba(30, 66, 112, 0.2);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
+              0 14px 30px -20px rgba(16, 41, 73, 0.22);
+}
+
+/* Der helle Kreis mit dem Konturensymbol */
+.verg__ikon {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: clamp(2.1rem, 2.5vw, 2.45rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #F4F0E7;
+  color: var(--navy-600);
+  transition: background var(--wechsel), color var(--wechsel);
+}
+.verg[data-modus='estera'] .verg__ikon {
+  background: rgba(30, 66, 112, 0.08);
+  color: var(--navy-800);
+}
+.verg__ikon svg {
+  width: 54%;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .verg__name {
-  grid-column: 1;
+  grid-column: 2;
+  grid-row: 1;
   font-family: var(--font-display);
-  font-size: clamp(1.08rem, 1.28vw, 1.28rem);
+  font-size: clamp(1rem, 1.16vw, 1.16rem);
   font-weight: 500;
   line-height: 1.2;
   color: var(--ink-black);
 }
 
-/* Beide Fassungen liegen übereinander in derselben Rasterzelle. Dadurch ist
-   die Zeile immer so hoch wie die längere von beiden und springt beim
+/* Beide Textfassungen liegen uebereinander in derselben Rasterzelle. Dadurch
+   ist die Karte immer so hoch wie die laengere von beiden und springt beim
    Umschalten nicht. */
 .verg__texte {
   grid-column: 1 / -1;
+  grid-row: 2;
   display: grid;
-  margin-top: clamp(0.4rem, 1vh, 0.6rem);
-  max-width: 34rem;
+  margin-top: clamp(0.55rem, 1.2vh, 0.8rem);
+  padding-top: clamp(0.55rem, 1.2vh, 0.8rem);
+  border-top: 1px solid var(--line-soft);
 }
 .verg__text {
   grid-area: 1 / 1;
-  font-size: clamp(0.88rem, 0.97vw, 0.97rem);
-  line-height: 1.55;
+  font-size: clamp(0.83rem, 0.9vw, 0.9rem);
+  line-height: 1.5;
   color: var(--ink-soft);
   text-wrap: pretty;
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity var(--wechsel);
 }
 .verg:not([data-modus='estera']) .verg__text--selbst { opacity: 1; }
 .verg[data-modus='estera'] .verg__text--estera { opacity: 1; }
 
 /* --- Statuszeile ---------------------------------------------------------- */
 /* Wortlaut aus Briefing S.14: erster Zustand „noch offen", „noch
-   einzuordnen"; Estera-Zustand „vorausgewählt", „aufbereitet",
+   einzuordnen"; Estera-Zustand „vorausgewaehlt", „aufbereitet",
    „eingeordnet", „koordiniert". */
 .verg__status {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1 / -1;
+  grid-row: 3;
   display: grid;
-  justify-items: end;
+  margin-top: clamp(0.45rem, 1vh, 0.65rem);
 }
 .verg__stand {
   grid-area: 1 / 1;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  white-space: nowrap;
-  font-size: clamp(0.66rem, 0.74vw, 0.74rem);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-indent: 0.14em;
+  gap: 0.5rem;
+  font-size: clamp(0.62rem, 0.68vw, 0.68rem);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-indent: 0.13em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity var(--wechsel);
 }
 .verg__stand::before {
   content: '';
@@ -210,14 +255,110 @@
 .verg:not([data-modus='estera']) .verg__stand--selbst { opacity: 1; }
 .verg[data-modus='estera'] .verg__stand--estera { opacity: 1; }
 
+/* --- Die gestrichelte Verbindung zum Baustein ----------------------------- */
+.verg__karte::after {
+  content: '';
+  position: absolute;
+  top: clamp(1.5rem, 2.9vh, 1.9rem);
+  width: clamp(1rem, 3.6vw, 3.6rem);
+  border-top: 1px dashed var(--linie);
+  opacity: 0.55;
+  transition: opacity var(--wechsel);
+}
+.verg__karten--links  .verg__karte::after { left: 100%; }
+.verg__karten--rechts .verg__karte::after { right: 100%; }
+.verg[data-modus='estera'] .verg__karte::after { opacity: 0.9; }
+
+/* --- Das Band unter dem Haus ---------------------------------------------- */
+.verg__band {
+  margin: clamp(2.4rem, 5.5vh, 3.6rem) auto 0;
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: clamp(0.9rem, 2.2vw, 1.9rem);
+  padding: clamp(0.9rem, 2.1vh, 1.35rem) clamp(1rem, 2.2vw, 1.9rem);
+  border: 1px solid var(--line-soft);
+  border-radius: 26px;
+  background: var(--paper);
+}
+.verg__bandsymbol {
+  display: grid;
+  place-items: center;
+  width: clamp(3rem, 4vw, 3.9rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--navy-800);
+  color: #fff;
+}
+.verg__bandsymbol svg {
+  width: 52%;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.verg__bandtext {
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 1.28vw, 1.28rem);
+  line-height: 1.45;
+  color: var(--ink-black);
+  text-wrap: pretty;
+}
+.verg__bandtext em {
+  display: block;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.verg__bandstrich {
+  width: 1px;
+  height: clamp(2.2rem, 4vh, 3rem);
+  background: var(--line-soft);
+}
+.verg__bandcta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  min-height: 48px;
+  padding: 0 clamp(1.1rem, 1.8vw, 1.7rem);
+  border: 1px solid var(--navy-800);
+  border-radius: 999px;
+  background: var(--navy-800);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(0.76rem, 0.84vw, 0.86rem);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-indent: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background var(--wechsel), border-color var(--wechsel);
+}
+.verg__bandcta:hover { background: var(--navy-900); border-color: var(--navy-900); }
+.verg__bandcta svg {
+  width: 1.15em;
+  height: auto;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.45s var(--ease);
+}
+.verg__bandcta:hover svg { transform: translateX(4px); }
+
 /* --- Hinweis unter dem Vergleich ----------------------------------------- */
-/* Briefing S.14: „Die Tabelle ist eine Arbeitsgrundlage und kein pauschales
-   Prüf- oder Haftungsversprechen." Das gehört sichtbar auf die Seite. */
+/* Briefing S.14: „Die Uebersicht ist eine Arbeitsgrundlage und kein
+   pauschales Pruef- oder Haftungsversprechen." Das gehoert sichtbar
+   auf die Seite. */
 .verg__hinweis {
-  margin: clamp(2.2rem, 5vh, 3.4rem) auto 0;
+  margin: clamp(1.8rem, 4vh, 2.8rem) auto 0;
   max-width: 52rem;
   text-align: center;
-  font-size: clamp(0.86rem, 0.94vw, 0.94rem);
+  font-size: clamp(0.84rem, 0.92vw, 0.92rem);
   line-height: 1.6;
   color: var(--ink-mute);
 }
@@ -231,19 +372,37 @@
 }
 
 /* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 900px) {
-  /* Unter 900 px steht die Animation ueber den Karten statt daneben. */
-  .verg__buehne { grid-template-columns: 1fr; gap: clamp(2rem, 5vh, 3rem); }
-}
-@media (max-width: 640px) {
+@media (max-width: 1040px) {
+  /* Unter 1040 px steht das Haus ueber den Karten statt zwischen ihnen. */
+  .verg__buehne { grid-template-columns: minmax(0, 1fr); gap: clamp(1rem, 2.4vh, 1.7rem); }
+  .spiel { order: -1; margin-bottom: clamp(0.6rem, 2vh, 1.4rem); }
+  .verg__karten {
+    max-width: 62rem;
+    justify-self: center;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .verg__karte { transform: none; }
+  .verg__karte::after { display: none; }
+  .verg__band { grid-template-columns: auto minmax(0, 1fr); row-gap: 1.2rem; }
+  .verg__bandstrich { display: none; }
+  .verg__bandcta { grid-column: 1 / -1; justify-self: center; }
+}
+
+@media (max-width: 900px) {
+  .verg__karten { max-width: 42rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .verg__karten { grid-template-columns: minmax(0, 1fr); }
   .verg__schalter { width: 100%; }
   .verg__knopf { padding-inline: 0.8rem; font-size: 0.74rem; letter-spacing: 0.1em; }
   .verg__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+  .verg__band { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .verg__karte, .verg__band, .verg__schieber, .verg__text, .verg__stand {
+  .verg__karte, .verg__schieber, .verg__text, .verg__stand, .verg__ikon,
+  .verg__bandcta, .verg__bandcta svg {
     transition: none;
   }
   .verg__karte { transform: none; }

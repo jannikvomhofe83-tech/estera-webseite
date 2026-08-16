@@ -1,21 +1,36 @@
 /* ===========================================================================
-   SECTION 5 — DAS FINANZIELLE PRINZIP (Briefing S.7 und S.10/11)
-   „Eine ruhige Visualisierung zeigt das Zusammenspiel von Finanzierung,
-    Immobilie, Miete, Tilgung, laufenden Kosten und möglicher steuerlicher
-    Wirkung. Die Seite nennt keine pauschale monatliche Belastung und kein
-    ‚ab 0 Euro‘."
+   ABSCHNITT — DIE VORTEILE VON KAPITALANLAGEN
+   Aufbau 1:1 nach der Kundenvorlage `Bilder/referenz-vorteile.png`:
 
-   Bewusst OHNE Diagramm mit Kästen und Pfeilen: der Abschnitt davor ist
-   genau das. Hier tragen Typografie und zwei waagerechte Haarlinien —
-   eine Tafel, kein Schaubild. „Ruhig" heißt hier wörtlich ruhig.
+     1  dunkles Kopfband ueber die volle Breite, Titel + Goldstrich + Unterzeile
+     2  weisser Bereich: Zwischentitel, vier versetzte Karten, Verbindungslinien
+     3  Navy-Band mit Signet, Trennstrich, Titel und drei Punkten
+     4  Fusszeile: Hinweis links, Schaltflaeche rechts
 
-   Ebenso bewusst OHNE Icons. In Abschnitt 4 sitzt in jedem Kasten eins;
-   zweimal dieselbe Geste hintereinander nutzt sie ab. Und drei der sechs
-   Symbole (Bank, Waage, Balken) wären dieselben gewesen.
+   Der eine Punkt, den die Vorlage NICHT vorgibt: dort sitzen die Pfeilspitzen
+   neben ihren Linien. Hier ist jeder Verbinder EIN Inline-SVG — ein Pfad plus
+   `marker-end`. Die Spitze liegt damit zwangslaeufig exakt auf dem Pfadende,
+   sie kann gar nicht verrutschen.
+
+   Der Versatz der Karten ist ebenfalls konstruiert statt geschaetzt: die
+   Zellen 1 und 4 tragen den Versatz als Polster UNTEN, die Zellen 2 und 3
+   oben. Alle vier Zellen sind gleich hoch (Rasterzeile), also sind auch alle
+   vier Karten exakt gleich hoch — und der Versatz ist bei beiden Paaren
+   exakt derselbe Wert.
    =========================================================================== */
 
 .prinzip {
-  --linie: #8CA0B8;
+  /* Navy der Kreise, des Bands und der Linien */
+  --vt-navy: #0F2745;
+  /* Senkrechter Versatz von Karte 2/3 gegenueber 1/4.
+     Auf der Vorlage sind es 17 px bei 1672 px Bildbreite; 22 px halten die
+     abgerundete Stufe im Verbinder auch bei kleinerer Schrift ablesbar. */
+  --vt-versatz: 22px;
+  /* Breite der Verbinderspalten. Fest in px, damit das SVG 1:1 zu seinem
+     viewBox steht — nur so bleibt die Pfeilspitze pixelgenau. */
+  --vt-brueck: 74px;
+  --vt-flanke: 32px;
+
   position: relative;
   z-index: 1;
   background: var(--paper);
@@ -23,220 +38,367 @@
   padding: 0 0 clamp(4rem, 10vh, 8rem);
 }
 
-.prinzip__inner {
-  /* Deutlich schmaler als die uebrigen Abschnitte — eine Lesespalte wie in
-     der Referenz, nicht die volle Seitenbreite. */
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+/* Eigener Einlauf statt des gemeinsamen aus leistungen.css — der Abschnitt
+   soll nicht davon abhaengen, was in einer fremden Datei steht. */
+.prinzip [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
 }
+.prinzip [data-reveal][data-seen='true'] { opacity: 1; transform: none; }
 
-/* --- Kopfband ueber die volle Breite -------------------------------------- */
-.prinzip__band {
+/* ---------------------------------------------------------------------------
+   1 — Dunkles Kopfband
+--------------------------------------------------------------------------- */
+.vt__band {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: clamp(300px, 32vw, 480px);
-  padding: clamp(3.5rem, 8vh, 6rem) var(--gutter);
+  /* Hoehe nach der Vorlage: dort ist das Band 277 px hoch bei 1672 px Breite. */
+  min-height: clamp(240px, 17.5vw, 310px);
+  padding: clamp(2.6rem, 6vh, 4.2rem) var(--gutter);
   overflow: hidden;
-  background: #0A121F;
+  background: #08111F;
 }
-.prinzip__band img {
+.vt__band img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 52%;
-  filter: brightness(1.5) contrast(0.96) saturate(1.05);
+  object-position: 50% 58%;
+  filter: brightness(1.75) contrast(0.92) saturate(1.06);
 }
-.prinzip__band::after {
+/* Navy-Ueberlagerung. Sie ist der Grund, warum die Lesbarkeit NICHT davon
+   abhaengt, wo im Foto Fensterlichter sitzen: gemessen bleibt auch das
+   hellste Pixel unter der Schrift weit unter dem Grenzwert fuer 4,5:1. */
+.vt__band::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* Waagerecht UND senkrecht: der Satz steht mittig, das Bild ist zu den
-     Raendern hin heller. Ein reiner Verlauf von unten reichte dafuer nicht. */
   background:
-    /* Nur unter dem Satz dunkel, zu den Raendern hin offen */
-    radial-gradient(ellipse 70% 62% at 50% 50%,
-      rgba(6, 14, 26, 0.68) 0%, rgba(6, 14, 26, 0.44) 55%,
-      rgba(6, 14, 26, 0.16) 100%),
+    radial-gradient(ellipse 76% 82% at 50% 52%,
+      rgba(8, 17, 32, 0.70) 0%, rgba(8, 17, 32, 0.54) 62%,
+      rgba(8, 17, 32, 0.26) 100%),
     linear-gradient(to bottom,
-      rgba(6, 14, 26, 0.34) 0%, rgba(6, 14, 26, 0.14) 45%,
-      rgba(6, 14, 26, 0.38) 100%);
+      rgba(10, 25, 46, 0.40) 0%, rgba(10, 25, 46, 0.26) 46%,
+      rgba(10, 25, 46, 0.48) 100%);
 }
 
-/* --- Kopf ----------------------------------------------------------------- */
-.prinzip__head {
+.vt__kopf {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 60rem;
   margin: 0 auto;
   text-align: center;
 }
-.prinzip__h2 {
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
+.vt__h2 {
+  font-size: clamp(1.95rem, 3.4vw, 3.35rem);
+  line-height: 1.1;
   color: #fff;
 }
-.prinzip__lead {
-  margin: clamp(1.4rem, 3vh, 2.1rem) auto 0;
-  max-width: 46rem;
-  font-size: clamp(1.12rem, 1.42vw, 1.42rem);
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.78);
+/* Kurzer goldener Strich, mittig — auf der Vorlage zwischen Titel und
+   Unterzeile. */
+.vt__strich {
+  display: block;
+  width: 62px;
+  height: 2px;
+  margin: clamp(1.1rem, 2.4vh, 1.7rem) auto 0;
+  background: var(--gold);
+}
+.vt__lead {
+  margin: clamp(1.1rem, 2.4vh, 1.7rem) auto 0;
+  max-width: 43rem;
+  font-size: clamp(1.05rem, 1.28vw, 1.28rem);
+  line-height: 1.55;
+  color: #EAF0F8;
   text-wrap: pretty;
 }
-.prinzip__lead .hl { color: #fff; }
 
-/* --- Zwischentitel zwischen zwei Goldhaarlinien -------------------------- */
-.prinzip__kicker {
-  margin-top: clamp(3rem, 8vh, 5.5rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.9rem, 2vw, 1.6rem);
-}
-.prinzip__kicker::before,
-.prinzip__kicker::after {
-  content: '';
-  width: clamp(28px, 6vw, 90px);
-  height: 1px;
-  background: var(--line-gold);
-}
-.prinzip__kicker span {
-  font-size: clamp(0.8rem, 0.86vw, 0.89rem);
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-indent: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold-text);
-  white-space: nowrap;
+/* ---------------------------------------------------------------------------
+   Weisser Bereich — gemeinsame Lesespalte
+--------------------------------------------------------------------------- */
+.vt__inner {
+  /* 1520 px abzueglich zweier Stege ergibt 1360 px Lesebreite — damit sind
+     die vier Karten 268 px breit, also genau so breit wie auf der Vorlage. */
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: clamp(2.2rem, 5vh, 3.4rem) var(--gutter) 0;
 }
 
-/* --- Die vier Ringe ------------------------------------------------------- */
-/* Nach dem Vorbild der Audi-Ringe: vier Kreise, die ineinandergreifen.
-   Jeder Ring ist 120 % seiner Rasterspalte breit und ragt mit je 10 % nach
-   beiden Seiten heraus — daraus ergibt sich die Ueberschneidung von rund
-   17 % der Ringbreite. Bewusst kein SVG: so waechst alles mit der Spalte,
-   ohne dass Koordinaten nachgefuehrt werden muessen. */
-.prinzip__traeger {
-  margin: clamp(2.4rem, 5.5vh, 3.6rem) auto 0;
-  /* Platz fuer den Ueberstand der beiden aeusseren Ringe */
-  padding-inline: 2.6%;
+/* 2a — Zwischentitel, Unterzeile, Goldstrich (in dieser Reihenfolge) ------- */
+.vt__zwischen {
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.vt__h3 {
+  font-size: clamp(1.65rem, 2.6vw, 2.55rem);
+  line-height: 1.14;
+  color: var(--ink-black);
+}
+.vt__unter {
+  margin-top: clamp(0.6rem, 1.4vh, 1rem);
+  font-size: clamp(0.98rem, 1.06vw, 1.08rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-wrap: balance;
+}
+.vt__strich--dunkel { margin-top: clamp(0.9rem, 2vh, 1.4rem); }
+
+/* ---------------------------------------------------------------------------
+   2b — Die vier Karten mit ihren Verbindern
+   Raster: Flanke | Karte | Bruecke | Karte | Bruecke | Karte | Bruecke |
+           Karte | Flanke
+   Alle vier Kartenspalten sind 1fr — damit sind sie exakt gleich breit.
+--------------------------------------------------------------------------- */
+.vt__fluss {
+  margin-top: clamp(1.7rem, 3.8vh, 2.6rem);
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 0;
+  grid-template-columns:
+    var(--vt-flanke)
+    repeat(3, minmax(0, 1fr) var(--vt-brueck))
+    minmax(0, 1fr)
+    var(--vt-flanke);
+  align-items: stretch;
 }
-.prinzip__posten { min-width: 0; }
 
-.prinzip__ring {
-  position: relative;
+/* Die Zelle traegt den Versatz als Polster, nicht die Karte. Dadurch ist die
+   Rasterzeile fuer alle vier gleich hoch und die Karte darin ebenfalls. */
+.vt__zelle {
+  display: flex;
+  min-width: 0;
+}
+.vt__zelle > .vt__karte { flex: 1 1 auto; min-width: 0; }
+.vt__zelle--hoch { padding-bottom: var(--vt-versatz); }
+.vt__zelle--tief { padding-top: var(--vt-versatz); }
+
+.vt__karte {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.2rem, 1.85vw, 1.9rem);
+  background: #fff;
+  border-radius: 14px;
+  /* Sehr weicher Schatten, keine Kontur — wie auf der Vorlage. */
+  box-shadow:
+    0 1px 2px rgba(16, 41, 73, 0.05),
+    0 12px 34px rgba(16, 41, 73, 0.10);
+}
+
+/* Kopfzeile der Karte: Ziffer links, Sinnbild rechts */
+.vt__kopfzeile {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+.vt__ziffer {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 2.7vw, 2.85rem);
+  line-height: 1;
+  /* Nicht --gold: als Schrift haelt nur --gold-text die 4,5:1 auf Weiss. */
+  color: var(--gold-text);
+  font-variant-numeric: lining-nums;
+}
+.vt__ziffer::after {
+  content: '';
+  display: block;
+  width: 1.3em;
+  height: 2px;
+  margin-top: 0.3em;
+  background: var(--gold);
+}
+.vt__sinnbild {
+  flex: none;
   display: grid;
   place-items: center;
-  width: 120%;
-  margin-inline: -10%;
+  width: clamp(50px, 5.4vw, 78px);
   aspect-ratio: 1;
-  border: 2px solid var(--linie);
   border-radius: 50%;
-  transition: border-color 0.5s var(--ease);
+  background: var(--vt-navy);
+  color: #fff;
 }
-.prinzip__posten:hover .prinzip__ring { border-color: var(--navy-600); }
+.vt__sinnbild svg { width: 52%; height: 52%; }
 
-.prinzip__ring-name {
-  /* Bleibt innerhalb von rund 170 px und stoesst dadurch nicht an den
-     Strich des Nachbarrings. */
-  max-width: 78%;
-  text-align: center;
-  font-size: clamp(0.66rem, 0.78vw, 0.78rem);
+.vt__titel {
+  margin: clamp(0.95rem, 2vh, 1.5rem) 0 0;
+  font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-indent: 0.16em;
-  text-transform: uppercase;
-  line-height: 1.3;
+  font-size: clamp(1.18rem, 1.5vw, 1.55rem);
+  line-height: 1.2;
   color: var(--navy-800);
 }
-
-.prinzip__satz {
-  margin-top: clamp(1rem, 2.4vh, 1.6rem);
-  padding-inline: clamp(0.3rem, 0.8vw, 0.7rem);
-  font-size: clamp(0.82rem, 0.92vw, 0.92rem);
-  line-height: 1.55;
+.vt__text {
+  margin-top: clamp(0.45rem, 1.1vh, 0.8rem);
+  font-size: clamp(0.9rem, 0.97vw, 1rem);
+  line-height: 1.6;
   color: var(--ink-soft);
-  text-align: center;
-  text-wrap: pretty;
 }
 
-/* --- Zweiter Zwischentitel ------------------------------------------------ */
-.prinzip__kicker--zweit { margin-top: clamp(3rem, 7vh, 5rem); }
-
-/* --- Das Bild mit den beiden Posten -------------------------------------- */
-.prinzip__bild {
+/* --- Verbinder ------------------------------------------------------------
+   Jede Grafik ist ein einziges SVG in ihrer eigenen Rasterspalte und wird
+   NICHT skaliert: die Spaltenbreite ist genau die viewBox-Breite. Die
+   senkrechte Lage leitet sich aus derselben Groesse ab wie der Kartenversatz,
+   deshalb treffen Linienanfang und Linienende exakt die Kartenmitten.       */
+.vt__flanke,
+.vt__brueck {
   position: relative;
-  margin-top: clamp(2.2rem, 5vh, 3.4rem);
-  aspect-ratio: 16 / 11;
-  overflow: hidden;
-  border-radius: var(--radius-img);
-  background: #0A121F;
+  min-width: 0;
 }
-.prinzip__bild img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 45%;
-  /* Die blaue Stunde ist im Original sehr dunkel; angehoben bleibt die
-     Fassade sichtbar, ohne dass die Stimmung kippt. */
-  filter: brightness(1.55) contrast(0.96) saturate(1.05);
-}
-/* Traeger fuer die weisse Schrift. Das Bild ist bereits dunkel; der Verlauf
-   sichert die Lesbarkeit unabhaengig davon, wo Lichter im Bild sitzen. */
-.prinzip__bild::after {
-  content: '';
+.vt__flanke svg,
+.vt__brueck svg {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* Nur noch dort dunkel, wo die Schrift steht. Darueber laeuft der
-     Verlauf auf null aus, damit das Bild sichtbar bleibt. */
-  background: linear-gradient(to top,
-    rgba(6, 14, 26, 0.86) 0%,
-    rgba(6, 14, 26, 0.66) 26%,
-    rgba(6, 14, 26, 0.16) 52%,
-    rgba(6, 14, 26, 0) 74%);
+  max-width: none;
+  color: var(--vt-navy);
 }
-.prinzip__bild-txt {
-  position: absolute;
-  z-index: 2;
-  left: 0; right: 0; bottom: 0;
-  padding: clamp(1.4rem, 3.2vw, 2.6rem);
+/* Karte 1 und 4 stehen hoch: ihre Mitte liegt um den halben Versatz ueber
+   der Zeilenmitte. 11 px = halbe SVG-Hoehe der Flanke. */
+.vt__flanke svg { top: calc(50% - var(--vt-versatz) / 2 - 11px); }
+.vt__flanke--links svg  { left: 0; }
+.vt__flanke--rechts svg { right: 0; }
+
+/* ACHTUNG: die Bruecken-SVGs codieren --vt-versatz fest in ihren Pfaden.
+   Bei „ab"/„auf" liegt das obere Pfadende auf y=6, das untere auf y=28 —
+   die Differenz ist genau der Versatz. Wird --vt-versatz geaendert, muessen
+   die Pfade im Markup mitgeaendert werden. */
+.vt__brueck svg { left: 0; }
+.vt__brueck--ab svg,
+.vt__brueck--auf svg { top: calc(50% - var(--vt-versatz) / 2 - 6px); }
+.vt__brueck--eben svg { top: calc(50% + var(--vt-versatz) / 2 - 5px); }
+
+/* ---------------------------------------------------------------------------
+   3 — Navy-Band
+--------------------------------------------------------------------------- */
+.vt__leiste {
+  margin-top: clamp(1.4rem, 3vh, 2.2rem);
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.4rem, 3.4vw, 2.8rem);
+  grid-template-columns: auto 1px minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
+  padding: clamp(1.3rem, 2.4vw, 2rem) clamp(1.5rem, 2.8vw, 2.4rem);
+  border-radius: 14px;
+  background: var(--vt-navy);
 }
-.prinzip__folge-name {
+.vt__signet {
+  display: grid;
+  place-items: center;
+  width: clamp(62px, 5.8vw, 90px);
+  aspect-ratio: 1;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-soft);
+}
+.vt__signet svg { width: 56%; height: 56%; }
+.vt__teiler {
+  align-self: stretch;
+  width: 1px;
+  background: rgba(168, 135, 79, 0.55);
+}
+.vt__leiste-titel {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.7vw, 1.7rem);
-  font-weight: 500;
-  line-height: 1.2;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.05vw, 2rem);
+  line-height: 1.18;
   color: #fff;
 }
-.prinzip__folge-satz {
-  margin-top: clamp(0.5rem, 1.2vh, 0.8rem);
-  font-size: clamp(0.86rem, 0.96vw, 0.96rem);
+.vt__punkte {
+  margin-top: clamp(0.75rem, 1.7vh, 1.1rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.7rem, 1.7vw, 1.5rem);
+}
+.vt__punkte li {
+  display: flex;
+  align-items: center;
+  gap: 0.62em;
+  font-size: clamp(0.88rem, 0.97vw, 1rem);
+  line-height: 1.4;
+  color: #EAF0F8;
+}
+/* Feine senkrechte Striche zwischen den Punkten */
+.vt__punkte li + li {
+  padding-left: clamp(0.7rem, 1.7vw, 1.5rem);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+.vt__haken {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.6em;
+  aspect-ratio: 1;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-soft);
+}
+.vt__haken svg { width: 60%; height: 60%; }
+
+/* ---------------------------------------------------------------------------
+   4 — Fusszeile: Hinweis links, Schaltflaeche rechts
+--------------------------------------------------------------------------- */
+.vt__fuss {
+  margin-top: clamp(1.2rem, 2.6vh, 1.8rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+.vt__hinweis {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 46rem;
+  font-size: clamp(0.9rem, 0.97vw, 1rem);
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--ink-soft);
   text-wrap: pretty;
 }
+.vt__i {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line-gold);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1;
+  color: var(--gold-text);
+}
+.vt__cta { padding: 0 22px; }
+.vt__cta svg { flex: none; }
+.vt__cta .vt__pfeil { transition: transform 0.5s var(--ease); }
+.vt__cta:hover .vt__pfeil { transform: translateX(4px); }
+/* Das Ziel gibt es noch nicht. Gesperrt heisst hier NUR: nicht ausloesbar —
+   Farbe, Flaeche und Kontrast bleiben unveraendert lesbar. */
+.vt__cta[aria-disabled='true'] {
+  cursor: default;
+  opacity: 1;
+  color: #fff;
+  background: var(--navy-800);
+  border-color: var(--navy-800);
+}
 
-/* --- Eine Zeile zum Aufklappen ------------------------------------------- */
+/* ---------------------------------------------------------------------------
+   Aufklapper „Was bewusst offenbleibt"
+   Mechanik unveraendert: [data-aufklapp] + aria-expanded in site.js,
+   Bewegung ueber grid-template-rows 0fr -> 1fr (eine Hoehe von auto laesst
+   sich nicht ueberfuehren).
+--------------------------------------------------------------------------- */
 .offen {
-  margin-top: clamp(2.6rem, 6vh, 4.2rem);
+  margin-top: clamp(2.4rem, 5.5vh, 3.6rem);
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
 }
 .offen__kopf {
   width: 100%;
-  padding: clamp(1.4rem, 3vh, 2.2rem) 0;
+  padding: clamp(1.3rem, 2.8vh, 2rem) 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr) auto;
   align-items: center;
@@ -250,7 +412,7 @@
 }
 .offen__titel {
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.1vw, 2.1rem);
+  font-size: clamp(1.35rem, 2vw, 2rem);
   font-weight: 400;
   line-height: 1.15;
   color: var(--ink-black);
@@ -260,7 +422,7 @@
   color: var(--ink-mute);
 }
 .offen__beisatz {
-  font-size: clamp(0.86rem, 0.96vw, 0.96rem);
+  font-size: clamp(0.88rem, 0.96vw, 0.98rem);
   line-height: 1.55;
   color: var(--ink-mute);
 }
@@ -280,8 +442,6 @@
 .offen[data-offen] .offen__knopf { transform: rotate(90deg); background: rgba(168,135,79,0.08); }
 .offen__kopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
 
-/* Aufklappen ueber die Rasterzeile: 0fr auf 1fr laesst sich weich
-   ueberfuehren, eine Hoehe von auto nicht. */
 .offen__inhalt {
   display: grid;
   grid-template-rows: 0fr;
@@ -319,45 +479,45 @@
   color: var(--ink-mute);
 }
 
-/* --- Verweis auf die Vertiefung ------------------------------------------ */
-.prinzip__mehr {
-  margin-top: clamp(2.4rem, 6vh, 4rem);
-  text-align: center;
-}
-.prinzip__mehr a {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.4em;
-  font-family: var(--font-display);
-  font-size: clamp(0.98rem, 1.1vw, 1.1rem);
-  font-weight: 500;
-  color: var(--navy-800);
-}
-.prinzip__mehr a::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  background: var(--line-gold);
-  transition: background 0.4s var(--ease);
-}
-.prinzip__mehr a:hover::after { background: var(--gold); }
-.prinzip__mehr a[aria-disabled='true'] { cursor: default; }
-
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 760px) {
-  /* Vier Ringe nebeneinander werden zu klein — zwei Reihen zu zwei. */
-  .prinzip__traeger {
+/* ---------------------------------------------------------------------------
+   Responsive
+--------------------------------------------------------------------------- */
+/* Unter 1200 px werden vier Spalten zu schmal fuer drei Zeilen Fliesstext.
+   Dann stehen die Karten 2x2; die Verbinder und der Versatz entfallen —
+   sie erzaehlen die Reihenfolge, die ohne durchgehende Waagerechte ohnehin
+   nicht mehr abzulesen waere. */
+@media (max-width: 1199px) {
+  .vt__fluss {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: clamp(1.8rem, 4vh, 2.6rem);
+    /* Alle Zeilen gleich hoch — sonst waeren die vier Karten gestapelt
+       unterschiedlich hoch, obwohl sie nebeneinander gleich hoch sind. */
+    grid-auto-rows: 1fr;
+    column-gap: clamp(1.1rem, 2.4vw, 1.8rem);
+    row-gap: clamp(1.2rem, 3vh, 1.9rem);
   }
-  .prinzip__bild { aspect-ratio: 4 / 5; }
-  .prinzip__bild-txt { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
+  .vt__flanke,
+  .vt__brueck { display: none; }
+  .vt__zelle--hoch { padding-bottom: 0; }
+  .vt__zelle--tief { padding-top: 0; }
+}
+
+@media (max-width: 860px) {
+  .vt__leiste { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .vt__teiler { display: none; }
+  .vt__punkte { flex-direction: column; align-items: flex-start; }
+  .vt__punkte li + li { padding-left: 0; border-left: 0; }
+}
+
+@media (max-width: 700px) {
+  .vt__fluss { grid-template-columns: minmax(0, 1fr); }
+  .vt__h2 { font-size: clamp(1.65rem, 7vw, 2.2rem); }
+  .vt__fuss { flex-direction: column; align-items: flex-start; }
+  .vt__cta { width: 100%; justify-content: center; }
   .offen__kopf { grid-template-columns: minmax(0, 1fr) auto; }
   .offen__beisatz { grid-column: 1 / -1; grid-row: 2; }
-  .prinzip__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .offen__inhalt, .offen__knopf { transition: none; }
+  .prinzip [data-reveal] { opacity: 1; transform: none; }
+  .offen__inhalt, .offen__knopf, .vt__cta .vt__pfeil { transition: none; }
 }
