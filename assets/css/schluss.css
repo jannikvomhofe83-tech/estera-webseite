@@ -193,3 +193,36 @@
 @media (max-width: 560px) {
   .fuss__inner { grid-template-columns: 1fr; }
 }
+
+/* ===========================================================================
+   CALL-TO-ACTION zwischen Leistungen und Geschaeftsfuehrern (Briefing 03 C)
+   Bewusst schmal gehalten: der Abschnitt sitzt mitten im Lesefluss und soll
+   ihn nicht anhalten, sondern nur eine Abzweigung anbieten. Sobald der
+   Wortlaut geliefert ist, kommt hier eine Zeile ueber die Schaltflaeche.
+   =========================================================================== */
+.cta {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  padding: clamp(2.5rem, 6vh, 4.5rem) var(--gutter);
+}
+.cta__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(1.8rem, 4vh, 2.8rem) clamp(1.5rem, 4vw, 3rem);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+.cta__platzhalter {
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+  color: var(--gold-text);
+}
+@media (max-width: 640px) {
+  .cta__inner { flex-direction: column; align-items: flex-start; }
+}

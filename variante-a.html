@@ -28,17 +28,19 @@
 <header class="site-header site-header--invert" data-header>
 
   <!-- LINKS: die Abschnitte DIESER Seite (Sprungmarken).
-       Reihenfolge nach der Startseiten-Dramaturgie im Briefing S.6/7.
-       Auswahl, Prinzip und Werte sind Punkt 4, 5 und 7 — noch nicht gebaut.
-       site.js sperrt Verweise, deren Ziel es noch nicht gibt, und gibt sie
-       automatisch frei, sobald der Abschnitt existiert. -->
+       Reihenfolge und Benennung nach dem Umbau-Briefing vom 14.08.2026:
+       Bewertungen, Leistungen, Geschaeftsfuehrung — danach die beiden
+       Abschnitte, deren Position noch offen ist.
+       „Auswahl" ist fort, weil die Section „Lieber weniger Empfehlungen"
+       laut Briefing 04 komplett entfaellt. „Ablauf" heisst jetzt
+       „Leistungen", weil dort nicht mehr der Ablauf steht. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
-      <li><a href="#kunden">Kunden</a></li>
-      <li><a href="#konzept">Ablauf</a></li>
-      <li><a href="#auswahl">Auswahl</a></li>
-      <li><a href="#prinzip">Prinzip</a></li>
-      <li><a href="#weg">Struktur</a></li>
+      <li><a href="#bewertungen">Bewertungen</a></li>
+      <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#fuehrung">Geschäftsführung</a></li>
+      <li><a href="#vorteile">Vorteile</a></li>
+      <li><a href="#bausteine">Bausteine</a></li>
     </ul>
   </nav>
 
@@ -103,7 +105,10 @@
 
       <div class="heroA__actions">
         <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
-        <a class="btn btn--ghost" href="#konzept">So funktioniert Estera</a>
+        <!-- Zielt jetzt auf die Leistungen: der Ablauf, auf den dieser Knopf
+             frueher sprang, ist entfallen. RUECKFRAGE: soll die Beschriftung
+             mitwandern? Sie wurde bisher nicht geaendert. -->
+        <a class="btn btn--ghost" href="#leistungen">So funktioniert Estera</a>
       </div>
     </div>
 
@@ -121,22 +126,24 @@
 
 
 <!-- =====================================================================
-     REFERENZEN — Unternehmer, die mit Estera arbeiten
-     Aufbau nach imperiaimmobilien.de „Sie kennen uns aus": eine gerahmte
-     Tafel mit Goldhaarlinie, darin die Marken nebeneinander.
+     GOOGLE-BEWERTUNGEN   (Briefing 02 Punkt 2, Briefing 03 A)
+     Hiess bisher „Kunden, die uns vertrauen" und stand als Section 2.
+     Position stimmt jetzt; der INHALT ist noch der alte.
 
-     ACHTUNG — alles hier ist PLATZHALTER.
-     Briefing S.3: „Nur echte Bewertungen, Nachweise, Zahlen, Partnerschaften
-     und Zertifikate." Erfundene Firmen, Namen oder Zitate dürfen hier nicht
-     stehen bleiben. Vor der Freischaltung wird je Referenz gebraucht:
-       — Logo als SVG (ersetzt den kompletten Inhalt von .ref__logo)
-       — Name und Funktion, wie die Person genannt werden will
-       — der Satz WÖRTLICH, so wie er gesagt oder freigegeben wurde
-       — eine schriftliche Freigabe für Logo, Name und Zitat
-     Danach ersetzen: .ref__logo-Inhalt, .ref__name, .ref__rolle, .ref__zitat
-     und den Hinweis .ref__platzhalter-hinweis löschen.
+     NOCH UMZUBAUEN, laut Briefing 03 A:
+       — echte Google-Rezensionen statt der vier Beispielfirmen
+       — je Rezension eine eigene Karte
+       — die Karten laufen selbstaendig von links nach rechts durch
+       — Klick faehrt die Karte aus und gibt den vollstaendigen Text frei
+       — angezeigt wird nur der NAME der Person, ausdruecklich KEINE Firma
+       — Profilbild, sofern vorhanden
+     Damit entfallen die vier Firmenlogos; sie widersprechen „keine Firma".
+
+     Offen (Briefing 05): Rezensionen live ueber die Google-Schnittstelle
+     oder manuell gepflegt? Liegen fuer alle Rezensenten Profilbilder vor,
+     und was ist der Ersatz, wenn nicht?
      ===================================================================== -->
-<section class="ref" id="kunden">
+<section class="ref" id="bewertungen">
   <div class="ref__inner">
 
     <header class="ref__head" data-reveal>
@@ -260,20 +267,143 @@
 
   </div>
 </section>
+<!-- =====================================================================
+     UNSERE LEISTUNGEN   (Briefing 02 Punkt 3, Briefing 03 B)
+     Hiess bisher „So funktioniert es" beziehungsweise „So funktioniert
+     Estera." und stand als Section 4.
 
+     ENTFALLEN nach Briefing 04:
+       — die Ablauf-Darstellung mit den sechs Schritten
+       — die beiden Bilder dieser Section (Querbild und durchlaufende
+         Fassade). Beide sind ersatzlos raus, es bleibt nur die Grafik.
+
+     UEBERNOMMEN: die Grafik der entfallenen Section „Lieber weniger
+     Empfehlungen" — der Verzweigungsbaum im Stil von Imperia. Sie steht
+     unveraendert, nur die Beschriftungen sind Platzhalter.
+
+     OFFEN (Briefing 05): Der Inhalt kommt laut Briefing „von CJ" und liegt
+     noch nicht vor. Welche Quelle genau gemeint ist, ist ebenfalls offen.
+     Bis dahin stehen sichtbare Platzhalter — erfunden wird hier nichts.
+     Auch die sechs Symbole stammen noch aus der alten Section und muessen
+     mit den echten Leistungen getauscht werden.
+     ===================================================================== -->
+<section class="wahl" id="leistungen">
+  <div class="wahl__inner">
+
+    <header class="wahl__head" data-reveal>
+      <h2 class="display wahl__h2">Unsere Leistungen.</h2>
+    </header>
+
+    <div class="ableh" data-zeichnen>
+
+      <div class="ableh__start">
+        <span class="ableh__start-txt">Platzhalter — Bereichstitel</span>
+      </div>
+      <span class="ableh__abgang" aria-hidden="true"></span>
+
+      <ol class="ableh__stufen">
+      <li class="ableh__stufe" style="--stufe:0">
+        <div class="ableh__kasten ableh__kasten--links">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.6v15M6 8.2h12M12 4.6a1 1 0 100-.1M8.6 8.4 5.4 15h6.4zM15.4 8.4 18.6 15h-6.4zM8.4 19.6h7.2"/></svg>
+          </span>
+          <p class="ableh__txt">Platzhalter — Leistung 01. Der Text wird geliefert.</p>
+        </div>
+        <span class="ableh__verbinder" aria-hidden="true">
+          <span class="ableh__arm ableh__arm--links"></span>
+          <span class="ableh__arm ableh__arm--rechts"></span>
+        </span>
+        <div class="ableh__kasten ableh__kasten--rechts">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s6.6-6.6 6.6-10.7a6.6 6.6 0 10-13.2 0c0 4.1 6.6 10.7 6.6 10.7z"/><circle cx="12" cy="10.3" r="2.4"/></svg>
+          </span>
+          <p class="ableh__txt">Platzhalter — Leistung 02. Der Text wird geliefert.</p>
+        </div>
+      </li>
+      <li class="ableh__stufe" style="--stufe:1">
+        <div class="ableh__kasten ableh__kasten--links">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 3.2h7.4l4 4v13.6H6.4zM13.8 3.2v4h4"/><path d="M10.4 12.4a1.7 1.7 0 112.4 1.6c-.6.3-.9.8-.9 1.4"/><path d="M11.9 17.5h.1"/></svg>
+          </span>
+          <p class="ableh__txt">Platzhalter — Leistung 03. Der Text wird geliefert.</p>
+        </div>
+        <span class="ableh__verbinder" aria-hidden="true">
+          <span class="ableh__arm ableh__arm--links"></span>
+          <span class="ableh__arm ableh__arm--rechts"></span>
+        </span>
+        <div class="ableh__kasten ableh__kasten--rechts">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.8h16M7.4 16.4v-4.2M12 16.4V7.6M16.6 16.4V10"/></svg>
+          </span>
+          <p class="ableh__txt">Platzhalter — Leistung 04. Der Text wird geliefert.</p>
+        </div>
+      </li>
+      <li class="ableh__stufe" style="--stufe:2">
+        <div class="ableh__kasten ableh__kasten--links">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 9.2 12 4.4l8.6 4.8M5.6 9.6v8.6M9.6 9.6v8.6M14.4 9.6v8.6M18.4 9.6v8.6M3.4 20.2h17.2"/></svg>
+          </span>
+          <p class="ableh__txt">Platzhalter — Leistung 05. Der Text wird geliefert.</p>
+        </div>
+        <span class="ableh__verbinder" aria-hidden="true">
+          <span class="ableh__arm ableh__arm--links"></span>
+          <span class="ableh__arm ableh__arm--rechts"></span>
+        </span>
+        <div class="ableh__kasten ableh__kasten--rechts">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.9"/><path d="M12 11.9h.1"/></svg>
+          </span>
+          <p class="ableh__txt">Platzhalter — Leistung 06. Der Text wird geliefert.</p>
+        </div>
+      </li>
+      </ol>
+
+      <!-- Wohin das alles fuehrt. Gerader Zulauf mit doppelter Spitze, wie
+           die sechs Pfeile daneben, nur senkrecht. -->
+      <span class="ableh__zulauf" aria-hidden="true"></span>
+      <p class="ableh__ergebnis">Platzhalter — Ergebniszeile</p>
+    </div>
+
+
+    <p class="wahl__mehr" data-reveal>Platzhalter — die sechs Leistungen werden geliefert.</p>
+
+  </div>
+</section>
 
 
 <!-- =====================================================================
-     GESCHÄFTSFÜHRUNG — Anordnung nach dem Vorbild von baulig.de:
-     zwei Bloecke untereinander, spiegelverkehrt, BEIDE auf einen Blick.
-     Hintergrund weiss wie alle Abschnitte dieser Seite; die Referenz steht
-     auf Schwarz, das ist die einzige bewusste Abweichung.
-     Schrift bleibt Cormorant, nicht die Grotesk der Referenz.
+     CALL-TO-ACTION   (Briefing 03 C)
+     Steht laut Briefing zwischen der Leistungs-Section und der
+     Geschaeftsfuehrer-Section.
 
-     ACHTUNG — die Texte sind PLATZHALTER. Briefing S.2, S.17 und S.19
-     untersagen Gruenderportraits und Personenmarke ausdruecklich; dieser
-     Abschnitt steht auf ausdruecklichen Kundenwunsch und weicht damit
-     bewusst vom Masterbriefing ab. Vor Veroeffentlichung mit Estera klaeren.
+     OFFEN: Der Wortlaut fehlt. Der frueher am Seitenende vorhandene
+     Abschluss-CTA „Der naechste Schritt ist ein Gespraech." wurde auf
+     ausdruecklichen Kundenwunsch entfernt und wird hier deshalb NICHT
+     wiederverwendet. Bis ein Text geliefert ist, steht nur die bereits
+     vorhandene Schaltflaechenbeschriftung.
+     ===================================================================== -->
+<section class="cta" id="cta" aria-label="Erstgespräch">
+  <div class="cta__inner" data-reveal>
+    <p class="cta__platzhalter">Platzhalter — der Text des Call-to-Action wird geliefert.</p>
+    <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     DIE BEIDEN GESCHAEFTSFUEHRER   (Briefing 02 Punkt 4, Briefing 03 D)
+     Stand bisher als Section 3 direkt unter den Kundenstimmen.
+
+     ENTFALLEN nach Briefing 04: die Historie der beiden. An ihrer Stelle
+     steht jetzt jeweils ein Zitat neben dem Bild; der Wortlaut wird von
+     Estera geliefert und steht bis dahin als Platzhalter.
+
+     OFFEN: „Design deutlich optimieren" (Briefing 03 D) — noch nicht
+     umgesetzt, hier ist bisher nur die Struktur angepasst.
+
+     ACHTUNG: Das Masterbriefing untersagte auf S.2, S.17 und S.19
+     Gruenderportraits und Personenmarke. Dieser Abschnitt steht auf
+     ausdruecklichen Kundenwunsch und weicht davon bewusst ab.
      ===================================================================== -->
 <section class="fuehr" id="fuehrung" aria-label="Geschäftsführung">
   <div class="fuehr__inner">
@@ -283,9 +413,7 @@
         <h2 class="display fuehr__name">Sebastian Meilbeck</h2>
         <span class="fuehr__strich" aria-hidden="true"></span>
         <p>Sebastian Meilbeck ist Geschäftsführer der Estera GmbH.</p>
-        <p>Sein Fokus liegt auf der Auswahl geeigneter Kapitalanlageimmobilien und der strukturierten Begleitung bis zum Notartermin.</p>
-        <p>Platzhalter — hier stehen Werdegang und Verantwortungsbereich in zwei Sätzen.</p>
-        <p>Platzhalter — hier steht, wofür er im Unternehmen steht.</p>
+        <blockquote class="fuehr__zitat"><p>Platzhalter — hier steht das Zitat von Sebastian Meilbeck.</p></blockquote>
       </div>
       <figure class="fuehr__bild">
         <img src="assets/img/gf-meilbeck.jpg" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
@@ -298,9 +426,7 @@
         <h2 class="display fuehr__name">Ioannis Orfanidis</h2>
         <span class="fuehr__strich" aria-hidden="true"></span>
         <p>Ioannis Orfanidis ist Geschäftsführer der Estera GmbH.</p>
-        <p>Sein Schwerpunkt liegt auf dem Off-Market-Zugang und der Koordination der Finanzierung über das spezialisierte Netzwerk.</p>
-        <p>Platzhalter — hier stehen Werdegang und Verantwortungsbereich in zwei Sätzen.</p>
-        <p>Platzhalter — hier steht, wofür er im Unternehmen steht.</p>
+        <blockquote class="fuehr__zitat"><p>Platzhalter — hier steht das Zitat von Ioannis Orfanidis.</p></blockquote>
       </div>
       <figure class="fuehr__bild">
         <img src="assets/img/gf-orfanidis.jpg" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
@@ -308,247 +434,32 @@
       </figure>
     </div>
 
-    <p class="fuehr__hinweis">Platzhalter — die Texte folgen von Estera.</p>
+    <p class="fuehr__hinweis">Platzhalter — die beiden Zitate folgen von Estera.</p>
 
   </div>
 </section>
-
-
 <!-- =====================================================================
-     SECTION 3 — DAS GESCHÄFTSMODELL IN WENIGEN SCHRITTEN (Briefing S.6/7)
-     "Die wichtigste Sektion der Startseite." Die sechs Schritte stehen im
-     Briefing woertlich; sie sind hier nur um je einen erklaerenden Satz
-     ergaenzt, nicht umformuliert.
-     Die Ueberschrift heisst NICHT "Ein strukturierter Weg." — dieser Satz
-     gehoert im Briefing zu Punkt 6 (interaktiver Vergleich "Selbst
-     koordinieren" gegen "Mit Estera begleitet"). Hier steht der Satz aus
-     dem sekundaeren Hero-CTA, der genau hierher springt.
-     DER ABLAUF
-     Briefing S.13: „Estera führt die relevanten Bausteine in einen klaren
-     Ablauf." Arbeitsheadline ebenfalls von dort.
-     Die Bausteine oben sind wörtlich aus dem Briefing übernommen.
+     DIE VORTEILE VON KAPITALANLAGEN   (Briefing 03 E)
+     Umbenannt: hiess bisher „Wie sich eine Kapitalanlage traegt."
+
+     POSITION VORLAEUFIG. Das Briefing laesst unter 02 ausdruecklich offen,
+     an welcher Stelle dieser Abschnitt und „Vier Bausteine" einsortiert
+     werden. Der von Estera vorgegebene Kern — Hero, Bewertungen,
+     Leistungen, CTA, Geschaeftsfuehrer — steht deshalb unangetastet, und
+     beide Abschnitte folgen dahinter. Verschieben ist eine Minute Arbeit.
+
+     OFFEN: Design im Stil von Imperia mit ANIMIERTEN KAESTEN, davon
+     inspiriert aber optimiert. Dafuer fehlt noch die Imperia-Referenz
+     (Link oder Screenshot, Briefing 05). Hier ist bisher nur umbenannt.
      ===================================================================== -->
-<section class="lst" id="konzept">
-  <div class="lst__split">
-
-    <!-- Links: der Ablauf -->
-    <div class="lst__content">
-
-  <header class="lst__head" data-reveal>
-    <h2 class="display lst__h2">So funktioniert Estera.</h2>
-    <p class="lst__unterzeile">Estera Immobilien</p>
-  </header>
-
-  <!-- Senkrechte Linie links, rechts daneben die Schritte.
-       Die Linie läuft bis zur Unterkante des Querbilds durch. -->
-  <div class="ablauf">
-    <span class="ablauf__linie" aria-hidden="true"></span>
-    <ol class="ablauf__liste">
-        <li class="ablauf__schritt" data-reveal style="--i:0">
-          <span class="ablauf__nr">1</span>
-          <div>
-            <h3 class="ablauf__titel">Erstgespräch</h3>
-            <p class="ablauf__txt">Ausgangssituation, Ziele und die gegenseitige Eignung klären.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt" data-reveal style="--i:1">
-          <span class="ablauf__nr">2</span>
-          <div>
-            <h3 class="ablauf__titel">Ersteinschätzung</h3>
-            <p class="ablauf__txt">Die Möglichkeiten einordnen, bevor über einzelne Objekte gesprochen wird.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt" data-reveal style="--i:2">
-          <span class="ablauf__nr">3</span>
-          <div>
-            <h3 class="ablauf__titel">Objektsuche</h3>
-            <p class="ablauf__txt">Eine passende Kapitalanlageimmobilie über den Off-Market-Zugang suchen.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt" data-reveal style="--i:3">
-          <span class="ablauf__nr">4</span>
-          <div>
-            <h3 class="ablauf__titel">Objektvorstellung</h3>
-            <p class="ablauf__txt">Das Objekt mit Zahlen, Daten und Fakten aufbereitet vorstellen.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt" data-reveal style="--i:4">
-          <span class="ablauf__nr">5</span>
-          <div>
-            <h3 class="ablauf__titel">Finanzierung</h3>
-            <p class="ablauf__txt">Die Finanzierung über das spezialisierte Netzwerk koordinieren.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt" data-reveal style="--i:5">
-          <span class="ablauf__nr">6</span>
-          <div>
-            <h3 class="ablauf__titel">Notar und Begleitung</h3>
-            <p class="ablauf__txt">Bis zum Notartermin führen — und darüber hinaus begleiten.</p>
-          </div>
-        </li>
-    </ol>
-  </div>
-
-    </div>
-
-    <!-- Querbild unten, überlappt die linke Kante des Hochbilds -->
-    <figure class="lst__unten" aria-hidden="true">
-      <img src="assets/img/haus-quer.jpg" alt=""
-           width="1700" height="1133" loading="lazy" decoding="async">
-    </figure>
-
-    <!-- Rechts: durchlaufendes Bild über die volle Höhe der Section -->
-    <figure class="lst__side" aria-hidden="true">
-      <img src="assets/img/fassade-vert.jpg"
-           alt=""
-           width="1100" height="1650" loading="lazy" decoding="async">
-    </figure>
-
-  </div>
-</section>
-
-
-<!-- =====================================================================
-     SECTION 4 — WARUM ESTERA ANDERS AUSWÄHLT (Briefing S.7)
-     "Kurzer Qualitaetsmoment: Off-Market-Zugang allein reicht nicht.
-      Entscheidend ist, welche Objekte Estera bewusst nicht empfiehlt.
-      Kernaussage: Qualitaet vor Quantitaet."
-
-     Saemtliche Inhalte stehen woertlich im Briefing:
-     — Kernaussage S.11: "Lieber weniger Empfehlungen – dafuer
-       Kapitalanlageimmobilien, die unseren Auswahlprozess wirklich bestehen."
-     — die sechs Ablehnungsgruende S.11/12 unter "Warum Estera auch ablehnt"
-     Nichts davon ist ergaenzt oder umformuliert.
-
-     Die sechs PRUEFBEREICHE (Makrolage, Mikrolage, Objekt,
-     Wirtschaftlichkeit, Finanzierbarkeit, Langfristigkeit) stehen bewusst
-     NICHT hier: sie gehoeren laut Briefing S.11 auf die Seite
-     "Auswahl & Qualitaet". Die Startseite bleibt der kurze Moment.
-     ===================================================================== -->
-<section class="wahl" id="auswahl">
-  <div class="wahl__inner">
-
-    <header class="wahl__head" data-reveal>
-      <h2 class="display wahl__h2">Lieber weniger Empfehlungen.</h2>
-      <p class="wahl__lead">
-        Dafür Kapitalanlageimmobilien, die unseren Auswahlprozess wirklich
-        bestehen. <span class="hl">Off-Market-Zugang allein reicht nicht</span> —
-        entscheidend ist, welche Objekte wir bewusst nicht empfehlen.
-      </p>
-    </header>
-
-    <!-- Aufbau nach imperiaimmobilien.de "Unsere Leistungen": ein Kasten oben,
-         von dem die Wege ausgehen, danach abwechselnd links und rechts.
-         Imperias Linien sind 1,5 px in Gold — hier in Blau, wie besprochen.
-         Die Verbinder sind KEIN SVG, sondern Rahmen mit Eckenradius: dadurch
-         wachsen sie exakt mit dem Raster mit und muessen nicht an
-         ausgerechnete Koordinaten angepasst werden. -->
-    <div class="ableh" data-zeichnen>
-
-      <div class="ableh__start">
-        <span class="ableh__start-txt">Warum Estera auch ablehnt</span>
-      </div>
-      <span class="ableh__abgang" aria-hidden="true"></span>
-
-      <ol class="ableh__stufen">
-      <li class="ableh__stufe" style="--stufe:0">
-        <div class="ableh__kasten ableh__kasten--links">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.6v15M6 8.2h12M12 4.6a1 1 0 100-.1M8.6 8.4 5.4 15h6.4zM15.4 8.4 18.6 15h-6.4zM8.4 19.6h7.2"/></svg>
-          </span>
-          <p class="ableh__txt">Kaufpreis und Qualität stehen nicht in einem sinnvollen Verhältnis.</p>
-        </div>
-        <span class="ableh__verbinder" aria-hidden="true">
-          <span class="ableh__arm ableh__arm--links"></span>
-          <span class="ableh__arm ableh__arm--rechts"></span>
-        </span>
-        <div class="ableh__kasten ableh__kasten--rechts">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s6.6-6.6 6.6-10.7a6.6 6.6 0 10-13.2 0c0 4.1 6.6 10.7 6.6 10.7z"/><circle cx="12" cy="10.3" r="2.4"/></svg>
-          </span>
-          <p class="ableh__txt">Makro- oder Mikrolage bietet keine ausreichende langfristige Nachfrage.</p>
-        </div>
-      </li>
-      <li class="ableh__stufe" style="--stufe:1">
-        <div class="ableh__kasten ableh__kasten--links">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 3.2h7.4l4 4v13.6H6.4zM13.8 3.2v4h4"/><path d="M10.4 12.4a1.7 1.7 0 112.4 1.6c-.6.3-.9.8-.9 1.4"/><path d="M11.9 17.5h.1"/></svg>
-          </span>
-          <p class="ableh__txt">Zustand, Gemeinschaftseigentum oder Unterlagen weisen Unklarheiten oder Folgekosten auf, die Estera nicht vertreten kann.</p>
-        </div>
-        <span class="ableh__verbinder" aria-hidden="true">
-          <span class="ableh__arm ableh__arm--links"></span>
-          <span class="ableh__arm ableh__arm--rechts"></span>
-        </span>
-        <div class="ableh__kasten ableh__kasten--rechts">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.8h16M7.4 16.4v-4.2M12 16.4V7.6M16.6 16.4V10"/></svg>
-          </span>
-          <p class="ableh__txt">Miete und laufende Kosten sind nicht realistisch oder nicht sauber nachvollziehbar.</p>
-        </div>
-      </li>
-      <li class="ableh__stufe" style="--stufe:2">
-        <div class="ableh__kasten ableh__kasten--links">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 9.2 12 4.4l8.6 4.8M5.6 9.6v8.6M9.6 9.6v8.6M14.4 9.6v8.6M18.4 9.6v8.6M3.4 20.2h17.2"/></svg>
-          </span>
-          <p class="ableh__txt">Das Objekt lässt sich für den konkreten Kunden nicht sinnvoll finanzieren.</p>
-        </div>
-        <span class="ableh__verbinder" aria-hidden="true">
-          <span class="ableh__arm ableh__arm--links"></span>
-          <span class="ableh__arm ableh__arm--rechts"></span>
-        </span>
-        <div class="ableh__kasten ableh__kasten--rechts">
-          <span class="ableh__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.9"/><path d="M12 11.9h.1"/></svg>
-          </span>
-          <p class="ableh__txt">Das Objekt passt nicht zu den Zielen oder Präferenzen des Kunden.</p>
-        </div>
-      </li>
-      </ol>
-
-      <!-- Wohin das alles fuehrt. Gerader Zulauf mit doppelter Spitze, wie
-           die sechs Pfeile daneben, nur senkrecht. -->
-      <span class="ableh__zulauf" aria-hidden="true"></span>
-      <p class="ableh__ergebnis">Qualität vor Quantität</p>
-    </div>
-
-    <p class="wahl__mehr" data-reveal><a href="qualitaet.html">Die Prüfbereiche im Detail</a></p>
-
-  </div>
-</section>
-
-
-<!-- =====================================================================
-     SECTION 5 — DAS FINANZIELLE PRINZIP (Briefing S.7, S.10/11)
-     "Eine ruhige Visualisierung zeigt das Zusammenspiel von Finanzierung,
-      Immobilie, Miete, Tilgung, laufenden Kosten und moeglicher
-      steuerlicher Wirkung."
-
-     Die sechs Bausteine stehen WOERTLICH im Briefing S.10, Spalte
-     "Einfache Aussage fuer die Website". Geaendert ist nur die Anrede
-     ("der Investor" -> "Sie"), sonst nichts.
-     "Was bewusst offenbleibt" ebenso woertlich, Briefing S.11.
-
-     HARTE VORGABEN, die hier gelten:
-     — keine pauschale monatliche Belastung, kein "ab 0 Euro" (S.7)
-     — keine aggressiven Rendite-, Steuer-, Null-Euro- oder
-       Ohne-Eigenkapital-Versprechen (S.2)
-     — keine individuelle Berechnung und kein festes Ergebnis (S.10)
-     Deshalb steht auf dieser Seite KEINE einzige Zahl.
-
-     Der lange steuerliche Absatz aus S.10 steht bewusst NICHT hier: er
-     gehoert laut S.3 auf "Wissen & Fragen", und das Briefing verlangt fuer
-     ihn ausdruecklich eine steuerliche und rechtliche Pruefung.
-     ===================================================================== -->
-<section class="prinzip" id="prinzip">
+<section class="prinzip" id="vorteile">
   <!-- Kopfband ueber die volle Fensterbreite. Ueber dem Bild liegt ein
        Verlauf nach Navy — das Bild ist zwar dunkel, aber die Lesbarkeit der
        Ueberschrift darf nicht davon abhaengen, wo Lichter im Bild sitzen. -->
   <div class="prinzip__band">
     <img src="assets/img/prinzip-kopf.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async">
     <header class="prinzip__head" data-reveal>
-      <h2 class="display prinzip__h2">Wie sich eine Kapitalanlage trägt.</h2>
+      <h2 class="display prinzip__h2">Die Vorteile von Kapitalanlagen.</h2>
       <p class="prinzip__lead">
         Warum eine vermietete Kapitalanlageimmobilie grundsätzlich interessant
         sein kann — verständlich erklärt, aber <span class="hl">ohne Rechnung
@@ -636,31 +547,24 @@
 
   </div>
 </section>
-
-
 <!-- =====================================================================
-     SECTION 6 — VIELE BAUSTEINE. EIN STRUKTURIERTER WEG. (Briefing S.7, S.14)
-     "Ein Umschalter zeigt dieselben Themen in zwei Zustaenden: zunaechst
-      verteilt und offen, anschliessend klar geordnet und von Estera
-      begleitet. Empfohlene Labels: 'Selbst koordinieren' und
-      'Mit Estera begleitet'."
+     VIER BAUSTEINE — EIN STRUKTURIERTER WEG   (Briefing 03 F)
+     Position vorlaeufig, siehe Anmerkung im vorigen Abschnitt.
 
-     Die sechs Bausteine und BEIDE Textfassungen stehen woertlich in der
-     Tabelle auf Briefing S.14. Die Statuszeilen greifen den dort
-     vorgegebenen Wortlaut auf: erster Zustand "noch offen" und "noch
-     einzuordnen", Estera-Zustand "vorausgewaehlt", "aufbereitet",
-     "eingeordnet", "koordiniert".
+     NOCH UMZUBAUEN, laut Briefing 03 F:
+       — das Haus steht MITTIG und wird animiert
+       — das Haus deutlich schoener dargestellt
+       — die Punkte liegen zunaechst durcheinander um das Haus herum
+       — beim Wechsel auf „Mit Estera" sortieren sie sich sichtbar ein
+       — beide Zustaende vollstaendig auf einen Blick, ohne Scrollen
+     Derzeit steht das Haus links und die Liste rechts daneben.
 
-     Briefing S.7: "Die Wirkung entsteht durch konkrete Entlastung und
-     Kompetenz – nicht durch Angstkommunikation." S.14 ergaenzt: "Keine
-     Schockzahlen, Privatinsolvenz-Szenarien oder garantierten
-     Sicherheitsversprechen." Der erste Zustand ist deshalb nur unruhig
-     gesetzt, nicht bedrohlich.
-
-     Der Hinweis unter dem Vergleich steht ebenfalls im Briefing S.14 und
-     gehoert sichtbar auf die Seite, nicht nur ins interne Dokument.
+     RUECKFRAGE: Das Briefing spricht von VIER Bausteinen, die Seite fuehrt
+     sechs. Die Ueberschrift lautet unveraendert „Viele Bausteine." — sie
+     ist im Briefing nicht als Umbenennung aufgefuehrt. Welche vier gelten,
+     beziehungsweise bleibt es bei sechs?
      ===================================================================== -->
-<section class="verg" id="weg" data-vergleich data-modus="selbst">
+<section class="verg" id="bausteine" data-vergleich data-modus="selbst">
   <div class="verg__inner">
 
     <header class="verg__head" data-reveal>
@@ -833,10 +737,6 @@
 
   </div>
 </section>
-
-
-
-
 <!-- =====================================================================
      SECTION 9 — WISSEN UND KARRIERE (Briefing S.7, S.18, S.19)
      "Ein kurzer Einstieg in Wissen & Fragen und ein kompakter
@@ -964,11 +864,11 @@
   <div class="menu__body">
     <p class="menu__gruppe">Auf dieser Seite</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="#kunden"><span class="num">01</span> Kunden</a></li>
-      <li><a class="menu__link" href="#konzept"><span class="num">02</span> Ablauf</a></li>
-      <li><a class="menu__link" href="#auswahl"><span class="num">03</span> Auswahl</a></li>
-      <li><a class="menu__link" href="#prinzip"><span class="num">04</span> Prinzip</a></li>
-      <li><a class="menu__link" href="#weg"><span class="num">05</span> Struktur</a></li>
+      <li><a class="menu__link" href="#bewertungen"><span class="num">01</span> Bewertungen</a></li>
+      <li><a class="menu__link" href="#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <li><a class="menu__link" href="#fuehrung"><span class="num">03</span> Geschäftsführung</a></li>
+      <li><a class="menu__link" href="#vorteile"><span class="num">04</span> Vorteile</a></li>
+      <li><a class="menu__link" href="#bausteine"><span class="num">05</span> Bausteine</a></li>
       <li><a class="menu__link" href="erstgespraech.html"><span class="num">06</span> Erstgespräch</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
@@ -1007,7 +907,7 @@
 <!-- Nur für die interne Abstimmung -->
 <div class="variant-switch">
   <a href="./index.html">Variante B · Empfehlung</a>
-  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-167</a>
+  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-200</a>
 </div>
 
 <script src="assets/js/site.js"></script>

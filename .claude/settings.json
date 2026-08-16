@@ -18,7 +18,15 @@
       "Bash(sips -s format jpeg -s formatOptions 88 \"Bilder/Bild 1.jpeg\" --out assets/img/gf-meilbeck.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 88 \"Bilder/Bild 2.jpeg\" --out assets/img/gf-orfanidis.jpg)",
       "Bash(cd \"/Users/jannikvomhofe/Desktop/Webdesign/Estera Webseite 2\" && rm -f test-fuehrung.html && git add -A ':!test-faq.html' && git commit -q -m \"Geschaeftsfuehrung: weisser Hintergrund, echte Portraets, beide auf einen Blick *)",
-      "Bash(python3 -c \"import sys,json;[print\\(s['id'],s['name'],s['ssl_url']\\) for s in json.load\\(sys.stdin\\) if 'estera' in s['name'].lower\\(\\)]\")"
+      "Bash(python3 -c \"import sys,json;[print\\(s['id'],s['name'],s['ssl_url']\\) for s in json.load\\(sys.stdin\\) if 'estera' in s['name'].lower\\(\\)]\")",
+      "Bash(sed -i '' \"1s|.*|import pkg from 'playwright'; const { chromium } = pkg;|\" pruef-umbau.mjs)",
+      "Bash(node pruef-umbau.mjs)",
+      "Bash(node -e \"const {chromium}=require\\('playwright'\\); console.log\\('playwright ok'\\)\")",
+      "Bash(sed -i '' \"1s|.*|const { chromium } = require\\('playwright'\\);|\" pruef-umbau.mjs)",
+      "Bash(mv pruef-umbau.mjs pruef-umbau.js)",
+      "Bash(sed -i '' 's|^const b = await chromium.launch\\(\\);|\\(async \\(\\) => {\\\\nconst b = await chromium.launch\\(\\);|' pruef-umbau.js)",
+      "Bash(sed -i '' 's|^await b.close\\(\\);|await b.close\\(\\);\\\\n}\\)\\(\\);|' pruef-umbau.js)",
+      "Bash(node pruef-umbau.js)"
     ]
   }
 }
