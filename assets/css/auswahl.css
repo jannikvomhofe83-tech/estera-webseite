@@ -1,231 +1,485 @@
 /* ===========================================================================
-   ABSCHNITT 4 — „Lieber weniger Empfehlungen."   (.wahl / #auswahl)
-   und der dunkle Architekturtrenner direkt danach (.trenner)
+   SECTION 4 — WARUM ESTERA ANDERS AUSWÄHLT (Briefing S.7)
+   „Kurzer Qualitätsmoment: Off-Market-Zugang allein reicht nicht.
+    Entscheidend ist, welche Objekte Estera bewusst nicht empfiehlt."
 
-   Vorher stand hier ein Flussdiagramm: senkrechter Mittelstrich, sechs
-   abzweigende Doppelpfeile, verstreute Kaesten links und rechts. Das ist
-   ersatzlos entfallen. An seiner Stelle steht ein praezises Kartenraster —
-   drei Spalten, zwei Reihen, alle sechs Karten exakt gleich hoch.
-
-   Alle Farben, Schriftstufen, Abstaende, Radien und Zeiten stammen aus
-   system.css. Diese Datei definiert keine eigenen Werte.
-
-   HINWEIS: Die Zeichen-Logik `data-zeichnen` in site.js wird von diesem
-   Abschnitt nicht mehr benoetigt.
+   Bewusst OHNE Bild. Die beiden Abschnitte davor sind bildstark und
+   linksbündig; hier bricht ein rein typografischer, mittiger Moment den
+   Rhythmus. Der Abschnitt ist außerdem kurz gehalten — die sechs
+   Prüfbereiche (Makrolage, Mikrolage, Objekt, Wirtschaftlichkeit,
+   Finanzierbarkeit, Langfristigkeit) gehören laut Briefing S.11 auf die
+   Seite „Auswahl & Qualität", nicht auf die Startseite.
    =========================================================================== */
 
 .wahl {
   position: relative;
   z-index: 1;
-  background: var(--estera-ivory-100);
-  padding-block: var(--sect-gross);
+  background: var(--paper);
+  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
 }
 
-/* Abschnitt 3 haengt mit 71 % der Hoehe seines Querbildes in diesen
-   Abschnitt hinein (leistungen.css, .lst__unten). Der Vorlauf faengt diesen
-   Ueberstand ab — aber nur, wenn Abschnitt 3 tatsaechlich direkt davorsteht.
-   Rechnung unveraendert: Bildbreite 46,6 vw, Verhaeltnis 3:2, davon 71 %
-   Ueberstand = 0,221 x Fensterbreite. Faellt der Ueberstand in Abschnitt 3
-   weg, kann diese eine Regel ersatzlos entfallen. */
+/* Das Querbild aus Abschnitt 3 hängt mit 71 % seiner Höhe in diesen
+   Abschnitt hinein. Ohne diesen Vorlauf läge es über der Überschrift.
+   Rechnung: Bildbreite 46,6 vw, Verhältnis 3:2, davon 71 % Überstand
+   = 0,221 × Fensterbreite. Darauf noch Luft. */
+/* Die Überschrift beginnt DIREKT unter dem Querbild. Der Vorlauf deckt nur
+   noch den Überstand des Bildes ab, ohne zusätzliches Polster. */
 @media (min-width: 1101px) {
-  /* Der Vorlauf fuer das ueberhaengende Querbild aus Abschnitt 3 ist
-     entfallen: der Ablauf haengt seit dem Umbau nicht mehr in den
-     Folgeabschnitt hinein. */
+  .wahl { padding-top: calc(22.1vw - 0.25rem); }
 }
 
-/* ---------------------------------------------------------------------------
-   KOPF
-   Mittig gesetzt: die beiden Abschnitte davor sind linksbuendig und
-   bildstark, hier bricht ein ruhiger, symmetrischer Moment den Rhythmus.
-   --------------------------------------------------------------------------- */
-.wahl__head { text-align: center; }
-.wahl__h2   { margin: 0; }
-.wahl__lead { margin: var(--raum-h2-lead) auto 0; }
+.wahl__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* --- Kopf ----------------------------------------------------------------- */
+.wahl__head {
+  max-width: 940px;
+  margin: 0 auto;
+  text-align: center;
+}
+.wahl__h2 {
+  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
+  line-height: 1.12;
+}
+.wahl__lead {
+  margin: clamp(1.6rem, 3.4vh, 2.4rem) auto 0;
+  max-width: 46rem;
+  font-size: clamp(1.12rem, 1.42vw, 1.42rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
 .wahl__lead .hl { color: var(--ink-black); }
 
-/* ---------------------------------------------------------------------------
-   BEREICHSTITEL AUF DURCHLAUFENDER LINIE
-   Die duenne Waagerechte fasst die sechs Karten optisch zusammen; der Titel
-   sitzt mittig darin und bezeichnet, was darunter folgt.
-   --------------------------------------------------------------------------- */
-.ableh { margin-top: var(--raum-lead-inhalt); }
-
-.ableh__band {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(16px, 2vw, 28px);
+/* --- Verweis auf die Vertiefung ------------------------------------------ */
+.wahl__mehr {
+  margin-top: clamp(2.4rem, 6vh, 4rem);
+  text-align: center;
 }
-.ableh__band-linie {
-  display: block;
+.wahl__mehr a {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.4em;
+  font-family: var(--font-display);
+  font-size: clamp(0.98rem, 1.1vw, 1.1rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--navy-800);
+}
+.wahl__mehr a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
   height: 1px;
-  background: var(--estera-line-light);
+  background: var(--line-gold);
+  transition: background 0.4s var(--ease);
 }
-.ableh__titel {
-  margin: 0;
-  color: var(--estera-navy-800);
+.wahl__mehr a:hover::after { background: var(--gold); }
+.wahl__mehr a[aria-disabled='true'] { cursor: default; }
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 780px) {
+  .wahl__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+}
+
+
+/* ===========================================================================
+   ABLEHNUNGSGRÜNDE ALS VERZWEIGUNG
+   Aufbau nach imperiaimmobilien.de „Unsere Leistungen": ein Kasten, von dem
+   die Wege ausgehen, dann abwechselnd links und rechts ein Kasten mit Icon.
+
+   Imperia zieht dort 1,5-px-Linien in Gold (rgb(139,96,29)) mit kleinen
+   Winkel-Pfeilspitzen. Übernommen ist die Strichsprache, nicht die Farbe:
+   hier läuft alles in Navy.
+
+   Die Verbinder sind KEIN SVG, sondern Rahmen mit Eckenradius. Ein SVG
+   müsste seine Koordinaten mit dem Raster in Deckung halten und bräche bei
+   jeder Breitenänderung; Rahmen wachsen von selbst mit.
+   =========================================================================== */
+.ableh {
+  /* Deckende Farbe, KEIN rgba: an den Bögen liegen zwei Rahmenkanten
+     exakt übereinander. Mit Transparenz addierten sie sich und die Stelle
+     wäre dunkler als der Rest der Linie. */
+  --linie: #8CA0B8;
+  --bogen: clamp(26px, 3vw, 46px);
+  /* Luft zwischen Pfeilspitze und Kasten */
+  --pfeil-luft: clamp(10px, 1.1vw, 18px);
+  max-width: 1080px;
+  margin: clamp(2.6rem, 6vh, 4.5rem) auto 0;
+}
+
+/* --- Der Kasten oben, von dem die Wege ausgehen -------------------------- */
+/* Deckendes Navy statt Weiß mit Rahmen. Vorher hatte der Startkasten
+   dasselbe Gewicht wie die sechs darunter — es gab keinen Ursprung, von dem
+   der Weg ausgeht. Jetzt ist er der einzige dunkle Punkt auf weißem Papier
+   und liest sich als Stempel, aus dem alles hervorgeht.
+   Der Goldring liegt als zweite Linie außen herum, wie die Randung einer
+   Urkunde. */
+.ableh__start {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: clamp(1rem, 2.2vh, 1.4rem) clamp(1.8rem, 3.6vw, 3rem);
+  border-radius: var(--radius-img);
+  background: var(--navy-800);
+  text-align: center;
+}
+.ableh__start::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid var(--line-gold);
+  border-radius: calc(var(--radius-img) + 6px);
+  pointer-events: none;
+}
+.ableh__start-txt {
+  font-size: clamp(0.82rem, 0.9vw, 0.93rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+  color: #fff;
   white-space: nowrap;
 }
+/* Kurzes Stück Linie zwischen Startkasten und erster Stufe */
+.ableh__abgang {
+  display: block;
+  width: 3px;
+  height: clamp(2rem, 5vh, 3.4rem);
+  /* Die Linie setzt nicht direkt an der Kastenkante an. */
+  margin: clamp(12px, 1.4vh, 18px) auto 0;
+  background: linear-gradient(to right,
+    var(--linie) 0 1px, transparent 1px 2px, var(--linie) 2px 3px);
+}
 
-/* ---------------------------------------------------------------------------
-   DAS RASTER
-   Eine Spalte auf dem Telefon, zwei ab 760 px, drei ab 1180 px. Die
-   Reihenhoehe ist FEST gesetzt, nicht aus dem Inhalt abgeleitet: nur so sind
-   alle sechs Karten auf 0 px genau gleich hoch — auch die dritte, deren Text
-   deutlich laenger ist als die uebrigen fuenf. Aufgefangen wird das ueber
-   die kleinere Schriftstufe (--fs-klein), die Zeilenhoehe und den
-   Innenabstand, nicht ueber eine Kuerzung des Textes.
-   --------------------------------------------------------------------------- */
-.ableh { --karte-h: 232px; }
+/* --- Die drei Stufen ------------------------------------------------------ */
+/* Kein row-gap: die senkrechte Linie muss durchlaufen. Der Abstand zwischen
+   den Stufen kommt aus den Außenabständen der Kästen. */
+.ableh__stufen { display: grid; }
 
-.ableh__raster {
+.ableh__stufe {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-auto-rows: minmax(190px, auto);
-  gap: var(--karten-gap);
-  margin: clamp(28px, 3vw, 44px) 0 0;
-  padding: 0;
-}
-@media (min-width: 760px) {
-  .ableh__raster {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 240px;
-  }
-}
-@media (min-width: 1180px) {
-  .ableh__raster {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: var(--karte-h);
-  }
+  grid-template-columns: minmax(0, 1fr) clamp(96px, 11vw, 168px) minmax(0, 1fr);
+  /* stretch statt center: in einer Stufe sollen beide Kästen gleich hoch
+     sein, sonst sitzt der Pfeil bei einem von beiden nicht auf der Mitte. */
+  align-items: stretch;
 }
 
-/* --- Die Karte ------------------------------------------------------------
-   Weisse Flaeche auf warmem Grund, Haarlinie statt Schlagschatten. Der
-   Innenabstand liegt bewusst unter dem der allgemeinen .karte: sechs Karten
-   in einer Reihe brauchen mehr Textbreite als eine einzelne grosse Karte. */
-.ableh__karte {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: clamp(28px, 2.2vw, 32px);
-  background: var(--estera-white);
-  border: 1px solid var(--estera-line-light);
-  border-radius: var(--radius-karte);
-  transition: border-color var(--t-micro) var(--ease),
-              transform var(--t-micro) var(--ease);
+/* --- Verbinder: senkrechte Linie plus zwei Bögen ------------------------- */
+.ableh__verbinder {
+  position: relative;
+  align-self: stretch;
 }
-.ableh__karte:hover,
-.ableh__karte:focus-within {
-  border-color: var(--estera-line-gold);
-  transform: translateY(-3px);
+/* Die durchlaufende Senkrechte */
+.ableh__verbinder::before {
+  content: '';
+  position: absolute;
+  /* -1px, damit die Senkrechte GENAU auf den Rahmenkanten der beiden Bögen
+     liegt. Ohne das steht die Kante des linken Bogens links daneben, die des
+     rechten rechts daneben — die Linie wäre dann 2 px breit. */
+  left: calc(50% - 1.5px);
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  /* DOPPELTE Haarlinie: 1 px Linie, 1 px Luft, 1 px Linie. Eine einzelne
+     Linie ist eine Verbindung; zwei parallele sind eine Randung — dieselbe
+     Sprache wie auf einem Wertpapier. Die Bögen ziehen dasselbe über
+     `border-style: double`. */
+  background: linear-gradient(to right,
+    var(--linie) 0 1px, transparent 1px 2px, var(--linie) 2px 3px);
 }
+/* Die Linie laeuft durch bis zum Ergebnis darunter. */
 
-/* Kopfzeile der Karte: Symbol links, Nummer rechts. Beide auf einer Linie,
-   damit die sechs Karten oben denselben Anschlag haben. */
-.ableh__kopf {
+/* Ein Arm ist ein Kasten, von dem nur zwei Rahmenkanten gezeichnet werden:
+   die senkrechte auf der Mittellinie und die waagerechte zum Kasten hin.
+   Der Eckenradius dazwischen ergibt den Bogen. */
+.ableh__arm {
+  --arm-farbe: var(--linie);
+  position: absolute;
+  top: 0;
+  height: 50%;
+  /* Nicht bis an den Kasten: die Pfeilspitze soll davor enden. */
+  width: calc(50% + 1.5px - var(--pfeil-luft));
+  border-bottom: 3px double var(--arm-farbe);
+  transition: border-color 0.45s var(--ease);
+}
+.ableh__arm--links {
+  right: calc(50% - 1.5px);
+  border-right: 3px double var(--arm-farbe);
+  border-bottom-right-radius: var(--bogen);
+}
+.ableh__arm--rechts {
+  left: calc(50% - 1.5px);
+  border-left: 3px double var(--arm-farbe);
+  border-bottom-left-radius: var(--bogen);
+}
+/* Pfeilspitze am äußeren Ende. Sie besteht aus ZWEI ineinanderliegenden
+   Winkeln im selben Abstand wie die beiden Linien — eine einfache Spitze an
+   einer doppelten Linie sieht aus, als gehörte sie nicht dazu.
+   Zwei Groessen sind hier gerechnet, nicht geschaetzt:
+
+   1. Die HOEHE. Der Bezugspunkt von `bottom` ist die Innenkante des
+      Rahmens, nicht dessen Mitte. Der 3 px starke Doppelstrich liegt also
+      UNTER dem Nullpunkt; seine Mitte sitzt 1,5 px darunter. Bei 8 px
+      Spitzenhoehe muss die Unterkante damit auf 1,5 + 4 = 5,5 px liegen.
+      Vorher stand dort 3 px — die Spitzen schwebten 2,5 px ueber der Linie.
+
+   2. Der VERSATZ. Die Mitten der beiden Linien liegen 2 px auseinander.
+      Bei 45 Grad braucht es dafuer 2 x Wurzel(2) = 2,83 px auf der Achse. */
+.ableh__arm::before,
+.ableh__arm::after {
+  content: '';
+  position: absolute;
+  bottom: -5.5px;
+  width: 8px;
+  height: 8px;
+  border-style: solid;
+  border-color: var(--arm-farbe);
+  border-width: 0;
+}
+.ableh__arm--links::before,
+.ableh__arm--links::after {
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+  transform: rotate(45deg);
+}
+.ableh__arm--links::before { left: -2px; }
+.ableh__arm--links::after  { left: 0.83px; }
+
+.ableh__arm--rechts::before,
+.ableh__arm--rechts::after {
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  transform: rotate(-45deg);
+}
+.ableh__arm--rechts::before { right: -2px; }
+.ableh__arm--rechts::after  { right: 0.83px; }
+
+/* --- Die Kästen ----------------------------------------------------------- */
+.ableh__kasten {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 24px;
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+  margin: clamp(0.7rem, 1.8vh, 1.3rem) 0;
+  padding: clamp(1.1rem, 2.1vw, 1.7rem) clamp(1.2rem, 2.2vw, 1.8rem);
+  border: 1px solid rgba(16, 41, 73, 0.16);
+  border-radius: var(--radius-img);
+  background: var(--paper);
+  /* Kein Schlagschatten wie bei Imperia — die Seite arbeitet mit Haarlinien. */
+  transition: border-color 0.5s var(--ease);
 }
-.ableh__karte .icon { transition: color var(--t-micro) var(--ease); }
-.ableh__karte:hover .icon,
-.ableh__karte:focus-within .icon { color: var(--estera-gold-600); }
+.ableh__kasten:hover { border-color: var(--linie); }
 
-.ableh__nr { line-height: 1; }
-
-/* Feine Linie zwischen Symbolzeile und Text. */
-.ableh__strich {
-  display: block;
-  height: 1px;
-  margin: clamp(26px, 2.4vw, 34px) 0 clamp(16px, 1.5vw, 20px);
-  background: var(--estera-line-mid);
-  transition: background var(--t-micro) var(--ease);
+/* Medaillon mit Goldring — dieselbe Form wie das Siegel im Ablauf und die
+   Initialen bei den Kundenstimmen. Ohne Ring saß das Icon frei im Kasten und
+   hatte kein Gewicht. */
+.ableh__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(42px, 3.9vw, 52px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--line-gold);
+  color: var(--navy-600);
+  transition: border-color 0.5s var(--ease);
 }
-.ableh__karte:hover .ableh__strich,
-.ableh__karte:focus-within .ableh__strich { background: var(--estera-line-gold); }
+.ableh__icon svg { width: 54%; height: 54%; display: block; }
+.ableh__kasten:hover .ableh__icon { border-color: var(--gold); }
+
 
 .ableh__txt {
-  margin: 0;
-  font-size: var(--fs-klein);
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.06vw, 1.06rem);
+  line-height: 1.55;
   color: var(--ink-black);
   text-wrap: pretty;
 }
 
-/* ---------------------------------------------------------------------------
-   ERGEBNISZEILE
-   Ohne Pfeilgrafik. Ein goldener Punkt setzt den Schlusspunkt, mehr nicht.
-   --------------------------------------------------------------------------- */
-.ableh__ergebnis {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(14px, 1.4vw, 20px);
-  margin: clamp(36px, 4vw, 60px) 0 0;
-  font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: var(--fs-label);
-  letter-spacing: 0.2em;
-  text-indent: 0.2em;
-  text-transform: uppercase;
-  color: var(--estera-navy-800);
-  text-align: center;
+/* --- Responsive ----------------------------------------------------------- */
+/* Unter 880 px passen zwei Kästen nebeneinander nicht mehr. Dann läuft die
+   Linie am linken Rand durch und alle sechs Gründe hängen rechts daran —
+   dieselbe Logik, nur einspaltig. */
+@media (max-width: 880px) {
+  .ableh { --bogen: 22px; }
+  .ableh__start { width: 100%; }
+  .ableh__start-txt { white-space: normal; }
+  .ableh__abgang { margin-left: clamp(1.4rem, 5vw, 2.4rem); }
+
+  .ableh__stufe {
+    grid-template-columns: clamp(2.8rem, 10vw, 4.8rem) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .ableh__verbinder { grid-column: 1; grid-row: 1 / span 2; }
+  .ableh__verbinder::before { left: clamp(1.4rem, 5vw, 2.4rem); }
+  .ableh__stufe:last-child .ableh__verbinder::before { bottom: 75%; }
+
+  .ableh__kasten--links  { grid-column: 2; grid-row: 1; }
+  .ableh__kasten--rechts { grid-column: 2; grid-row: 2; }
+
+  /* Ein Arm je Kasten: von der Linie waagerecht nach rechts */
+  .ableh__arm {
+    left: clamp(1.4rem, 5vw, 2.4rem);
+    right: auto;
+    width: calc(100% - clamp(1.4rem, 5vw, 2.4rem));
+    border-right: 0;
+    border-left: 1px solid var(--linie);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: var(--bogen);
+  }
+  .ableh__arm--links  { top: 0;   height: 25%; }
+  .ableh__arm--rechts { top: 50%; height: 25%; }
+  .ableh__arm::after {
+    left: auto;
+    right: -1px;
+    border-left-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    transform: rotate(-45deg);
+  }
 }
 
-/* ---------------------------------------------------------------------------
-   VERWEIS AUF DIE VERTIEFUNG
-   --------------------------------------------------------------------------- */
-.wahl__mehr {
-  margin: clamp(32px, 3.4vw, 52px) 0 0;
-  text-align: center;
-}
-
-/* ---------------------------------------------------------------------------
-   SCHMALE FENSTER
-   --------------------------------------------------------------------------- */
-@media (max-width: 560px) {
-  .ableh__band { grid-template-columns: minmax(0, 1fr); }
-  .ableh__band-linie { display: none; }
-  .ableh__titel { white-space: normal; text-align: center; }
-}
 
 /* ===========================================================================
-   DUNKLER ARCHITEKTURTRENNER   (.trenner)
-   Reiner Bildtrenner, bewusst OHNE Textinhalt: fuer diesen Abschnitt gibt es
-   keinen vorhandenen Text im Briefing, und erfunden wird hier nichts. Der
-   Trenner arbeitet allein als Wechsel von hell zu dunkel — nach zwei hellen
-   Hauptabschnitten braucht das Auge die Unterbrechung.
+   AUFZIEHEN BEIM SCROLLEN
+   Der Weg zeichnet sich in der Reihenfolge, in der man ihn liest: Kasten,
+   Linie nach unten, Bögen nach außen, dann der Kasten am Ende des Pfeils.
+   Gesteuert über ein Attribut am Block, gesetzt von site.js — dadurch
+   laufen alle drei Stufen auf EINER Zeitachse. Beobachtete man jeden Kasten
+   einzeln, käme die Reihenfolge durcheinander, sobald der Block höher ist
+   als das Fenster.
 
-   Ueber dem Bild liegt EINE einzige Navy-Flaeche mit 66 % Deckung. Kein
-   zweiter Verlauf, keine Vignette: jede weitere Lage wuerde das Motiv unter
-   die vorgegebene Spanne von 50–68 % druecken.
+   Die Bögen ziehen über clip-path auf, nicht über die Breite: eine Änderung
+   der Breite würde den Eckenradius mitverzerren.
+   Die negativen Werte im inset() lassen die Pfeilspitze stehen — sie ragt
+   bewusst über die Kante des Arms hinaus und würde sonst abgeschnitten.
    =========================================================================== */
-.trenner {
+.ableh__start,
+.ableh__kasten {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft),
+              border-color 0.5s var(--ease);
+}
+.ableh__abgang,
+.ableh__verbinder::before {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s var(--ease-soft);
+}
+.ableh__arm {
+  clip-path: inset(0 0 -16px 100%);
+}
+.ableh__arm--rechts {
+  clip-path: inset(0 100% -16px 0);
+}
+.ableh__arm {
+  transition: clip-path 0.5s var(--ease-soft), border-color 0.45s var(--ease);
+}
+
+.ableh[data-gezeichnet='true'] .ableh__start { opacity: 1; transform: none; }
+.ableh[data-gezeichnet='true'] .ableh__abgang {
+  transform: scaleY(1);
+  transition-delay: 0.15s;
+}
+.ableh[data-gezeichnet='true'] .ableh__verbinder::before {
+  transform: scaleY(1);
+  transition-delay: calc(0.42s + var(--stufe, 0) * 0.34s);
+}
+.ableh[data-gezeichnet='true'] .ableh__arm {
+  clip-path: inset(0 -10px -16px -10px);
+  transition-delay: calc(0.7s + var(--stufe, 0) * 0.34s);
+}
+.ableh[data-gezeichnet='true'] .ableh__kasten {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.88s + var(--stufe, 0) * 0.34s);
+}
+
+/* --- Der angefahrene Weg wird kräftiger ---------------------------------- */
+/* Wer auf einen Grund zeigt, sieht den Weg dorthin. Ohne :has() müsste dafür
+   Markup verschoben oder JavaScript eingesetzt werden. */
+.ableh__stufe:has(.ableh__kasten--links:hover)  .ableh__arm--links,
+.ableh__stufe:has(.ableh__kasten--links:focus-within)  .ableh__arm--links,
+.ableh__stufe:has(.ableh__kasten--rechts:hover) .ableh__arm--rechts,
+.ableh__stufe:has(.ableh__kasten--rechts:focus-within) .ableh__arm--rechts {
+  --arm-farbe: var(--navy-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ableh__start, .ableh__kasten { opacity: 1; transform: none; }
+  .ableh__abgang, .ableh__verbinder::before { transform: scaleY(1); }
+  .ableh__arm { clip-path: none; }
+  .ableh__start, .ableh__kasten, .ableh__abgang,
+  .ableh__verbinder::before, .ableh__arm { transition: none; }
+}
+
+
+/* --- Zulauf zum Ergebnis -------------------------------------------------- */
+/* Gerader Pfeil unter der letzten Stufe: dieselbe doppelte Linie und
+   dieselbe doppelte Spitze wie bei den sechs Armen, nur senkrecht. */
+.ableh__zulauf {
   position: relative;
-  width: 100%;
-  /* 1280 px -> 538, 1440 px -> 605, ab 1476 px -> 620. Damit liegt die Hoehe
-     auf allen Desktop-Breiten in der Spanne 520–620 px. */
-  min-height: clamp(320px, 36vw, 540px);
-  overflow: hidden;
-  background: var(--estera-navy-950);
+  display: block;
+  width: 3px;
+  height: clamp(2.6rem, 6vh, 4.2rem);
+  margin: 0 auto clamp(14px, 1.6vh, 20px);
+  background: linear-gradient(to right,
+    var(--linie) 0 1px, transparent 1px 2px, var(--linie) 2px 3px);
 }
-.trenner__bild {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  /* Etwas oberhalb der Mitte: dort liegt die ruhige Flaeche der Fassade,
-     nicht die kleinteilige Sockelzone. */
-  object-position: 50% 42%;
-}
-.trenner::after {
+.ableh__zulauf::before,
+.ableh__zulauf::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--estera-navy-900);
-  opacity: 0.66;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-style: solid;
+  border-color: var(--linie);
+  border-width: 0 1px 1px 0;
+  transform: translateX(-50%) rotate(45deg);
+}
+/* Spitze unten, zweiter Winkel 2,83 px darueber — bei 45 Grad ergibt das
+   die 2 px Abstand, den die beiden Linien zueinander haben. */
+.ableh__zulauf::before { bottom: -1.7px; }
+.ableh__zulauf::after  { bottom: 1.13px; }
+
+/* --- Das Ergebnis --------------------------------------------------------- */
+.ableh__ergebnis {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: clamp(0.85rem, 1.9vh, 1.2rem) clamp(1.6rem, 3.2vw, 2.6rem);
+  border: 1px solid var(--line-gold);
+  border-radius: var(--radius-img);
+  background: var(--paper);
+  text-align: center;
+  font-size: clamp(0.82rem, 0.9vw, 0.93rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+  color: var(--navy-800);
+}
+
+/* Beide laufen nach der letzten Stufe auf */
+.ableh__zulauf,
+.ableh__ergebnis {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-soft);
+}
+.ableh[data-gezeichnet='true'] .ableh__zulauf {
+  opacity: 1;
+  transition-delay: 1.62s;
+}
+.ableh[data-gezeichnet='true'] .ableh__ergebnis {
+  opacity: 1;
+  transition-delay: 1.86s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ableh__zulauf, .ableh__ergebnis { opacity: 1; transition: none; }
 }

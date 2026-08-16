@@ -57,9 +57,7 @@
   var header = document.querySelector('[data-header]');
   if (header) {
     var onScroll = function () {
-      /* Umschaltpunkt 56 px: der Kopf soll ueber dem dunklen Hero zunaechst
-         transparent bleiben und erst danach als helle Leiste erscheinen. */
-      header.classList.toggle('site-header--sticky', window.scrollY > 56);
+      header.classList.toggle('site-header--sticky', window.scrollY > 24);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });

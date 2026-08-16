@@ -3,54 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Estera Immobilien — Kapitalanlageimmobilien in Bayern</title>
+<title>Estera — Variante A · Bildband mit eingelegtem Kasten</title>
 <meta name="description" content="Estera ordnet Ihre Ausgangssituation ein, wählt aus dem Off-Market-Zugang passende Kapitalanlageimmobilien aus, koordiniert die Finanzierung über ein spezialisiertes Netzwerk und begleitet Sie strukturiert bis zum Notar.">
 <meta name="robots" content="noindex, nofollow">
 
 <link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-
-<!-- Reihenfolge: erst Schriften, dann das Fundament, dann das globale
-     Designsystem, danach die Abschnitte in der Reihenfolge der Seite.
-     system.css ist die einzige Quelle fuer Farbe, Schrift, Raster, Abstaende,
-     Knoepfe, Karten und Bewegung; alles danach baut nur darauf auf. -->
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/system.css">
-<link rel="stylesheet" href="assets/css/navigation.css">
 <link rel="stylesheet" href="assets/css/hero-a.css">
+<link rel="stylesheet" href="assets/css/referenzen.css">
+<link rel="stylesheet" href="assets/css/fuehrung.css">
 <link rel="stylesheet" href="assets/css/leistungen.css">
 <link rel="stylesheet" href="assets/css/auswahl.css">
 <link rel="stylesheet" href="assets/css/prinzip.css">
 <link rel="stylesheet" href="assets/css/vergleich.css">
-<link rel="stylesheet" href="assets/css/referenzen.css">
-<link rel="stylesheet" href="assets/css/fuehrung.css">
+<link rel="stylesheet" href="assets/css/spiel.css">
 <link rel="stylesheet" href="assets/css/schluss.css">
 <link rel="stylesheet" href="assets/css/loop.css">
 </head>
 <body>
 
-
-<!-- Kopf: Wortmarke mittig, drei Punkte links, drei Punkte plus Knopf rechts.
-     Hoechstens sechs Hauptpunkte — „Prinzip", „Struktur" und „Qualitaet" sind
-     keine eigenen Punkte mehr, sondern haengen als Unterpunkte an „Konzept".
-     „Karriere" ist in die Fusszeile gewandert.
-     Alle Beschriftungen und Adressen sind unveraendert uebernommen. -->
+<!-- Kopf: Wortmarke mittig, Burger rechts -->
 <header class="site-header site-header--invert" data-header>
 
-  <!-- LINKS: Konzept (mit Unterpunkten) | Auswahl | Ablauf -->
+  <!-- LINKS: die Abschnitte DIESER Seite (Sprungmarken).
+       Reihenfolge nach der Startseiten-Dramaturgie im Briefing S.6/7.
+       Auswahl, Prinzip und Werte sind Punkt 4, 5 und 7 — noch nicht gebaut.
+       site.js sperrt Verweise, deren Ziel es noch nicht gibt, und gibt sie
+       automatisch frei, sobald der Abschnitt existiert. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
-      <li class="kopfnav__hat">
-        <a href="konzept.html">Konzept<span class="kopfnav__chev" aria-hidden="true"></span></a>
-        <ul class="kopfnav__unter">
-          <li><a href="#prinzip">Prinzip</a></li>
-          <li><a href="#weg">Struktur</a></li>
-          <li><a href="qualitaet.html">Qualität</a></li>
-        </ul>
-      </li>
-      <li><a href="#auswahl">Auswahl</a></li>
+      <li><a href="#kunden">Kunden</a></li>
       <li><a href="#konzept">Ablauf</a></li>
+      <li><a href="#auswahl">Auswahl</a></li>
+      <li><a href="#prinzip">Prinzip</a></li>
+      <li><a href="#weg">Struktur</a></li>
     </ul>
   </nav>
 
@@ -59,180 +47,214 @@
     <span class="wordmark__sub">Immobilien</span>
   </a>
 
-  <!-- RECHTS: Kunden | Über Estera | Wissen | Erstgespräch (Knopf) -->
+  <!-- RECHTS: die einzelnen Seiten. Wortlaut und Reihenfolge exakt nach der
+       vorgeschlagenen Hauptnavigation, Briefing S.5:
+       "Konzept · Qualität · Wissen · Über Estera · Karriere | Erstgespräch"
+       Die Dateien gibt es noch nicht — die Adressen stehen aber schon so,
+       wie sie spaeter heissen sollen. -->
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
     <ul>
-      <li><a href="#kunden">Kunden</a></li>
-      <li><a href="ueber-estera.html">Über Estera</a></li>
+      <li><a href="konzept.html">Konzept</a></li>
+      <li><a href="qualitaet.html">Qualität</a></li>
       <li><a href="wissen.html">Wissen</a></li>
+      <li><a href="ueber-estera.html">Über Estera</a></li>
+      <li><a href="karriere.html">Karriere</a></li>
       <li class="kopfnav__cta"><a href="erstgespraech.html">Erstgespräch</a></li>
     </ul>
   </nav>
 
-  <!-- Unter 1200 px uebernimmt der Menueknopf mit dem Vollbild-Overlay. -->
+  <!-- Bleibt fuer schmale Fenster: eine Waagerechte mit elf Punkten passt
+       dort nicht. Ab 1360 px ist der Burger aus, darunter die Navigation. -->
   <button class="burger" type="button" data-menu-open aria-expanded="false" aria-controls="hauptmenue">
     <span class="burger__label">Menü</span>
     <span class="burger__lines" aria-hidden="true"><span></span><span></span><span></span></span>
   </button>
 </header>
 
-
 <!-- =====================================================================
-     1 — HERO
-     ===================================================================== -->
-<!-- =====================================================================
-     HERO — Variante A
-     Bildband über die volle Breite, darüber die eingelegte Karte.
-     Sämtliche sichtbaren Texte stehen wörtlich so in variante-a.html:
-     Headline, die drei Rotator-Zeilen, der Lead, beide Knöpfe und die
-     Bildunterschrift. Einzige Ergänzung ist das kleine Label über der
-     Headline — es trägt die Wortmarke („Estera Immobilien") und damit
-     keinen neuen Wortlaut. Wenn Estera dort etwas anderes stehen haben
-     will, wird nur diese eine Zeile ausgetauscht.
+     HERO — Variante A: niedriges Bildband + eingelegter Kasten
      ===================================================================== -->
 <section class="heroA">
 
-  <!-- 1 — Architekturband, volle Breite, darüber das Navy-Grading -->
   <figure class="heroA__band" data-parallax>
     <img src="assets/img/band-v2.jpg"
          alt="Klassizistischer Wohnboulevard in München von erhöhtem Standpunkt"
          width="2400" height="1600" fetchpriority="high" decoding="async">
-    <span class="heroA__grading" aria-hidden="true"></span>
   </figure>
 
-  <!-- 2 — Karte in Off-White, überlappt das Band -->
-  <div class="cont heroA__buehne">
-    <div class="heroA__karte" data-anim style="--d:220">
-      <div class="heroA__raster">
+  <div class="heroA__panel" data-anim style="--d:260">
+    <span class="heroA__rahmen" aria-hidden="true"></span>
+    <div class="heroA__text">
+      <h1 class="display heroA__h1">
+        Kapitalanlageimmobilien in Bayern
+        <span class="rotator" data-rotator>
+          <span class="rotator__item" data-active="true">Diskret ausgewählt.</span>
+          <span class="rotator__item">Strukturiert begleitet.</span>
+          <span class="rotator__item">Langfristig gedacht.</span>
+        </span>
+      </h1>
 
-        <!-- Spalten 1–6 -->
-        <div class="heroA__text">
-          <p class="label label--gold heroA__eyebrow">Estera Immobilien</p>
+      <p class="heroA__lead">
+        Estera ordnet Ihre Situation ein, wählt passende
+        <span class="hl nb">Off-Market-Objekte</span> aus, koordiniert die
+        <span class="hl">Finanzierung</span> und begleitet Sie strukturiert
+        <span class="hl">bis zum Notar</span>.
+      </p>
 
-          <h1 class="display heroA__h1">
-            Kapitalanlageimmobilien in Bayern
-            <span class="rotator" data-rotator>
-              <span class="rotator__item" data-active="true">Diskret ausgewählt.</span>
-              <span class="rotator__item">Strukturiert begleitet.</span>
-              <span class="rotator__item">Langfristig gedacht.</span>
-            </span>
-          </h1>
-
-          <p class="heroA__lead">
-            Estera ordnet Ihre Situation ein, wählt passende
-            <span class="hl nb">Off-Market-Objekte</span> aus, koordiniert die
-            <span class="hl">Finanzierung</span> und begleitet Sie strukturiert
-            <span class="hl">bis zum Notar</span>.
-          </p>
-
-          <div class="heroA__aktionen">
-            <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
-            <a class="btn btn--ghost" href="#konzept">So funktioniert Estera</a>
-          </div>
-        </div>
-
-        <!-- Spalte 7 bleibt frei — Spalten 8–12 -->
-        <figure class="heroA__figur">
-          <div class="heroA__bildfeld">
-            <img src="assets/img/haus-a-v2.jpg"
-                 alt="Freistehendes Mehrfamilienhaus in Bayern, vollständige Ansicht über Eck"
-                 width="1500" height="1500" decoding="async">
-          </div>
-          <figcaption>Auswahl vor Angebot</figcaption>
-        </figure>
-
+      <div class="heroA__actions">
+        <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
+        <a class="btn btn--ghost" href="#konzept">So funktioniert Estera</a>
       </div>
     </div>
+
+    <figure class="heroA__figure">
+      <div>
+        <img src="assets/img/haus-a-v2.jpg"
+             alt="Freistehendes Mehrfamilienhaus in Bayern, vollständige Ansicht über Eck"
+             width="1500" height="1500" decoding="async">
+        <figcaption>Auswahl vor Angebot</figcaption>
+      </div>
+    </figure>
   </div>
 
 </section>
 
 
-
 <!-- =====================================================================
-     2 — VERTRAUENSLEISTE
+     REFERENZEN — Unternehmer, die mit Estera arbeiten
+     Aufbau nach imperiaimmobilien.de „Sie kennen uns aus": eine gerahmte
+     Tafel mit Goldhaarlinie, darin die Marken nebeneinander.
+
+     ACHTUNG — alles hier ist PLATZHALTER.
+     Briefing S.3: „Nur echte Bewertungen, Nachweise, Zahlen, Partnerschaften
+     und Zertifikate." Erfundene Firmen, Namen oder Zitate dürfen hier nicht
+     stehen bleiben. Vor der Freischaltung wird je Referenz gebraucht:
+       — Logo als SVG (ersetzt den kompletten Inhalt von .ref__logo)
+       — Name und Funktion, wie die Person genannt werden will
+       — der Satz WÖRTLICH, so wie er gesagt oder freigegeben wurde
+       — eine schriftliche Freigabe für Logo, Name und Zitat
+     Danach ersetzen: .ref__logo-Inhalt, .ref__name, .ref__rolle, .ref__zitat
+     und den Hinweis .ref__platzhalter-hinweis löschen.
      ===================================================================== -->
-<!-- =====================================================================
-     VERTRAUENSLEISTE — direkt unter dem Hero
+<section class="ref" id="kunden">
+  <div class="ref__inner">
 
-     Inhalt vollständig aus dem Abschnitt „Kunden, die uns vertrauen"
-     verlagert: das Google-Bewertungssiegel mit unverändertem Markup, Text
-     und href sowie die vier vorhandenen Logos mit ihren vorhandenen
-     Alternativtexten. Nichts davon ist neu, nichts ist umformuliert.
-
-     ACHTUNG — die vier Logos sind ausdrücklich BEISPIEL-PLATZHALTER
-     fremder Unternehmen. Sie stehen hier stellvertretend für die späteren
-     echten Referenzen und dürfen ohne schriftliche Freigabe nicht online
-     gehen. Der sichtbare Hinweis darunter bleibt so lange stehen.
-     ===================================================================== -->
-<section class="trust" aria-label="Bewertung und Referenzen">
-  <div class="cont">
-
-    <div class="trust__leiste">
-
+    <header class="ref__head" data-reveal>
       <!-- Google-Bewertungssiegel. Das vierfarbige G ist Googles Marke; sie darf
            unveraendert zur Anzeige der EIGENEN echten Bewertung stehen, nicht
            als Partnerschaftshinweis. Stand der Zahlen: 5,0 bei 5 Bewertungen —
            vor Freischaltung noch einmal am Profil pruefen.
            TODO: href durch die exakte URL des Google-Unternehmensprofils ersetzen. -->
-      <div class="trust__einheit trust__einheit--siegel">
-        <a class="ref__siegel"
-           href="https://www.google.com/maps/search/?api=1&amp;query=Estera%20GmbH"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="5,0 von 5 Sternen bei 5 Bewertungen auf Google — Profil in neuem Tab oeffnen">
+      <a class="ref__siegel"
+         href="https://www.google.com/maps/search/?api=1&amp;query=Estera%20GmbH"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="5,0 von 5 Sternen bei 5 Bewertungen auf Google — Profil in neuem Tab oeffnen">
 
-          <svg class="ref__siegel-g" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          </svg>
+        <svg class="ref__siegel-g" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
 
-          <span class="ref__siegel-txt">
-            <span class="ref__siegel-sterne" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            </span>
-            <span class="ref__siegel-wert">5,0 von 5 Sternen</span>
-            <span class="ref__siegel-quelle">5 Bewertungen auf Google</span>
+        <span class="ref__siegel-txt">
+          <span class="ref__siegel-sterne" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
           </span>
-        </a>
-      </div>
-
-      <!-- Vier Beispiel-Logos. Gleich hohe Kästchen, die Breite steuert je
-           Logo die optische Grösse: Bildmarken kleiner, zweizeilige
-           Wortmarken breiter. -->
-      <div class="trust__einheit">
-        <span class="trust__logo" style="--lb:30px">
-          <img src="assets/img/logos/apple.svg" alt="Apple" loading="lazy" decoding="async">
+          <span class="ref__siegel-wert">5,0 von 5 Sternen</span>
+          <span class="ref__siegel-quelle">5 Bewertungen auf Google</span>
         </span>
-      </div>
+      </a>
 
-      <div class="trust__einheit">
-        <span class="trust__logo" style="--lb:150px">
-          <img src="assets/img/logos/baulig.svg" alt="Baulig Unternehmensgruppe" loading="lazy" decoding="async">
-        </span>
-      </div>
+      <h2 class="display ref__h2">Kunden, die uns vertrauen.</h2>
+    </header>
 
-      <div class="trust__einheit">
-        <span class="trust__logo" style="--lb:44px">
-          <img src="assets/img/logos/adidas.svg" alt="Adidas" loading="lazy" decoding="async">
-        </span>
-      </div>
+    <ul class="ref__tafel">
 
-      <div class="trust__einheit">
-        <span class="trust__logo" style="--lb:150px">
-          <img src="assets/img/logos/fuermetz.svg" alt="Fürmetz Logistik" loading="lazy" decoding="async">
-        </span>
-      </div>
+      <li class="ref__karte" tabindex="0" data-reveal style="--i:0; --logo-scale:0.7">
+        <div class="ref__inhalt">
+          <span class="ref__logo">
+            <img src="assets/img/logos/apple.svg" alt="Apple">
+          </span>
+          <div class="ref__person">
+            <p class="ref__name">Andreas Mustermann</p>
+            <p class="ref__rolle">Geschäftsführer</p>
+          </div>
+          <span class="ref__strich" aria-hidden="true"></span>
+          <figure class="ref__foto" aria-hidden="true">
+            <img src="assets/img/personen/p1.jpg" alt="" loading="lazy" decoding="async">
+          </figure>
+        </div>
+        <div class="ref__aussage">
+          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige Satz, den die Person tatsächlich gesagt und zur Veröffentlichung freigegeben hat — üblicherweise drei bis sechs Zeilen, in denen sie ihre Ausgangssituation, die Zusammenarbeit und das Ergebnis in eigenen Worten beschreibt.“</p>
+        </div>
+      </li>
 
-    </div>
+      <li class="ref__karte" tabindex="0" data-reveal style="--i:1; --logo-scale:1">
+        <div class="ref__inhalt">
+          <span class="ref__logo">
+            <img src="assets/img/logos/baulig.svg" alt="Baulig Unternehmensgruppe">
+          </span>
+          <div class="ref__person">
+            <p class="ref__name">Claudia Beispiel</p>
+            <p class="ref__rolle">Geschäftsführerin</p>
+          </div>
+          <span class="ref__strich" aria-hidden="true"></span>
+          <figure class="ref__foto" aria-hidden="true">
+            <img src="assets/img/personen/p2.jpg" alt="" loading="lazy" decoding="async">
+          </figure>
+        </div>
+        <div class="ref__aussage">
+          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. In der eingeklappten Spalte sind nur die ersten Zeilen zu sehen; beim Aufklappen steht der Satz vollständig da. Länge und Umbruch richten sich später nach dem echten Wortlaut.“</p>
+        </div>
+      </li>
+
+      <li class="ref__karte" tabindex="0" data-reveal style="--i:2; --logo-scale:0.8">
+        <div class="ref__inhalt">
+          <span class="ref__logo">
+            <img src="assets/img/logos/adidas.svg" alt="Adidas">
+          </span>
+          <div class="ref__person">
+            <p class="ref__name">Stefan Musterfeld</p>
+            <p class="ref__rolle">Geschäftsführer</p>
+          </div>
+          <span class="ref__strich" aria-hidden="true"></span>
+          <figure class="ref__foto" aria-hidden="true">
+            <img src="assets/img/personen/p3.jpg" alt="" loading="lazy" decoding="async">
+          </figure>
+        </div>
+        <div class="ref__aussage">
+          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige Satz, den die Person gesagt und freigegeben hat. Der Text darf ruhig unterschiedlich lang sein — die Spalten gleichen das aus.“</p>
+        </div>
+      </li>
+
+      <li class="ref__karte" tabindex="0" data-reveal style="--i:3; --logo-scale:1">
+        <div class="ref__inhalt">
+          <span class="ref__logo">
+            <img src="assets/img/logos/fuermetz.svg" alt="Fürmetz Logistik">
+          </span>
+          <div class="ref__person">
+            <p class="ref__name">Jonas Platzhalter</p>
+            <p class="ref__rolle">Geschäftsführer</p>
+          </div>
+          <span class="ref__strich" aria-hidden="true"></span>
+          <figure class="ref__foto" aria-hidden="true">
+            <img src="assets/img/personen/p4.jpg" alt="" loading="lazy" decoding="async">
+          </figure>
+        </div>
+        <div class="ref__aussage">
+          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige, wörtlich freigegebene Satz. Er wird nicht umformuliert, nicht gekürzt und nicht sinngemäß wiedergegeben — nur so ist er belastbar.“</p>
+        </div>
+      </li>
+
+    </ul>
 
     <!-- Fliegt mit den echten Referenzen raus -->
-    <p class="trust__hinweis">
+    <p class="ref__platzhalter-hinweis">
       Platzhalter — vier echte Referenzen mit schriftlicher Freigabe folgen.
     </p>
 
@@ -242,340 +264,357 @@
 
 
 <!-- =====================================================================
-     3 — SO FUNKTIONIERT ESTERA (Sticky-Ablauf)
+     GESCHÄFTSFÜHRUNG — Anordnung nach dem Vorbild von baulig.de:
+     zwei Bloecke untereinander, spiegelverkehrt, BEIDE auf einen Blick.
+     Hintergrund weiss wie alle Abschnitte dieser Seite; die Referenz steht
+     auf Schwarz, das ist die einzige bewusste Abweichung.
+     Schrift bleibt Cormorant, nicht die Grotesk der Referenz.
+
+     ACHTUNG — die Texte sind PLATZHALTER. Briefing S.2, S.17 und S.19
+     untersagen Gruenderportraits und Personenmarke ausdruecklich; dieser
+     Abschnitt steht auf ausdruecklichen Kundenwunsch und weicht damit
+     bewusst vom Masterbriefing ab. Vor Veroeffentlichung mit Estera klaeren.
      ===================================================================== -->
-<!-- =====================================================================
-     SO FUNKTIONIERT ESTERA — Sticky-Scroll-Ablauf
-     Links die sechs Prozessschritte an einer senkrechten Linie (5 Spalten),
-     rechts eine grosse Architekturaufnahme (7 Spalten), die beim Scrollen
-     stehen bleibt. Der Schritt auf der Lesezeile wird markiert; die Logik
-     dazu steht in assets/js/ablauf.js.
+<section class="fuehr" id="fuehrung" aria-label="Geschäftsführung">
+  <div class="fuehr__inner">
 
-     Ueberschrift, Unterzeile, die sechs Schritt-Titel und ihre Erklaersaetze
-     sind woertlich aus variante-a.html uebernommen — kein Wort geaendert.
-
-     Die Ziffern tragen .ziffern (Lining-Figuren). Ohne sie setzt Cormorant
-     Mediaevalziffern und „01" liest sich als „OI".
-     ===================================================================== -->
-<section class="lst" id="konzept">
-  <div class="cont">
-    <div class="ablauf">
-
-      <header class="ablauf__kopf" data-reveal>
-        <h2 class="display t-h2">So funktioniert Estera.</h2>
-        <p class="ablauf__unterzeile label">Estera Immobilien</p>
-      </header>
-
-      <ol class="ablauf__liste" data-ablauf>
-        <li class="ablauf__schritt" data-aktiv="true" aria-current="step">
-          <span class="ablauf__nr ziffern" aria-hidden="true">01</span>
-          <div class="ablauf__inhalt">
-            <h3 class="ablauf__titel">Erstgespräch</h3>
-            <p class="ablauf__txt">Ausgangssituation, Ziele und die gegenseitige Eignung klären.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt">
-          <span class="ablauf__nr ziffern" aria-hidden="true">02</span>
-          <div class="ablauf__inhalt">
-            <h3 class="ablauf__titel">Ersteinschätzung</h3>
-            <p class="ablauf__txt">Die Möglichkeiten einordnen, bevor über einzelne Objekte gesprochen wird.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt">
-          <span class="ablauf__nr ziffern" aria-hidden="true">03</span>
-          <div class="ablauf__inhalt">
-            <h3 class="ablauf__titel">Objektsuche</h3>
-            <p class="ablauf__txt">Eine passende Kapitalanlageimmobilie über den Off-Market-Zugang suchen.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt">
-          <span class="ablauf__nr ziffern" aria-hidden="true">04</span>
-          <div class="ablauf__inhalt">
-            <h3 class="ablauf__titel">Objektvorstellung</h3>
-            <p class="ablauf__txt">Das Objekt mit Zahlen, Daten und Fakten aufbereitet vorstellen.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt">
-          <span class="ablauf__nr ziffern" aria-hidden="true">05</span>
-          <div class="ablauf__inhalt">
-            <h3 class="ablauf__titel">Finanzierung</h3>
-            <p class="ablauf__txt">Die Finanzierung über das spezialisierte Netzwerk koordinieren.</p>
-          </div>
-        </li>
-        <li class="ablauf__schritt">
-          <span class="ablauf__nr ziffern" aria-hidden="true">06</span>
-          <div class="ablauf__inhalt">
-            <h3 class="ablauf__titel">Notar und Begleitung</h3>
-            <p class="ablauf__txt">Bis zum Notartermin führen — und darüber hinaus begleiten.</p>
-          </div>
-        </li>
-      </ol>
-
-      <!-- Drei Motive aus derselben Aufnahmeserie: gleiches Haus, gleiches
-           Licht, gleiche Gradation. Der Wechsel bleibt dadurch unaufdringlich. -->
-      <div class="ablauf__buehne">
-        <figure class="ablauf__bild" aria-hidden="true">
-          <img class="ablauf__foto" data-ablauf-bild data-an="true"
-               src="assets/img/haus-a-v2.jpg" alt=""
-               width="1500" height="1500" loading="lazy" decoding="async">
-          <img class="ablauf__foto" data-ablauf-bild
-               src="assets/img/haus-b-v2.jpg" alt=""
-               width="1800" height="1200" loading="lazy" decoding="async">
-          <img class="ablauf__foto" data-ablauf-bild
-               src="assets/img/haus-alt-v2.jpg" alt=""
-               width="1800" height="1200" loading="lazy" decoding="async">
-        </figure>
+    <div class="fuehr__block" data-reveal>
+      <div class="fuehr__text">
+        <h2 class="display fuehr__name">Sebastian Meilbeck</h2>
+        <span class="fuehr__strich" aria-hidden="true"></span>
+        <p>Sebastian Meilbeck ist Geschäftsführer der Estera GmbH.</p>
+        <p>Sein Fokus liegt auf der Auswahl geeigneter Kapitalanlageimmobilien und der strukturierten Begleitung bis zum Notartermin.</p>
+        <p>Platzhalter — hier stehen Werdegang und Verantwortungsbereich in zwei Sätzen.</p>
+        <p>Platzhalter — hier steht, wofür er im Unternehmen steht.</p>
       </div>
-
+      <figure class="fuehr__bild">
+        <img src="assets/img/gf-meilbeck.jpg" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
+             width="640" height="640" loading="lazy" decoding="async">
+      </figure>
     </div>
+
+    <div class="fuehr__block fuehr__block--gedreht" data-reveal>
+      <div class="fuehr__text">
+        <h2 class="display fuehr__name">Ioannis Orfanidis</h2>
+        <span class="fuehr__strich" aria-hidden="true"></span>
+        <p>Ioannis Orfanidis ist Geschäftsführer der Estera GmbH.</p>
+        <p>Sein Schwerpunkt liegt auf dem Off-Market-Zugang und der Koordination der Finanzierung über das spezialisierte Netzwerk.</p>
+        <p>Platzhalter — hier stehen Werdegang und Verantwortungsbereich in zwei Sätzen.</p>
+        <p>Platzhalter — hier steht, wofür er im Unternehmen steht.</p>
+      </div>
+      <figure class="fuehr__bild">
+        <img src="assets/img/gf-orfanidis.jpg" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
+             width="640" height="640" loading="lazy" decoding="async">
+      </figure>
+    </div>
+
+    <p class="fuehr__hinweis">Platzhalter — die Texte folgen von Estera.</p>
+
   </div>
 </section>
 
 
-
 <!-- =====================================================================
-     4 — AUSWAHL: WARUM ESTERA AUCH ABLEHNT
+     SECTION 3 — DAS GESCHÄFTSMODELL IN WENIGEN SCHRITTEN (Briefing S.6/7)
+     "Die wichtigste Sektion der Startseite." Die sechs Schritte stehen im
+     Briefing woertlich; sie sind hier nur um je einen erklaerenden Satz
+     ergaenzt, nicht umformuliert.
+     Die Ueberschrift heisst NICHT "Ein strukturierter Weg." — dieser Satz
+     gehoert im Briefing zu Punkt 6 (interaktiver Vergleich "Selbst
+     koordinieren" gegen "Mit Estera begleitet"). Hier steht der Satz aus
+     dem sekundaeren Hero-CTA, der genau hierher springt.
+     DER ABLAUF
+     Briefing S.13: „Estera führt die relevanten Bausteine in einen klaren
+     Ablauf." Arbeitsheadline ebenfalls von dort.
+     Die Bausteine oben sind wörtlich aus dem Briefing übernommen.
      ===================================================================== -->
-<!-- =====================================================================
-     ABSCHNITT 4 — „Lieber weniger Empfehlungen."
-     Kartenraster: drei Spalten, zwei Reihen, sechs gleich hohe Karten.
-     Der vorherige Aufbau (senkrechter Mittelstrich, abzweigende Pfeile,
-     verstreute Kaesten) ist ersatzlos entfallen; die Zeichen-Logik
-     data-zeichnen in site.js wird von diesem Abschnitt nicht mehr genutzt.
+<section class="lst" id="konzept">
+  <div class="lst__split">
 
-     Alle sichtbaren Texte stehen woertlich wie zuvor: Ueberschrift, Lead,
-     Bereichstitel „Warum Estera auch ablehnt", die sechs Ablehnungsgruende,
-     die Ergebniszeile „Qualitaet vor Quantitaet" und der Verweis.
+    <!-- Links: der Ablauf -->
+    <div class="lst__content">
+
+  <header class="lst__head" data-reveal>
+    <h2 class="display lst__h2">So funktioniert Estera.</h2>
+    <p class="lst__unterzeile">Estera Immobilien</p>
+  </header>
+
+  <!-- Senkrechte Linie links, rechts daneben die Schritte.
+       Die Linie läuft bis zur Unterkante des Querbilds durch. -->
+  <div class="ablauf">
+    <span class="ablauf__linie" aria-hidden="true"></span>
+    <ol class="ablauf__liste">
+        <li class="ablauf__schritt" data-reveal style="--i:0">
+          <span class="ablauf__nr">1</span>
+          <div>
+            <h3 class="ablauf__titel">Erstgespräch</h3>
+            <p class="ablauf__txt">Ausgangssituation, Ziele und die gegenseitige Eignung klären.</p>
+          </div>
+        </li>
+        <li class="ablauf__schritt" data-reveal style="--i:1">
+          <span class="ablauf__nr">2</span>
+          <div>
+            <h3 class="ablauf__titel">Ersteinschätzung</h3>
+            <p class="ablauf__txt">Die Möglichkeiten einordnen, bevor über einzelne Objekte gesprochen wird.</p>
+          </div>
+        </li>
+        <li class="ablauf__schritt" data-reveal style="--i:2">
+          <span class="ablauf__nr">3</span>
+          <div>
+            <h3 class="ablauf__titel">Objektsuche</h3>
+            <p class="ablauf__txt">Eine passende Kapitalanlageimmobilie über den Off-Market-Zugang suchen.</p>
+          </div>
+        </li>
+        <li class="ablauf__schritt" data-reveal style="--i:3">
+          <span class="ablauf__nr">4</span>
+          <div>
+            <h3 class="ablauf__titel">Objektvorstellung</h3>
+            <p class="ablauf__txt">Das Objekt mit Zahlen, Daten und Fakten aufbereitet vorstellen.</p>
+          </div>
+        </li>
+        <li class="ablauf__schritt" data-reveal style="--i:4">
+          <span class="ablauf__nr">5</span>
+          <div>
+            <h3 class="ablauf__titel">Finanzierung</h3>
+            <p class="ablauf__txt">Die Finanzierung über das spezialisierte Netzwerk koordinieren.</p>
+          </div>
+        </li>
+        <li class="ablauf__schritt" data-reveal style="--i:5">
+          <span class="ablauf__nr">6</span>
+          <div>
+            <h3 class="ablauf__titel">Notar und Begleitung</h3>
+            <p class="ablauf__txt">Bis zum Notartermin führen — und darüber hinaus begleiten.</p>
+          </div>
+        </li>
+    </ol>
+  </div>
+
+    </div>
+
+    <!-- Querbild unten, überlappt die linke Kante des Hochbilds -->
+    <figure class="lst__unten" aria-hidden="true">
+      <img src="assets/img/haus-quer.jpg" alt=""
+           width="1700" height="1133" loading="lazy" decoding="async">
+    </figure>
+
+    <!-- Rechts: durchlaufendes Bild über die volle Höhe der Section -->
+    <figure class="lst__side" aria-hidden="true">
+      <img src="assets/img/fassade-vert.jpg"
+           alt=""
+           width="1100" height="1650" loading="lazy" decoding="async">
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     SECTION 4 — WARUM ESTERA ANDERS AUSWÄHLT (Briefing S.7)
+     "Kurzer Qualitaetsmoment: Off-Market-Zugang allein reicht nicht.
+      Entscheidend ist, welche Objekte Estera bewusst nicht empfiehlt.
+      Kernaussage: Qualitaet vor Quantitaet."
+
+     Saemtliche Inhalte stehen woertlich im Briefing:
+     — Kernaussage S.11: "Lieber weniger Empfehlungen – dafuer
+       Kapitalanlageimmobilien, die unseren Auswahlprozess wirklich bestehen."
+     — die sechs Ablehnungsgruende S.11/12 unter "Warum Estera auch ablehnt"
+     Nichts davon ist ergaenzt oder umformuliert.
+
+     Die sechs PRUEFBEREICHE (Makrolage, Mikrolage, Objekt,
+     Wirtschaftlichkeit, Finanzierbarkeit, Langfristigkeit) stehen bewusst
+     NICHT hier: sie gehoeren laut Briefing S.11 auf die Seite
+     "Auswahl & Qualitaet". Die Startseite bleibt der kurze Moment.
      ===================================================================== -->
 <section class="wahl" id="auswahl">
-  <div class="cont">
+  <div class="wahl__inner">
 
     <header class="wahl__head" data-reveal>
-      <h2 class="display t-h2 wahl__h2">Lieber weniger Empfehlungen.</h2>
-      <p class="wahl__lead t-lead mass">
+      <h2 class="display wahl__h2">Lieber weniger Empfehlungen.</h2>
+      <p class="wahl__lead">
         Dafür Kapitalanlageimmobilien, die unseren Auswahlprozess wirklich
         bestehen. <span class="hl">Off-Market-Zugang allein reicht nicht</span> —
         entscheidend ist, welche Objekte wir bewusst nicht empfehlen.
       </p>
     </header>
 
-    <div class="ableh">
+    <!-- Aufbau nach imperiaimmobilien.de "Unsere Leistungen": ein Kasten oben,
+         von dem die Wege ausgehen, danach abwechselnd links und rechts.
+         Imperias Linien sind 1,5 px in Gold — hier in Blau, wie besprochen.
+         Die Verbinder sind KEIN SVG, sondern Rahmen mit Eckenradius: dadurch
+         wachsen sie exakt mit dem Raster mit und muessen nicht an
+         ausgerechnete Koordinaten angepasst werden. -->
+    <div class="ableh" data-zeichnen>
 
-      <!-- Duenne Waagerechte ueber allen Karten, mittig der Bereichstitel. -->
-      <div class="ableh__band" data-reveal>
-        <span class="ableh__band-linie" aria-hidden="true"></span>
-        <h3 class="label ableh__titel">Warum Estera auch ablehnt</h3>
-        <span class="ableh__band-linie" aria-hidden="true"></span>
+      <div class="ableh__start">
+        <span class="ableh__start-txt">Warum Estera auch ablehnt</span>
       </div>
+      <span class="ableh__abgang" aria-hidden="true"></span>
 
-      <!-- Die sechs Symbole sind dieselben wie zuvor, nur vereinheitlicht:
-           gleiche Kontur, gleiche Strichstaerke, gleiche Groesse ueber die
-           Klasse .icon aus system.css. -->
-      <ol class="ableh__raster">
-
-        <li class="ableh__karte" data-reveal style="--i:0">
-          <div class="ableh__kopf">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.6v15M6 8.2h12M12 4.6a1 1 0 100-.1M8.6 8.4 5.4 15h6.4zM15.4 8.4 18.6 15h-6.4zM8.4 19.6h7.2"/></svg>
-            <span class="karte__index ableh__nr">01</span>
-          </div>
-          <span class="ableh__strich" aria-hidden="true"></span>
+      <ol class="ableh__stufen">
+      <li class="ableh__stufe" style="--stufe:0">
+        <div class="ableh__kasten ableh__kasten--links">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.6v15M6 8.2h12M12 4.6a1 1 0 100-.1M8.6 8.4 5.4 15h6.4zM15.4 8.4 18.6 15h-6.4zM8.4 19.6h7.2"/></svg>
+          </span>
           <p class="ableh__txt">Kaufpreis und Qualität stehen nicht in einem sinnvollen Verhältnis.</p>
-        </li>
-
-        <li class="ableh__karte" data-reveal style="--i:1">
-          <div class="ableh__kopf">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2s6.6-6.6 6.6-10.7a6.6 6.6 0 10-13.2 0c0 4.1 6.6 10.7 6.6 10.7z"/><circle cx="12" cy="10.3" r="2.4"/></svg>
-            <span class="karte__index ableh__nr">02</span>
-          </div>
-          <span class="ableh__strich" aria-hidden="true"></span>
+        </div>
+        <span class="ableh__verbinder" aria-hidden="true">
+          <span class="ableh__arm ableh__arm--links"></span>
+          <span class="ableh__arm ableh__arm--rechts"></span>
+        </span>
+        <div class="ableh__kasten ableh__kasten--rechts">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s6.6-6.6 6.6-10.7a6.6 6.6 0 10-13.2 0c0 4.1 6.6 10.7 6.6 10.7z"/><circle cx="12" cy="10.3" r="2.4"/></svg>
+          </span>
           <p class="ableh__txt">Makro- oder Mikrolage bietet keine ausreichende langfristige Nachfrage.</p>
-        </li>
-
-        <li class="ableh__karte" data-reveal style="--i:2">
-          <div class="ableh__kopf">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 3.2h7.4l4 4v13.6H6.4zM13.8 3.2v4h4"/><path d="M10.4 12.4a1.7 1.7 0 112.4 1.6c-.6.3-.9.8-.9 1.4"/><path d="M11.9 17.5h.1"/></svg>
-            <span class="karte__index ableh__nr">03</span>
-          </div>
-          <span class="ableh__strich" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="ableh__stufe" style="--stufe:1">
+        <div class="ableh__kasten ableh__kasten--links">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 3.2h7.4l4 4v13.6H6.4zM13.8 3.2v4h4"/><path d="M10.4 12.4a1.7 1.7 0 112.4 1.6c-.6.3-.9.8-.9 1.4"/><path d="M11.9 17.5h.1"/></svg>
+          </span>
           <p class="ableh__txt">Zustand, Gemeinschaftseigentum oder Unterlagen weisen Unklarheiten oder Folgekosten auf, die Estera nicht vertreten kann.</p>
-        </li>
-
-        <li class="ableh__karte" data-reveal style="--i:3">
-          <div class="ableh__kopf">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.8h16M7.4 16.4v-4.2M12 16.4V7.6M16.6 16.4V10"/></svg>
-            <span class="karte__index ableh__nr">04</span>
-          </div>
-          <span class="ableh__strich" aria-hidden="true"></span>
+        </div>
+        <span class="ableh__verbinder" aria-hidden="true">
+          <span class="ableh__arm ableh__arm--links"></span>
+          <span class="ableh__arm ableh__arm--rechts"></span>
+        </span>
+        <div class="ableh__kasten ableh__kasten--rechts">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.8h16M7.4 16.4v-4.2M12 16.4V7.6M16.6 16.4V10"/></svg>
+          </span>
           <p class="ableh__txt">Miete und laufende Kosten sind nicht realistisch oder nicht sauber nachvollziehbar.</p>
-        </li>
-
-        <li class="ableh__karte" data-reveal style="--i:4">
-          <div class="ableh__kopf">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 9.2 12 4.4l8.6 4.8M5.6 9.6v8.6M9.6 9.6v8.6M14.4 9.6v8.6M18.4 9.6v8.6M3.4 20.2h17.2"/></svg>
-            <span class="karte__index ableh__nr">05</span>
-          </div>
-          <span class="ableh__strich" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="ableh__stufe" style="--stufe:2">
+        <div class="ableh__kasten ableh__kasten--links">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 9.2 12 4.4l8.6 4.8M5.6 9.6v8.6M9.6 9.6v8.6M14.4 9.6v8.6M18.4 9.6v8.6M3.4 20.2h17.2"/></svg>
+          </span>
           <p class="ableh__txt">Das Objekt lässt sich für den konkreten Kunden nicht sinnvoll finanzieren.</p>
-        </li>
-
-        <li class="ableh__karte" data-reveal style="--i:5">
-          <div class="ableh__kopf">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.9"/><path d="M12 11.9h.1"/></svg>
-            <span class="karte__index ableh__nr">06</span>
-          </div>
-          <span class="ableh__strich" aria-hidden="true"></span>
+        </div>
+        <span class="ableh__verbinder" aria-hidden="true">
+          <span class="ableh__arm ableh__arm--links"></span>
+          <span class="ableh__arm ableh__arm--rechts"></span>
+        </span>
+        <div class="ableh__kasten ableh__kasten--rechts">
+          <span class="ableh__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.9"/><path d="M12 11.9h.1"/></svg>
+          </span>
           <p class="ableh__txt">Das Objekt passt nicht zu den Zielen oder Präferenzen des Kunden.</p>
-        </li>
-
+        </div>
+      </li>
       </ol>
 
-      <p class="ableh__ergebnis" data-reveal>
-        <span class="punkt-gold" aria-hidden="true"></span>
-        Qualität vor Quantität
-      </p>
+      <!-- Wohin das alles fuehrt. Gerader Zulauf mit doppelter Spitze, wie
+           die sechs Pfeile daneben, nur senkrecht. -->
+      <span class="ableh__zulauf" aria-hidden="true"></span>
+      <p class="ableh__ergebnis">Qualität vor Quantität</p>
     </div>
 
-    <p class="wahl__mehr" data-reveal><a class="link-pfeil" href="qualitaet.html">Die Prüfbereiche im Detail</a></p>
+    <p class="wahl__mehr" data-reveal><a href="qualitaet.html">Die Prüfbereiche im Detail</a></p>
 
   </div>
 </section>
 
 
-
 <!-- =====================================================================
-     5 — DUNKLER ARCHITEKTURTRENNER (rein dekorativ)
-     ===================================================================== -->
-<!-- =====================================================================
-     DUNKLER ARCHITEKTURTRENNER
-     Steht direkt nach dem Auswahl-Abschnitt und bricht die Folge heller
-     Flaechen. Rein dekorativ: es gibt fuer diesen Trenner keinen
-     vorhandenen Text, und erfunden wird hier keiner. Deshalb aria-hidden
-     und ein leeres alt-Attribut — fuer Screenreader existiert der Block
-     nicht, er wirkt allein visuell.
-     ===================================================================== -->
-<div class="trenner" aria-hidden="true">
-  <img class="trenner__bild" src="assets/img/fassade-vert.jpg" alt=""
-       width="1100" height="1650" loading="lazy" decoding="async">
-</div>
+     SECTION 5 — DAS FINANZIELLE PRINZIP (Briefing S.7, S.10/11)
+     "Eine ruhige Visualisierung zeigt das Zusammenspiel von Finanzierung,
+      Immobilie, Miete, Tilgung, laufenden Kosten und moeglicher
+      steuerlicher Wirkung."
 
+     Die sechs Bausteine stehen WOERTLICH im Briefing S.10, Spalte
+     "Einfache Aussage fuer die Website". Geaendert ist nur die Anrede
+     ("der Investor" -> "Sie"), sonst nichts.
+     "Was bewusst offenbleibt" ebenso woertlich, Briefing S.11.
 
+     HARTE VORGABEN, die hier gelten:
+     — keine pauschale monatliche Belastung, kein "ab 0 Euro" (S.7)
+     — keine aggressiven Rendite-, Steuer-, Null-Euro- oder
+       Ohne-Eigenkapital-Versprechen (S.2)
+     — keine individuelle Berechnung und kein festes Ergebnis (S.10)
+     Deshalb steht auf dieser Seite KEINE einzige Zahl.
 
-<!-- =====================================================================
-     6 — ANLAGEBAUSTEINE UND WAS OFFENBLEIBT
-     ===================================================================== -->
-<!-- =====================================================================
-     ABSCHNITT 5 — WIE SICH EINE KAPITALANLAGE TRAEGT
-
-     Aufbau:
-     1. Kopfband mit Bild — Ueberschrift und Lead liegen links auf einem
-        ruhigen Verlauf, damit keine Zeile ueber Fassadendetails steht.
-     2. Vier verbundene Bausteine an einer waagerechten Linie. Die frueheren
-        vier ineinandergreifenden Ringe sind ersatzlos entfallen: sie waren
-        als Audi-Zitat lesbar und die Ueberschneidungen liessen offen, was
-        wozu gehoert. Jetzt: gleich breite Karten, feine Achse, goldene
-        Verbindungspunkte dazwischen.
-     3. Das Nachtbild mit den zwei Punkten, im gleichen Radius und mit dem
-        gleichen Verlauf wie alle uebrigen Bildflaechen.
-     4. „Was bewusst offenbleibt" als kompaktes Uebergangsband im
-        12-Spalten-Raster: Ueberschrift, Erklaerung, runder Pfeilknopf.
-
-     Auf dieser Seite steht bewusst keine einzige Zahl ausser den vier
-     Ordnungsziffern der Bausteine.
+     Der lange steuerliche Absatz aus S.10 steht bewusst NICHT hier: er
+     gehoert laut S.3 auf "Wissen & Fragen", und das Briefing verlangt fuer
+     ihn ausdruecklich eine steuerliche und rechtliche Pruefung.
      ===================================================================== -->
 <section class="prinzip" id="prinzip">
-
-  <!-- 1 — Kopfband ueber die volle Fensterbreite.
-       Der Verlauf laeuft von links nach rechts: unter dem Text traegt er
-       voll, zum rechten Rand hin gibt er die Aufnahme frei. So haengt die
-       Lesbarkeit nicht davon ab, wo im Bild Lichter sitzen. -->
+  <!-- Kopfband ueber die volle Fensterbreite. Ueber dem Bild liegt ein
+       Verlauf nach Navy — das Bild ist zwar dunkel, aber die Lesbarkeit der
+       Ueberschrift darf nicht davon abhaengen, wo Lichter im Bild sitzen. -->
   <div class="prinzip__band">
     <img src="assets/img/prinzip-kopf.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async">
-    <div class="prinzip__band-inhalt cont">
-      <header class="prinzip__head" data-reveal>
-        <h2 class="display t-h2 prinzip__h2">Wie sich eine Kapitalanlage trägt.</h2>
-        <p class="prinzip__lead">
-          Warum eine vermietete Kapitalanlageimmobilie grundsätzlich interessant
-          sein kann — verständlich erklärt, aber <span class="hl">ohne Rechnung
-          und ohne festes Ergebnis</span>.
-        </p>
-      </header>
-    </div>
+    <header class="prinzip__head" data-reveal>
+      <h2 class="display prinzip__h2">Wie sich eine Kapitalanlage trägt.</h2>
+      <p class="prinzip__lead">
+        Warum eine vermietete Kapitalanlageimmobilie grundsätzlich interessant
+        sein kann — verständlich erklärt, aber <span class="hl">ohne Rechnung
+        und ohne festes Ergebnis</span>.
+      </p>
+    </header>
   </div>
 
-  <div class="prinzip__inner cont">
+  <div class="prinzip__inner">
 
-    <p class="prinzip__kicker" data-reveal><span class="label label--gold">Was die Anlage trägt</span></p>
+    <p class="prinzip__kicker" data-reveal><span>Was die Anlage trägt</span></p>
 
-    <!-- 2 — Vier Bausteine an einer Achse.
-         Die Linie liegt auf halber Kartenhoehe und laeuft hinter den Karten
-         durch; sichtbar bleibt sie in den Zwischenraeumen, wo jeweils ein
-         goldener Punkt sitzt. Mobil kippt dieselbe Achse nach links. -->
-    <div class="kette" data-reveal>
-      <ol class="kette__reihe">
-        <li class="kette__glied" data-reveal style="--i:0">
-          <article class="karte baustein">
-            <p class="baustein__nr karte__index ziffern">01</p>
-            <h3 class="baustein__name t-h4">Finanzierung</h3>
-            <p class="baustein__satz">Bankkapital kann den Erwerb einer Immobilie ermöglichen; Eigenkapitalbedarf und Konditionen hängen vom Einzelfall ab.</p>
-          </article>
-        </li>
-        <li class="kette__glied" data-reveal style="--i:1">
-          <article class="karte baustein">
-            <p class="baustein__nr karte__index ziffern">02</p>
-            <h3 class="baustein__name t-h4">Miete</h3>
-            <p class="baustein__satz">Die laufende Miete trägt einen Teil der Finanzierung und Kosten.</p>
-          </article>
-        </li>
-        <li class="kette__glied" data-reveal style="--i:2">
-          <article class="karte baustein">
-            <p class="baustein__nr karte__index ziffern">03</p>
-            <h3 class="baustein__name t-h4">Tilgung</h3>
-            <p class="baustein__satz">Mit jeder Tilgungsleistung sinkt die Darlehensschuld; dadurch kann langfristig Eigentum aufgebaut werden.</p>
-          </article>
-        </li>
-        <li class="kette__glied" data-reveal style="--i:3">
-          <article class="karte baustein">
-            <p class="baustein__nr karte__index ziffern">04</p>
-            <h3 class="baustein__name t-h4">Steuern</h3>
-            <p class="baustein__satz">Bei einer vermieteten Kapitalanlage können der abschreibungsfähige Gebäudeanteil und bestimmte Aufwendungen steuerlich berücksichtigt werden.</p>
-          </article>
-        </li>
-      </ol>
-    </div>
+    <!-- Vier ineinandergreifende Ringe nach dem Vorbild der Audi-Ringe.
+         Jeder Ring traegt seinen Namen in der Mitte, der Satz steht darunter.
+         Die Ringe sind 120 % ihrer Rasterspalte breit und ragen mit je 10 %
+         nach beiden Seiten heraus — daraus ergibt sich die Ueberschneidung
+         von rund 17 % der Ringbreite. Kein SVG, damit alles mitwaechst. -->
+    <ul class="prinzip__traeger">
+      <li class="prinzip__posten" data-reveal style="--i:0">
+        <span class="prinzip__ring"><span class="prinzip__ring-name">Finanzierung</span></span>
+        <p class="prinzip__satz">Bankkapital kann den Erwerb einer Immobilie ermöglichen; Eigenkapitalbedarf und Konditionen hängen vom Einzelfall ab.</p>
+      </li>
+      <li class="prinzip__posten" data-reveal style="--i:1">
+        <span class="prinzip__ring"><span class="prinzip__ring-name">Miete</span></span>
+        <p class="prinzip__satz">Die laufende Miete trägt einen Teil der Finanzierung und Kosten.</p>
+      </li>
+      <li class="prinzip__posten" data-reveal style="--i:2">
+        <span class="prinzip__ring"><span class="prinzip__ring-name">Tilgung</span></span>
+        <p class="prinzip__satz">Mit jeder Tilgungsleistung sinkt die Darlehensschuld; dadurch kann langfristig Eigentum aufgebaut werden.</p>
+      </li>
+      <li class="prinzip__posten" data-reveal style="--i:3">
+        <span class="prinzip__ring"><span class="prinzip__ring-name">Steuern</span></span>
+        <p class="prinzip__satz">Bei einer vermieteten Kapitalanlage können der abschreibungsfähige Gebäudeanteil und bestimmte Aufwendungen steuerlich berücksichtigt werden.</p>
+      </li>
+    </ul>
 
-    <p class="prinzip__kicker prinzip__kicker--zweit" data-reveal><span class="label label--gold">Was von Ihrer Situation abhängt</span></p>
+    <p class="prinzip__kicker prinzip__kicker--zweit" data-reveal><span>Was von Ihrer Situation abhängt</span></p>
 
-    <!-- 3 — Das Nachtbild mit den beiden Punkten -->
-    <figure class="prinzip__bild bild-zoom" data-reveal>
+    <figure class="prinzip__bild" data-reveal>
       <img src="assets/img/prinzip-nacht.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async">
       <figcaption class="prinzip__bild-txt">
-        <div class="prinzip__folge">
+        <div>
           <p class="prinzip__folge-name">Ihr eigener Beitrag</p>
           <p class="prinzip__folge-satz">Was Sie selbst aufbringen müssen, ergibt sich aus Finanzierung, Miete, Kosten, Rücklagen und individueller Steuerwirkung.</p>
         </div>
-        <div class="prinzip__folge">
+        <div>
           <p class="prinzip__folge-name">Langfristigkeit</p>
           <p class="prinzip__folge-satz">Kapitalanlageimmobilien sind langfristig gedacht. Finanzierung, Rücklagen und künftige Flexibilität müssen zur individuellen Situation passen.</p>
         </div>
       </figcaption>
     </figure>
 
-    <!-- 4 — Uebergangsband zum Aufklappen.
-         Ueberschrift auf Spalte 1–5, Erklaerung auf 6–10, Knopf auf 11–12.
-         Die Hoehe faehrt ueber grid-template-rows von 0fr auf 1fr; site.js
-         setzt dafuer nur data-offen und fuehrt aria-expanded nach. -->
-    <div class="offen" data-aufklapp data-reveal>
-      <button class="offen__kopf raster" type="button" aria-expanded="false" aria-controls="offen-inhalt">
+    <!-- Eine Zeile zum Aufklappen, Aufbau nach der Referenz: Titel links,
+         Beisatz daneben, runder Knopf rechts. -->
+    <div class="offen" data-aufklapp>
+      <button class="offen__kopf" type="button" aria-expanded="false" aria-controls="offen-inhalt">
         <span class="offen__titel">Was bewusst <em>offenbleibt</em></span>
         <span class="offen__beisatz">Drei Punkte, die diese Seite nicht beantwortet — und auch nicht beantworten kann.</span>
-        <span class="knopf-rund offen__knopf" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <span class="offen__knopf" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
         </span>
       </button>
       <div class="offen__inhalt" id="offen-inhalt">
-        <div class="offen__innen raster">
+        <div class="offen__innen">
           <ul class="offen__liste">
             <li>Die konkrete Finanzierbarkeit und das notwendige Eigenkapital.</li>
             <li>Der tatsächliche eigene monatliche Beitrag.</li>
@@ -586,38 +625,47 @@
             erst bei der Objektvorstellung eingeordnet — nicht auf einer Website.
           </p>
         </div>
+        <p class="spiel__hinweis" data-hinweis>
+          <span class="spiel__hinweis--selbst">Passt nicht auf Anhieb</span>
+          <span class="spiel__hinweis--estera">Sitzt</span>
+        </p>
       </div>
     </div>
 
-    <p class="prinzip__mehr" data-reveal><a class="link-pfeil" href="wissen.html">Finanzierung und Steuern im Detail</a></p>
+    <p class="prinzip__mehr" data-reveal><a href="wissen.html">Finanzierung und Steuern im Detail</a></p>
 
   </div>
 </section>
 
 
-
 <!-- =====================================================================
-     7 — VERGLEICH: SELBST KOORDINIEREN GEGEN MIT ESTERA BEGLEITET
+     SECTION 6 — VIELE BAUSTEINE. EIN STRUKTURIERTER WEG. (Briefing S.7, S.14)
+     "Ein Umschalter zeigt dieselben Themen in zwei Zustaenden: zunaechst
+      verteilt und offen, anschliessend klar geordnet und von Estera
+      begleitet. Empfohlene Labels: 'Selbst koordinieren' und
+      'Mit Estera begleitet'."
+
+     Die sechs Bausteine und BEIDE Textfassungen stehen woertlich in der
+     Tabelle auf Briefing S.14. Die Statuszeilen greifen den dort
+     vorgegebenen Wortlaut auf: erster Zustand "noch offen" und "noch
+     einzuordnen", Estera-Zustand "vorausgewaehlt", "aufbereitet",
+     "eingeordnet", "koordiniert".
+
+     Briefing S.7: "Die Wirkung entsteht durch konkrete Entlastung und
+     Kompetenz – nicht durch Angstkommunikation." S.14 ergaenzt: "Keine
+     Schockzahlen, Privatinsolvenz-Szenarien oder garantierten
+     Sicherheitsversprechen." Der erste Zustand ist deshalb nur unruhig
+     gesetzt, nicht bedrohlich.
+
+     Der Hinweis unter dem Vergleich steht ebenfalls im Briefing S.14 und
+     gehoert sichtbar auf die Seite, nicht nur ins interne Dokument.
      ===================================================================== -->
-<!-- =====================================================================
-     ABSCHNITT — VIELE BAUSTEINE. EIN STRUKTURIERTER WEG.
+<section class="verg" id="weg" data-vergleich data-modus="selbst">
+  <div class="verg__inner">
 
-     Der Umschalter setzt ueber site.js nur data-modus am Abschnitt.
-     Alles Weitere — Schieber, Markierungen, Texte, Status — leitet
-     vergleich.css daraus ab.
-
-     Links steht ein Objektblatt: ein echtes Gebaeude im Passepartout,
-     darunter eine Achse mit sechs Markierungen in der Reihenfolge der
-     Bausteine rechts. Rein bildlich, deshalb aria-hidden.
-     Das frueher hier stehende 3D-Spielzeughaus ist entfallen; mit ihm der
-     Statustext darunter, der nur das Einpassen der Bausteine beschrieb.
-     ===================================================================== -->
-<section class="verg sect sect--gross sect--weiss" id="weg" data-vergleich data-modus="selbst">
-  <div class="cont">
-
-    <header class="verg__kopf" data-reveal>
-      <h2 class="display t-h2">Viele Bausteine. Ein strukturierter Weg.</h2>
-      <p class="t-lead mass verg__lead">
+    <header class="verg__head" data-reveal>
+      <h2 class="display verg__h2">Viele Bausteine. Ein strukturierter Weg.</h2>
+      <p class="verg__lead">
         Eine Kapitalanlage besteht nicht nur aus dem Objekt. Zugang, Lage, Kaufpreis,
         Unterlagen, wirtschaftliche Einordnung, Finanzierung und Kaufprozess müssen
         <span class="hl">zusammenpassen</span>.
@@ -632,29 +680,81 @@
 
     <div class="verg__buehne">
 
-      <figure class="verg__objekt" aria-hidden="true" data-reveal>
-        <div class="verg__bild">
-          <img src="assets/img/haus-quer.jpg" alt="" width="1700" height="1133" loading="lazy" decoding="async">
-          <span class="verg__winkel verg__winkel--lo"></span>
-          <span class="verg__winkel verg__winkel--ro"></span>
-          <span class="verg__winkel verg__winkel--lu"></span>
-          <span class="verg__winkel verg__winkel--ru"></span>
+      <!-- Das Haus. Baukoerper und Giebel sind EINE Silhouette, in die Tiefe
+           gestapelt; die sechs Oeffnungen sind echte Durchbrueche mit
+           Laibung. Die Bausteine fliegen von vorn hinein: bei "Selbst
+           koordinieren" jeder auf eine fremde Oeffnung, bei "Mit Estera
+           begleitet" jeder in seine eigene.
+           Rein dekorativ, deshalb aria-hidden. -->
+      <div class="spiel" aria-hidden="true">
+        <div class="spiel__rahmen">
+          <div class="haus">
+            <span class="haus__dach"></span>
+            <span class="haus__seite">
+              <span class="haus__seitenfenster" style="--sx:26px; --sy:-34px"></span>
+              <span class="haus__seitenfenster" style="--sx:26px; --sy:38px"></span>
+              <span class="haus__seitenfenster haus__seitenfenster--klein" style="--sx:-30px; --sy:-34px"></span>
+            </span>
+            <span class="haus__lage" style="--z:0px"></span><span class="haus__lage" style="--z:-4px"></span><span class="haus__lage" style="--z:-8px"></span><span class="haus__lage" style="--z:-12px"></span><span class="haus__lage" style="--z:-16px"></span><span class="haus__lage" style="--z:-20px"></span><span class="haus__lage" style="--z:-24px"></span><span class="haus__lage" style="--z:-28px"></span><span class="haus__lage" style="--z:-32px"></span><span class="haus__lage" style="--z:-36px"></span><span class="haus__lage" style="--z:-40px"></span><span class="haus__lage" style="--z:-44px"></span><span class="haus__lage" style="--z:-48px"></span><span class="haus__lage" style="--z:-52px"></span><span class="haus__lage" style="--z:-56px"></span><span class="haus__lage" style="--z:-60px"></span><span class="haus__lage" style="--z:-64px"></span><span class="haus__lage" style="--z:-68px"></span><span class="haus__lage" style="--z:-72px"></span><span class="haus__lage" style="--z:-76px"></span><span class="haus__lage" style="--z:-80px"></span><span class="haus__lage" style="--z:-84px"></span><span class="haus__lage" style="--z:-88px"></span><span class="haus__lage" style="--z:-92px"></span><span class="haus__lage" style="--z:-96px"></span><span class="haus__lage" style="--z:-100px"></span>
+            <span class="haus__halter" style="--i:0; --x:0px; --y:-116px; --b:50px; --h:44px">
+              <span class="haus__schatten haus__form--dreieck"
+                    style="--fx1:84px; --fy1:120px; --fx2:84px; --fy2:230px; --fx3:-84px; --fy3:230px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-1); --kante:var(--kante-1); --fx1:84px; --fy1:120px; --fx2:84px; --fy2:230px; --fx3:-84px; --fy3:230px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--dreieck" style="--z:0px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:3px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:6px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:9px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:12px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:15px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:18px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:21px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:24px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:27px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:30px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--dreieck" style="--i:0"></span>
+            </span>
+            <span class="haus__halter" style="--i:1; --x:-84px; --y:4px; --b:54px; --h:54px">
+              <span class="haus__schatten haus__form--rund"
+                    style="--fx1:0px; --fy1:110px; --fx2:84px; --fy2:-120px; --fx3:84px; --fy3:114px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-2); --kante:var(--kante-2); --fx1:0px; --fy1:110px; --fx2:84px; --fy2:-120px; --fx3:84px; --fy3:114px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--rund" style="--z:0px"></span><span class="haus__scheibe haus__form--rund" style="--z:3px"></span><span class="haus__scheibe haus__form--rund" style="--z:6px"></span><span class="haus__scheibe haus__form--rund" style="--z:9px"></span><span class="haus__scheibe haus__form--rund" style="--z:12px"></span><span class="haus__scheibe haus__form--rund" style="--z:15px"></span><span class="haus__scheibe haus__form--rund" style="--z:18px"></span><span class="haus__scheibe haus__form--rund" style="--z:21px"></span><span class="haus__scheibe haus__form--rund" style="--z:24px"></span><span class="haus__scheibe haus__form--rund" style="--z:27px"></span><span class="haus__scheibe haus__form--rund" style="--z:30px"></span><span class="haus__scheibe haus__form--rund" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--rund" style="--i:1"></span>
+            </span>
+            <span class="haus__halter" style="--i:2; --x:84px; --y:4px; --b:54px; --h:54px">
+              <span class="haus__schatten haus__form--quadrat"
+                    style="--fx1:-84px; --fy1:114px; --fx2:-168px; --fy2:0px; --fx3:0px; --fy3:110px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-3); --kante:var(--kante-3); --fx1:-84px; --fy1:114px; --fx2:-168px; --fy2:0px; --fx3:0px; --fy3:110px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quadrat" style="--z:0px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:3px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:6px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:9px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:12px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:15px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:18px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:21px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:24px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:27px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:30px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--quadrat" style="--i:2"></span>
+            </span>
+            <span class="haus__halter" style="--i:3; --x:-84px; --y:114px; --b:46px; --h:78px">
+              <span class="haus__schatten haus__form--hoch"
+                    style="--fx1:168px; --fy1:0px; --fx2:168px; --fy2:-110px; --fx3:84px; --fy3:-230px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-4); --kante:var(--kante-4); --fx1:168px; --fy1:0px; --fx2:168px; --fy2:-110px; --fx3:84px; --fy3:-230px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--hoch" style="--z:0px"></span><span class="haus__scheibe haus__form--hoch" style="--z:3px"></span><span class="haus__scheibe haus__form--hoch" style="--z:6px"></span><span class="haus__scheibe haus__form--hoch" style="--z:9px"></span><span class="haus__scheibe haus__form--hoch" style="--z:12px"></span><span class="haus__scheibe haus__form--hoch" style="--z:15px"></span><span class="haus__scheibe haus__form--hoch" style="--z:18px"></span><span class="haus__scheibe haus__form--hoch" style="--z:21px"></span><span class="haus__scheibe haus__form--hoch" style="--z:24px"></span><span class="haus__scheibe haus__form--hoch" style="--z:27px"></span><span class="haus__scheibe haus__form--hoch" style="--z:30px"></span><span class="haus__scheibe haus__form--hoch" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--hoch" style="--i:3"></span>
+            </span>
+            <span class="haus__halter" style="--i:4; --x:0px; --y:118px; --b:58px; --h:110px">
+              <span class="haus__schatten haus__form--tuer"
+                    style="--fx1:0px; --fy1:-234px; --fx2:-84px; --fy2:-4px; --fx3:-84px; --fy3:-114px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-5); --kante:var(--kante-5); --fx1:0px; --fy1:-234px; --fx2:-84px; --fy2:-4px; --fx3:-84px; --fy3:-114px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--tuer" style="--z:0px"></span><span class="haus__scheibe haus__form--tuer" style="--z:3px"></span><span class="haus__scheibe haus__form--tuer" style="--z:6px"></span><span class="haus__scheibe haus__form--tuer" style="--z:9px"></span><span class="haus__scheibe haus__form--tuer" style="--z:12px"></span><span class="haus__scheibe haus__form--tuer" style="--z:15px"></span><span class="haus__scheibe haus__form--tuer" style="--z:18px"></span><span class="haus__scheibe haus__form--tuer" style="--z:21px"></span><span class="haus__scheibe haus__form--tuer" style="--z:24px"></span><span class="haus__scheibe haus__form--tuer" style="--z:27px"></span><span class="haus__scheibe haus__form--tuer" style="--z:30px"></span><span class="haus__scheibe haus__form--tuer" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--tuer" style="--i:4"></span>
+            </span>
+            <span class="haus__halter" style="--i:5; --x:84px; --y:114px; --b:78px; --h:46px">
+              <span class="haus__schatten haus__form--quer"
+                    style="--fx1:-168px; --fy1:-110px; --fx2:-84px; --fy2:4px; --fx3:0px; --fy3:-110px"></span>
+              <span class="haus__koerper" style="--ton:var(--ton-6); --kante:var(--kante-6); --fx1:-168px; --fy1:-110px; --fx2:-84px; --fy2:4px; --fx3:0px; --fy3:-110px">
+                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quer" style="--z:0px"></span><span class="haus__scheibe haus__form--quer" style="--z:3px"></span><span class="haus__scheibe haus__form--quer" style="--z:6px"></span><span class="haus__scheibe haus__form--quer" style="--z:9px"></span><span class="haus__scheibe haus__form--quer" style="--z:12px"></span><span class="haus__scheibe haus__form--quer" style="--z:15px"></span><span class="haus__scheibe haus__form--quer" style="--z:18px"></span><span class="haus__scheibe haus__form--quer" style="--z:21px"></span><span class="haus__scheibe haus__form--quer" style="--z:24px"></span><span class="haus__scheibe haus__form--quer" style="--z:27px"></span><span class="haus__scheibe haus__form--quer" style="--z:30px"></span><span class="haus__scheibe haus__form--quer" style="--z:33px"></span></span>
+              </span>
+              <span class="haus__klick haus__form--quer" style="--i:5"></span>
+            </span>
+          </div>
         </div>
-        <div class="verg__achse">
-          <span class="verg__linie verg__linie--offen"></span>
-          <span class="verg__linie verg__linie--ordnung"></span>
-          <span class="verg__marke" style="--p:8.333%;  --po:5.4%;  --dy:-5px"></span>
-          <span class="verg__marke" style="--p:25%;     --po:28.2%; --dy:4px"></span>
-          <span class="verg__marke" style="--p:41.667%; --po:38.1%; --dy:6px"></span>
-          <span class="verg__marke" style="--p:58.333%; --po:62.9%; --dy:-4px"></span>
-          <span class="verg__marke" style="--p:75%;     --po:71.6%; --dy:5px"></span>
-          <span class="verg__marke" style="--p:91.667%; --po:94.6%; --dy:-3px"></span>
-        </div>
-      </figure>
+        <p class="spiel__hinweis">
+          <span class="spiel__hinweis--selbst">Passt nicht auf Anhieb</span>
+          <span class="spiel__hinweis--estera">Sitzt</span>
+        </p>
+      </div>
 
-      <ul class="verg__liste">
-        <li class="verg__zeile">
-          <p class="verg__name">Objekt &amp; Lage</p>
+      <ul class="verg__karten">
+        <li class="verg__karte" style="--v:0px">
+          <p class="verg__name">Objekt & Lage</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Objekte finden und vergleichen; Makro- und Mikrolage selbst einordnen.</p>
             <p class="verg__text verg__text--estera">Passende Kapitalanlageimmobilien vorauswählen; Lage und Nachfrage strukturiert einordnen.</p>
@@ -664,7 +764,7 @@
             <span class="verg__stand verg__stand--estera">Vorausgewählt</span>
           </div>
         </li>
-        <li class="verg__zeile">
+        <li class="verg__karte" style="--v:23px">
           <p class="verg__name">Wirtschaftlichkeit</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Kaufpreis, Miete, Hausgeld, laufende Kosten und eigenen Beitrag zusammenführen.</p>
@@ -675,7 +775,7 @@
             <span class="verg__stand verg__stand--estera">Eingeordnet</span>
           </div>
         </li>
-        <li class="verg__zeile">
+        <li class="verg__karte" style="--v:10px">
           <p class="verg__name">Objektunterlagen</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Teilungserklärung, Energieausweis, Mietunterlagen und weitere Dokumente selbst sichten.</p>
@@ -686,7 +786,7 @@
             <span class="verg__stand verg__stand--estera">Aufbereitet</span>
           </div>
         </li>
-        <li class="verg__zeile">
+        <li class="verg__karte" style="--v:30px">
           <p class="verg__name">WEG-Unterlagen</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Wirtschaftspläne, Jahresabrechnungen und WEG-Protokolle selbst sichten.</p>
@@ -697,7 +797,7 @@
             <span class="verg__stand verg__stand--estera">Einbezogen</span>
           </div>
         </li>
-        <li class="verg__zeile">
+        <li class="verg__karte" style="--v:7px">
           <p class="verg__name">Finanzierung</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Finanzierungswege, Bankunterlagen und Konditionen selbst abstimmen.</p>
@@ -708,7 +808,7 @@
             <span class="verg__stand verg__stand--estera">Koordiniert</span>
           </div>
         </li>
-        <li class="verg__zeile">
+        <li class="verg__karte" style="--v:19px">
           <p class="verg__name">Kaufprozess</p>
           <div class="verg__texte">
             <p class="verg__text verg__text--selbst">Ansprechpartner, Unterlagen, Fristen und Schritte bis zum Notar zusammenhalten.</p>
@@ -736,283 +836,70 @@
 
 
 
-<!-- =====================================================================
-     8 — KUNDENSTIMMEN
-     ===================================================================== -->
-<!-- =====================================================================
-     KUNDENSTIMMEN — „Kunden, die uns vertrauen."
-     Ein hervorgehobener Kundenfall (Spalten 1–7) und drei gleich hohe
-     Karten (Spalten 8–12). Die Spalten 1–3 der Kopfzeile bleiben leer:
-     dort stand die Google-Bewertung, die jetzt in der Trust-Bar unter dem
-     Hero sitzt. Passender vorhandener Text fuer diese Stelle gibt es nicht,
-     also bleibt der Platz bewusst frei und die Ueberschrift beginnt auf
-     Spalte 4.
-
-     ACHTUNG: Google-Siegel und Firmenlogos gehoeren NICHT mehr hierher.
-     Sie stehen in der Trust-Bar. Die Portraets sind KI-Platzhalter, die
-     Namen und Zitate sind Platzhalter — der Hinweis darunter bleibt so
-     lange stehen, bis echte Referenzen mit schriftlicher Freigabe da sind.
-     Die Aufklapp-Mechanik der alten Fassung ist ersatzlos entfallen.
-     ===================================================================== -->
-<section class="ref" id="kunden">
-  <div class="cont ref__inner">
-
-    <header class="ref__kopf" data-reveal>
-      <span class="ref__kopflinie" aria-hidden="true"></span>
-      <h2 class="display t-h2 ref__h2">Kunden, die uns vertrauen.</h2>
-    </header>
-
-    <div class="ref__raster">
-
-      <!-- Der hervorgehobene Fall: grosses Bild, darunter Name, Taetigkeit,
-           Zitat. Bewusst das laengste der vier Zitate. -->
-      <article class="ref__fall" data-reveal style="--i:0">
-        <figure class="ref__fall-bild">
-          <img src="assets/img/personen/p1.jpg" alt="" width="800" height="1200" loading="lazy" decoding="async">
-        </figure>
-        <div class="ref__fall-text">
-          <div class="ref__fall-person">
-            <p class="display t-h3 ref__name ref__name--gross">Andreas Mustermann</p>
-            <p class="ref__rolle">Geschäftsführer</p>
-          </div>
-          <p class="ref__zitat ref__zitat--gross">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige Satz, den die Person tatsächlich gesagt und zur Veröffentlichung freigegeben hat — üblicherweise drei bis sechs Zeilen, in denen sie ihre Ausgangssituation, die Zusammenarbeit und das Ergebnis in eigenen Worten beschreibt.“</p>
-        </div>
-      </article>
-
-      <!-- Die drei weiteren Stimmen: gleicher Aufbau, gleiche Hoehe. -->
-      <ul class="ref__liste">
-
-        <li class="karte ref__karte" data-reveal style="--i:1">
-          <div class="ref__karte-kopf">
-            <figure class="ref__portrait">
-              <img src="assets/img/personen/p2.jpg" alt="" width="800" height="1200" loading="lazy" decoding="async">
-            </figure>
-            <div>
-              <p class="t-h4 ref__name">Claudia Beispiel</p>
-              <p class="ref__rolle">Geschäftsführerin</p>
-            </div>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. In der eingeklappten Spalte sind nur die ersten Zeilen zu sehen; beim Aufklappen steht der Satz vollständig da. Länge und Umbruch richten sich später nach dem echten Wortlaut.“</p>
-        </li>
-
-        <li class="karte ref__karte" data-reveal style="--i:2">
-          <div class="ref__karte-kopf">
-            <figure class="ref__portrait">
-              <img src="assets/img/personen/p3.jpg" alt="" width="800" height="1200" loading="lazy" decoding="async">
-            </figure>
-            <div>
-              <p class="t-h4 ref__name">Stefan Musterfeld</p>
-              <p class="ref__rolle">Geschäftsführer</p>
-            </div>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige Satz, den die Person gesagt und freigegeben hat. Der Text darf ruhig unterschiedlich lang sein — die Spalten gleichen das aus.“</p>
-        </li>
-
-        <li class="karte ref__karte" data-reveal style="--i:3">
-          <div class="ref__karte-kopf">
-            <figure class="ref__portrait">
-              <img src="assets/img/personen/p4.jpg" alt="" width="800" height="1200" loading="lazy" decoding="async">
-            </figure>
-            <div>
-              <p class="t-h4 ref__name">Jonas Platzhalter</p>
-              <p class="ref__rolle">Geschäftsführer</p>
-            </div>
-          </div>
-          <span class="ref__strich" aria-hidden="true"></span>
-          <p class="ref__zitat">„Platzhalter für das freigegebene Zitat der Referenz. Hier steht der vollständige, wörtlich freigegebene Satz. Er wird nicht umformuliert, nicht gekürzt und nicht sinngemäß wiedergegeben — nur so ist er belastbar.“</p>
-        </li>
-
-      </ul>
-    </div>
-
-    <!-- Fliegt mit den echten Referenzen raus -->
-    <p class="ref__hinweis">
-      Platzhalter — vier echte Referenzen mit schriftlicher Freigabe folgen.
-    </p>
-
-  </div>
-</section>
-
-
 
 <!-- =====================================================================
-     9 — GESCHAEFTSFUEHRUNG
+     SECTION 9 — WISSEN UND KARRIERE (Briefing S.7, S.18, S.19)
+     "Ein kurzer Einstieg in Wissen & Fragen und ein kompakter
+      Karriere-Teaser. Kein umfangreiches oeffentliches
+      Qualifikationsformular."
+
+     Hier stehen nur die FRAGEN, keine Antworten: die gehoeren laut S.3 auf
+     die Unterseite. Die Karriere-Aussage ist woertlich von S.19.
+
+     Auf Kundenwunsch entfallen ist der Abschluss-CTA "Der naechste Schritt
+     ist ein Gespraech". Damit ist auch die Sprungmarke #erstgespraech fort;
+     alle Verweise gehen jetzt auf erstgespraech.html.
      ===================================================================== -->
-<!-- =====================================================================
-     GESCHÄFTSFÜHRUNG — zwei Bloecke, exakt spiegelsymmetrisch:
-       Block 1   Text Spalten 1–6,  Bild Spalten 7–12
-       Block 2   Bild Spalten 1–6,  Text Spalten 7–12
-     Beide Bloecke benutzen dasselbe Raster im selben Umschlag; Bildmass,
-     Textbreite, Unterstreichung, senkrechte Ausrichtung und Abstand sind
-     dadurch bauartbedingt identisch.
-
-     Bildausschnitt: 4:5-Rahmen ueber quadratischer Aufnahme — beschnitten
-     wird ausschliesslich seitlich, senkrecht faellt nichts weg. Kopf und
-     Haare bleiben vollstaendig sichtbar.
-
-     ACHTUNG — die Texte sind PLATZHALTER. Briefing S.2, S.17 und S.19
-     untersagen Gruenderportraits und Personenmarke ausdruecklich; dieser
-     Abschnitt steht auf ausdruecklichen Kundenwunsch und weicht damit
-     bewusst vom Masterbriefing ab. Vor Veroeffentlichung mit Estera klaeren.
-     ===================================================================== -->
-<section class="fuehr" id="fuehrung" aria-label="Geschäftsführung">
-  <div class="cont fuehr__inner">
-
-    <div class="fuehr__block" data-reveal>
-      <div class="fuehr__text">
-        <h2 class="display t-h3 fuehr__name">Sebastian Meilbeck</h2>
-        <span class="fuehr__strich" aria-hidden="true"></span>
-        <p>Sebastian Meilbeck ist Geschäftsführer der Estera GmbH.</p>
-        <p>Sein Fokus liegt auf der Auswahl geeigneter Kapitalanlageimmobilien und der strukturierten Begleitung bis zum Notartermin.</p>
-        <p>Platzhalter — hier stehen Werdegang und Verantwortungsbereich in zwei Sätzen.</p>
-        <p>Platzhalter — hier steht, wofür er im Unternehmen steht.</p>
-      </div>
-      <figure class="fuehr__bild">
-        <img src="assets/img/gf-meilbeck.jpg" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
-             width="640" height="640" loading="lazy" decoding="async">
-      </figure>
-    </div>
-
-    <div class="fuehr__block fuehr__block--gedreht" data-reveal>
-      <div class="fuehr__text">
-        <h2 class="display t-h3 fuehr__name">Ioannis Orfanidis</h2>
-        <span class="fuehr__strich" aria-hidden="true"></span>
-        <p>Ioannis Orfanidis ist Geschäftsführer der Estera GmbH.</p>
-        <p>Sein Schwerpunkt liegt auf dem Off-Market-Zugang und der Koordination der Finanzierung über das spezialisierte Netzwerk.</p>
-        <p>Platzhalter — hier stehen Werdegang und Verantwortungsbereich in zwei Sätzen.</p>
-        <p>Platzhalter — hier steht, wofür er im Unternehmen steht.</p>
-      </div>
-      <figure class="fuehr__bild">
-        <img src="assets/img/gf-orfanidis.jpg" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
-             width="640" height="640" loading="lazy" decoding="async">
-      </figure>
-    </div>
-
-    <p class="fuehr__hinweis">Platzhalter — die Texte folgen von Estera.</p>
-
-  </div>
-</section>
-
-
-
-<!-- =====================================================================
-     10 — FRAGEN
-     ===================================================================== -->
-<!-- =====================================================================
-     FRAGEN, DIE VOR DER ERSTEN IMMOBILIE KOMMEN
-
-     Anmutung eines FAQ-Bereichs, aber ohne Antworten: die gehoeren laut
-     Briefing S.3 auf die Unterseite wissen.html. Deshalb sind die sechs
-     Zeilen Verweise und kein Akkordeon — und deshalb zeigt der Indikator
-     nach rechts. Ein Pfeil nach unten wuerde ein Aufklappen versprechen,
-     das es hier nicht gibt.
-
-     Der Fluss laeuft spaltenweise: 1–3 in der linken, 4–6 in der rechten
-     Spalte. Damit stimmen Lesereihenfolge und Tabulator-Reihenfolge ueberein.
-     ===================================================================== -->
-<section class="schluss schluss--wissen" id="wissen-teaser">
-  <div class="cont">
+<section class="schluss" id="wissen-teaser">
+  <div class="schluss__inner">
 
     <div class="wissen__kopf" data-reveal>
-      <h2 class="display t-h2 wissen__h2 mass">Fragen, die vor der ersten Immobilie kommen.</h2>
-      <p class="t-lead wissen__lead">
+      <h2 class="display wissen__h2">Fragen, die vor der ersten Immobilie kommen.</h2>
+      <p class="wissen__lead">
         Kurze, klare Antworten statt Fachbuch — und immer mit dem nächsten
         Schritt am Ende.
       </p>
     </div>
 
     <div class="wissen__fragen">
-      <a class="wissen__frage" href="wissen.html" data-reveal style="--i:0"><span class="wissen__frage__t">Für wen kann eine Kapitalanlageimmobilie sinnvoll sein?</span></a>
-      <a class="wissen__frage" href="wissen.html" data-reveal style="--i:1"><span class="wissen__frage__t">Ist Eigenkapital immer notwendig?</span></a>
-      <a class="wissen__frage" href="wissen.html" data-reveal style="--i:2"><span class="wissen__frage__t">Welche Faktoren bestimmen, was Sie selbst tragen müssen?</span></a>
-      <a class="wissen__frage" href="wissen.html" data-reveal style="--i:3"><span class="wissen__frage__t">Wie funktioniert die Abschreibung einer vermieteten Immobilie?</span></a>
-      <a class="wissen__frage" href="wissen.html" data-reveal style="--i:4"><span class="wissen__frage__t">Woran erkennt Estera eine gute Makro- und Mikrolage?</span></a>
-      <a class="wissen__frage" href="wissen.html" data-reveal style="--i:5"><span class="wissen__frage__t">Welche Unterstützung bleibt nach dem Kauf bestehen?</span></a>
+        <a class="wissen__frage" href="wissen.html">Für wen kann eine Kapitalanlageimmobilie sinnvoll sein?</a>
+        <a class="wissen__frage" href="wissen.html">Ist Eigenkapital immer notwendig?</a>
+        <a class="wissen__frage" href="wissen.html">Welche Faktoren bestimmen, was Sie selbst tragen müssen?</a>
+        <a class="wissen__frage" href="wissen.html">Wie funktioniert die Abschreibung einer vermieteten Immobilie?</a>
+        <a class="wissen__frage" href="wissen.html">Woran erkennt Estera eine gute Makro- und Mikrolage?</a>
+        <a class="wissen__frage" href="wissen.html">Welche Unterstützung bleibt nach dem Kauf bestehen?</a>
     </div>
 
-  </div>
-</section>
-
-
-
-<!-- =====================================================================
-     11 — KARRIERE UND ABSCHLUSS
-     ===================================================================== -->
-<!-- =====================================================================
-     KARRIERE — ABSCHLUSS DER STARTSEITE
-
-     Ein grossflaechiger Navy-Block statt der frueheren hellen Box. Ein
-     geeignetes Teamfoto gibt es nicht, deshalb traegt die rechte Haelfte
-     eine sehr zurueckhaltende architektonische Liniengrafik: reines SVG,
-     1 px Kontur, weiss mit 10–16 % Deckung. Keine Stockperson, kein
-     erfundenes Bild.
-
-     Der Verweis fuehrt auf karriere.html. Die Seite gibt es noch nicht;
-     site.js sperrt solche Verweise und setzt aria-disabled="true". Der
-     gesperrte Zustand ist in schluss.css eigens gesetzt, damit der Text
-     auf Navy auch dann noch klar lesbar bleibt.
-     ===================================================================== -->
-<section class="schluss schluss--karriere" id="karriere-teaser">
-  <div class="cont">
-
     <div class="karriere" data-reveal>
-
-      <!-- Architektonische Liniengrafik: drei Baukoerper in der Aufsicht
-           einer Fassadenzeichnung. Rein dekorativ, deshalb aria-hidden. -->
-      <svg class="karriere__linien" viewBox="0 0 640 520" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">
-        <g fill="none" stroke-width="1">
-          <!-- Aussenkanten und Gelaendelinie -->
-          <g stroke="rgba(255,255,255,0.16)">
-            <path d="M30 480V250h150v230"/>
-            <path d="M200 480V90h180v390"/>
-            <path d="M240 90V50h100v40"/>
-            <path d="M400 480V180h210v300"/>
-            <path d="M0 480h640"/>
-          </g>
-          <!-- Geschossbaender und Pfeiler -->
-          <g stroke="rgba(255,255,255,0.10)">
-            <path d="M30 296h150M30 342h150M30 388h150M30 434h150"/>
-            <path d="M80 250v230M130 250v230"/>
-            <path d="M200 129h180M200 168h180M200 207h180M200 246h180M200 285h180M200 324h180M200 363h180M200 402h180M200 441h180"/>
-            <path d="M245 90v390M290 90v390M335 90v390"/>
-            <path d="M400 230h210M400 280h210M400 330h210M400 380h210M400 430h210"/>
-            <path d="M452 180v300M505 180v300M557 180v300"/>
-            <path d="M0 500h640"/>
-          </g>
-        </g>
-      </svg>
-
-      <div class="karriere__text">
-        <span class="karriere__strich" aria-hidden="true"></span>
-        <p class="karriere__titel t-h3">Wir bauen Estera <em>langfristig</em> auf.</p>
+      <p class="karriere__titel">Wir bauen Estera <em>langfristig</em> auf.</p>
+      <div>
         <p class="karriere__satz">
           Wir suchen Menschen, die Verantwortung übernehmen, hohe Ansprüche an ihre
           Arbeit stellen und gemeinsam mit uns eine neue Generation der
           Immobilienberatung aufbauen möchten.
         </p>
-        <a class="btn--hell karriere__link" href="karriere.html">Offene Positionen und Initiativbewerbung</a>
+        <a class="karriere__link" href="karriere.html">Offene Positionen und Initiativbewerbung</a>
       </div>
-
     </div>
 
   </div>
 </section>
 
 
-
 <!-- =====================================================================
      FUSS
+     Briefing S.5: "Recht: Impressum, Datenschutz, Cookie-Einstellungen,
+     regulatorisch notwendige Erstinformationen und passende
+     Risikohinweise." Der Partnerbereich darf laut S.5 im Fuss liegen.
+
+     ACHTUNG: Firmierung, Anschrift, Telefon, Registerangaben und Erlaubnis
+     nach Paragraph 34c GewO sind PLATZHALTER und muessen von Estera
+     geliefert werden. Ein falsches Impressum ist abmahnfaehig.
      ===================================================================== -->
-<!-- Fuss: vier Spalten — Marke | Seiten | Kontakt | Rechtliches.
-     Es sind ausschliesslich die bereits vorhandenen Verweise verteilt;
-     „Karriere" steht jetzt hier sichtbar statt im Kopf. Risikohinweis und
-     Copyright-Zeile bleiben woertlich erhalten. -->
 <footer class="fuss" id="kontakt">
   <div class="fuss__inner">
 
-    <div class="fuss__spalte fuss__marke">
+    <div class="fuss__marke">
       <span class="wordmark">
         <span class="wordmark__name">ESTERA</span>
         <span class="wordmark__sub">Immobilien</span>
@@ -1020,19 +907,7 @@
       <p class="fuss__anker">Diskret. Strukturiert. Langfristig.</p>
     </div>
 
-    <nav class="fuss__spalte" aria-labelledby="fuss-seiten">
-      <p class="fuss__titel" id="fuss-seiten">Seiten</p>
-      <div class="fuss__liste">
-        <a href="konzept.html">Konzept</a>
-        <a href="qualitaet.html">Qualität</a>
-        <a href="wissen.html">Wissen</a>
-        <a href="ueber-estera.html">Über Estera</a>
-        <a href="karriere.html">Karriere</a>
-        <a href="erstgespraech.html">Erstgespräch</a>
-      </div>
-    </nav>
-
-    <div class="fuss__spalte">
+    <div>
       <p class="fuss__titel">Kontakt</p>
       <div class="fuss__liste">
         <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
@@ -1042,7 +917,7 @@
       </div>
     </div>
 
-    <div class="fuss__spalte">
+    <div>
       <p class="fuss__titel">Rechtliches</p>
       <div class="fuss__liste">
         <a href="impressum.html">Impressum</a>
@@ -1054,29 +929,22 @@
 
   </div>
 
-  <div class="fuss__abschluss">
-    <p class="fuss__risiko">
-      Kapitalanlageimmobilien sind langfristige Investitionen. Wertentwicklung,
-      Vermietbarkeit und steuerliche Wirkung hängen vom Einzelfall ab und können
-      nicht zugesichert werden. Diese Website ersetzt keine steuerliche,
-      rechtliche oder finanzielle Beratung.
-    </p>
+  <p class="fuss__risiko">
+    Kapitalanlageimmobilien sind langfristige Investitionen. Wertentwicklung,
+    Vermietbarkeit und steuerliche Wirkung hängen vom Einzelfall ab und können
+    nicht zugesichert werden. Diese Website ersetzt keine steuerliche,
+    rechtliche oder finanzielle Beratung.
+  </p>
 
-    <div class="fuss__unten">
-      <span>© 2026 Estera GmbH</span>
-      <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
-    </div>
+  <div class="fuss__unten">
+    <span>© 2026 Estera GmbH</span>
+    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
   </div>
 </footer>
 
-
-
 <!-- =====================================================================
-     MENUE-OVERLAY
+     MENÜ-OVERLAY
      ===================================================================== -->
-<!-- Vollbild-Overlay. Aufbau und Wortlaut unveraendert uebernommen,
-     nur auf das Designsystem gehoben: Jost fuer alles Bedienbare,
-     Cormorant nur fuer die grossen Zeilen. -->
 <nav class="menu" id="hauptmenue" data-menu data-open="false" aria-hidden="true" aria-label="Hauptmenü">
 
   <div class="menu__bar">
@@ -1136,8 +1004,12 @@
   </div>
 </nav>
 
+<!-- Nur für die interne Abstimmung -->
+<div class="variant-switch">
+  <a href="./index.html">Variante B · Empfehlung</a>
+  <a href="./variante-a.html" aria-current="page">Variante A · Briefing · Build B-167</a>
+</div>
 
 <script src="assets/js/site.js"></script>
-<script src="assets/js/ablauf.js"></script>
 </body>
 </html>

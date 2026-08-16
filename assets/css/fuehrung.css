@@ -1,120 +1,113 @@
 /* ===========================================================================
-   GESCHÄFTSFÜHRUNG — spiegelsymmetrisch im 12-Spalten-Raster
+   GESCHÄFTSFÜHRUNG — Anordnung nach dem Vorbild von baulig.de
 
-   Der editoriale Wechsel bleibt, ist aber jetzt exakt symmetrisch:
-     Block 1   Text Spalten 1–6,  Bild Spalten 7–12
-     Block 2   Bild Spalten 1–6,  Text Spalten 7–12
+   Zwei Blöcke untereinander, spiegelverkehrt: Person 1 Text links und
+   Porträt rechts, Person 2 umgekehrt. Name groß, darunter ein kurzer
+   Strich, darunter mehrere kurze Absätze.
 
-   Beide Bloecke benutzen dasselbe Raster im selben Umschlag. Daraus folgt
-   ohne weitere Regel: gleiche Textbreite, gleiche Bildbreite, gleiche
-   Bildhoehe, gleiche senkrechte Ausrichtung, gleicher Abstand. Es gibt
-   keinen einzigen Wert, der nur fuer einen der beiden Bloecke gilt.
+   ENTSCHEIDEND: Bei Baulig sind BEIDE Personen auf einen Blick sichtbar.
+   Deshalb ist hier alles auf Kompaktheit gerechnet — Porträthöhe, Zeilenmaß
+   und Abstände sind so gesetzt, dass die zwei Blöcke zusammen unter die
+   Höhe eines üblichen Fensters passen. Ein Block, der eine ganze Bildschirm-
+   höhe füllt, wäre zwar bequemer zu setzen, zerstört aber genau die
+   Gegenüberstellung, die den Abschnitt ausmacht.
 
-   BILDAUSSCHNITT — das war der beanstandete Punkt.
-   Beide Aufnahmen sind quadratisch (640 × 640), der Kopf beginnt bei 1,3
-   bzw. 1,6 % der Bildhoehe. Der Rahmen ist hochformatig 4:5. `object-fit:
-   cover` skaliert auf die groessere der beiden Achsen: 400/640 (Hoehe)
-   gegen 320/640 (Breite) — es gewinnt die Hoehe. Das Bild wird also auf
-   volle Rahmenhoehe gerechnet und ausschliesslich an den SEITEN
-   beschnitten (je 10 %). Senkrecht faellt 0 % weg, Haar und Gesicht bleiben
-   vollstaendig stehen. `object-position: 50% 0%` verankert zusaetzlich oben
-   buendig — bei 0 % Ueberhang ohne Wirkung, aber als Sicherung gesetzt,
-   falls der Rahmen je flacher wird.
+   Hintergrund WEISS wie alle Abschnitte dieser Seite. Die Referenz steht
+   auf Schwarz; das ist der einzige Punkt, an dem bewusst abgewichen wird.
+   Weil die beiden Porträts selbst dunkle Hintergründe haben, können sie
+   nicht wie dort in die Fläche auslaufen — sie stehen deshalb als klar
+   begrenzte Flächen mit dem Bildradius der Seite.
 
-   Bauhoehe: beide Bloecke sollen moeglichst zusammen ins Bild passen.
-   Deshalb der kompakte Abschnittsrhythmus, ein gedeckeltes Bildmass und
-   ein knapper Blockabstand — ohne das Bild klein werden zu lassen.
+   Bildformat: Der Rahmen ist breit (Querformat). Beide Aufnahmen sind
+   QUADRATISCH und der Kopf sitzt jeweils dicht unter der oberen Kante —
+   bei Bild 1 beginnt das Haar bei 1,6 %, bei Bild 2 bei 1,3 % der Bildhöhe.
+   Ein breiter Rahmen muss also oben oder unten beschneiden. Deshalb ist das
+   Bild oben BÜNDIG verankert (object-position 50% 0%): beschnitten wird
+   ausschließlich unten, Haare und Gesicht bleiben vollständig stehen.
+   Ein mittiger oder auch nur leicht nach unten verschobener Anschnitt
+   schneidet dagegen sofort die Haare ab — genau das war vorher der Fehler.
    =========================================================================== */
 
 .fuehr {
   position: relative;
   z-index: 1;
-  background: var(--estera-white);
-  padding-block: var(--sect-kompakt);
+  background: var(--paper);
+  padding: clamp(2.4rem, 5vh, 4.2rem) 0;
 }
 
 .fuehr__inner {
+  /* Schmaler als die übrigen Abschnitte: das Porträt ist in der Höhe
+     gedeckelt und damit auch in der Breite. Ein 1240 px breiter Umschlag
+     ließe daneben ein Textfeld von über 900 px stehen — unlesbar lang und
+     optisch aus dem Gleichgewicht. */
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
   display: grid;
-  gap: clamp(20px, 2.2vw, 32px);
+  gap: clamp(1.8rem, 4vh, 3rem);
 }
 
-/* --- Ein Block je Person --------------------------------------------------
-   Zwei gleiche Spalten mit dem Rastersteg als Abstand. Das ist RECHNERISCH
-   exakt die 6/6-Teilung des Zwoelferrasters: sechs Spalten plus fuenf Stege
-   sind 6·(B−11·24)/12 + 5·24 = B/2 − 12, und genau das ist auch (B−24)/2.
-
-   Die Spalten stehen als AUSGERECHNETE Laenge da, nicht als 1fr. Grund:
-   fr-Spalten werden auf Layoutpixel (1/64 px) gerundet, und den Rest bekommt
-   die letzte Spalte. Bei krummen Fensterbreiten — 1512 px ist so ein Fall —
-   war die rechte Textspalte dadurch 0,016 px breiter als die linke. Mit zwei
-   gleichen Laengen gibt es keinen Rest zu verteilen: beide Textspalten sind
-   auf den Layoutpixel genau gleich breit.                                */
+/* --- Ein Block je Person -------------------------------------------------- */
 .fuehr__block {
-  --fuehr-halb: calc((100% - var(--spalten-gap)) / 2);
   display: grid;
-  grid-template-columns: var(--fuehr-halb) var(--fuehr-halb);
-  gap: var(--spalten-gap);
-  /* Identische senkrechte Ausrichtung in beiden Bloecken: der Text steht
-     mittig zum Bild, das Bild ist in beiden Bloecken gleich hoch. */
+  /* Die Bildspalte richtet sich nach der Bildhöhe (auto + aspect-ratio),
+     nicht nach einem Bruchteil der Breite. Nur so bleibt das Hochformat
+     über alle Fensterbreiten erhalten. Die Textspalte ist auf ein lesbares
+     Zeilenmaß gedeckelt; der Rest wird als Luft dazwischen verteilt. */
+  grid-template-columns: minmax(0, 32rem) auto;
+  justify-content: space-between;
+  gap: clamp(1.6rem, 4vw, 3.4rem);
   align-items: center;
 }
-.fuehr__text { grid-column: 1; min-width: 0; }
-.fuehr__bild { grid-column: 2; }
-
-/* Person 2 spiegelverkehrt — ueber die Rasterspalten, nicht ueber die
-   Reihenfolge im Markup. Fuer Vorlesewerkzeuge und Tastatur bleibt die
-   Reihenfolge damit in beiden Bloecken Name, Text, Bild. */
+/* Person 2 spiegelverkehrt. Über die Rasterspalten statt über die
+   Reihenfolge im Markup — so bleibt die Lesereihenfolge für Screenreader
+   und Tastatur unverändert Name, Text, Bild. */
+.fuehr__block--gedreht { grid-template-columns: auto minmax(0, 32rem); }
 .fuehr__block--gedreht .fuehr__text { grid-column: 2; grid-row: 1; }
 .fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: 1; }
 
 /* --- Der Text ------------------------------------------------------------- */
 .fuehr__name {
-  margin: 0;
-  color: var(--ink-black);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.9vw, 2.9rem);
   font-weight: 500;
+  line-height: 1.12;
+  color: var(--ink-black);
 }
-/* Unterstreichung unter dem Namen — in beiden Bloecken dasselbe Element mit
-   demselben Mass. */
+/* Kurzer Strich unter dem Namen, wie in der Referenz */
 .fuehr__strich {
   display: block;
   width: 118px;
   height: 3px;
-  margin: clamp(14px, 1.3vw, 20px) 0 clamp(18px, 1.7vw, 26px);
-  background: var(--estera-navy-800);
+  margin: clamp(0.9rem, 2vh, 1.3rem) 0 clamp(1.2rem, 2.6vh, 1.7rem);
+  background: var(--navy-800);
 }
 .fuehr__text p {
-  margin: 0;
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  color: var(--estera-blue-grey-700);
+  font-size: clamp(0.94rem, 1.02vw, 1.02rem);
+  line-height: 1.62;
+  color: var(--ink-soft);
   text-wrap: pretty;
 }
-.fuehr__text p + p { margin-top: 0.7em; }
+.fuehr__text p + p { margin-top: 0.85em; }
 .fuehr__text p:first-of-type { color: var(--ink-black); }
 
 /* --- Das Porträt ---------------------------------------------------------- */
-/* Das Bild fuellt die sechs Spalten NICHT aus: 4:5 auf voller Spaltenbreite
-   waere ueber 800 px hoch, damit waere die Gegenueberstellung beider
-   Personen erledigt. Es steht deshalb gedeckelt und mittig in seinem Feld —
-   in beiden Bloecken gleich, also spiegelsymmetrisch. */
+/* Höhe in vh statt in vw: die Nebenbedingung ist die FENSTERHÖHE — beide
+   Blöcke müssen zusammen hineinpassen. Die Breite folgt aus dem Format. */
 .fuehr__bild {
   position: relative;
-  /* An die INNENKANTE der Rasterhaelfte, nicht in deren Mitte. Weil beide
-     Personen gemeinsam ins Fenster passen muessen, ist das Bild in der Hoehe
-     gedeckelt und damit schmaler als seine Spalte. Mittig gesetzt entsteht
-     links und rechts davon Leerraum und das Portraet wirkt verloren; an der
-     Innenkante steht es dagegen als Paar mit seinem Text. */
-  justify-self: start;
-  width: clamp(196px, 15.4vw, 232px);
-  aspect-ratio: 4 / 5;
+  height: clamp(250px, 33vh, 350px);
+  aspect-ratio: 1.38;
   overflow: hidden;
   border-radius: var(--radius-img);
-  background: var(--estera-navy-900);
+  background: var(--navy-900);
 }
 .fuehr__bild img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Oben bündig: der Anschnitt fällt vollständig auf den unteren Bildrand,
+     nie auf den Kopf. Waagerecht mittig — beide Personen stehen mittig. */
   object-position: 50% 0%;
 }
 /* Goldhaarlinie als Randung — dieselbe Zierform wie bei den Kundenstimmen */
@@ -122,49 +115,32 @@
   content: '';
   position: absolute;
   inset: 0;
-  border: 1px solid var(--estera-line-gold);
+  border: 1px solid var(--line-gold);
   border-radius: inherit;
   pointer-events: none;
 }
 
 /* --- Hinweis -------------------------------------------------------------- */
 .fuehr__hinweis {
-  margin: 0;
+  /* Kein eigener Abstand — der Abstand kommt bereits vom Raster des
+     Umschlags. Doppelt gesetzt kostet er die Höhe, die beide Blöcke
+     brauchen, um zusammen ins Fenster zu passen. */
+  margin-top: 0;
   text-align: center;
-  font-size: var(--fs-klein);
+  font-size: 0.84rem;
   letter-spacing: 0.02em;
-  color: var(--estera-gold-text);
+  color: var(--gold-text);
 }
 
-/* ===========================================================================
-   RESPONSIVE
-   Gestapelt: Portraet oben, Text darunter — bei beiden Personen gleich
-   herum, sonst wirkt die Spiegelung wie ein Fehler.
-   =========================================================================== */
-@media (max-width: 900px) {
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 860px) {
+  /* Gestapelt: Porträt oben, Text darunter — bei beiden Personen gleich
+     herum, sonst wirkt die Spiegelung wie ein Fehler. */
   .fuehr__block,
-  .fuehr__block--gedreht {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(18px, 3vw, 28px);
-  }
-  .fuehr__text,
-  .fuehr__bild,
+  .fuehr__block--gedreht { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
+  .fuehr__text { max-width: none; }
   .fuehr__block--gedreht .fuehr__text,
   .fuehr__block--gedreht .fuehr__bild { grid-column: 1; grid-row: auto; }
-  .fuehr__block { grid-template-columns: minmax(0, 1fr); }
-  .fuehr__bild { order: -1; justify-self: start; }
+  .fuehr__bild { height: auto; width: 100%; order: -1; }
   .fuehr__block--gedreht .fuehr__bild { order: -1; }
 }
-
-/* Bei flachen Fenstern (etwa 1280x800) waren beide Bloecke zusammen 23 px
-   hoeher als der freie Bereich unter dem Kopf. Der Kunde hat ausdruecklich
-   verlangt, beide Geschaeftsfuehrer auf einen Blick zu sehen — deshalb hier
-   noch einmal enger, ohne die Symmetrie anzutasten. */
-@media (max-width: 1366px) {
-  .fuehr { padding-block: clamp(24px, 2.2vw, 34px); }
-  .fuehr__bild { width: clamp(184px, 14.2vw, 212px); }
-}
-
-/* Block 2 ist gespiegelt: dort liegt das Bild links, seine Innenkante ist
-   also die rechte. */
-.fuehr__block--gedreht .fuehr__bild { justify-self: end; }
