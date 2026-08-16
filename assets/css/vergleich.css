@@ -145,14 +145,21 @@
   background: var(--paper);
   box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
               0 14px 30px -20px rgba(16, 41, 73, 0.3);
-  /* Im ersten Zustand stehen die Karten ungleich eingerueckt und gegeneinander
-     hoehenversetzt — „verteilt und offen". Beim Umschalten fluchten sie. */
-  transform: translate(var(--dx, 0px), var(--dy, 0px));
-  transition: transform var(--wechsel), border-color var(--wechsel),
-              box-shadow var(--wechsel);
+  /* Im ersten Zustand stehen die Karten deutlich verstreut: ungleich
+     eingerueckt, gegeneinander hoehenversetzt, unterschiedlich weit vom Haus
+     entfernt und leicht verdreht — „verteilt und offen". Auf den ersten Blick
+     unruhig. Beim Umschalten fluchten sie auf einer Kante, mit gleichen
+     Abstaenden und gleicher Breite. */
+  width: calc(100% - var(--dw, 0px));
+  transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--dr, 0deg));
+  transition: transform var(--wechsel), width var(--wechsel),
+              border-color var(--wechsel), box-shadow var(--wechsel);
 }
+.verg__karten--links  .verg__karte { justify-self: end; }
+.verg__karten--rechts .verg__karte { justify-self: start; }
 .verg[data-modus='estera'] .verg__karte {
-  transform: translate(0px, 0px);
+  width: 100%;
+  transform: translate(0px, 0px) rotate(0deg);
   border-color: rgba(30, 66, 112, 0.2);
   box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
               0 14px 30px -20px rgba(16, 41, 73, 0.22);
@@ -381,7 +388,7 @@
     justify-self: center;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .verg__karte { transform: none; }
+  .verg__karte { width: 100%; transform: none; }
   .verg__karte::after { display: none; }
   .verg__band { grid-template-columns: auto minmax(0, 1fr); row-gap: 1.2rem; }
   .verg__bandstrich { display: none; }
@@ -405,5 +412,5 @@
   .verg__bandcta, .verg__bandcta svg {
     transition: none;
   }
-  .verg__karte { transform: none; }
+  .verg__karte { width: 100%; transform: none; }
 }

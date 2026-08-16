@@ -1,441 +1,269 @@
 /* ===========================================================================
    DAS HAUS — der Blickfang in Abschnitt 6
 
-   Das Haus steht MITTIG im Abschnitt, links und rechts daneben liegen die
-   Punktkarten. Zwischen Haus und Karten schweben die sechs losen Bausteine:
-   Giebeldreieck, Rundfenster, rechteckiges Sprossenfenster, Schornstein,
-   Rundbogentuer und Fensterrahmen.
+   Das Haus und die losen Bausteine sind KEINE CSS-Nachbauten mehr.
+   Sie sind aus der Vorlage `Bilder/referenz-bausteine.png` freigestellt und
+   liegen als PNG mit Alphakanal in `assets/img/haus/`. Dadurch stimmen
+   Ziegelrelief, Laibungen, Farbverlauf und die weichen Schlagschatten
+   buchstaeblich mit der Vorlage ueberein.
 
-   Baukoerper und Dach sind EINE Silhouette, sechsundzwanzigmal in die Tiefe
-   gestapelt. Dadurch hat die Wand Staerke, und die sechs Oeffnungen werden zu
-   echten Durchbruechen mit sichtbarer Laibung — der Baustein faehrt hinein,
-   nicht dagegen.
+   Freistellung: Vision-Framework von macOS fuer die Silhouette, der weiche
+   Schatten als Multiplikation (schwarz mit kleinem Alpha) — damit liegt er
+   auf jedem Untergrund richtig und es entsteht kein grauer Kasten.
 
-   „Selbst koordinieren": jeder Baustein verlaesst seinen Ruheplatz und fliegt
-   nacheinander an DREI falsche Stellen, stoesst an die Wand, wackelt und zieht
-   wieder ab. Die falschen Stellen liegen fuer jeden Baustein in einem eigenen
-   Band — dadurch liegen nie zwei Bausteine gleichzeitig auf derselben Stelle.
-   „Mit Estera begleitet": jeder kommt aus seinem Ruheplatz und geht auf Anhieb
-   in seine eigene Oeffnung, bestaetigt durch einen kurzen goldenen Ring.
+   SECHS Oeffnungen, SECHS Bausteine — fuer jede Oeffnung genau ein Teil und
+   kein Teil ohne Oeffnung. Der Schornstein ist raus: er sitzt bereits fest
+   auf dem Hausbild.
+     nach LINKS zeigende Hausseite: Rundfenster (Giebel), Rundbogentuer,
+       Sprossenfenster links neben der Tuer;
+     nach RECHTS zeigende Hausseite: Sprossenfenster vorn, Fensterrahmen
+       hinten; auf der rechten Dachflaeche die Gaube mit dem Giebeldreieck.
+   Das linke Sprossenfenster liegt in der Vorlage nicht lose bei; es ist aus
+   dem rechten gespiegelt (assets/img/haus/teil-fenster-links.png) und kippt
+   dadurch auf die andere Seite.
 
-   Formklassen liegen ausschliesslich auf BLATTELEMENTEN. clip-path, mask-image,
-   filter und opacity sind Gruppierungseigenschaften: an einem Elternteil zwingen
-   sie saemtliche Kinder in eine Ebene, und der Stapel waere wieder flach.
+   FLUCHTUNG
+   Das Haus steht in Dreiviertelansicht. Waagerechte der linken Seite fallen
+   nach rechts (Steigung +0.099 am Sockel gemessen), die der rechten Seite
+   steigen nach rechts (-0.073). Die freigestellten Teile sind flacher
+   gerendert; --sk schert sie per skewY auf die Fluchtung ihrer Hausseite.
+   Die Karten links und rechts bleiben davon unberuehrt.
+
+   KOORDINATEN
+   Alle Plaetze stehen in einem einzigen Bezugssystem: dem Feld, das genau
+   dem Ausschnitt der Vorlage entspricht (797 x 437 Bildpunkte der Vorlage).
+   left/top/width der Bilder sind Prozent DES FELDES, die Verschiebungen in
+   den Animationen Prozent DES BILDES SELBST. Beides skaliert mit, egal wie
+   breit das Feld gerade ist — ohne Container-Queries, ohne feste Pixel.
+
+   Das Haus liegt exakt mittig im Feld (Hausmitte 398.5 von 797), damit es
+   in der Abschnittsmitte steht.
+
+   BEWEGUNG
+   „Selbst koordinieren": ALLE Bausteine versuchen es GLEICHZEITIG. Sie
+   fahren gemeinsam auf ihre Oeffnung zu — und es klappt nicht: sie kommen in
+   voller Groesse an, passen nicht hinein, prallen ab, weichen zurueck und
+   versuchen es erneut. Endlos. Der Rhythmus ist fuer alle derselbe, nur um
+   Sekundenbruchteile versetzt, damit es nicht mechanisch wirkt.
+   --ax/--ay ist der Anlauf: die Silhouettenmitte liegt genau auf der
+   Oeffnung, aber OHNE Massstab — deshalb ist der Baustein sichtbar zu gross.
+   „Mit Estera begleitet": jeder faehrt sofort an seine richtige Stelle und
+   sitzt dort sauber — dieselbe Mitte, aber mit dem passenden Massstab --zs.
+
+   Rein dekorativ, deshalb aria-hidden und leere alt-Attribute.
    =========================================================================== */
 
 .spiel {
-  --w: 340px;
-  --hh: 356px;
-  --zoom: 1;
-
-  /* Farben nach Vorlage: elfenbeinfarbene Waende, terrakottafarbenes
-     Ziegeldach, dunkelblauer Sockel, dunkelblaue Tuer und Fenster,
-     helle Schornsteine und Rahmen. */
-  --wand:          #F6EEE2;
-  --wand-hell:     #FDFAF3;
-  --wand-schatten: #E7DCC8;
-  --dach:          #C05A3C;
-  --dach-hell:     #D06B4A;
-  --dach-tief:     #8E3B27;
-  --sockel:        #17304E;
-  --blau:          #1B3A5F;
-  --blau-tief:     #0E2036;
-  --hell:          #EFE5D2;
-  --hell-tief:     #C9B999;
-
-  /* Reihenfolge der Bausteine:
-     1 Giebeldreieck, 2 Rundfenster, 3 Sprossenfenster,
-     4 Schornstein, 5 Rundbogentuer, 6 Fensterrahmen. */
-  --ton-1: var(--dach);  --kante-1: var(--dach-tief);
-  --ton-2: var(--blau);  --kante-2: var(--blau-tief);
-  --ton-3: var(--blau);  --kante-3: var(--blau-tief);
-  --ton-4: var(--hell);  --kante-4: var(--hell-tief);
-  --ton-5: var(--blau);  --kante-5: var(--blau-tief);
-  --ton-6: var(--hell);  --kante-6: var(--hell-tief);
-
-  display: grid;
-  justify-items: center;
-  perspective: 1600px;
-  perspective-origin: 50% 50%;
-}
-
-/* Der Rahmen traegt die LAYOUT-Groesse; scale() allein aendert das Layout
-   nicht, und die Buehne liefe auf schmalen Fenstern ueber den Seitenrand.
-   Die Breite haelt auch die Ruheplaetze der Bausteine (+-295 px). */
-.spiel__rahmen {
-  position: relative;
-  width: calc(var(--w) * var(--zoom) * 1.85);
-  height: calc(var(--hh) * var(--zoom) * 1.16);
+  --dauer: 9.4s;         /* ein Versuchszyklus: hin, scheitern, zurueck */
+  --schnapp: 0.72s;      /* Flug in die richtige Stelle */
+  width: clamp(320px, 44vw, 660px);
   max-width: 100%;
+  justify-self: center;
 }
 
-.haus {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: var(--w);
-  height: var(--hh);
-  margin: calc(var(--hh) / -2) calc(var(--w) / -2);
-  transform-style: preserve-3d;
-  /* Leicht von oben und zur Seite gedreht: nur so sieht man die Wandstaerke
-     und die Laibung der Oeffnungen. Die Drehung schiebt die sichtbare Mitte
-     nach links, --korr holt sie zurueck — gemessen gegen die Abschnittsmitte. */
-  transform: scale(var(--zoom)) translateX(var(--korr, 11.2px))
-             rotateX(-5deg) rotateY(13deg);
+/* Das Feld traegt das Seitenverhaeltnis des Vorlagenausschnitts. Alle
+   Bausteine liegen absolut darin. */
+.spiel__feld {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 797 / 437;
 }
 
-/* Weicher Bodenschatten unter dem Haus. Liegt als eigenes Kastenelement
-   hinter der 3D-Ebene — filter auf dem Rahmen selbst wuerde den Stapel
-   flachdruecken. */
-.spiel__rahmen::after {
-  content: '';
+/* --- Das Haus ------------------------------------------------------------- */
+.spiel__haus {
   position: absolute;
-  z-index: -1;
-  left: 50%;
-  bottom: calc(50% - var(--hh) * var(--zoom) / 2 - 6px);
-  width: calc(var(--w) * var(--zoom) * 1.02);
-  height: calc(26px * var(--zoom));
-  margin-left: calc(var(--w) * var(--zoom) * -0.51);
-  border-radius: 50%;
-  background: rgba(16, 41, 73, 0.16);
-  filter: blur(13px);
+  left: 20.2008%;
+  top: 2.2883%;
+  width: 59.5985%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-/* --- Die Wand ------------------------------------------------------------- */
-/* Sechsundzwanzig Scheiben nach hinten. Die vorderste ist die Fassade, die
-   dahinter liegenden bilden Wandstaerke und Laibung. Oberhalb der Traufe
-   (112/356 = 31.46 %) traegt der Stapel Dachfarbe, darunter Wandfarbe. */
-.haus__lage {
+/* --- Die Zielstellen am Haus ---------------------------------------------- */
+/* Alle fuenf Zielstellen sind im Hausbild bereits echte, leere Oeffnungen mit
+   Laibung — eine zusaetzliche Vertiefung waere eine Abweichung von der
+   Vorlage. Diese Marken bleiben deshalb unsichtbar und tragen nur den
+   goldenen Ring, der das Einrasten bestaetigt. */
+.spiel__nische {
   position: absolute;
-  inset: 0;
-  transform: translateZ(var(--z));
-  background: linear-gradient(to bottom,
-    var(--dach-tief) 0 31.46%, var(--wand-schatten) 31.46% 100%);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%20M65%2C168%20A27%2C27%200%201%200%20119%2C168%20A27%2C27%200%201%200%2065%2C168%20Z%20M229%2C141%20H275%20A3%2C3%200%200%201%20278%2C144%20V192%20A3%2C3%200%200%201%20275%2C195%20H229%20A3%2C3%200%200%201%20226%2C192%20V144%20A3%2C3%200%200%201%20229%2C141%20Z%20M120%2C336%20V287%20A29%2C29%200%200%201%20178%2C287%20V336%20Z%20M225%2C252%20H285%20A3%2C3%200%200%201%20288%2C255%20V309%20A3%2C3%200%200%201%20285%2C312%20H225%20A3%2C3%200%200%201%20222%2C309%20V255%20A3%2C3%200%200%201%20225%2C252%20Z%22%2F%3E%3C%2Fsvg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%20M65%2C168%20A27%2C27%200%201%200%20119%2C168%20A27%2C27%200%201%200%2065%2C168%20Z%20M229%2C141%20H275%20A3%2C3%200%200%201%20278%2C144%20V192%20A3%2C3%200%200%201%20275%2C195%20H229%20A3%2C3%200%200%201%20226%2C192%20V144%20A3%2C3%200%200%201%20229%2C141%20Z%20M120%2C336%20V287%20A29%2C29%200%200%201%20178%2C287%20V336%20Z%20M225%2C252%20H285%20A3%2C3%200%200%201%20288%2C255%20V309%20A3%2C3%200%200%201%20285%2C312%20H225%20A3%2C3%200%200%201%20222%2C309%20V255%20A3%2C3%200%200%201%20225%2C252%20Z%22%2F%3E%3C%2Fsvg%3E");
-  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-}
-/* Die 26 Wandscheiben stehen im Markup an Kindposition 5 bis 30 — davor
-   liegen Rueckwand, Dach, Sockel und Seitenwand. Deshalb hier die um vier
-   verschobenen Positionen statt :first-child / :last-child. */
-/* Die Fassade: warmes Elfenbein mit weichem Lichtverlauf. */
-.haus__lage:nth-child(5) {
-  background: linear-gradient(148deg, var(--wand-hell) 0%, var(--wand) 56%, #EEE3D1 100%);
-}
-/* Nach hinten abdunkeln — die Tiefe der Laibung wird dadurch lesbar. */
-.haus__lage:nth-child(n + 12) {
-  background: linear-gradient(to bottom, #843623 0 31.46%, #D8CBB4 31.46% 100%);
-}
-.haus__lage:nth-child(n + 20) {
-  background: linear-gradient(to bottom, #78301F 0 31.46%, #CDBFA6 31.46% 100%);
-}
-.haus__lage:nth-child(30) {
-  background: linear-gradient(to bottom, #6B2A1B 0 31.46%, #C2B296 31.46% 100%);
-}
-
-/* --- Die Rueckwand -------------------------------------------------------- */
-/* Ohne sie sieht man durch die sechs Oeffnungen hindurch auf die Seite, und
-   die Durchbrueche wirken wie ausgeschnittenes Papier. Die Rueckwand traegt
-   die Silhouette OHNE Oeffnungen und steht hinter dem Scheibenstapel — die
-   leeren Oeffnungen bekommen dadurch einen dunklen Innenraum. */
-.haus__rueck {
-  position: absolute;
-  inset: 0;
-  transform: translateZ(-106px);
-  background: linear-gradient(160deg, #6C6152 0%, #574E41 62%, #453D33 100%);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%22%2F%3E%3C%2Fsvg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20V356%20H0%20Z%22%2F%3E%3C%2Fsvg%3E");
-  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-}
-
-/* --- Das Dach ------------------------------------------------------------- */
-/* Ziegelrot mit feiner Reihenzeichnung, knapp vor der Fassade.
-   Giebeldreieck und Schornsteinschacht sind auch hier ausgespart. */
-.haus__dach {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  transform: translateZ(0.6px);
-  background:
-    repeating-linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.12) 0 1px, rgba(255, 255, 255, 0.05) 1px 2px,
-      transparent 2px 11px),
-    linear-gradient(160deg, var(--dach-hell) 0%, var(--dach) 48%, var(--dach-tief) 100%);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%22%2F%3E%3C%2Fsvg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20356%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2C112%20L170%2C0%20L340%2C112%20Z%20M140%2C48%20L168%2C96%20L112%2C96%20Z%20M239%2C66%20H265%20A3%2C3%200%200%201%20268%2C69%20V107%20A3%2C3%200%200%201%20265%2C110%20H239%20A3%2C3%200%200%201%20236%2C107%20V69%20A3%2C3%200%200%201%20239%2C66%20Z%22%2F%3E%3C%2Fsvg%3E");
-  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-}
-
-/* --- Der Sockel ----------------------------------------------------------- */
-/* Dunkelblaues Band am Fuss des Hauses, wie in der Vorlage. Die Tuer endet
-   genau auf seiner Oberkante. */
-.haus__sockel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 20px;
-  z-index: 2;
-  transform: translateZ(0.9px);
-  background: linear-gradient(to bottom, #21406A 0%, var(--sockel) 60%, #0E243C 100%);
-}
-
-/* --- Die Seitenwand ------------------------------------------------------- */
-/* Der Scheibenstapel bildet Tiefe, aber keine Flaeche, in die man Fenster
-   setzen koennte. Deshalb hier eine echte Ebene: an der LINKEN Hauskante
-   angesetzt und um 90 Grad nach hinten geklappt — sichtbar ist bei dieser
-   Drehung die linke Seite.
-   Die Seitenfenster sind rein dekorativ; dort fliegt nichts hinein. */
-.haus__seite {
-  position: absolute;
-  left: 0;
-  top: 112px;                 /* Unterkante der Traufe */
-  width: 104px;               /* = Wandtiefe, 26 Scheiben x 4 px */
-  height: 244px;              /* Hoehe des Baukoerpers */
-  transform-origin: 0% 50%;
-  transform: rotateY(90deg);
-  background: linear-gradient(100deg, var(--wand-schatten) 0%, #D6C9B0 100%);
-}
-.haus__seitenfenster {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 32px;
-  height: 44px;
-  margin: -22px -16px;
-  translate: var(--sx) var(--sy);
-  border-radius: 3px;
-  background: linear-gradient(150deg, #2A4C6E 0%, var(--blau-tief) 74%);
-  box-shadow: 0 0 0 3px var(--hell), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
-}
-.haus__seitensockel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 20px;
-  background: var(--sockel);
-}
-
-/* --- Die Bausteine -------------------------------------------------------- */
-.haus__halter {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: var(--b);
-  height: var(--h);
-  margin: calc(var(--h) / -2) calc(var(--b) / -2);
-  translate: var(--x) var(--y);
-  transform-style: preserve-3d;
-}
-
-.haus__koerper {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  transform: translateZ(-20px);
-}
-.haus__scheiben { position: absolute; inset: 0; transform-style: preserve-3d; }
-
-.haus__scheibe {
-  position: absolute;
-  inset: 0;
-  background: var(--kante);
-  transform: translateZ(var(--z));
-}
-.haus__scheibe:last-child {
-  background: linear-gradient(150deg,
-    color-mix(in srgb, var(--ton) 88%, #ffffff 12%) 0%, var(--ton) 74%);
-}
-
-/* Formen — dieselbe Silhouette wie die zugehoerige Oeffnung in der Maske.
-   Ausschliesslich auf Blattelementen. */
-.haus__form--rund    { border-radius: 50%; }
-.haus__form--quadrat { border-radius: 3px; }
-.haus__form--hoch    { border-radius: 3px; }
-.haus__form--quer    { border-radius: 3px; }
-.haus__form--dreieck { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
-.haus__form--tuer    { border-radius: 50% 50% 3px 3px / 31% 31% 3px 3px; }
-
-/* Machart der einzelnen Bausteine, jeweils nur auf der vordersten Scheibe.
-   box-shadow und background-image gruppieren nicht — der Stapel bleibt tief. */
-.haus__koerper--rundfenster .haus__scheibe:last-child {
-  background: radial-gradient(120% 120% at 32% 26%, #33587D 0%, var(--blau) 46%, var(--blau-tief) 100%);
-  box-shadow: inset 0 0 0 7px var(--hell), inset 0 0 0 8px var(--hell-tief);
-}
-.haus__koerper--sprossen .haus__scheibe:last-child {
-  background:
-    linear-gradient(to right, transparent 0 46%, var(--hell) 46% 54%, transparent 54% 100%),
-    linear-gradient(to bottom, transparent 0 46%, var(--hell) 46% 54%, transparent 54% 100%),
-    linear-gradient(150deg, #2F5478 0%, var(--blau) 62%, var(--blau-tief) 100%);
-  box-shadow: inset 0 0 0 4px var(--hell), inset 0 0 0 5px var(--hell-tief);
-}
-/* Der Schornstein bekommt einen abgesetzten Kopf, damit er als Schornstein
-   lesbar ist und nicht als Kaestchen. */
-.haus__koerper--schornstein .haus__scheibe:last-child {
-  background: linear-gradient(to bottom,
-    #C6B18A 0 20%, #A8977A 20% 24%, #F9F3E6 24% 32%, var(--hell) 32% 100%);
-}
-.haus__koerper--tuer .haus__scheibe:last-child {
-  background: linear-gradient(150deg, #2C5075 0%, var(--blau) 58%, var(--blau-tief) 100%);
-  box-shadow: inset 0 0 0 4px rgba(239, 229, 210, 0.9);
-}
-.haus__koerper--tuer .haus__scheibe:last-child::after {
-  content: '';
-  position: absolute;
-  right: 9px;
-  top: 62%;
-  width: 5px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--gold, #A8874F);
-}
-.haus__koerper--rahmen .haus__scheibe:last-child {
-  background: linear-gradient(150deg, #F7EFE0 0%, var(--hell) 70%);
-  box-shadow: inset 0 0 0 8px var(--hell), inset 0 0 0 9px var(--hell-tief),
-              inset 0 0 0 20px #E7DAC0;
-}
-.haus__koerper--giebel .haus__scheibe:last-child {
-  background: linear-gradient(160deg, var(--dach-hell) 0%, var(--dach) 52%, var(--dach-tief) 100%);
-}
-
-/* --- Schatten auf der Wand ------------------------------------------------ */
-.haus__schatten {
-  position: absolute;
-  inset: 0;
-  background: rgba(16, 41, 73, 0.42);
-  filter: blur(9px);
-}
-
-/* --- Einrast-Effekt ------------------------------------------------------- */
-.haus__klick {
-  position: absolute;
-  inset: -7px;
-  z-index: 3;
-  border: 1.5px solid rgba(168, 135, 79, 0.95);
-  border-radius: 5px;
-  opacity: 0;
-  transform: translateZ(4px) scale(0.92);
   pointer-events: none;
 }
-.haus__klick.haus__form--rund { border-radius: 50%; }
-
-/* ===========================================================================
-   ZUSTAND 1 — SELBST KOORDINIEREN
-   Ruheplatz (--rx/--ry) neben dem Haus, dann nacheinander drei falsche
-   Stellen (--fx1/--fy1 bis --fx3/--fy3). Die Halteschritte sind hoechstens
-   2 % lang (bei 11 s also 220 ms) — es steht also nie eine halbe Sekunde
-   still, die Bewegung ist jederzeit messbar.
-   =========================================================================== */
-@keyframes daneben {
-  0%   { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-  2%   { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-  12%  { transform: translate3d(var(--fx1), var(--fy1), 120px) rotateZ(0deg); }
-  19%  { transform: translate3d(var(--fx1), var(--fy1), 24px) rotateZ(0deg); }
-  22%  { transform: translate3d(var(--fx1), var(--fy1), 18px) rotateZ(-7deg); }
-  25%  { transform: translate3d(var(--fx1), var(--fy1), 18px) rotateZ(6deg); }
-  28%  { transform: translate3d(var(--fx1), var(--fy1), 18px) rotateZ(-3deg); }
-  33%  { transform: translate3d(var(--fx1), var(--fy1), 120px) rotateZ(0deg); }
-  38%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-  40%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-  46%  { transform: translate3d(var(--fx2), var(--fy2), 120px) rotateZ(0deg); }
-  53%  { transform: translate3d(var(--fx2), var(--fy2), 24px) rotateZ(0deg); }
-  56%  { transform: translate3d(var(--fx2), var(--fy2), 18px) rotateZ(8deg); }
-  59%  { transform: translate3d(var(--fx2), var(--fy2), 18px) rotateZ(-6deg); }
-  62%  { transform: translate3d(var(--fx2), var(--fy2), 18px) rotateZ(3deg); }
-  67%  { transform: translate3d(var(--fx2), var(--fy2), 120px) rotateZ(0deg); }
-  72%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-  74%  { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-  80%  { transform: translate3d(var(--fx3), var(--fy3), 120px) rotateZ(0deg); }
-  86%  { transform: translate3d(var(--fx3), var(--fy3), 24px) rotateZ(0deg); }
-  89%  { transform: translate3d(var(--fx3), var(--fy3), 18px) rotateZ(-6deg); }
-  92%  { transform: translate3d(var(--fx3), var(--fy3), 18px) rotateZ(7deg); }
-  95%  { transform: translate3d(var(--fx3), var(--fy3), 18px) rotateZ(-3deg); }
-  98%  { transform: translate3d(var(--fx3), var(--fy3), 120px) rotateZ(0deg); }
-  100% { transform: translate3d(var(--rx), var(--ry), 60px) rotateZ(0deg); }
-}
-/* Der Schatten liegt auf der Wand — auf dem Ruheplatz neben dem Haus faellt
-   keiner, deshalb dort deckungsgleich unsichtbar. */
-@keyframes schatten-daneben {
-  0%   { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
-  12%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.4); opacity: 0.06; }
-  19%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
-  28%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.06); opacity: 0.3; }
-  33%  { transform: translate3d(var(--fx1), var(--fy1), 1px) scale(1.4); opacity: 0.06; }
-  38%  { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
-  46%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.4); opacity: 0.06; }
-  53%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
-  62%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.06); opacity: 0.3; }
-  67%  { transform: translate3d(var(--fx2), var(--fy2), 1px) scale(1.4); opacity: 0.06; }
-  72%  { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
-  80%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.4); opacity: 0.06; }
-  86%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
-  95%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.06); opacity: 0.3; }
-  98%  { transform: translate3d(var(--fx3), var(--fy3), 1px) scale(1.4); opacity: 0.06; }
-  100% { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.5); opacity: 0; }
+.spiel__nische::after {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  border: 2px solid var(--gold, #A8874F);
+  border-radius: inherit;
+  clip-path: inherit;
+  opacity: 0;
+  transform: scale(0.7);
 }
 
-/* ===========================================================================
-   ZUSTAND 2 — MIT ESTERA BEGLEITET
-   `both` als fill-mode ist Pflicht: waehrend der Verzoegerung zeigt CSS sonst
-   den Ruhezustand, und der ist die Sitzposition — dann saessen einzelne
-   Bausteine von Anfang an in der Oeffnung, statt hereinzufliegen.
-   =========================================================================== */
-@keyframes einrasten {
-  0%   { transform: translate3d(var(--rx), var(--ry), 90px) rotateZ(-10deg); }
-  55%  { transform: translate3d(0, 0, 44px) rotateZ(0deg); }
-  76%  { transform: translate3d(0, 0, -26px) rotateZ(0deg); }
-  88%  { transform: translate3d(0, 0, -15px) rotateZ(0deg); }
-  100% { transform: translate3d(0, 0, -20px) rotateZ(0deg); }
+.spiel__nische--rundfenster {
+  left: 34.6299%; top: 20.3661%;
+  width: 7.4028%; height: 17.6201%;
+  border-radius: 50%;
+  --i: 0;
 }
-@keyframes schatten-einrasten {
-  0%   { transform: translate3d(var(--rx), var(--ry), 1px) scale(1.6); opacity: 0; }
-  55%  { transform: translate3d(0, 0, 1px) scale(1.18); opacity: 0.26; }
-  76%  { transform: translate3d(0, 0, 1px) scale(0.98); opacity: 0.14; }
-  100% { transform: translate3d(0, 0, 1px) scale(1); opacity: 0.12; }
+.spiel__nische--fensterlinks {
+  left: 29.4856%; top: 45.5378%;
+  width: 7.7792%; height: 22.1968%;
+  border-radius: 6%;
+  --i: 1;
 }
-@keyframes klick {
-  0%   { opacity: 0; transform: translateZ(4px) scale(0.92); }
-  62%  { opacity: 0; transform: translateZ(4px) scale(0.92); }
-  74%  { opacity: 1; transform: translateZ(4px) scale(1); }
-  100% { opacity: 0; transform: translateZ(4px) scale(1.5); }
+.spiel__nische--tuer {
+  left: 39.6487%; top: 43.4783%;
+  width: 8.1556%; height: 35.6979%;
+  border-radius: 50% 50% 8% 8% / 32% 32% 3% 3%;
+  --i: 2;
 }
-
-/* --- Zuordnung ------------------------------------------------------------ */
-/* Kein animation-delay im Selbst-Zustand: alle sechs laufen im Gleichtakt,
-   und ihre falschen Stellen liegen je Baustein in einem eigenen Band. */
-.haus__koerper  { animation: daneben 11s cubic-bezier(0.45, 0, 0.25, 1) infinite both; }
-.haus__schatten { animation: schatten-daneben 11s cubic-bezier(0.45, 0, 0.25, 1) infinite both; }
-
-.verg[data-modus='estera'] .haus__koerper {
-  animation: einrasten 1.5s cubic-bezier(0.34, 0, 0.16, 1) both;
-  animation-delay: calc(var(--i, 0) * 0.12s);
+.spiel__nische--giebel {
+  left: 52.3212%; top: 14.1876%;
+  width: 13.8018%; height: 19.9085%;
+  clip-path: polygon(50% 2%, 99% 99%, 1% 99%);
+  --i: 3;
 }
-.verg[data-modus='estera'] .haus__schatten {
-  animation: schatten-einrasten 1.5s cubic-bezier(0.34, 0, 0.16, 1) both;
-  animation-delay: calc(var(--i, 0) * 0.12s);
+.spiel__nische--fenster {
+  left: 54.8306%; top: 44.6224%;
+  width: 8.0301%; height: 28.1465%;
+  border-radius: 6%;
+  --i: 4;
 }
-.verg[data-modus='estera'] .haus__klick {
-  animation: klick 1.5s cubic-bezier(0.2, 0, 0.2, 1) both;
-  animation-delay: calc(var(--i) * 0.12s);
+.spiel__nische--rahmen {
+  left: 67.3777%; top: 46.9108%;
+  width: 7.0263%; height: 21.7391%;
+  border-radius: 6%;
+  --i: 5;
 }
 
-/* --- Massstab ------------------------------------------------------------- */
-@media (max-width: 1500px) { .spiel { --zoom: 0.9;  } }
-@media (max-width: 1300px) { .spiel { --zoom: 0.78; } }
-@media (max-width: 1100px) { .spiel { --zoom: 0.7;  } }
-@media (max-width: 1040px) { .spiel { --zoom: 0.82; } }
-@media (max-width: 760px)  { .spiel { --zoom: 0.62; } }
-@media (max-width: 520px)  { .spiel { --zoom: 0.46; } }
+/* --- Die losen Bausteine -------------------------------------------------- */
+.spiel__teil {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--b);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  animation: spiel-versuch var(--dauer) cubic-bezier(0.4, 0.02, 0.3, 1) var(--d) infinite both;
+}
 
+/* Ruheplatz, Zielstelle, Fluchtung und Anlauf. Die Werte sind am Hausbild
+   abgemessen (Mitte und Groesse jeder Oeffnung) und hier einzeln
+   nachjustierbar: --zx/--zy Lage, --zs Groesse, --sk Fluchtung. */
+.spiel__teil--rundfenster {
+  --x: 7.9046%; --y: 4.5767%; --b: 13.1744%;
+  --zx: 176.790%; --zy: 49.220%; --zs: 0.86; --sk: 5.5deg;
+  --ax: 152.618%; --ay: 44.051%; --ar: 3.6deg;
+  --wx: 109.885%; --wy: 0.000%;
+  --d: 0.11s; --i: 0;
+}
+.spiel__teil--fensterlinks {
+  --x: 0.0000%; --y: 32.4943%; --b: 13.1744%;
+  --zx: 208.800%; --zy: 34.221%; --zs: 0.96; --sk: 4.5deg;
+  --ax: 182.924%; --ay: 29.831%; --ar: 3.4deg;
+  --wx: 100.608%; --wy: 0.000%;
+  --d: 0s; --i: 1;
+}
+.spiel__teil--tuer {
+  --x: 4.8934%; --y: 63.3867%; --b: 18.4442%;
+  --zx: 157.735%; --zy: -47.865%; --zs: 1.21; --sk: 6.2deg;
+  --ax: 140.117%; --ay: -43.464%; --ar: -3.0deg;
+  --wx: 100.884%; --wy: -0.000%;
+  --d: 0.05s; --i: 2;
+}
+.spiel__teil--giebel {
+  --x: 81.3049%; --y: 1.8307%; --b: 13.2999%;
+  --zx: -224.731%; --zy: 57.135%; --zs: 1.27; --sk: 1.0deg;
+  --ax: -197.978%; --ay: 46.198%; --ar: -3.4deg;
+  --wx: -118.787%; --wy: 0.000%;
+  --d: 0.16s; --i: 3;
+}
+.spiel__teil--fenster {
+  --x: 84.8181%; --y: 33.4096%; --b: 13.1744%;
+  --zx: -251.476%; --zy: 34.121%; --zs: 1.1; --sk: -3.0deg;
+  --ax: -226.591%; --ay: 29.685%; --ar: 3.4deg;
+  --wx: -185.805%; --wy: 0.000%;
+  --d: 0.20s; --i: 4;
+}
+.spiel__teil--rahmen {
+  --x: 84.0652%; --y: 67.5057%; --b: 13.8018%;
+  --zx: -156.500%; --zy: -72.362%; --zs: 1.05; --sk: -2.9deg;
+  --ax: -123.093%; --ay: -57.936%; --ar: -3.2deg;
+  --wx: -0.000%; --wy: -80.531%;
+  --d: 0.19s; --i: 5;
+}
+
+/* „Selbst koordinieren": erst waagerecht heraus (Wegpunkt), dann schraeg an
+   die Oeffnung — dort ist der Baustein unskaliert, also zu gross, und haengt
+   schief: es passt nicht. Er stoesst an, weicht zum Wegpunkt zurueck und
+   versucht es ein zweites Mal, mit der anderen Schraeglage. Danach zurueck
+   auf den Ruheplatz, und von vorn.
+   Der Bruchteil vor --ax/--ay ist der Anteil des Weges. */
+@keyframes spiel-versuch {
+  0%, 4%     { transform: translate(0%, 0%) rotate(0deg); }
+  11%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * 0.3)); }
+  22%        { transform: translate(var(--ax), var(--ay)) rotate(var(--ar)); }
+  27%        { transform: translate(calc(var(--ax) * 0.93), calc(var(--ay) * 0.93)) rotate(calc(var(--ar) * -0.4)); }
+  33%        { transform: translate(var(--ax), var(--ay)) rotate(var(--ar)); }
+  38%        { transform: translate(calc(var(--ax) * 0.95), calc(var(--ay) * 0.95)) rotate(calc(var(--ar) * -0.25)); }
+  48%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * -0.35)); }
+  60%        { transform: translate(var(--ax), var(--ay)) rotate(calc(var(--ar) * -1)); }
+  65%        { transform: translate(calc(var(--ax) * 0.93), calc(var(--ay) * 0.93)) rotate(calc(var(--ar) * 0.4)); }
+  71%        { transform: translate(var(--ax), var(--ay)) rotate(calc(var(--ar) * -1)); }
+  76%        { transform: translate(calc(var(--ax) * 0.95), calc(var(--ay) * 0.95)) rotate(calc(var(--ar) * 0.25)); }
+  86%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * 0.3)); }
+  96%, 100%  { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+/* --- „Mit Estera begleitet" ----------------------------------------------- */
+/* Jeder Baustein faehrt sofort an seine richtige Stelle und rastet ein.
+   both ist Pflicht: waehrend der kleinen Staffelung zeigt der Browser sonst
+   den Ruhezustand nicht als Anfangsbild, und die Teile saehen von Anfang an
+   eingerastet aus. */
+.verg[data-modus='estera'] .spiel__teil {
+  /* Der Zielzustand steht zusaetzlich als Grundwert: selbst wenn die
+     Animation einmal nicht greift, sitzt der Baustein an seiner Stelle. */
+  transform: translate(var(--zx), var(--zy)) scale(var(--zs)) skewY(var(--sk));
+  animation-name: spiel-einrasten;
+  animation-duration: var(--schnapp);
+  animation-timing-function: cubic-bezier(0.22, 0.9, 0.24, 1.03);
+  animation-delay: calc(var(--i) * 0.06s);
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-play-state: running;
+}
+@keyframes spiel-einrasten {
+  0%   { transform: translate(0%, 0%) scale(1) skewY(0deg); }
+  100% { transform: translate(var(--zx), var(--zy)) scale(var(--zs)) skewY(var(--sk)); }
+}
+
+/* Der goldene Ring bestaetigt kurz, sobald das Teil sitzt. */
+.verg[data-modus='estera'] .spiel__nische::after {
+  animation: spiel-ring 0.6s ease-out calc(var(--i, 0) * 0.06s + 0.46s) 1 both;
+}
+@keyframes spiel-ring {
+  0%   { opacity: 0;    transform: scale(0.62); }
+  35%  { opacity: 0.9;  transform: scale(1); }
+  100% { opacity: 0;    transform: scale(1.2); }
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 1040px) {
+  .spiel { width: min(100%, 660px); }
+}
+
+/* --- Ruhe statt Bewegung -------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  .haus__koerper { animation: none; transform: translate3d(var(--rx), var(--ry), 60px); }
-  .verg[data-modus='estera'] .haus__koerper { animation: none; transform: translateZ(-20px); }
-  .haus__schatten,
-  .verg[data-modus='estera'] .haus__schatten { animation: none; opacity: 0; }
-  .haus__klick,
-  .verg[data-modus='estera'] .haus__klick { animation: none; opacity: 0; }
+  .spiel__teil,
+  .verg[data-modus='estera'] .spiel__teil {
+    animation: none;
+    transform: translate(var(--zx), var(--zy)) scale(var(--zs)) skewY(var(--sk));
+  }
+  .spiel__nische::after { animation: none; }
 }

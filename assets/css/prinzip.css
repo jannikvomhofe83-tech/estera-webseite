@@ -1,4 +1,13 @@
 /* ===========================================================================
+   DIE VORTEILE VON KAPITALANLAGEN
+   Das dunkle Kopfband mit Bild, Ueberschrift und Unterzeile ist auf
+   Kundenwunsch entfallen; die zugehoerigen Regeln (.vt__band, .vt__bild,
+   .vt__kopf, .vt__h2, .vt__lead) sind mit entfernt und stehen in der
+   Versionsgeschichte. Der Abschnitt beginnt jetzt mit der Zeile
+   „So entsteht Vermoegensaufbau", die dadurch zur Hauptueberschrift wird
+   und entsprechend groesser gesetzt ist.
+   =========================================================================== */
+/* ===========================================================================
    ABSCHNITT — DIE VORTEILE VON KAPITALANLAGEN
    Aufbau 1:1 nach der Kundenvorlage `Bilder/referenz-vorteile.png`:
 
@@ -31,6 +40,37 @@
   --vt-brueck: 74px;
   --vt-flanke: 32px;
 
+  /* Blende des Kopfbands nach oben und nach unten.
+     Die Stuetzstellen folgen einer S-Kurve (smootherstep): die Steigung ist
+     an BEIDEN Enden null. Dadurch gibt es weder an der Aussenkante noch dort,
+     wo die volle Deckung erreicht ist, eine ablesbare Linie — genau daran
+     scheitert ein einfacher linearer Verlauf.
+     Je Seite 20 % der Bandhoehe, die Textzone von rund 24 % bis 82 % liegt
+     vollstaendig im gedeckten Bereich. */
+  --vt-blende: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0)     0%,
+      rgba(0, 0, 0, 0.009) 2%,
+      rgba(0, 0, 0, 0.058) 4%,
+      rgba(0, 0, 0, 0.163) 6%,
+      rgba(0, 0, 0, 0.317) 8%,
+      rgba(0, 0, 0, 0.500) 10%,
+      rgba(0, 0, 0, 0.683) 12%,
+      rgba(0, 0, 0, 0.837) 14%,
+      rgba(0, 0, 0, 0.942) 16%,
+      rgba(0, 0, 0, 0.991) 18%,
+      rgba(0, 0, 0, 1)     20%,
+      rgba(0, 0, 0, 1)     80%,
+      rgba(0, 0, 0, 0.991) 82%,
+      rgba(0, 0, 0, 0.942) 84%,
+      rgba(0, 0, 0, 0.837) 86%,
+      rgba(0, 0, 0, 0.683) 88%,
+      rgba(0, 0, 0, 0.500) 90%,
+      rgba(0, 0, 0, 0.317) 92%,
+      rgba(0, 0, 0, 0.163) 94%,
+      rgba(0, 0, 0, 0.058) 96%,
+      rgba(0, 0, 0, 0.009) 98%,
+      rgba(0, 0, 0, 0)     100%);
+
   position: relative;
   z-index: 1;
   background: var(--paper);
@@ -47,57 +87,11 @@
 }
 .prinzip [data-reveal][data-seen='true'] { opacity: 1; transform: none; }
 
-/* ---------------------------------------------------------------------------
-   1 — Dunkles Kopfband
---------------------------------------------------------------------------- */
-.vt__band {
-  position: relative;
-  display: grid;
-  place-items: center;
-  /* Hoehe nach der Vorlage: dort ist das Band 277 px hoch bei 1672 px Breite. */
-  min-height: clamp(240px, 17.5vw, 310px);
-  padding: clamp(2.6rem, 6vh, 4.2rem) var(--gutter);
-  overflow: hidden;
-  background: #08111F;
-}
-.vt__band img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 58%;
-  filter: brightness(1.75) contrast(0.92) saturate(1.06);
-}
-/* Navy-Ueberlagerung. Sie ist der Grund, warum die Lesbarkeit NICHT davon
-   abhaengt, wo im Foto Fensterlichter sitzen: gemessen bleibt auch das
-   hellste Pixel unter der Schrift weit unter dem Grenzwert fuer 4,5:1. */
-.vt__band::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 76% 82% at 50% 52%,
-      rgba(8, 17, 32, 0.70) 0%, rgba(8, 17, 32, 0.54) 62%,
-      rgba(8, 17, 32, 0.26) 100%),
-    linear-gradient(to bottom,
-      rgba(10, 25, 46, 0.40) 0%, rgba(10, 25, 46, 0.26) 46%,
-      rgba(10, 25, 46, 0.48) 100%);
-}
+/* Ohne Maskenunterstuetzung bleibt es beim bisherigen harten Band — dunkel
+   und lesbar, nur ohne Uebergang. */
+@supports not ((mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000))) {
+  }
 
-.vt__kopf {
-  position: relative;
-  z-index: 2;
-  max-width: 60rem;
-  margin: 0 auto;
-  text-align: center;
-}
-.vt__h2 {
-  font-size: clamp(1.95rem, 3.4vw, 3.35rem);
-  line-height: 1.1;
-  color: #fff;
-}
 /* Kurzer goldener Strich, mittig — auf der Vorlage zwischen Titel und
    Unterzeile. */
 .vt__strich {
@@ -107,19 +101,11 @@
   margin: clamp(1.1rem, 2.4vh, 1.7rem) auto 0;
   background: var(--gold);
 }
-.vt__lead {
-  margin: clamp(1.1rem, 2.4vh, 1.7rem) auto 0;
-  max-width: 43rem;
-  font-size: clamp(1.05rem, 1.28vw, 1.28rem);
-  line-height: 1.55;
-  color: #EAF0F8;
-  text-wrap: pretty;
-}
-
 /* ---------------------------------------------------------------------------
    Weisser Bereich — gemeinsame Lesespalte
 --------------------------------------------------------------------------- */
 .vt__inner {
+  padding-top: clamp(3rem, 7vh, 5.5rem);
   /* 1520 px abzueglich zweier Stege ergibt 1360 px Lesebreite — damit sind
      die vier Karten 268 px breit, also genau so breit wie auf der Vorlage. */
   max-width: 1520px;
@@ -134,7 +120,7 @@
   text-align: center;
 }
 .vt__h3 {
-  font-size: clamp(1.65rem, 2.6vw, 2.55rem);
+  font-size: clamp(1.9rem, 3vw, 3rem);
   line-height: 1.14;
   color: var(--ink-black);
 }
@@ -177,7 +163,7 @@
 .vt__karte {
   display: flex;
   flex-direction: column;
-  padding: clamp(1.2rem, 1.85vw, 1.9rem);
+  padding: clamp(1rem, 1.45vw, 1.5rem);
   background: #fff;
   border-radius: 14px;
   /* Sehr weicher Schatten, keine Kontur — wie auf der Vorlage. */
@@ -187,17 +173,11 @@
 }
 
 /* Kopfzeile der Karte: Ziffer links, Sinnbild rechts */
-.vt__kopfzeile {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.7rem;
-}
 .vt__ziffer {
   display: block;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.9rem, 2.7vw, 2.85rem);
+  font-size: clamp(1.55rem, 2.05vw, 2.15rem);
   line-height: 1;
   /* Nicht --gold: als Schrift haelt nur --gold-text die 4,5:1 auf Weiss. */
   color: var(--gold-text);
@@ -215,7 +195,7 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: clamp(50px, 5.4vw, 78px);
+  width: clamp(44px, 4.1vw, 58px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--vt-navy);
@@ -224,17 +204,17 @@
 .vt__sinnbild svg { width: 52%; height: 52%; }
 
 .vt__titel {
-  margin: clamp(0.95rem, 2vh, 1.5rem) 0 0;
+  margin: clamp(0.6rem, 1.2vh, 0.95rem) 0 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.18rem, 1.5vw, 1.55rem);
+  font-size: clamp(1.1rem, 1.32vw, 1.35rem);
   line-height: 1.2;
   color: var(--navy-800);
 }
 .vt__text {
-  margin-top: clamp(0.45rem, 1.1vh, 0.8rem);
-  font-size: clamp(0.9rem, 0.97vw, 1rem);
-  line-height: 1.6;
+  margin-top: clamp(0.35rem, 0.8vh, 0.6rem);
+  font-size: clamp(0.9rem, 0.95vw, 0.97rem);
+  line-height: 1.55;
   color: var(--ink-soft);
 }
 
@@ -510,7 +490,6 @@
 
 @media (max-width: 700px) {
   .vt__fluss { grid-template-columns: minmax(0, 1fr); }
-  .vt__h2 { font-size: clamp(1.65rem, 7vw, 2.2rem); }
   .vt__fuss { flex-direction: column; align-items: flex-start; }
   .vt__cta { width: 100%; justify-content: center; }
   .offen__kopf { grid-template-columns: minmax(0, 1fr) auto; }

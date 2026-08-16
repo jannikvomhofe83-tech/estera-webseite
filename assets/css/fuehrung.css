@@ -12,29 +12,66 @@
    füllt, wäre bequemer zu setzen, zerstört aber genau die Gegenüberstellung,
    die den Abschnitt ausmacht. Der Kunde hat das bereits dreimal beanstandet.
 
-   KEIN BILDFENSTER (Kundenwunsch nach dem Screenshot von baulig.de):
-   Die Personen stehen frei auf dem weißen Papier — kein Rahmen, keine Kante,
-   kein Eckenradius, kein Schatten, keine Fläche hinter der Figur. Möglich ist
-   das, weil beide Aufnahmen freigestellt wurden: der dunkle Studiohintergrund
-   ist entfernt, die Dateien tragen einen Alphakanal
-   (assets/img/gf-*-frei.png, erzeugt mit dem Vision-Framework von macOS).
-   Nach unten läuft die Figur über eine Maske weich aus, damit der Anschnitt
-   des Rumpfs nicht als abgeschnittene Kante liest, sondern in die Fläche
-   übergeht.
+   DAS BILD FÜLLT SEINEN BEREICH GANZ AUS (Kundenwunsch vom 16.08.):
+   Person 1 den kompletten rechten oberen Bereich, Person 2 gespiegelt den
+   linken unteren — jeweils bis an die Fensterkante und über die volle Höhe
+   der Rasterzeile. Deshalb läuft das Raster über die volle Breite und der
+   frühere zentrierte Container steckt nur noch in der Randspalte --gf-rand.
+
+   KEIN FREISTELLER. Der Studiohintergrund der Aufnahmen BLEIBT; er ist in
+   den Dateien sogar über den Rand der Aufnahme hinaus fortgesetzt, damit
+   die Fläche bis an die Kante Bildmaterial hat (gf-flaeche.py). Der
+   Übergang liegt INNERHALB des Bildes und ist zweiteilig:
+
+     1  AUSBLENDEN — vier Verläufe als Maske, mit mask-composite: intersect
+        verrechnet, damit jede Kante ihre eigene Länge bekommt. ABSICHTLICH
+        KURZ: 4 % an drei Kanten, 10 % zur Textseite. Länger gemacht wirkte
+        die Bildhälfte nicht mehr gefüllt, sondern von einem weißen Rand
+        umgeben — genau die Beanstandung des Kunden. Die Blende soll die Kante auflösen, nicht
+        das Bild auffressen — mit 30 % blieb vom Foto nur noch ein
+        weichgezeichnetes Rechteck in der Mitte übrig, und der Kunde will die
+        Fläche vom Bild bedeckt sehen. Nachgemessen wird das über die
+        Deckkraft entlang der beiden Mittellinien (mindestens 80 %).
+     2  AUFHELLEN — dieselben vier Richtungen noch einmal im Papierweiß über
+        dem Bild. Nötig, weil beide Aufnahmen einen DUNKLEN Hintergrund
+        haben: blendet man ihn nur aus, bleibt bis kurz vor Schluss ein
+        dunkler Fleck stehen, der ins Weiß ausfranst.
+
+   Dazu kommt eine dritte Stufe, die schon in der Datei steckt: der
+   Hintergrund ist dort nach außen bis zu 45 % nach Weiß gezogen, und zwar
+   nur in einem schmalen Streifen entlang derselben vier Kanten. Ohne sie
+   müsste die kurze Blende den Sprung von ganz dunkel auf Weiß allein
+   schaffen; mit ihr bleibt der Übergang weich, ohne breit zu werden.
+
+   Zusammen ergibt das an jeder der vier Kanten reines Papierweiß, ohne
+   sichtbare Bildkante, ohne Halo und ohne grauen Rahmen.
+
+   KEIN ANGESCHNITTENER KOPF: object-fit ist cover, verankert wird oben
+   (object-position … 0 %), und in den Dateien sitzt der Haaransatz erst ab
+   Zeile 60 — die obere Blende reicht je nach Fenstergröße nur bis Zeile 35
+   bis 40, schneidet ihn also nicht an. Das
+   Dateiformat (2.10) ist flacher als jede vorkommende Zelle (2.24 bis
+   2.51), damit cover immer über die Breite skaliert und ausschließlich
+   unten beschneidet, wo der Rumpf ohnehin ausblendet.
 
    GLEICHE GRÖSSE BEIDER FIGUREN ist bauartbedingt, nicht nachgemessen:
-   Beim Freistellen wurden die von Vision gemessenen Gesichtsrahmen beider
-   Aufnahmen auf dasselbe Maß gebracht und die Gesichtsmitte auf denselben
-   Punkt EINER GEMEINSAMEN LEINWAND (616 × 686 px) gelegt. Beide Dateien sind
-   deshalb gleich groß, gleich skaliert und gleich verankert; im Stylesheet
-   genügt für beide dieselbe Kastengröße.
+   Beide Aufnahmen wurden auf dasselbe Kopfmaß gebracht — geometrisches
+   Mittel aus Gesichtsrahmen und Kopfhöhe (Haaransatz bis Kinn), weil der
+   Gesichtsrahmen allein den lockigen Kopf zu groß und die Kopfhöhe allein
+   das Gesicht zu klein macht — und ihre Augenlinie auf dieselbe Zeile EINER
+   GEMEINSAMEN LEINWAND (1428 × 680 px) gelegt. Beide Dateien sind deshalb
+   gleich groß, gleich skaliert und gleich verankert; sie unterscheiden sich
+   nur darin, an welcher Seite die Person steht.
    =========================================================================== */
 
 .fuehr {
   position: relative;
   z-index: 1;
   background: var(--paper);
-  padding: clamp(1.4rem, 3vh, 3rem) 0;
+  /* KEIN Polster. Das Foto beginnt an der Oberkante des Abschnitts und endet
+     an dessen Unterkante — Kundenwunsch: „Das soll komplett bedeckt sein mit
+     dem Bild." Der Text bringt seinen Abstand selbst mit. */
+  padding: 0;
 
   /* -----------------------------------------------------------------------
      DIE STELLSCHRAUBEN DES ABSCHNITTS
@@ -42,61 +79,107 @@
      Personen gleichzeitig.
      ----------------------------------------------------------------------- */
 
-  /* Figurenhöhe. In vh, weil die Nebenbedingung die Fensterhöhe ist: zwei
-     Blöcke plus Abstände müssen zusammen unter die freie Fensterhöhe passen.
-     Obergrenze 380px, sonst laufen große Bildschirme aus dem Ruder. */
-  --gf-hoehe: clamp(230px, 38vh, 380px);
+  /* HÖHE EINER BLOCKZEILE = Höhe des Bildbereichs.
 
-  /* ▶ SEITENVERHÄLTNIS DER FIGUR (Breite ÷ Höhe) — HIER ANPASSEN.
-     Der Wert ist das Seitenverhältnis der beiden freigestellten Dateien:
-     616 ÷ 609 = 1.011. Beide Dateien haben dieselbe Leinwand, es gibt also
-     nur diesen einen Wert. Werden die beiden PNG jemals neu freigestellt,
-     muss hier das Verhältnis der neuen Dateien stehen — sonst staucht
-     object-fit die Figur zwar nicht, es entsteht aber seitlich Luft und die
-     Figur steht nicht mehr bündig in der Spalte. */
-  --gf-format: 1.011;
+     AUSGERECHNET, NICHT GESCHÄTZT. Abschnitt und Zeilen haben keinen
+     Zwischenraum und kein Polster mehr, also gilt schlicht
+         2 · Zeile  ≤  Fensterhöhe − Kopfzeile − 20
+         Zeile = 50vh − (Kopfzeile + 20) / 2
+     Die Kopfzeile misst 88 bis 104 px; eingesetzt wird der ungünstigste Wert
+     104, daher −62px. Ergebnis: genau 20 px Reserve bei 1920×1080 und
+     1512×900, mehr dort, wo die Kopfzeile schmaler ausfällt.
 
-  /* Abgeleitet: die Kastenbreite der Figur. Ein fester Wert, keine
-     Bruchteilspalte — nur so sind beide Figuren garantiert auf 0 px
-     identisch groß. */
-  --gf-breite: calc(var(--gf-hoehe) * var(--gf-format));
+     WER DIESE ZEILE ÄNDERT, MUSS NACHMESSEN. Die Bedingung „beide
+     Geschäftsführer gemeinsam im Fenster" hat der Kunde sechsmal
+     eingefordert; die 20 px sind der letzte Puffer. */
+  --gf-hoehe: clamp(200px, calc(50vh - 62px), 520px);
 
-  /* ▶ AUSLAUF NACH UNTEN. Ab dieser Höhe der Figur beginnt der Übergang ins
-     Weiße; darunter wird sie bis 100 % vollständig durchsichtig. Kleinerer
-     Wert = längerer, weicherer Auslauf. */
-  --gf-auslauf: 70%;
+  /* Anteil der Abschnittsbreite, den die Bildhälfte bekommt. 58 statt 50 —
+     der Kunde will die Fläche gefüllt sehen, der Text kommt mit 42 % aus. */
+  --gf-bildanteil: 58%;
+
+  /* Seitenverhältnis der beiden Dateien (1344 ÷ 640 = 2.10). Wird nur noch
+     für die gestapelte Darstellung unter 860 px gebraucht; am Schreibtisch
+     füllt das Bild seine Zelle über object-fit: cover. Das Dateiformat ist
+     bewusst FLACHER als jede vorkommende Zelle (2.24 bis 2.51), damit cover
+     immer über die Breite skaliert und ausschließlich unten beschneidet —
+     seitlich fiele sonst der Hintergrund weg, oben der Kopf. */
+  --gf-format: 2.1;
 
   /* Lesbares Zeilenmaß der Textspalte. */
   --gf-textbreite: 32rem;
+
+  /* Linker bzw. rechter Rand der Textspalte. Entspricht genau dem, was der
+     frühere zentrierte Container mit max-width 1300px und Gutter ergab —
+     der Text steht also unverändert, obwohl das Raster jetzt über die volle
+     Breite läuft. Nur so kann der Bildbereich bis an die Fensterkante. */
+  --gf-rand: max(var(--gutter), calc((100% - 1300px) / 2 + var(--gutter)));
+
+  /* ▶ AUSBLENDSTRECKEN des Bildbereichs, in Prozent der jeweiligen Kante.
+     Zur Textseite hin lang, damit Bild und Text nicht aneinanderstoßen; zu
+     den übrigen Kanten kürzer, damit möglichst viel Figur stehen bleibt.
+     Nach oben absichtlich knapp: was dort ausblendet, geht direkt von der
+     Höhe der Figur ab. */
+  --gf-blende-text:   10%;   /* zur Textseite (Person 1 links, Person 2 rechts) */
+  --gf-blende-aussen:  4%;
+  --gf-blende-oben:    4%;
+  --gf-blende-unten:   4%;
 }
 
 .fuehr__inner {
-  /* Weit genug, dass Figur und lesbare Textspalte nebeneinander Platz haben,
-     ohne dass eines von beiden gequetscht wird. */
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+  /* Volle Breite, kein eigener Rand: der Bildbereich muss bis an die
+     Fensterkante reichen. Die frühere Zentrierung steckt jetzt in der
+     Randspalte --gf-rand des Rasters. */
+  max-width: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  gap: clamp(1.1rem, 2.8vh, 2.4rem);
+  /* Kein Zwischenraum: in der Bildspalte stoßen die beiden Zeilen direkt
+     aneinander, es bleibt kein weißer Streifen zwischen den Fotos. */
+  gap: 0;
 }
 
 /* --- Ein Block je Person -------------------------------------------------- */
+/* Drei Spalten: Rand, Text, Bild. Die Bildspalte ist 1fr und reicht damit bis
+   an die Fensterkante; sie hat keinen Abstand zum Text, weil der Übergang
+   INNERHALB des Bildes liegt (lange Blende zur Textseite). */
 .fuehr__block {
+  /* position: relative macht den Block zum Bezug für die absolut gesetzte
+     Figur — die wird dadurch an ihrer RASTERZELLE ausgerichtet und trägt
+     nichts mehr zur Zeilenhöhe bei. */
+  position: relative;
   display: grid;
-  /* Figurenspalte mit fester Breite, Textspalte gedeckelt. Der Rest der Zeile
-     wird über space-between als Luft zwischen beide gelegt — das ist der
-     großzügige, ruhige Raum, den die Referenz ausmacht. */
-  grid-template-columns: minmax(0, var(--gf-textbreite)) var(--gf-breite);
-  justify-content: space-between;
-  gap: clamp(1.6rem, 4vw, 3.4rem);
+  grid-template-columns: calc(100% - var(--gf-bildanteil)) var(--gf-bildanteil);
   align-items: center;
+  /* DIE HÖHE MACHT DER TEXT. Das ist die harte Bedingung des Kunden: beide
+     Geschäftsführer müssen gemeinsam ins Fenster passen. Ein Bild, das die
+     Zeile aufzieht, bricht sie sofort. --gf-hoehe ist nur ein Mindestmaß für
+     den Fall, dass der Text einmal sehr kurz wird. */
+  min-height: var(--gf-hoehe);
 }
+.fuehr__text  {
+  grid-column: 1; grid-row: 1;
+  /* Der linke Rand des Textes steht dort, wo er in allen anderen Abschnitten
+     steht (zentrierter Satzspiegel 1300px plus Gutter). Rechts etwas Luft,
+     damit der Text nicht an der Bildkante klebt. */
+  padding-inline: var(--gf-rand) clamp(1rem, 2vw, 2.2rem);
+}
+/* Beide Rasterlinien ausschreiben. Bei einem absolut gesetzten Rasterkind
+   bedeutet eine fehlende Endlinie NICHT „eine Spalte weiter", sondern die
+   Innenkante des Rasters — die Figur liefe sonst über die volle Breite. */
+.fuehr__figur { grid-column: 2 / 3; grid-row: 1 / 2; }
+
 /* Person 2 spiegelverkehrt. Über die Rasterspalten statt über die
    Reihenfolge im Markup — so bleibt die Lesereihenfolge für Screenreader
    und Tastatur unverändert Name, Text, Zitat, Bild. */
-.fuehr__block--gedreht { grid-template-columns: var(--gf-breite) minmax(0, var(--gf-textbreite)); }
-.fuehr__block--gedreht .fuehr__text  { grid-column: 2; grid-row: 1; }
-.fuehr__block--gedreht .fuehr__figur { grid-column: 1; grid-row: 1; }
+.fuehr__block--gedreht {
+  grid-template-columns: var(--gf-bildanteil) calc(100% - var(--gf-bildanteil));
+}
+.fuehr__block--gedreht .fuehr__text  {
+  grid-column: 2; grid-row: 1;
+  padding-inline: clamp(1rem, 2vw, 2.2rem) var(--gf-rand);
+}
+.fuehr__block--gedreht .fuehr__figur { grid-column: 1 / 2; grid-row: 1 / 2; }
 
 /* --- Der Text ------------------------------------------------------------- */
 .fuehr__name {
@@ -128,39 +211,135 @@
 .fuehr__text .fuehr__rolle { color: var(--ink-black); }
 
 /* ---------------------------------------------------------------------------
-   DIE FREIGESTELLTE FIGUR
+   DIE FIGUR MIT AUSLAUFENDEM HINTERGRUND
 
    Bewusst KEINE Eigenschaft, die eine Bildkante erzeugen könnte: kein
    background, kein border, kein border-radius, kein box-shadow, kein
-   overflow: hidden. Der Kasten ist reiner Platzhalter für die Figur; sichtbar
-   ist nur, was im PNG undurchsichtig ist.
+   overflow: hidden — und auch keine Maske mehr, der Übergang steckt in der
+   Datei. Der Kasten ist reiner Platzhalter; sichtbar ist nur, was im PNG
+   undurchsichtig ist, und dessen äußerste Zeile und Spalte sind Alpha 0.
 --------------------------------------------------------------------------- */
 .fuehr__figur {
-  height: var(--gf-hoehe);
-  width: var(--gf-breite);
+  /* Voreinstellung Person 1: Text links, Außenkante rechts. */
+  --gf-bl-links:  var(--gf-blende-text);
+  --gf-bl-rechts: var(--gf-blende-aussen);
+  /* Füllt die Rasterzelle ganz aus: volle Zeilenhöhe, bis an die Fensterkante.
+     ABSOLUT gesetzt, und zwar mit voller Absicht: ein Bild im Fluss bestimmt
+     über sein Seitenverhältnis die Zeilenhöhe mit und zieht den Abschnitt so
+     weit auf, dass beide Personen nicht mehr gemeinsam ins Fenster passen.
+     Genau das ist einmal passiert und wurde beanstandet. Absolut gesetzt
+     füllt die Figur die Zelle, kann sie aber niemals vergrößern. */
+  position: absolute;
+  inset: 0;
   margin: 0;
 }
 .fuehr__figur img {
   display: block;
   width: 100%;
   height: 100%;
-  /* contain statt cover: Die Figur darf unter keinen Umständen beschnitten
-     werden — der Anschnitt sitzt bereits in der Datei und ist dort auf beide
-     Personen gleich gelegt. Da Kastenformat und Dateiformat übereinstimmen
-     (--gf-format), entsteht dabei kein Leerrand. */
-  object-fit: contain;
-  /* Unten bündig verankert: sollte durch Rundung doch ein Bruchteil Luft
-     bleiben, liegt sie oben im ohnehin durchsichtigen Bereich und nicht
-     unten, wo der Auslauf sitzt. */
-  object-position: 50% 100%;
+  /* cover, weil der Bereich viel breiter als hoch ist. Oben bündig verankert
+     (object-position … 0%), damit Kopf und Haare unter allen Fensterhöhen
+     vollständig stehen bleiben — beschnitten wird ausschließlich unten, wo
+     der Rumpf ohnehin ausblendet. Waagerecht ist die Figur zur AUSSENKANTE
+     hin verankert, damit sie bei sehr schmalen Zellen nicht angeschnitten
+     wird; da das Dateiformat flacher ist als jede Zelle, tritt das am
+     Schreibtisch gar nicht erst ein. */
+  object-fit: cover;
+  object-position: 100% 0%;
 
-  /* Weicher Auslauf nach unten: die Figur verfließt mit dem weißen Papier,
-     statt an einer waagerechten Kante zu enden. Ohne diese Maske läse der
-     Anschnitt des Rumpfes wie ein abgeschnittenes Foto — genau das, was
-     wegfallen sollte. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 var(--gf-auslauf), transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 var(--gf-auslauf), transparent 100%);
+  /* ---------------------------------------------------------------------
+     DER ÜBERGANG, TEIL 1: AUSBLENDEN.
+     Vier Verläufe, mit mask-composite: intersect miteinander verrechnet —
+     jede Kante bekommt so ihre eigene Länge. Die Zwischenstufen bilden eine
+     S-Kurve nach; eine geradlinige Blende setzt an ihrem Ende eine sichtbare
+     Kante ab (Machsche Streifen), eine S-Kurve nicht.
+     --------------------------------------------------------------------- */
+  -webkit-mask-image:
+    linear-gradient(to right, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-bl-links) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-bl-links) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-bl-links) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-bl-links) * .72), #000 var(--gf-bl-links)),
+    linear-gradient(to left, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-bl-rechts) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-bl-rechts) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-bl-rechts) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-bl-rechts) * .72), #000 var(--gf-bl-rechts)),
+    linear-gradient(to bottom, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-blende-oben) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-blende-oben) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-blende-oben) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-blende-oben) * .72), #000 var(--gf-blende-oben)),
+    linear-gradient(to top, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-blende-unten) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-blende-unten) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-blende-unten) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-blende-unten) * .72), #000 var(--gf-blende-unten));
+  mask-image:
+    linear-gradient(to right, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-bl-links) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-bl-links) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-bl-links) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-bl-links) * .72), #000 var(--gf-bl-links)),
+    linear-gradient(to left, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-bl-rechts) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-bl-rechts) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-bl-rechts) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-bl-rechts) * .72), #000 var(--gf-bl-rechts)),
+    linear-gradient(to bottom, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-blende-oben) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-blende-oben) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-blende-oben) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-blende-oben) * .72), #000 var(--gf-blende-oben)),
+    linear-gradient(to top, rgb(0 0 0 / 0) 0%,
+      rgb(0 0 0 / .05) calc(var(--gf-blende-unten) * .22),
+      rgb(0 0 0 / .35) calc(var(--gf-blende-unten) * .45),
+      rgb(0 0 0 / .78) calc(var(--gf-blende-unten) * .58),
+      rgb(0 0 0 / .95) calc(var(--gf-blende-unten) * .72), #000 var(--gf-blende-unten));
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
 }
+
+/* ---------------------------------------------------------------------------
+   DER ÜBERGANG, TEIL 2: AUFHELLEN.
+   Beide Aufnahmen haben einen dunklen Studiohintergrund. Blendet man ihn nur
+   aus, bleibt bis kurz vor Schluss ein dunkler Fleck stehen, der ins Weiß
+   ausfranst. Deshalb liegt über dem Bild eine zweite Lage aus denselben vier
+   Richtungen, diesmal im Papierweiß: die Randzone wird aufgehellt UND
+   ausgeblendet. Das Aufhellen setzt später ein als das Ausblenden (Beginn
+   erst bei 62 % der Blende), sonst wäre der Übergang doppelt so kurz.
+   Die Lage ist ein Pseudoelement ohne eigene Kante — kein Rahmen, kein
+   Radius, kein Schatten.
+--------------------------------------------------------------------------- */
+.fuehr__figur::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--paper) 0%,
+      rgb(255 255 255 / 0) calc(var(--gf-bl-links) * .55)),
+    linear-gradient(to left, var(--paper) 0%,
+      rgb(255 255 255 / 0) calc(var(--gf-bl-rechts) * .55)),
+    linear-gradient(to bottom, var(--paper) 0%,
+      rgb(255 255 255 / 0) calc(var(--gf-blende-oben) * .55)),
+    linear-gradient(to top, var(--paper) 0%,
+      rgb(255 255 255 / 0) calc(var(--gf-blende-unten) * .55));
+}
+
+/* Person 2: Blenden gespiegelt — lang zur Textseite (hier rechts), kurz zur
+   Außenkante (hier links). Gesetzt wird das über die beiden Zwischengrößen
+   --gf-bl-links / --gf-bl-rechts, damit die vier Verläufe nur einmal im
+   Stylesheet stehen. */
+.fuehr__block--gedreht .fuehr__figur {
+  --gf-bl-links:  var(--gf-blende-aussen);
+  --gf-bl-rechts: var(--gf-blende-text);
+}
+.fuehr__block--gedreht .fuehr__figur img { object-position: 0% 0%; }
 
 /* ---------------------------------------------------------------------------
    ZITAT statt Historie (Briefing 03 D)
@@ -201,19 +380,38 @@
 /* --- Responsive ----------------------------------------------------------- */
 @media (max-width: 860px) {
   /* Gestapelt: Figur oben, Text darunter — bei beiden Personen gleich herum,
-     sonst wirkt die Spiegelung wie ein Fehler. Die Figur wird mittig gestellt
-     und in der Breite gedeckelt: über die volle Spaltenbreite gezogen wäre
-     sie auf dem Telefon fast einen halben Bildschirm hoch. */
+     sonst wirkt die Spiegelung wie ein Fehler. Das Bild läuft über die volle
+     Fensterbreite und blendet nach allen Seiten aus; die Textspalte bekommt
+     ihren Rand wieder selbst, weil die Randspalte des Rasters entfällt. */
   .fuehr__block,
-  .fuehr__block--gedreht { grid-template-columns: 1fr; gap: clamp(1.1rem, 3vh, 1.6rem); }
-  .fuehr__block--gedreht .fuehr__text,
-  .fuehr__block--gedreht .fuehr__figur { grid-column: 1; grid-row: auto; }
+  .fuehr__block--gedreht {
+    grid-template-columns: 1fr;
+    gap: clamp(1.1rem, 3vh, 1.6rem);
+    min-height: 0;
+  }
+  .fuehr__text,
+  .fuehr__block--gedreht .fuehr__text { grid-column: 1; grid-row: auto; padding-inline: var(--gutter); }
+  .fuehr__figur,
+  .fuehr__block--gedreht .fuehr__figur {
+    /* ZURÜCK IN DEN FLUSS. Am Schreibtisch ist die Figur absolut gesetzt,
+       damit sie die Zeilenhöhe nicht aufzieht; gestapelt muss sie dagegen
+       Platz einnehmen, sonst liegt sie über dem Text. */
+    position: static;
+    inset: auto;
+    grid-column: 1;
+    grid-row: auto;
+  }
   .fuehr__figur {
-    width: min(100%, 240px);
+    /* Auf dem Telefon steht die Figur mittig im Bild, die Blende ist auf
+       allen vier Seiten gleich lang — es gibt hier keine Textseite. */
+    --gf-bl-links:  10%;
+    --gf-bl-rechts: 10%;
+    width: 100%;
     height: auto;
     aspect-ratio: var(--gf-format);
-    margin-inline: auto;
     order: -1;
   }
-  .fuehr__block--gedreht .fuehr__figur { order: -1; }
+  .fuehr__block--gedreht .fuehr__figur { --gf-bl-links: 10%; --gf-bl-rechts: 10%; }
+  .fuehr__figur img,
+  .fuehr__block--gedreht .fuehr__figur img { object-position: 50% 0%; }
 }

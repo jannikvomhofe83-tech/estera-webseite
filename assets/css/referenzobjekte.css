@@ -1,0 +1,366 @@
+/* ===========================================================================
+   SECTION 6b — REFERENZOBJEKTE NACH OBJEKTART
+   Steht direkt hinter „Viele Bausteine. Ein strukturierter Weg." (#bausteine).
+
+   Zwei Objektarten stehen zur Wahl: WG-Konzept und Bestandswohnungen. Zu
+   jeder Art gehoert genau EINE Referenzwohnung. Der Umschalter ist bewusst
+   in derselben Bauart gehalten wie .verg__schalter im Abschnitt darueber —
+   Pille, gleitender Navy-Schieber, aria-pressed. Es soll sich kein zweites,
+   andersartiges Bedienelement danebenstellen. Der Code ist eigenstaendig,
+   damit beide Abschnitte unabhaengig voneinander geaendert werden koennen.
+
+   INHALT: Ausser den beiden Bezeichnungen liegt NICHTS vor — keine Objekt-
+   daten, keine Lage, keine Groesse, keine Preise, Mieten oder Renditen und
+   kein Bildmaterial. Das Masterbriefing untersagt erfundene Zahlen, Objekte
+   und Versprechen; eine erfundene Referenzwohnung waere gegenueber Kauf-
+   interessenten eine falsche Tatsachenbehauptung. Deshalb steht hier
+   ueberall der sichtbare Vermerk „Platzhalter — …" in der Machart des
+   uebrigen Projekts (.ref__hinweis, .cta__platzhalter, .fuehr__freigabe).
+   =========================================================================== */
+
+.robj {
+  /* 380 ms — innerhalb des geforderten Fensters 320–420 ms, weich. */
+  --robj-wechsel: 0.38s var(--ease-soft);
+  --robj-radius: 20px;                 /* gilt fuer Platzhalter UND spaeteres Video */
+  position: relative;
+  z-index: 1;
+  overflow-x: clip;
+  background: var(--paper);
+  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+.robj__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* --- Kopf ----------------------------------------------------------------- */
+.robj__head {
+  max-width: 940px;
+  margin: 0 auto;
+  text-align: center;
+}
+.robj__h2 {
+  margin-top: clamp(0.7rem, 1.6vh, 1rem);
+  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
+  line-height: 1.12;
+}
+.robj__lead {
+  margin: clamp(1.2rem, 2.6vh, 1.9rem) auto 0;
+  max-width: 46rem;
+  font-size: clamp(1.02rem, 1.24vw, 1.24rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* Der Freigabevermerk. Goldschrift wie .cta__platzhalter und
+   .fuehr__freigabe — 4,82:1 auf Weiss, also ueber der AA-Schwelle.
+   Bewusst NUR auf weissem Grund, nie auf der getoenten Videoflaeche. */
+.robj__freigabe {
+  margin: clamp(0.9rem, 2vh, 1.3rem) auto 0;
+  max-width: 46rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--gold-text);
+}
+
+/* --- Der Umschalter ------------------------------------------------------- */
+/* Bauart wie .verg__schalter: zwei Schaltflaechen in einer Fassung, dahinter
+   ein wandernder Schieber. Der Schieber liegt als eigenes Element hinter den
+   Beschriftungen und wird per transform bewegt — dadurch laeuft er weich,
+   ohne dass sich das Raster verschiebt. */
+.robj__schalter {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  margin: clamp(1.8rem, 4.4vh, 2.8rem) auto 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  padding: 5px;
+  border: 1px solid var(--line-gold);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03);
+}
+.robj__schieber {
+  position: absolute;
+  z-index: 0;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc(50% - 5px);
+  border-radius: 999px;
+  background: var(--navy-800);
+  transition: transform 0.42s var(--ease-soft);
+}
+.robj[data-art='bestand'] .robj__schieber { transform: translateX(100%); }
+
+.robj__knopf {
+  position: relative;
+  z-index: 1;
+  padding: clamp(0.7rem, 1.6vh, 0.95rem) clamp(1.2rem, 2.6vw, 2.2rem);
+  border: 0;
+  background: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: clamp(0.78rem, 0.88vw, 0.9rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-mute);
+  transition: color var(--robj-wechsel);
+}
+.robj__knopf[aria-pressed='true'] { color: #fff; }
+.robj__knopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
+
+/* --- Buehne: beide Fassungen liegen uebereinander ------------------------- */
+/* Beide Fassungen sitzen in DERSELBEN Rasterzelle. Dadurch ist die Buehne
+   immer so hoch wie die hoehere von beiden — beim Umschalten springt die
+   Hoehe um 0 px. Die inaktive Fassung bleibt im Fluss (sie traegt die Hoehe
+   mit), wird aber ueber visibility aus Vorlesereihenfolge und Tabreihenfolge
+   genommen. */
+.robj__buehne {
+  display: grid;
+  margin-top: clamp(2.2rem, 5vh, 3.4rem);
+}
+.robj__fassung {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 3vw, 3rem);
+  align-items: start;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--robj-wechsel), visibility 0s linear 0.38s;
+}
+.robj[data-art='wg'] .robj__fassung--wg,
+.robj[data-art='bestand'] .robj__fassung--bestand {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity var(--robj-wechsel), visibility 0s linear 0s;
+}
+
+/* --- Der Videoplatz ------------------------------------------------------- */
+/* SPAETERER TAUSCH: Hier steht bis zur Lieferung nur ein Platzhalter —
+   ein Beispielbild mit Abspielsymbol und sichtbarem Hinweis. Wenn das Video
+   der Musterwohnung vorliegt, wird INNERHALB von .robj__video allein das
+   <div class="robj__platzhalter"> gegen
+
+       <video class="robj__film" controls preload="metadata" poster="…">
+         <source src="…" type="video/mp4">
+       </video>
+
+   getauscht. Rahmenmasse, Seitenverhaeltnis (16:9), Eckenradius, Rand und
+   Schatten haengen an .robj__video und bleiben dabei unveraendert — es ist
+   also KEINE Anpassung des Layouts noetig. .robj__film unten deckt den
+   Fall bereits ab. Mit dem Tausch verschwindet auch der Hinweis, weil er
+   im Platzhalter steckt und nicht daneben.
+
+   BILDNACHWEIS — beide Beispielbilder sind gemeinfrei (CC0) und stammen
+   aus Wikimedia Commons (Spiegelung der frueheren CC0-Bestaende von
+   Unsplash). CC0 erlaubt jede Nutzung, auch kommerziell, ohne
+   Namensnennung; die Urheber sind der Vollstaendigkeit halber genannt.
+
+   assets/img/referenz/wg-konzept-beispiel.jpg
+     Urheber : Justin Schüler (Unsplash: blacktakeover)
+     Lizenz  : CC0 1.0 (Public Domain Dedication)
+     Quelle  : https://commons.wikimedia.org/wiki/File:Budapest_Apartment_(Unsplash).jpg
+     Original: https://unsplash.com/photos/dAAk8Aqd_-I
+     Bearbeitung: mittig auf 16:9 beschnitten, auf 1600 × 900 verkleinert.
+
+   assets/img/referenz/bestandswohnung-beispiel.jpg
+     Urheber : Naomi Hébert (Unsplash: naomish)
+     Lizenz  : CC0 1.0 (Public Domain Dedication)
+     Quelle  : https://commons.wikimedia.org/wiki/File:At_Home_(Unsplash).jpg
+     Original: https://unsplash.com/photos/2dcYhvbHV-M
+     Bearbeitung: mittig auf 16:9 beschnitten, auf 1600 × 900 verkleinert.
+
+   Beide Bilder zeigen NICHT Objekte von Estera. Sie stehen nur da, damit
+   die Wirkung des spaeteren Videos beurteilt werden kann, und sind im
+   Bild selbst als Beispielbild gekennzeichnet. */
+.robj__video {
+  position: relative;
+  aspect-ratio: 16 / 9;          /* verbindliches Seitenverhaeltnis */
+  border: 1px solid var(--line-soft);
+  border-radius: var(--robj-radius);
+  overflow: hidden;
+  background: linear-gradient(180deg, #F6F8FB 0%, #EEF2F7 100%);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
+              0 24px 48px -34px rgba(16, 41, 73, 0.34);
+}
+
+/* Das spaetere Video fuellt denselben Rahmen vollstaendig aus. */
+.robj__film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Der Platzhalter: Beispielbild als Untergrund, Abspielsymbol mittig,
+   darunter das Kennzeichnungsband. Alles drei liegt IN diesem einen
+   Element — beim Tausch gegen <video> geht es zusammen fort. */
+.robj__platzhalter {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+.robj__bild {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Feiner Schleier ueber dem Foto — nur so weit, dass die weisse Kontur des
+   Abspielsymbols auf jedem Bildinhalt sicher steht. */
+.robj__platzhalter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 41, 73, 0.16) 0%, rgba(16, 41, 73, 0.34) 100%);
+}
+
+/* Abspielsymbol als feine Kontur — kein gefuelltes Bedienelement, damit es
+   nicht wie ein anklickbarer Knopf wirkt. */
+.robj__play {
+  position: relative;
+  place-self: center;
+  display: grid;
+  place-items: center;
+  width: clamp(2.9rem, 5vw, 4.4rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  color: #fff;
+  box-shadow: 0 2px 18px rgba(10, 25, 46, 0.28);
+}
+.robj__play svg {
+  width: 34%;
+  height: auto;
+  margin-left: 8%;               /* Dreieck optisch mittig im Kreis */
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Kennzeichnungsband am unteren Rand des Rahmens. Deckende Papierflaeche —
+   damit steht der Hinweis unabhaengig vom Bildinhalt auf sicherem Kontrast
+   (ink-soft auf Weiss = 6,54:1) und ist zugleich als Fremdkoerper im Bild
+   erkennbar. Genau das ist gewollt: ein fremdes Wohnungsfoto darf nicht
+   unbemerkt als Referenzwohnung von Estera durchgehen. */
+.robj__platztext {
+  position: relative;
+  margin: 0;
+  padding: clamp(0.55rem, 1.4vh, 0.85rem) clamp(0.8rem, 2vw, 1.4rem);
+  border-top: 1px solid var(--line-soft);
+  background: var(--paper);
+  text-align: center;
+  font-size: clamp(0.78rem, 0.88vw, 0.88rem);
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* --- Die Angaben zur Referenzwohnung -------------------------------------- */
+.robj__daten {
+  display: grid;
+  align-content: start;
+  gap: clamp(0.9rem, 2vh, 1.3rem);
+  padding-top: clamp(0.2rem, 1vh, 0.6rem);
+}
+.robj__art {
+  color: var(--gold-text);       /* 4,82:1 auf Weiss */
+}
+.robj__h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1.18;
+  color: var(--ink-black);
+}
+.robj__liste {
+  display: grid;
+  gap: clamp(0.75rem, 1.7vh, 1.05rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.robj__zeile {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: clamp(0.7rem, 1.5vh, 1rem);
+  border-top: 1px solid var(--line-soft);
+}
+.robj__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-indent: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-mute);        /* 5,20:1 auf Weiss */
+}
+.robj__wert {
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* Fussnote unter den Angaben — der ehrliche Hinweis, dass hier bewusst
+   keine Zahlen stehen. */
+.robj__fuss {
+  margin-top: clamp(0.3rem, 1vh, 0.6rem);
+  padding-left: clamp(0.8rem, 1.4vw, 1.2rem);
+  border-left: 1px solid var(--line-gold);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--gold-text);
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 940px) {
+  /* Unter 940 px steht der Videoplatz ueber den Angaben. */
+  .robj__fassung {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vh, 1.9rem);
+  }
+}
+
+@media (max-width: 680px) {
+  .robj__schalter { width: 100%; }
+  .robj__knopf {
+    padding-inline: 0.7rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-indent: 0.08em;
+  }
+  .robj__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+  .robj__platztext { font-size: 0.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robj__schieber,
+  .robj__knopf,
+  .robj__fassung {
+    transition: none;
+  }
+  .robj__schieber { transition: none; }
+}

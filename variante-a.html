@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="assets/css/auswahl.css">
 <link rel="stylesheet" href="assets/css/prinzip.css">
 <link rel="stylesheet" href="assets/css/vergleich.css">
+<link rel="stylesheet" href="assets/css/referenzobjekte.css">
 <link rel="stylesheet" href="assets/css/spiel.css">
 <link rel="stylesheet" href="assets/css/schluss.css">
 <link rel="stylesheet" href="assets/css/loop.css">
@@ -41,6 +42,7 @@
       <li><a href="#fuehrung">Geschäftsführung</a></li>
       <li><a href="#vorteile">Vorteile</a></li>
       <li><a href="#bausteine">Bausteine</a></li>
+      <li><a href="#referenzobjekte">Referenzobjekte</a></li>
     </ul>
   </nav>
 
@@ -551,10 +553,14 @@
     </div>
 
 
-    <!-- Vom Masterbriefing S.14 ausdruecklich verlangt: ohne diesen Vorbehalt
-         liest sich die Aufzaehlung als pauschales Pruef- und
-         Haftungsversprechen. -->
-    <p class="wahl__hinweis" data-reveal>Hinweis für die Abstimmung: Der genaue Leistungsumfang wird vor der Veröffentlichung von Estera bestätigt — insbesondere, welche Unterlagen Estera selbst prüft, welche lediglich aufbereitet werden und wann rechtliche, steuerliche oder technische Fachpartner hinzukommen. Diese Darstellung ist eine Arbeitsgrundlage und kein Prüf- oder Haftungsversprechen.</p>
+    <!-- HIER STAND DER VORBEHALT ZUM LEISTUNGSUMFANG.
+         Auf ausdruecklichen Kundenwunsch vom 16.08. entfernt. Er stammt aus
+         dem Masterbriefing S.14 und ist dort ausdruecklich verlangt; vor
+         einer Veroeffentlichung ist er deshalb noch einmal mit Estera zu
+         besprechen. Wortlaut und Machart stehen in der Versionsgeschichte:
+         eingefuehrt mit 74689d9 („Vier Sections nach den Kundenvorlagen neu
+         gebaut"), entfernt im Feinschliff-Commit vom 16.08. An seine Stelle
+         kommt nichts Neues. -->
 
   </div>
 </section>
@@ -572,8 +578,10 @@
      vorhandene Schaltflaechenbeschriftung.
      ===================================================================== -->
 <section class="cta" id="cta" aria-label="Erstgespräch">
+  <!-- Die Platzhalterzeile zum CTA-Text ist auf Kundenwunsch entfernt.
+       Bis ein Wortlaut geliefert wird, steht hier allein die Schaltflaeche,
+       mittig zwischen den beiden Haarlinien. -->
   <div class="cta__inner" data-reveal>
-    <p class="cta__platzhalter">Platzhalter — der Text des Call-to-Action wird geliefert.</p>
     <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
   </div>
 </section>
@@ -618,11 +626,16 @@
         </blockquote>
         <p class="fuehr__freigabe">Vorschlag — der Wortlaut ist noch nicht gesprochen und muss von Estera freigegeben werden.</p>
       </div>
-      <!-- Freigestellte Aufnahme mit Alphakanal: kein Bildfenster, die Person
-           steht frei auf dem weissen Papier (siehe assets/css/fuehrung.css) -->
+      <!-- KEIN Freisteller. Der Studiohintergrund der Aufnahme bleibt erhalten
+           und ist ueber den Rand der Aufnahme hinaus fortgesetzt, damit das
+           Bild den ganzen rechten oberen Bereich ausfuellt. Die Blende sitzt
+           im Stylesheet, nicht in der Datei: der Bildbereich wird je nach
+           Fenstergroesse anders beschnitten, eine eingebackene Blende wuerde
+           dabei mitwandern. Erzeugt mit gf-flaeche.py, Erlaeuterung in
+           assets/css/fuehrung.css. -->
       <figure class="fuehr__figur">
-        <img src="assets/img/gf-meilbeck-frei.png" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
-             width="616" height="609" loading="lazy" decoding="async">
+        <img src="assets/img/gf-meilbeck-flaeche.jpg" alt="Sebastian Meilbeck, Geschäftsführer der Estera GmbH"
+             width="1344" height="640" loading="lazy" decoding="async">
       </figure>
     </div>
 
@@ -637,8 +650,8 @@
         <p class="fuehr__freigabe">Vorschlag — der Wortlaut ist noch nicht gesprochen und muss von Estera freigegeben werden.</p>
       </div>
       <figure class="fuehr__figur">
-        <img src="assets/img/gf-orfanidis-frei.png" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
-             width="616" height="609" loading="lazy" decoding="async">
+        <img src="assets/img/gf-orfanidis-flaeche.jpg" alt="Ioannis Orfanidis, Geschäftsführer der Estera GmbH"
+             width="1344" height="640" loading="lazy" decoding="async">
       </figure>
     </div>
 
@@ -659,26 +672,17 @@
      (Link oder Screenshot, Briefing 05). Hier ist bisher nur umbenannt.
      ===================================================================== -->
 <section class="prinzip" id="vorteile">
-  <!-- 1 — Kopfband ueber die volle Fensterbreite. Ueber dem Bild liegt eine
-       Navy-Ueberlagerung: das Bild ist zwar eine Nachtaufnahme, aber die
-       Lesbarkeit darf nicht davon abhaengen, wo Fensterlichter sitzen. -->
-  <div class="vt__band">
-    <img src="assets/img/prinzip-kopf.jpg" alt="" width="2000" height="1333" loading="lazy" decoding="async">
-    <header class="vt__kopf" data-reveal>
-      <h2 class="display vt__h2">Die Vorteile von Kapitalanlagen</h2>
-      <span class="vt__strich" aria-hidden="true"></span>
-      <p class="vt__lead">
-        Finanzierung, Miete, Tilgung und mögliche steuerliche Wirkung greifen
-        ineinander — verständlich erklärt, ohne Rechnung und ohne festes Ergebnis.
-      </p>
-    </header>
-  </div>
+  <!-- Das Kopfband mit Bild, Ueberschrift und Unterzeile ist auf
+       Kundenwunsch entfallen. Der Abschnitt beginnt jetzt unmittelbar mit
+       „So entsteht Vermoegensaufbau" und schliesst damit direkt an den
+       Abschnitt der Geschaeftsfuehrung an. Die Sprungmarke #vorteile bleibt
+       bestehen, damit die Navigation weiter trifft. -->
 
   <div class="vt__inner">
 
     <!-- 2a — Zwischentitel, Unterzeile, Goldstrich (Reihenfolge wie Vorlage) -->
     <header class="vt__zwischen" data-reveal>
-      <h3 class="display vt__h3">So entsteht Vermögensaufbau</h3>
+      <h2 class="display vt__h3">So entsteht Vermögensaufbau</h2>
       <p class="vt__unter">
         Vier Bausteine greifen ineinander. Wie stark, hängt vom Objekt und von
         Ihrer Situation ab.
@@ -835,7 +839,7 @@
       </span>
       <span class="vt__teiler" aria-hidden="true"></span>
       <div class="vt__leiste-text">
-        <h3 class="display vt__leiste-titel">Langfristig gedacht, nicht kurzfristig gerechnet</h3>
+        <h3 class="display vt__leiste-titel">Langfristig gedacht, nicht kurzfristig gerechnet
         <ul class="vt__punkte">
           <li>
             <span class="vt__haken" aria-hidden="true">
@@ -950,7 +954,7 @@
            "Selbst koordinieren"; im Zustand "Mit Estera begleitet" fluchten
            alle Karten auf einer Kante. -->
       <ul class="verg__karten verg__karten--links">
-        <li class="verg__karte" style="--dx:-30px; --dy:-14px">
+        <li class="verg__karte" style="--dx:-54px; --dy:-28px; --dr:-1.6deg; --dw:0px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 21s6.6-5.4 6.6-10.4a6.6 6.6 0 1 0-13.2 0C5.4 15.6 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.5"/></svg>
           </span>
@@ -964,7 +968,7 @@
             <span class="verg__stand verg__stand--estera">Vorausgewählt</span>
           </div>
         </li>
-        <li class="verg__karte" style="--dx:12px; --dy:10px">
+        <li class="verg__karte" style="--dx:26px; --dy:18px; --dr:1.2deg; --dw:30px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6.5 20v-6.5M12 20V7.5M17.5 20v-9"/></svg>
           </span>
@@ -978,7 +982,7 @@
             <span class="verg__stand verg__stand--estera">Eingeordnet</span>
           </div>
         </li>
-        <li class="verg__karte" style="--dx:-16px; --dy:26px">
+        <li class="verg__karte" style="--dx:-36px; --dy:46px; --dr:-0.9deg; --dw:14px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5Z"/><path d="M14 3.5V7.5H18"/><path d="M9 13h6M9 16.5h4"/></svg>
           </span>
@@ -994,81 +998,51 @@
         </li>
       </ul>
 
-      <!-- Das Haus, mittig als Blickfang. Baukoerper und Dach sind EINE
-           Silhouette, in die Tiefe gestapelt; die sechs Oeffnungen sind echte
-           Durchbrueche mit Laibung. Rings herum schweben die losen Bausteine:
-           bei "Selbst koordinieren" fliegen sie nacheinander an drei falsche
-           Stellen, bei "Mit Estera begleitet" rastet jeder sofort in seiner
-           eigenen Oeffnung ein.
-           Rein dekorativ, deshalb aria-hidden. -->
+      <!-- Das Haus, mittig als Blickfang. Haus und lose Bausteine sind aus der
+           Vorlage `Bilder/referenz-bausteine.png` freigestellt und liegen als
+           PNG mit Alphakanal in assets/img/haus/ — dadurch stimmen Ziegel,
+           Laibungen und die weichen Schlagschatten 1:1 mit der Vorlage.
+           Sechs Oeffnungen, sechs lose Teile — fuer jede Oeffnung genau eines.
+           Der Schornstein sitzt bereits fest auf dem Haus und faellt weg.
+           Bei "Selbst koordinieren" versuchen alle gleichzeitig, sich
+           einzufuegen — es klappt nicht, sie weichen zurueck und versuchen es
+           erneut. Bei "Mit Estera begleitet" sitzt jedes sofort sauber in
+           seiner Oeffnung.
+           Rein dekorativ, deshalb aria-hidden und leere alt-Attribute. -->
       <div class="spiel" aria-hidden="true">
-        <div class="spiel__rahmen">
-          <div class="haus">
-            <span class="haus__rueck"></span>
-            <span class="haus__dach"></span>
-            <span class="haus__sockel"></span>
-            <span class="haus__seite">
-              <span class="haus__seitenfenster" style="--sx:-16px; --sy:-46px"></span>
-              <span class="haus__seitenfenster" style="--sx:-16px; --sy:34px"></span>
-              <span class="haus__seitensockel"></span>
-            </span>
-            <span class="haus__lage" style="--z:0px"></span><span class="haus__lage" style="--z:-4px"></span><span class="haus__lage" style="--z:-8px"></span><span class="haus__lage" style="--z:-12px"></span><span class="haus__lage" style="--z:-16px"></span><span class="haus__lage" style="--z:-20px"></span><span class="haus__lage" style="--z:-24px"></span><span class="haus__lage" style="--z:-28px"></span><span class="haus__lage" style="--z:-32px"></span><span class="haus__lage" style="--z:-36px"></span><span class="haus__lage" style="--z:-40px"></span><span class="haus__lage" style="--z:-44px"></span><span class="haus__lage" style="--z:-48px"></span><span class="haus__lage" style="--z:-52px"></span><span class="haus__lage" style="--z:-56px"></span><span class="haus__lage" style="--z:-60px"></span><span class="haus__lage" style="--z:-64px"></span><span class="haus__lage" style="--z:-68px"></span><span class="haus__lage" style="--z:-72px"></span><span class="haus__lage" style="--z:-76px"></span><span class="haus__lage" style="--z:-80px"></span><span class="haus__lage" style="--z:-84px"></span><span class="haus__lage" style="--z:-88px"></span><span class="haus__lage" style="--z:-92px"></span><span class="haus__lage" style="--z:-96px"></span><span class="haus__lage" style="--z:-100px"></span>
-            <!-- Giebeldreieck — Ruheplatz links oben, Karte "Objekt & Lage" -->
-            <span class="haus__halter" style="--i:0; --x:-30px; --y:-106px; --b:56px; --h:48px; --rx:-222px; --ry:-4px; --fx1:-115px; --fy1:-12px; --fx2:-58px; --fy2:-44px; --fx3:-90px; --fy3:-12px">
-              <span class="haus__schatten haus__form--dreieck"></span>
-              <span class="haus__koerper haus__koerper--giebel" style="--ton:var(--ton-1); --kante:var(--kante-1)">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--dreieck" style="--z:0px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:3px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:6px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:9px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:12px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:15px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:18px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:21px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:24px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:27px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:30px"></span><span class="haus__scheibe haus__form--dreieck" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--dreieck" style="--i:0"></span>
-            </span>
-            <!-- Rundfenster — Ruheplatz links mittig, Karte "Wirtschaftlichkeit" -->
-            <span class="haus__halter" style="--i:1; --x:-78px; --y:-10px; --b:54px; --h:54px; --rx:-184px; --ry:15px; --fx1:-62px; --fy1:-30px; --fx2:0px; --fy2:72px; --fx3:-72px; --fy3:-35px">
-              <span class="haus__schatten haus__form--rund"></span>
-              <span class="haus__koerper haus__koerper--rundfenster" style="--ton:var(--ton-2); --kante:var(--kante-2)">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--rund" style="--z:0px"></span><span class="haus__scheibe haus__form--rund" style="--z:3px"></span><span class="haus__scheibe haus__form--rund" style="--z:6px"></span><span class="haus__scheibe haus__form--rund" style="--z:9px"></span><span class="haus__scheibe haus__form--rund" style="--z:12px"></span><span class="haus__scheibe haus__form--rund" style="--z:15px"></span><span class="haus__scheibe haus__form--rund" style="--z:18px"></span><span class="haus__scheibe haus__form--rund" style="--z:21px"></span><span class="haus__scheibe haus__form--rund" style="--z:24px"></span><span class="haus__scheibe haus__form--rund" style="--z:27px"></span><span class="haus__scheibe haus__form--rund" style="--z:30px"></span><span class="haus__scheibe haus__form--rund" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--rund" style="--i:1"></span>
-            </span>
-            <!-- Rechteckiges Sprossenfenster — Ruheplatz rechts mittig, Karte "Finanzierung" -->
-            <span class="haus__halter" style="--i:2; --x:82px; --y:-10px; --b:52px; --h:54px; --rx:180px; --ry:10px; --fx1:58px; --fy1:-30px; --fx2:0px; --fy2:72px; --fx3:68px; --fy3:-35px">
-              <span class="haus__schatten haus__form--quadrat"></span>
-              <span class="haus__koerper haus__koerper--sprossen" style="--ton:var(--ton-3); --kante:var(--kante-3)">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quadrat" style="--z:0px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:3px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:6px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:9px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:12px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:15px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:18px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:21px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:24px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:27px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:30px"></span><span class="haus__scheibe haus__form--quadrat" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--quadrat" style="--i:2"></span>
-            </span>
-            <!-- Schornstein — Ruheplatz rechts oben, Karte "WEG-Unterlagen" -->
-            <span class="haus__halter" style="--i:3; --x:82px; --y:-90px; --b:32px; --h:44px; --rx:170px; --ry:-25px; --fx1:66px; --fy1:-35px; --fx2:6px; --fy2:-60px; --fx3:38px; --fy3:-28px">
-              <span class="haus__schatten haus__form--hoch"></span>
-              <span class="haus__koerper haus__koerper--schornstein" style="--ton:var(--ton-4); --kante:var(--kante-4)">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--hoch" style="--z:0px"></span><span class="haus__scheibe haus__form--hoch" style="--z:3px"></span><span class="haus__scheibe haus__form--hoch" style="--z:6px"></span><span class="haus__scheibe haus__form--hoch" style="--z:9px"></span><span class="haus__scheibe haus__form--hoch" style="--z:12px"></span><span class="haus__scheibe haus__form--hoch" style="--z:15px"></span><span class="haus__scheibe haus__form--hoch" style="--z:18px"></span><span class="haus__scheibe haus__form--hoch" style="--z:21px"></span><span class="haus__scheibe haus__form--hoch" style="--z:24px"></span><span class="haus__scheibe haus__form--hoch" style="--z:27px"></span><span class="haus__scheibe haus__form--hoch" style="--z:30px"></span><span class="haus__scheibe haus__form--hoch" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--hoch" style="--i:3"></span>
-            </span>
-            <!-- Rundbogentuer — Ruheplatz links unten, Karte "Objektunterlagen" -->
-            <span class="haus__halter" style="--i:4; --x:-21px; --y:119px; --b:58px; --h:78px; --rx:-227px; --ry:1px; --fx1:-97px; --fy1:-23px; --fx2:-109px; --fy2:31px; --fx3:-74px; --fy3:-49px">
-              <span class="haus__schatten haus__form--tuer"></span>
-              <span class="haus__koerper haus__koerper--tuer" style="--ton:var(--ton-5); --kante:var(--kante-5)">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--tuer" style="--z:0px"></span><span class="haus__scheibe haus__form--tuer" style="--z:3px"></span><span class="haus__scheibe haus__form--tuer" style="--z:6px"></span><span class="haus__scheibe haus__form--tuer" style="--z:9px"></span><span class="haus__scheibe haus__form--tuer" style="--z:12px"></span><span class="haus__scheibe haus__form--tuer" style="--z:15px"></span><span class="haus__scheibe haus__form--tuer" style="--z:18px"></span><span class="haus__scheibe haus__form--tuer" style="--z:21px"></span><span class="haus__scheibe haus__form--tuer" style="--z:24px"></span><span class="haus__scheibe haus__form--tuer" style="--z:27px"></span><span class="haus__scheibe haus__form--tuer" style="--z:30px"></span><span class="haus__scheibe haus__form--tuer" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--tuer" style="--i:4"></span>
-            </span>
-            <!-- Fensterrahmen — Ruheplatz rechts unten, Karte "Kaufprozess" -->
-            <span class="haus__halter" style="--i:5; --x:85px; --y:104px; --b:66px; --h:60px; --rx:165px; --ry:14px; --fx1:70px; --fy1:-38px; --fx2:5px; --fy2:64px; --fx3:70px; --fy3:-69px">
-              <span class="haus__schatten haus__form--quer"></span>
-              <span class="haus__koerper haus__koerper--rahmen" style="--ton:var(--ton-6); --kante:var(--kante-6)">
-                <span class="haus__scheiben"><span class="haus__scheibe haus__form--quer" style="--z:0px"></span><span class="haus__scheibe haus__form--quer" style="--z:3px"></span><span class="haus__scheibe haus__form--quer" style="--z:6px"></span><span class="haus__scheibe haus__form--quer" style="--z:9px"></span><span class="haus__scheibe haus__form--quer" style="--z:12px"></span><span class="haus__scheibe haus__form--quer" style="--z:15px"></span><span class="haus__scheibe haus__form--quer" style="--z:18px"></span><span class="haus__scheibe haus__form--quer" style="--z:21px"></span><span class="haus__scheibe haus__form--quer" style="--z:24px"></span><span class="haus__scheibe haus__form--quer" style="--z:27px"></span><span class="haus__scheibe haus__form--quer" style="--z:30px"></span><span class="haus__scheibe haus__form--quer" style="--z:33px"></span></span>
-              </span>
-              <span class="haus__klick haus__form--quer" style="--i:5"></span>
-            </span>
-          </div>
+        <div class="spiel__feld">
+          <img class="spiel__haus" src="assets/img/haus/haus.png" alt="" width="475" height="383" decoding="async" loading="lazy">
+
+          <!-- Die sechs Zielstellen am Haus. Alle sind im Bild bereits freie
+               Oeffnungen; die Marken tragen nur den goldenen Ring. -->
+          <span class="spiel__nische spiel__nische--fensterlinks"></span>
+          <span class="spiel__nische spiel__nische--rundfenster"></span>
+          <span class="spiel__nische spiel__nische--tuer"></span>
+          <span class="spiel__nische spiel__nische--giebel"></span>
+          <span class="spiel__nische spiel__nische--fenster"></span>
+          <span class="spiel__nische spiel__nische--rahmen"></span>
+
+          <!-- LINKE Hausseite -->
+          <!-- Sprossenfenster links neben der Tuer, aus dem rechten gespiegelt -->
+          <img class="spiel__teil spiel__teil--fensterlinks" src="assets/img/haus/teil-fenster-links.png" alt="" width="105" height="132" decoding="async" loading="lazy">
+          <!-- Rundfenster im Giebel -->
+          <img class="spiel__teil spiel__teil--rundfenster" src="assets/img/haus/teil-rundfenster.png" alt="" width="105" height="117" decoding="async" loading="lazy">
+          <!-- Rundbogentuer -->
+          <img class="spiel__teil spiel__teil--tuer" src="assets/img/haus/teil-tuer.png" alt="" width="147" height="160" decoding="async" loading="lazy">
+          <!-- RECHTE Hausseite -->
+          <!-- Giebeldreieck fuer die Gaube auf der rechten Dachflaeche -->
+          <img class="spiel__teil spiel__teil--giebel" src="assets/img/haus/teil-giebel.png" alt="" width="106" height="115" decoding="async" loading="lazy">
+          <!-- Sprossenfenster vorn -->
+          <img class="spiel__teil spiel__teil--fenster" src="assets/img/haus/teil-fenster.png" alt="" width="105" height="146" decoding="async" loading="lazy">
+          <!-- Fensterrahmen hinten -->
+          <img class="spiel__teil spiel__teil--rahmen" src="assets/img/haus/teil-rahmen.png" alt="" width="110" height="139" decoding="async" loading="lazy">
         </div>
       </div>
 
       <!-- Punktkarten rechts. Reihenfolge wie die Ruheplaetze daneben:
            Schornstein oben, Sprossenfenster in der Mitte, Fensterrahmen unten. -->
       <ul class="verg__karten verg__karten--rechts">
-        <li class="verg__karte" style="--dx:26px; --dy:-18px">
+        <li class="verg__karte" style="--dx:48px; --dy:-32px; --dr:1.5deg; --dw:0px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="m12 3.6 8.4 4.3-8.4 4.3-8.4-4.3Z"/><path d="m3.6 13 8.4 4.3 8.4-4.3"/><path d="m3.6 17.4 8.4 4.3 8.4-4.3"/></svg>
           </span>
@@ -1082,7 +1056,7 @@
             <span class="verg__stand verg__stand--estera">Einbezogen</span>
           </div>
         </li>
-        <li class="verg__karte" style="--dx:-10px; --dy:12px">
+        <li class="verg__karte" style="--dx:-24px; --dy:22px; --dr:-1.3deg; --dw:26px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M17.6 6.6a6.9 6.9 0 1 0 0 10.8"/><path d="M4.6 10.4h8.2M4.6 13.6h8.2"/></svg>
           </span>
@@ -1096,7 +1070,7 @@
             <span class="verg__stand verg__stand--estera">Koordiniert</span>
           </div>
         </li>
-        <li class="verg__karte" style="--dx:32px; --dy:24px">
+        <li class="verg__karte" style="--dx:60px; --dy:42px; --dr:1.7deg; --dw:12px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M2.6 12.4 6 9h4.2l1.8 1.8"/><path d="M21.4 12.4 18 9h-4.2L12 10.8"/><path d="m10.2 12.6-1.8 1.8a1.5 1.5 0 0 0 2.1 2.1l.9-.9 2.1 2.1a1.4 1.4 0 0 0 2-2"/><path d="M2.6 12.4v2.2l2.6 2.6M21.4 12.4v2.2l-2.6 2.6"/></svg>
           </span>
@@ -1137,6 +1111,126 @@
       technische Fachpartner eingebunden werden, klärt der konkrete
       Leistungsumfang.
     </p>
+
+  </div>
+</section>
+<!-- =====================================================================
+     SECTION 6b — REFERENZOBJEKTE NACH OBJEKTART
+
+     Zwei Objektarten stehen zur Wahl — WG-Konzept und Bestandswohnungen.
+     Zu jeder gehoert genau EINE Referenzwohnung mit einem Video.
+
+     Das Video der Musterwohnung liegt noch nicht vor und wird von Estera
+     nachgereicht. Bis dahin steht an genau der Stelle, an der das Video
+     spaeter sitzt, ein sichtbarer Platzhalter im gleichen Rahmen (16:9).
+
+     WICHTIG — bewusst leer gelassen: Ausser den beiden Bezeichnungen liegt
+     nichts vor. Keine Lage, keine Groesse, keine Preise, Mieten oder
+     Renditen, keine Bilder. Das Masterbriefing untersagt erfundene Zahlen,
+     Objekte und Versprechen; eine erfundene Referenzwohnung waere eine
+     falsche Tatsachenbehauptung gegenueber Kaufinteressenten. Deshalb steht
+     hier ueberall „Platzhalter — …" wie im uebrigen Projekt.
+     ===================================================================== -->
+<section class="robj" id="referenzobjekte" data-robj data-art="wg" aria-label="Referenzobjekte nach Objektart">
+  <div class="robj__inner">
+
+    <header class="robj__head" data-reveal>
+      <p class="kicker">Referenzobjekte</p>
+      <h2 class="display robj__h2">Zwei Objektarten. Je eine Referenzwohnung.</h2>
+      <p class="robj__lead">
+        Wählen Sie eine Objektart — darunter erscheint die zugehörige
+        Referenzwohnung mit Video und den Angaben dazu.
+      </p>
+      <p class="robj__freigabe">Platzhalter — Überschrift und Einleitung dieses Abschnitts sind noch mit Estera abzustimmen.</p>
+    </header>
+
+    <!-- Umschalter in der Bauart von .verg__schalter: Pille, gleitender
+         Navy-Schieber, aria-pressed. -->
+    <div class="robj__schalter" role="group" aria-label="Objektart wählen" data-reveal>
+      <span class="robj__schieber" aria-hidden="true"></span>
+      <button class="robj__knopf" type="button" data-art-knopf="wg" aria-pressed="true">WG-Konzept</button>
+      <button class="robj__knopf" type="button" data-art-knopf="bestand" aria-pressed="false">Bestandswohnungen</button>
+    </div>
+
+    <!-- Beide Fassungen liegen in derselben Rasterzelle uebereinander.
+         Dadurch ist der Bereich immer so hoch wie die hoehere von beiden und
+         die Hoehe springt beim Wechsel nicht. -->
+    <div class="robj__buehne">
+
+      <article class="robj__fassung robj__fassung--wg" data-art-inhalt="wg">
+        <!-- VIDEOPLATZ: spaeter wird allein .robj__platzhalter durch das
+             <video>-Element ersetzt. Rahmen, 16:9 und Eckenradius haengen an
+             .robj__video und bleiben unveraendert.
+             Das Bild ist ein FREMDES Beispielbild (CC0, Nachweis in
+             referenzobjekte.css) und zeigt keine Wohnung von Estera. -->
+        <div class="robj__video">
+          <div class="robj__platzhalter">
+            <img class="robj__bild" src="assets/img/referenz/wg-konzept-beispiel.jpg"
+                 alt="Beispielbild eines Wohnraums — Platzhalter für das Video der Musterwohnung"
+                 width="1600" height="900" loading="lazy" decoding="async">
+            <span class="robj__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 3.6 20 12 6 20.4Z"/></svg>
+            </span>
+            <p class="robj__platztext">Platzhalter — Beispielbild, nicht die Referenzwohnung. Es wird durch das Video der Musterwohnung von Estera ersetzt.</p>
+          </div>
+        </div>
+
+        <div class="robj__daten">
+          <p class="kicker robj__art">WG-Konzept</p>
+          <h3 class="robj__h3">Referenzwohnung</h3>
+          <ul class="robj__liste">
+            <li class="robj__zeile">
+              <span class="robj__label">Video</span>
+              <span class="robj__wert">Platzhalter — Estera liefert das Video der Musterwohnung; bis dahin steht im Rahmen ein Beispielbild.</span>
+            </li>
+            <li class="robj__zeile">
+              <span class="robj__label">Eckdaten</span>
+              <span class="robj__wert">Platzhalter — Estera liefert die Eckdaten der Referenzwohnung.</span>
+            </li>
+            <li class="robj__zeile">
+              <span class="robj__label">Beschreibung</span>
+              <span class="robj__wert">Platzhalter — Estera liefert eine kurze Beschreibung der Referenzwohnung.</span>
+            </li>
+          </ul>
+          <p class="robj__fuss">Das gezeigte Bild ist ein Beispielbild und nicht die Referenzwohnung. Bis zur Freigabe durch Estera stehen hier bewusst keine Angaben zu Lage, Größe, Kaufpreis, Miete oder Rendite.</p>
+        </div>
+      </article>
+
+      <article class="robj__fassung robj__fassung--bestand" data-art-inhalt="bestand">
+        <div class="robj__video">
+          <div class="robj__platzhalter">
+            <img class="robj__bild" src="assets/img/referenz/bestandswohnung-beispiel.jpg"
+                 alt="Beispielbild eines Wohnraums — Platzhalter für das Video der Musterwohnung"
+                 width="1600" height="900" loading="lazy" decoding="async">
+            <span class="robj__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 3.6 20 12 6 20.4Z"/></svg>
+            </span>
+            <p class="robj__platztext">Platzhalter — Beispielbild, nicht die Referenzwohnung. Es wird durch das Video der Musterwohnung von Estera ersetzt.</p>
+          </div>
+        </div>
+
+        <div class="robj__daten">
+          <p class="kicker robj__art">Bestandswohnungen</p>
+          <h3 class="robj__h3">Referenzwohnung</h3>
+          <ul class="robj__liste">
+            <li class="robj__zeile">
+              <span class="robj__label">Video</span>
+              <span class="robj__wert">Platzhalter — Estera liefert das Video der Musterwohnung; bis dahin steht im Rahmen ein Beispielbild.</span>
+            </li>
+            <li class="robj__zeile">
+              <span class="robj__label">Eckdaten</span>
+              <span class="robj__wert">Platzhalter — Estera liefert die Eckdaten der Referenzwohnung.</span>
+            </li>
+            <li class="robj__zeile">
+              <span class="robj__label">Beschreibung</span>
+              <span class="robj__wert">Platzhalter — Estera liefert eine kurze Beschreibung der Referenzwohnung.</span>
+            </li>
+          </ul>
+          <p class="robj__fuss">Das gezeigte Bild ist ein Beispielbild und nicht die Referenzwohnung. Bis zur Freigabe durch Estera stehen hier bewusst keine Angaben zu Lage, Größe, Kaufpreis, Miete oder Rendite.</p>
+        </div>
+      </article>
+
+    </div>
 
   </div>
 </section>
@@ -1272,7 +1366,8 @@
       <li><a class="menu__link" href="#fuehrung"><span class="num">03</span> Geschäftsführung</a></li>
       <li><a class="menu__link" href="#vorteile"><span class="num">04</span> Vorteile</a></li>
       <li><a class="menu__link" href="#bausteine"><span class="num">05</span> Bausteine</a></li>
-      <li><a class="menu__link" href="erstgespraech.html"><span class="num">06</span> Erstgespräch</a></li>
+      <li><a class="menu__link" href="#referenzobjekte"><span class="num">06</span> Referenzobjekte</a></li>
+      <li><a class="menu__link" href="erstgespraech.html"><span class="num">07</span> Erstgespräch</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
@@ -1314,6 +1409,8 @@
 </div>
 
 <script src="assets/js/site.js"></script>
+<script src="assets/js/leistungen.js"></script>
 <script src="assets/js/rezensionen.js"></script>
+<script src="assets/js/referenzobjekte.js"></script>
 </body>
 </html>

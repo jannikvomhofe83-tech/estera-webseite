@@ -212,17 +212,9 @@
   padding: clamp(1.8rem, 4vh, 2.8rem) clamp(1.5rem, 4vw, 3rem);
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
+  /* Seit die Platzhalterzeile entfallen ist, steht die Schaltflaeche allein
+     in der Zeile — dann gehoert sie in die Mitte, nicht an den rechten Rand. */
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(1rem, 3vw, 2rem);
-}
-.cta__platzhalter {
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
-  color: var(--gold-text);
-}
-@media (max-width: 640px) {
-  .cta__inner { flex-direction: column; align-items: flex-start; }
 }
