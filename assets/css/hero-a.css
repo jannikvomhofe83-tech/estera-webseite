@@ -21,7 +21,17 @@
   overflow: hidden;
   background: var(--navy-800);
 }
-.heroA__band img {
+/* Standbild und Film liegen deckungsgleich übereinander — gleicher Ausschnitt,
+   gleiche Tonung. Beide sind absolut gesetzt; der Film steht im Quelltext
+   HINTER dem Bild und deckt es deshalb ab, solange er läuft. Bewusst OHNE
+   z-index: der abdunkelnde Verlauf .heroA__band::after muss über beiden
+   liegen, und das tut er nur, solange hier keine Stapelordnung aufgemacht
+   wird. */
+.heroA__band img,
+.heroA__band video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 112%;
   object-fit: cover;
@@ -30,6 +40,19 @@
   /* Das Band ist Tonträger — hell und scharf bleibt nur das Objektbild. */
   filter: saturate(0.24) contrast(1.12) brightness(0.76);
   will-change: transform;
+}
+
+/* Der Film ist reine Kulisse: die Bildbeschreibung trägt das Standbild
+   darunter, angefasst werden soll er nicht. */
+.heroA__band video { pointer-events: none; }
+
+/* Ruhige Darstellung: eine dauernd laufende Kamerafahrt im Hintergrund ist
+   für empfindliche Menschen belastend. Wer im Betriebssystem weniger
+   Bewegung angefordert hat, sieht das Standbild — der Film wird ausgeblendet.
+   Das Skript im Hero hält ihn zusätzlich an; diese Regel greift auch dann,
+   wenn kein JavaScript läuft. */
+@media (prefers-reduced-motion: reduce) {
+  .heroA__band video { display: none; }
 }
 .heroA__band::after {
   content: '';

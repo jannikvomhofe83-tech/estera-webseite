@@ -1,85 +1,84 @@
 /* ===========================================================================
-   DIE VORTEILE VON KAPITALANLAGEN
-   Das dunkle Kopfband mit Bild, Ueberschrift und Unterzeile ist auf
-   Kundenwunsch entfallen; die zugehoerigen Regeln (.vt__band, .vt__bild,
-   .vt__kopf, .vt__h2, .vt__lead) sind mit entfernt und stehen in der
-   Versionsgeschichte. Der Abschnitt beginnt jetzt mit der Zeile
-   „So entsteht Vermoegensaufbau", die dadurch zur Hauptueberschrift wird
-   und entsprechend groesser gesetzt ist.
-   =========================================================================== */
-/* ===========================================================================
-   ABSCHNITT — DIE VORTEILE VON KAPITALANLAGEN
-   Aufbau 1:1 nach der Kundenvorlage `Bilder/referenz-vorteile.png`:
+   SO ENTSTEHT VERMOEGENSAUFBAU  —  fuenf Karten   (Briefing 03 E)
+   Aufbau 1:1 nach der Kundenvorlage `Bilder/referenz-vermoegen-neu.png`:
 
-     1  dunkles Kopfband ueber die volle Breite, Titel + Goldstrich + Unterzeile
-     2  weisser Bereich: Zwischentitel, vier versetzte Karten, Verbindungslinien
-     3  Navy-Band mit Signet, Trennstrich, Titel und drei Punkten
-     4  Fusszeile: Hinweis links, Schaltflaeche rechts
+     1  warmer, sehr heller Grund; links blass ein Gebaeude, rechts ein
+        goldener Zweig
+     2  Kopf mittig: gesperrtes „ESTERA" in Gold, grosse Ueberschrift,
+        zwei Unterzeilen
+     3  FUENF weisse Karten mit grossem Eckenradius und weichem Schatten —
+        obere Reihe drei, untere Reihe zwei und breiter
+     4  je Karte: goldene Ziffer, Titel, ein bis zwei Zeilen Text, darunter
+        eine gezeichnete Darstellung als Inline-SVG
+     5  UNMITTELBAR darunter das Band „Langfristig gedacht, nicht
+        kurzfristig gerechnet" — seit dem Kundenwunsch vom 17.08.2026 auf
+        WEISS und in derselben Fassung wie die Karten
+     6  danach: Hinweiszeile mit Schaltflaeche, Aufklapper „Was bewusst
+        offenbleibt"
 
-   Der eine Punkt, den die Vorlage NICHT vorgibt: dort sitzen die Pfeilspitzen
-   neben ihren Linien. Hier ist jeder Verbinder EIN Inline-SVG — ein Pfad plus
-   `marker-end`. Die Spitze liegt damit zwangslaeufig exakt auf dem Pfadende,
-   sie kann gar nicht verrutschen.
+   Entfallen (Kundenwunsch 17.08.2026): das goldene Siegel und die
+   Fusszeile „Wie stark die einzelnen Effekte wirken …", die frueher
+   zwischen Karten und Band standen — ersatzlos, samt ihrer Regeln.
 
-   Der Versatz der Karten ist ebenfalls konstruiert statt geschaetzt: die
-   Zellen 1 und 4 tragen den Versatz als Polster UNTEN, die Zellen 2 und 3
-   oben. Alle vier Zellen sind gleich hoch (Rasterzeile), also sind auch alle
-   vier Karten exakt gleich hoch — und der Versatz ist bei beiden Paaren
-   exakt derselbe Wert.
+   GLEICHE KARTENHOEHE JE REIHE — konstruiert, nicht geschaetzt:
+   Das Raster hat SECHS gleiche Spalten. Die drei Karten der oberen Reihe
+   belegen je zwei, die beiden der unteren je drei Spalten. Alle Karten
+   einer Reihe liegen damit in derselben Rasterzeile und werden von
+   `align-items: stretch` (Voreinstellung) auf die Hoehe der hoechsten
+   gestreckt. Die Zeichnung sitzt ueber `margin-top: auto` immer buendig am
+   unteren Kartenrand, egal wie lang der Text darueber ist.
+
+   BEWEGUNG: siehe Abschnitt 2c. Der Einlauf laeuft ausschliesslich ueber
+   `IntersectionObserver` in `assets/js/vorteile.js` — kein Scroll-Handler,
+   kein Scroll-Jacking, einmalig und ohne Neustart beim Zurueckscrollen.
+   Seit dem Kundenwunsch vom 17.08.2026 kommt EIN zweiter Ausloeser dazu:
+   `mouseenter` auf einer fertig aufgebauten Karte startet deren Aufbau
+   erneut. Auch das steuert `vorteile.js`; im CSS steht dafuer nur der
+   Ausschalter `[data-sofort]` (Abschnitt 2c).
+   Ohne Javascript und bei `prefers-reduced-motion: reduce` steht alles
+   sofort vollstaendig sichtbar.
    =========================================================================== */
 
 .prinzip {
-  /* Navy der Kreise, des Bands und der Linien */
+  /* Die Vorlage hat einen warmen, sehr hellen Grund (gemessen #FDFCFA bis
+     #FEFDFA). Das ist Weiss mit einem Hauch Waerme — genau so gesetzt. */
+  --vt-grund: #FCFAF6;
+  /* Kartenflaeche: oben reines Weiss, unten eine Spur waermer. Weiss auf
+     warmem Weiss traegt nicht ueber eine Kontur, sondern ueber zwei
+     Schattenlagen: der enge Kontaktschatten macht die Kante, der weite
+     sehr schwache Umgebungsschatten macht die Hoehe. */
+  --vt-karte: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 42%, #FCF9F4 100%);
+  --vt-karte-schatten:
+    0 2px 5px rgba(16, 41, 73, 0.07),
+    0 18px 40px -8px rgba(16, 41, 73, 0.10);
   --vt-navy: #0F2745;
-  /* Senkrechter Versatz von Karte 2/3 gegenueber 1/4.
-     Auf der Vorlage sind es 17 px bei 1672 px Bildbreite; 22 px halten die
-     abgerundete Stufe im Verbinder auch bei kleinerer Schrift ablesbar. */
-  --vt-versatz: 22px;
-  /* Breite der Verbinderspalten. Fest in px, damit das SVG 1:1 zu seinem
-     viewBox steht — nur so bleibt die Pfeilspitze pixelgenau. */
-  --vt-brueck: 74px;
-  --vt-flanke: 32px;
 
-  /* Blende des Kopfbands nach oben und nach unten.
-     Die Stuetzstellen folgen einer S-Kurve (smootherstep): die Steigung ist
-     an BEIDEN Enden null. Dadurch gibt es weder an der Aussenkante noch dort,
-     wo die volle Deckung erreicht ist, eine ablesbare Linie — genau daran
-     scheitert ein einfacher linearer Verlauf.
-     Je Seite 20 % der Bandhoehe, die Textzone von rund 24 % bis 82 % liegt
-     vollstaendig im gedeckten Bereich. */
-  --vt-blende: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0)     0%,
-      rgba(0, 0, 0, 0.009) 2%,
-      rgba(0, 0, 0, 0.058) 4%,
-      rgba(0, 0, 0, 0.163) 6%,
-      rgba(0, 0, 0, 0.317) 8%,
-      rgba(0, 0, 0, 0.500) 10%,
-      rgba(0, 0, 0, 0.683) 12%,
-      rgba(0, 0, 0, 0.837) 14%,
-      rgba(0, 0, 0, 0.942) 16%,
-      rgba(0, 0, 0, 0.991) 18%,
-      rgba(0, 0, 0, 1)     20%,
-      rgba(0, 0, 0, 1)     80%,
-      rgba(0, 0, 0, 0.991) 82%,
-      rgba(0, 0, 0, 0.942) 84%,
-      rgba(0, 0, 0, 0.837) 86%,
-      rgba(0, 0, 0, 0.683) 88%,
-      rgba(0, 0, 0, 0.500) 90%,
-      rgba(0, 0, 0, 0.317) 92%,
-      rgba(0, 0, 0, 0.163) 94%,
-      rgba(0, 0, 0, 0.058) 96%,
-      rgba(0, 0, 0, 0.009) 98%,
-      rgba(0, 0, 0, 0)     100%);
+  /* Rot und Gruen der Vorlage (gemessen: Balken #CC582C und #718A51).
+     Als FLAECHE unveraendert uebernommen.
+
+     Als SCHRIFT sind sie deutlich dunkler gesetzt, und zwar nicht nach
+     Rechnung, sondern nach MESSUNG: die kleinen Beschriftungen stehen in
+     einer Serife bei rund 14 px, und die Kantenglaettung nimmt duennen
+     Serifen einen guten Teil ihrer Deckung. Mit den Tonwerten der Vorlage
+     kam die Pixelmessung nur auf 3,3 bis 4,3:1. Die Werte hier messen
+     4,9 bis 5,6:1 auf dem warmen Grund — die Vorlage bleibt in der
+     Farbfamilie, nur eine Stufe tiefer. Dasselbe gilt fuer das Gold der
+     Ziffern und der Kopfzeile. */
+  --vt-rot:         #CC582C;
+  --vt-rot-text:    #8E3311;
+  --vt-gruen:       #6E8C4E;
+  --vt-gruen-text:  #2F5622;
+  --vt-gold-schrift:#6F5329;
+  --vt-sand:        #F2E6D2;
 
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  /* Oben kein Polster: das Kopfband setzt buendig an der Sectionkante an. */
-  padding: 0 0 clamp(4rem, 10vh, 8rem);
+  overflow: hidden;          /* haelt den Zierrand im Abschnitt */
+  background: var(--vt-grund);
+  padding: clamp(3.4rem, 8vh, 6.5rem) 0 clamp(4rem, 10vh, 8rem);
 }
 
-/* Eigener Einlauf statt des gemeinsamen aus leistungen.css — der Abschnitt
-   soll nicht davon abhaengen, was in einer fremden Datei steht. */
+/* Eigener Einlauf statt des gemeinsamen aus leistungen.css. */
 .prinzip [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
@@ -87,240 +86,512 @@
 }
 .prinzip [data-reveal][data-seen='true'] { opacity: 1; transform: none; }
 
-/* Ohne Maskenunterstuetzung bleibt es beim bisherigen harten Band — dunkel
-   und lesbar, nur ohne Uebergang. */
-@supports not ((mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000))) {
-  }
-
-/* Kurzer goldener Strich, mittig — auf der Vorlage zwischen Titel und
-   Unterzeile. */
-.vt__strich {
-  display: block;
-  width: 62px;
-  height: 2px;
-  margin: clamp(1.1rem, 2.4vh, 1.7rem) auto 0;
-  background: var(--gold);
+.vt__sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
+
 /* ---------------------------------------------------------------------------
-   Weisser Bereich — gemeinsame Lesespalte
+   Zierrand links und rechts
+   Rein dekorativ. Unter 1400 px waere er nur noch Stoerung neben dem
+   Inhalt, deshalb faellt er dort weg.
+--------------------------------------------------------------------------- */
+.vt__rand {
+  position: absolute;
+  top: clamp(1rem, 4vh, 4rem);
+  width: clamp(150px, 13vw, 230px);
+  aspect-ratio: 200 / 420;
+  pointer-events: none;
+  z-index: 0;
+}
+.vt__rand svg { width: 100%; height: 100%; }
+.vt__rand--rechts { right: -1%; color: rgba(168, 135, 79, 0.40); }
+
+/* Links steht in der Vorlage ein GEBAEUDE, kein Strichbild. Deshalb eine
+   Aufnahme aus dem Bestand, sehr stark aufgehellt und nach rechts sowie
+   nach unten weich auslaufend, damit keine Kante entsteht. */
+.vt__rand--links {
+  left: 0;
+  top: 0;
+  width: clamp(150px, 15vw, 270px);
+  aspect-ratio: 200 / 560;
+}
+.vt__rand--links img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 40%;
+  filter: grayscale(0.42) brightness(1.46) contrast(0.56) saturate(0.28);
+  opacity: 0.46;
+  -webkit-mask-image:
+    linear-gradient(90deg, #000 0%, #000 42%, transparent 100%),
+    linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(90deg, #000 0%, #000 42%, transparent 100%),
+    linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
+          mask-composite: intersect;
+}
+
+/* ---------------------------------------------------------------------------
+   Gemeinsame Lesespalte
 --------------------------------------------------------------------------- */
 .vt__inner {
-  padding-top: clamp(3rem, 7vh, 5.5rem);
-  /* 1520 px abzueglich zweier Stege ergibt 1360 px Lesebreite — damit sind
-     die vier Karten 268 px breit, also genau so breit wie auf der Vorlage. */
+  position: relative;
+  z-index: 1;
   max-width: 1520px;
   margin: 0 auto;
-  padding: clamp(2.2rem, 5vh, 3.4rem) var(--gutter) 0;
+  padding: 0 var(--gutter);
 }
 
-/* 2a — Zwischentitel, Unterzeile, Goldstrich (in dieser Reihenfolge) ------- */
+/* ---------------------------------------------------------------------------
+   1 — Kopf, mittig
+--------------------------------------------------------------------------- */
 .vt__zwischen {
-  max-width: 46rem;
+  max-width: 56rem;
   margin: 0 auto;
   text-align: center;
 }
+
+/* Gesperrtes „ESTERA" in Gold. Nicht --gold und auch nicht --gold-text:
+   als Schrift haelt auf diesem warmen Grund nur --vt-gold-schrift die
+   4,5:1 in der Pixelmessung. */
+.vt__kicker {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.82rem, 0.9vw, 0.96rem);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: uppercase;
+  color: var(--vt-gold-schrift);
+}
+
 .vt__h3 {
-  font-size: clamp(1.9rem, 3vw, 3rem);
-  line-height: 1.14;
-  color: var(--ink-black);
+  margin-top: clamp(0.7rem, 1.6vh, 1.2rem);
+  font-size: clamp(2.1rem, 4.6vw, 4.4rem);
+  line-height: 1.04;
+  color: var(--navy-800);
 }
 .vt__unter {
-  margin-top: clamp(0.6rem, 1.4vh, 1rem);
-  font-size: clamp(0.98rem, 1.06vw, 1.08rem);
-  line-height: 1.6;
+  margin-top: clamp(0.5rem, 1.3vh, 0.95rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 1.5vw, 1.6rem);
+  line-height: 1.35;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+.vt__unter2 {
+  margin-top: clamp(0.4rem, 1vh, 0.7rem);
+  font-size: clamp(0.94rem, 1.02vw, 1.05rem);
+  line-height: 1.5;
   color: var(--ink-soft);
   text-wrap: balance;
 }
-.vt__strich--dunkel { margin-top: clamp(0.9rem, 2vh, 1.4rem); }
 
 /* ---------------------------------------------------------------------------
-   2b — Die vier Karten mit ihren Verbindern
-   Raster: Flanke | Karte | Bruecke | Karte | Bruecke | Karte | Bruecke |
-           Karte | Flanke
-   Alle vier Kartenspalten sind 1fr — damit sind sie exakt gleich breit.
+   2 — Das Kartenraster
+   Sechs gleiche Spalten: 2+2+2 oben, 3+3 unten.
 --------------------------------------------------------------------------- */
-.vt__fluss {
-  margin-top: clamp(1.7rem, 3.8vh, 2.6rem);
+.vt__karten {
+  margin-top: clamp(2.2rem, 5vh, 3.6rem);
   display: grid;
-  grid-template-columns:
-    var(--vt-flanke)
-    repeat(3, minmax(0, 1fr) var(--vt-brueck))
-    minmax(0, 1fr)
-    var(--vt-flanke);
-  align-items: stretch;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(1rem, 1.8vw, 1.9rem);
 }
-
-/* Die Zelle traegt den Versatz als Polster, nicht die Karte. Dadurch ist die
-   Rasterzeile fuer alle vier gleich hoch und die Karte darin ebenfalls. */
-.vt__zelle {
-  display: flex;
-  min-width: 0;
-}
-.vt__zelle > .vt__karte { flex: 1 1 auto; min-width: 0; }
-.vt__zelle--hoch { padding-bottom: var(--vt-versatz); }
-.vt__zelle--tief { padding-top: var(--vt-versatz); }
+.vt__karte { grid-column: span 2; }
+.vt__karte--breit { grid-column: span 3; }
 
 .vt__karte {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: clamp(1rem, 1.45vw, 1.5rem);
-  background: #fff;
-  border-radius: 14px;
-  /* Sehr weicher Schatten, keine Kontur — wie auf der Vorlage. */
-  box-shadow:
-    0 1px 2px rgba(16, 41, 73, 0.05),
-    0 12px 34px rgba(16, 41, 73, 0.10);
+  padding: clamp(1.4rem, 2vw, 2.2rem) clamp(1.3rem, 1.8vw, 2rem)
+           clamp(1.4rem, 2vw, 2.1rem);
+  background: var(--vt-karte);
+  border-radius: clamp(16px, 1.6vw, 26px);
+  box-shadow: var(--vt-karte-schatten);
 }
 
-/* Kopfzeile der Karte: Ziffer links, Sinnbild rechts */
 .vt__ziffer {
   display: block;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.55rem, 2.05vw, 2.15rem);
+  font-size: clamp(1.25rem, 1.4vw, 1.62rem);
   line-height: 1;
-  /* Nicht --gold: als Schrift haelt nur --gold-text die 4,5:1 auf Weiss. */
-  color: var(--gold-text);
+  letter-spacing: 0.04em;
+  /* Siehe Anmerkung bei --vt-gold-schrift. */
+  color: var(--vt-gold-schrift);
   font-variant-numeric: lining-nums;
 }
-.vt__ziffer::after {
-  content: '';
-  display: block;
-  width: 1.3em;
-  height: 2px;
-  margin-top: 0.3em;
-  background: var(--gold);
-}
-.vt__sinnbild {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: clamp(44px, 4.1vw, 58px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--vt-navy);
-  color: #fff;
-}
-.vt__sinnbild svg { width: 52%; height: 52%; }
 
 .vt__titel {
-  margin: clamp(0.6rem, 1.2vh, 0.95rem) 0 0;
+  margin: clamp(0.5rem, 1.2vh, 0.9rem) 0 0;
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.1rem, 1.32vw, 1.35rem);
-  line-height: 1.2;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.95vw, 2.2rem);
+  line-height: 1.12;
   color: var(--navy-800);
 }
+
 .vt__text {
-  margin-top: clamp(0.35rem, 0.8vh, 0.6rem);
-  font-size: clamp(0.9rem, 0.95vw, 0.97rem);
+  margin-top: clamp(0.5rem, 1.2vh, 0.85rem);
+  max-width: 34rem;
+  font-size: clamp(0.95rem, 1.04vw, 1.06rem);
   line-height: 1.55;
   color: var(--ink-soft);
 }
 
-/* --- Verbinder ------------------------------------------------------------
-   Jede Grafik ist ein einziges SVG in ihrer eigenen Rasterspalte und wird
-   NICHT skaliert: die Spaltenbreite ist genau die viewBox-Breite. Die
-   senkrechte Lage leitet sich aus derselben Groesse ab wie der Kartenversatz,
-   deshalb treffen Linienanfang und Linienende exakt die Kartenmitten.       */
-.vt__flanke,
-.vt__brueck {
+/* Die Zeichnung sitzt IMMER buendig am unteren Kartenrand. Nur dadurch
+   stehen die Zeichnungen einer Reihe auf einer Linie, auch wenn die Texte
+   darueber unterschiedlich lang sind. */
+.vt__bild {
+  margin-top: clamp(1.1rem, 2.6vh, 2rem);
+  margin-top: auto;
+  padding-top: clamp(1.1rem, 2.6vh, 2rem);
+}
+/* Die Buehne traegt Zeichnung UND, wo die Vorlage eines zeigt, ein blasses
+   Hintergrundfoto darunter. Sie ist genau so hoch wie die Zeichnung. */
+.vt__buehne { position: relative; }
+.vt__zeichnung {
   position: relative;
-  min-width: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Schriftgrad in Nutzereinheiten des viewBox. Die oberen Karten sind
+     420 Einheiten breit, die unteren 700 — deshalb sind die Grade der
+     unteren Zeichnungen entsprechend groesser gesetzt. */
+  font-family: var(--font-ui);
+  overflow: visible;
 }
-.vt__flanke svg,
-.vt__brueck svg {
-  position: absolute;
-  max-width: none;
-  color: var(--vt-navy);
-}
-/* Karte 1 und 4 stehen hoch: ihre Mitte liegt um den halben Versatz ueber
-   der Zeilenmitte. 11 px = halbe SVG-Hoehe der Flanke. */
-.vt__flanke svg { top: calc(50% - var(--vt-versatz) / 2 - 11px); }
-.vt__flanke--links svg  { left: 0; }
-.vt__flanke--rechts svg { right: 0; }
 
-/* ACHTUNG: die Bruecken-SVGs codieren --vt-versatz fest in ihren Pfaden.
-   Bei „ab"/„auf" liegt das obere Pfadende auf y=6, das untere auf y=28 —
-   die Differenz ist genau der Versatz. Wird --vt-versatz geaendert, muessen
-   die Pfade im Markup mitgeaendert werden. */
-.vt__brueck svg { left: 0; }
-.vt__brueck--ab svg,
-.vt__brueck--auf svg { top: calc(50% - var(--vt-versatz) / 2 - 6px); }
-.vt__brueck--eben svg { top: calc(50% + var(--vt-versatz) / 2 - 5px); }
+/* Blasses Hintergrundfoto in der Karte (Vorlage: das Gebaeude in Karte 04).
+   Sehr stark aufgehellt und rundum weich ausgeblendet, damit es wie in der
+   Vorlage im Papier verschwindet und die farbigen Flaechen darueber liegen
+   koennen. */
+.vt__foto {
+  position: absolute;
+  pointer-events: none;
+  object-fit: cover;
+  filter: grayscale(0.42) brightness(1.42) contrast(0.58) saturate(0.28);
+  opacity: 0.7;
+  /* Die Maske muss WEIT vor dem Bildrand auf null sein, sonst bleibt die
+     rechteckige Kante der Aufnahme sichtbar. */
+  -webkit-mask-image: radial-gradient(58% 74% at 50% 86%, #000 0%, rgba(0,0,0,0.55) 46%, transparent 80%);
+          mask-image: radial-gradient(58% 74% at 50% 86%, #000 0%, rgba(0,0,0,0.55) 46%, transparent 80%);
+}
+/* Grundlinie der Zeichnung liegt bei y = 232 von 250 -> 7,2 % ueber der
+   Unterkante; das Gebaeude steht genau darauf und mittig. */
+.vt__foto--haus {
+  left: 26%;
+  width: 48%;
+  bottom: -4%;
+  height: 88%;
+  object-position: 50% 44%;
+}
 
 /* ---------------------------------------------------------------------------
-   3 — Navy-Band
+   2b — Zeichenwerte
+
+   Alle Zeichnungen halten sich wortwoertlich an das Masterbriefing: keine
+   Betraege, keine Prozente, keine Zahlen, keine geteilte oder bezifferte
+   Achse. Sie deuten ausschliesslich Verhaeltnisse und Zusammenhaenge an.
+--------------------------------------------------------------------------- */
+/* Konturen */
+.zg-gold      { stroke: var(--gold); }
+.zg-gold-fein { stroke: var(--line-gold); }
+.zg-rot       { stroke: var(--vt-rot); }
+.zg-gruen     { stroke: var(--vt-gruen); }
+.zg-navy      { stroke: var(--navy-800); }
+
+.zg-zieh  { fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.zg-dick  { stroke-width: 2.4; }
+.zg-pfeil { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Die drei Aeste in Karte 02 tragen den Farbverlauf der Vorlage: blass am
+   Stamm, satt an den Spitzen. Der Verlauf steht im SVG (#vmAst). */
+.zg-ast   { stroke: url(#vmAst); stroke-width: 3.4; }
+/* Die Wertkurve in Karte 05, ebenfalls mit Verlauf (#vmKurve). */
+.zg-kurve { stroke: url(#vmKurve); stroke-width: 3.2; }
+
+/* Flaechen */
+.zg-f-navy  { fill: var(--vt-navy); }
+.zg-f-sand  { fill: var(--vt-sand); }
+.zg-f-rot   { fill: var(--vt-rot); }
+.zg-f-gruen { fill: var(--vt-gruen); }
+/* Die beiden Dreiecksflaechen in Karte 04 laufen nach aussen aus, wie in
+   der Vorlage (#vmRot, #vmGold). */
+.zg-f-verlauf-rot  { fill: url(#vmRot); }
+.zg-f-verlauf-gold { fill: url(#vmGold); }
+
+.zg-scheibe { fill: #FFFFFF; stroke: var(--line-gold); stroke-width: 1.2; }
+.zg-knoten  { fill: #FFFFFF; stroke: var(--vt-gruen); stroke-width: 2.4; }
+.zg-ring    { fill: none; stroke: currentColor; stroke-width: 1.4; }
+.zg-ring-gold   { fill: #FFFFFF; stroke: var(--gold); stroke-width: 1.3; }
+.zg-punkt-gold  { fill: var(--gold); stroke: #FFFFFF; stroke-width: 3; }
+.zg-knopf   { fill: var(--gold); stroke: #FFFFFF; stroke-width: 2.5; }
+
+/* Blasse Stadtsilhouette hinter der Kurve in Karte 05. Wie in der Vorlage
+   FLAECHEN, nicht Umrisse — mit einem feinen Fensterraster darauf. */
+.zg-stadt-flaeche { fill: rgba(16, 41, 73, 0.09); stroke: none; }
+.zg-stadt-linien {
+  fill: none;
+  stroke: rgba(16, 41, 73, 0.16);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+/* Farbtraeger fuer <use>-Sinnbilder (sie zeichnen mit currentColor) */
+.zg-gold-hell  { color: var(--gold-soft); }
+.zg-gold-tief  { color: var(--gold-text); }
+.zg-navy-voll  { color: var(--navy-800); }
+.zg-gruen-voll { color: var(--vt-gruen-text); }
+
+/* --- Beschriftung ---------------------------------------------------------
+   Alle Schriftfarben sind so gewaehlt, dass sie auf ihrem tatsaechlichen
+   Grund mindestens 4,5:1 halten:
+     --ink-soft   6,54:1 auf Weiss
+     --navy-800  15,3:1  auf Weiss
+     --gold-text  4,86:1 auf dem warmen Grund
+     --vt-rot-text   5,99:1
+     --vt-gruen-text 6,06:1
+   Weiss auf --vt-navy misst 14,9:1, Navy auf --vt-sand 12,4:1.
+--------------------------------------------------------------------------- */
+.zg-klein-navy   { font-size: 12.5px; letter-spacing: 0.07em; fill: var(--navy-800); text-anchor: middle; text-transform: uppercase; }
+.zg-klein-rot    { font-size: 15px; font-weight: 500; fill: var(--vt-rot-text);   text-anchor: middle; }
+.zg-klein-gruen  { font-size: 15px; font-weight: 500; fill: var(--vt-gruen-text); text-anchor: middle; }
+.zg-mittel-navy  { font-size: 15px; fill: var(--navy-800); }
+.zg-gross-navy   { font-size: 16px; letter-spacing: 0.09em; fill: var(--navy-800); text-transform: uppercase; }
+.zg-gross-hell   { font-size: 16px; letter-spacing: 0.13em; fill: #FFFFFF;         text-anchor: middle; text-transform: uppercase; }
+.zg-gross-sand   { font-size: 15px; letter-spacing: 0.11em; fill: var(--navy-800); text-anchor: middle; text-transform: uppercase; }
+
+/* „VORHER" und „NACHHER" der Vorlage: gesperrt, versal, in der jeweiligen
+   Diagrammfarbe — aber in den dunklen Varianten, damit sie die 4,5:1
+   halten. */
+.zg-sperr-rot   { font-size: 16px; font-weight: 500; letter-spacing: 0.09em; fill: var(--vt-rot-text);   text-anchor: middle; text-transform: uppercase; }
+.zg-sperr-gruen { font-size: 16px; font-weight: 500; letter-spacing: 0.09em; fill: var(--vt-gruen-text); text-anchor: middle; text-transform: uppercase; }
+.zg-sperr-gross-rot   { font-size: 19px; font-weight: 500; letter-spacing: 0.10em; fill: var(--vt-rot-text);   text-transform: uppercase; }
+.zg-sperr-gross-gruen { font-size: 19px; font-weight: 500; letter-spacing: 0.10em; fill: var(--vt-gruen-text); text-transform: uppercase; }
+.zg-sperr-navy  { font-size: 15px; letter-spacing: 0.13em; fill: var(--navy-800); text-transform: uppercase; }
+
+/* ---------------------------------------------------------------------------
+   2c — Wie sich Karten und Zeichnungen aufbauen
+
+   Der Grundfall ist FERTIG: ohne Javascript und bei
+   `prefers-reduced-motion: reduce` steht jede Karte und jede Zeichnung
+   sofort vollstaendig da. Erst wenn `vorteile.js` am Raster
+   `data-animiert` setzt, starten sie unfertig; die einzelne Karte bekommt
+   beim Hereinscrollen `data-auf` und behaelt es — ein Neustart beim
+   Zurueckscrollen findet nicht statt.
+
+   `--kv` staffelt die Karten gegeneinander, `--zv` die Schritte innerhalb
+   einer Zeichnung. Alle gezogenen Pfade tragen im HTML `pathLength="1"`;
+   dadurch reicht `stroke-dasharray: 1`, und jede Linie zieht gleich
+   schnell auf, unabhaengig von ihrer tatsaechlichen Laenge.
+--------------------------------------------------------------------------- */
+.vt__karten[data-animiert] .vt__karte {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  transition:
+    opacity 0.62s var(--ease-soft) var(--kv, 0s),
+    transform 0.62s var(--ease-soft) var(--kv, 0s);
+}
+.vt__karten[data-animiert] .vt__karte[data-auf] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Linien ziehen auf */
+.vt__karten[data-animiert] .zg-zieh {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.9s var(--ease-soft) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
+}
+.vt__karten[data-animiert] .vt__karte[data-auf] .zg-zieh { stroke-dashoffset: 0; }
+
+/* Balken wachsen aus der Grundlinie */
+.vt__karten[data-animiert] .zg-wachs-y {
+  transform: scaleY(0.02);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 0.75s var(--ease-soft) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
+}
+/* Die beiden Dreiecksflaechen wachsen aus ihrer gemeinsamen Spitze
+   GEGENEINANDER auseinander: die rote nach links, die goldene nach rechts. */
+.vt__karten[data-animiert] .zg-wachs-l,
+.vt__karten[data-animiert] .zg-wachs-r {
+  transform: scaleX(0.015);
+  transform-box: fill-box;
+  transition: transform 0.95s var(--ease-soft) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
+}
+.vt__karten[data-animiert] .zg-wachs-l { transform-origin: 100% 100%; }
+.vt__karten[data-animiert] .zg-wachs-r { transform-origin: 0% 100%; }
+.vt__karten[data-animiert] .vt__karte[data-auf] .zg-wachs-y,
+.vt__karten[data-animiert] .vt__karte[data-auf] .zg-wachs-l,
+.vt__karten[data-animiert] .vt__karte[data-auf] .zg-wachs-r { transform: none; }
+
+/* Kacheln, Kreise und Haltepunkte ploppen auf */
+.vt__karten[data-animiert] .zg-pop {
+  opacity: 0;
+  transform: scale(0.88);
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition:
+    opacity 0.5s var(--ease) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s),
+    transform 0.62s cubic-bezier(0.34, 1.42, 0.5, 1) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
+}
+.vt__karten[data-animiert] .vt__karte[data-auf] .zg-pop { opacity: 1; transform: none; }
+/* Die drei Haltepunkte in Karte 05 sind Gruppen aus Linie, Ring, Punkt und
+   Beschriftung; sie sollen als Ganzes einsetzen, nicht skalieren. */
+.vt__karten[data-animiert] .zg-halt { transform: none; }
+
+/* Beschriftung und Pfeilspitzen kommen zuletzt */
+.vt__karten[data-animiert] .zg-blende {
+  opacity: 0;
+  transition: opacity 0.55s var(--ease) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
+}
+.vt__karten[data-animiert] .vt__karte[data-auf] .zg-blende { opacity: 1; }
+
+/* --- Der Ausschalter fuer den Neustart beim Ueberfahren -------------------
+   `vorteile.js` setzt `data-sofort` fuer die Dauer EINES Bildaufbaus an die
+   Karte, nimmt ihr dabei `data-auf` ab und gibt es unmittelbar danach
+   zurueck. Ohne diesen Ausschalter wuerde der Wegfall von `data-auf` als
+   Uebergang RUECKWAERTS laufen: die Karte verblasste erst langsam und
+   liefe dann wieder auf — sichtbares Springen. Mit ihm springt die Karte
+   ohne jeden Uebergang in den Startzustand, und erst der naechste
+   Bildaufbau zeigt wieder Bewegung. Deshalb ist hier `transition: none`
+   das Ziel, nicht eine andere Bewegung.
+
+   Die Auswahl greift jede Eigenschaft ab, die Abschnitt 2c ueberfuehrt,
+   und liegt in der Spezifitaet ueber den dortigen Regeln — kein
+   `!important` noetig. */
+.vt__karten[data-animiert] .vt__karte[data-sofort],
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-zieh,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-wachs-y,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-wachs-l,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-wachs-r,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-pop,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-blende {
+  transition: none;
+}
+
+/* ---------------------------------------------------------------------------
+   3 — Das Band „Langfristig gedacht, nicht kurzfristig gerechnet"
+
+   Bis 17.08.2026 eine Navy-Flaeche mit einlaufendem Foto. Auf Kundenwunsch
+   jetzt WEISS. Auf dem warmen Grund traegt Weiss nicht von selbst, deshalb
+   bekommt das Band exakt die Fassung der fuenf Karten: derselbe Verlauf
+   (`--vt-karte`), derselbe Eckenradius, dieselben ZWEI Schattenlagen
+   (`--vt-karte-schatten`) — enger Kontaktschatten fuer die Kante, weiter
+   Umgebungsschatten fuer die Hoehe — und wie dort KEINE Kontur.
+
+   Es sitzt unmittelbar unter den Karten 04 und 05: `margin-top` ist genau
+   die Rasterluecke aus `.vt__karten`, damit der Abstand zum Band derselbe
+   ist wie zwischen den beiden Kartenreihen.
+
+   Das Foto ist entfallen (siehe Kommentar im HTML), damit auch das rechte
+   Zusatzpolster — der Text darf jetzt die volle Breite nutzen.
 --------------------------------------------------------------------------- */
 .vt__leiste {
-  margin-top: clamp(1.4rem, 3vh, 2.2rem);
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(1rem, 1.8vw, 1.9rem);
   display: grid;
   grid-template-columns: auto 1px minmax(0, 1fr);
   align-items: center;
-  gap: clamp(1.1rem, 2.4vw, 2.2rem);
-  padding: clamp(1.3rem, 2.4vw, 2rem) clamp(1.5rem, 2.8vw, 2.4rem);
-  border-radius: 14px;
-  background: var(--vt-navy);
+  gap: clamp(1.2rem, 2.6vw, 2.6rem);
+  padding: clamp(1.6rem, 3vw, 2.8rem) clamp(1.5rem, 2.8vw, 2.6rem);
+  border-radius: clamp(16px, 1.6vw, 26px);
+  background: var(--vt-karte);
+  box-shadow: var(--vt-karte-schatten);
+  overflow: hidden;
 }
+
+/* Das Signet stand frueher in `--gold-soft` auf Navy. Auf Weiss waere das
+   ein blasser Fleck; es ist eine Zeichnung, kein Text, deshalb reicht hier
+   das volle `--gold` (auf Weiss 3,0:1 — als nichttextliches Grafikelement
+   ueber der 3:1 nach WCAG 1.4.11). */
 .vt__signet {
-  display: grid;
-  place-items: center;
-  width: clamp(62px, 5.8vw, 90px);
+  display: block;
+  width: clamp(72px, 7vw, 116px);
   aspect-ratio: 1;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  color: var(--gold-soft);
+  color: var(--gold);
 }
-.vt__signet svg { width: 56%; height: 56%; }
+.vt__signet svg { width: 100%; height: 100%; }
+
 .vt__teiler {
   align-self: stretch;
   width: 1px;
-  background: rgba(168, 135, 79, 0.55);
+  min-height: clamp(90px, 9vw, 150px);
+  background: var(--line-gold);
 }
+
 .vt__leiste-titel {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.35rem, 2.05vw, 2rem);
-  line-height: 1.18;
-  color: #fff;
+  font-weight: 300;
+  font-size: clamp(1.4rem, 2.35vw, 2.5rem);
+  line-height: 1.14;
+  color: var(--navy-800);
 }
+.vt__leiste-titel::after {
+  content: '';
+  display: block;
+  width: 62px;
+  height: 1px;
+  margin-top: clamp(0.7rem, 1.6vh, 1.1rem);
+  background: var(--gold);
+}
+
+/* Die drei Punkte stehen wie auf der Vorlage in EINER Reihe; die Beschriftung
+   bricht dafuer zweizeilig um. `nowrap` + `min-width: 0` erzwingt genau das:
+   die Zellen schrumpfen, statt in die naechste Zeile zu rutschen. */
 .vt__punkte {
-  margin-top: clamp(0.75rem, 1.7vh, 1.1rem);
+  margin-top: clamp(0.9rem, 2vh, 1.4rem);
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: clamp(0.7rem, 1.7vw, 1.5rem);
+  gap: clamp(0.8rem, 1.6vw, 1.6rem);
 }
+/* Frueher `#EAF0F8` auf Navy. Auf der weissen Kartenflaeche ist das
+   unlesbar, deshalb die uebliche Fliesstextfarbe des Abschnitts:
+   `--ink-soft` misst 6,54:1 auf Weiss (Abschnitt 2b). */
 .vt__punkte li {
+  min-width: 0;
   display: flex;
   align-items: center;
-  gap: 0.62em;
-  font-size: clamp(0.88rem, 0.97vw, 1rem);
-  line-height: 1.4;
-  color: #EAF0F8;
+  gap: 0.7em;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.32;
+  color: var(--ink-soft);
 }
-/* Feine senkrechte Striche zwischen den Punkten */
+/* Feine senkrechte Goldstriche zwischen den Punkten */
 .vt__punkte li + li {
-  padding-left: clamp(0.7rem, 1.7vw, 1.5rem);
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  padding-left: clamp(0.8rem, 1.6vw, 1.6rem);
+  border-left: 1px solid var(--line-gold);
 }
+/* Der Haken ist rein dekorativ (`aria-hidden`), steht aber jetzt auf Weiss
+   statt auf Navy. `--gold-soft` waere dort kaum noch zu sehen; `--gold-text`
+   haelt als Zeichnung 4,8:1 auf Weiss — mehr als die 3:1, die fuer
+   Grafikelemente noetig waeren. Der Ring bleibt in der feinen Goldlinie,
+   damit er nicht schwerer wirkt als die Haarlinien ringsum. */
 .vt__haken {
   flex: none;
   display: grid;
   place-items: center;
-  width: 1.6em;
+  width: 2.3em;
   aspect-ratio: 1;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--line-gold);
   border-radius: 50%;
-  color: var(--gold-soft);
+  color: var(--gold-text);
 }
-.vt__haken svg { width: 60%; height: 60%; }
+.vt__haken svg { width: 48%; height: 48%; }
 
 /* ---------------------------------------------------------------------------
-   4 — Fusszeile: Hinweis links, Schaltflaeche rechts
+   4 — Hinweiszeile
 --------------------------------------------------------------------------- */
 .vt__fuss {
-  margin-top: clamp(1.2rem, 2.6vh, 1.8rem);
+  margin-top: clamp(1.4rem, 3vh, 2.2rem);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -332,7 +603,7 @@
   align-items: center;
   gap: 0.85rem;
   max-width: 46rem;
-  font-size: clamp(0.9rem, 0.97vw, 1rem);
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
   line-height: 1.55;
   color: var(--ink-soft);
   text-wrap: pretty;
@@ -366,10 +637,10 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Aufklapper „Was bewusst offenbleibt"
-   Mechanik unveraendert: [data-aufklapp] + aria-expanded in site.js,
-   Bewegung ueber grid-template-rows 0fr -> 1fr (eine Hoehe von auto laesst
-   sich nicht ueberfuehren).
+   5 — Aufklapper „Was bewusst offenbleibt"
+   Mechanik unveraendert: [data-aufklapp] + aria-expanded/aria-controls in
+   site.js, Bewegung ueber grid-template-rows 0fr -> 1fr (eine Hoehe von auto
+   laesst sich nicht ueberfuehren).
 --------------------------------------------------------------------------- */
 .offen {
   margin-top: clamp(2.4rem, 5.5vh, 3.6rem);
@@ -395,14 +666,14 @@
   font-size: clamp(1.35rem, 2vw, 2rem);
   font-weight: 400;
   line-height: 1.15;
-  color: var(--ink-black);
+  color: var(--navy-800);
 }
 .offen__titel em {
   font-style: italic;
   color: var(--ink-mute);
 }
 .offen__beisatz {
-  font-size: clamp(0.88rem, 0.96vw, 0.98rem);
+  font-size: clamp(0.9rem, 0.98vw, 1rem);
   line-height: 1.55;
   color: var(--ink-mute);
 }
@@ -419,7 +690,7 @@
 }
 .offen__knopf svg { width: 44%; height: 44%; }
 .offen__kopf:hover .offen__knopf { border-color: var(--gold); }
-.offen[data-offen] .offen__knopf { transform: rotate(90deg); background: rgba(168,135,79,0.08); }
+.offen[data-offen] .offen__knopf { transform: rotate(90deg); background: rgba(168,135,79,0.10); }
 .offen__kopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
 
 .offen__inhalt {
@@ -454,49 +725,99 @@
 .offen__fuss {
   padding-bottom: clamp(1.4rem, 3vh, 2.2rem);
   max-width: 44rem;
-  font-size: clamp(0.9rem, 0.98vw, 0.98rem);
+  font-size: clamp(0.92rem, 1vw, 1rem);
   line-height: 1.55;
   color: var(--ink-mute);
 }
 
+
 /* ---------------------------------------------------------------------------
    Responsive
 --------------------------------------------------------------------------- */
-/* Unter 1200 px werden vier Spalten zu schmal fuer drei Zeilen Fliesstext.
-   Dann stehen die Karten 2x2; die Verbinder und der Versatz entfallen —
-   sie erzaehlen die Reihenfolge, die ohne durchgehende Waagerechte ohnehin
-   nicht mehr abzulesen waere. */
-@media (max-width: 1199px) {
-  .vt__fluss {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    /* Alle Zeilen gleich hoch — sonst waeren die vier Karten gestapelt
-       unterschiedlich hoch, obwohl sie nebeneinander gleich hoch sind. */
-    grid-auto-rows: 1fr;
-    column-gap: clamp(1.1rem, 2.4vw, 1.8rem);
-    row-gap: clamp(1.2rem, 3vh, 1.9rem);
-  }
-  .vt__flanke,
-  .vt__brueck { display: none; }
-  .vt__zelle--hoch { padding-bottom: 0; }
-  .vt__zelle--tief { padding-top: 0; }
+/* Unter 1400 px wird der Zierrand zur Stoerung neben dem Inhalt. */
+@media (max-width: 1399px) {
+  .vt__rand { display: none; }
 }
 
-@media (max-width: 860px) {
-  .vt__leiste { grid-template-columns: minmax(0, 1fr); justify-items: start; }
-  .vt__teiler { display: none; }
-  .vt__punkte { flex-direction: column; align-items: flex-start; }
-  .vt__punkte li + li { padding-left: 0; border-left: 0; }
+/* Unter 1100 px sind sechs Spalten zu schmal fuer drei Karten nebeneinander.
+   Dann: zwei Karten oben, danach je eine ueber die volle Breite. Weil auch
+   hier je Rasterzeile gestreckt wird, bleiben die Karten einer Reihe exakt
+   gleich hoch. */
+@media (max-width: 1099px) {
+  .vt__karten { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vt__karte { grid-column: span 1; }
+  .vt__karte:nth-child(3),
+  .vt__karte--breit { grid-column: span 2; }
 }
 
+/* Ganz schmal: alles untereinander.
+
+   ACHTUNG, gemessenes Problem: die beiden breiten Karten haben einen
+   viewBox von 700 Einheiten. Steht die Karte einspaltig in einem 390 px
+   breiten Fenster, bleiben rund 300 px Zeichenbreite — der Massstab faellt
+   auf 0,43, und eine Beschriftung von 19 Einheiten kaeme bei 8 px heraus.
+   Deshalb wachsen die Beschriftungen der breiten Karten hier in zwei
+   Stufen mit; gerechnet ist auf rund 12 bis 18 px Anzeigegroesse.
+   Die drei Haltepunkte in Karte 05 ruecken dabei mittig UEBER ihren Ring —
+   nebeneinander waere in dieser Groesse kein Platz mehr. */
 @media (max-width: 700px) {
-  .vt__fluss { grid-template-columns: minmax(0, 1fr); }
+  .vt__karten { grid-template-columns: minmax(0, 1fr); }
+  .vt__karte,
+  .vt__karte:nth-child(3),
+  .vt__karte--breit { grid-column: span 1; }
+
+  .vt__karte--breit .zg-sperr-gross-rot,
+  .vt__karte--breit .zg-sperr-gross-gruen { font-size: 22px; }
+  .vt__karte--breit .zg-sperr-navy {
+    font-size: 21px;
+    text-anchor: middle;
+    transform: translate(-27px, -38px);
+  }
   .vt__fuss { flex-direction: column; align-items: flex-start; }
   .vt__cta { width: 100%; justify-content: center; }
   .offen__kopf { grid-template-columns: minmax(0, 1fr) auto; }
   .offen__beisatz { grid-column: 1 / -1; grid-row: 2; }
 }
 
+/* Zweite Stufe fuer sehr schmale Fenster, siehe Rechnung oben. */
+@media (max-width: 500px) {
+  .vt__karte--breit .zg-sperr-gross-rot,
+  .vt__karte--breit .zg-sperr-gross-gruen { font-size: 28px; }
+  .vt__karte--breit .zg-sperr-navy { font-size: 26px; }
+}
+
+@media (max-width: 1099px) {
+  /* Signet, Trennstrich und Text nebeneinander wird hier zu eng: das Band
+     bricht auf eine Spalte um, der senkrechte Teiler entfaellt. */
+  .vt__leiste {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+  .vt__teiler { display: none; }
+  .vt__punkte { flex-direction: column; flex-wrap: wrap; align-items: flex-start; }
+  .vt__punkte li + li { padding-left: 0; border-left: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   Weniger Bewegung
+   `vorteile.js` setzt `data-animiert` in diesem Fall gar nicht erst. Die
+   Regeln hier sind der Gurt dazu: sie heben den Aufbau auch dann auf, wenn
+   das Merkmal aus irgendeinem Grund doch am Raster steht — alle fuenf
+   Karten und alle Zeichnungen stehen dann sofort vollstaendig da.
+--------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .prinzip [data-reveal] { opacity: 1; transform: none; }
   .offen__inhalt, .offen__knopf, .vt__cta .vt__pfeil { transition: none; }
+
+  .vt__karten[data-animiert] .vt__karte,
+  .vt__karten[data-animiert] .zg-pop,
+  .vt__karten[data-animiert] .zg-blende { opacity: 1; transform: none; transition: none; }
+  .vt__karten[data-animiert] .zg-wachs-y,
+  .vt__karten[data-animiert] .zg-wachs-l,
+  .vt__karten[data-animiert] .zg-wachs-r { transform: none; transition: none; }
+  .vt__karten[data-animiert] .zg-zieh {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
 }

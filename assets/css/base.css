@@ -240,7 +240,10 @@ ul, ol { list-style: none; }
   z-index: 60;
   height: var(--header-h);
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* minmax(0,1fr) statt 1fr: sonst waechst die breitere
+     Navigationsseite ueber ihren Anteil hinaus und schiebt die
+     Wortmarke aus der Mitte. */
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   padding: 0 var(--gutter);
   pointer-events: none;
@@ -280,7 +283,10 @@ ul, ol { list-style: none; }
 
 /* Header über dunklem Bild: helle Marke — beim Scrollen zurück auf Navy */
 .site-header--invert:not(.site-header--sticky) .wordmark__name { color: #fff; }
-.site-header--invert:not(.site-header--sticky) .wordmark__sub  { color: rgba(255,255,255,0.58); }
+/* 0.66 statt 0.58: mit 0.58 erreichte der Zusatz ueber dem Hero nur
+   4,40:1 bei 1366 und 1280 px und verfehlte die Lesbarkeitsgrenze.
+   Gemessen gegen den hellsten Untergrundpixel im Textkasten. */
+.site-header--invert:not(.site-header--sticky) .wordmark__sub  { color: rgba(255,255,255,0.66); }
 .site-header--invert:not(.site-header--sticky) .burger__label  { color: rgba(255,255,255,0.72); }
 .site-header--invert:not(.site-header--sticky) .burger__lines span { background: #fff; }
 .site-header--invert:not(.site-header--sticky):hover .burger__label { color: #fff; }
@@ -356,9 +362,12 @@ ul, ol { list-style: none; }
 .kopfnav a[aria-disabled='true'] { cursor: default; }
 .kopfnav a[aria-disabled='true']:hover::after { transform: scaleX(0); }
 
-/* Ab hier ist Platz fuer elf Punkte in einer Waagerechten. Gemessen, nicht
-   geschaetzt — darunter uebernimmt wieder der Burger. */
-@media (min-width: 1440px) {
+/* Ab hier ist Platz fuer die Punkte in einer Waagerechten. Gemessen, nicht
+   geschaetzt: seit der Abschnitt „Geschaeftsfuehrung" entfallen ist, traegt
+   die Zeile bis hinunter zu 1300 px (dort bleiben links 74 px und rechts
+   51 px Rand). 1340 px als Umschaltpunkt laesst etwas Reserve; darunter
+   uebernimmt der Burger. */
+@media (min-width: 1340px) {
   .kopfnav { display: block; }
   /* Luft um die Wortmarke. Sie geht zulasten beider Rasterspalten
      gleichermassen, das Logo bleibt dadurch mittig. */
@@ -651,4 +660,14 @@ body.is-locked { overflow: hidden; }
   .menu__body { grid-template-columns: 1fr; align-content: start; }
   .menu__aside { border-left: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-left: 0; padding-top: 2rem; }
   .burger__label { display: none; }
+}
+
+/* Zwischen 1340 und 1560 px steht die Waagerechte enger. Kleinerer Grad,
+   weniger Sperrung, knappere Abstaende — damit die Zeile auf Laptops nicht
+   auf Kante steht. Ab 1560 px gelten wieder die vollen Werte. */
+@media (min-width: 1340px) and (max-width: 1560px) {
+  .kopfnav ul { gap: 0.62rem; }
+  .kopfnav a  { font-size: 0.76rem; letter-spacing: 0.06em; }
+  .kopfnav--links  { margin-right: 0.9rem; }
+  .kopfnav--rechts { margin-left:  0.9rem; }
 }

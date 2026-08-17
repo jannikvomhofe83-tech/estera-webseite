@@ -204,17 +204,26 @@
   position: relative;
   z-index: 1;
   background: var(--paper);
-  padding: clamp(2.5rem, 6vh, 4.5rem) var(--gutter);
+  /* Oben knapper als unten: der Knopf soll naeher an den Abschnitt darueber
+     ruecken. Auf Kundenwunsch. */
+  padding: clamp(0.6rem, 1.4vh, 1.2rem) var(--gutter) clamp(2.2rem, 5vh, 3.6rem);
 }
 .cta__inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: clamp(1.8rem, 4vh, 2.8rem) clamp(1.5rem, 4vw, 3rem);
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-  /* Seit die Platzhalterzeile entfallen ist, steht die Schaltflaeche allein
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+  /* Die beiden Haarlinien ueber und unter dem Knopf sind auf Kundenwunsch
+     entfallen; er steht jetzt frei in der Flaeche.
+     Seit die Platzhalterzeile entfallen ist, steht die Schaltflaeche allein
      in der Zeile — dann gehoert sie in die Mitte, nicht an den rechten Rand. */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Der Knopf im CTA-Block etwas hoeher als der Standardknopf der Seite — er
+   steht dort allein und traegt den Abschnitt. */
+.cta .btn {
+  min-height: 3.6rem;
+  padding-inline: clamp(1.8rem, 4vw, 2.6rem);
 }

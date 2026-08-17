@@ -1,11 +1,10 @@
 /* ===========================================================================
    SECTION — UNSERE LEISTUNGEN
-   Nachbau der vom Kunden gelieferten Vorlage `Bilder/referenz-leistungen.png`.
-   Ausdrueckliche Ansage: „vom Design 1:1 genau gleich". Uebernommen sind
-   deshalb Aufbau, Proportionen, Kartenform, Schattierung, gestrichelte
-   Verbindungen mit ihren gefuellten Endpunkten, gefuellte Pfeilspitzen, der
-   Estera-Kreis mit den beiden oberen Winkeln und der unteren Gabel sowie die
-   Symbolsprache (1-px-Konturen in Navy).
+   Ausgangspunkt war die Kundenvorlage `Bilder/referenz-leistungen.png` mit
+   ihrem waagerechten Ablauf. Nach mehreren Abstimmungsrunden steht der
+   Abschnitt inzwischen deutlich anders da; was aus der Vorlage geblieben
+   ist: Kartenform, Symbolsprache, die gefuellten Pfeilspitzen und der
+   Estera-Kreis als Mittelpunkt.
 
    ABWEICHUNGEN, alle vom Auftrag gedeckt:
    1. SCHRIFT. Die Vorlage mischt eine Antiqua mit einer Grotesk. Hier laeuft
@@ -18,35 +17,39 @@
       Briefing ersetzt; der Nachweis steht im Kommentar der Section in
       variante-a.html.
 
-   NACHBESSERUNG 14.08. — „ein bisschen kleiner, damit man alles auf einen
-   Blick sieht". Der ganze Abschnitt passt jetzt zwischen Kopfzeile und
-   Fensterunterkante. Verkleinert wurden gleichmaessig: Aussenabstand,
-   Innenabstaende, Symbolkreise, Schriftgrade, Spaltenfugen und die Hoehe der
-   Karten. Untergrenzen, die nicht unterschritten werden: Fliesstext 15 px
-   (.lq__sub, .lz__text), Aufzaehlungszeilen 14 px (.lk__liste, .lz__wort).
-   Die Fussnote unter der Grafik behaelt ihren bisherigen Grad — sie ist
-   siteweit einheitlich gesetzt und wurde nicht angefasst.
+   ===== UMBAU 17.08. — SENKRECHTE LESERICHTUNG ============================
+   „Es geht aktuell von links nach rechts, aber es muss von oben nach unten
+   gehen." Der Plan steht seitdem in drei Ebenen uebereinander:
 
-   FEINSCHLIFF 16.08. — fuenf Punkte aus der Abstimmung:
-   1. Die ESTERA-Zeile ruecken naeher an die gestrichelte Senkrechte. Der
-      Abstand kam aus der Zeilenhoehe (1.6 aus base.css) und nicht aus einem
-      Aussenabstand; `line-height: 1` halbiert ihn von 6 px auf 3 px.
-   2. Mehr Luft ZWISCHEN den Karten: --quellen-luft, --mitte-spalte,
-      --mitte-reihe und die beiden Verbindungsspalten sind gewachsen.
-   3. Trotzdem alles auf einen Blick. Was die groesseren Fugen an Hoehe
-      kosten, holen knappere Innenabstaende und ein knapperer Aussenabstand
-      des Abschnitts zurueck. Die Karten selbst bleiben in ihrer Groesse.
-   4. Die Karten heben sich koerperhaft vom Grund ab: zwei Schattenlagen,
-      ein Hauch Verlauf in der Flaeche, 3 px Hub beim Ueberfahren — und
-      KEINE Kontur. Eine solche war zwischenzeitlich gesetzt und ist auf
-      Kundenwunsch wieder entfallen; die Vorlage zeigt sie auch nicht.
-   5. Das Symbol der Zielkarte „Kapitalanlage" ist gruen (--symbol-gruen).
-   6. Der Kopf steht auf der Achse der Grafik und nicht auf der Mitte des
-      Abschnitts (--achse-versatz).
-   7. Der Grund des Abschnitts ist ein warmer Weisston (#FDFCFA) statt des
-      kuehlen #F7F9FB. Ohne Kontur braucht es diesen Unterschied: die
-      reinweisse Kartenflaeche laege auf reinweissem Grund oben ohne jede
-      Kante.
+      EBENE 1   zwei Quellkarten nebeneinander, mittig gesetzt
+                (Off-Market, Kapitalanlageimmobilien — die dritte Karte
+                „Gebuendelter Zugang" ist ersatzlos entfallen)
+        |       Stichleitungen, Sammler, Linie mit Pfeilspitze
+      EBENE 2   die vier Leistungskarten in EINER Reihe, in ihrer breiten
+                Mittelfuge der Estera-Kreis
+        |       vier Stichleitungen, Sammler, Linie mit Pfeilspitze
+      EBENE 3   die Zielkarte „Kapitalanlage" ueber die volle Breite
+
+   WARUM EINE REIHE UND NICHT ZWEI MAL ZWEI: zwei Reihen kosten rund 240 px
+   Hoehe, und die hat der senkrechte Aufbau nicht mehr uebrig — der
+   Abschnitt soll ohne Scrollen ins Fenster passen. In einer Reihe bleibt er
+   bei 1512x900 rund 90 px unter der Fensterhoehe. Dazu kommt: nur so gibt
+   es wieder eine Mittelfuge, in der der Estera-Kreis wirklich im
+   Mittelpunkt steht.
+
+   VERFEINERUNG in derselben Runde („es muss noch luxurioeser wirken"):
+   Kartentitel deutlich groesser, Hakenkreise von gefuellt auf feine Kontur
+   (die gefuellten Punkte zogen den Blick vom goldenen Titel weg), zwei
+   Schattenlagen mit einem Hauch Verlauf in der Kartenflaeche, 3 px Hub beim
+   Ueberfahren. Kein zusaetzliches Gold — Hochwertigkeit kommt hier aus
+   Ausrichtung und Ruhe, nicht aus Zierrat.
+
+   ===== FARBE ==============================================================
+   Grund weiss. Verbindungslinien, Pfeilspitzen und Symbole in --gold-linie,
+   Kartenueberschriften in --gold-schrift, Aufzaehlungen und ihre Haken in
+   Navy, das Symbol der Zielkarte „Kapitalanlage" als einzige Ausnahme in
+   Gruen. Die Karten tragen KEINE Kontur (Kundenwunsch: „sonst wirkt es zu
+   goldlastig"), ihr Halt kommt aus dem Schatten.
 
    ENTFERNT 16.08. — DER VORBEHALT ZUM LEISTUNGSUMFANG.
    Unter der Grafik stand die Fussnote „Hinweis fuer die Abstimmung: Der
@@ -58,61 +61,39 @@
    einmal mit Estera zu besprechen. Wortlaut: Versionsgeschichte.
    =========================================================================== */
 
+/* --pfeil-luft wird von assets/js/leistungen.js ausgelesen. Ohne
+   @property gibt getComputedStyle bei einer eigenen Eigenschaft nur den
+   Text „clamp(5px, 0.6vw, 10px)" zurueck und nicht den gerechneten Wert;
+   registriert liefert sie px. Faellt @property aus, nimmt das Skript
+   seinen eigenen Ersatzwert. */
+@property --pfeil-luft {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 8px;
+}
+
 .wahl {
   position: relative;
   z-index: 1;
-  /* Warmes, fast weisses Papier. Ohne diesen Unterschied haetten die
-     reinweissen Karten seit dem Wegfall der Kontur keinen Grund, von dem
-     sie sich abheben koennen — der Halt kommt allein aus den zwei
-     Schattenlagen und diesem Hauch Waerme. */
-  background: #FDFCFA;
+  background: var(--paper);
   /* Der Aussenabstand rechnet in vh, weil die Vorgabe eine Fensterhoehe ist
-     und keine Fensterbreite. 16.08. knapper gefasst — die Hoehe, die die
-     groesseren Fugen zwischen den Karten kosten, kommt von hier zurueck. */
+     und keine Fensterbreite. */
   padding: clamp(1.15rem, 2.7vh, 2.3rem) 0 clamp(1.3rem, 3vh, 2.6rem);
-
-  /* Die beiden Verbindungsspalten des Plans. Sie stehen hier und nicht erst
-     in .leist, weil auch der Kopf sie braucht — aus ihnen und den drei
-     fr-Spalten rechnet sich die Achse der Grafik. */
-  --verb-ein: clamp(38px, 4.5vw, 86px);
-  --verb-aus: clamp(32px, 3.6vw, 66px);
-
-  /* DIE ACHSE DER GRAFIK.
-     Die gestrichelte Senkrechte und der Estera-Kreis sitzen auf der Mitte
-     der mittleren Rasterspalte. Die liegt NICHT auf der Mitte des
-     Abschnitts: die Quellenspalte links misst 0.82fr, die Zielkarte rechts
-     1.04fr, und die beiden Verbindungsspalten sind verschieden breit. Bei
-     1512 px trug der Kopf deshalb 26.6 px zu weit rechts.
-     Aus derselben Rechnung wie das Raster:
-       freie Breite  f = Planbreite - Verbindung ein - Verbindung aus
-       Achse         = f * 1.98/4.18 + Verbindung ein
-       Abschnittsmitte = Planbreite / 2
-       Versatz       = -0.0263158 * f + (Verbindung ein - Verbindung aus)/2
-     1.98/4.18 = halbe Kartengruppe (2.32/2) plus Quellenspalte (0.82),
-     geteilt durch die Summe aller fr-Spalten (4.18). So stimmt die Achse
-     bei jeder Fensterbreite und nicht nur bei einer. */
-  --achse-versatz: calc(
-      (min(1420px, 100%) - var(--verb-ein) - var(--verb-aus)) * -0.0263158
-      + (var(--verb-ein) - var(--verb-aus)) / 2);
 }
 
 .wahl__inner {
   max-width: 1520px;
   margin: 0 auto;
-  /* Etwas schmalerer Rand als --gutter: die gewonnene Breite geht in die
-     Karten und spart dort Zeilen — und damit Hoehe. */
   padding: 0 clamp(1.25rem, 4vw, 4.2rem);
 }
 
+
 /* --- Kopf -----------------------------------------------------------------
-   Ueberschrift und ESTERA-Zeile stehen als EIN Block auf der Achse der
-   Grafik (siehe --achse-versatz). Beide zusammen, nicht nur die Zeile: die
-   ESTERA-Zeile gehoert unter die Ueberschrift, und ein Kopf, dessen zwei
-   Zeilen gegeneinander verschoben sind, faellt staerker auf als ein Kopf,
-   der als Ganzes auf der Achse seiner Grafik sitzt. --------------------- */
+   Ueberschrift und ESTERA-Zeile stehen mittig. Der frueher noetige
+   Achsversatz ist mit dem senkrechten Aufbau entfallen: die drei Ebenen
+   sind in sich symmetrisch, die Achse der Grafik liegt jetzt genau auf der
+   Mitte des Abschnitts. ---------------------------------------------------- */
 .wahl__head {
-  position: relative;
-  left: var(--achse-versatz);
   text-align: center;
 }
 .wahl__h2 {
@@ -121,187 +102,176 @@
   color: var(--navy-800);
 }
 
-/* Die Zeile unter der Ueberschrift: kurzer Strich, gesperrtes ESTERA,
-   kurzer Strich. In der Vorlage der einzige Marken-Anker der Grafik.
-   Sie ist zugleich der Ansatzpunkt der gestrichelten Senkrechten: die Linie
-   beginnt an der UNTERKANTE dieses Kastens. Mit der geerbten Zeilenhoehe 1.6
-   lagen darin gut 4 px Luft unter den Versalien, die als Abstand zur Linie
-   sichtbar wurden. `line-height: 1` legt den Kasten eng um die Zeile —
-   Versalien haben keine Unterlaengen, es geht dabei nichts verloren. */
-.wahl__marke {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.7rem, 1.3vw, 1.2rem);
-  margin-top: clamp(0.3rem, 0.85vh, 0.62rem);
-  line-height: 1;
-  font-size: clamp(0.76rem, 0.84vw, 0.92rem);
-  font-weight: 500;
-  letter-spacing: 0.42em;
-  text-indent: 0.42em;
-  text-transform: uppercase;
-  color: var(--navy-800);
-}
-.wahl__marke::before,
-.wahl__marke::after {
-  content: '';
-  width: clamp(22px, 2.8vw, 46px);
-  height: 1px;
-  background: var(--navy-800);
-  opacity: 0.55;
-}
+/* Die ESTERA-Zeile unter der Ueberschrift (.wahl__marke) ist am 17.08.
+   entfallen. Das Zeichen steht jetzt als Rechteck im Plan selbst und ist
+   dort der Ausgangspunkt — siehe .lstart. Zweimal ESTERA untereinander
+   waere eine Dopplung gewesen. */
+
 
 /* ===========================================================================
-   DER PLAN
-   Fuenf Spalten wie in der Vorlage: Quellen, Verbindung, die vier
-   Leistungskarten, Verbindung, Zielkarte. Die beiden Verbindungsspalten sind
-   eigene Rasterspalten und keine Luecken — nur so koennen die gestrichelten
-   Linien ihre Enden sicher an den Karten festmachen.
+   DER PLAN — drei Ebenen uebereinander, dazwischen die Verbindungen.
    =========================================================================== */
 .leist {
-  /* Karten */
-  --karte: #FFFFFF;
-  --karte-radius: clamp(10px, 1.05vw, 17px);
-  /* KEINE Kontur auf den Karten. Sie war zwischenzeitlich gesetzt und ist
-     auf Kundenwunsch wieder entfallen (16.08.): die Vorlage zeigt
-     konturlose weisse Karten, und Kontur plus Schatten zusammen lesen sich
-     wie ein Eingabefeld statt wie eine abgehobene Karte. Der Halt kommt
-     jetzt allein aus den zwei Schattenlagen.
+  /* ===== GOLD ============================================================
+     Zwei Goldtoene, nicht einer — weil zwei verschiedene Schwellwerte
+     einzuhalten sind und das hellere Palettengold #A8874F sie nicht beide
+     schafft (es misst nur 3.32:1 auf Weiss und faellt als Schrift durch).
 
-     ZWEI Lagen, weil eine einzelne eine Flaeche immer aufgeklebt wirken
-     laesst: ein enger Kontaktschatten dicht unter der Kante macht die
-     Kante, ein weiter, sehr schwacher Umgebungsschatten macht die Hoehe.
-     Wenn die Karten verschwimmen, zuerst den ENGEN verstaerken. */
+     --gold-schrift  Kartenueberschriften. Das ist Text, also gilt 4.5:1.
+                     #86693A (--gold-text der Palette) misst 5.13:1.
+     --gold-linie    Verbindungslinien, Pfeilspitzen, Symbole. Nichttextlich,
+                     also gilt 3:1. #9A7A3E misst 4.02:1 auf Weiss und laesst
+                     damit Luft fuer die Kantenglaettung duenner Linien.
+     ==================================================================== */
+  --gold-schrift: var(--gold-text);
+  --gold-linie: #9A7A3E;
+
+  /* ===== Karten ==========================================================
+     KEINE Kontur (Kundenwunsch). Halt aus zwei Schattenlagen: ein enger
+     Kontaktschatten macht die Kante, ein weiter, sehr schwacher
+     Umgebungsschatten macht die Hoehe. Wenn die Karten auf dem weissen
+     Grund verschwimmen: zuerst den ENGEN verstaerken. */
+  --karte-radius: clamp(11px, 1.1vw, 18px);
   --karte-schatten:
-      0 2px 5px rgba(16, 41, 73, 0.12),
-      0 16px 36px -6px rgba(16, 41, 73, 0.11);
-  /* Beim Ueberfahren: dieselben zwei Lagen, nur weiter und etwas kraeftiger,
-     passend zu den 3 px, die die Karte dabei steigt. */
+      0 2px 5px rgba(16, 41, 73, 0.10),
+      0 18px 40px -12px rgba(16, 41, 73, 0.17);
   --karte-schatten-hoch:
-      0 4px 9px rgba(16, 41, 73, 0.12),
-      0 22px 48px -8px rgba(16, 41, 73, 0.14);
-  /* Ein Hauch Verlauf in der Kartenflaeche: oben reines Weiss, unten eine
-     Spur kuehler. Das ist kein Farbwert, den man sehen soll — er nimmt der
-     Flaeche nur die Gleichmaessigkeit und gibt ihr Volumen. */
-  --karte-flaeche: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 50%, #FAFCFD 100%);
-  /* Der Estera-Kreis traegt keine Kontur (dort laufen die Klammern hinein)
-     und braucht deshalb einen etwas deutlicheren eigenen Schatten. */
-  --kreis-schatten: 0 2px 5px rgba(16, 41, 73, 0.09),
-                    0 14px 30px -10px rgba(16, 41, 73, 0.16);
-  /* Fuellung der Symbolkreise */
-  --symbolgrund: #F5F8FB;
-  /* BEWUSSTE AUSNAHME von der Zweifarbigkeit Navy/Gold: der Kunde wuenscht
-     das Symbol der Zielkarte „Kapitalanlage" in Gruen (16.08.).
-     Der erste Versuch (#2F6B4F) war so gedeckt, dass er neben dem Navy noch
-     als Blau gelesen wurde. Dieser Wert ist deutlich gesaettigter: Farbton
-     150 Grad gegen 214 Grad beim Navy #102949, also 64 Grad Abstand — die
-     beiden Farben sind nebeneinander eindeutig zu unterscheiden. Auf dem
-     Symbolgrund #F5F8FB misst er 4.99:1 und bleibt ueber 4.5:1; heller und
-     satter geht nicht, ohne diese Grenze zu reissen.
-     Gilt ausschliesslich fuer dieses eine Symbol — nicht fuer den Kreis
-     darum, nicht fuer die uebrigen Symbole. Aendern: nur hier. */
+      0 4px 10px rgba(16, 41, 73, 0.12),
+      0 26px 54px -14px rgba(16, 41, 73, 0.21);
+  /* Ein Hauch Verlauf in der Flaeche — kein Farbwert, den man sehen soll.
+     Er nimmt der Karte die Gleichmaessigkeit und gibt ihr Volumen. */
+  --karte-flaeche: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 58%, #FBFCFE 100%);
+  /* Fuellung der Symbolkreise: warm, weil die Symbole darin golden sind. */
+  --symbolgrund: #FAF8F4;
+  /* BEWUSSTE AUSNAHME von der Zweifarbigkeit: das Symbol der Zielkarte
+     „Kapitalanlage" ist gruen (Kundenwunsch 16.08.). Farbton 150 Grad gegen
+     214 Grad beim Navy #102949 — nebeneinander eindeutig zu unterscheiden;
+     auf dem Symbolgrund misst er 5.02:1. Gilt NUR fuer dieses eine Symbol. */
   --symbol-gruen: #1F7A4C;
-  /* Strichfarbe der gestrichelten Verbindungen und der Klammern */
-  --strich: rgba(16, 41, 73, 0.62);
-  --trenner: rgba(16, 41, 73, 0.12);
-  --estera-kreis: clamp(50px, 4.5vw, 78px);
-  /* Die beiden Fugen zwischen den vier Leistungskarten. Sie sind NICHT
-     gleich gross — die Vorlage laesst senkrecht deutlich mehr Luft als
-     waagerecht, weil in der senkrechten Fuge die Gabel unter dem Kreis
-     haengt. Aus der Reihenfuge leitet sich zugleich die Hoehe der beiden
-     oberen Winkel ab, aus der Spaltenfuge die Breite der Gabel.
-     16.08. um rund ein Drittel geoeffnet — die Karten standen zu dicht
-     beieinander. Nur die Fugen wachsen, die Karten selbst nicht. */
-  --mitte-spalte: clamp(1.5rem, 3.9vw, 4.1rem);
-  --mitte-reihe: clamp(1rem, 2.3vw, 2.6rem);
-  /* Aussenabstand der drei Quellkarten. Er liegt an der Karte und nicht als
-     `gap` am Raster: die drei Zeilen muessen exakt gleich hoch bleiben,
-     damit die Kartenmitten auf 1/6, 1/2 und 5/6 der Spaltenhoehe liegen —
-     dort setzen die gestrichelten Stichleitungen an. */
-  --quellen-luft: clamp(0.5rem, 1.1vh, 0.9rem);
-  /* Wie tief die Gabel unter den Kreis reicht. Sie muss weiter hinunter als
-     der Kreisradius, sonst laegen ihre Endpunkte hinter dem Kreis. */
-  --gabel-tief: clamp(30px, 2.8vw, 46px);
-  /* Wie weit die gestrichelte Senkrechte nach oben in den Kopf ragt, und wie
-     lang das durchgezogene Stueck an ihrem unteren Ende ist. */
-  --faden-oben: clamp(1.1rem, 2.4vh, 1.9rem);
-  --faden-stiel: clamp(11px, 1.2vw, 19px);
-  /* Endpunkte der Verbindungen und Rundung ihrer Ecken */
-  --punkt: 4px;
-  --klammer-rund: 8px;
-  /* Luft zwischen Pfeilspitze und Karte — die Vorlage laesst die Spitze
-     nicht an der Kante kleben. */
-  --pfeil-luft: clamp(6px, 0.7vw, 11px);
-  /* Wie weit die oberen Winkel nach aussen reichen: 16 % der Breite der
-     Kartengruppe, wie in der Vorlage. Die Gabel bleibt in der Spaltenfuge
-     und ist deshalb halb so breit wie diese. */
-  --bogen-arm: 16%;
-  --gabel-arm: calc(var(--mitte-spalte) / 2);
+
+  /* ===== Linien ==========================================================
+     Durchgezogen, nicht gestrichelt (Kundenwunsch 17.08.). */
+  --strich: var(--gold-linie);
+
+  /* ===== Ebene 1 — die beiden Quellkarten ================================
+     Sie stehen als Paar mittig und nehmen NICHT die volle Breite ein: zwei
+     Karten ueber 1400 px waeren leere Flaechen mit einer Zeile darin. */
+  --quellen-breite: 63%;
+  --quellen-spalte: clamp(1rem, 2.6vw, 2.8rem);
+
+  /* ===== Ebene 2 — die vier Leistungskarten ==============================
+     Vier gleiche Spalten, gleiche Fugen. Der frueher noetige Zuschlag an
+     der Mittelfuge ist entfallen: das ESTERA-Zeichen sitzt nicht mehr
+     dazwischen, sondern ganz oben. */
+  --mitte-spalte: clamp(0.8rem, 1.7vw, 1.85rem);
+
+  /* ===== Ebene 3 — die Zielkarte ========================================
+     Mittig und schmal: sie traegt nur noch Titel und eine Zeile. */
+  --ziel-breite: clamp(240px, 27%, 420px);
+
+  /* ===== Verbindungen ====================================================
+     --verb-hoehe ist der Zeilenabstand zwischen zwei Ebenen und damit der
+     Platz, in dem eine ganze Verbindung unterkommen muss: Stichleitungen,
+     Sammler, Linie und Pfeilspitze.
+     --pfeil-luft ist der Abstand, den die Spitze zur Karte haelt; das
+     Skript liest ihn aus und setzt die Pfadenden entsprechend. */
+  --verb-hoehe: clamp(34px, 4.4vh, 58px);
+  --pfeil-luft: clamp(5px, 0.6vw, 10px);
 
   max-width: 1420px;
   margin: 0 auto;
 }
 
 .leist__plan {
+  position: relative;          /* Bezug fuer das Linien-Overlay */
   display: grid;
-  grid-template-columns:
-    minmax(0, 0.82fr)              /* Quellen                    */
-    var(--verb-ein)                /* Verbindung hinein          */
-    minmax(0, 2.32fr)              /* die vier Leistungskarten   */
-    var(--verb-aus)                /* Verbindung hinaus          */
-    minmax(0, 1.04fr);             /* Zielkarte                  */
-  align-items: stretch;
-  /* Der Abstand nach oben ist zugleich die Laenge der gestrichelten
-     Senkrechten: sie haengt mit ihrem oberen Ende genau an der Unterkante
-     der ESTERA-Zeile. Weiter herangezogen wird sie NICHT — sie liefe sonst
-     in den Textkasten und beruehrte die Versalien. Naeher kommt sie ueber
-     die Zeilenhoehe der Marke, siehe .wahl__marke. */
-  margin-top: var(--faden-oben);
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+  /* Der Zeilenabstand IST der Platz fuer die Verbindungslinien. */
+  row-gap: var(--verb-hoehe);
+  margin-top: clamp(0.55rem, 1.3vh, 1.1rem);
 }
 
 
-/* --- Spalte 1: die Quellen ------------------------------------------------ */
-/* Drei gleich hohe Zeilen ohne Zeilenabstand — der Abstand kommt aus den
-   Aussenabstaenden der Karten. Nur so liegen die Kartenmitten exakt auf
-   1/6, 1/2 und 5/6 der Spaltenhoehe, und genau dort setzen die
-   gestrichelten Linien der Nachbarspalte an. */
-.leist__quellen {
-  display: grid;
-  grid-auto-rows: 1fr;
-}
-.lq {
+/* ===========================================================================
+   EBENE 0 — der Ausgangspunkt
+   Ein Rechteck in der Machart der Karten, nur kleiner und ohne Inhalt ausser
+   dem gesperrten Schriftzug. Es steht mittig ueber den beiden Quellen und
+   ist mit ihnen verbunden; es ist der Anfang der Grafik, nicht ihre Mitte.
+   =========================================================================== */
+.leist__start {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: clamp(0.26rem, 0.55vh, 0.44rem);
-  margin: var(--quellen-luft) 0;
-  padding: clamp(0.45rem, 0.75vw, 0.85rem) clamp(0.5rem, 0.8vw, 0.9rem);
+}
+.lstart {
+  display: grid;
+  place-items: center;
+  min-width: clamp(140px, 13vw, 210px);
+  padding: clamp(0.5rem, 0.8vw, 0.85rem) clamp(1rem, 1.8vw, 1.8rem);
   border-radius: var(--karte-radius);
   background: var(--karte-flaeche);
   box-shadow: var(--karte-schatten);
-  text-align: center;
+  font-family: var(--font-ui);
+  font-size: clamp(0.74rem, 0.8vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  text-transform: uppercase;
+  color: var(--navy-800);
+}
+
+
+/* ===========================================================================
+   EBENE 1 — die Quellen
+   Zwei gleich hohe Karten nebeneinander. Symbol links, Titel und Erklaerzeile
+   rechts uebereinander: das haelt die Ebene flach, und in der senkrechten
+   Leserichtung zaehlt jede Zeile Hoehe.
+   =========================================================================== */
+.leist__quellen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--quellen-spalte);
+  width: 100%;
+  max-width: var(--quellen-breite);
+  margin: 0 auto;
+}
+.lq {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(0.7rem, 1.3vw, 1.3rem);
+  row-gap: 0.12rem;
+  padding: clamp(0.6rem, 1vw, 1.15rem) clamp(0.75rem, 1.2vw, 1.4rem);
+  border-radius: var(--karte-radius);
+  background: var(--karte-flaeche);
+  box-shadow: var(--karte-schatten);
+  text-align: left;
 }
 .lq__kreis {
+  grid-row: 1 / span 2;
   display: grid;
   place-items: center;
-  width: clamp(36px, 3.7vw, 62px);
+  width: clamp(36px, 3.4vw, 56px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--symbolgrund);
-  color: var(--navy-800);
+  color: var(--gold-linie);
 }
 .lq__kreis svg { width: 52%; height: 52%; }
 .lq__titel {
+  grid-column: 2;
+  align-self: end;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1rem, 1.12vw, 1.22rem);
+  font-size: clamp(1.04rem, 1.2vw, 1.36rem);
   line-height: 1.14;
-  color: var(--navy-800);
+  color: var(--gold-schrift);
   text-wrap: balance;
 }
 /* Untergrenze 15 px: das ist Fliesstext, darunter leidet die Lesbarkeit. */
 .lq__sub {
+  grid-column: 2;
+  align-self: start;
   font-size: clamp(0.94rem, 0.9vw, 1rem);
   line-height: 1.32;
   color: var(--ink-soft);
@@ -309,213 +279,56 @@
 }
 
 
-/* --- Spalten 2 und 4: die gestrichelten Verbindungen ---------------------- */
-.lb {
-  position: relative;
-}
-/* Waagerechte und senkrechte Striche als Farbverlauf statt `border: dashed`.
-   Der Browser waehlt bei `dashed` die Strichlaenge selbst und zieht sie an
-   jeder Kantenlaenge anders lang; der Verlauf haelt 5 px Strich und 5 px
-   Luft ueberall gleich. */
-.lb__quer,
-.lb__lang {
+/* ===========================================================================
+   DIE VERBINDUNGEN
+   Sie liegen als EIN Overlay-SVG ueber dem ganzen Plan; die Pfade schreibt
+   assets/js/leistungen.js aus den gemessenen Kartenmitten. Der Grund steht
+   im Kommentar der Section in variante-a.html: eine Linie, die eine
+   Kartenmitte treffen muss, kann ihre Koordinate nicht aus CSS-Prozenten
+   raten, und eine Pfeilspitze, die am Pfadende sitzen soll, gehoert als
+   `marker-end` an den Pfad und nicht als eigener Kasten daneben.
+
+   Die Zwischenraeume, in denen die Linien laufen, macht das Raster:
+   .leist__plan setzt --verb-hoehe als row-gap zwischen die Ebenen.
+   =========================================================================== */
+.leist__linien {
   position: absolute;
-  height: 1px;
-  background-image: repeating-linear-gradient(to right,
-    var(--strich) 0 5px, transparent 5px 10px);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  color: var(--strich);   /* die Pfeilspitzen fuellen mit currentColor */
+  z-index: 1;
 }
-.lb__hoch {
-  position: absolute;
-  width: 1px;
-  background-image: repeating-linear-gradient(to bottom,
-    var(--strich) 0 5px, transparent 5px 10px);
-}
-
-/* Hinein: drei Stichleitungen von den Quellkarten, die sich auf 62 % der
-   Spaltenbreite sammeln und als eine Linie mit gefuellter Spitze weiterlaufen. */
-.lb--ein .lb__quer { left: 0; width: 62%; top: calc(var(--y) - 0.5px); }
-.lb--ein .lb__hoch {
-  left: calc(62% - 0.5px);
-  top: 16.6667%;
-  height: 66.6667%;
-}
-.lb--ein .lb__lang { left: 62%; right: var(--pfeil-luft); top: calc(50% - 0.5px); }
-
-/* Hinaus: eine einzelne Linie mit gefuellter Spitze. */
-.lb--aus .lb__lang { left: 0; right: var(--pfeil-luft); top: calc(50% - 0.5px); }
-
-/* Gefuellte Pfeilspitze. Sie sitzt auf der Linie, nicht daneben: `top: 50%`
-   bezieht sich auf die 1 px hohe Linie selbst, die Verschiebung um die halbe
-   Hoehe zentriert das Dreieck darauf. */
-.lb__lang::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 8px solid var(--navy-800);
-  transform: translateY(-50%);
+.leist__linien path {
+  fill: none;
+  stroke: var(--strich);
+  stroke-width: 1;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
 }
 
 
-/* --- Spalte 3: die vier Leistungskarten ----------------------------------- */
+/* ===========================================================================
+   EBENE 2 — die vier Leistungskarten
+   Eine Reihe zu viert. In der breiten Mittelfuge steht der Estera-Kreis.
+   =========================================================================== */
 .leist__mitte {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  /* grid-auto-rows: 1fr zwingt beide Zeilen auf dieselbe Hoehe; zusammen mit
-     dem gestreckten Raster sind damit alle VIER Karten exakt gleich hoch,
-     unabhaengig von der Laenge der Beschriftung. */
-  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: var(--mitte-spalte);
-  row-gap: var(--mitte-reihe);
+  align-items: stretch;
 }
 
-/* Die gestrichelte Senkrechte aus dem Kopf. Sie laeuft in der Fuge zwischen
-   den beiden oberen Karten nach unten, endet in einem gefuellten Punkt und
-   geht von dort als durchgezogenes Stueck in den Estera-Kreis — genau diese
-   Abfolge zeigt die Vorlage. */
-.lm__faden {
-  position: absolute;
-  left: calc(50% - 0.5px);
-  width: 1px;
-  top: calc(-1 * var(--faden-oben));
-  height: calc(var(--faden-oben) + 50% - var(--estera-kreis) / 2 - var(--faden-stiel));
-  background-image: repeating-linear-gradient(to bottom,
-    var(--strich) 0 5px, transparent 5px 10px);
-  pointer-events: none;
-}
-.lm__faden::after {
-  content: '';
-  position: absolute;
-  left: calc(0.5px - var(--punkt) / 2);
-  bottom: calc(var(--punkt) / -2);
-  width: var(--punkt);
-  height: var(--punkt);
-  border-radius: 50%;
-  background: var(--navy-800);
-}
-.lm__faden::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 100%;
-  width: 1px;
-  height: var(--faden-stiel);
-  background: var(--navy-800);
-}
-
-/* Die Verbindung zwischen Kreis und Karten.
-   OBEN zwei Winkel: vom Kreis waagerecht nach aussen, dann mit gerundeter
-   Ecke hoch bis an die Unterkante der beiden oberen Karten, dort ein
-   gefuellter Punkt.
-   UNTEN eine Gabel: vom Kreis senkrecht hinunter, dann nach beiden Seiten
-   waagerecht, wieder mit Punkt am Ende.
-   Jedes Teil ist ein Kasten, von dem nur zwei Rahmenkanten gezeichnet
-   werden; der Eckenradius dazwischen ergibt die Rundung. Die Mitten liegen
-   hinter dem Kreis und sind dadurch nicht sichtbar. */
-.lm__bogen,
-.lm__gabel {
-  position: absolute;
-  border: 0 solid var(--navy-800);
-  border-bottom-width: 1px;
-  pointer-events: none;
-}
-.lm__bogen::after,
-.lm__gabel::after {
-  content: '';
-  position: absolute;
-  width: var(--punkt);
-  height: var(--punkt);
-  border-radius: 50%;
-  background: var(--navy-800);
-}
-
-/* Die waagerechte Kante liegt auf halber Hoehe, also auf der Kreismitte;
-   die beiden Enden reichen genau bis an die Unterkante der oberen Karten. */
-.lm__bogen {
-  bottom: 50%;
-  width: var(--bogen-arm);
-  height: calc(var(--mitte-reihe) / 2);
-}
-.lm__bogen--links {
-  right: calc(50% - 0.5px);
-  border-left-width: 1px;
-  border-bottom-left-radius: var(--klammer-rund);
-}
-.lm__bogen--links::after {
-  left: calc(0.5px - var(--punkt) / 2);
-  top: calc(var(--punkt) / -2);
-}
-.lm__bogen--rechts {
-  left: calc(50% - 0.5px);
-  border-right-width: 1px;
-  border-bottom-right-radius: var(--klammer-rund);
-}
-.lm__bogen--rechts::after {
-  right: calc(0.5px - var(--punkt) / 2);
-  top: calc(var(--punkt) / -2);
-}
-
-/* Beide Haelften der Gabel zeichnen denselben senkrechten Strich an
-   derselben Stelle — deckendes Navy, deshalb entsteht dort keine doppelte
-   Kante. */
-.lm__gabel {
-  top: 50%;
-  width: var(--gabel-arm);
-  height: var(--gabel-tief);
-}
-.lm__gabel--links {
-  right: calc(50% - 0.5px);
-  border-right-width: 1px;
-  border-bottom-right-radius: var(--klammer-rund);
-}
-.lm__gabel--links::after {
-  left: calc(var(--punkt) / -2);
-  bottom: calc(0.5px - var(--punkt) / 2);
-}
-.lm__gabel--rechts {
-  left: calc(50% - 0.5px);
-  border-left-width: 1px;
-  border-bottom-left-radius: var(--klammer-rund);
-}
-.lm__gabel--rechts::after {
-  right: calc(var(--punkt) / -2);
-  bottom: calc(0.5px - var(--punkt) / 2);
-}
-
-/* Der Estera-Kreis im Schnittpunkt der vier Karten */
-.lm__kreis {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: var(--estera-kreis);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--karte);
-  box-shadow: var(--kreis-schatten);
-  transform: translate(-50%, -50%);
-  font-size: clamp(0.62rem, 0.66vw, 0.78rem);
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-indent: 0.24em;
-  text-transform: uppercase;
-  color: var(--navy-800);
-}
-
-/* Die Leistungskarte */
 .lk {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(0.6rem, 1vw, 1.15rem) clamp(0.6rem, 0.95vw, 1.15rem)
-           clamp(0.7rem, 1.1vw, 1.28rem);
+  padding: clamp(0.65rem, 1vw, 1.2rem) clamp(0.6rem, 0.95vw, 1.15rem)
+           clamp(0.72rem, 1.1vw, 1.3rem);
   border-radius: var(--karte-radius);
   background: var(--karte-flaeche);
   box-shadow: var(--karte-schatten);
@@ -523,252 +336,155 @@
 .lk__kreis {
   display: grid;
   place-items: center;
-  width: clamp(42px, 4.2vw, 72px);
+  width: clamp(40px, 3.8vw, 62px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--symbolgrund);
-  color: var(--navy-800);
+  color: var(--gold-linie);
 }
 .lk__kreis svg { width: 52%; height: 52%; }
+/* Der Titel traegt die Karte. Er steht deutlich ueber den Aufzaehlungs-
+   zeilen — vorher war es umgekehrt: die gefuellten Hakenkreise zogen den
+   Blick vom goldenen Titel weg. */
 .lk__titel {
-  margin-top: clamp(0.3rem, 0.8vh, 0.6rem);
+  margin-top: clamp(0.34rem, 0.8vh, 0.6rem);
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.2vw, 1.36rem);
-  line-height: 1.14;
+  font-size: clamp(1.1rem, 1.3vw, 1.48rem);
+  line-height: 1.12;
   text-align: center;
-  color: var(--navy-800);
+  color: var(--gold-schrift);
   text-wrap: balance;
 }
 /* Der kurze Strich unter dem Titel */
 .lk__regel {
-  width: clamp(18px, 1.9vw, 30px);
+  width: clamp(20px, 2.1vw, 34px);
   height: 1px;
-  margin: clamp(0.26rem, 0.6vh, 0.42rem) 0 clamp(0.42rem, 0.95vh, 0.72rem);
-  background: var(--navy-800);
-  opacity: 0.55;
+  margin: clamp(0.26rem, 0.58vh, 0.42rem) 0 clamp(0.4rem, 0.85vh, 0.64rem);
+  background: var(--gold-linie);
 }
 .lk__liste {
   display: grid;
-  gap: clamp(0.24rem, 0.5vh, 0.4rem);
+  gap: clamp(0.2rem, 0.45vh, 0.36rem);
   width: 100%;
 }
 /* Untergrenze 14 px fuer die Aufzaehlungszeilen. */
 .lk__liste li {
   display: flex;
   align-items: flex-start;
-  gap: clamp(0.4rem, 0.7vw, 0.7rem);
+  gap: clamp(0.42rem, 0.72vw, 0.72rem);
   font-size: clamp(0.88rem, 0.9vw, 0.97rem);
   line-height: 1.34;
   color: var(--navy-600);
   text-wrap: pretty;
 }
-/* Gefuellter Navy-Kreis mit weissem Haken */
+/* Feiner Navy-Kreis mit Navy-Haken. Gefuellt war er zu laut: vier gefuellte
+   Punkte je Karte wogen schwerer als die Ueberschrift darueber. */
 .lk__haken {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: clamp(14px, 1.15vw, 18px);
+  width: clamp(15px, 1.2vw, 19px);
   aspect-ratio: 1;
   /* Die Kreise stehen auf der ersten Textzeile, nicht auf deren Oberkante. */
-  margin-top: calc((1.34em - clamp(14px, 1.15vw, 18px)) / 2);
+  margin-top: calc((1.34em - clamp(15px, 1.2vw, 19px)) / 2);
+  border: 1px solid rgba(16, 41, 73, 0.32);
   border-radius: 50%;
-  background: var(--navy-800);
-  color: #fff;
+  color: var(--navy-600);
 }
-.lk__haken svg { width: 58%; height: 58%; }
+.lk__haken svg { width: 62%; height: 62%; }
 
 
-/* --- Spalte 5: die Zielkarte ---------------------------------------------- */
+/* ===========================================================================
+   EBENE 3 — die Zielkarte
+   Sie ist am 17.08. stark zurueckgenommen worden: „Bei Kapitalanlage muss
+   nicht so viel beschrieben werden … Es soll nur Kapitalanlage stehen und
+   die Subline." Geblieben sind Symbol, Titel, Strich und eine Zeile; die
+   vier Zeilen mit den runden Symbolen sind entfallen. Die Karte steht
+   mittig und deutlich schmaler als die Reihe darueber — sie ist der
+   Zielpunkt und nicht die breiteste Flaeche der Grafik.
+   =========================================================================== */
 .lz {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(0.65rem, 1.05vw, 1.2rem) clamp(0.65rem, 1vw, 1.2rem)
-           clamp(0.75rem, 1.15vw, 1.35rem);
+  justify-self: center;
+  width: 100%;
+  max-width: var(--ziel-breite);
+  padding: clamp(0.58rem, 0.9vw, 1.05rem) clamp(0.9rem, 1.4vw, 1.7rem)
+           clamp(0.66rem, 1vw, 1.15rem);
   border-radius: var(--karte-radius);
   background: var(--karte-flaeche);
   box-shadow: var(--karte-schatten);
+  text-align: center;
 }
 .lz__kreis {
   display: grid;
   place-items: center;
-  width: clamp(48px, 4.9vw, 84px);
+  width: clamp(38px, 3.4vw, 56px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--symbolgrund);
-  color: var(--navy-800);
+  color: var(--gold-linie);
 }
-/* Das eine gruene Symbol der Grafik. Der Kreis darum behaelt seine Fuellung
-   (--symbolgrund), die vier Symbole der Liste darunter bleiben in Navy —
-   gruen ist ausschliesslich diese eine Zeichnung. Siehe --symbol-gruen. */
+/* Das eine gruene Symbol der Grafik. Der Kreis darum behaelt seine
+   Fuellung, alle uebrigen Symbole bleiben golden. Siehe --symbol-gruen. */
 .lz__kreis svg { width: 52%; height: 52%; color: var(--symbol-gruen); }
 .lz__titel {
-  margin-top: clamp(0.4rem, 1vh, 0.8rem);
+  margin-top: clamp(0.35rem, 0.8vh, 0.6rem);
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.14rem, 1.32vw, 1.5rem);
-  line-height: 1.12;
-  text-align: center;
-  color: var(--navy-800);
+  font-size: clamp(1.12rem, 1.32vw, 1.5rem);
+  line-height: 1.1;
+  color: var(--gold-schrift);
 }
 .lz__regel {
-  width: clamp(18px, 1.9vw, 30px);
+  width: clamp(20px, 2.1vw, 34px);
   height: 1px;
-  margin: clamp(0.26rem, 0.6vh, 0.42rem) 0 clamp(0.4rem, 0.9vh, 0.65rem);
-  background: var(--navy-800);
-  opacity: 0.55;
+  margin: clamp(0.28rem, 0.6vh, 0.44rem) 0 clamp(0.34rem, 0.75vh, 0.55rem);
+  background: var(--gold-linie);
 }
 /* Untergrenze 15 px: Fliesstext. */
 .lz__text {
-  font-size: clamp(0.95rem, 0.96vw, 1.04rem);
-  line-height: 1.4;
-  text-align: center;
+  font-size: clamp(0.95rem, 0.94vw, 1.02rem);
+  line-height: 1.34;
   color: var(--ink-soft);
-  text-wrap: pretty;
-}
-/* Die Zielkarte ist so hoch wie die ganze Kartengruppe daneben und hat
-   deshalb Luft uebrig. Statt sie als toten Rand unter der letzten Zeile
-   stehen zu lassen, waechst die Liste in die Hoehe und verteilt ihre vier
-   Zeilen gleichmaessig — die feinen Trennlinien liegen dann in gleichem
-   Abstand, wie in der Vorlage. */
-.lz__liste {
-  width: 100%;
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  margin-top: clamp(0.45rem, 1vh, 0.85rem);
-}
-/* Feine Waagerechte zwischen den Zeilen — nicht ueber der ersten und nicht
-   unter der letzten. */
-.lz__liste li + li { border-top: 1px solid var(--trenner); }
-.lz__liste li {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  gap: clamp(0.45rem, 0.8vw, 0.8rem);
-  padding: clamp(0.28rem, 0.7vh, 0.6rem) 0;
-}
-.lz__symbol {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: clamp(26px, 2.3vw, 38px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--symbolgrund);
-  color: var(--navy-800);
-}
-.lz__symbol svg { width: 54%; height: 54%; }
-/* Untergrenze 14 px fuer die Aufzaehlungszeilen. */
-.lz__wort {
-  font-size: clamp(0.88rem, 0.9vw, 0.97rem);
-  line-height: 1.3;
-  color: var(--navy-600);
   text-wrap: pretty;
 }
 
 
 /* ===========================================================================
    SCHMALERE FENSTER
-   Die Vorlage ist auf ein sehr breites Fenster gerechnet. Unter 1180 px
-   kippt der Plan von links-nach-rechts auf oben-nach-unten: Quellen, dann
-   die vier Karten, dann die Zielkarte. Die Verbindungen bleiben — sie laufen
-   nur senkrecht statt waagerecht. Ein Fenster fuellt der Abschnitt dort
-   nicht mehr; das verlangt der Auftrag auch nur fuer die Arbeitsgeraete
-   (1280 px aufwaerts).
+   Der Aufbau ist ohnehin senkrecht; unter 1180 px reicht die Breite nur noch
+   fuer zwei Leistungskarten nebeneinander, unter 700 px fuer eine. Die
+   Verbindungen behalten ihre Linie, verlieren aber Stichleitungen und
+   Sammler — die haengen am Raster der Ebene darueber und stimmten sonst
+   nicht mehr.
    =========================================================================== */
 @media (max-width: 1180px) {
-  /* Gekippt gibt es keine seitlich versetzte Achse mehr — Faden und Kreis
-     liegen dann in der Mitte. Der Kopf steht wieder mittig. */
-  .wahl__head { left: 0; }
+  .leist { --quellen-breite: min(100%, 720px); }
 
-  .leist__plan {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: stretch;
-  }
-  .leist__quellen {
-    grid-auto-rows: auto;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(0.8rem, 2vw, 1.4rem);
-  }
-  .lq { margin: 0; }
+  .leist__mitte { grid-template-columns: repeat(2, minmax(0, 1fr));
+                  row-gap: var(--mitte-spalte); }
 
-  /* Die Verbindungsspalten werden zu Verbindungszeilen. */
-  .lb {
-    height: clamp(2.2rem, 4.4vh, 3.4rem);
-    justify-self: center;
-    width: min(100%, 420px);
-  }
-  .lb--ein .lb__quer,
-  .lb--ein .lb__hoch { display: none; }
-  .lb__lang {
-    left: calc(50% - 0.5px);
-    right: auto;
-    top: 0;
-    bottom: var(--pfeil-luft);
-    width: 1px;
-    height: auto;
-    background-image: repeating-linear-gradient(to bottom,
-      var(--strich) 0 5px, transparent 5px 10px);
-  }
-  .lb__lang::after {
-    right: auto;
-    left: 50%;
-    top: auto;
-    bottom: 0;
-    border-top: 8px solid var(--navy-800);
-    border-bottom: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    transform: translateX(-50%);
-  }
 
-  /* Der Faden aus dem Kopf haengt an der Ueberschrift, nicht mehr an den
-     Karten — er wuerde jetzt quer durch die Quellkarten laufen. */
-  .lm__faden { display: none; }
-
-  .leist__mitte { max-width: 820px; justify-self: center; width: 100%; }
-  .lz { max-width: 560px; justify-self: center; width: 100%; }
+  .leist { --ziel-breite: clamp(240px, 44%, 460px); }
 }
 
 @media (max-width: 700px) {
-  /* Vier Karten untereinander. Der Estera-Kreis sitzt dann nicht mehr in
-     einem Schnittpunkt — Kreis und Klammern entfallen, die Marke steht
-     ohnehin schon unter der Ueberschrift. */
-  .leist__mitte { grid-template-columns: minmax(0, 1fr); }
-  .lm__kreis,
-  .lm__bogen,
-  .lm__gabel { display: none; }
-  .leist__quellen {
-    grid-template-columns: minmax(0, 1fr);
-    /* Wieder gleich hohe Zeilen, damit die drei Karten untereinander
-       dieselbe Hoehe behalten. */
-    grid-auto-rows: 1fr;
-  }
-  /* Symbol links, Titel und Erklaerzeile rechts uebereinander. Als reines
-     Flex nebeneinander blieben fuer den Titel nur wenige Zeichen uebrig und
-     „Off-Market" braeche mitten im Wort. */
-  .lq {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    column-gap: clamp(0.8rem, 3.4vw, 1.2rem);
-    row-gap: 0.15rem;
-    text-align: left;
-    padding: clamp(0.9rem, 3.4vw, 1.3rem) clamp(1rem, 3.8vw, 1.4rem);
-  }
-  .lq__kreis { grid-row: 1 / span 2; width: clamp(52px, 15vw, 68px); }
-  .lq__titel { grid-column: 2; align-self: end; }
-  .lq__sub { grid-column: 2; align-self: start; max-width: 26rem; }
+  .leist__quellen { grid-template-columns: minmax(0, 1fr); row-gap: clamp(0.7rem, 2.4vw, 1.1rem); }
+  .leist__mitte { grid-template-columns: minmax(0, 1fr); row-gap: clamp(0.7rem, 2.4vw, 1.1rem); }
+  .leist { --ziel-breite: min(100%, 460px); }
+
 }
 
 
 /* ===========================================================================
    AUFZIEHEN BEIM SCROLLEN
-   Der Plan baut sich EINMAL auf, wenn er ins Bild kommt, in Leserichtung:
-   Quellkarten, Zulaufleitung, die vier Leistungskarten mit ihren Haken,
-   Ablaufleitung, Zielkarte — und zuletzt der Estera-Kreis.
+   Der Plan baut sich EINMAL auf, wenn er ins Bild kommt — in der neuen
+   Leserichtung von oben nach unten: die beiden Quellen, die Verbindung
+   hinunter, die vier Leistungskarten, die Verbindung zum Ziel, die
+   Zielkarte, zuletzt der Estera-Kreis.
 
    Zwei Schalter, beide von assets/js/leistungen.js gesetzt:
    data-bereit      schaltet die Startzustaende ueberhaupt erst frei. Ohne
@@ -776,27 +492,17 @@
                     vollstaendig sichtbar da — nichts bleibt haengen.
    data-gezeichnet  loest den Ablauf aus, genau einmal.
 
-   Die Linien ziehen nicht ueber `stroke-dashoffset` auf — sie sind keine
-   SVG-Pfade, sondern gestrichelte Verlaeufe. Ein Aufziehen ueber die Breite
-   wuerde das Muster stauchen, deshalb waechst ein Fenster ueber die fertige
-   Linie: die Strichelung bleibt exakt wie im Ruhezustand, sichtbar wird sie
-   Stueck fuer Stueck. Dafuer `clip-path` und nicht `mask`: Pfeilspitzen,
-   Endpunkte und der durchgezogene Stiel unter dem Faden liegen ausserhalb
-   des 1 px schmalen Kastens, und eine Maske schneidet genau dort ab
-   (mask-clip haengt am Rahmenkasten). Das Fenster reicht deshalb mit
-   negativen Werten ueber den Kasten hinaus.
+   Die Linien ziehen ueber `clip-path` auf und nicht ueber die Breite: so
+   bleibt die Linie in ihrer ganzen Staerke stehen und wird nur Stueck fuer
+   Stueck sichtbar. Die negativen Werte holen die Pfeilspitze mit, die
+   ausserhalb des 1 px schmalen Kastens liegt.
    =========================================================================== */
 .leist {
-  --takt: 0.08s;          /* Schrittweite der Staffelung          */
-  --dauer-karte: 0.38s;   /* Komponentenwechsel                   */
-  --dauer-punkt: 0.24s;   /* Mikrobewegung der Aufzaehlungszeilen */
-  --dauer-linie: 0.55s;   /* Linienaufzug                         */
+  --takt: 0.09s;          /* Schrittweite der Staffelung          */
+  --dauer-karte: 0.42s;   /* Komponentenwechsel                   */
+  --dauer-punkt: 0.26s;   /* Mikrobewegung der Aufzaehlungszeilen */
+  --dauer-linie: 0.5s;    /* Linienaufzug                         */
 }
-
-/* Die Startzustaende tragen bewusst KEINEN Uebergang. Sie werden beim Laden
-   gesetzt und duerfen dabei nichts bewegen — sonst blitzt der fertige
-   Abschnitt kurz auf und blendet sich wieder aus. Takt und Dauer haengen
-   deshalb ausschliesslich am Zielzustand. */
 
 /* --- Karten: einblenden und 20 px hochlaufen ------------------------------ */
 .leist[data-bereit] .lq,
@@ -819,132 +525,63 @@
               transform var(--dauer-karte) var(--ease-soft),
               translate 0.24s var(--ease-soft),
               box-shadow 0.24s var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.22s),
-                    calc(var(--auf, 0) * var(--takt) + 0.22s), 0s, 0s;
-}
-/* Die Quellkarten stehen am Anfang der Leserichtung und laufen ohne Vorlauf. */
-.leist[data-gezeichnet='true'] .lq {
   transition-delay: calc(var(--auf, 0) * var(--takt)),
                     calc(var(--auf, 0) * var(--takt)), 0s, 0s;
 }
 
-/* --- Die Haken und die Zeilen der Zielkarte: einzeln nach ihrer Karte ----- */
-.leist[data-bereit] .lk__liste li,
-.leist[data-bereit] .lz__liste li {
+/* --- Die Aufzaehlungszeilen: einzeln nach ihrer Karte --------------------- */
+.leist[data-bereit] .lk__liste li {
   opacity: 0;
   transform: translateY(6px);
 }
 /* --auf erbt von der Karte; --zeile kommt aus der Stellung in der Liste. */
-.leist .lk__liste li:nth-child(2),
-.leist .lz__liste li:nth-child(2) { --zeile: 1; }
-.leist .lk__liste li:nth-child(3),
-.leist .lz__liste li:nth-child(3) { --zeile: 2; }
-.leist .lk__liste li:nth-child(4),
-.leist .lz__liste li:nth-child(4) { --zeile: 3; }
-.leist[data-gezeichnet='true'] .lk__liste li,
-.leist[data-gezeichnet='true'] .lz__liste li {
+.leist .lk__liste li:nth-child(2) { --zeile: 1; }
+.leist .lk__liste li:nth-child(3) { --zeile: 2; }
+.leist .lk__liste li:nth-child(4) { --zeile: 3; }
+.leist[data-gezeichnet='true'] .lk__liste li {
   opacity: 1;
   transform: none;
   transition: opacity var(--dauer-punkt) var(--ease-soft),
               transform var(--dauer-punkt) var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.42s + var(--zeile, 0) * 0.06s);
+  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.2s + var(--zeile, 0) * 0.06s);
 }
 
-/* --- Die Linien zeichnen sich selbst -------------------------------------- */
-/* Waagerecht, von links nach rechts. Die 32 px nach oben und unten holen die
-   Pfeilspitze mit, die ueber die 1 px hohe Linie hinausragt. */
-.leist[data-bereit] .lb__quer,
-.leist[data-bereit] .lb__lang {
-  -webkit-clip-path: inset(-32px 100% -32px 0);
-          clip-path: inset(-32px 100% -32px 0);
+/* --- Die Linien zeichnen sich selbst, von oben nach unten -----------------
+   Jede Verbindung ist eine Gruppe im Overlay-SVG. Sie wird von oben nach
+   unten aufgedeckt; die Pfeilspitze am Pfadende kommt dadurch zuletzt zum
+   Vorschein, ganz ohne eigene Regel. Der Ueberstand nach unten holt sie
+   vollstaendig mit. --auf setzt leistungen.js beim Zeichnen. */
+.leist[data-bereit] .ll {
+  -webkit-clip-path: inset(0 -40px 100% -40px);
+          clip-path: inset(0 -40px 100% -40px);
 }
-.leist[data-gezeichnet='true'] .lb__quer,
-.leist[data-gezeichnet='true'] .lb__lang {
-  -webkit-clip-path: inset(-32px -6% -32px 0);
-          clip-path: inset(-32px -6% -32px 0);
+.leist[data-gezeichnet='true'] .ll {
+  -webkit-clip-path: inset(0 -40px -40px -40px);
+          clip-path: inset(0 -40px -40px -40px);
   transition: -webkit-clip-path var(--dauer-linie) var(--ease-soft),
                       clip-path var(--dauer-linie) var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.06s);
-}
-/* Die Sammelsenkrechte waechst aus der Mitte nach beiden Seiten — dort
-   trifft die mittlere Stichleitung auf und dort geht die Linie weiter. */
-.leist[data-bereit] .lb__hoch {
-  -webkit-clip-path: inset(50% -32px 50% -32px);
-          clip-path: inset(50% -32px 50% -32px);
-}
-.leist[data-gezeichnet='true'] .lb__hoch {
-  -webkit-clip-path: inset(0 -32px 0 -32px);
-          clip-path: inset(0 -32px 0 -32px);
-  transition: -webkit-clip-path 0.34s var(--ease-soft),
-                      clip-path 0.34s var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.26s);
-}
-/* Die lange Linie mit der Pfeilspitze laeuft erst los, wenn die
-   Sammelsenkrechte steht. */
-.leist[data-gezeichnet='true'] .lb--ein .lb__lang {
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.44s);
+  transition-delay: calc(var(--auf, 0) * var(--takt));
 }
 
-/* Senkrecht aus dem Kopf nach unten. Die 26 % unten holen den gefuellten
-   Punkt und den durchgezogenen Stiel mit, die unter der Linie haengen. */
-.leist[data-bereit] .lm__faden {
-  -webkit-clip-path: inset(0 -32px 100% -32px);
-          clip-path: inset(0 -32px 100% -32px);
-}
-.leist[data-gezeichnet='true'] .lm__faden {
-  -webkit-clip-path: inset(0 -32px -26% -32px);
-          clip-path: inset(0 -32px -26% -32px);
-  transition: -webkit-clip-path 0.62s var(--ease-soft),
-                      clip-path 0.62s var(--ease-soft);
-  transition-delay: 0.18s;
-}
-
-/* Winkel und Gabel wachsen vom Kreis nach aussen; die 14 % Ueberstand holen
-   die gefuellten Endpunkte an den Kartenkanten mit. */
-.leist[data-bereit] .lm__bogen--links,
-.leist[data-bereit] .lm__gabel--links {
-  -webkit-clip-path: inset(-40px 0 -40px 100%);
-          clip-path: inset(-40px 0 -40px 100%);
-}
-.leist[data-bereit] .lm__bogen--rechts,
-.leist[data-bereit] .lm__gabel--rechts {
-  -webkit-clip-path: inset(-40px 100% -40px 0);
-          clip-path: inset(-40px 100% -40px 0);
-}
-.leist[data-gezeichnet='true'] .lm__bogen,
-.leist[data-gezeichnet='true'] .lm__gabel {
-  transition: -webkit-clip-path var(--dauer-linie) var(--ease-soft),
-                      clip-path var(--dauer-linie) var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.42s);
-}
-.leist[data-gezeichnet='true'] .lm__bogen--links,
-.leist[data-gezeichnet='true'] .lm__gabel--links {
-  -webkit-clip-path: inset(-40px 0 -40px -14%);
-          clip-path: inset(-40px 0 -40px -14%);
-}
-.leist[data-gezeichnet='true'] .lm__bogen--rechts,
-.leist[data-gezeichnet='true'] .lm__gabel--rechts {
-  -webkit-clip-path: inset(-40px -14% -40px 0);
-          clip-path: inset(-40px -14% -40px 0);
-}
-
-/* --- Der Estera-Kreis setzt sich zuletzt ---------------------------------- */
-.leist[data-bereit] .lm__kreis {
+/* --- Der Ausgangspunkt laeuft wie eine Karte ------------------------------ */
+.leist[data-bereit] .lstart {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.94);
+  transform: translateY(14px);
 }
-.leist[data-gezeichnet='true'] .lm__kreis {
+.leist[data-gezeichnet='true'] .lstart {
   opacity: 1;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
-  transition-delay: 1.5s;
+  transform: none;
+  transition: opacity var(--dauer-karte) var(--ease-soft),
+              transform var(--dauer-karte) var(--ease-soft),
+              translate 0.24s var(--ease-soft),
+              box-shadow 0.24s var(--ease-soft);
+  transition-delay: calc(var(--auf, 0) * var(--takt)),
+                    calc(var(--auf, 0) * var(--takt)), 0s, 0s;
 }
 
-/* --- Ueberfahren ----------------------------------------------------------
-   Die Karte steigt 3 px und ihr Schatten wird weiter. Mehr nicht: der
-   Abschnitt ist eine Uebersicht und kein Bedienfeld, und die Karten sind
-   nicht anklickbar. Auf Geraeten ohne echten Zeiger faellt es ganz weg. */
+/* --- Anfassen: die Karte hebt sich beim Ueberfahren ----------------------- */
 @media (hover: hover) {
+  .leist .lstart:hover,
   .leist .lq:hover,
   .leist .lk:hover,
   .leist .lz:hover {
@@ -953,8 +590,8 @@
   }
 }
 
-/* Ueberschrift und Fussnote laufen ueber das siteweite [data-reveal]. Hier
-   nur kuerzer gefasst, damit sie im selben Takt liegen wie der Plan. */
+/* Ueberschrift laeuft ueber das siteweite [data-reveal]. Hier nur kuerzer
+   gefasst, damit sie im selben Takt liegt wie der Plan. */
 .wahl [data-reveal] {
   transition-duration: 0.4s;
 }
@@ -963,20 +600,6 @@
    stehen. */
 @media (scripting: none) {
   .wahl [data-reveal] { opacity: 1; transform: none; }
-}
-
-/* Im gekippten Aufbau laeuft die Verbindungslinie senkrecht — also zieht sie
-   auch senkrecht auf. Muss hinter dem Aufzug oben stehen, sonst gewinnt
-   dessen waagerechte Fassung. */
-@media (max-width: 1180px) {
-  .leist[data-bereit] .lb__lang {
-    -webkit-clip-path: inset(0 -32px 100% -32px);
-            clip-path: inset(0 -32px 100% -32px);
-  }
-  .leist[data-gezeichnet='true'] .lb__lang {
-    -webkit-clip-path: inset(0 -32px -6% -32px);
-            clip-path: inset(0 -32px -6% -32px);
-  }
 }
 
 /* --- Ruhebeduerfnis achten ------------------------------------------------
@@ -988,30 +611,21 @@
 
   /* Auch keine Bewegung beim Ueberfahren — der Schatten allein zeigt
      genuegend an, dass die Karte unter dem Zeiger liegt. */
+  .leist .lstart:hover,
   .leist .lq:hover,
   .leist .lk:hover,
   .leist .lz:hover { translate: 0 0; }
 
+  .leist[data-bereit] .lstart,
   .leist[data-bereit] .lq,
   .leist[data-bereit] .lk,
   .leist[data-bereit] .lz,
-  .leist[data-bereit] .lk__liste li,
-  .leist[data-bereit] .lz__liste li {
+  .leist[data-bereit] .lk__liste li {
     opacity: 1;
     transform: none;
     transition: none;
   }
-  .leist[data-bereit] .lm__kreis {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    transition: none;
-  }
-  .leist[data-bereit] .lb__quer,
-  .leist[data-bereit] .lb__lang,
-  .leist[data-bereit] .lb__hoch,
-  .leist[data-bereit] .lm__faden,
-  .leist[data-bereit] .lm__bogen,
-  .leist[data-bereit] .lm__gabel {
+  .leist[data-bereit] .ll {
     -webkit-clip-path: none;
             clip-path: none;
     transition: none;
