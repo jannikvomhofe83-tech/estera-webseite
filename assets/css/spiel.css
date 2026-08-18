@@ -1,54 +1,104 @@
 /* ===========================================================================
    DAS HAUS — der Blickfang in Abschnitt 6
 
-   Das Haus und die losen Bausteine sind KEINE CSS-Nachbauten mehr.
-   Sie sind aus der Vorlage `Bilder/referenz-bausteine.png` freigestellt und
-   liegen als PNG mit Alphakanal in `assets/img/haus/`. Dadurch stimmen
-   Ziegelrelief, Laibungen, Farbverlauf und die weichen Schlagschatten
-   buchstaeblich mit der Vorlage ueberein.
+   VORLAGE
+   `Bilder/referenz-haus-neu.png`: ein freigestelltes Mehrfamilienhaus in
+   strenger Frontalansicht — weisse Putzfassade, dunkles Ziegeldach mit
+   Schornsteinen und Dachfenstern, navyfarbener Sockel, navyfarbene
+   Fensterrahmen mit weissen Faschen, mittig der verglaste Treppenhausturm mit
+   warmen Wandleuchten und Holzverkleidung, unten die Haustuer mit Vordach und
+   Briefkastenanlage.
 
-   Freistellung: Vision-Framework von macOS fuer die Silhouette, der weiche
-   Schatten als Multiplikation (schwarz mit kleinem Alpha) — damit liegt er
-   auf jedem Untergrund richtig und es entsteht kein grauer Kasten.
+   AUFBEREITUNG (scratchpad/haus2/aufbereiten.py)
+   1. Kanten beruhigt: Alpha um einen Bildpunkt eingezogen und weich
+      gezeichnet, die Randfarben von innen nachgezogen. Damit ist die harte
+      Freistellerkante der Vorlage weg — kein dunkler Saum mehr.
+   2. Farbstimmung an die Seite angeglichen: die Tiefen (Dach, Sockel,
+      Fensterrahmen) zum Navy der Seite #102949 gezogen, die Lichter warm zum
+      Papierton #FCFAF6 gedreht, Schwarz und Weiss ein Stueck von den
+      Endpunkten weggeholt. Das Haus fuegt sich in die Seite ein, statt als
+      kaltes Fremdbild darauf zu liegen.
+   3. Volumen: ein sanfter Lichtverlauf ueber die Fassade, oben links heller.
 
-   SECHS Oeffnungen, SECHS Bausteine — fuer jede Oeffnung genau ein Teil und
-   kein Teil ohne Oeffnung. Der Schornstein ist raus: er sitzt bereits fest
-   auf dem Hausbild.
-     nach LINKS zeigende Hausseite: Rundfenster (Giebel), Rundbogentuer,
-       Sprossenfenster links neben der Tuer;
-     nach RECHTS zeigende Hausseite: Sprossenfenster vorn, Fensterrahmen
-       hinten; auf der rechten Dachflaeche die Gaube mit dem Giebeldreieck.
-   Das linke Sprossenfenster liegt in der Vorlage nicht lose bei; es ist aus
-   dem rechten gespiegelt (assets/img/haus/teil-fenster-links.png) und kippt
-   dadurch auf die andere Seite.
+   RAEUMLICHKEIT — Weg (b), nicht (a)
+   Die Vorlage ist eine strenge Frontalaufnahme: keine sichtbare Laibungstiefe,
+   kein Giebelanschnitt, keine Seitenwand. Ein rotateY darauf schert nur ein
+   flaches Bild — die Waagerechten von Traufe und Sockel liefen zusammen,
+   obwohl die Fassade keine Fluchtinformation traegt. Das Ergebnis liest sich
+   sofort als gekippte Pappe, nicht als Haus. Ausserdem wandert die Bildmitte
+   dabei aus der Abschnittsmitte, weil die zugewandte Haelfte groesser
+   projiziert wird als die abgewandte.
+   Die Raeumlichkeit entsteht deshalb ueber Licht statt ueber Verzerrung:
+     — der eingerechnete Lichtverlauf auf der Fassade,
+     — ein zweistufiger Bodenschatten (enger Kontaktschatten + weiter
+       Umgebungsschatten),
+     — eine kurze, weiche Bodenspiegelung des Sockels,
+     — und vor allem die losen Bausteine, die mit eigenem Schlagschatten
+       sichtbar VOR der Wand schweben und beim Einrasten flach in die
+       Oeffnung sinken. Das ist der staerkste Tiefenreiz der ganzen Szene.
 
-   FLUCHTUNG
-   Das Haus steht in Dreiviertelansicht. Waagerechte der linken Seite fallen
-   nach rechts (Steigung +0.099 am Sockel gemessen), die der rechten Seite
-   steigen nach rechts (-0.073). Die freigestellten Teile sind flacher
-   gerendert; --sk schert sie per skewY auf die Fluchtung ihrer Hausseite.
-   Die Karten links und rechts bleiben davon unberuehrt.
+   SECHS OEFFNUNGEN, SECHS BAUSTEINE
+   Gezaehlt wurden am Bild 21 Fenster in drei Geschossen, 3 Dachfenster
+   (32 x 14 Bildpunkte — zu klein), 6 Kellerfenster im Sockel, 4 Felder der
+   Treppenhausverglasung und die Haustuer. Gewaehlt sind sechs, ueber die
+   ganze Fassade verteilt und in keinem Fall nebeneinander:
+     LINKS   og-links    Fenster 2. Obergeschoss, aussen
+             og1-links   Fenster 1. Obergeschoss, innen
+             tuer        Haustuer mit Briefkastenanlage (Mitte, unten)
+     RECHTS  og-rechts   Fenster 2. Obergeschoss, aussen
+             og1-rechts  Fenster 1. Obergeschoss, Mitte
+             eg-rechts   Fenster Erdgeschoss, innen
+   Die Zielstellen bilden ein flaches V, das auf die Haustuer zulaeuft.
+
+   Jedes lose Teil ist aus DEMSELBEN Bild geschnitten — Form, Licht und Farbe
+   passen deshalb zwangslaeufig. An seiner Stelle steht im Hausbild eine leere
+   Vertiefung: Putz sauber geschlossen, darin die Oeffnung mit Laibung,
+   Sturzschatten und Lichtkante auf der Sohlbank. Die Vertiefung ist zwei
+   Bildpunkte kleiner als der Schnitt, damit das gelandete Teil sie auch bei
+   halben Bildpunkten sicher deckt.
 
    KOORDINATEN
-   Alle Plaetze stehen in einem einzigen Bezugssystem: dem Feld, das genau
-   dem Ausschnitt der Vorlage entspricht (797 x 437 Bildpunkte der Vorlage).
-   left/top/width der Bilder sind Prozent DES FELDES, die Verschiebungen in
-   den Animationen Prozent DES BILDES SELBST. Beides skaliert mit, egal wie
-   breit das Feld gerade ist — ohne Container-Queries, ohne feste Pixel.
+   Alle Plaetze stehen in einem Bezugssystem: dem Feld (1000 : 560).
+   left/top/width der Bilder sind Prozent DES FELDES, die Verschiebungen in den
+   Animationen Prozent DES BILDES SELBST. Beides skaliert mit, egal wie breit
+   das Feld gerade ist. Gerechnet in scratchpad/haus2/koordinaten.py aus den
+   am Bild gemessenen Kaesten — deshalb sitzt jedes Teil deckungsgleich.
 
-   Das Haus liegt exakt mittig im Feld (Hausmitte 398.5 von 797), damit es
-   in der Abschnittsmitte steht.
+   Das Haus liegt exakt mittig im Feld (13 % Rand links wie rechts) und die
+   Bilddatei ist auf die Silhouette beschnitten — die Bildmitte IST die
+   Hausmitte.
 
    BEWEGUNG
-   „Selbst koordinieren": ALLE Bausteine versuchen es GLEICHZEITIG. Sie
-   fahren gemeinsam auf ihre Oeffnung zu — und es klappt nicht: sie kommen in
-   voller Groesse an, passen nicht hinein, prallen ab, weichen zurueck und
-   versuchen es erneut. Endlos. Der Rhythmus ist fuer alle derselbe, nur um
-   Sekundenbruchteile versetzt, damit es nicht mechanisch wirkt.
-   --ax/--ay ist der Anlauf: die Silhouettenmitte liegt genau auf der
-   Oeffnung, aber OHNE Massstab — deshalb ist der Baustein sichtbar zu gross.
-   „Mit Estera begleitet": jeder faehrt sofort an seine richtige Stelle und
-   sitzt dort sauber — dieselbe Mitte, aber mit dem passenden Massstab --zs.
+   „Selbst koordinieren": ALLE Bausteine versuchen es GLEICHZEITIG — und zwar
+   an der FALSCHEN Oeffnung. Kundenwunsch: „Bei der Animation bei ‚Selbst
+   koordinieren‘ muessen die Fenster ja irgendwie falsch aussehen. Da musst du
+   zum Beispiel die Tuer probieren, in ein Fenster zu gehen, und die Fenster
+   probieren, in eine Tuer zu gehen."
+   Frueher fuhren die Teile nur auf eine falsche STELLE zu — sie standen
+   daneben und man sah nicht, WARUM es scheitert. Jetzt setzt jedes Teil
+   sichtbar an einer fremden Oeffnung an, in die es nicht passt:
+     Teil            Fehlziel        Verhaeltnis Teil : Oeffnung
+     og-links        tuer            0.55 breit / 0.56 hoch — viel zu klein
+     og1-links       og-links        1.55 / 1.63 — zu gross
+     tuer            og1-links       1.87 / 1.73 — die Tuer im Fensterloch
+     og-rechts       eg-rechts       0.58 / 0.54 — viel zu klein
+     og1-rechts      og-rechts       1.55 / 1.55 — zu gross
+     eg-rechts       og1-rechts      0.56 / 0.60 — viel zu klein
+   Die Zuordnung ist eine Vertauschung ohne Fixpunkt (jede Seite ein Dreier-
+   ringtausch): kein Teil steht je auf seiner eigenen Oeffnung, und keine
+   Oeffnung wird von zweien zugleich angesteuert.
+   --fx/--fy ist das Fehlziel: die Mitte des Bausteins liegt AN der fremden
+   Oeffnung, absichtlich um einen Bruchteil ihrer Kantenlaenge versetzt.
+   --fs ist der Massstab in diesem Zustand — er gilt im ganzen Zyklus, also
+   auch auf dem Ruheplatz; der Baustein waechst oder schrumpft nicht unterwegs.
+   Zu grosse Teile ueberragen die Oeffnung und lassen an einer Seite einen
+   dunklen Streifen der leeren Nische stehen, zu kleine sitzen mit Rand darin
+   und liegen auf der Sohlbank auf. Danach weicht das Teil zum Wegpunkt
+   zurueck und versucht es erneut — Dauer (9.4 s), Staffelung, Kurven und
+   Schluesselbilder unveraendert.
+   „Mit Estera begleitet": jeder faehrt sofort an SEINE eigene Stelle und
+   sitzt dort deckungsgleich — Mitte --zx/--zy mit dem passenden Massstab --zs.
+   Dieser Zustand bleibt unangetastet.
 
    Rein dekorativ, deshalb aria-hidden und leere alt-Attribute.
    =========================================================================== */
@@ -61,33 +111,83 @@
   justify-self: center;
 }
 
-/* Das Feld traegt das Seitenverhaeltnis des Vorlagenausschnitts. Alle
-   Bausteine liegen absolut darin. */
+/* Das Feld traegt das Seitenverhaeltnis der Szene. Alle Bausteine liegen
+   absolut darin. */
 .spiel__feld {
   position: relative;
   width: 100%;
-  aspect-ratio: 797 / 437;
+  aspect-ratio: 1000 / 560;
 }
 
 /* --- Das Haus ------------------------------------------------------------- */
 .spiel__haus {
   position: absolute;
-  left: 20.2008%;
-  top: 2.2883%;
-  width: 59.5985%;
+  left: 13%;
+  top: 7%;
+  width: 74%;
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
+  /* Der eigene weiche Schatten setzt das Haus auf den Grund. */
+  filter: drop-shadow(0 10px 18px rgba(16, 41, 73, 0.16));
+}
+
+/* --- Boden: Kontaktschatten und Umgebungsschatten -------------------------- */
+/* Zwei Lagen: eng und dunkel direkt unter dem Sockel, weit und hell darum
+   herum. Erst beides zusammen liest sich als „steht auf einer Flaeche". */
+/* Die Sockelkante des Hauses liegt bei 80.57 % der Feldhoehe (7 % Oberkante
+   plus 73.57 % Hausshoehe). Beide Ellipsen sitzen genau dort. */
+.spiel__boden {
+  position: absolute;
+  left: 8%;
+  top: 74%;
+  width: 84%;
+  height: 20%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 43% 13% at 50% 32.9%, rgba(16, 41, 73, 0.40), rgba(16, 41, 73, 0) 72%),
+    radial-gradient(ellipse 63% 48% at 50% 32.9%, rgba(16, 41, 73, 0.15), rgba(16, 41, 73, 0) 74%);
+}
+
+/* --- Boden: kurze Spiegelung ---------------------------------------------- */
+/* Nur der Sockel spiegelt sich, gestaucht, weich und sehr leise. Genug, damit
+   der Grund als Flaeche liest — zu wenig, um vom Haus abzulenken. */
+.spiel__spiegel {
+  position: absolute;
+  left: 13%;
+  top: 7%;
+  width: 74%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: 50% 100%;
+  transform: scaleY(-0.32);
+  opacity: 0.34;
+  /* abgedunkelt: die Spiegelung soll den Boden truebe faerben, nicht
+     aufhellen — sonst frisst der helle Kiesstreifen den Kontaktschatten. */
+  filter: blur(1.3px) brightness(0.46) saturate(0.85);
+  /* Nur der unterste Streifen — der Sockel — spiegelt sich, und auch der nur
+     in der Mitte. Die Maske liegt im Koordinatensystem des Bildes, also VOR
+     der Spiegelung: unten sichtbar, nach aussen auslaufend. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 1) 100%),
+    linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #000 14%, #000 86%, rgba(0, 0, 0, 0) 100%);
+          mask-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 1) 100%),
+    linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #000 14%, #000 86%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
 }
 
 /* --- Die Zielstellen am Haus ---------------------------------------------- */
-/* Alle fuenf Zielstellen sind im Hausbild bereits echte, leere Oeffnungen mit
-   Laibung — eine zusaetzliche Vertiefung waere eine Abweichung von der
-   Vorlage. Diese Marken bleiben deshalb unsichtbar und tragen nur den
-   goldenen Ring, der das Einrasten bestaetigt. */
+/* Die Oeffnungen sind im Hausbild bereits leere Vertiefungen. Diese Marken
+   bleiben deshalb unsichtbar und tragen nur den goldenen Ring, der das
+   Einrasten bestaetigt. */
 .spiel__nische {
   position: absolute;
   pointer-events: none;
+  border-radius: 2px;
 }
 .spiel__nische::after {
   content: '';
@@ -95,49 +195,21 @@
   inset: -12%;
   border: 2px solid var(--gold, #A8874F);
   border-radius: inherit;
-  clip-path: inherit;
   opacity: 0;
   transform: scale(0.7);
 }
 
-.spiel__nische--rundfenster {
-  left: 34.6299%; top: 20.3661%;
-  width: 7.4028%; height: 17.6201%;
-  border-radius: 50%;
-  --i: 0;
-}
-.spiel__nische--fensterlinks {
-  left: 29.4856%; top: 45.5378%;
-  width: 7.7792%; height: 22.1968%;
-  border-radius: 6%;
-  --i: 1;
-}
-.spiel__nische--tuer {
-  left: 39.6487%; top: 43.4783%;
-  width: 8.1556%; height: 35.6979%;
-  border-radius: 50% 50% 8% 8% / 32% 32% 3% 3%;
-  --i: 2;
-}
-.spiel__nische--giebel {
-  left: 52.3212%; top: 14.1876%;
-  width: 13.8018%; height: 19.9085%;
-  clip-path: polygon(50% 2%, 99% 99%, 1% 99%);
-  --i: 3;
-}
-.spiel__nische--fenster {
-  left: 54.8306%; top: 44.6224%;
-  width: 8.0301%; height: 28.1465%;
-  border-radius: 6%;
-  --i: 4;
-}
-.spiel__nische--rahmen {
-  left: 67.3777%; top: 46.9108%;
-  width: 7.0263%; height: 21.7391%;
-  border-radius: 6%;
-  --i: 5;
-}
+.spiel__nische--og-links   { left: 22.6931%; top: 27.9153%; width: 5.7890%; height: 10.8984%; --i: 0; }
+.spiel__nische--og1-links  { left: 31.7132%; top: 42.7403%; width: 5.4748%; height: 10.8182%; --i: 1; }
+.spiel__nische--tuer       { left: 43.5155%; top: 64.1364%; width: 7.9879%; height: 14.5846%; --i: 2; }
+.spiel__nische--og-rechts  { left: 75.1079%; top: 27.8351%; width: 5.3851%; height: 10.9785%; --i: 3; }
+.spiel__nische--og1-rechts { left: 66.2226%; top: 42.7403%; width: 5.2953%; height: 10.8182%; --i: 4; }
+.spiel__nische--eg-rechts  { left: 57.7411%; top: 57.8858%; width: 5.1607%; height: 11.3792%; --i: 5; }
 
 /* --- Die losen Bausteine -------------------------------------------------- */
+/* Der Schlagschatten ist der eigentliche Tiefenreiz: solange das Teil fliegt,
+   steht es sichtbar VOR der Wand. Sitzt es in der Oeffnung, bleibt nur eine
+   Haarlinie — es liegt buendig in der Fassade. */
 .spiel__teil {
   position: absolute;
   left: var(--x);
@@ -149,75 +221,91 @@
   -webkit-user-drag: none;
   transform-origin: 50% 50%;
   will-change: transform;
+  filter: drop-shadow(0 5px 9px rgba(16, 41, 73, 0.34));
+  transition: filter 0.5s var(--ease-soft, ease);
   animation: spiel-versuch var(--dauer) cubic-bezier(0.4, 0.02, 0.3, 1) var(--d) infinite both;
 }
 
-/* Ruheplatz, Zielstelle, Fluchtung und Anlauf. Die Werte sind am Hausbild
-   abgemessen (Mitte und Groesse jeder Oeffnung) und hier einzeln
-   nachjustierbar: --zx/--zy Lage, --zs Groesse, --sk Fluchtung. */
-.spiel__teil--rundfenster {
-  --x: 7.9046%; --y: 4.5767%; --b: 13.1744%;
-  --zx: 176.790%; --zy: 49.220%; --zs: 0.86; --sk: 5.5deg;
-  --ax: 152.618%; --ay: 44.051%; --ar: 3.6deg;
-  --wx: 109.885%; --wy: 0.000%;
+/* Ruheplatz, eigene Zielstelle und FEHLZIEL. Die Werte sind am Hausbild
+   abgemessen (Kasten und Mitte jeder Oeffnung) und hier einzeln
+   nachjustierbar:
+   --x/--y/--b  Ruheplatz und Ruhegroesse,
+   --zx/--zy    eigene Oeffnung, --zs deren Massstab (Estera-Zustand),
+   --fx/--fy    fremde Oeffnung, --fs der Massstab dort (Selbst-Zustand),
+   --sk         Fluchtung (bei diesem frontalen Haus 0).
+   Gerechnet in scratchpad/bau3-rechnen.mjs; --wx/--wy sind wie bisher
+   0.62 bzw. 0.18 des Weges. */
+.spiel__teil--og-links {
+  --x: 1.1000%; --y: 6.0000%; --b: 7.5257%;
+  --zx: 275.389%; --zy: 143.144%; --zs: 0.7692; --sk: 0deg;
+  /* Fehlziel: die TUERoeffnung — das Fenster ist dort viel zu klein (0.55) */
+  --fx: 553.943%; --fy: 426.218%; --fs: 0.58; --ar: 3.4deg;
+  --wx: 343.444%; --wy: 76.719%;
   --d: 0.11s; --i: 0;
 }
-.spiel__teil--fensterlinks {
-  --x: 0.0000%; --y: 32.4943%; --b: 13.1744%;
-  --zx: 208.800%; --zy: 34.221%; --zs: 0.96; --sk: 4.5deg;
-  --ax: 182.924%; --ay: 29.831%; --ar: 3.4deg;
-  --wx: 100.608%; --wy: 0.000%;
+.spiel__teil--og1-links {
+  --x: 0.3000%; --y: 33.0000%; --b: 7.1173%;
+  --zx: 429.826%; --zy: 57.720%; --zs: 0.7692; --sk: 0deg;
+  /* Fehlziel: die Oeffnung og-links — deutlich zu gross (1.55) */
+  --fx: 256.495%; --fy: -47.408%; --fs: 1.26; --ar: 3.2deg;
+  --wx: 159.027%; --wy: -8.533%;
   --d: 0s; --i: 1;
 }
 .spiel__teil--tuer {
-  --x: 4.8934%; --y: 63.3867%; --b: 18.4442%;
-  --zx: 157.735%; --zy: -47.865%; --zs: 1.21; --sk: 6.2deg;
-  --ax: 140.117%; --ay: -43.464%; --ar: -3.0deg;
-  --wx: 100.884%; --wy: -0.000%;
+  --x: 0.6000%; --y: 60.0000%; --b: 10.2245%;
+  --zx: 408.795%; --zy: 11.220%; --zs: 0.7812; --sk: 0deg;
+  /* Fehlziel: das FENSTER og1-links — die Tuer ist dort 1.87-mal zu breit */
+  --fx: 323.910%; --fy: -113.480%; --fs: 1.00; --ar: -3.0deg;
+  --wx: 200.824%; --wy: -20.426%;
   --d: 0.05s; --i: 2;
 }
-.spiel__teil--giebel {
-  --x: 81.3049%; --y: 1.8307%; --b: 13.2999%;
-  --zx: -224.731%; --zy: 57.135%; --zs: 1.27; --sk: 1.0deg;
-  --ax: -197.978%; --ay: 46.198%; --ar: -3.4deg;
-  --wx: -118.787%; --wy: 0.000%;
+.spiel__teil--og-rechts {
+  --x: 91.6000%; --y: 6.0000%; --b: 7.0006%;
+  --zx: -247.119%; --zy: 141.454%; --zs: 0.7692; --sk: 0deg;
+  /* Fehlziel: die Oeffnung eg-rechts — viel zu klein (0.58) */
+  --fx: -487.952%; --fy: 364.576%; --fs: 0.43; --ar: -3.4deg;
+  --wx: -302.530%; --wy: 65.624%;
   --d: 0.16s; --i: 3;
 }
-.spiel__teil--fenster {
-  --x: 84.8181%; --y: 33.4096%; --b: 13.1744%;
-  --zx: -251.476%; --zy: 34.121%; --zs: 1.1; --sk: -3.0deg;
-  --ax: -226.591%; --ay: 29.685%; --ar: 3.4deg;
-  --wx: -185.805%; --wy: 0.000%;
+.spiel__teil--og1-rechts {
+  --x: 92.4000%; --y: 33.0000%; --b: 6.8839%;
+  --zx: -391.807%; --zy: 57.720%; --zs: 0.7692; --sk: 0deg;
+  /* Fehlziel: die Oeffnung og-rechts — deutlich zu gross (1.55) */
+  --fx: -215.146%; --fy: -47.694%; --fs: 1.21; --ar: 3.2deg;
+  --wx: -133.391%; --wy: -8.585%;
   --d: 0.20s; --i: 4;
 }
-.spiel__teil--rahmen {
-  --x: 84.0652%; --y: 67.5057%; --b: 13.8018%;
-  --zx: -156.500%; --zy: -72.362%; --zs: 1.05; --sk: -2.9deg;
-  --ax: -123.093%; --ay: -57.936%; --ar: -3.2deg;
-  --wx: -0.000%; --wy: -80.531%;
+.spiel__teil--eg-rechts {
+  --x: 91.1000%; --y: 60.0000%; --b: 6.7089%;
+  --zx: -508.772%; --zy: -25.830%; --zs: 0.7692; --sk: 0deg;
+  /* Fehlziel: die Oeffnung og1-rechts — viel zu klein (0.56) */
+  --fx: -390.819%; --fy: -119.872%; --fs: 0.44; --ar: -3.2deg;
+  --wx: -242.308%; --wy: -21.577%;
   --d: 0.19s; --i: 5;
 }
 
 /* „Selbst koordinieren": erst waagerecht heraus (Wegpunkt), dann schraeg an
-   die Oeffnung — dort ist der Baustein unskaliert, also zu gross, und haengt
-   schief: es passt nicht. Er stoesst an, weicht zum Wegpunkt zurueck und
-   versucht es ein zweites Mal, mit der anderen Schraeglage. Danach zurueck
-   auf den Ruheplatz, und von vorn.
-   Der Bruchteil vor --ax/--ay ist der Anteil des Weges. */
+   die FREMDE Oeffnung — dort steht der Baustein sichtbar zu gross oder zu
+   klein, schief und ohne buendigen Sitz: es passt nicht. Er stoesst an,
+   weicht zum Wegpunkt zurueck und versucht es ein zweites Mal, mit der
+   anderen Schraeglage. Danach zurueck auf den Ruheplatz, und von vorn.
+   Der Bruchteil vor --fx/--fy ist der Anteil des Weges.
+   scale(--fs) steht in JEDEM Schluesselbild — der Baustein behaelt seine
+   Groesse ueber den ganzen Zyklus und morpht unterwegs nicht. */
 @keyframes spiel-versuch {
-  0%, 4%     { transform: translate(0%, 0%) rotate(0deg); }
-  11%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * 0.3)); }
-  22%        { transform: translate(var(--ax), var(--ay)) rotate(var(--ar)); }
-  27%        { transform: translate(calc(var(--ax) * 0.93), calc(var(--ay) * 0.93)) rotate(calc(var(--ar) * -0.4)); }
-  33%        { transform: translate(var(--ax), var(--ay)) rotate(var(--ar)); }
-  38%        { transform: translate(calc(var(--ax) * 0.95), calc(var(--ay) * 0.95)) rotate(calc(var(--ar) * -0.25)); }
-  48%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * -0.35)); }
-  60%        { transform: translate(var(--ax), var(--ay)) rotate(calc(var(--ar) * -1)); }
-  65%        { transform: translate(calc(var(--ax) * 0.93), calc(var(--ay) * 0.93)) rotate(calc(var(--ar) * 0.4)); }
-  71%        { transform: translate(var(--ax), var(--ay)) rotate(calc(var(--ar) * -1)); }
-  76%        { transform: translate(calc(var(--ax) * 0.95), calc(var(--ay) * 0.95)) rotate(calc(var(--ar) * 0.25)); }
-  86%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * 0.3)); }
-  96%, 100%  { transform: translate(0%, 0%) rotate(0deg); }
+  0%, 4%     { transform: translate(0%, 0%) rotate(0deg) scale(var(--fs, 1)); }
+  11%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * 0.3)) scale(var(--fs, 1)); }
+  22%        { transform: translate(var(--fx), var(--fy)) rotate(var(--ar)) scale(var(--fs, 1)); }
+  27%        { transform: translate(calc(var(--fx) * 0.93), calc(var(--fy) * 0.93)) rotate(calc(var(--ar) * -0.4)) scale(var(--fs, 1)); }
+  33%        { transform: translate(var(--fx), var(--fy)) rotate(var(--ar)) scale(var(--fs, 1)); }
+  38%        { transform: translate(calc(var(--fx) * 0.95), calc(var(--fy) * 0.95)) rotate(calc(var(--ar) * -0.25)) scale(var(--fs, 1)); }
+  48%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * -0.35)) scale(var(--fs, 1)); }
+  60%        { transform: translate(var(--fx), var(--fy)) rotate(calc(var(--ar) * -1)) scale(var(--fs, 1)); }
+  65%        { transform: translate(calc(var(--fx) * 0.93), calc(var(--fy) * 0.93)) rotate(calc(var(--ar) * 0.4)) scale(var(--fs, 1)); }
+  71%        { transform: translate(var(--fx), var(--fy)) rotate(calc(var(--ar) * -1)) scale(var(--fs, 1)); }
+  76%        { transform: translate(calc(var(--fx) * 0.95), calc(var(--fy) * 0.95)) rotate(calc(var(--ar) * 0.25)) scale(var(--fs, 1)); }
+  86%        { transform: translate(var(--wx), var(--wy)) rotate(calc(var(--ar) * 0.3)) scale(var(--fs, 1)); }
+  96%, 100%  { transform: translate(0%, 0%) rotate(0deg) scale(var(--fs, 1)); }
 }
 
 /* --- „Mit Estera begleitet" ----------------------------------------------- */
@@ -229,6 +317,8 @@
   /* Der Zielzustand steht zusaetzlich als Grundwert: selbst wenn die
      Animation einmal nicht greift, sitzt der Baustein an seiner Stelle. */
   transform: translate(var(--zx), var(--zy)) scale(var(--zs)) skewY(var(--sk));
+  /* buendig in der Wand — nur noch eine Haarlinie Schatten */
+  filter: drop-shadow(0 1px 1.5px rgba(16, 41, 73, 0.3));
   animation-name: spiel-einrasten;
   animation-duration: var(--schnapp);
   animation-timing-function: cubic-bezier(0.22, 0.9, 0.24, 1.03);
@@ -263,7 +353,9 @@
   .spiel__teil,
   .verg[data-modus='estera'] .spiel__teil {
     animation: none;
+    transition: none;
     transform: translate(var(--zx), var(--zy)) scale(var(--zs)) skewY(var(--sk));
+    filter: drop-shadow(0 1px 1.5px rgba(16, 41, 73, 0.3));
   }
   .spiel__nische::after { animation: none; }
 }

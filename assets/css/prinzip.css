@@ -120,8 +120,6 @@
   z-index: 0;
 }
 .vt__rand svg { width: 100%; height: 100%; }
-.vt__rand--rechts { right: -1%; color: rgba(168, 135, 79, 0.40); }
-
 /* Links steht in der Vorlage ein GEBAEUDE, kein Strichbild. Deshalb eine
    Aufnahme aus dem Bestand, sehr stark aufgehellt und nach rechts sowie
    nach unten weich auslaufend, damit keine Kante entsteht. */
@@ -299,23 +297,31 @@
   position: absolute;
   pointer-events: none;
   object-fit: cover;
-  filter: grayscale(0.38) brightness(1.34) contrast(0.64) saturate(0.32);
-  opacity: 0.74;
+  /* Frueher stark aufgehellt (brightness 1.34, contrast 0.64) und bei
+     0,74 Deckkraft. In der Vorlage traegt das Gebaeude SICHTBARE
+     Zeichnung — Fenster, Balkone, Gelaender —, sonst laufen die beiden
+     Schraegkeile ins Leere. Deshalb naeher an der Aufnahme. */
+  filter: grayscale(0.20) brightness(1.16) contrast(0.84) saturate(0.50);
+  opacity: 0.88;
   /* Die Maske muss WEIT vor dem Bildrand auf null sein, sonst bleibt die
      rechteckige Kante der Aufnahme sichtbar. */
-  -webkit-mask-image: radial-gradient(58% 74% at 50% 86%, #000 0%, rgba(0,0,0,0.55) 46%, transparent 80%);
-          mask-image: radial-gradient(58% 74% at 50% 86%, #000 0%, rgba(0,0,0,0.55) 46%, transparent 80%);
+  -webkit-mask-image: radial-gradient(62% 78% at 50% 82%, #000 0%, rgba(0,0,0,0.62) 52%, transparent 84%);
+          mask-image: radial-gradient(62% 78% at 50% 82%, #000 0%, rgba(0,0,0,0.62) 52%, transparent 84%);
 }
-/* Die Grundlinie der Zeichnung liegt bei y = 232 von 250. Das Gebaeude
-   steht darauf und mittig — dort, wo die Grenze zwischen Restschuld und
-   Eigentum entlangwandert. Die Oberkante bleibt unter den beiden
-   Beschriftungen bei y = 32. */
+/* Die Unterkante der Zeichnung liegt bei y = 232 von 250, das sind 7,2 %
+   ueber dem Boden; die Dachkante der Vorlage bei y = 24, das sind 9,6 %
+   unter der Oberkante. Daraus folgen Hoehe 83 % und `bottom: 7.2%`.
+   Waagerecht steht das Gebaeude in der Vorlage etwas rechts der Mitte
+   und fuellt knapp die Haelfte der Breite — dort kreuzen sich die
+   beiden Schraegkanten. */
 .vt__foto--haus {
-  left: 24%;
-  width: 52%;
-  bottom: -3%;
-  height: 80%;
-  object-position: 50% 44%;
+  left: 34%;
+  width: 50%;
+  bottom: 7.2%;
+  height: 86%;
+  /* Weiter unten angeschnitten: in der Vorlage steht der SOCKEL des
+     Gebaeudes auf der Unterkante der Waschung, nicht seine Mitte. */
+  object-position: 50% 64%;
 }
 
 /* ---------------------------------------------------------------------------
@@ -336,37 +342,81 @@
 .zg-dick  { stroke-width: 2.4; }
 .zg-pfeil { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Die gerade Flusslinie in Karte 02 traegt einen Farbverlauf: blass am
-   Kreis, satt an der Klammer. Der Verlauf steht im SVG (#vmAst). */
-.zg-ast   { stroke: url(#vmAst); stroke-width: 3.4; }
-/* Die Wertkurve in Karte 05, ebenfalls mit Verlauf (#vmKurve). */
+/* Die Wertkurve in Karte 05 mit Verlauf (#vmKurve) und ihr weicher
+   Lichthof. Der Schein liegt auf DEMSELBEN Pfad, nur viel breiter und
+   sehr blass — dadurch braucht es keinen Weichzeichner. */
 .zg-kurve { stroke: url(#vmKurve); stroke-width: 3.2; }
+.zg-kurve-schein {
+  stroke: #D9B36A;
+  stroke-width: 11;
+  stroke-opacity: 0.22;
+}
+/* Die Grundlinie unter den Balken in Karte 03 (Vorlage: #EFE6D7) */
+.zg-grundlinie { stroke: #E4D5BE; stroke-width: 2; }
 
 /* Flaechen */
 .zg-f-navy  { fill: var(--vt-navy); }
 .zg-f-sand  { fill: var(--vt-sand); }
 .zg-f-rot   { fill: var(--vt-rot); }
 .zg-f-gruen { fill: var(--vt-gruen); }
-/* Die beiden Anteilsflaechen in Karte 04 sind senkrechte Waschungen; die
-   Verlaeufe stehen im SVG (#vmRot, #vmGruen). */
-.zg-f-verlauf-rot   { fill: url(#vmRot); }
-.zg-f-verlauf-gruen { fill: url(#vmGruen); }
 
-.zg-scheibe { fill: #FFFFFF; stroke: var(--line-gold); stroke-width: 1.2; }
+/* --- Karte 01: die beiden Kacheln ---------------------------------------
+   Die Vorlage fuellt sie nicht flach, sondern mit einem Verlauf. Beide
+   Verlaeufe stehen im SVG (#vmNavy senkrecht, #vmSand diagonal). Die
+   Kacheln tragen ausserdem je einen weichen Schatten — in der Vorlage
+   heben sie sich sichtbar vom Kartengrund ab. */
+.zg-f-navy2 { fill: url(#vmNavy);  filter: drop-shadow(0 6px 14px rgba(16, 41, 73, 0.22)); }
+.zg-f-sand2 { fill: url(#vmSand);  filter: drop-shadow(0 4px 10px rgba(120, 92, 46, 0.16)); }
+
+/* --- Karte 02: das gruene Band ------------------------------------------
+   Drei zulaufende Baender uebereinander. Weil sie sich im Stamm
+   ueberlagern, wird der Stamm von selbst am dichtesten — genau so sieht
+   es die Vorlage vor. Ein einziger Verlauf (#vmFluss) traegt alle drei. */
+.zg-f-fluss > path { fill: url(#vmFluss); }
+/* Der helle Knoten mit weichem Schein. Ein durchgehender Lichtstrich
+   laengs durch den Stamm — der erste Versuch — las sich im Bild als
+   Fremdkoerper; die Vorlage hat dort nur diese eine helle Stelle. */
+.zg-knoten        { fill: #FFFFFF; }
+.zg-knoten-schein { fill: #FFFFFF; fill-opacity: 0.42; }
+.zg-endpunkt      { fill: #E7DBBE; }
+
+/* --- Karte 03: Balken und Pfeil ------------------------------------------ */
+.zg-f-balken-rot   { fill: url(#vmBalkenRot); }
+.zg-f-balken-gruen { fill: url(#vmBalkenGruen); }
+/* Der Schaft ist oben blass und unten satt (#vmPfeil); die Spitze ist in
+   der Vorlage ein VOLLES Dreieck, keine Strichspitze. */
+.zg-pfeilschaft { stroke: url(#vmPfeil); stroke-width: 3.4; fill: none; }
+.zg-pfeilkopf   { fill: #A87F2E; stroke: none; }
+
+/* --- Karte 04: die beiden Schraegkeile -----------------------------------
+   Verlaeufe im SVG (#vmRot, #vmGold). Die hellen Kanten und die
+   Lichtflecke sind das, was die Vorlage an den Schnittstellen zeigt. */
+.zg-f-keil-rot  { fill: url(#vmRot); }
+.zg-f-keil-gold { fill: url(#vmGold); }
+.zg-kante {
+  fill: none;
+  stroke: rgba(255, 253, 246, 0.92);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+.zg-funke { fill: #FFFDF6; }
+/* Bewusst schwach: ein zu dichter Schein las sich als grauer Fleck auf
+   dem Gebaeude statt als Lichtreflex an der Kante. */
+.zg-funke--gross { fill: rgba(255, 250, 232, 0.20); }
+
+.zg-scheibe { fill: #FFFFFF; stroke: rgba(168, 135, 79, 0.18); stroke-width: 1; }
 .zg-ring    { fill: none; stroke: currentColor; stroke-width: 1.4; }
 .zg-ring-gold   { fill: #FFFFFF; stroke: var(--gold); stroke-width: 1.3; }
 .zg-punkt-gold  { fill: var(--gold); stroke: #FFFFFF; stroke-width: 3; }
 .zg-knopf   { fill: var(--gold); stroke: #FFFFFF; stroke-width: 2.5; }
 
 /* Blasse Stadtsilhouette hinter der Kurve in Karte 05. Wie in der Vorlage
-   FLAECHEN, nicht Umrisse — mit einem feinen Fensterraster darauf. */
-.zg-stadt-flaeche { fill: rgba(16, 41, 73, 0.09); stroke: none; }
-.zg-stadt-linien {
-  fill: none;
-  stroke: rgba(16, 41, 73, 0.16);
-  stroke-width: 1;
-  stroke-linecap: round;
-}
+   FLAECHEN mit einem feinen Fensterraster darauf — das Raster ist ein
+   Muster (#vmFenster), keine von Hand gesetzten Striche, und die
+   Silhouette blendet ueber #vmStadt nach links aus. */
+.zg-stadt         { fill: url(#vmStadt); stroke: none; }
+.zg-stadt-fenster { fill: url(#vmFenster); stroke: none; }
+.zg-stadt-grund   { fill: none; stroke: rgba(16, 41, 73, 0.09); stroke-width: 1; }
 
 /* Farbtraeger fuer <use>-Sinnbilder (sie zeichnen mit currentColor) */
 .zg-gold-hell  { color: var(--gold-soft); }
@@ -384,14 +434,19 @@
    Weiss auf --vt-navy misst 14,9:1, Navy auf --vt-sand 12,4:1.
 --------------------------------------------------------------------------- */
 .zg-klein-navy   { font-size: 12.5px; letter-spacing: 0.07em; fill: var(--navy-800); text-anchor: middle; text-transform: uppercase; }
+/* „Eigener Beitrag" in Karte 01. In der Vorlage deutlich groesser als
+   „Miete" in Karte 02 — gemessen rund 14,5 Bildpunkte gegen 10. */
+.zg-mittel-navy  { font-size: 17px; letter-spacing: 0.08em; fill: var(--navy-800); text-anchor: middle; text-transform: uppercase; }
 .zg-klein-rot    { font-size: 15px; font-weight: 500; fill: var(--vt-rot-text);   text-anchor: middle; }
 .zg-klein-gruen  { font-size: 15px; font-weight: 500; fill: var(--vt-gruen-text); text-anchor: middle; }
-.zg-gross-navy   { font-size: 16px; letter-spacing: 0.09em; fill: var(--navy-800); text-transform: uppercase; }
-.zg-gross-hell   { font-size: 16px; letter-spacing: 0.13em; fill: #FFFFFF;         text-anchor: middle; text-transform: uppercase; }
-/* Die kleine Zeile unter den beiden Balken in Karte 03. Bewusst OHNE
-   `text-transform`: die Schreibweise „AfA" ist vom Kunden so vorgegeben
-   und darf nicht zu „AFA" werden. */
-.zg-fuss-navy    { font-size: 13px; letter-spacing: 0.05em; fill: var(--ink-soft); text-anchor: middle; }
+.zg-gross-navy   { font-size: 15px; letter-spacing: 0.09em; fill: var(--navy-800); text-transform: uppercase; }
+/* „BANKKAPITAL" steht in der Vorlage deutlich groesser in der Kachel als
+   bisher gesetzt: rund 9,4 % der Kachelbreite, nicht 5,9 %. */
+.zg-gross-hell   { font-size: 22px; letter-spacing: 0.13em; fill: #FFFFFF;         text-anchor: middle; text-transform: uppercase; }
+/* Die Symbolspalte rechts in Karte 03. Bewusst OHNE `text-transform`: die
+   Schreibweise „AfA" ist vom Kunden so vorgegeben und darf nicht zu
+   „AFA" werden. In der Vorlage steht sie gemischt, nicht versal. */
+.zg-liste-navy   { font-size: 15px; letter-spacing: 0.01em; fill: var(--ink-soft); }
 
 /* „VORHER" und „NACHHER" der Vorlage: gesperrt, versal, in der jeweiligen
    Diagrammfarbe — aber in den dunklen Varianten, damit sie die 4,5:1
@@ -443,6 +498,53 @@
   transform: none;
 }
 
+/* --- DER HALBE RUECKSETZPUNKT (`data-neu`) -------------------------------
+   KUNDENBEANSTANDUNG 18.08.2026: „Wenn ich auf einen der Kaesten gehe,
+   verschwindet die Abbildung komplett und dann kommt die Animation."
+
+   Ursache: der Neustart nahm `data-bild` ab, und damit galt wieder der
+   VOLLE Startstand — Deckkraft 0, Balken auf 2 %, Linien auf 0 % gezogen.
+   Fuer den Bruchteil einer Sekunde stand die Karte leer da, und erst
+   danach baute sich alles neu auf. Genau dieses Leerbild soll weg.
+
+   Loesung: der Neustart geht nicht mehr vom Nullstand aus, sondern von
+   einem HALB AUFGEBAUTEN Stand. `vorteile.js` setzt dafuer waehrend eines
+   Neustarts `data-neu` an die Karte; die Regeln hier heben dann alle
+   Startwerte an:
+
+     Deckkraft   0    →  0,42      (nichts wird je unsichtbar)
+     Groesse     0,88 →  0,972     (kaum noch ein Sprung)
+     Balken      2 %  →  58 %
+     Linien      0 %  →  58 % gezogen
+     Grenze      120  →  46 Einheiten Weg
+     Band        2 %  →  55 %
+
+   Warum dieser Weg und nicht ein zweiter, ueberlagerter Durchlauf: eine
+   zweite Lage waere waehrend der Ueberblendung doppelt sichtbar und haette
+   an den Halbtransparenzen dieses Abschnitts — dem gruenen Band, den
+   beiden Farbkeilen, dem Lichthof der Kurve — sichtbar aufgedunkelt. Der
+   halbe Ruecksetzpunkt braucht dagegen kein zusaetzliches Element, kein
+   Aufraeumen und keine zweite Zeitrechnung; im Bild ist er deutlich
+   ruhiger, weil die Zeichnung durchgehend an derselben Stelle steht und
+   nur noch einmal „durchatmet".
+
+   Die kleinste Deckkraft im ganzen Neustart ist damit 0,42.
+
+   SPEZIFITAET: diese Regeln stehen VOR allen `[data-bild]`-Regeln. Beide
+   Auswahlen wiegen gleich schwer (je 0,5,0) — dadurch gewinnt `data-bild`
+   ueber die Reihenfolge, sobald es zurueckgesetzt wird, und der Uebergang
+   laeuft vom halben Stand auf den vollen. Gegen die Grundregeln (0,4,0)
+   gewinnt `data-neu` schon ueber die Spezifitaet, unabhaengig vom Ort. */
+.vt__karten[data-animiert] .vt__karte[data-neu] .zg-pop {
+  opacity: 0.42;
+  transform: scale(0.972);
+}
+.vt__karten[data-animiert] .vt__karte[data-neu] .zg-blende  { opacity: 0.42; }
+.vt__karten[data-animiert] .vt__karte[data-neu] .zg-zieh    { stroke-dashoffset: 0.42; }
+.vt__karten[data-animiert] .vt__karte[data-neu] .zg-wachs-y { transform: scaleY(0.58); }
+.vt__karten[data-animiert] .vt__karte[data-neu] .zg-wandern { transform: translateX(46px); }
+.vt__karten[data-animiert] .vt__karte[data-neu] .zg-wisch   { transform: scaleX(0.55); }
+
 /* Linien ziehen auf */
 .vt__karten[data-animiert] .zg-zieh {
   stroke-dasharray: 1;
@@ -461,43 +563,42 @@
 .vt__karten[data-animiert] .vt__karte[data-bild] .zg-wachs-y { transform: none; }
 
 /* --- Karte 04: die wandernde Grenze zwischen Restschuld und Eigentum ------
-   Beide Flaechen sind DIESELBE volle Breite (x = 26 bis 674, also 648
-   Nutzereinheiten) und werden nur gegenlaeufig in x gestaucht: die rote
-   von links, die gruene von rechts. Weil sich die beiden Faktoren immer zu
-   1 ergaenzen (0,42 + 0,58 im Endstand, 0,90 + 0,10 im Startstand) und
-   beide mit derselben Dauer und derselben Beschleunigung ueberfuehrt
-   werden, treffen sich ihre Kanten in JEDEM einzelnen Bild exakt — ohne
-   Fuge, ohne Ueberlappung.
+   NEU SEIT 18.08.2026. Frueher zwei senkrechte Rechtecke, die gegenlaeufig
+   gestaucht wurden. Die Vorlage hat aber ZWEI SCHRAEGE KEILE, die sich
+   unten in der Mitte kreuzen — siehe die Anmerkung im HTML bei Karte 04.
 
-   Die goldene Trennkante steht im HTML bereits an der Endstelle
-   (x = 26 + 0,42 · 648 = 298,2) und wird fuer den Start um genau die
-   Differenz zur Startstelle (26 + 0,90 · 648 = 609,2) nach rechts
-   geschoben: 311 Einheiten.
+   Deshalb jetzt EINE Gruppe: beide Keile und die beiden hellen Kanten
+   liegen darin und fahren gemeinsam in x. Das ist zugleich die einfachste
+   Antwort auf die Fugenfrage — weil die Keile ihre Grenzkante TEILEN,
+   kann zwischen ihnen gar keine Fuge entstehen, in keinem einzigen Bild.
+   Beide Formen reichen weit ueber den Bildrand hinaus (von x = -400 bis
+   x = 1100), deshalb legt der Weg von 120 Einheiten an keiner Seite eine
+   Bloesse frei.
 
-   Der Grundfall ohne `data-animiert` ist auch hier der ENDSTAND. */
-.zg-schuld {
-  transform: scaleX(0.42);
+   Startstand: 120 nach rechts — die Restschuld nimmt mehr Flaeche ein.
+   Endstand: 0 — die Grenze ist nach links gewandert, das Eigentum hat
+   zugenommen. Der Grundfall ohne `data-animiert` ist der ENDSTAND. */
+.zg-wandern { transform: translateX(0); }
+
+.vt__karten[data-animiert] .zg-wandern {
+  transition: transform 1.2s var(--ease-soft) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
+  transform: translateX(120px);
+}
+.vt__karten[data-animiert] .vt__karte[data-bild] .zg-wandern { transform: translateX(0); }
+
+/* --- Karte 02: das gruene Band wischt von der Scheibe nach aussen frei ----
+   Geschnitten wird das RECHTECK im `clipPath`, nicht die Bandform selbst —
+   dadurch verzerrt beim Aufbau nichts, das Band waechst einfach heraus. */
+.zg-wisch {
   transform-box: fill-box;
   transform-origin: 0% 50%;
+  transform: none;
 }
-.zg-eigen {
-  transform: scaleX(0.58);
-  transform-box: fill-box;
-  transform-origin: 100% 50%;
+.vt__karten[data-animiert] .zg-wisch {
+  transform: scaleX(0.02);
+  transition: transform 0.95s var(--ease-soft) calc(var(--kv, 0s) + var(--zv, 0s) + 0.30s);
 }
-.zg-grenze { fill: var(--gold); transform: translateX(0); }
-
-.vt__karten[data-animiert] .zg-schuld,
-.vt__karten[data-animiert] .zg-eigen,
-.vt__karten[data-animiert] .zg-grenze {
-  transition: transform 1.2s var(--ease-soft) calc(var(--kv, 0s) + var(--zv, 0s) + 0.22s);
-}
-.vt__karten[data-animiert] .zg-schuld { transform: scaleX(0.90); }
-.vt__karten[data-animiert] .zg-eigen  { transform: scaleX(0.10); }
-.vt__karten[data-animiert] .zg-grenze { transform: translateX(311px); }
-.vt__karten[data-animiert] .vt__karte[data-bild] .zg-schuld { transform: scaleX(0.42); }
-.vt__karten[data-animiert] .vt__karte[data-bild] .zg-eigen  { transform: scaleX(0.58); }
-.vt__karten[data-animiert] .vt__karte[data-bild] .zg-grenze { transform: translateX(0); }
+.vt__karten[data-animiert] .vt__karte[data-bild] .zg-wisch { transform: none; }
 
 /* Kacheln, Kreise und Haltepunkte ploppen auf */
 .vt__karten[data-animiert] .zg-pop {
@@ -537,9 +638,8 @@
    deshalb nicht noetig. */
 .vt__karten[data-animiert] .vt__karte[data-sofort] .zg-zieh,
 .vt__karten[data-animiert] .vt__karte[data-sofort] .zg-wachs-y,
-.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-schuld,
-.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-eigen,
-.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-grenze,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-wandern,
+.vt__karten[data-animiert] .vt__karte[data-sofort] .zg-wisch,
 .vt__karten[data-animiert] .vt__karte[data-sofort] .zg-pop,
 .vt__karten[data-animiert] .vt__karte[data-sofort] .zg-blende {
   transition: none;
@@ -580,62 +680,81 @@
   overflow: hidden;
 }
 
-/* --- Das Foto im Band ----------------------------------------------------
-   Es lag hier schon vor dem Umbau und ist auf Kundenwunsch zurueck. Der
-   Uebergang musste dabei vollstaendig neu gerechnet werden: frueher lief
-   er gegen Navy, jetzt gegen Weiss. Eine reine Deckkraft-Blende reicht
-   dafuer nicht — das Motiv hat dunkle Anteile, die beim Ausblenden ueber
-   Grau laufen und eine schmutzige Kante hinterlassen wuerden.
+/* --- Die Abbildung im Band: JAHRESRINGE ----------------------------------
+   KUNDENBEANSTANDUNG 18.08.2026: „Das Laengliche ist gut, aber es passt
+   noch nicht so gut zu dem darueber. Du musst es auch mit einer Abbildung
+   schoener darstellen. Stell es im Stil der fuenf Kaesten dar."
 
-   Deshalb ZWEI Lagen, die zusammenwirken:
+   Bis hierher lag rechts im Band eine AUFNAHME (`haus-b-v2.jpg`) mit einem
+   zweilagigen Uebergang — Vierkantenmaske plus Schleier in der Bandfarbe.
+   Der war handwerklich sauber, aber genau die Ursache der Beanstandung:
+   die fuenf Karten darueber tragen ZEICHNUNGEN, das Band trug ein FOTO.
+   Ausserdem verschwand das Foto unter 1100 px vollstaendig — dort blieben
+   tatsaechlich „nur Text und Haekchen" stehen.
 
-     1  Die Aufnahme selbst wird an ALLEN VIER Kanten bis auf null
-        ausmaskiert (zwei Verlaeufe, waagerecht und senkrecht, per
-        `mask-composite` verschnitten). Damit trifft das Bild nirgends auf
-        eine Kante — auch nicht auf die des Bandes.
-     2  Darueber liegt ein Schleier in EXAKT der Bandfarbe
-        (`background: var(--vt-karte)`, derselbe senkrechte Verlauf und
-        dieselbe Hoehe wie das Band selbst). Er ist zur Textseite hin dicht
-        und im Kern des Fotos fast durchsichtig.
+   An seiner Stelle steht jetzt eine Zeichnung in derselben Handschrift:
+   goldene Haarlinien in zwei Staerken, ein voller Goldpunkt im Kern, und
+   derselbe Aufbau ueber `pathLength` und `stroke-dashoffset` wie in den
+   fuenf Zeichnungen. Sie bleibt auf JEDER Fenstergroesse stehen.
 
-   Zusammen heisst das: das Foto blendet nicht nur aus, es HELLT dabei
-   GLEICHZEITIG AUF und geht ohne graue Zwischenstufe in die weisse
-   Flaeche ueber. Weil der Schleier farbgleich mit dem Bandhintergrund ist,
-   ergibt jede Stelle, an der die Bildmaske null ist, exakt den
-   Bandhintergrund — unabhaengig davon, wie dicht der Schleier dort steht.
-   Genau das macht die Pixelmessung an den Aussenspalten nachpruefbar. */
+   Sonst ist am Band nichts geaendert: gleicher Verlauf `--vt-karte`,
+   gleicher Eckenradius, dieselben zwei Schattenlagen, keine Kontur,
+   dieselbe Typografie — nur eben im Querformat. */
 .vt__leiste-bild {
   position: absolute;
   z-index: -1;
   inset: 0 0 0 auto;
-  width: min(46%, 620px);
+  width: min(44%, 560px);
+  display: grid;
+  place-items: center;
   pointer-events: none;
 }
-.vt__leiste-bild img {
+.vt__jahresringe {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 58% 46%;
-  filter: grayscale(0.30) brightness(1.22) contrast(0.76) saturate(0.44);
-  opacity: 0.92;
-  -webkit-mask-image:
-    linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 34%, rgba(0,0,0,0.34) 56%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%),
-    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 16%, rgba(0,0,0,1) 84%, rgba(0,0,0,0) 100%);
-  -webkit-mask-composite: source-in;
-          mask-image:
-    linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 34%, rgba(0,0,0,0.34) 56%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%),
-    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 16%, rgba(0,0,0,1) 84%, rgba(0,0,0,0) 100%);
-          mask-composite: intersect;
+  overflow: visible;
+  /* Die aeusseren Ringe laufen bewusst ueber den Rand hinaus — es ist ein
+     AUSSCHNITT aus einem groesseren Stamm, kein Kreis in einem Kasten.
+     `.vt__leiste` schneidet ihn ab (`overflow: hidden`). */
+  transform: scale(1.14);
+  transform-origin: 64% 50%;
+  /* Nach links hin ausblenden, damit die Zeichnung dem Text nicht in den
+     Ruecken faellt. Dieselbe Rolle wie frueher der Foto-Schleier. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.26) 26%, #000 60%, #000 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.26) 26%, #000 60%, #000 100%);
 }
-.vt__leiste-bild::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--vt-karte);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.44) 56%, rgba(0,0,0,0.12) 78%, rgba(0,0,0,0.12) 94%, #000 100%);
-          mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.44) 56%, rgba(0,0,0,0.12) 78%, rgba(0,0,0,0.12) 94%, #000 100%);
+.zg-jahr {
+  fill: none;
+  stroke: var(--line-gold);
+  stroke-width: 1;
 }
+/* Jeder zweite Ring eine Spur kraeftiger — so liest sich Holz, nicht ein
+   gleichmaessiges Rastermuster. */
+.zg-jahr--stark { stroke: var(--gold); stroke-opacity: 0.5; stroke-width: 1.3; }
+.zg-jahr-riss {
+  fill: none;
+  stroke: var(--gold);
+  stroke-opacity: 0.38;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.zg-jahr-kern { fill: var(--gold); }
+
+/* Der Aufbau haengt am selben `data-seen` wie das Band: die Ringe ziehen
+   von innen nach aussen nacheinander auf. Ohne Javascript und bei
+   „weniger Bewegung" stehen sie sofort vollstaendig da — dafuer sorgt der
+   Grundfall hier und der Block ganz unten. */
+.vt__leiste .zg-jahr,
+.vt__leiste .zg-jahr-riss { stroke-dashoffset: 0; }
+.vt__leiste[data-reveal] .zg-jahr,
+.vt__leiste[data-reveal] .zg-jahr-riss {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.05s var(--ease-soft) calc(var(--rv, 0s) + 0.2s);
+}
+.vt__leiste[data-reveal][data-seen='true'] .zg-jahr,
+.vt__leiste[data-reveal][data-seen='true'] .zg-jahr-riss { stroke-dashoffset: 0; }
 
 .vt__leiste-titel {
   font-family: var(--font-display);
@@ -786,13 +905,49 @@
   .vt__karte:nth-child(3),
   .vt__karte--breit { grid-column: span 2; }
 
-  /* Das einlaufende Foto braucht Breite; darunter wuerde es den Text
-     einschnueren statt ihn zu rahmen. Das Band bleibt dann reine Flaeche. */
+  /* Hier stand bis zum 18.08.2026 `display: none` fuer das Bild im Band —
+     unter 1100 px blieben deshalb tatsaechlich „nur Text und Haekchen"
+     stehen, und genau das hat der Kunde beanstandet. Die Zeichnung ist
+     jetzt zu schmal, um zu stoeren: sie rueckt aus der absoluten Lage
+     heraus und stellt sich als eigene Zeile UNTER den Text. */
   .vt__leiste {
     justify-items: start;
     padding-right: clamp(1.5rem, 2.8vw, 2.6rem);
   }
-  .vt__leiste-bild { display: none; }
+  .vt__leiste-bild {
+    position: static;
+    z-index: 0;
+    /* `order` statt Umsortieren im Quelltext: die Zeichnung ist rein
+       dekorativ (`aria-hidden`), die Vorlesereihenfolge ist damit
+       unberuehrt. */
+    order: 2;
+    width: 100%;
+    max-width: 30rem;
+    /* Als BAND ausgeschnitten, nicht als Quadrat — sonst nimmt der
+       Ringschnitt auf dem Telefon mehr Platz ein als der ganze Text. */
+    aspect-ratio: 5 / 2;
+    overflow: hidden;
+    margin: clamp(1.4rem, 3vh, 2.2rem) auto 0;
+    /* Die Blende sitzt hier am RAHMEN, nicht an der Zeichnung: die
+       Zeichnung ist vergroessert und ragt ueber den Rahmen hinaus — eine
+       Blende an ihr selbst faende ausserhalb des Sichtbaren statt und
+       liesse an allen vier Seiten eine harte Schnittkante stehen. */
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 20%, #000 78%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image:
+      linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 20%, #000 78%, transparent 100%);
+            mask-composite: intersect;
+  }
+  .vt__jahresringe {
+    height: 100%;
+    transform: scale(1.55);
+    transform-origin: 50% 50%;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
   .vt__punkte { flex-direction: column; flex-wrap: wrap; align-items: flex-start; }
   .vt__punkte li + li { padding-left: 0; border-left: 0; }
 }
@@ -857,10 +1012,17 @@
   .vt__karten[data-animiert] .zg-pop,
   .vt__karten[data-animiert] .zg-blende { opacity: 1; transform: none; transition: none; }
   .vt__karten[data-animiert] .zg-wachs-y { transform: none; transition: none; }
-  .vt__karten[data-animiert] .zg-schuld { transform: scaleX(0.42); transition: none; }
-  .vt__karten[data-animiert] .zg-eigen  { transform: scaleX(0.58); transition: none; }
-  .vt__karten[data-animiert] .zg-grenze { transform: translateX(0);  transition: none; }
+  .vt__karten[data-animiert] .zg-wandern { transform: translateX(0); transition: none; }
+  .vt__karten[data-animiert] .zg-wisch   { transform: none; transition: none; }
   .vt__karten[data-animiert] .zg-zieh {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  /* Die Jahresringe im Band stehen dann ebenfalls sofort vollstaendig da. */
+  .vt__leiste .zg-jahr,
+  .vt__leiste .zg-jahr-riss {
     stroke-dasharray: none;
     stroke-dashoffset: 0;
     transition: none;

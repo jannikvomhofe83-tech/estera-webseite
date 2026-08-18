@@ -19,17 +19,69 @@
    Schockzahlen, Privatinsolvenz-Szenarien oder garantierten
    Sicherheitsversprechen." Der erste Zustand ist deshalb nicht bedrohlich
    gesetzt, sondern nur unruhig — mehr Einzelteile, kein Alarm.
+
+   GESTALTUNG — angeglichen an die ersten Abschnitte (Kundenwunsch 18.08.:
+   „Die Section soll generell im Stil der ersten vier Sections gebaut werden,
+   vor allem ‚So entsteht Vermoegensaufbau‘ und ‚Unsere Leistungen‘.")
+   Uebernommen aus `prinzip.css` und `auswahl.css`:
+     — Kopf mittig: goldene Kleinversalienzeile, Ueberschrift in der
+       Auszeichnungsschrift, darunter die Unterzeile.
+     — Karten: weisse Flaeche mit einem Hauch Verlauf, grosser Eckenradius,
+       KEINE Kontur. Der Halt kommt aus ZWEI Schattenlagen — ein enger
+       Kontaktschatten macht die Kante, ein weiter, sehr schwacher
+       Umgebungsschatten macht die Hoehe. Wenn die Karten auf dem Grund
+       verschwimmen: zuerst den ENGEN verstaerken.
+     — Auszeichnung: Gold fuer Kleinversalien und Haarlinien, Navy fuer
+       Ueberschriften, Blaugrau fuer Fliesstext.
+     — Verbindungen durchgezogen statt gestrichelt, wie in `auswahl.css`
+       (Kundenwunsch 17.08. fuer „Unsere Leistungen").
+     — Gestaffelter Einlauf beim Scrollen ueber [data-reveal].
+   Der Umschalter bleibt in seiner Bauart (Pille mit gleitendem Navy-
+   Schieber) und ist nur typografisch angeglichen.
    =========================================================================== */
 
 .verg {
-  --linie: rgba(16, 41, 73, 0.26);
+  /* ===== Gold ============================================================
+     Zwei Toene, wie in auswahl.css, weil zwei Schwellwerte gelten:
+     --verg-gold-schrift  Kleinversalien. Text, also 4.5:1. #6F5329 misst
+                          7.1:1 auf dem Grund dieses Abschnitts.
+     --gold-linie         Haarlinien und Symbole. Nichttextlich, also 3:1.
+                          #9A7A3E misst 3.8:1 auf dem Symbolgrund.
+     ==================================================================== */
+  --verg-gold-schrift: #6F5329;
+  --gold-linie: #9A7A3E;
+  --linie: rgba(154, 122, 62, 0.55);   /* Verbindung Karte — Baustein */
+
+  /* ===== Karten (Machart aus prinzip.css / auswahl.css) ================= */
+  --karte-radius: clamp(14px, 1.4vw, 22px);
+  --karte-flaeche: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 58%, #FBFCFE 100%);
+  --karte-schatten:
+      0 2px 5px rgba(16, 41, 73, 0.10),
+      0 18px 40px -12px rgba(16, 41, 73, 0.17);
+  --karte-schatten-hoch:
+      0 4px 10px rgba(16, 41, 73, 0.12),
+      0 26px 54px -14px rgba(16, 41, 73, 0.21);
+  --symbolgrund: #FAF8F4;
+
   --wechsel: 0.38s var(--ease-soft);   /* 380 ms, weich, nichts springt */
   position: relative;
   z-index: 1;
   overflow-x: clip;
-  background: linear-gradient(to bottom, var(--paper) 0%, #FCFAF6 22%, #FCFAF6 78%, var(--paper) 100%);
-  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
+  /* Derselbe warme Grund wie „So entsteht Vermoegensaufbau" (#FCFAF6), nur
+     an beiden Enden ins Weiss der Nachbarabschnitte ausgeblendet — sonst
+     entstuende oben und unten eine sichtbare Kante. */
+  background: linear-gradient(to bottom, var(--paper) 0%, #FCFAF6 12%, #FCFAF6 88%, var(--paper) 100%);
+  padding: clamp(3.6rem, 9vh, 7rem) 0 clamp(4.2rem, 10vh, 8rem);
 }
+
+/* Einlauf beim Scrollen — eigener, kuerzer Weg als der siteweite, damit der
+   Abschnitt ruhig aufmacht. Gesetzt wird data-seen von assets/js/site.js. */
+.verg [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+.verg [data-reveal][data-seen='true'] { opacity: 1; transform: none; }
 
 .verg__inner {
   max-width: 1400px;
@@ -38,24 +90,39 @@
 }
 
 /* --- Kopf ----------------------------------------------------------------- */
+/* Dreiklang wie bei den Vorbildern: Kleinversalien in Gold, Ueberschrift in
+   der Auszeichnungsschrift und Navy, darunter die Unterzeile. Alles mittig,
+   Abstaende wie in prinzip.css. */
 .verg__head {
-  max-width: 940px;
+  max-width: 56rem;
   margin: 0 auto;
   text-align: center;
 }
+.verg__kicker {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.82rem, 0.9vw, 0.96rem);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;      /* faengt die Sperrung hinter dem letzten Zeichen */
+  text-transform: uppercase;
+  color: var(--verg-gold-schrift);
+}
 .verg__h2 {
-  font-size: clamp(1.9rem, 3.2vw, 3.2rem);
-  line-height: 1.12;
+  margin-top: clamp(0.7rem, 1.6vh, 1.2rem);
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
+  line-height: 1.06;
+  color: var(--navy-800);
 }
 .verg__lead {
-  margin: clamp(1.4rem, 3vh, 2.1rem) auto 0;
-  max-width: 46rem;
-  font-size: clamp(1.06rem, 1.32vw, 1.32rem);
-  line-height: 1.5;
+  margin: clamp(0.6rem, 1.5vh, 1.05rem) auto 0;
+  max-width: 44rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 1.26vw, 1.32rem);
+  line-height: 1.45;
   color: var(--ink-soft);
   text-wrap: pretty;
 }
-.verg__lead .hl { color: var(--ink-black); }
+.verg__lead .hl { color: var(--navy-800); }
 
 /* --- Der Umschalter ------------------------------------------------------- */
 /* Zwei Schaltflaechen in einer Fassung, dahinter ein wandernder Schieber.
@@ -66,14 +133,17 @@
   position: relative;
   width: max-content;
   max-width: 100%;
-  margin: clamp(1.8rem, 4.4vh, 2.8rem) auto 0;
+  margin: clamp(1.9rem, 4.6vh, 3rem) auto 0;
   display: grid;
   grid-auto-flow: column;
   padding: 5px;
+  /* Eine goldene Haarlinie statt einer Kontur — dieselbe Auszeichnung wie
+     im uebrigen Abschnitt. Der Halt kommt aus dem Kontaktschatten. */
   border: 1px solid var(--line-gold);
   border-radius: 999px;
   background: var(--paper);
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03);
+  box-shadow: 0 2px 5px rgba(16, 41, 73, 0.08),
+              0 14px 32px -16px rgba(16, 41, 73, 0.16);
 }
 .verg__schieber {
   position: absolute;
@@ -96,24 +166,36 @@
   background: none;
   border-radius: 999px;
   cursor: pointer;
-  font-family: var(--font-display);
-  font-size: clamp(0.78rem, 0.88vw, 0.9rem);
+  /* Typografisch an die Kleinversalien der Vorbilder herangefuehrt: weiter
+     gesperrt, eine Spur kleiner. --ink-mute misst 5.20:1 auf Weiss. */
+  font-family: var(--font-ui);
+  font-size: clamp(0.74rem, 0.84vw, 0.88rem);
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-indent: 0.16em;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--ink-mute);
   transition: color var(--wechsel);
 }
-.verg__knopf[aria-pressed='true'] { color: #fff; }
+/* Die weisse Beschriftung haengt am ZUSTAND des Abschnitts, nicht an
+   aria-pressed — genau wie der Schieber darunter. Damit koennen Schieber und
+   Schrift nie auseinanderlaufen und weiss auf weiss stehen. aria-pressed
+   bleibt unveraendert und wird von assets/js/site.js weiter mitgefuehrt. */
+.verg[data-modus='selbst'] .verg__knopf[data-modus-knopf='selbst'],
+.verg[data-modus='estera'] .verg__knopf[data-modus-knopf='estera'] { color: #fff; }
 .verg__knopf:focus-visible { outline: 1px solid var(--navy-600); outline-offset: 4px; }
 
 /* --- Buehne: Karten links, Haus in der Mitte, Karten rechts --------------- */
 /* Beide Aussenspalten sind gleich breit (1fr), die Mittelspalte ist so breit
    wie die Haus-Buehne. Dadurch steht das Haus exakt in der Abschnittsmitte. */
+/* Die Buehne steht schmaler als die Lesespalte — dieselbe Ueberlegung wie
+   bei „Unsere Leistungen" (Kundenwunsch 17.08.: mehr Rand links und rechts).
+   Vorher lief sie ueber die vollen 1400 px; die Karten standen dadurch weit
+   vom Haus weg und die Verbindungslinien liefen ins Leere. */
 .verg__buehne {
-  margin: clamp(2.2rem, 5vh, 3.6rem) auto 0;
+  margin: clamp(2.4rem, 5.4vh, 3.8rem) auto 0;
+  max-width: min(1280px, 100%);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
@@ -122,9 +204,9 @@
 
 .verg__karten {
   display: grid;
-  gap: clamp(1rem, 2.2vh, 1.7rem);
+  gap: clamp(1rem, 2.4vh, 1.8rem);
   width: 100%;
-  max-width: 22rem;
+  max-width: 21rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -139,12 +221,12 @@
   grid-template-columns: auto minmax(0, 1fr);
   column-gap: clamp(0.7rem, 1.1vw, 1rem);
   align-items: center;
-  padding: clamp(0.85rem, 1.8vh, 1.15rem) clamp(0.95rem, 1.4vw, 1.3rem);
-  border: 1px solid var(--line-soft);
-  border-radius: 16px;
-  background: var(--paper);
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
-              0 14px 30px -20px rgba(16, 41, 73, 0.3);
+  padding: clamp(1rem, 2.1vh, 1.35rem) clamp(1.1rem, 1.6vw, 1.5rem);
+  /* Keine Kontur — Halt aus zwei Schattenlagen, Flaeche mit einem Hauch
+     Verlauf. Genau wie die Karten in prinzip.css und auswahl.css. */
+  border-radius: var(--karte-radius);
+  background: var(--karte-flaeche);
+  box-shadow: var(--karte-schatten);
   /* Im ersten Zustand stehen die Karten deutlich verstreut: ungleich
      eingerueckt, gegeneinander hoehenversetzt, unterschiedlich weit vom Haus
      entfernt und leicht verdreht — „verteilt und offen". Auf den ersten Blick
@@ -153,34 +235,52 @@
   width: calc(100% - var(--dw, 0px));
   transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--dr, 0deg));
   transition: transform var(--wechsel), width var(--wechsel),
-              border-color var(--wechsel), box-shadow var(--wechsel);
+              box-shadow var(--wechsel), opacity 0.8s var(--ease-soft);
 }
 .verg__karten--links  .verg__karte { justify-self: end; }
 .verg__karten--rechts .verg__karte { justify-self: start; }
+/* Geordnet steht die Karte eine Spur hoeher — dieselbe zweite Schattenlage,
+   nur etwas weiter. Das ist der ganze Unterschied; die Flaeche bleibt. */
 .verg[data-modus='estera'] .verg__karte {
   width: 100%;
   transform: translate(0px, 0px) rotate(0deg);
-  border-color: rgba(30, 66, 112, 0.2);
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03),
-              0 14px 30px -20px rgba(16, 41, 73, 0.22);
+  box-shadow: var(--karte-schatten-hoch);
 }
 
-/* Der helle Kreis mit dem Konturensymbol */
+/* Gestaffelter Einlauf: die Liste traegt [data-reveal], die Karten darin
+   blenden nacheinander auf. Nur die Deckung wird gestaffelt — der Versatz
+   der Karten steckt schon in transform und darf davon nicht angefasst
+   werden. */
+.verg__karten[data-reveal] .verg__karte { opacity: 0; }
+.verg__karten[data-reveal][data-seen='true'] .verg__karte {
+  opacity: 1;
+  /* Die Verzoegerung haengt AN DER DECKUNG, nicht an der Transformation —
+     sonst wuerde auch der Wechsel der beiden Zustaende gestaffelt. */
+  transition: transform var(--wechsel), width var(--wechsel),
+              box-shadow var(--wechsel),
+              opacity 0.8s var(--ease-soft) calc(var(--k, 0) * 0.11s);
+}
+.verg__karten .verg__karte:nth-child(2) { --k: 1; }
+.verg__karten .verg__karte:nth-child(3) { --k: 2; }
+
+/* Der helle Kreis mit dem Konturensymbol — Fuellung und Groesse wie die
+   Symbolkreise in auswahl.css. Ungeordnet steht das Symbol in Navy, geordnet
+   wird es golden: die Auszeichnungsfarbe des Abschnitts. */
 .verg__ikon {
   grid-column: 1;
   grid-row: 1;
   display: grid;
   place-items: center;
-  width: clamp(2.1rem, 2.5vw, 2.45rem);
+  width: clamp(2.2rem, 2.7vw, 2.6rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #F4F0E7;
+  background: var(--symbolgrund);
   color: var(--navy-600);
   transition: background var(--wechsel), color var(--wechsel);
 }
 .verg[data-modus='estera'] .verg__ikon {
-  background: rgba(30, 66, 112, 0.08);
-  color: var(--navy-800);
+  background: rgba(168, 135, 79, 0.12);
+  color: var(--gold-linie);
 }
 .verg__ikon svg {
   width: 54%;
@@ -196,10 +296,10 @@
   grid-column: 2;
   grid-row: 1;
   font-family: var(--font-display);
-  font-size: clamp(1rem, 1.16vw, 1.16rem);
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--ink-black);
+  font-size: clamp(1.02rem, 1.2vw, 1.24rem);
+  font-weight: 400;
+  line-height: 1.16;
+  color: var(--navy-800);      /* Ueberschriften in Navy, wie in den Vorbildern */
 }
 
 /* Beide Textfassungen liegen uebereinander in derselben Rasterzelle. Dadurch
@@ -209,14 +309,14 @@
   grid-column: 1 / -1;
   grid-row: 2;
   display: grid;
-  margin-top: clamp(0.55rem, 1.2vh, 0.8rem);
-  padding-top: clamp(0.55rem, 1.2vh, 0.8rem);
-  border-top: 1px solid var(--line-soft);
+  margin-top: clamp(0.6rem, 1.3vh, 0.85rem);
+  padding-top: clamp(0.6rem, 1.3vh, 0.85rem);
+  border-top: 1px solid var(--line-gold);   /* goldene Haarlinie */
 }
 .verg__text {
   grid-area: 1 / 1;
-  font-size: clamp(0.83rem, 0.9vw, 0.9rem);
-  line-height: 1.5;
+  font-size: clamp(0.86rem, 0.94vw, 0.94rem);
+  line-height: 1.52;
   color: var(--ink-soft);
   text-wrap: pretty;
   opacity: 0;
@@ -257,19 +357,21 @@
   border: 1px solid currentColor;
 }
 .verg__stand--selbst { color: var(--ink-mute); }
-.verg__stand--estera { color: var(--gold-text); }
+.verg__stand--estera { color: var(--verg-gold-schrift); }
 .verg__stand--estera::before { background: var(--gold); border-color: var(--gold); }
 .verg:not([data-modus='estera']) .verg__stand--selbst { opacity: 1; }
 .verg[data-modus='estera'] .verg__stand--estera { opacity: 1; }
 
-/* --- Die gestrichelte Verbindung zum Baustein ----------------------------- */
+/* --- Die Verbindung zum Baustein ------------------------------------------
+   Durchgezogene goldene Haarlinie, nicht gestrichelt — dieselbe Machart wie
+   die Verbindungen in „Unsere Leistungen" (Kundenwunsch 17.08.). */
 .verg__karte::after {
   content: '';
   position: absolute;
-  top: clamp(1.5rem, 2.9vh, 1.9rem);
+  top: clamp(1.6rem, 3.1vh, 2.05rem);
   width: clamp(1rem, 3.6vw, 3.6rem);
-  border-top: 1px dashed var(--linie);
-  opacity: 0.55;
+  border-top: 1px solid var(--linie);
+  opacity: 0.6;
   transition: opacity var(--wechsel);
 }
 .verg__karten--links  .verg__karte::after { left: 100%; }
@@ -278,16 +380,19 @@
 
 /* --- Das Band unter dem Haus ---------------------------------------------- */
 .verg__band {
-  margin: clamp(2.4rem, 5.5vh, 3.6rem) auto 0;
-  max-width: 1120px;
+  margin: clamp(2.6rem, 5.8vh, 3.8rem) auto 0;
+  max-width: min(1280px, 100%);   /* auf der Kante der Buehne */
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: center;
   gap: clamp(0.9rem, 2.2vw, 1.9rem);
-  padding: clamp(0.9rem, 2.1vh, 1.35rem) clamp(1rem, 2.2vw, 1.9rem);
-  border: 1px solid var(--line-soft);
-  border-radius: 26px;
-  background: var(--paper);
+  padding: clamp(1.1rem, 2.4vh, 1.6rem) clamp(1.2rem, 2.4vw, 2.1rem);
+  /* Dieselbe Machart wie die Karten: keine Kontur, Flaeche mit Hauch
+     Verlauf, zwei Schattenlagen. Der Radius ist eine Stufe grosszuegiger,
+     weil das Band ueber die ganze Breite laeuft. */
+  border-radius: clamp(18px, 1.8vw, 28px);
+  background: var(--karte-flaeche);
+  box-shadow: var(--karte-schatten);
 }
 .verg__bandsymbol {
   display: grid;
@@ -309,9 +414,9 @@
 }
 .verg__bandtext {
   font-family: var(--font-display);
-  font-size: clamp(1.02rem, 1.28vw, 1.28rem);
-  line-height: 1.45;
-  color: var(--ink-black);
+  font-size: clamp(1.02rem, 1.28vw, 1.32rem);
+  line-height: 1.42;
+  color: var(--navy-800);
   text-wrap: pretty;
 }
 .verg__bandtext em {
@@ -322,7 +427,7 @@
 .verg__bandstrich {
   width: 1px;
   height: clamp(2.2rem, 4vh, 3rem);
-  background: var(--line-soft);
+  background: var(--line-gold);      /* goldene Haarlinie */
 }
 .verg__bandcta {
   display: inline-flex;
@@ -401,16 +506,43 @@
 
 @media (max-width: 680px) {
   .verg__karten { grid-template-columns: minmax(0, 1fr); }
-  .verg__schalter { width: 100%; }
-  .verg__knopf { padding-inline: 0.8rem; font-size: 0.74rem; letter-spacing: 0.1em; }
+  /* Zwei gleich breite Spalten: nur so deckt der Schieber, der genau die
+     halbe Pille misst, die aktive Beschriftung auch wirklich ab. Und die
+     Beschriftung darf umbrechen — sonst laeuft sie aus der Pille heraus. */
+  .verg__schalter { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .verg__knopf {
+    padding-inline: 0.6rem;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
+    white-space: normal;
+    text-wrap: balance;
+  }
+  .verg__kicker { letter-spacing: 0.3em; text-indent: 0.3em; }
   .verg__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
   .verg__band { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
 }
 
+/* Ohne Javascript setzt niemand data-seen — dann muss alles sofort stehen.
+   Die Auswahl ist so genau geschrieben wie die Regel, die sie aushebelt. */
+@media (scripting: none) {
+  .verg [data-reveal] { opacity: 1; transform: none; }
+  .verg__karten[data-reveal] .verg__karte { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .verg__karte, .verg__schieber, .verg__text, .verg__stand, .verg__ikon,
+  .verg__schieber, .verg__text, .verg__stand, .verg__ikon,
   .verg__bandcta, .verg__bandcta svg {
     transition: none;
   }
-  .verg__karte { width: 100%; transform: none; }
+  .verg [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .verg__karte,
+  .verg__karten[data-reveal] .verg__karte,
+  .verg__karten[data-reveal][data-seen='true'] .verg__karte {
+    width: 100%;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

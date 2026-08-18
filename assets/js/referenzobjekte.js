@@ -83,7 +83,7 @@
 })();
 
 /* ===========================================================================
-   REFERENZOBJEKTE — der Bildschirm des Notebooks: Vorschaubild -> Video
+   REFERENZOBJEKTE — der Bildplatz: Vorschaubild -> Video
 
    Vorschaubild, Zwischenansicht und Video liegen im SELBEN 16:9-Rahmen
    uebereinander. Der Klick auf den Abspielknopf blendet das Vorschaubild aus
@@ -100,6 +100,11 @@
    startet es. Ist der Wert leer, zeigt der Klick stattdessen die ruhige
    Zwischenansicht .robj__ersatz — kein Fehler und kein leeres Feld.
 
+   Das Video wird VOR den Abspielknopf gehaengt. Die Reihenfolge im DOM
+   bestimmt hier nicht die Stapelung — die regelt z-index in
+   referenzobjekte.css —, wohl aber die Tabreihenfolge: so kommt zuerst das
+   Video mit seinen Bedienelementen und danach der (dann verborgene) Knopf.
+
    Ohne Javascript bleibt das Vorschaubild stehen; der Abschnitt bleibt
    vollstaendig lesbar.
    =========================================================================== */
@@ -113,7 +118,6 @@
     if (!knopf) return;
 
     var bild    = schirm.querySelector('.robj__bild');
-    var glanz   = schirm.querySelector('.robj__glanz');
     var ersatz  = schirm.querySelector('.robj__ersatz');
     var zurueck = ersatz ? ersatz.querySelector('.robj__zurueck') : null;
 
@@ -136,8 +140,7 @@
         film.setAttribute('preload', 'auto');
         if (bild) film.setAttribute('poster', bild.getAttribute('src'));
         film.src = quelle;
-        /* Vor den Glanz, damit die Aufhellung auch ueber dem Video liegt. */
-        schirm.insertBefore(film, glanz || null);
+        schirm.insertBefore(film, knopf);
         schirm.setAttribute('data-zustand', 'film');
         knopf.hidden = true;
         var lauf = film.play();
@@ -161,4 +164,77 @@
     knopf.addEventListener('click', starten);
     if (zurueck) zurueck.addEventListener('click', zurVorschau);
   });
+})();
+
+/* ===========================================================================
+   REFERENZOBJEKTE — die Ueberlappung der Infokarte
+
+   Kundenwunsch 18.08.: „Unten links vom Video ragt er halb ueber das Video
+   und halb unter dem Video raus." Genau die Haelfte ihrer eigenen Hoehe —
+   und die haengt daran, wie der Satz in der Karte umbricht. Deshalb wird sie
+   gemessen und als --robj-ueber an die Karte geschrieben; referenzobjekte.css
+   zieht die Karte um diesen Wert nach oben.
+
+   Der Wert steht als Naeherung bereits im CSS. Ohne Javascript, vor dem
+   Laden der Schrift und mit abgeschaltetem Script bleibt er stehen — die
+   Karte ueberlappt also in jedem Fall, sie trifft die Haelfte dann nur nicht
+   auf den Punkt.
+
+   Kein Rueckkopplungsschleifen-Risiko: der Aussenabstand nach oben aendert
+   die Hoehe der Karte nicht, nur ihre Lage. Geschrieben wird ausserdem nur,
+   wenn sich der Wert um mehr als einen halben Pixel bewegt.
+   =========================================================================== */
+(function () {
+  'use strict';
+
+  var karten = document.querySelectorAll('.robj__info');
+  if (!karten.length) return;
+
+  function legen(karte) {
+    var hoehe = karte.offsetHeight;
+    if (!hoehe) return;                       /* verborgen oder noch ohne Satz */
+    var soll = Math.round(hoehe / 2);
+
+    /* OBERGRENZE auf schmalen Fenstern: dort ist das Video nur noch gut
+       190 px hoch, die Karte aber wegen des Umbruchs fast ebenso hoch. Die
+       halbe Kartenhoehe wuerde bis in den Abspielknopf reichen und ihn
+       verdecken — der Knopf sitzt in der Mitte der Bildflaeche. Deshalb
+       hoechstens 28 % der Bildhoehe; darunter bleibt der Knopf samt seinem
+       goldenen Ring frei anklickbar. Auf breiten Fenstern greift die Grenze
+       nicht: dort ist die halbe Karte deutlich kleiner als 28 % des Bildes. */
+    var fassung = karte.closest('[data-art-inhalt]');
+    var bild = fassung ? fassung.querySelector('.robj__video') : null;
+    if (bild && bild.offsetHeight) {
+      soll = Math.min(soll, Math.round(bild.offsetHeight * 0.28));
+    }
+
+    if (Math.abs((karte._robjUeber || 0) - soll) < 0.5) return;
+    karte._robjUeber = soll;
+    karte.style.setProperty('--robj-ueber', soll + 'px');
+  }
+
+  function alle() {
+    Array.prototype.forEach.call(karten, legen);
+  }
+
+  alle();
+
+  if ('ResizeObserver' in window) {
+    /* Beobachtet werden Karte UND Bild: die Obergrenze oben haengt an der
+       Bildhoehe, die sich beim Verkleinern des Fensters mit aendert. */
+    var beobachter = new ResizeObserver(function () { alle(); });
+    Array.prototype.forEach.call(karten, function (k) {
+      beobachter.observe(k);
+      var fassung = k.closest('[data-art-inhalt]');
+      var bild = fassung ? fassung.querySelector('.robj__video') : null;
+      if (bild) beobachter.observe(bild);
+    });
+  } else {
+    window.addEventListener('resize', alle);
+  }
+
+  /* Nach dem Laden der Schrift bricht der Satz noch einmal anders um. */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(alle);
+  }
 })();

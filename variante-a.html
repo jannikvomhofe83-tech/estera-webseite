@@ -40,8 +40,8 @@
       <li><a href="#bewertungen">Bewertungen</a></li>
       <li><a href="#leistungen">Leistungen</a></li>
       <li><a href="#vorteile">Vorteile</a></li>
-      <li><a href="#bausteine">Bausteine</a></li>
       <li><a href="#referenzobjekte">Referenzobjekte</a></li>
+      <li><a href="#bausteine">Bausteine</a></li>
     </ul>
   </nav>
 
@@ -98,15 +98,23 @@
          Rueckflug.
 
          WebM zuerst: bei gleicher Qualitaet kleiner. MP4 bleibt als zweite
-         Quelle fuer Safari und aeltere Geraete. -->
+         Quelle fuer Safari und aeltere Geraete.
+
+         DATEINAME „-ruhig": der Film wurde nachtraeglich beruhigt. Aus jedem
+         Bildpaar wurde die volle Aehnlichkeit geschaetzt (Massstab = die
+         Vorwaertsfahrt, Drehung, Verschiebung), die aufsummierte Bahn
+         geglaettet und ausschliesslich die Differenz herausgerechnet. Die
+         Fahrt selbst bleibt dadurch unveraendert, nur das Zittern darum
+         herum ist weg: 0,38 -> 0,06 Pixel je Bild. Der neue Name umgeht
+         zugleich alte Browser-Zwischenspeicher. -->
     <video class="heroA__film"
            autoplay muted playsinline
            preload="metadata"
            poster="assets/img/band-v2.jpg"
            width="2400" height="1598"
            aria-hidden="true" tabindex="-1">
-      <source src="assets/video/hero-band.webm" type="video/webm">
-      <source src="assets/video/hero-band.mp4" type="video/mp4">
+      <source src="assets/video/hero-band-ruhig.webm" type="video/webm">
+      <source src="assets/video/hero-band-ruhig.mp4" type="video/mp4">
     </video>
     <script>
       /* Ruhige Darstellung ernst nehmen: wer weniger Bewegung angefordert hat,
@@ -402,6 +410,33 @@
      unter der Grafik bleibt so lange stehen.
      ===================================================================== -->
 <section class="wahl" id="leistungen">
+
+  <!-- DAS ECKBILD, Kundenwunsch vom 17.08.: „bei ‚So entsteht
+       Vermoegensaufbau' ist links im Bild eine Abbildung. Ich will, dass du
+       ein aehnliches Bild auf der Leistungen-Section einfuegst, aber nicht
+       an gleicher Stelle und nicht ueber die komplette Section, sondern
+       beispielsweise rechts oben in die Ecke."
+
+       NACHBESSERUNG 18.08. Hier stand bis dahin eine goldene Strich-
+       zeichnung (`leistungen-ecke.png`) auf 11 % Deckung. Zwei Beanstandungen
+       auf einmal: „Ich sehe es gerade ganz leicht, aber man sieht es kaum.
+       Das muss auch ein echtes Bild sein." Also ein Foto statt einer
+       Zeichnung und deutlich mehr Deckung.
+
+       Es ist derselbe Bestand, aus dem auch das blasse Gebaeude links bei
+       „So entsteht Vermoegensaufbau" kommt: `haus-a-v2.jpg`, hier auf 5:6
+       beschnitten und gespiegelt, damit die Gebaeudekante nach rechts oben
+       laeuft und der Himmel dort liegt, wo das Bild ohnehin ausblendet.
+       Aufhellung, Deckung und Verlauf stehen in assets/css/auswahl.css bei
+       .wahl__ecke; dort steht auch die Kontrastrechnung.
+
+       Es liegt HINTER der Lesespalte (z-index 0 gegen 1) und traegt keine
+       Aussage: aria-hidden, leeres alt. -->
+  <span class="wahl__ecke" aria-hidden="true">
+    <img src="assets/img/leistungen-ecke.jpg" alt="" width="900" height="1080"
+         loading="lazy" decoding="async">
+  </span>
+
   <div class="wahl__inner">
 
     <header class="wahl__head" data-reveal>
@@ -852,12 +887,14 @@
   <!-- Zeichenvorrat. Jedes Sinnbild steht genau einmal im Dokument und wird
        ueber <use> aufgerufen. -->
   <svg class="vt__sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <!-- Der Tempelgiebel der Vorlage hat FUENF Saeulen, nicht vier. Nachgezaehlt
+         am Ausschnitt `vm-k1-vorlage.png`. -->
     <symbol id="vt-sym-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 3.1 21.4 8.4H2.6z"/>
       <path d="M2.9 10.3h18.2"/>
-      <path d="M6 10.7v6.8M9.6 10.7v6.8M14.4 10.7v6.8M18 10.7v6.8"/>
-      <path d="M3.6 18h16.8"/>
-      <path d="M2.3 20.6h19.4"/>
+      <path d="M5.4 10.9v6.4M8.7 10.9v6.4M12 10.9v6.4M15.3 10.9v6.4M18.6 10.9v6.4"/>
+      <path d="M3.6 18.2h16.8"/>
+      <path d="M2.3 20.7h19.4"/>
     </symbol>
     <symbol id="vt-sym-haus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
       <path d="M2.8 11.7 12 4.1l9.2 7.6"/>
@@ -877,10 +914,42 @@
       <circle cx="9.5" cy="9.5" r="1.35"/>
       <circle cx="14.5" cy="14.5" r="1.35"/>
     </symbol>
+    <!-- Geldboerse der Vorlage: Korpus, aufgesetzte Lasche oben links und
+         rechts ein herausstehendes Fach mit Knopf. -->
     <symbol id="vt-sym-beutel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3.8 7.8h13.4a2.4 2.4 0 0 1 2.4 2.4v7a2.4 2.4 0 0 1-2.4 2.4H6.2a2.4 2.4 0 0 1-2.4-2.4z"/>
-      <path d="M3.8 7.8V6.4a1.8 1.8 0 0 1 1.8-1.8h9.6"/>
-      <path d="M19.6 12.4h-3a1.6 1.6 0 0 0 0 3.2h3"/>
+      <path d="M3.4 8.4h13.8a2 2 0 0 1 2 2v7.6a2 2 0 0 1-2 2H5.4a2 2 0 0 1-2-2z"/>
+      <path d="M3.4 8.4V7a1.7 1.7 0 0 1 1.7-1.7h8.4a1.6 1.6 0 0 1 1.6 1.6v1.5"/>
+      <path d="M15.8 11.7h4.8v4.6h-4.8a2.3 2.3 0 0 1 0-4.6z"/>
+      <circle cx="17.5" cy="14" r="1.25"/>
+    </symbol>
+    <!-- Karte 02, „Tilgung": in der Vorlage KEIN Balkenbild, sondern eine
+         ansteigende Zickzacklinie mit Pfeilspitze ueber einer Grundlinie.
+         Das Balkenbild `vt-sym-kurve` steht nur in Karte 05. -->
+    <symbol id="vt-sym-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3.2 20.8h17.6"/>
+      <path d="M3.8 17.2 9 11.6l3.2 3 6.4-7.1"/>
+      <path d="M14.6 7.3h4.4v4.4"/>
+    </symbol>
+    <!-- Die drei goldenen Sinnbilder der Symbolspalte in Karte 03 -->
+    <symbol id="vt-sym-blatt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5.6 2.9h8.6l4.2 4.2v14H5.6z"/>
+      <path d="M14.2 3v4.1h4.2"/>
+      <path d="M8.4 10.5h2.6"/>
+      <path d="M8.4 13.3h7.2M8.4 16h7.2M8.4 18.7h4.8"/>
+    </symbol>
+    <symbol id="vt-sym-hand-muenze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12.4" cy="7.2" r="3.9"/>
+      <circle cx="12.4" cy="7.2" r="1.5"/>
+      <path d="M2.9 14.6v5.5"/>
+      <path d="M2.9 15.2c1.5 0 2.6.6 3.7 1.5 1.5 1.2 3.2 2 5.2 2h3.3a1.5 1.5 0 0 0 0-3h-2.5"/>
+      <path d="M20.9 15.6c-1.8 1.7-3.7 3.1-5.8 4"/>
+    </symbol>
+    <symbol id="vt-sym-hand-schild" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12.4 2.6 17.2 4.5v4.3c0 3-2 5.2-4.8 6.2-2.8-1-4.8-3.2-4.8-6.2V4.5z"/>
+      <path d="M13.8 6.6a2.3 2.3 0 1 0 0 3.9M11.5 7.7h2.7M11.5 9.4h2.7"/>
+      <path d="M2.6 15v5.4"/>
+      <path d="M2.6 15.6c1.5 0 2.6.6 3.7 1.5 1.5 1.2 3.2 2 5.2 2h3.3a1.5 1.5 0 0 0 0-3"/>
+      <path d="M21 16c-1.8 1.7-3.8 3.1-5.9 4"/>
     </symbol>
     <symbol id="vt-sym-schild" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 2.6 20 5.6v6.2c0 4.6-3.3 8-8 9.6-4.7-1.6-8-5-8-9.6V5.6z"/>
@@ -899,19 +968,8 @@
   <span class="vt__rand vt__rand--links" aria-hidden="true">
     <img src="assets/img/fassade-vert.jpg" alt="" width="1100" height="1650" loading="lazy" decoding="async">
   </span>
-  <span class="vt__rand vt__rand--rechts" aria-hidden="true">
-    <svg viewBox="0 0 200 420" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M176 24C142 92 108 168 86 258c-10 40-14 82-14 130"/>
-      <path d="M160 66c-24 4-42 20-48 44 26 2 44-14 48-44z"/>
-      <path d="M140 122c-26 2-44 18-50 42 26 4 46-12 50-42z"/>
-      <path d="M120 180c-26 2-44 18-50 42 26 4 46-12 50-42z"/>
-      <path d="M102 240c-26 2-44 18-50 42 26 4 46-12 50-42z"/>
-      <path d="M88 300c-24 4-40 20-46 42 26 4 44-12 46-42z"/>
-      <path d="M168 92c22 8 36 26 38 50-24 2-40-16-38-50z"/>
-      <path d="M150 156c22 8 36 26 38 50-24 2-40-16-38-50z"/>
-      <path d="M132 220c22 8 36 26 38 50-24 2-40-16-38-50z"/>
-    </svg>
-  </span>
+  <!-- Die goldene Zweigzeichnung in der rechten oberen Ecke ist auf
+       Kundenwunsch entfallen. Das blasse Gebaeude links bleibt. -->
 
   <div class="vt__inner">
 
@@ -939,11 +997,31 @@
     <div class="vt__karten" data-vt-karten>
 
       <!-- ------------------------------------------------------- 01 ----
-           Kundenvorgabe zum Bild: EIN GROSSER Block „BANKKAPITAL" und ein
-           SEHR KLEINER, VARIABLER Block „EIGENER BEITRAG". Das
-           Groessenverhaeltnis ist deshalb bewusst extrem (272x154 gegen
-           60x52, rund 13:1); der Schieberegler unter dem kleinen Block
-           traegt die Aussage „variabel". -->
+           NACHGEMESSEN AN DER VORLAGE (18.08.2026). Am Bild von
+           `referenz-vermoegen-neu.png` pixelweise abgenommen; die
+           Ausschnitte liegen als `vm-k1-vorlage.png` / `vm-k1-ist.png` bei.
+
+           Vorlage in Bildpunkten:  Navy 154..346 x 433..574 (192 x 141),
+           Sand 349..464 x 471..561 (115 x 90), Regler auf y = 578 von
+           x = 352 bis 468, Knopf mittig bei x = 411.
+           Umgerechnet auf den viewBox (Faktor 1,27) stehen genau diese
+           Werte unten.
+
+           BEHOBENE ABWEICHUNGEN gegenueber dem ersten Anlauf:
+             — der Sandblock war mit 60x52 gegen 272x154 rund 13:1 zu klein;
+               die Vorlage zeigt 115x90 gegen 192x141, also nur 1,7:1;
+             — er lag frei neben der Kachel statt HINTER ihr; in der Vorlage
+               ist seine linke Kante von der Navy-Kachel verdeckt, und er
+               sitzt senkrecht EINGERUECKT (oben 38 tiefer, unten 13 hoeher);
+             — „Eigener Beitrag" stand ueber dem Block, in der Vorlage steht
+               es IM Block, zweizeilig, im oberen Drittel;
+             — der Regler lief unter beide Bloecke und der Knopf sass links;
+               in der Vorlage steht er nur unter dem Sandblock, und der Knopf
+               steht exakt in der Mitte der Bahn;
+             — beide Flaechen waren flach gefuellt; die Vorlage hat einen
+               senkrechten Verlauf im Navy (#1E2F47 auf #18293F) und einen
+               diagonalen im Sand (#E3CAA5 auf #F4E7D4);
+             — der Tempelgiebel hatte vier Saeulen, die Vorlage hat fuenf. -->
       <article class="vt__karte" data-vt-karte="1" style="--kv:0s">
         <span class="vt__ziffer" aria-hidden="true">01</span>
         <h3 class="vt__titel">Fremdkapitalhebel</h3>
@@ -951,21 +1029,37 @@
         <p class="vt__klein">Eigenkapitaleinsatz individuell – von gering bis ohne eigenen Kapitaleinsatz; je nach Finanzierung auch unter Einbezug der Kaufnebenkosten.</p>
         <div class="vt__bild">
           <div class="vt__buehne">
-            <svg class="vt__zeichnung" viewBox="0 0 420 210" role="img"
-                 aria-label="Ein großer Block Bankkapital und daneben ein sehr kleiner, über einen Schieberegler veränderlicher Block eigener Beitrag.">
-              <rect class="zg-pop zg-f-navy" style="--zv:.10s" x="16" y="16" width="272" height="154" rx="18"/>
+            <svg class="vt__zeichnung" viewBox="0 0 420 205" role="img"
+                 aria-label="Eine große Kachel Bankkapital, dahinter hervorstehend eine kleinere Kachel eigener Beitrag, darunter ein Schieberegler.">
+              <defs>
+                <linearGradient id="vmNavy" x1="0" y1="6" x2="0" y2="185" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#1E2F47"/>
+                  <stop offset="1" stop-color="#18293F"/>
+                </linearGradient>
+                <!-- Der Sandverlauf der Vorlage laeuft DIAGONAL: unten links
+                     am dichtesten, oben rechts am hellsten. -->
+                <linearGradient id="vmSand" x1="228" y1="168" x2="404" y2="54" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#E3CAA5"/>
+                  <stop offset="0.55" stop-color="#EFDFC4"/>
+                  <stop offset="1" stop-color="#F5E9D6"/>
+                </linearGradient>
+              </defs>
+              <!-- Der Sandblock steht ZUERST im Quelltext und liegt dadurch
+                   HINTER der Navy-Kachel — genau wie in der Vorlage. -->
+              <rect class="zg-pop zg-f-sand2" style="--zv:.26s" x="228" y="54" width="176" height="114" rx="13"/>
+              <rect class="zg-pop zg-f-navy2" style="--zv:.10s" x="10" y="6" width="244" height="179" rx="11"/>
               <g class="zg-blende zg-gold-hell" style="--zv:.34s">
-                <use href="#vt-sym-bank" x="130" y="46" width="44" height="44"/>
+                <use href="#vt-sym-bank" x="108" y="54" width="48" height="48"/>
               </g>
-              <text class="zg-blende zg-gross-hell" style="--zv:.40s" x="152" y="130">Bankkapital</text>
-              <text class="zg-blende zg-klein-navy" style="--zv:.46s" x="352" y="84">Eigener</text>
-              <text class="zg-blende zg-klein-navy" style="--zv:.46s" x="352" y="102">Beitrag</text>
-              <rect class="zg-pop zg-f-sand" style="--zv:.26s" x="322" y="118" width="60" height="52" rx="10"/>
-              <path class="zg-zieh zg-gold" style="--zv:.54s" pathLength="1" d="M306 192h92"/>
+              <text class="zg-blende zg-gross-hell" style="--zv:.40s" x="132" y="132">Bankkapital</text>
+              <text class="zg-blende zg-mittel-navy" style="--zv:.46s" x="331" y="82">Eigener</text>
+              <text class="zg-blende zg-mittel-navy" style="--zv:.46s" x="331" y="103">Beitrag</text>
+              <!-- Regler: Bahn nur unter dem Sandblock, Knopf exakt mittig. -->
+              <path class="zg-zieh zg-gold" style="--zv:.54s" pathLength="1" d="M279 190h115"/>
               <g class="zg-blende" style="--zv:.72s">
-                <circle class="zg-knopf" cx="330" cy="192" r="7"/>
-                <path class="zg-pfeil zg-gold" d="M304 186 298 192l6 6"/>
-                <path class="zg-pfeil zg-gold" d="M400 186l6 6-6 6"/>
+                <circle class="zg-knopf" cx="336.5" cy="190" r="6.5"/>
+                <path class="zg-pfeil zg-gold" d="M270 183 263 190l7 7"/>
+                <path class="zg-pfeil zg-gold" d="M400 183l7 7-7 7"/>
               </g>
             </svg>
           </div>
@@ -973,69 +1067,141 @@
       </article>
 
       <!-- ------------------------------------------------------- 02 ----
-           Kundenvorgabe zum Bild: „MIETE → ZINS · TILGUNG · KOSTEN", EIN
-           klarer gruener Geldfluss, ausdruecklich KEINE komplizierten
-           Veraestelungen. Die frueheren drei geschwungenen Aeste sind
-           deshalb ersetzt durch eine einzige gerade Flusslinie, die in
-           eine schlichte Klammer mit drei Abgaengen laeuft. Reihenfolge
-           genau wie vorgegeben: Zins, Tilgung, Kosten. -->
+           NACHGEMESSEN AN DER VORLAGE (18.08.2026), Ausschnitte
+           `vm-k2-vorlage.png` / `vm-k2-ist.png`.
+
+           Vorlage in Bildpunkten: Scheibe Mittelpunkt (613|483), Halbmesser
+           49; heller Knoten (729|481); die drei Auslaeufer enden bei
+           x = 857 auf y = 408, 479 und 549; Sinnbilder bei x = 880,
+           Beschriftung ab x = 907.
+
+           BEHOBENE ABWEICHUNGEN — hier lag die Umsetzung am weitesten weg:
+             — die Vorlage fuehrt KEINE Strichlinie in eine eckige Klammer,
+               sondern ein BREITES, WEICHES BAND, das sich wie ein
+               Flussdelta in drei zulaufende Auslaeufer teilt. Die Klammer,
+               die drei Stummel und die drei Pfeilspitzen sind ersatzlos
+               entfallen;
+             — das Band ist am Stamm rund 44 Einheiten dick und laeuft an
+               den Spitzen auf null aus; die dichteste Stelle liegt am
+               Knoten, nicht am Kreis;
+             — am Knoten sitzt in der Vorlage ein heller Punkt, an jedem
+               Auslauf ein blasser Punkt — beides fehlte;
+             — die Sinnbilder standen in gruenen RINGEN. In der Vorlage hat
+               nur „Zins" einen Kreis, und das ist das Prozentzeichen
+               selbst; „Kosten" ist eine Geldboerse, „Tilgung" eine
+               ansteigende Linie mit Grundstrich — kein Balkenbild;
+             — die Scheibe trug eine deutliche Goldkontur, in der Vorlage
+               ist sie fast randlos.
+           Reihenfolge Zins, Tilgung, Kosten wie vom Kunden angewiesen; die
+           Sinnbilder folgen ihrer Beschriftung, nicht ihrer Zeile. -->
       <article class="vt__karte" data-vt-karte="2" style="--kv:.14s">
         <span class="vt__ziffer" aria-hidden="true">02</span>
         <h3 class="vt__titel">Mieteinnahmen</h3>
         <p class="vt__text">Mieteinnahmen tragen Zins, Tilgung und laufende Kosten. Ihre eigene monatliche Belastung sinkt.</p>
         <div class="vt__bild">
           <div class="vt__buehne">
-            <svg class="vt__zeichnung" viewBox="0 0 420 220" role="img"
-                 aria-label="Von einem Kreis mit Haussymbol führt ein grüner Fluss in eine Klammer mit drei Abgängen: Zins, Tilgung und Kosten.">
+            <svg class="vt__zeichnung" viewBox="0 0 420 172" role="img"
+                 aria-label="Von einer Scheibe mit Haussymbol läuft ein breites grünes Band nach rechts und teilt sich in drei auslaufende Arme: Zins, Tilgung und Kosten.">
               <defs>
-                <linearGradient id="vmAst" x1="112" y1="0" x2="240" y2="0" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="#6E8C4E" stop-opacity="0.30"/>
-                  <stop offset="0.55" stop-color="#6E8C4E" stop-opacity="0.72"/>
-                  <stop offset="1" stop-color="#5E7C40" stop-opacity="0.95"/>
+                <!-- Blass am Kreis, am dichtesten am Knoten, an den Spitzen
+                     wieder auslaufend — so steht es in der Vorlage. -->
+                <linearGradient id="vmFluss" x1="100" y1="0" x2="295" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0"    stop-color="#7C9A5A" stop-opacity="0.16"/>
+                  <stop offset="0.38" stop-color="#6E8C4E" stop-opacity="0.62"/>
+                  <stop offset="0.66" stop-color="#5E7C40" stop-opacity="0.46"/>
+                  <stop offset="1"    stop-color="#6E8C4E" stop-opacity="0.16"/>
                 </linearGradient>
+                <!-- Der Aufbau wischt das Band von der Scheibe nach aussen
+                     frei. Geschnitten wird ein Rechteck, nicht die Form
+                     selbst — dadurch verzerrt nichts. -->
+                <clipPath id="vmFlussSchnitt">
+                  <rect class="zg-wisch" x="96" y="0" width="208" height="172"/>
+                </clipPath>
               </defs>
-              <circle class="zg-pop zg-scheibe" style="--zv:.06s" cx="58" cy="110" r="50"/>
+
+              <g clip-path="url(#vmFlussSchnitt)">
+                <!-- Die drei Baender laufen bis rund x = 175 fast
+                     deckungsgleich und teilen sich erst dort — genau wie in
+                     der Vorlage. Ihre Ueberlagerung macht den Stamm von
+                     selbst am dichtesten. -->
+                <g class="zg-f-fluss">
+                  <path d="M100 73 C138 73 156 71 174 65 C206 54 240 27 264 17 C277 12 288 10 295 10 L295 18 C288 18 279 20 268 26 C244 40 212 72 180 84 C154 93 128 95 100 103 Z"/>
+                  <path d="M100 79 C150 79 200 80 240 82 C266 83 284 84 295 84 L295 92 C284 92 266 93 240 94 C200 96 150 98 100 101 Z"/>
+                  <path d="M100 107 C138 107 156 109 174 115 C204 126 238 148 262 156 C276 161 288 163 295 164 L295 156 C288 155 278 153 266 148 C242 138 210 108 180 97 C154 88 128 88 100 77 Z"/>
+                </g>
+              </g>
+
+              <!-- Scheibe: fast randlos, wie in der Vorlage -->
+              <circle class="zg-pop zg-scheibe" style="--zv:.06s" cx="51" cy="90" r="49"/>
               <g class="zg-blende zg-navy-voll" style="--zv:.20s">
-                <use href="#vt-sym-haus" x="43" y="80" width="30" height="30"/>
+                <use href="#vt-sym-haus" x="35" y="57" width="32" height="32"/>
               </g>
-              <text class="zg-blende zg-klein-navy" style="--zv:.24s" x="58" y="134">Miete</text>
-              <path class="zg-zieh zg-ast" style="--zv:.30s" pathLength="1" d="M112 110h94"/>
-              <path class="zg-zieh zg-gruen" style="--zv:.44s" pathLength="1" d="M206 62v96"/>
-              <path class="zg-zieh zg-gruen" style="--zv:.50s" pathLength="1" d="M206 62h20"/>
-              <path class="zg-zieh zg-gruen" style="--zv:.56s" pathLength="1" d="M206 110h20"/>
-              <path class="zg-zieh zg-gruen" style="--zv:.62s" pathLength="1" d="M206 158h20"/>
-              <g class="zg-blende zg-pfeil zg-gruen" style="--zv:.66s">
-                <path d="M220 56l8 6-8 6"/>
-                <path d="M220 104l8 6-8 6"/>
-                <path d="M220 152l8 6-8 6"/>
+              <text class="zg-blende zg-klein-navy" style="--zv:.24s" x="51" y="120">Miete</text>
+
+              <!-- Heller Knoten mit weichem Schein und die drei blassen
+                   Auslaufpunkte. Der Schein ersetzt den frueheren hellen
+                   Laengsstrich durch den Stamm — der las sich im Bild als
+                   Fremdkoerper, der Schein liegt genau dort, wo die
+                   Vorlage ihre hellste Stelle hat. -->
+              <g class="zg-pop" style="--zv:.46s">
+                <circle class="zg-knoten-schein" cx="176" cy="90" r="17"/>
+                <circle class="zg-knoten" cx="176" cy="90" r="5"/>
               </g>
+              <g class="zg-blende" style="--zv:.60s">
+                <circle class="zg-endpunkt" cx="295" cy="14" r="3.6"/>
+                <circle class="zg-endpunkt" cx="295" cy="88" r="3.6"/>
+                <circle class="zg-endpunkt" cx="295" cy="160" r="3.6"/>
+              </g>
+
               <g class="zg-pop zg-gruen-voll" style="--zv:.62s">
-                <circle class="zg-ring" cx="250" cy="62" r="17"/>
-                <use href="#vt-sym-prozent" x="241" y="53" width="18" height="18"/>
+                <use href="#vt-sym-prozent" x="307" y="3" width="22" height="22"/>
               </g>
               <g class="zg-pop zg-gruen-voll" style="--zv:.70s">
-                <circle class="zg-ring" cx="250" cy="110" r="17"/>
-                <use href="#vt-sym-kurve" x="241" y="101" width="18" height="18"/>
+                <use href="#vt-sym-trend" x="307" y="77" width="22" height="22"/>
               </g>
               <g class="zg-pop zg-gruen-voll" style="--zv:.78s">
-                <circle class="zg-ring" cx="250" cy="158" r="17"/>
-                <use href="#vt-sym-beutel" x="241" y="149" width="18" height="18"/>
+                <use href="#vt-sym-beutel" x="307" y="149" width="22" height="22"/>
               </g>
-              <text class="zg-blende zg-gross-navy" style="--zv:.66s" x="278" y="68">Zins</text>
-              <text class="zg-blende zg-gross-navy" style="--zv:.74s" x="278" y="116">Tilgung</text>
-              <text class="zg-blende zg-gross-navy" style="--zv:.82s" x="278" y="164">Kosten</text>
+              <text class="zg-blende zg-gross-navy" style="--zv:.66s" x="342" y="19">Zins</text>
+              <text class="zg-blende zg-gross-navy" style="--zv:.74s" x="342" y="93">Tilgung</text>
+              <text class="zg-blende zg-gross-navy" style="--zv:.82s" x="342" y="165">Kosten</text>
             </svg>
           </div>
         </div>
       </article>
 
       <!-- ------------------------------------------------------- 03 ----
-           Kundenvorgabe zum Bild: „STEUERLAST VORHER ↓ STEUERLAST DANACH",
-           vorher in Orange/Rot, danach in Gruen, klein darunter
-           „AfA · Zinsen · Aufwendungen". Die frueheren drei Symbolzeilen
-           rechts sind dafuer zu einer einzigen kleinen Zeile unter den
-           Balken zusammengezogen — das ist genau die verlangte Machart und
-           macht die beiden Balken zugleich groesser und deutlicher.
+           NACHGEMESSEN AN DER VORLAGE (18.08.2026), Ausschnitte
+           `vm-k3-vorlage.png` / `vm-k3-ist.png`.
+
+           Vorlage in Bildpunkten: Grundlinie y = 575; roter Balken
+           1062..1115 x 470..575 (53 x 105); gruener Balken 1205..1258 x
+           497..575 (53 x 78); Pfeil auf x = 1160 von y = 463 bis Spitze
+           550; Symbolspalte bei x = 1295 mit Zeilenmitten 456, 497, 539.
+
+           BEHOBENE ABWEICHUNGEN:
+             — das HOEHENVERHAELTNIS war falsch. Die Vorlage zeigt 78 zu 105,
+               also 0,74; hier standen 62 zu 120, also 0,52 — der gruene
+               Balken war viel zu niedrig und die Aussage dadurch viel
+               staerker als in der Vorlage;
+             — die Balken hatten rundum denselben Radius; in der Vorlage
+               sind NUR die oberen Ecken gerundet, unten stehen sie
+               kantig auf der Grundlinie;
+             — der Abwaertspfeil lief bis auf die Grundlinie und war eine
+               Strichspitze. In der Vorlage endet er 25 Punkte UEBER der
+               Linie und traegt eine VOLLE Dreiecksspitze; der Schaft ist
+               oben blass und unten satt;
+             — die Beschriftung stand UNTER den Balken. In der Vorlage steht
+               sie UEBER dem jeweiligen Balken, mit dem gesperrten Wort
+               zuoberst und der Beschreibung darunter;
+             — die Zeile „AfA · Zinsen · Aufwendungen" stand als ein
+               Textstrich unter den Balken. Die Vorlage hat rechts eine
+               SPALTE aus drei goldenen Sinnbildern mit ihrer Beschriftung.
+               Wortlaut und Schreibweise sind unveraendert, nur die
+               Anordnung folgt jetzt der Vorlage;
+             — die Balken waren flach gefuellt, die Vorlage hat einen
+               senkrechten Verlauf (#D46134 auf #C65227 und #8A9D6B auf
+               #617F43).
            SIEHE PRUEFVERMERK OBEN, Punkt 4. -->
       <article class="vt__karte" data-vt-karte="3" style="--kv:.28s">
         <span class="vt__ziffer" aria-hidden="true">03</span>
@@ -1043,43 +1209,100 @@
         <p class="vt__text">Abschreibung, Zinsen und berücksichtigungsfähige Aufwendungen senken Ihre steuerliche Belastung.</p>
         <div class="vt__bild">
           <div class="vt__buehne">
-            <svg class="vt__zeichnung" viewBox="0 0 420 220" role="img"
-                 aria-label="Zwei Balken: links rot und hoch die Steuerlast vorher, rechts grün und deutlich niedriger die Steuerlast danach, dazwischen ein Pfeil nach unten. Darunter klein: AfA, Zinsen, Aufwendungen.">
-              <rect class="zg-wachs-y zg-f-rot" style="--zv:.14s" x="54" y="30" width="78" height="120" rx="4"/>
-              <rect class="zg-wachs-y zg-f-gruen" style="--zv:.30s" x="244" y="88" width="78" height="62" rx="4"/>
-              <path class="zg-zieh zg-gold" style="--zv:.06s" pathLength="1" d="M20 150h380"/>
-              <path class="zg-zieh zg-gold zg-dick" style="--zv:.44s" pathLength="1" d="M188 56v56"/>
-              <path class="zg-blende zg-pfeil zg-gold" style="--zv:.60s" d="M180 102l8 16 8-16"/>
-              <text class="zg-blende zg-klein-rot" style="--zv:.50s" x="93" y="172">Steuerlast</text>
-              <text class="zg-blende zg-sperr-rot" style="--zv:.54s" x="93" y="192">vorher</text>
-              <text class="zg-blende zg-klein-gruen" style="--zv:.58s" x="283" y="172">Steuerlast</text>
-              <text class="zg-blende zg-sperr-gruen" style="--zv:.62s" x="283" y="192">danach</text>
-              <text class="zg-blende zg-fuss-navy" style="--zv:.76s" x="210" y="214">AfA · Zinsen · Aufwendungen</text>
+            <svg class="vt__zeichnung" viewBox="0 0 420 200" role="img"
+                 aria-label="Zwei Balken auf einer Grundlinie: links rot und hoch die Steuerlast vorher, rechts grün und niedriger die Steuerlast danach, dazwischen ein Pfeil nach unten. Rechts daneben AfA, Zinsen und Aufwendungen.">
+              <defs>
+                <linearGradient id="vmBalkenRot" x1="0" y1="78" x2="0" y2="188" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#D46134"/>
+                  <stop offset="1" stop-color="#C65227"/>
+                </linearGradient>
+                <linearGradient id="vmBalkenGruen" x1="0" y1="106" x2="0" y2="188" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#8A9D6B"/>
+                  <stop offset="1" stop-color="#617F43"/>
+                </linearGradient>
+                <!-- Der Pfeilschaft der Vorlage ist oben fast durchsichtig
+                     und wird nach unten hin satt. -->
+                <linearGradient id="vmPfeil" x1="0" y1="70" x2="0" y2="162" gradientUnits="userSpaceOnUse">
+                  <stop offset="0"    stop-color="#C9A45E" stop-opacity="0.14"/>
+                  <stop offset="0.55" stop-color="#BE9445" stop-opacity="0.72"/>
+                  <stop offset="1"    stop-color="#A87F2E" stop-opacity="1"/>
+                </linearGradient>
+              </defs>
+
+              <path class="zg-zieh zg-grundlinie" style="--zv:.06s" pathLength="1" d="M5 188h231"/>
+
+              <!-- Nur oben gerundet, unten kantig auf der Grundlinie -->
+              <path class="zg-wachs-y zg-f-balken-rot" style="--zv:.14s"
+                    d="M17 188V86a8 8 0 0 1 8-8h40a8 8 0 0 1 8 8v102z"/>
+              <path class="zg-wachs-y zg-f-balken-gruen" style="--zv:.30s"
+                    d="M167 188V114a8 8 0 0 1 8-8h40a8 8 0 0 1 8 8v74z"/>
+
+              <path class="zg-zieh zg-pfeilschaft" style="--zv:.44s" pathLength="1" d="M120 70v76"/>
+              <path class="zg-blende zg-pfeilkopf" style="--zv:.60s" d="M110 145h20l-10 17z"/>
+
+              <text class="zg-blende zg-sperr-rot"   style="--zv:.50s" x="45"  y="16">vorher</text>
+              <text class="zg-blende zg-klein-rot"   style="--zv:.54s" x="45"  y="43">Steuerlast</text>
+              <text class="zg-blende zg-sperr-gruen" style="--zv:.58s" x="195" y="44">danach</text>
+              <text class="zg-blende zg-klein-gruen" style="--zv:.62s" x="195" y="71">Steuerlast</text>
+
+              <!-- Symbolspalte rechts, wie in der Vorlage. „AfA" bleibt in
+                   der vom Kunden vorgegebenen Schreibweise. -->
+              <g class="zg-pop zg-gold-tief" style="--zv:.70s">
+                <use href="#vt-sym-blatt" x="261" y="52" width="22" height="22"/>
+              </g>
+              <text class="zg-blende zg-liste-navy" style="--zv:.74s" x="300" y="69">AfA</text>
+              <g class="zg-pop zg-gold-tief" style="--zv:.80s">
+                <use href="#vt-sym-hand-muenze" x="261" y="95" width="22" height="22"/>
+              </g>
+              <text class="zg-blende zg-liste-navy" style="--zv:.84s" x="300" y="112">Zinsen</text>
+              <g class="zg-pop zg-gold-tief" style="--zv:.90s">
+                <use href="#vt-sym-hand-schild" x="261" y="139" width="22" height="22"/>
+              </g>
+              <text class="zg-blende zg-liste-navy" style="--zv:.94s" x="300" y="156">Aufwendungen</text>
             </svg>
           </div>
         </div>
       </article>
 
       <!-- ------------------------------------------------------- 04 ----
-           Kundenvorgabe zum Bild: „RESTSCHULD ↓" gegen „EIGENTUM ↑", und
-           DAZWISCHEN eine realistische Immobilie, ueber die die GRENZE
-           zwischen beiden Flaechen waehrend des Aufbaus wandert.
+           NACHGEMESSEN AN DER VORLAGE (18.08.2026), Ausschnitte
+           `vm-k4-vorlage.png` / `vm-k4-ist.png`; zusaetzlich ein
+           farbverstaerkter Kantenausschnitt `vm/k4-kanten.png`.
 
-           Umgesetzt als eine einzige durchgehende Flaeche von x=26 bis
-           x=674: der linke Teil ist der rote Restschuldanteil, der rechte
-           der gruene Eigentumsanteil, dazwischen eine goldene Trennkante.
-           Beide Teile sind DIESELBE volle Breite und werden nur
-           gegenlaeufig in x gestaucht (links von links, rechts von
-           rechts) — dadurch treffen sich ihre Kanten in jedem einzelnen
-           Bild exakt, ohne Fuge und ohne Ueberlappung.
+           GROESSTE ABWEICHUNG DES GANZEN ABSCHNITTS: die Vorlage teilt die
+           Flaeche NICHT senkrecht. Sie legt ZWEI SCHRAEGE KEILE ueber das
+           Gebaeude, die sich unten in der Mitte kreuzen:
 
-           Der Aufbau beginnt bei rund 90 % Restschuld und laeuft auf 42 %
-           zu; die Trennkante wandert dabei um 311 Nutzereinheiten nach
-           links, quer ueber das Gebaeude. Die Aufnahme liegt als blasses
-           HTML-Bild HINTER dem SVG, damit die beiden Farbwaschungen sie
-           mit einfaerben — genau das macht das Wandern der Grenze auf dem
-           Gebaeude sichtbar. Beim erneuten Ausloesen durch Ueberfahren
-           laeuft dieselbe Bewegung noch einmal. -->
+             — der rote Restschuldkeil kommt von links; seine Oberkante
+               faellt flach nach rechts (Steigung 0,31) und trifft den
+               Kreuzungspunkt;
+             — der goldene Eigentumskeil kommt von rechts oben; seine
+               linke Kante faellt steil nach links (dx/dy = -1,36) auf
+               denselben Kreuzungspunkt und laeuft von dort noch steiler
+               (dx/dy = -2,13) zur Unterkante weiter;
+             — DAZWISCHEN, oberhalb beider Kanten, bleibt das Gebaeude
+               UNGEFAERBT stehen — genau dieser weisse Keil ist das, was
+               die Vorlage ausmacht;
+             — am Kreuzungspunkt und am oberen Ende der Goldkante sitzt je
+               ein heller Lichtfleck.
+
+           In Bildpunkten der Vorlage: Kreuzung (464|876), Oberkante rot
+           von (277|815), Goldkante von (638|739), Auslauf unten (347|933).
+           Umgerechnet stehen diese Punkte unten im viewBox.
+
+           Weitere behobene Abweichungen:
+             — die Trennkante war ein senkrechter Goldstrich, in der
+               Vorlage sind es zwei helle Schraegkanten;
+             — das Gebaeude war zu klein und zu blass; in der Vorlage
+               fuellt es rund die Haelfte der Breite und traegt sichtbare
+               Zeichnung.
+
+           DIE GRENZE WANDERT WEITER, wie vom Kunden verlangt: beide Keile
+           und die beiden Lichtkanten liegen in EINER Gruppe, die waehrend
+           des Aufbaus nach links faehrt. Weil beide Keile weit ueber den
+           Bildrand hinausreichen, entsteht dabei an keiner Seite eine
+           Bloesse; weil sie dieselbe Kante teilen, gibt es in keinem
+           einzigen Bild eine Fuge. -->
       <article class="vt__karte vt__karte--breit" data-vt-karte="4" style="--kv:.42s">
         <span class="vt__ziffer" aria-hidden="true">04</span>
         <h3 class="vt__titel">Vermögensaufbau durch Tilgung</h3>
@@ -1088,40 +1311,87 @@
           <div class="vt__buehne">
             <img class="vt__foto vt__foto--haus" src="assets/img/haus-a-v2.jpg" alt="" width="1500" height="1500" loading="lazy" decoding="async">
             <svg class="vt__zeichnung" viewBox="0 0 700 250" role="img"
-                 aria-label="Eine durchgehende Fläche über einem Gebäude, deren Grenze nach links wandert: links der sinkende Restschuldanteil, rechts der wachsende Eigentumsanteil.">
+                 aria-label="Zwei schräge Farbkeile über einem Gebäude, die sich unten in der Mitte kreuzen: links der sinkende Restschuldanteil, rechts der wachsende Eigentumsanteil. Dazwischen bleibt das Gebäude ungefärbt.">
               <defs>
-                <linearGradient id="vmRot" x1="0" y1="46" x2="0" y2="232" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="#CC582C" stop-opacity="0.03"/>
-                  <stop offset="0.55" stop-color="#CC582C" stop-opacity="0.20"/>
-                  <stop offset="1" stop-color="#CC582C" stop-opacity="0.34"/>
+                <!-- Rot: blass am linken Rand, satt zur Kreuzung hin. -->
+                <!-- Der erste Halt steht bewusst ZWEIMAL auf null: links der
+                     Ecke bei x = 167 muss die Waschung vollstaendig
+                     verschwunden sein, sonst zeichnet die waagerechte
+                     Polygonkante dort eine sichtbare Stufe. -->
+                <linearGradient id="vmRot" x1="100" y1="0" x2="420" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0"    stop-color="#C0522A" stop-opacity="0"/>
+                  <stop offset="0.23" stop-color="#C0522A" stop-opacity="0"/>
+                  <stop offset="0.58" stop-color="#C0522A" stop-opacity="0.26"/>
+                  <stop offset="1"    stop-color="#B9451F" stop-opacity="0.48"/>
                 </linearGradient>
-                <linearGradient id="vmGruen" x1="0" y1="46" x2="0" y2="232" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="#6E8C4E" stop-opacity="0.03"/>
-                  <stop offset="0.55" stop-color="#6E8C4E" stop-opacity="0.20"/>
-                  <stop offset="1" stop-color="#6E8C4E" stop-opacity="0.34"/>
+                <!-- Gold/Oliv: dicht an der Kante, zum rechten Rand hin
+                     wieder duenner — so steht es in der Vorlage. -->
+                <linearGradient id="vmGold" x1="250" y1="0" x2="700" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0"    stop-color="#A89154" stop-opacity="0.44"/>
+                  <stop offset="0.48" stop-color="#A89154" stop-opacity="0.40"/>
+                  <stop offset="1"    stop-color="#A89154" stop-opacity="0.22"/>
                 </linearGradient>
+                <clipPath id="vmKeilRahmen">
+                  <rect x="0" y="0" width="700" height="233"/>
+                </clipPath>
               </defs>
-              <rect class="zg-schuld zg-f-verlauf-rot" style="--zv:.20s" x="26" y="46" width="648" height="186"/>
-              <rect class="zg-eigen zg-f-verlauf-gruen" style="--zv:.20s" x="26" y="46" width="648" height="186"/>
-              <rect class="zg-grenze" style="--zv:.20s" x="297" y="40" width="2.4" height="198" rx="1.2"/>
-              <path class="zg-zieh zg-gold" style="--zv:.06s" pathLength="1" d="M26 232h648"/>
-              <text class="zg-blende zg-sperr-gross-rot" style="--zv:.62s" x="44" y="32">Restschuld ↓</text>
-              <text class="zg-blende zg-sperr-gross-gruen" style="--zv:.70s" x="656" y="32" text-anchor="end">Eigentum ↑</text>
+
+              <g clip-path="url(#vmKeilRahmen)">
+                <g class="zg-wandern" style="--zv:.20s">
+                  <!-- Restschuldkeil. Wichtig: die Oberkante beginnt in der
+                       Vorlage in einer ECKE bei (167|105) und laeuft von
+                       dort nach (379|170) — sie setzt sich NICHT nach links
+                       oben fort. Links davon verliert sich die Flaeche
+                       allein im Verlauf. -->
+                  <polygon class="zg-f-keil-rot" points="-400,105 167,105 379,170 247,232 -400,232"/>
+                  <!-- Eigentumskeil: linke Kante (774|-120) → Kreuzung
+                       (379|170) → (247|232), rechts weit ueber den Rand. -->
+                  <polygon class="zg-f-keil-gold" points="774,-120 379,170 247,232 1100,232 1100,-120"/>
+                  <!-- Die beiden hellen Schraegkanten der Vorlage -->
+                  <path class="zg-kante" d="M167 105 L581 232"/>
+                  <path class="zg-kante" d="M578 24 L379 170 L247 232"/>
+                  <!-- Lichtflecke an Kreuzung und oberem Kantenende -->
+                  <circle class="zg-funke zg-funke--gross" cx="379" cy="170" r="11"/>
+                  <circle class="zg-funke" cx="379" cy="170" r="3.4"/>
+                  <circle class="zg-funke zg-funke--gross" cx="578" cy="24" r="9"/>
+                  <circle class="zg-funke" cx="578" cy="24" r="2.8"/>
+                </g>
+              </g>
+
+              <text class="zg-blende zg-sperr-gross-rot" style="--zv:.62s" x="44" y="133">Restschuld ↓</text>
+              <text class="zg-blende zg-sperr-gross-gruen" style="--zv:.70s" x="658" y="133" text-anchor="end">Eigentum ↑</text>
             </svg>
           </div>
         </div>
       </article>
 
       <!-- ------------------------------------------------------- 05 ----
-           Kundenvorgabe zum Bild: eine RUHIGE, langfristig steigende Kurve
-           mit „SACHWERT → INFLATIONSSCHUTZ → POTENZIAL", ausdruecklich
-           OHNE Jahreszahlen und OHNE uebertriebene Renditekurve.
+           NACHGEMESSEN AN DER VORLAGE (18.08.2026), Ausschnitte
+           `vm-k5-vorlage.png` / `vm-k5-ist.png`.
 
-           Die frueher gezeichnete Kurve hatte Auf- und Abschwuenge wie ein
-           Kursverlauf und stieg um 126 Einheiten. Sie ist ersetzt durch
-           eine streng monoton steigende, nahezu gerade Linie: 80 Einheiten
-           Anstieg auf 626 Einheiten Breite, das sind rund 7 Grad. Es gibt
-           keine Achse, keine Teilung, keine Zahl und keinen Massstab.
+           BEHOBENE ABWEICHUNGEN:
+             — DER KURVENVERLAUF. Die Vorlage fuehrt keine gerade Linie,
+               sondern eine ruhig gewellte: nach jedem Haltepunkt eine
+               flache Strecke, dann ein Anstieg, dazwischen eine leichte
+               Senke. Hier stand zuletzt eine streng gerade Linie von
+               7 Grad. Die Wellen sind jetzt so gefuehrt wie in der
+               Vorlage — sie machen die Kurve NICHT steiler: der
+               Gesamtanstieg bleibt flach;
+             — DIE LAGE DER DREI HALTEPUNKTE. Sie sassen bei x = 139, 304
+               und 546 auf einer Linie mit gleichmaessigem Abstand. Die
+               Vorlage setzt sie auf 126, 336 und 566, jeweils auf einer
+               flachen Stelle der Kurve, mit deutlich ungleichem Abstand;
+             — die senkrechten Stiele waren unterschiedlich lang und die
+               Ringe standen frei; in der Vorlage ist der Stiel kurz und
+               die Ringe stehen dicht ueber ihrem Punkt;
+             — die Kurve hatte keinen Lichthof; die Vorlage zeigt einen
+               deutlichen weichen Schein um die Linie;
+             — die Stadt dahinter war eine Reihe gleichfoermiger
+               Kaestchen. Die Vorlage zeigt eine echte, ungleiche
+               Silhouette, die nach rechts dichter und hoeher wird und
+               nach links ausblendet.
+
+           Weiterhin OHNE Achse, OHNE Teilung, OHNE Zahl und OHNE Massstab.
            SIEHE PRUEFVERMERK OBEN, Punkte 5 und 6. -->
       <article class="vt__karte vt__karte--breit" data-vt-karte="5" style="--kv:.56s">
         <span class="vt__ziffer" aria-hidden="true">05</span>
@@ -1130,64 +1400,64 @@
         <div class="vt__bild">
           <div class="vt__buehne">
             <svg class="vt__zeichnung" viewBox="0 0 700 250" role="img"
-                 aria-label="Eine ruhig und flach ansteigende Kurve mit drei Haltepunkten: Sachwert, Inflationsschutz und Potenzial. Dahinter blass eine Stadtsilhouette.">
+                 aria-label="Eine ruhig gewellte, flach ansteigende Kurve mit drei Haltepunkten: Sachwert, Inflationsschutz und Potenzial. Dahinter blass eine Stadtsilhouette.">
               <defs>
-                <linearGradient id="vmKurve" x1="36" y1="0" x2="670" y2="0" gradientUnits="userSpaceOnUse">
+                <linearGradient id="vmKurve" x1="6" y1="0" x2="690" y2="0" gradientUnits="userSpaceOnUse">
                   <stop offset="0" stop-color="#A8874F" stop-opacity="0.42"/>
-                  <stop offset="0.5" stop-color="#A8874F" stop-opacity="0.85"/>
-                  <stop offset="1" stop-color="#C09A57" stop-opacity="1"/>
+                  <stop offset="0.5" stop-color="#C9A24F" stop-opacity="0.90"/>
+                  <stop offset="1" stop-color="#C58E27" stop-opacity="1"/>
                 </linearGradient>
+                <!-- Die Stadt blendet nach links aus, wie in der Vorlage. -->
+                <linearGradient id="vmStadt" x1="0" y1="0" x2="700" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0"    stop-color="#102949" stop-opacity="0.012"/>
+                  <stop offset="0.42" stop-color="#102949" stop-opacity="0.045"/>
+                  <stop offset="1"    stop-color="#102949" stop-opacity="0.082"/>
+                </linearGradient>
+                <!-- Fensterraster als Muster: feiner und ungleichmaessiger
+                     als von Hand gesetzte Striche, und viel kuerzer. -->
+                <pattern id="vmFenster" x="0" y="2" width="12" height="14" patternUnits="userSpaceOnUse">
+                  <rect x="3" y="3.5" width="5.5" height="6.5" fill="#102949" fill-opacity="0.042"/>
+                </pattern>
               </defs>
+
               <g class="zg-blende" style="--zv:.06s">
-                <g class="zg-stadt-flaeche">
-                  <rect x="56"  y="214" width="44" height="14"/>
-                  <rect x="112" y="209" width="50" height="19"/>
-                  <rect x="174" y="214" width="38" height="14"/>
-                  <rect x="232" y="200" width="54" height="28"/>
-                  <rect x="298" y="194" width="42" height="34"/>
-                  <rect x="356" y="185" width="52" height="43"/>
-                  <rect x="420" y="180" width="40" height="48"/>
-                  <rect x="474" y="170" width="48" height="58"/>
-                  <rect x="534" y="160" width="44" height="68"/>
-                  <rect x="590" y="150" width="50" height="78"/>
+                <g class="zg-stadt">
+                  <path d="M20 232v-15h32v15zM58 232v-24h12v-5h16v29zM92 232v-18h22v18zM120 232v-31h20v-6h14v37zM160 232v-27h26v27zM192 232v-42h24v-7h14v49zM236 232v-35h28v35zM270 232v-51h26v-8h14v59zM316 232v-44h30v44zM352 232v-64h30v-9h14v73zM402 232v-55h34v55zM442 232v-75h28v-10h14v85zM490 232v-66h36v66zM532 232v-86h32v-12h14v98zM584 232v-73h34v73zM624 232v-97h30v-13h18v110z"/>
                 </g>
-                <g class="zg-stadt-linien">
-                  <path d="M70 218v6M86 218v6"/>
-                  <path d="M126 213v9M148 213v9"/>
-                  <path d="M186 218v6M200 218v6"/>
-                  <path d="M246 204v8M270 204v8M246 216v8M270 216v8"/>
-                  <path d="M312 198v9M328 198v9M312 212v9M328 212v9"/>
-                  <path d="M370 189v9M394 189v9M370 203v9M394 203v9M370 217v8M394 217v8"/>
-                  <path d="M434 184v9M448 184v9M434 198v9M448 198v9M434 212v9M448 212v9"/>
-                  <path d="M488 174v10M508 174v10M488 190v10M508 190v10M488 206v10M508 206v10"/>
-                  <path d="M548 164v10M566 164v10M548 180v10M566 180v10M548 196v10M566 196v10M548 212v10M566 212v10"/>
-                  <path d="M604 154v10M626 154v10M604 170v10M626 170v10M604 186v10M626 186v10M604 202v10M626 202v10M604 218v9M626 218v9"/>
-                  <path d="M40 228h620"/>
+                <g class="zg-stadt-fenster">
+                  <path d="M20 232v-15h32v15zM58 232v-24h12v-5h16v29zM92 232v-18h22v18zM120 232v-31h20v-6h14v37zM160 232v-27h26v27zM192 232v-42h24v-7h14v49zM236 232v-35h28v35zM270 232v-51h26v-8h14v59zM316 232v-44h30v44zM352 232v-64h30v-9h14v73zM402 232v-55h34v55zM442 232v-75h28v-10h14v85zM490 232v-66h36v66zM532 232v-86h32v-12h14v98zM584 232v-73h34v73zM624 232v-97h30v-13h18v110z"/>
                 </g>
+                <path class="zg-stadt-grund" d="M14 232h666"/>
               </g>
+
+              <!-- Weicher Lichthof unter der Kurve, dann die Kurve selbst.
+                   Beide auf demselben Pfad. -->
+              <path class="zg-zieh zg-kurve-schein" style="--zv:.14s" pathLength="1"
+                    d="M6 214C40 207 70 200 100 190C115 185 118 179 126 178C150 176 160 172 179 171C205 169 215 162 232 156C258 147 288 140 312 136C322 134 330 133 336 133C356 133 372 137 388 136C410 135 424 132 440 126C458 119 468 110 482 106C505 99 528 100 545 98C555 96 560 93 566 90C586 80 608 72 628 66C644 61 656 58 666 55"/>
               <path class="zg-zieh zg-kurve" style="--zv:.14s" pathLength="1"
-                    d="M36 208C110 203 170 195 236 190C300 185 366 175 424 166C500 154 580 143 662 128"/>
-              <path class="zg-blende zg-pfeil zg-gold zg-dick" style="--zv:.44s" d="M650 119l18 9-17 10"/>
+                    d="M6 214C40 207 70 200 100 190C115 185 118 179 126 178C150 176 160 172 179 171C205 169 215 162 232 156C258 147 288 140 312 136C322 134 330 133 336 133C356 133 372 137 388 136C410 135 424 132 440 126C458 119 468 110 482 106C505 99 528 100 545 98C555 96 560 93 566 90C586 80 608 72 628 66C644 61 656 58 666 55"/>
+              <path class="zg-blende zg-pfeil zg-gold zg-dick" style="--zv:.44s" d="M652 45l17 9-15 12"/>
+
               <g class="zg-pop zg-halt" style="--zv:.58s">
-                <path class="zg-zieh zg-gold-fein" pathLength="1" d="M139 199v-40"/>
-                <circle class="zg-ring-gold" cx="139" cy="140" r="19"/>
-                <use class="zg-gold-tief" href="#vt-sym-siegel" x="129" y="130" width="20" height="20"/>
-                <circle class="zg-punkt-gold" cx="139" cy="199" r="7"/>
-                <text class="zg-sperr-navy" x="166" y="146">Sachwert</text>
+                <path class="zg-zieh zg-gold-fein" pathLength="1" d="M126 178v-32"/>
+                <circle class="zg-ring-gold" cx="126" cy="125" r="21"/>
+                <use class="zg-gold-tief" href="#vt-sym-siegel" x="115" y="114" width="22" height="22"/>
+                <circle class="zg-punkt-gold" cx="126" cy="178" r="7"/>
+                <text class="zg-sperr-navy" x="155" y="131">Sachwert</text>
               </g>
               <g class="zg-pop zg-halt" style="--zv:.74s">
-                <path class="zg-zieh zg-gold-fein" pathLength="1" d="M304 183v-62"/>
-                <circle class="zg-ring-gold" cx="304" cy="102" r="19"/>
-                <use class="zg-gold-tief" href="#vt-sym-schild" x="294" y="92" width="20" height="20"/>
-                <circle class="zg-punkt-gold" cx="304" cy="183" r="7"/>
-                <text class="zg-sperr-navy" x="331" y="108">Inflationsschutz</text>
+                <path class="zg-zieh zg-gold-fein" pathLength="1" d="M336 133v-27"/>
+                <circle class="zg-ring-gold" cx="336" cy="85" r="21"/>
+                <use class="zg-gold-tief" href="#vt-sym-schild" x="325" y="74" width="22" height="22"/>
+                <circle class="zg-punkt-gold" cx="336" cy="133" r="7"/>
+                <text class="zg-sperr-navy" x="365" y="91">Inflationsschutz</text>
               </g>
               <g class="zg-pop zg-halt" style="--zv:.90s">
-                <path class="zg-zieh zg-gold-fein" pathLength="1" d="M546 147v-84"/>
-                <circle class="zg-ring-gold" cx="546" cy="44" r="19"/>
-                <use class="zg-gold-tief" href="#vt-sym-kurve" x="536" y="34" width="20" height="20"/>
-                <circle class="zg-punkt-gold" cx="546" cy="147" r="7"/>
-                <text class="zg-sperr-navy" x="573" y="50">Potenzial</text>
+                <path class="zg-zieh zg-gold-fein" pathLength="1" d="M566 90v-32"/>
+                <circle class="zg-ring-gold" cx="566" cy="37" r="21"/>
+                <use class="zg-gold-tief" href="#vt-sym-kurve" x="555" y="26" width="22" height="22"/>
+                <circle class="zg-punkt-gold" cx="566" cy="90" r="7"/>
+                <text class="zg-sperr-navy" x="595" y="43">Potenzial</text>
               </g>
             </svg>
           </div>
@@ -1205,18 +1475,19 @@
          Karten 04 und 05 — der Abstand ist genau die Rasterluecke.
 
          DAS ZEICHENSIGNET IST ENTFALLEN (Kundenwunsch): im Band steht kein
-         Symbol mehr, dafuer ist das FOTO zurueck, das vor dem Umbau darin
-         lag — `assets/img/haus-b-v2.jpg`. Ohne Signet gibt es auch keinen
-         senkrechten Trennstrich mehr; der Text steht allein links.
+         Symbol mehr. Ohne Signet gibt es auch keinen senkrechten
+         Trennstrich mehr; der Text steht allein links.
 
-         Der Uebergang des Fotos ist NEU GERECHNET, weil er frueher gegen
-         Navy lief. Er besteht jetzt aus zwei Lagen, die zusammenwirken:
-         die Aufnahme selbst wird an allen VIER Kanten bis auf null
-         ausmaskiert, und darueber liegt ein Schleier in EXAKT der
-         Bandfarbe, der zur Textseite hin dichter wird. Das Foto blendet
-         also nicht nur aus, es hellt gleichzeitig auf und geht dadurch
-         ohne graue Zwischenstufe in die weisse Flaeche ueber. Naeheres in
-         `assets/css/prinzip.css`, Abschnitt 3.
+         DAS FOTO IST AM 18.08.2026 ENTFALLEN und durch eine GEZEICHNETE
+         Abbildung ersetzt — Jahresringe, siehe die ausfuehrliche
+         Anmerkung unten. Der Kunde hat beanstandet, dass das Band „nicht
+         so gut zu dem darueber passt" und im Stil der fuenf Kaesten
+         dargestellt werden soll. Eine Aufnahme war genau der Bruch: die
+         fuenf Karten tragen Zeichnungen, das Band trug ein Foto. Der
+         aufwendige zweilagige Foto-Uebergang (Vierkantenmaske plus
+         Schleier in der Bandfarbe) ist damit gegenstandslos und in
+         `assets/css/prinzip.css`, Abschnitt 3, ausgebaut; der Wortlaut
+         steht in der Versionsgeschichte.
 
          ABWEICHUNG VON DER VORLAGE, bewusst: die Vorlage nennt als dritten
          Punkt „Strategisch aufgebaut". Das ist eine wertende Selbstaussage
@@ -1224,8 +1495,55 @@
          „Einordnung im persoenlichen Gespraech", die dasselbe Feld
          abdeckt. Punkt 1 und 2 sind von der Vorlage uebernommen. -->
     <div class="vt__leiste" data-reveal>
+      <!-- DIE ABBILDUNG DES BANDES (Kundenwunsch 18.08.2026):
+           JAHRESRINGE — der Querschnitt eines lange gewachsenen Stammes.
+           Sie erfuellen genau die drei Auflagen: sie zeigen einen langen
+           Zeitraum, sie enthalten KEINE Zahl, KEINE Jahresangabe und
+           KEINE Renditekurve, und sie steigen nirgends an. Ein Ring ist
+           eine Wachstumsperiode, mehr behaupten sie nicht.
+
+           Sie sind bewusst NICHT konzentrisch gezeichnet: die
+           Mittelpunkte wandern leicht, die Ringe sind schwach elliptisch
+           und die Abstaende werden nach aussen enger. So liest sich das
+           Bild als Holz und nicht als Zielscheibe. Ausserdem laeuft ein
+           feiner Riss vom Kern nach aussen.
+
+           Handschrift wie in den fuenf Zeichnungen darueber: goldene
+           Haarlinien in zwei Staerken, ein voller Goldpunkt im Kern, und
+           der Aufbau zieht die Ringe von innen nach aussen nacheinander
+           auf — dieselbe Mechanik (`pathLength` und `stroke-dashoffset`)
+           wie bei den Zeichnungen der Karten.
+
+           Das Foto `assets/img/haus-b-v2.jpg`, das hier lag, ist damit
+           entfallen: eine Aufnahme ist genau das, was das Band von den
+           fuenf gezeichneten Karten unterschied. Anders als das Foto
+           bleibt die Zeichnung auf JEDER Fenstergroesse stehen — unter
+           1100 px rueckt sie unter den Text, statt zu verschwinden. -->
       <span class="vt__leiste-bild" aria-hidden="true">
-        <img src="assets/img/haus-b-v2.jpg" alt="" width="1800" height="1200" loading="lazy" decoding="async">
+        <svg class="vt__jahresringe" viewBox="0 0 396 236" fill="none" focusable="false">
+          <g class="zg-jahr-satz">
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.00s" pathLength="1" d="M185 118a11 9.4 0 1 0 22 0a11 9.4 0 1 0 -22 0"/>
+            <path class="zg-jahr" style="--rv:0.07s" pathLength="1" d="M176 118a21 18.2 0 1 0 42 0a21 18.2 0 1 0 -42 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.15s" pathLength="1" d="M162 119a33 28.6 0 1 0 66 0a33 28.6 0 1 0 -66 0"/>
+            <path class="zg-jahr" style="--rv:0.22s" pathLength="1" d="M155 117a43 37.5 0 1 0 86 0a43 37.5 0 1 0 -86 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.30s" pathLength="1" d="M140 119a56 48.8 0 1 0 112 0a56 48.8 0 1 0 -112 0"/>
+            <path class="zg-jahr" style="--rv:0.38s" pathLength="1" d="M133 117a66 57.6 0 1 0 132 0a66 57.6 0 1 0 -132 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.45s" pathLength="1" d="M116 118a80 69.6 0 1 0 160 0a80 69.6 0 1 0 -160 0"/>
+            <path class="zg-jahr" style="--rv:0.53s" pathLength="1" d="M111 116a89 77.9 0 1 0 178 0a89 77.9 0 1 0 -178 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.60s" pathLength="1" d="M95 119a102 89 0 1 0 204 0a102 89 0 1 0 -204 0"/>
+            <path class="zg-jahr" style="--rv:0.67s" pathLength="1" d="M90 116a111 96.5 0 1 0 222 0a111 96.5 0 1 0 -222 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.75s" pathLength="1" d="M73 118a124 108 0 1 0 248 0a124 108 0 1 0 -248 0"/>
+            <path class="zg-jahr" style="--rv:0.82s" pathLength="1" d="M70 115a132 115 0 1 0 264 0a132 115 0 1 0 -264 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:0.90s" pathLength="1" d="M53 118a145 126 0 1 0 290 0a145 126 0 1 0 -290 0"/>
+            <path class="zg-jahr" style="--rv:0.97s" pathLength="1" d="M51 115a152 132.5 0 1 0 304 0a152 132.5 0 1 0 -304 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:1.05s" pathLength="1" d="M35 117a164 143 0 1 0 328 0a164 143 0 1 0 -328 0"/>
+            <path class="zg-jahr" style="--rv:1.12s" pathLength="1" d="M33 114a171 149 0 1 0 342 0a171 149 0 1 0 -342 0"/>
+            <path class="zg-jahr zg-jahr--stark" style="--rv:1.20s" pathLength="1" d="M17 117a183 159.5 0 1 0 366 0a183 159.5 0 1 0 -366 0"/>
+            <path class="zg-jahr" style="--rv:1.27s" pathLength="1" d="M15 114a190 165.5 0 1 0 380 0a190 165.5 0 1 0 -380 0"/>
+          </g>
+          <path class="zg-jahr-riss" style="--rv:1.34s" pathLength="1" d="M193 112C176 92 154 66 128 40"/>
+          <circle class="zg-jahr-kern" cx="196" cy="118" r="4.2"/>
+        </svg>
       </span>
       <div class="vt__leiste-text">
         <h3 class="display vt__leiste-titel">Langfristig gedacht, nicht kurzfristig gerechnet</h3>
@@ -1286,6 +1604,342 @@
   </div>
 </section>
 <!-- =====================================================================
+     SECTION 6b — REFERENZOBJEKTE NACH OBJEKTART
+
+     Zwei Objektarten stehen zur Wahl — WG-Konzept und Bestandswohnungen.
+     Zu jeder gehoert genau EINE Referenzwohnung mit einem Video.
+
+     Aufbau: knapper Kopf, unmittelbar darunter der Umschalter, unmittelbar
+     darunter das Video. Unten links haengt die Infokarte etwa zur Haelfte
+     ueber dem Video und zur Haelfte darunter. Rechts neben der Karte stehen
+     die beiden uebrigen Zeilen, ganz unten das Cremeband.
+
+     OPTIK — Kundenwunsch vom 18.08.: „Das muss alles auf einmal zu sehen
+     sein", „der Kasten um das Referenzvideo ist weg", „da muss quasi so ein
+     kleiner Kasten eingefuegt werden. Unten links vom Video ragt er halb
+     ueber das Video und halb unter dem Video raus". Deshalb: der Kopf ist
+     zusammengezogen, das Passepartout um das Video ist ersatzlos entfallen,
+     und die Angaben sitzen in einer weissen Karte in der Machart der
+     Abschnitte „So entsteht Vermoegensaufbau" und „Unsere Leistungen" —
+     zwei Schattenlagen, grosser Eckenradius, goldene Haarlinie,
+     Kleinversalien. Frueher gezeigt und verworfen: das gezeichnete Notebook
+     (17.08.) und die Passepartout-Fassung (18.08.).
+
+     WICHTIG — bewusst ohne Objektdaten: Ausser den beiden Bezeichnungen
+     liegt nichts vor. Keine Lage, keine Groesse, keine Preise, Mieten oder
+     Renditen, keine eigenen Bilder. Das Masterbriefing untersagt erfundene
+     Zahlen, Objekte und Versprechen; eine erfundene Referenzwohnung waere
+     gegenueber Kaufinteressenten eine falsche Tatsachenbehauptung. Die drei
+     Zeilen sagen deshalb nur, WAS dort spaeter zu sehen sein wird.
+     ===================================================================== -->
+<section class="robj" id="referenzobjekte" data-robj data-art="wg" aria-label="Referenzobjekte nach Objektart">
+  <!-- =====================================================================
+       VOR DER VEROEFFENTLICHUNG ZU ERSETZEN
+
+       1. Das im Rahmen gezeigte Foto ist ein lizenziertes Beispielbild und
+          NICHT die Referenzwohnung von Estera. Es steht nur da, damit die
+          Wirkung des spaeteren Videos beurteilt werden kann.
+       2. Von Estera zu liefern: das Video der Musterwohnung je Objektart,
+          die Eckdaten der Referenzwohnung und eine kurze Beschreibung.
+       3. Vor einer Veroeffentlichung ist beides zu ersetzen. Das Video wird
+          eingehaengt, indem je Objektart GENAU EINE ZEILE geaendert wird —
+          naemlich die Zeile
+
+            <div class="robj__video" data-film="" data-zustand="vorschau">
+
+          Dort wird das leere data-film="" mit dem Pfad des Videos gefuellt,
+          zum Beispiel data-film="assets/video/referenz-wg-konzept.mp4".
+          Diese Zeile steht je Objektart einmal und ist weiter unten
+          kommentiert; sonst ist nichts zu aendern — kein CSS, kein
+          Javascript. Die drei Zeilen mit den Angaben werden durch die
+          gelieferten Texte ersetzt.
+
+       BILDNACHWEIS — beide Beispielbilder sind gemeinfrei (CC0 1.0, Public
+       Domain Dedication) und stammen aus Wikimedia Commons (Spiegelung der
+       frueheren CC0-Bestaende von Unsplash). CC0 erlaubt jede Nutzung, auch
+       kommerziell, ohne Namensnennung; die Urheber sind der Vollstaendig-
+       keit halber genannt.
+
+       assets/img/referenz/wg-konzept-beispiel.jpg
+         Urheber : Justin Schüler (Unsplash: blacktakeover)
+         Lizenz  : CC0 1.0
+         Quelle  : https://commons.wikimedia.org/wiki/File:Budapest_Apartment_(Unsplash).jpg
+         Original: https://unsplash.com/photos/dAAk8Aqd_-I
+
+       assets/img/referenz/bestandswohnung-beispiel.jpg
+         Urheber : Naomi Hébert (Unsplash: naomish)
+         Lizenz  : CC0 1.0
+         Quelle  : https://commons.wikimedia.org/wiki/File:At_Home_(Unsplash).jpg
+         Original: https://unsplash.com/photos/2dcYhvbHV-M
+
+       Beide Bilder zeigen KEINE Objekte von Estera.
+       ===================================================================== -->
+  <div class="robj__inner">
+
+    <!-- Symbolvorrat des Abschnitts. Liegt einmal da und wird ueber <use>
+         in beide Fassungen geholt. -->
+    <svg class="robj__sprite" width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="robj-i-gebaeude" viewBox="0 0 24 24">
+          <path d="M3.2 21h17.6"/>
+          <path d="M5.4 21V6.2h6.2V21"/>
+          <path d="M11.6 21v-9.4h7V21"/>
+          <path d="M7.5 9.2h2M7.5 12.6h2M7.5 16h2M14 14.6h2.2M14 17.8h2.2"/>
+        </symbol>
+        <symbol id="robj-i-haus" viewBox="0 0 24 24">
+          <path d="M3.4 10.9 12 4.2l8.6 6.7"/>
+          <path d="M5.6 12.4V21h12.8v-8.6"/>
+          <path d="M10.1 21v-4.6h3.8V21"/>
+        </symbol>
+        <symbol id="robj-i-play" viewBox="0 0 24 24">
+          <path d="M8.6 5.6 18.4 12l-9.8 6.4Z"/>
+        </symbol>
+        <symbol id="robj-i-grundriss" viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="1.4"/>
+          <path d="M11 4v6.6M11 14.4V20M4 13.4h7M14.6 13.4H20"/>
+        </symbol>
+        <symbol id="robj-i-dokument" viewBox="0 0 24 24">
+          <path d="M13.4 3.2H6.6v17.6h10.8V7.2Z"/>
+          <path d="M13.4 3.2v4h4"/>
+          <path d="M9.4 12h5.2M9.4 15.2h5.2M9.4 18h3.4"/>
+        </symbol>
+        <symbol id="robj-i-stern" viewBox="0 0 24 24">
+          <path d="M12 2.6c.7 4.9 3.8 8 8.8 8.7-5 .7-8.1 3.8-8.8 8.7-.7-4.9-3.8-8-8.8-8.7 5-.7 8.1-3.8 8.8-8.7Z"/>
+        </symbol>
+        <symbol id="robj-i-uhr" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8.6"/>
+          <path d="M12 7.3V12l3.3 2.1"/>
+        </symbol>
+
+      </defs>
+    </svg>
+
+    <!-- Kopf bewusst knapp: Goldzeile, Ueberschrift, eine Unterzeile. Der
+         frueher hier stehende Goldstrich ist entfallen — er steht jetzt als
+         Haarlinie in der Infokarte. Der Umschalter folgt unmittelbar, damit
+         Umschalter und Video zusammen ins Bild passen. -->
+    <header class="robj__head" data-reveal>
+      <p class="kicker robj__kicker">Die zwei Objektarten</p>
+      <h2 class="display robj__h2">Zwei Objektarten. Je eine Referenzwohnung.</h2>
+      <p class="robj__lead">
+        Wählen Sie eine Objektart — darunter erscheint die zugehörige
+        Referenzwohnung mit Video und den Angaben dazu.
+      </p>
+    </header>
+
+    <!-- Umschalter: Pille mit goldener Aussenlinie, gleitender Navy-Schieber,
+         aria-pressed. Vor jeder Beschriftung steht ihr Symbol. -->
+    <div class="robj__schalter" role="group" aria-label="Objektart wählen" data-reveal>
+      <span class="robj__schieber" aria-hidden="true"></span>
+      <button class="robj__knopf" type="button" data-art-knopf="wg" aria-pressed="true">
+        <svg class="robj__ic robj__knopf-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-gebaeude"></use></svg>
+        <span>WG-Konzept</span>
+      </button>
+      <button class="robj__knopf" type="button" data-art-knopf="bestand" aria-pressed="false">
+        <svg class="robj__ic robj__knopf-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
+        <span>Bestandswohnungen</span>
+      </button>
+    </div>
+
+    <!-- Beide Fassungen liegen in derselben Rasterzelle uebereinander.
+         Dadurch ist der Bereich immer so hoch wie die hoehere von beiden und
+         die Hoehe springt beim Wechsel nicht. -->
+    <div class="robj__karte" data-reveal>
+      <div class="robj__buehne">
+
+      <article class="robj__fassung robj__fassung--wg" data-art-inhalt="wg">
+        <!-- DER BILDPLATZ — frei stehend, ohne Kasten drumherum.
+             .robj__rahmen traegt nur noch die Bildunterschrift-Rolle;
+             .robj__video darin ist exakt 16:9, damit das Video spaeter
+             unbeschnitten hineinpasst. Das Bild darin ist ein FREMDES
+             Beispielbild (CC0, Nachweis oben) und zeigt keine Wohnung von
+             Estera. -->
+        <figure class="robj__rahmen">
+
+            <!-- ===== SPAETERER TAUSCH — GENAU EINE ZEILE =================
+                 Sobald das Video der Musterwohnung vorliegt, wird allein in
+                 der naechsten Zeile das leere data-film="" mit dem Pfad
+                 gefuellt — genau diese eine Zeile, sonst nichts:
+
+                   <div class="robj__video" data-film="assets/video/referenz-wg-konzept.mp4" data-zustand="vorschau">
+
+                 Damit laeuft das Video beim Klick auf den Abspielknopf im
+                 Rahmen. Sonst ist NICHTS zu aendern — kein CSS, kein
+                 Javascript, keine Fassung. Solange der Wert leer ist, zeigt
+                 der Klick die ruhige Zwischenansicht .robj__ersatz.
+                 ========================================================= -->
+            <div class="robj__video" data-film="" data-zustand="vorschau">
+
+              <img class="robj__bild" src="assets/img/referenz/wg-konzept-beispiel.jpg"
+                   alt="Beispielbild eines hellen Wohnraums"
+                   width="1600" height="900" loading="lazy" decoding="async">
+
+              <!-- Zwischenansicht, solange kein Video hinterlegt ist. Liegt
+                   im selben Rahmen wie Bild und Video — die Hoehe aendert
+                   sich beim Umschalten deshalb um 0 px. -->
+              <div class="robj__ersatz" hidden>
+                <span class="robj__ersatz-kreis" aria-hidden="true">
+                  <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
+                </span>
+                <p class="robj__ersatz-text">
+                  Das Video der Musterwohnung wird gerade fertiggestellt und
+                  läuft danach hier im Rahmen.
+                </p>
+                <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
+              </div>
+
+              <button class="robj__play" type="button"
+                      aria-label="Video der Musterwohnung zum WG-Konzept abspielen">
+                <svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
+              </button>
+            </div>
+        </figure>
+
+        <!-- DIE INFOKARTE — Kundenwunsch 18.08.: „Unten links vom Video ragt
+             er halb ueber das Video und halb unter dem Video raus."
+             Sie traegt die Objektart, die Zeile „Referenzwohnung" und die
+             Zeile VIDEO — die gehoert zum Video, ueber dem die Karte haengt.
+             ECKDATEN und BESCHREIBUNG stehen im Wortlaut unveraendert rechts
+             daneben. Es ist kein Wort entfallen. Erfunden ist nichts: keine
+             Lage, keine Groesse, kein Preis, keine Miete, keine Rendite. -->
+        <div class="robj__unter">
+          <div class="robj__info">
+            <p class="kicker robj__art">
+              <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-gebaeude"></use></svg>
+              <span>WG-Konzept</span>
+            </p>
+            <h3 class="robj__h3">Referenzwohnung</h3>
+            <span class="robj__haar" aria-hidden="true"></span>
+            <p class="robj__zeile robj__zeile--haupt">
+              <svg class="robj__ic robj__ic--fill robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
+              <span class="robj__label">Video</span>
+              <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
+            </p>
+          </div>
+
+          <!-- Die Zeilen sagen nur, WAS spaeter zu sehen sein wird — keine
+               Zahl, keine Lage, keine Groesse. Wortlaut unveraendert. -->
+          <ul class="robj__liste">
+            <li class="robj__zeile">
+              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-grundriss"></use></svg>
+              <span class="robj__label">Eckdaten</span>
+              <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
+            </li>
+            <li class="robj__zeile">
+              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-dokument"></use></svg>
+              <span class="robj__label">Beschreibung</span>
+              <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="robj__fassung robj__fassung--bestand" data-art-inhalt="bestand">
+        <figure class="robj__rahmen">
+
+            <!-- ===== SPAETERER TAUSCH — GENAU EINE ZEILE =================
+                 Wie oben: allein in der naechsten Zeile das leere
+                 data-film="" mit dem Pfad des Videos fuellen, z. B.
+
+                   <div class="robj__video" data-film="assets/video/referenz-bestandswohnung.mp4" data-zustand="vorschau">
+                 ========================================================= -->
+            <div class="robj__video" data-film="" data-zustand="vorschau">
+
+              <img class="robj__bild" src="assets/img/referenz/bestandswohnung-beispiel.jpg"
+                   alt="Beispielbild eines hellen Wohnraums"
+                   width="1600" height="900" loading="lazy" decoding="async">
+
+              <div class="robj__ersatz" hidden>
+                <span class="robj__ersatz-kreis" aria-hidden="true">
+                  <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
+                </span>
+                <p class="robj__ersatz-text">
+                  Das Video der Musterwohnung wird gerade fertiggestellt und
+                  läuft danach hier im Rahmen.
+                </p>
+                <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
+              </div>
+
+              <button class="robj__play" type="button"
+                      aria-label="Video der Musterwohnung zu den Bestandswohnungen abspielen">
+                <svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
+              </button>
+            </div>
+        </figure>
+
+        <!-- Infokarte wie oben, nur mit der anderen Objektart. -->
+        <div class="robj__unter">
+          <div class="robj__info">
+            <p class="kicker robj__art">
+              <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
+              <span>Bestandswohnungen</span>
+            </p>
+            <h3 class="robj__h3">Referenzwohnung</h3>
+            <span class="robj__haar" aria-hidden="true"></span>
+            <p class="robj__zeile robj__zeile--haupt">
+              <svg class="robj__ic robj__ic--fill robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
+              <span class="robj__label">Video</span>
+              <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
+            </p>
+          </div>
+
+          <!-- Die Zeilen sagen nur, WAS spaeter zu sehen sein wird — keine
+               Zahl, keine Lage, keine Groesse. Wortlaut unveraendert. -->
+          <ul class="robj__liste">
+            <li class="robj__zeile">
+              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-grundriss"></use></svg>
+              <span class="robj__label">Eckdaten</span>
+              <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
+            </li>
+            <li class="robj__zeile">
+              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-dokument"></use></svg>
+              <span class="robj__label">Beschreibung</span>
+              <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      </div>
+    </div>
+
+    <!-- Cremeband: der sichtbare, ehrliche Hinweis zum Bild. -->
+    <div class="robj__band" data-reveal>
+      <span class="robj__band-kreis" aria-hidden="true">
+        <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-stern"></use></svg>
+      </span>
+      <p class="robj__band-text">
+        Das Bild im Rahmen ist ein lizenziertes Beispielbild und zeigt nicht die
+        Referenzwohnung. An dieser Stelle erscheint das Video der Musterwohnung von Estera.
+      </p>
+      <svg class="robj__band-deko" viewBox="0 0 420 92" aria-hidden="true" focusable="false">
+        <path d="M28 80V62"/>
+        <path d="M28 40c7.4 0 12 5 12 11.4S35.4 62 28 62s-12-4.2-12-10.6S20.6 40 28 40Z"/>
+        <path d="M56 80V48h34v32"/>
+        <path d="M64 56h6M76 56h6M64 66h6M76 66h6"/>
+        <path d="M100 80V38l17-12 17 12v42"/>
+        <path d="M110 50h6M118 50h6M110 62h6M118 62h6M113 80V70h8v10"/>
+        <path d="M150 80V64"/>
+        <path d="M150 44c6.6 0 10.8 4.4 10.8 10S156.6 64 150 64s-10.8-4.4-10.8-10S143.4 44 150 44Z"/>
+        <path d="M172 80V44h32v36"/>
+        <path d="M180 52h6M192 52h6M180 62h6M192 62h6M184 80V70h8v10"/>
+        <path d="M214 80V56h38v24"/>
+        <path d="M222 63h7M237 63h7M222 72h7M237 72h7"/>
+        <path d="M264 80V66"/>
+        <path d="M264 48c6 0 9.8 4 9.8 9S270 66 264 66s-9.8-4-9.8-9 3.8-9 9.8-9Z"/>
+        <path d="M286 80V42h30v38"/>
+        <path d="M294 50h5M305 50h5M294 60h5M305 60h5M297 80V70h8v10"/>
+        <path d="M326 80V52h34v28"/>
+        <path d="M334 60h6M346 60h6M334 70h6M346 70h6"/>
+        <path d="M382 80V64"/>
+        <path d="M382 46c6.4 0 10.4 4.2 10.4 9.6S388.4 64 382 64s-10.4-3-10.4-8.4S375.6 46 382 46Z"/>
+        <path d="M10 80h400"/>
+      </svg>
+    </div>
+
+  </div>
+</section>
+<!-- =====================================================================
      VIER BAUSTEINE — EIN STRUKTURIERTER WEG   (Briefing 03 F)
      Position vorlaeufig, siehe Anmerkung im vorigen Abschnitt.
 
@@ -1305,7 +1959,11 @@
 <section class="verg" id="bausteine" data-vergleich data-modus="selbst">
   <div class="verg__inner">
 
+    <!-- Kopf im Aufbau der ersten Abschnitte (vgl. „So entsteht
+         Vermoegensaufbau"): goldene Kleinversalienzeile, Ueberschrift,
+         Unterzeile — mittig. -->
     <header class="verg__head" data-reveal>
+      <p class="verg__kicker">Estera</p>
       <h2 class="display verg__h2">Viele Bausteine. Ein strukturierter Weg.</h2>
       <p class="verg__lead">
         Eine Kapitalanlage besteht nicht nur aus dem Objekt. Zugang, Lage, Kaufpreis,
@@ -1323,11 +1981,11 @@
     <div class="verg__buehne">
 
       <!-- Punktkarten links. Die Reihenfolge folgt den Ruheplaetzen der
-           Bausteine daneben: Giebeldreieck oben, Rundfenster in der Mitte,
-           Rundbogentuer unten. --dx und --dy setzen den Versatz im Zustand
+           Bausteine daneben: Fenster 2. OG oben, Fenster 1. OG in der Mitte,
+           Haustuer unten. --dx und --dy setzen den Versatz im Zustand
            "Selbst koordinieren"; im Zustand "Mit Estera begleitet" fluchten
            alle Karten auf einer Kante. -->
-      <ul class="verg__karten verg__karten--links">
+      <ul class="verg__karten verg__karten--links" data-reveal>
         <li class="verg__karte" style="--dx:-54px; --dy:-28px; --dr:-1.6deg; --dw:0px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 21s6.6-5.4 6.6-10.4a6.6 6.6 0 1 0-13.2 0C5.4 15.6 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.5"/></svg>
@@ -1373,11 +2031,14 @@
       </ul>
 
       <!-- Das Haus, mittig als Blickfang. Haus und lose Bausteine sind aus der
-           Vorlage `Bilder/referenz-bausteine.png` freigestellt und liegen als
-           PNG mit Alphakanal in assets/img/haus/ — dadurch stimmen Ziegel,
-           Laibungen und die weichen Schlagschatten 1:1 mit der Vorlage.
-           Sechs Oeffnungen, sechs lose Teile — fuer jede Oeffnung genau eines.
-           Der Schornstein sitzt bereits fest auf dem Haus und faellt weg.
+           Vorlage `Bilder/referenz-haus-neu.png` aufbereitet und liegen als
+           PNG mit Alphakanal in assets/img/haus/ — dadurch stimmen Putz,
+           Faschen, Ziegel und Licht 1:1 mit der Vorlage. Die Kanten sind
+           weich gezogen und die Farbstimmung ist an die Seite angeglichen
+           (Tiefen zum Navy #102949, Lichter warm zum Papierton).
+           Sechs Oeffnungen, sechs lose Teile — fuer jede Oeffnung genau eines,
+           jedes aus demselben Bild geschnitten. An seiner Stelle steht im
+           Hausbild eine leere Vertiefung, damit das Einrasten sichtbar ist.
            Bei "Selbst koordinieren" versuchen alle gleichzeitig, sich
            einzufuegen — es klappt nicht, sie weichen zurueck und versuchen es
            erneut. Bei "Mit Estera begleitet" sitzt jedes sofort sauber in
@@ -1385,37 +2046,43 @@
            Rein dekorativ, deshalb aria-hidden und leere alt-Attribute. -->
       <div class="spiel" aria-hidden="true">
         <div class="spiel__feld">
-          <img class="spiel__haus" src="assets/img/haus/haus.png" alt="" width="475" height="383" decoding="async" loading="lazy">
+          <!-- Boden: Kontaktschatten und Umgebungsschatten, darauf die kurze
+               Spiegelung des Sockels. Beides zusammen setzt das Haus auf eine
+               Flaeche, ohne die Frontalansicht zu verzerren. -->
+          <img class="spiel__spiegel" src="assets/img/haus/haus.png" alt="" width="1200" height="668" decoding="async" loading="lazy">
+          <span class="spiel__boden"></span>
 
-          <!-- Die sechs Zielstellen am Haus. Alle sind im Bild bereits freie
-               Oeffnungen; die Marken tragen nur den goldenen Ring. -->
-          <span class="spiel__nische spiel__nische--fensterlinks"></span>
-          <span class="spiel__nische spiel__nische--rundfenster"></span>
+          <img class="spiel__haus" src="assets/img/haus/haus.png" alt="" width="1200" height="668" decoding="async" loading="lazy">
+
+          <!-- Die sechs Zielstellen am Haus. Alle sind im Bild bereits leere
+               Vertiefungen; die Marken tragen nur den goldenen Ring. -->
+          <span class="spiel__nische spiel__nische--og-links"></span>
+          <span class="spiel__nische spiel__nische--og1-links"></span>
           <span class="spiel__nische spiel__nische--tuer"></span>
-          <span class="spiel__nische spiel__nische--giebel"></span>
-          <span class="spiel__nische spiel__nische--fenster"></span>
-          <span class="spiel__nische spiel__nische--rahmen"></span>
+          <span class="spiel__nische spiel__nische--og-rechts"></span>
+          <span class="spiel__nische spiel__nische--og1-rechts"></span>
+          <span class="spiel__nische spiel__nische--eg-rechts"></span>
 
-          <!-- LINKE Hausseite -->
-          <!-- Sprossenfenster links neben der Tuer, aus dem rechten gespiegelt -->
-          <img class="spiel__teil spiel__teil--fensterlinks" src="assets/img/haus/teil-fenster-links.png" alt="" width="105" height="132" decoding="async" loading="lazy">
-          <!-- Rundfenster im Giebel -->
-          <img class="spiel__teil spiel__teil--rundfenster" src="assets/img/haus/teil-rundfenster.png" alt="" width="105" height="117" decoding="async" loading="lazy">
-          <!-- Rundbogentuer -->
-          <img class="spiel__teil spiel__teil--tuer" src="assets/img/haus/teil-tuer.png" alt="" width="147" height="160" decoding="async" loading="lazy">
-          <!-- RECHTE Hausseite -->
-          <!-- Giebeldreieck fuer die Gaube auf der rechten Dachflaeche -->
-          <img class="spiel__teil spiel__teil--giebel" src="assets/img/haus/teil-giebel.png" alt="" width="106" height="115" decoding="async" loading="lazy">
-          <!-- Sprossenfenster vorn -->
-          <img class="spiel__teil spiel__teil--fenster" src="assets/img/haus/teil-fenster.png" alt="" width="105" height="146" decoding="async" loading="lazy">
-          <!-- Fensterrahmen hinten -->
-          <img class="spiel__teil spiel__teil--rahmen" src="assets/img/haus/teil-rahmen.png" alt="" width="110" height="139" decoding="async" loading="lazy">
+          <!-- LINKE Seite: die drei Teile zu den Karten links -->
+          <!-- Fenster 2. Obergeschoss, aussen links -->
+          <img class="spiel__teil spiel__teil--og-links" src="assets/img/haus/teil-og-links.png" alt="" width="129" height="136" decoding="async" loading="lazy">
+          <!-- Fenster 1. Obergeschoss, innen links -->
+          <img class="spiel__teil spiel__teil--og1-links" src="assets/img/haus/teil-og1-links.png" alt="" width="122" height="135" decoding="async" loading="lazy">
+          <!-- Haustuer mit Briefkastenanlage -->
+          <img class="spiel__teil spiel__teil--tuer" src="assets/img/haus/teil-tuer.png" alt="" width="178" height="182" decoding="async" loading="lazy">
+          <!-- RECHTE Seite: die drei Teile zu den Karten rechts -->
+          <!-- Fenster 2. Obergeschoss, aussen rechts -->
+          <img class="spiel__teil spiel__teil--og-rechts" src="assets/img/haus/teil-og-rechts.png" alt="" width="120" height="137" decoding="async" loading="lazy">
+          <!-- Fenster 1. Obergeschoss, Mitte rechts -->
+          <img class="spiel__teil spiel__teil--og1-rechts" src="assets/img/haus/teil-og1-rechts.png" alt="" width="118" height="135" decoding="async" loading="lazy">
+          <!-- Fenster Erdgeschoss, innen rechts -->
+          <img class="spiel__teil spiel__teil--eg-rechts" src="assets/img/haus/teil-eg-rechts.png" alt="" width="115" height="142" decoding="async" loading="lazy">
         </div>
       </div>
 
       <!-- Punktkarten rechts. Reihenfolge wie die Ruheplaetze daneben:
-           Schornstein oben, Sprossenfenster in der Mitte, Fensterrahmen unten. -->
-      <ul class="verg__karten verg__karten--rechts">
+           Fenster 2. OG oben, Fenster 1. OG in der Mitte, Fenster EG unten. -->
+      <ul class="verg__karten verg__karten--rechts" data-reveal>
         <li class="verg__karte" style="--dx:48px; --dy:-32px; --dr:1.5deg; --dw:0px">
           <span class="verg__ikon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="m12 3.6 8.4 4.3-8.4 4.3-8.4-4.3Z"/><path d="m3.6 13 8.4 4.3 8.4-4.3"/><path d="m3.6 17.4 8.4 4.3 8.4-4.3"/></svg>
@@ -1489,382 +2156,6 @@
   </div>
 </section>
 <!-- =====================================================================
-     SECTION 6b — REFERENZOBJEKTE NACH OBJEKTART
-
-     Zwei Objektarten stehen zur Wahl — WG-Konzept und Bestandswohnungen.
-     Zu jeder gehoert genau EINE Referenzwohnung mit einem Video.
-
-     Aufbau nach der Kundenvorlage (Bilder/referenz-objektarten.png):
-     Kopf, Umschalter mit Symbolen, weisse Karte mit Videoplatz und drei
-     Zeilen, darunter das Cremeband.
-
-     WICHTIG — bewusst ohne Objektdaten: Ausser den beiden Bezeichnungen
-     liegt nichts vor. Keine Lage, keine Groesse, keine Preise, Mieten oder
-     Renditen, keine eigenen Bilder. Das Masterbriefing untersagt erfundene
-     Zahlen, Objekte und Versprechen; eine erfundene Referenzwohnung waere
-     gegenueber Kaufinteressenten eine falsche Tatsachenbehauptung. Die drei
-     Zeilen sagen deshalb nur, WAS dort spaeter zu sehen sein wird.
-     ===================================================================== -->
-<section class="robj" id="referenzobjekte" data-robj data-art="wg" aria-label="Referenzobjekte nach Objektart">
-  <!-- =====================================================================
-       VOR DER VEROEFFENTLICHUNG ZU ERSETZEN
-
-       1. Das auf dem Bildschirm gezeigte Foto ist ein lizenziertes Beispiel-
-          bild und NICHT die Referenzwohnung von Estera. Es steht nur da,
-          damit die Wirkung des spaeteren Videos beurteilt werden kann.
-       2. Von Estera zu liefern: das Video der Musterwohnung je Objektart,
-          die Eckdaten der Referenzwohnung und eine kurze Beschreibung.
-       3. Vor einer Veroeffentlichung ist beides zu ersetzen: das Video wird
-          eingehaengt, indem je Objektart GENAU EINE ZEILE gefuellt wird —
-          das Attribut data-film="" an <div class="robj__video">. Weiter
-          unten steht die Zeile jeweils kommentiert. Die drei Zeilen rechts
-          werden durch die gelieferten Angaben ersetzt.
-
-       BILDNACHWEIS — beide Beispielbilder sind gemeinfrei (CC0 1.0, Public
-       Domain Dedication) und stammen aus Wikimedia Commons (Spiegelung der
-       frueheren CC0-Bestaende von Unsplash). CC0 erlaubt jede Nutzung, auch
-       kommerziell, ohne Namensnennung; die Urheber sind der Vollstaendig-
-       keit halber genannt.
-
-       assets/img/referenz/wg-konzept-beispiel.jpg
-         Urheber : Justin Schüler (Unsplash: blacktakeover)
-         Lizenz  : CC0 1.0
-         Quelle  : https://commons.wikimedia.org/wiki/File:Budapest_Apartment_(Unsplash).jpg
-         Original: https://unsplash.com/photos/dAAk8Aqd_-I
-
-       assets/img/referenz/bestandswohnung-beispiel.jpg
-         Urheber : Naomi Hébert (Unsplash: naomish)
-         Lizenz  : CC0 1.0
-         Quelle  : https://commons.wikimedia.org/wiki/File:At_Home_(Unsplash).jpg
-         Original: https://unsplash.com/photos/2dcYhvbHV-M
-
-       Beide Bilder zeigen KEINE Objekte von Estera.
-       ===================================================================== -->
-  <div class="robj__inner">
-
-    <!-- Symbolvorrat des Abschnitts. Liegt einmal da und wird ueber <use>
-         in beide Fassungen geholt. -->
-    <svg class="robj__sprite" width="0" height="0" aria-hidden="true" focusable="false">
-      <defs>
-        <symbol id="robj-i-gebaeude" viewBox="0 0 24 24">
-          <path d="M3.2 21h17.6"/>
-          <path d="M5.4 21V6.2h6.2V21"/>
-          <path d="M11.6 21v-9.4h7V21"/>
-          <path d="M7.5 9.2h2M7.5 12.6h2M7.5 16h2M14 14.6h2.2M14 17.8h2.2"/>
-        </symbol>
-        <symbol id="robj-i-haus" viewBox="0 0 24 24">
-          <path d="M3.4 10.9 12 4.2l8.6 6.7"/>
-          <path d="M5.6 12.4V21h12.8v-8.6"/>
-          <path d="M10.1 21v-4.6h3.8V21"/>
-        </symbol>
-        <symbol id="robj-i-play" viewBox="0 0 24 24">
-          <path d="M8.6 5.6 18.4 12l-9.8 6.4Z"/>
-        </symbol>
-        <symbol id="robj-i-grundriss" viewBox="0 0 24 24">
-          <rect x="4" y="4" width="16" height="16" rx="1.4"/>
-          <path d="M11 4v6.6M11 14.4V20M4 13.4h7M14.6 13.4H20"/>
-        </symbol>
-        <symbol id="robj-i-dokument" viewBox="0 0 24 24">
-          <path d="M13.4 3.2H6.6v17.6h10.8V7.2Z"/>
-          <path d="M13.4 3.2v4h4"/>
-          <path d="M9.4 12h5.2M9.4 15.2h5.2M9.4 18h3.4"/>
-        </symbol>
-        <symbol id="robj-i-winkel" viewBox="0 0 24 24">
-          <path d="m9.4 5.2 6.8 6.8-6.8 6.8"/>
-        </symbol>
-        <symbol id="robj-i-stern" viewBox="0 0 24 24">
-          <path d="M12 2.6c.7 4.9 3.8 8 8.8 8.7-5 .7-8.1 3.8-8.8 8.7-.7-4.9-3.8-8-8.8-8.7 5-.7 8.1-3.8 8.8-8.7Z"/>
-        </symbol>
-        <symbol id="robj-i-uhr" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="8.6"/>
-          <path d="M12 7.3V12l3.3 2.1"/>
-        </symbol>
-
-        <!-- =============================================================
-             UNTERSCHALE UND SCHARNIER DES GERAETS
-
-             Das Notebook ist GEZEICHNET, nicht fotografiert. Deckel und
-             Bildschirm stehen als CSS-Flaechen im HTML (der Bildschirm muss
-             echtes DOM tragen: Bild, Video, Knopf); Unterschale, Scharnier
-             und die Aussparung fuer den Oeffnungsgriff liegen hier als
-             Vektor, weil sich Trapez und Rundungen so exakt zeichnen
-             lassen. Beide Objektarten holen diese Gruppe ueber <use>.
-
-             Das Geraet ist bewusst NEUTRAL: kein Herstellerzeichen, keine
-             Tastatur, keine Merkmale eines bestimmten Modells. Ein erkenn-
-             bares Fremdgeraet waere auf einer gewerblichen Seite fremde
-             Marke und fremde Produktgestaltung.
-
-             Koordinaten: 1200 Einheiten = volle Geraetebreite. Der Deckel
-             ist 93 % davon breit, also 1116 Einheiten (x 42 bis 1158) —
-             darauf sitzt der Scharnierstreifen passgenau.
-             ============================================================= -->
-        <linearGradient id="robj-g-schale" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0"    stop-color="#2B4870"/>
-          <stop offset="0.12" stop-color="#16304F"/>
-          <stop offset="0.46" stop-color="#0B1E35"/>
-          <stop offset="1"    stop-color="#04101D"/>
-        </linearGradient>
-        <linearGradient id="robj-g-scharnier" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0"    stop-color="#0B1D34"/>
-          <stop offset="1"    stop-color="#02080F"/>
-        </linearGradient>
-        <g id="robj-geraet-schale">
-          <!-- Scharnierbereich hinter der Schale. Sichtbar bleibt davon nur
-               der schmale Streifen unter dem Deckel und der Grund der Mulde. -->
-          <path fill="url(#robj-g-scharnier)" d="M42 0h1116v27H42Z"/>
-          <!-- Die Schale: zur Standflaeche hin leicht schmaler, unten
-               gerundet, oben mittig die flache Mulde des Oeffnungsgriffs. -->
-          <path fill="url(#robj-g-schale)"
-                d="M8 8H500c26 0 30 16 100 16s74-16 100-16h492l-13 31q-4 9-15 9H36q-11 0-15-9Z"/>
-          <!-- Lichtsaum auf der Oberkante — die Kante, die das Licht faengt. -->
-          <path fill="none" stroke="#8FB2DC" stroke-opacity="0.6" stroke-width="1.4"
-                d="M9 8.7H500c26 0 30 16 100 16s74-16 100-16h491"/>
-          <!-- Angedeutete Standflaeche: die untere Kante bleibt eine Spur
-               heller, sonst wirkt die Schale unten abgeschnitten. -->
-          <path fill="none" stroke="#5C7FAB" stroke-opacity="0.28" stroke-width="1.1"
-                d="M46 47.4h1108"/>
-        </g>
-      </defs>
-    </svg>
-
-    <header class="robj__head" data-reveal>
-      <p class="kicker robj__kicker">Die zwei Objektarten</p>
-      <h2 class="display robj__h2">Zwei Objektarten. Je eine Referenzwohnung.</h2>
-      <span class="robj__strich" aria-hidden="true"></span>
-      <p class="robj__lead">
-        Wählen Sie eine Objektart — darunter erscheint die zugehörige
-        Referenzwohnung mit Video und den Angaben dazu.
-      </p>
-    </header>
-
-    <!-- Umschalter: Pille mit goldener Aussenlinie, gleitender Navy-Schieber,
-         aria-pressed. Vor jeder Beschriftung steht ihr Symbol. -->
-    <div class="robj__schalter" role="group" aria-label="Objektart wählen" data-reveal>
-      <span class="robj__schieber" aria-hidden="true"></span>
-      <button class="robj__knopf" type="button" data-art-knopf="wg" aria-pressed="true">
-        <svg class="robj__ic robj__knopf-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-gebaeude"></use></svg>
-        <span>WG-Konzept</span>
-      </button>
-      <button class="robj__knopf" type="button" data-art-knopf="bestand" aria-pressed="false">
-        <svg class="robj__ic robj__knopf-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
-        <span>Bestandswohnungen</span>
-      </button>
-    </div>
-
-    <!-- Beide Fassungen liegen in derselben Rasterzelle uebereinander.
-         Dadurch ist der Bereich immer so hoch wie die hoehere von beiden und
-         die Hoehe springt beim Wechsel nicht. -->
-    <div class="robj__karte" data-reveal>
-      <div class="robj__buehne">
-
-      <article class="robj__fassung robj__fassung--wg" data-art-inhalt="wg">
-        <!-- DAS GERAET — aufgeklapptes Notebook, gezeichnet.
-             Deckel und Bildschirm sind CSS, Unterschale und Scharnier holt
-             das SVG unten aus dem Symbolvorrat. Der Bildschirmausschnitt
-             .robj__video ist exakt 16:9, damit das Video spaeter unbe-
-             schnitten hineinpasst. Das Bild darin ist ein FREMDES Beispiel-
-             bild (CC0, Nachweis oben) und zeigt keine Wohnung von Estera. -->
-        <div class="robj__geraet">
-          <div class="robj__deckel">
-
-            <!-- ===== SPAETERER TAUSCH — GENAU EINE ZEILE =================
-                 Sobald das Video der Musterwohnung vorliegt, wird allein in
-                 der naechsten Zeile data-film="" mit dem Pfad gefuellt:
-
-                   data-film="assets/video/referenz-wg-konzept.mp4"
-
-                 Damit laeuft das Video beim Klick auf den Abspielknopf im
-                 Bildschirm. Sonst ist NICHTS zu aendern — kein CSS, kein
-                 Javascript, kein Rahmen. Solange der Wert leer ist, zeigt
-                 der Klick die ruhige Zwischenansicht .robj__ersatz.
-                 ========================================================= -->
-            <div class="robj__video" data-film="" data-zustand="vorschau">
-
-              <img class="robj__bild" src="assets/img/referenz/wg-konzept-beispiel.jpg"
-                   alt="Beispielbild eines hellen Wohnraums"
-                   width="1600" height="900" loading="lazy" decoding="async">
-
-              <!-- Zwischenansicht, solange kein Video hinterlegt ist. Liegt
-                   im selben Rahmen wie Bild und Video — die Hoehe aendert
-                   sich beim Umschalten deshalb um 0 px. -->
-              <div class="robj__ersatz" hidden>
-                <span class="robj__ersatz-kreis" aria-hidden="true">
-                  <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
-                </span>
-                <p class="robj__ersatz-text">
-                  Das Video der Musterwohnung wird gerade fertiggestellt und
-                  läuft danach hier im Bildschirm.
-                </p>
-                <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
-              </div>
-
-              <!-- Sehr feiner Glanz auf der oberen Kante, damit die Flaeche
-                   nach Bildschirm aussieht und nicht nach aufgeklebtem
-                   Rechteck. Bewusst schwach: kein Spiegelbild. -->
-              <span class="robj__glanz" aria-hidden="true"></span>
-
-              <button class="robj__play" type="button"
-                      aria-label="Video der Musterwohnung zum WG-Konzept abspielen">
-                <svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
-              </button>
-            </div>
-          </div>
-          <svg class="robj__sockel" viewBox="0 0 1200 50" aria-hidden="true" focusable="false">
-            <use href="#robj-geraet-schale"></use>
-          </svg>
-        </div>
-
-        <div class="robj__daten">
-          <p class="kicker robj__art">
-            <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-gebaeude"></use></svg>
-            <span>WG-Konzept</span>
-          </p>
-          <h3 class="robj__h3">Referenzwohnung</h3>
-          <ul class="robj__liste">
-            <li class="robj__zeile">
-              <span class="robj__kreis" aria-hidden="true"><svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-play"></use></svg></span>
-              <span class="robj__text">
-                <span class="robj__label">Video</span>
-                <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
-              </span>
-              <svg class="robj__ic robj__winkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-winkel"></use></svg>
-            </li>
-            <li class="robj__zeile">
-              <span class="robj__kreis" aria-hidden="true"><svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-grundriss"></use></svg></span>
-              <span class="robj__text">
-                <span class="robj__label">Eckdaten</span>
-                <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
-              </span>
-              <svg class="robj__ic robj__winkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-winkel"></use></svg>
-            </li>
-            <li class="robj__zeile">
-              <span class="robj__kreis" aria-hidden="true"><svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-dokument"></use></svg></span>
-              <span class="robj__text">
-                <span class="robj__label">Beschreibung</span>
-                <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
-              </span>
-              <svg class="robj__ic robj__winkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-winkel"></use></svg>
-            </li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="robj__fassung robj__fassung--bestand" data-art-inhalt="bestand">
-        <div class="robj__geraet">
-          <div class="robj__deckel">
-
-            <!-- ===== SPAETERER TAUSCH — GENAU EINE ZEILE =================
-                 Wie oben: allein in der naechsten Zeile data-film="" mit
-                 dem Pfad des Videos fuellen, z. B.
-
-                   data-film="assets/video/referenz-bestandswohnung.mp4"
-                 ========================================================= -->
-            <div class="robj__video" data-film="" data-zustand="vorschau">
-
-              <img class="robj__bild" src="assets/img/referenz/bestandswohnung-beispiel.jpg"
-                   alt="Beispielbild eines hellen Wohnraums"
-                   width="1600" height="900" loading="lazy" decoding="async">
-
-              <div class="robj__ersatz" hidden>
-                <span class="robj__ersatz-kreis" aria-hidden="true">
-                  <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
-                </span>
-                <p class="robj__ersatz-text">
-                  Das Video der Musterwohnung wird gerade fertiggestellt und
-                  läuft danach hier im Bildschirm.
-                </p>
-                <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
-              </div>
-
-              <span class="robj__glanz" aria-hidden="true"></span>
-
-              <button class="robj__play" type="button"
-                      aria-label="Video der Musterwohnung zu den Bestandswohnungen abspielen">
-                <svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
-              </button>
-            </div>
-          </div>
-          <svg class="robj__sockel" viewBox="0 0 1200 50" aria-hidden="true" focusable="false">
-            <use href="#robj-geraet-schale"></use>
-          </svg>
-        </div>
-
-        <div class="robj__daten">
-          <p class="kicker robj__art">
-            <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
-            <span>Bestandswohnungen</span>
-          </p>
-          <h3 class="robj__h3">Referenzwohnung</h3>
-          <ul class="robj__liste">
-            <li class="robj__zeile">
-              <span class="robj__kreis" aria-hidden="true"><svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-play"></use></svg></span>
-              <span class="robj__text">
-                <span class="robj__label">Video</span>
-                <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
-              </span>
-              <svg class="robj__ic robj__winkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-winkel"></use></svg>
-            </li>
-            <li class="robj__zeile">
-              <span class="robj__kreis" aria-hidden="true"><svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-grundriss"></use></svg></span>
-              <span class="robj__text">
-                <span class="robj__label">Eckdaten</span>
-                <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
-              </span>
-              <svg class="robj__ic robj__winkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-winkel"></use></svg>
-            </li>
-            <li class="robj__zeile">
-              <span class="robj__kreis" aria-hidden="true"><svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-dokument"></use></svg></span>
-              <span class="robj__text">
-                <span class="robj__label">Beschreibung</span>
-                <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
-              </span>
-              <svg class="robj__ic robj__winkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-winkel"></use></svg>
-            </li>
-          </ul>
-        </div>
-      </article>
-
-      </div>
-    </div>
-
-    <!-- Cremeband: der sichtbare, ehrliche Hinweis zum Bild. -->
-    <div class="robj__band" data-reveal>
-      <span class="robj__band-kreis" aria-hidden="true">
-        <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-stern"></use></svg>
-      </span>
-      <p class="robj__band-text">
-        Das Bild im Rahmen ist ein lizenziertes Beispielbild und zeigt nicht die
-        Referenzwohnung. An dieser Stelle erscheint das Video der Musterwohnung von Estera.
-      </p>
-      <svg class="robj__band-deko" viewBox="0 0 420 92" aria-hidden="true" focusable="false">
-        <path d="M28 80V62"/>
-        <path d="M28 40c7.4 0 12 5 12 11.4S35.4 62 28 62s-12-4.2-12-10.6S20.6 40 28 40Z"/>
-        <path d="M56 80V48h34v32"/>
-        <path d="M64 56h6M76 56h6M64 66h6M76 66h6"/>
-        <path d="M100 80V38l17-12 17 12v42"/>
-        <path d="M110 50h6M118 50h6M110 62h6M118 62h6M113 80V70h8v10"/>
-        <path d="M150 80V64"/>
-        <path d="M150 44c6.6 0 10.8 4.4 10.8 10S156.6 64 150 64s-10.8-4.4-10.8-10S143.4 44 150 44Z"/>
-        <path d="M172 80V44h32v36"/>
-        <path d="M180 52h6M192 52h6M180 62h6M192 62h6M184 80V70h8v10"/>
-        <path d="M214 80V56h38v24"/>
-        <path d="M222 63h7M237 63h7M222 72h7M237 72h7"/>
-        <path d="M264 80V66"/>
-        <path d="M264 48c6 0 9.8 4 9.8 9S270 66 264 66s-9.8-4-9.8-9 3.8-9 9.8-9Z"/>
-        <path d="M286 80V42h30v38"/>
-        <path d="M294 50h5M305 50h5M294 60h5M305 60h5M297 80V70h8v10"/>
-        <path d="M326 80V52h34v28"/>
-        <path d="M334 60h6M346 60h6M334 70h6M346 70h6"/>
-        <path d="M382 80V64"/>
-        <path d="M382 46c6.4 0 10.4 4.2 10.4 9.6S388.4 64 382 64s-10.4-3-10.4-8.4S375.6 46 382 46Z"/>
-        <path d="M10 80h400"/>
-      </svg>
-    </div>
-
-  </div>
-</section>
-<!-- =====================================================================
      SECTION 9 — WISSEN UND KARRIERE (Briefing S.7, S.18, S.19)
      "Ein kurzer Einstieg in Wissen & Fragen und ein kompakter
       Karriere-Teaser. Kein umfangreiches oeffentliches
@@ -1880,32 +2171,142 @@
 <section class="schluss" id="wissen-teaser">
   <div class="schluss__inner">
 
-    <div class="wissen__kopf" data-reveal>
+    <!-- UMBAU 18.08.2026 — Kundenwunsch: „Die Section soll generell im Stil
+         der ersten vier Sections gebaut werden, vor allem ‚So entsteht
+         Vermoegensaufbau' und ‚Unsere Leistungen'."
+
+         Uebernommen ist deren Formensprache: mittiger Kopf mit goldener
+         Kleinversalienzeile, weisse Karten mit grossem Eckenradius und zwei
+         Schattenlagen, Symbole als feine Goldkontur im hellen Kreis,
+         gestaffelter Einlauf. Die Regeln stehen in assets/css/schluss.css.
+
+         Der WORTLAUT ist unveraendert: Ueberschrift, Lead und alle sechs
+         Fragen stehen woertlich wie zuvor. -->
+    <header class="wissen__kopf" data-reveal>
+      <p class="wissen__kicker">Estera</p>
       <h2 class="display wissen__h2">Fragen, die vor der ersten Immobilie kommen.</h2>
       <p class="wissen__lead">
         Kurze, klare Antworten statt Fachbuch — und immer mit dem nächsten
         Schritt am Ende.
       </p>
-    </div>
+    </header>
 
+    <!-- Der Pfeil sitzt siebenmal auf der Seite (sechs Karten und der
+         Karriere-Verweis). Einmal als Symbol abgelegt und per <use> geholt
+         statt siebenmal ausgeschrieben — wie #l-haken in den Leistungen. -->
+    <svg class="wissen__sprite" aria-hidden="true" focusable="false" width="0" height="0">
+      <symbol id="wt-pfeil" viewBox="0 0 24 24">
+        <path d="M4.4 12h14.6m-5.6-5.6L19 12l-5.6 5.6" fill="none" stroke="currentColor"
+              stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    </svg>
+
+    <!-- Nur die FRAGEN, keine Antworten: die gehoeren laut Briefing S.3 auf
+         wissen.html. Die Karten sind deshalb Verweise und kein Aufklapper;
+         ihr Pfeil zeigt nach rechts (weiter), nicht nach unten.
+         Je Frage ein zurueckhaltendes Symbol in der Machart der uebrigen
+         Abschnitte: viewBox 24, stroke-width 1.2, runde Enden. Das Symbol
+         der letzten Karte ist bewusst dasselbe wie bei „Begleitung &
+         Betreuung" in den Leistungen — es geht um dieselbe Sache. -->
     <div class="wissen__fragen">
-        <a class="wissen__frage" href="wissen.html">Für wen kann eine Kapitalanlageimmobilie sinnvoll sein?</a>
-        <a class="wissen__frage" href="wissen.html">Ist Eigenkapital immer notwendig?</a>
-        <a class="wissen__frage" href="wissen.html">Welche Faktoren bestimmen, was Sie selbst tragen müssen?</a>
-        <a class="wissen__frage" href="wissen.html">Wie funktioniert die Abschreibung einer vermieteten Immobilie?</a>
-        <a class="wissen__frage" href="wissen.html">Woran erkennt Estera eine gute Makro- und Mikrolage?</a>
-        <a class="wissen__frage" href="wissen.html">Welche Unterstützung bleibt nach dem Kauf bestehen?</a>
+
+      <a class="wissen__frage" href="wissen.html" data-reveal>
+        <span class="wissen__kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.4" r="3.6"/><path d="M4.8 20.4v-1.4a5.4 5.4 0 0 1 5.4-5.4h3.6a5.4 5.4 0 0 1 5.4 5.4v1.4"/></svg>
+        </span>
+        <span class="wissen__text">Für wen kann eine Kapitalanlageimmobilie sinnvoll sein?</span>
+        <span class="wissen__fuss" aria-hidden="true">
+          <span class="wissen__regel"></span>
+          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
+        </span>
+      </a>
+
+      <a class="wissen__frage" href="wissen.html" data-reveal>
+        <span class="wissen__kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.6" rx="7.2" ry="2.8"/><path d="M4.8 6.6v10.2c0 1.55 3.22 2.8 7.2 2.8s7.2-1.25 7.2-2.8V6.6"/><path d="M4.8 11.7c0 1.55 3.22 2.8 7.2 2.8s7.2-1.25 7.2-2.8"/></svg>
+        </span>
+        <span class="wissen__text">Ist Eigenkapital immer notwendig?</span>
+        <span class="wissen__fuss" aria-hidden="true">
+          <span class="wissen__regel"></span>
+          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
+        </span>
+      </a>
+
+      <a class="wissen__frage" href="wissen.html" data-reveal>
+        <span class="wissen__kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4v17"/><path d="M7.4 20.4h9.2"/><path d="M3.4 7.4h2c2 0 5-1 6.6-1.9 1.6.9 4.6 1.9 6.6 1.9h2"/><path d="m2.6 16.4 2.8-7.6 2.8 7.6c-.82.6-1.8.92-2.8.92s-1.98-.32-2.8-.92Z"/><path d="m15.8 16.4 2.8-7.6 2.8 7.6c-.82.6-1.8.92-2.8.92s-1.98-.32-2.8-.92Z"/></svg>
+        </span>
+        <span class="wissen__text">Welche Faktoren bestimmen, was Sie selbst tragen müssen?</span>
+        <span class="wissen__fuss" aria-hidden="true">
+          <span class="wissen__regel"></span>
+          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
+        </span>
+      </a>
+
+      <a class="wissen__frage" href="wissen.html" data-reveal>
+        <span class="wissen__kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 2.8H6.8a2 2 0 0 0-2 2v14.4a2 2 0 0 0 2 2h10.4a2 2 0 0 0 2-2V7.6Z"/><path d="M14.4 2.8v4.8h4.8"/><path d="M8.6 13.2h6.8M8.6 16.8h6.8M8.6 9.6h2"/></svg>
+        </span>
+        <span class="wissen__text">Wie funktioniert die Abschreibung einer vermieteten Immobilie?</span>
+        <span class="wissen__fuss" aria-hidden="true">
+          <span class="wissen__regel"></span>
+          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
+        </span>
+      </a>
+
+      <a class="wissen__frage" href="wissen.html" data-reveal>
+        <span class="wissen__kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.2 10.4c0 5.6-7.2 10.8-7.2 10.8s-7.2-5.2-7.2-10.8a7.2 7.2 0 0 1 14.4 0Z"/><circle cx="12" cy="10.2" r="2.7"/></svg>
+        </span>
+        <span class="wissen__text">Woran erkennt Estera eine gute Makro- und Mikrolage?</span>
+        <span class="wissen__fuss" aria-hidden="true">
+          <span class="wissen__regel"></span>
+          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
+        </span>
+      </a>
+
+      <a class="wissen__frage" href="wissen.html" data-reveal>
+        <span class="wissen__kreis" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 13.6v-1.8a7.4 7.4 0 0 1 14.8 0v1.8"/><rect x="2.6" y="13" width="4" height="5.6" rx="1.8"/><rect x="17.4" y="13" width="4" height="5.6" rx="1.8"/><path d="M19.4 18.6v.6a2.4 2.4 0 0 1-2.4 2.4h-2.6"/></svg>
+        </span>
+        <span class="wissen__text">Welche Unterstützung bleibt nach dem Kauf bestehen?</span>
+        <span class="wissen__fuss" aria-hidden="true">
+          <span class="wissen__regel"></span>
+          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
+        </span>
+      </a>
+
     </div>
 
+    <!-- KARRIERE — inhaltlich unveraendert, gestalterisch angeglichen.
+         Er bleibt NAVY: nach sechs weissen Karten auf weissem Grund waere
+         ein siebter weisser Kasten nur eine groessere Karte und kein
+         Schluss. Damit er als gesetzter Akzent wirkt, traegt er dieselbe
+         Form wie die Karten — gleicher Eckenradius, zwei Schattenlagen,
+         keine Kontur — und die Zierzeichnung aus konzentrischen Bogen, wie
+         sie auch im Band „Langfristig gedacht" steht. -->
     <div class="karriere" data-reveal>
-      <p class="karriere__titel">Wir bauen Estera <em>langfristig</em> auf.</p>
-      <div>
+      <span class="karriere__zier" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1" focusable="false">
+          <circle cx="200" cy="0" r="48"/>
+          <circle cx="200" cy="0" r="76"/>
+          <circle cx="200" cy="0" r="104"/>
+          <circle cx="200" cy="0" r="132"/>
+          <circle cx="200" cy="0" r="160"/>
+          <circle cx="200" cy="0" r="188"/>
+        </svg>
+      </span>
+      <div class="karriere__links">
+        <span class="karriere__regel" aria-hidden="true"></span>
+        <p class="karriere__titel">Wir bauen Estera <em>langfristig</em> auf.</p>
+      </div>
+      <div class="karriere__rechts">
         <p class="karriere__satz">
           Wir suchen Menschen, die Verantwortung übernehmen, hohe Ansprüche an ihre
           Arbeit stellen und gemeinsam mit uns eine neue Generation der
           Immobilienberatung aufbauen möchten.
         </p>
-        <a class="karriere__link" href="karriere.html">Offene Positionen und Initiativbewerbung</a>
+        <a class="karriere__link" href="karriere.html"><span class="karriere__linktext">Offene Positionen und Initiativbewerbung</span><svg class="wissen__pfeil" aria-hidden="true"><use href="#wt-pfeil"/></svg></a>
       </div>
     </div>
 
@@ -1994,8 +2395,8 @@
       <li><a class="menu__link" href="#bewertungen"><span class="num">01</span> Bewertungen</a></li>
       <li><a class="menu__link" href="#leistungen"><span class="num">02</span> Leistungen</a></li>
       <li><a class="menu__link" href="#vorteile"><span class="num">04</span> Vorteile</a></li>
-      <li><a class="menu__link" href="#bausteine"><span class="num">05</span> Bausteine</a></li>
       <li><a class="menu__link" href="#referenzobjekte"><span class="num">06</span> Referenzobjekte</a></li>
+      <li><a class="menu__link" href="#bausteine"><span class="num">05</span> Bausteine</a></li>
       <li><a class="menu__link" href="erstgespraech.html"><span class="num">07</span> Erstgespräch</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>

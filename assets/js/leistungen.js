@@ -39,7 +39,41 @@
     if (!feld || !svg) return function () {};
 
     var NS = 'http://www.w3.org/2000/svg';
-    var ecke = 9;   /* Radius der gerundeten Ecken */
+
+    /* ===== DER HALS DER PFEILE ============================================
+       Bis zum 17.08. sass an jedem Pfeil nur die Spitze und praktisch kein
+       Strich davor („Die Pfeile … haben keinen Hals. Die brauchen auch einen
+       Strich und dann einen Pfeil."). Ursache war die Rechenrichtung: die
+       Querbalken lagen auf festen Bruchteilen des Zwischenraums, und was
+       hinter der Rundung uebrig blieb, war Rest — bei 1512x950 ganze 0,75 px
+       sichtbarer Strich, weil die 9 px lange Spitze das Segment auffrass.
+
+       Gerechnet wird deshalb jetzt von HINTEN: erst steht fest, wie lang das
+       gerade Stueck vor der Spitze sein muss, dann erst, wo der Querbalken
+       liegen darf. Seit dem 18.08. steht auch der Eckenradius fest (siehe
+       den naechsten Block); der gerade Anlauf ist der Rest — und dass er
+       nicht ins Minus geraet, haelt --verb-hoehe frei.
+       ==================================================================== */
+    /* ===== DIE ECKEN =====================================================
+       Kundenwunsch 18.08.: „Ich will, dass die Striche bei unseren
+       Leistungen alle so eckig sind und eher abgerundet sind." Gemeint ist
+       die Anmutung eines sauber gezogenen Schaltplans: gerade Strecke,
+       gerundete Ecke, gerade Strecke — keine Boegen, keine Diagonalen.
+
+       ECKE ist deshalb kein Hoechstmass mehr, sondern DER Radius. Er gilt
+       an jeder einzelnen Ecke des Diagramms, und dass er ueberall
+       hineinpasst, ist keine Hoffnung, sondern gerechnet: --verb-hoehe in
+       assets/css/auswahl.css haelt den Platz frei (siehe die Rechnung
+       dort). Die Klammer unten bleibt trotzdem stehen — sie ist die
+       Notbremse fuer Fenstermasse, an die niemand gedacht hat, und wenn sie
+       greift, sieht man es sofort: dann ist eine Ecke runder als die
+       anderen.
+       ==================================================================== */
+    var ECKE   = 9;   /* Radius JEDER Ecke — ueberall derselbe Wert          */
+    var SPITZE = 9;   /* Laenge der Pfeilspitze — das refX des Markers       */
+    var SCHAFT = 20;  /* SICHTBARER gerader Strich davor (Vorgabe: >= 18 px) */
+    var STUMPF = 12;  /* Mindestlaenge der Stichleitung ueber dem Sammler    */
+    var HALS   = SCHAFT + SPITZE;   /* Laenge des letzten Pfadsegments      */
 
     /* Die Karten tragen waehrend des Einlaufens eine Verschiebung (20 px
        nach unten) und beim Ueberfahren eine zweite (3 px nach oben).
@@ -70,23 +104,59 @@
       };
     };
 
+    /* Eine Viertelrundung als echter Kreisbogen.
+
+       WARUM `A` UND NICHT `Q`: eine quadratische Bezier-Kurve mit den
+       Kontrollarmen r sieht aus wie eine Rundung, IST aber keine — ihr
+       Kruemmungsradius im Scheitel betraegt r / Wurzel 2, also rund 0,71 r.
+       Wer den Radius nennen koennen muss — und das ist hier ausdruecklich
+       verlangt —, kann ihn nicht ueber ein Naeherungsverfahren nennen. Der
+       Bogen `A r r 0 0 f` liefert exakt r.
+
+       Zum Drehsinn: das Fahnenbit ist 1, wenn der Bogen im Uhrzeigersinn
+       laeuft (SVG rechnet y nach unten). Runter-nach-rechts ist gegen den
+       Uhrzeigersinn (0), rechts-nach-runter mit ihm (1); nach links
+       jeweils andersherum. */
+    var bogen = function (r, imUhrzeigersinn, x, y) {
+      return 'A' + r + ' ' + r + ' 0 0 ' + (imUhrzeigersinn ? 1 : 0) +
+             ' ' + x + ' ' + y;
+    };
+
     /* Senkrecht, dann waagerecht, dann wieder senkrecht — mit gerundeten
        Ecken. Genau diese Form braucht jede Verzweigung im Plan.
-       Der Eckenradius darf hoechstens die HALBE Strecke danach aufbrauchen:
-       sonst bleibt hinter der Rundung kein gerades Stueck mehr uebrig, das
-       letzte Segment hat die Laenge null — und eine Pfeilspitze am Ende
-       eines Segments ohne Laenge richtet sich nach dem Segment DAVOR und
-       zeigt dann zur Seite statt nach unten. */
-    var knick = function (x1, y1, y2, x2, y3) {
-      var rx = Math.min(ecke, Math.abs(x2 - x1) / 2);
-      var ry = Math.min(ecke, Math.abs(y2 - y1) * 0.6, Math.abs(y3 - y2) * 0.5);
+
+       Die Reihenfolge der Rechnung ist der ganze Punkt:
+       1. HALS abziehen — das letzte gerade Stueck ist gesetzt, nicht Rest.
+       2. Vom Rest gehen ZWEI Radien ab, nicht einer: die obere Ecke frisst
+          r Hoehe unter dem Anfangspunkt, die untere noch einmal r ueber dem
+          Hals. Was dann noch bleibt, ist der gerade Anlauf.
+       3. Der Querbalken liegt dort, wo beides aufgeht.
+       Eine Pfeilspitze am Ende eines Segments ohne Laenge wuerde sich nach
+       dem Segment DAVOR richten und zur Seite statt nach unten zeigen —
+       auch dagegen hilft dieselbe Rechnung. */
+    var knick = function (x1, y1, x2, y3) {
+      var lauf = y3 - y1;                                   /* ganze Fallhoehe */
+      var hals = Math.min(HALS, Math.max(0, lauf - 2));
+      var rest = lauf - hals;               /* Platz fuer Anlauf UND Rundung */
+      var r = Math.max(0, Math.min(ECKE, rest / 2, Math.abs(x2 - x1) / 2));
+      var y2 = y3 - hals - r;               /* daraus erst der Querbalken */
       var sx = x2 > x1 ? 1 : -1;
       return 'M' + x1 + ' ' + y1 +
-             'V' + (y2 - ry) +
-             'Q' + x1 + ' ' + y2 + ' ' + (x1 + sx * rx) + ' ' + y2 +
-             'H' + (x2 - sx * rx) +
-             'Q' + x2 + ' ' + y2 + ' ' + x2 + ' ' + (y2 + ry) +
+             'V' + (y2 - r) +
+             bogen(r, sx < 0, x1 + sx * r, y2) +
+             'H' + (x2 - sx * r) +
+             bogen(r, sx > 0, x2, y2 + r) +
              'V' + y3;
+    };
+
+    /* Wo der Sammler einer Ebene liegen darf. Dieselbe Rechnung fuer die
+       geraden Verbindungen: so tief wie noetig, damit unter ihm der volle
+       Hals Platz hat — und nie so hoch, dass die Stichleitungen darueber
+       verschwinden. */
+    var sammelY = function (oben, unten) {
+      var tief = unten - HALS;
+      var hoch = oben + Math.min(STUMPF, Math.max(0, (unten - oben) * 0.4));
+      return tief > hoch ? tief : hoch;
     };
 
     return function () {
@@ -126,35 +196,89 @@
       var z = kasten(ziel, bezug);
 
       /* --- ESTERA -> die beiden Quellen ----------------------------------
-         Der Querbalken liegt bei 38 % des Zwischenraums und nicht in der
-         Mitte: darunter braucht jede der beiden Abzweigungen noch Platz
-         fuer ihre Rundung UND ein gerades Stueck bis zur Spitze. */
-      var gabelY = s.unten + (q[0].oben - s.unten) * 0.38;
+         Wo der Querbalken liegt, rechnet `knick` selbst aus: von der
+         Pfeilspitze aus rueckwaerts, damit der Hals steht. */
       for (var c = 0; c < q.length; c++) {
-        lege(knick(s.mx, s.unten, gabelY, q[c].mx, q[c].oben - luft), true, 1);
+        lege(knick(s.mx, s.unten, q[c].mx, q[c].oben - luft), true, 1);
       }
 
-      /* --- die beiden Quellen -> die vier Leistungen ---------------------
-         Zwei Stichleitungen auf einen Sammler, von dessen Mitte eine Linie
-         mit Spitze in die Ebene darunter. */
-      var sammel1 = (q[0].unten + k[0].oben) / 2;
-      var d1 = '';
-      for (var e = 0; e < q.length; e++) {
-        d1 += 'M' + q[e].mx + ' ' + q[e].unten + 'V' + sammel1;
-      }
-      d1 += 'M' + q[0].mx + ' ' + sammel1 + 'H' + q[q.length - 1].mx;
-      lege(d1, false, 3);
-      lege('M' + s.mx + ' ' + sammel1 + 'V' + (k[0].oben - luft), true, 3);
+      /* --- eine Ebene an die naechste ------------------------------------
+         Stichleitungen aus den Karten auf einen Sammler, von dessen Mitte
+         eine Linie mit Spitze in die Ebene darunter.
 
-      /* --- die vier Leistungen -> das Ziel -------------------------------- */
-      var sammel2 = (k[0].unten + z.oben) / 2;
-      var d2 = '';
-      for (var f = 0; f < k.length; f++) {
-        d2 += 'M' + k[f].mx + ' ' + k[f].unten + 'V' + sammel2;
-      }
-      d2 += 'M' + k[0].mx + ' ' + sammel2 + 'H' + k[k.length - 1].mx;
-      lege(d2, false, 8);
-      lege('M' + s.mx + ' ' + sammel2 + 'V' + (z.oben - luft), true, 8);
+         STEHEN DIE KARTEN IN MEHREREN ZEILEN, faellt beides weg. Unter
+         1180 px ruecken die vier Leistungen in zwei Reihen; eine
+         Stichleitung aus der oberen Reihe muesste dann quer durch die
+         untere laufen, um den Sammler zu erreichen. Genau das tat sie bis
+         zum 17.08. — zwei goldene Striche mitten durch die Karten
+         „Finanzierung" und „Begleitung & Betreuung". In dem Fall bleibt
+         die eine Linie von der Unterkante des Blocks zur naechsten Ebene;
+         die Leserichtung traegt dort ohnehin allein. */
+      var verbinde = function (kaesten, zielY, takt) {
+        var unten = -Infinity, i;
+        for (i = 0; i < kaesten.length; i++) unten = Math.max(unten, kaesten[i].unten);
+        var eineZeile = true;
+        for (i = 0; i < kaesten.length; i++) if (unten - kaesten[i].unten > 1) eineZeile = false;
+
+        if (!eineZeile) {
+          lege('M' + s.mx + ' ' + unten + 'V' + zielY, true, takt);
+          return;
+        }
+        var y = sammelY(unten, zielY);
+
+        /* DER SAMMLER ALS EIN ZUG, nicht als drei gekreuzte Striche.
+           Bis zum 18.08. lagen hier lauter einzelne Teilpfade: aus jeder
+           Karte ein Senkrechter hinunter, quer darueber ein Waagerechter.
+           Wo die beiden aeusseren aufeinandertrafen, stand eine harte
+           rechtwinklige Ecke — und genau die hat der Kunde beanstandet.
+
+           Jetzt laeuft AUSSEN ein durchgehender Zug: aus der linken Karte
+           hinunter, gerundet nach rechts, quer hinueber, gerundet wieder
+           hinauf in die rechte Karte. Das sind die beiden einzigen echten
+           Ecken dieses Sammlers, und beide tragen ECKE.
+
+           Die Karten DAZWISCHEN stossen als T von oben auf den Balken. Ein
+           T ist keine Ecke: dort wechselt die Linie nicht die Richtung,
+           sondern zweigt ab. Wollte man auch dort runden, muesste man sich
+           fuer eine Seite entscheiden — und die Rundung laege unter dem
+           durchlaufenden Balken und waere ohnehin nicht zu sehen. Dasselbe
+           gilt fuer den Abgang in der Mitte zur naechsten Ebene. */
+        var links  = kaesten[0];
+        var rechts = kaesten[kaesten.length - 1];
+        var spanne = Math.abs(rechts.mx - links.mx);
+        var r = Math.max(0, Math.min(ECKE, y - unten, spanne / 2));
+        var d;
+        if (kaesten.length > 1 && r > 0) {
+          d = 'M' + links.mx + ' ' + links.unten +
+              'V' + (y - r) +
+              bogen(r, false, links.mx + r, y) +
+              'H' + (rechts.mx - r) +
+              bogen(r, false, rechts.mx, y - r) +
+              'V' + rechts.unten;
+        } else {
+          /* Notbremse: bliebe fuer die Rundung kein Platz, ist ein harter
+             Winkel immer noch besser als ein fehlender Balken. */
+          d = 'M' + links.mx + ' ' + links.unten + 'V' + y;
+          if (kaesten.length > 1) {
+            d += 'M' + rechts.mx + ' ' + rechts.unten + 'V' + y +
+                 'M' + links.mx + ' ' + y + 'H' + rechts.mx;
+          }
+        }
+        for (i = 1; i < kaesten.length - 1; i++) {
+          d += 'M' + kaesten[i].mx + ' ' + kaesten[i].unten + 'V' + y;
+        }
+        lege(d, false, takt);
+        lege('M' + s.mx + ' ' + y + 'V' + zielY, true, takt);
+      };
+
+      var oberkante = function (kaesten) {
+        var o = Infinity;
+        for (var i = 0; i < kaesten.length; i++) o = Math.min(o, kaesten[i].oben);
+        return o;
+      };
+
+      verbinde(q, oberkante(k) - luft, 3);   /* Quellen  -> Leistungen */
+      verbinde(k, z.oben - luft, 8);         /* Leistungen -> Ziel     */
     };
   })();
 

@@ -11,6 +11,10 @@
                     Hereinscrollen zusammen mit `data-auf` gesetzt und beim
                     Ueberfahren mit der Maus zurueckgenommen und neu
                     gesetzt.
+     `data-neu`   — steht NUR waehrend eines Neustarts durch Ueberfahren.
+                    Es hebt den Startstand der Zeichnung von null auf einen
+                    halb aufgebauten Stand an, damit beim Neustart kein
+                    Leerbild entsteht. Naeheres weiter unten.
 
    Diese Trennung ist der Kern: haetten Karte und Zeichnung dasselbe
    Merkmal, wuerde der Neustart der Zeichnung die Karte mitreissen und sie
@@ -58,13 +62,40 @@
        dieser Karte SCHLICHT IGNORIERT. Damit kann schnelles, wiederholtes
        Ueberfahren die Bewegung weder abschneiden noch stapeln; es gibt
        auch keine Warteschlange, die spaeter nachfeuert.
+     — KEIN LEERBILD. Das ist die Kundenbeanstandung vom 18.08.2026:
+       „Wenn ich auf einen der Kaesten gehe, verschwindet die Abbildung
+       komplett und dann kommt die Animation. Die Animation soll losgehen,
+       ohne dass die Abbildung zuerst komplett verschwindet."
+
+       Ursache war der VOLLE Ruecksetzpunkt: mit `data-bild` fiel die
+       Zeichnung auf ihren Nullstand zurueck — Deckkraft 0, Balken auf
+       2 %, Linien auf 0 % gezogen. Fuer einen Wimpernschlag stand die
+       Karte leer da.
+
+       Behoben ueber ein DRITTES Merkmal, `data-neu`. Es steht nur
+       waehrend eines Neustarts an der Karte und hebt im CSS saemtliche
+       Startwerte auf einen HALB AUFGEBAUTEN Stand an: Deckkraft 0,42
+       statt 0, Balken 58 % statt 2 %, Linien 58 % statt 0 % gezogen, der
+       Weg der Grenze in Karte 04 auf 46 statt 120 Einheiten. Die
+       Zeichnung ist damit zu KEINEM Zeitpunkt unsichtbar — die kleinste
+       Deckkraft im ganzen Neustart ist 0,42 —, sie atmet nur einmal
+       durch und baut sich von dort wieder auf.
+
+       Der Gegenentwurf, ein zweiter ueberlagerter Durchlauf ueber dem
+       stehenden Endstand, waere waehrend der Ueberblendung doppelt
+       sichtbar gewesen und haette an den vielen Halbtransparenzen dieses
+       Abschnitts aufgedunkelt. Der halbe Ruecksetzpunkt ist im Bild
+       ruhiger und kommt ohne zusaetzliche Elemente aus.
+
      — SAUBERER RUECKSETZPUNKT. Ein blosses Wegnehmen von `data-bild` waere
        ein Uebergang RUECKWAERTS — die Zeichnung baute sich erst langsam
-       ab. Deshalb: `data-sofort` setzen (schaltet im CSS alle Uebergaenge
-       der Zeichnungsteile ab), `data-bild` abnehmen, ERZWUNGENER REFLOW,
+       ab. Deshalb: `data-neu` UND `data-sofort` setzen (das eine hebt den
+       Startstand an, das andere schaltet alle Uebergaenge der
+       Zeichnungsteile ab), `data-bild` abnehmen, ERZWUNGENER REFLOW,
        `data-sofort` abnehmen, zweiter Reflow, `data-bild` wieder setzen.
-       Erst dadurch kennt der Browser den Startzustand als eigenen Stand
-       und laesst die Bewegung von dort neu anlaufen.
+       Erst dadurch kennt der Browser den halben Stand als eigenen Stand
+       und laesst die Bewegung von dort neu anlaufen. `data-neu` faellt
+       weg, sobald der Aufbau durch ist.
      — NUR DIE BETRETENE KARTE. Die vier anderen bleiben unberuehrt.
 
    `site.js` bleibt unberuehrt; der Aufklapper „Was bewusst offenbleibt"
@@ -139,6 +170,10 @@
     karte.setAttribute('data-bild', '');
     window.setTimeout(function () {
       karte.laeuft = false;
+      /* `data-neu` hat seinen Dienst getan: der naechste Neustart setzt es
+         selbst wieder. Solange es steht, waere es nur ein toter Haken —
+         die Zeichnung steht ja bereits vollstaendig. */
+      karte.removeAttribute('data-neu');
       /* Der Einlauf war gestaffelt; ein Neustart soll das nicht sein.
          Nach dem ersten Durchlauf faellt die Kartenverzoegerung deshalb
          dauerhaft auf null — sichtbar wird das erst beim Ueberfahren. */
@@ -154,9 +189,12 @@
     /* Laeuft noch: zu Ende laufen lassen, nichts abschneiden. */
     if (karte.laeuft) return;
 
+    /* `data-neu` VOR `data-bild` abnehmen — sonst gaebe es genau ein Bild
+       lang doch den vollen Nullstand, und das Leerbild waere zurueck. */
+    karte.setAttribute('data-neu', '');      /* halber Startstand statt null  */
     karte.setAttribute('data-sofort', '');   /* Uebergaenge der Zeichnung aus */
-    karte.removeAttribute('data-bild');      /* Sprung in den Startzustand    */
-    void karte.offsetWidth;                  /* Startzustand festschreiben    */
+    karte.removeAttribute('data-bild');      /* Sprung in den halben Stand    */
+    void karte.offsetWidth;                  /* halben Stand festschreiben    */
     karte.removeAttribute('data-sofort');    /* Uebergaenge wieder an         */
     void karte.offsetWidth;                  /* und auch das festschreiben    */
     bildStarten(karte);
@@ -218,6 +256,7 @@
     raster.removeAttribute('data-animiert');
     for (var i = 0; i < karten.length; i++) {
       karten[i].removeAttribute('data-sofort');
+      karten[i].removeAttribute('data-neu');
       karten[i].setAttribute('data-auf', '');
       karten[i].setAttribute('data-bild', '');
     }
