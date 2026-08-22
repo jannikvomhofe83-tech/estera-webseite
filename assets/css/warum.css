@@ -1,0 +1,568 @@
+/* ===========================================================================
+   VORTEILE VON IMMOBILIEN   —   Neufassung vom 21.08.2026 (Build B-201)
+   Gehoert zu <section class="wimm" id="warum-immobilien"> und warum.js.
+
+   WAS HIER PASSIERT IST
+   Das Bento-Raster (vier verschieden grosse Flaechen nebeneinander) ist vom
+   Kunden abgelehnt worden. An seine Stelle tritt genau das, was er
+   beschrieben hat:
+
+     LINKS   die vier Vorteile untereinander, jeder mit seinem Symbol davor —
+             Bankkapital, steuerliche Potenziale, Mieteinnahmen,
+             Eigentumsaufbau. Der aktive Eintrag ist hervorgehoben.
+     RECHTS  vier Kaesten, einer je Vorteil, ALLE EXAKT GLEICH GROSS, mit der
+             Grafik und dem erklaerenden Text.
+     DAZU    eine Scroll-Animation: die rechte Buehne klebt, links laeuft je
+             Vorteil ein Scrollabschnitt durch. Der Wechsel geschieht von
+             allein — es muss nirgends geklickt werden.
+
+   Die vier Diagramme, die Texte und die gemessenen Farbwerte sind
+   unveraendert uebernommen. Nur die Anordnung ist eine andere.
+
+   ENTFALLEN, ersatzlos: Kleinzeile, Unterzeile, Vorschauzeile,
+   Kategorien-Nummern („01 —"), Abschlussleiste und jeder Aufruf zum Handeln.
+   Es bleibt EINE Ueberschrift: „Vorteile von Immobilien".
+
+   WIE DIE KAESTEN GLEICH GROSS WERDEN
+   Die Buehne bekommt eine feste Hoehe (--wi-buehne-h) und ist
+   `position: relative`. Alle vier Kaesten liegen darin als
+   `position: absolute; inset: 0` — deckungsgleich. Damit sind sie nicht
+   ungefaehr, sondern auf den Pixel gleich gross, unabhaengig davon wieviel
+   Text oder wie hoch die jeweilige Zeichnung ist.
+
+   WIE DER WECHSEL AUSGELOEST WIRD
+   .wimm__klebe klebt mit `top: calc(var(--header-h) + 1.6rem)` innerhalb von
+   .wimm__lauf. Unter der klebenden Buehne stehen vier leere Spuren zu je
+   78vh. Weil .wimm__klebe das erste Kind von .wimm__lauf ist, entspricht der
+   Klebeweg exakt der Summe der Spuren (312vh) — die Buehne loest sich also
+   genau dann, wenn die vierte Spur durchgelaufen ist. warum.js rechnet aus
+   der Lage von .wimm__lauf einen Fortschritt 0…1 und daraus den Index.
+   Kein Scroll-Hijacking, kein preventDefault, kein Einrasten.
+
+   FARBE — die eine Abweichung vom Briefing, ausdruecklich vom Kunden
+   ueberstimmt: „Hintergrundfarbe muss ganz normal weiss sein, Akzentfarbe
+   ist blau, und du sollst auch schwarz verwenden fuer die Schriftfarbe."
+     Grund der Section  reines Weiss (--paper)
+     Kaesten            minimal kuehler abgesetzt (--paper-cool), Haarlinie
+     Schrift            --ink-black fuer Ueberschrift und Fliesstext,
+                        --ink-soft / --ink-mute nur fuer Nebentext
+     Akzent             Navy (--navy-800 / -600 / -400)
+     Gold               nur fuer Wert und steuerliche Potenziale
+     Gruen              nur fuer Mieteinnahmen und Eigentum
+     Rot                nur sehr gedeckt fuer Restschuld
+   Keine starken Schatten — hoechstens eine sehr flache Kontaktlage.
+
+   ZWEI NEUE TOKEN, sonst nichts Erfundenes. Beide sind hier lokal an .wimm
+   gebunden, nicht global in base.css — sie gehoeren nur zu diesem Abschnitt.
+
+   GEMESSENE KONTRASTE (Skript im Arbeitsordner, WCAG-2-Formel)
+     --wi-gruen  #4F7A57 auf Weiss ....... 4.94:1   Text UND Flaeche zulaessig
+     --wi-gruen  #4F7A57 auf #F3F5F8 ..... 4.52:1   auf dem Kastengrund
+     --wi-rot    #9C5648 auf Weiss ....... 5.47:1   Text UND Flaeche zulaessig
+     --wi-rot    #9C5648 auf #F3F5F8 ..... 5.01:1
+     Weiss auf --wi-gruen ................ 4.94:1   Beschriftung IN der Flaeche
+     Weiss auf --wi-rot .................. 5.47:1   Beschriftung IN der Flaeche
+     --ink-black #2B2E33 auf Weiss ...... 13.62:1   Ueberschriften, Fliesstext
+     --ink-black auf #F3F5F8 ............ 12.47:1
+     --ink-black bei 68 % Deckkraft ...... 5.12:1   ruhende Eintraege links
+     --ink-soft  #4A5F7A auf Weiss ....... 6.54:1   Nebentext
+     --ink-mute  #5F6E85 auf #F3F5F8 ..... 4.74:1   Vorbehalte
+     --gold-text #86693A auf Weiss ....... 5.13:1   Gold als SCHRIFT
+     --navy-800  #102949 auf Weiss ...... 14.63:1   Symbole des aktiven Eintrags
+     --navy-600  #1E4270 auf Weiss ...... 10.15:1   Kanten, Linien, Fokusring
+     --navy-400  #4C6A93 auf Weiss ....... 5.54:1
+     --gold      #A8874F auf Weiss ....... 3.36:1   NUR Linie und Flaeche
+     --gold-soft #C9B08A auf Weiss ....... 2.09:1   siehe naechster Absatz
+     --ink-black auf --gold-soft ......... 6.53:1
+
+   ZUM SANDTON: --gold-soft erreicht als Flaeche nur 2.09:1 gegen Weiss und
+   traegt in Diagramm 1 und 3 Bedeutung („individueller Beitrag"). Er
+   bekommt deshalb ueberall eine Kontur in --gold (3.36:1). Der Rand traegt
+   die Erkennbarkeit, die Fuellung nur die Zuordnung — damit ist 1.4.11
+   erfuellt. Rot und Gruen sind zusaetzlich IMMER beschriftet; keine
+   Information haengt allein an der Farbe.
+
+   ZUR RUECKNAHME DER RUHENDEN EINTRAEGE: 68 % Deckkraft, nicht 30 %. Das
+   ergibt gemessen 5.12:1 gegen Weiss — die drei nicht aktiven Vorteile
+   bleiben also uneingeschraenkt lesbar, statt bloss angedeutet zu sein.
+
+   AUFBAU DER DATEI
+     1  Grundgeruest und Ueberschrift
+     2  Der Lauf: Spuren, klebende Buehne, Raster
+     3  Die Liste links
+     4  Die vier Kaesten rechts (Text, Vorbehalt, Diagramme)
+     5  Responsiv
+     6  Einlauf (nur bei [data-js='an'])
+     7  Ohne Bewegung
+
+   BEWEGUNG UND AUSFALLSICHERHEIT
+   Alle Anfangszustaende und die gesamte Klebemechanik haengen an
+   `.wimm[data-js='an']`. Dieses Merkmal setzt erst warum.js. Ohne
+   Javascript stehen die vier Kaesten schlicht untereinander, jeder mit
+   Symbol und Namen des Vorteils darueber — nichts ist unsichtbar, nichts
+   klebt, nichts haengt. Dasselbe gilt bei `prefers-reduced-motion: reduce`:
+   die Klebemechanik ist bewusst an `no-preference` gebunden.
+   =========================================================================== */
+
+.wimm {
+  /* Die zwei einzigen neuen Farben. Begruendung und Messwerte oben. */
+  --wi-gruen: #4F7A57;   /* Mieteinnahmen und Eigentum — sonst nirgends */
+  --wi-rot:   #9C5648;   /* ausschliesslich Restschuld               */
+
+  --wi-ease:   cubic-bezier(0.22, 1, 0.36, 1);
+  --wi-luecke: clamp(0.9rem, 1.5vw, 1.4rem);
+  --wi-rund:   22px;
+
+  /* Scrollweg je Vorteil. Vier Spuren ergeben 312vh Erzaehlteil — das liegt
+     in dem vom Kunden genannten Rahmen von 280 bis 320vh. */
+  --wi-spur: 78vh;
+
+  /* Feste Hoehe der Buehne. Sie fuellt den Bildschirm unterhalb der festen
+     Kopfleiste weitgehend aus, wird aber gedeckelt, damit die Kaesten auf
+     sehr hohen Bildschirmen nicht leer wirken. AUS DIESER EINEN ZAHL folgt,
+     dass alle vier Kaesten gleich gross sind. */
+  --wi-buehne-h: clamp(430px, calc(100vh - var(--header-h) - 7rem), 600px);
+
+  /* Abstand der klebenden Buehne zur festen Kopfleiste. */
+  --wi-oben: calc(var(--header-h) + 1.6rem);
+
+  position: relative;
+  background: var(--paper);
+  color: var(--ink-black);
+  padding: clamp(4rem, 8vh, 7rem) 0 clamp(4rem, 8vh, 7rem);
+}
+
+.wimm__inner {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 4.2rem);
+}
+
+/* Der Symbolvorrat. Er nimmt keinen Platz ein und traegt keine Bedeutung. */
+.wimm__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------------------------------------------------------------------------
+   1  UEBERSCHRIFT — die einzige im Abschnitt. Kein Kicker, keine Unterzeile,
+   keine Vorschau. Der Kunde: „Das ist die einzige Überschrift."
+--------------------------------------------------------------------------- */
+.wimm__auftakt {
+  text-align: center;
+  margin: 0 auto clamp(2.4rem, 4.5vw, 3.8rem);
+}
+
+.wimm__h2 {
+  margin: 0;
+  font-size: clamp(2.1rem, 4.2vw, 3.7rem);
+  line-height: 1.08;
+  color: var(--ink-black);
+}
+
+/* ---------------------------------------------------------------------------
+   2  DER LAUF
+   Grundzustand (Telefon, ohne Javascript, ohne Bewegung): kein Kleben, keine
+   Spuren, keine Liste — die vier Kaesten stehen als Paare untereinander,
+   jeder mit Symbol und Namen seines Vorteils im Kasten selbst.
+--------------------------------------------------------------------------- */
+.wimm__lauf   { position: relative; }
+.wimm__spuren { display: none; }
+.wimm__spur   { height: var(--wi-spur); }
+
+.wimm__buehne {
+  display: grid;
+  gap: var(--wi-luecke);
+}
+
+/* ---------------------------------------------------------------------------
+   3  DIE LISTE LINKS
+   Feine Navy-Konturzeichnung, KEIN Kasten um das Symbol, KEINE Trennstriche
+   zwischen den Eintraegen, Schrift schwarz. So hat der Kunde es frueher
+   ausdruecklich verlangt, und es gilt weiter.
+   Nur auf dem Schreibtisch sichtbar; darunter traegt jeder Kasten seinen
+   Namen selbst (.wimm__marke).
+--------------------------------------------------------------------------- */
+.wimm__liste { display: none; }
+
+.wimm__eintrag {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1vw, 1.15rem);
+  width: 100%;
+  /* Trefferflaeche deutlich ueber 44 px */
+  min-height: 56px;
+  padding: clamp(0.7rem, 1.1vh, 1rem) 0.25rem;
+  text-align: left;
+  color: var(--ink-black);
+  /* Ruhend zurueckgenommen, aber gemessen 5.12:1 — gut lesbar, nicht
+     abgesoffen. */
+  opacity: 0.68;
+  transition: opacity 0.45s var(--wi-ease);
+}
+.wimm__eintrag:hover,
+.wimm__eintrag:focus-visible,
+.wimm__eintrag[aria-current='true'] { opacity: 1; }
+
+.wimm__eintrag:focus-visible {
+  outline: 2px solid var(--navy-600);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+/* Der Balken links macht den aktiven Eintrag kraeftig kenntlich. Er steht
+   auch im Ruhezustand da (durchsichtig und verkuerzt) — dadurch springt in
+   der Zeile nichts, wenn der Vorteil wechselt. */
+.wimm__balken {
+  flex: 0 0 3px;
+  align-self: stretch;
+  border-radius: 2px;
+  background: transparent;
+  transform: scaleY(0.3);
+  transition: background 0.45s var(--wi-ease), transform 0.5s var(--wi-ease);
+}
+.wimm__eintrag[aria-current='true'] .wimm__balken {
+  background: var(--gold);
+  transform: scaleY(1);
+}
+
+.wimm__ikon {
+  flex: 0 0 auto;
+  width: clamp(25px, 1.9vw, 31px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  color: var(--navy-800);
+  fill: none;
+}
+
+.wimm__wort {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.35vw, 1.44rem);
+  line-height: 1.24;
+  letter-spacing: -0.002em;
+}
+
+/* ---------------------------------------------------------------------------
+   4  DIE VIER KAESTEN
+   Kartenoptik wie im uebrigen Abschnitt: weisser bis minimal kuehl
+   abgesetzter Grund, feine Haarlinie, 22 px Rundung, keine starken Schatten,
+   grosszuegige Innenabstaende. Alle vier tragen dieselbe Optik — der Kunde
+   wollte sie ausdruecklich gleich.
+--------------------------------------------------------------------------- */
+.wimm__kasten {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.1rem, 2vw, 1.7rem);
+  padding: clamp(1.4rem, 2.4vw, 2.4rem);
+  border: 1px solid var(--line);
+  border-radius: var(--wi-rund);
+  background: var(--paper-cool);
+  /* Kein Schlagschatten. Eine sehr flache Kontaktlage genuegt — mehr wirkt
+     auf weissem Grund sofort billig. */
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.035);
+}
+
+/* Symbol und Name des Vorteils IM Kasten. Auf dem Schreibtisch uebernimmt
+   das die Liste links, dort wird diese Zeile ausgeblendet. Sie bleibt aber
+   der Namensgeber des Kastens (aria-labelledby) — auch ausgeblendet. */
+.wimm__marke {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3.2vw, 1.32rem);
+  line-height: 1.2;
+  color: var(--ink-black);
+}
+.wimm__marke .wimm__ikon { width: 26px; }
+
+.wimm__k-text { display: flex; flex-direction: column; gap: 0.7rem; min-width: 0; }
+
+.wimm__k-h {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.28rem, 1.5vw, 1.62rem);
+  line-height: 1.22;
+  letter-spacing: -0.003em;
+  color: var(--ink-black);
+  text-wrap: balance;
+}
+
+.wimm__k-t {
+  font-size: clamp(1.02rem, 1.05vw, 1.1rem);
+  line-height: 1.66;
+  color: var(--ink-black);
+}
+
+/* Die hervorgehobene Aussage. Feine goldene Linie darueber, Navy als
+   Akzent — dieselbe Geste in allen vier Kaesten. */
+.wimm__kern {
+  margin-top: 0.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line-gold);
+  font-family: var(--font-display);
+  font-size: clamp(1.06rem, 1.15vw, 1.22rem);
+  line-height: 1.4;
+  color: var(--navy-800);
+}
+
+/* Vorbehalte am unteren Kastenrand. Klein, aber nie unter 4.5:1
+   (--ink-mute auf dem Kastengrund: 4.74:1). */
+.wimm__note {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-mute);
+}
+
+/* --- Diagramme ------------------------------------------------------------
+   Unveraendert aus der Vorfassung uebernommen. Jedes Schaubild hat ein festes
+   Seitenverhaeltnis ueber die viewBox — dadurch entsteht kein Layout Shift.
+   Alle vier viewBoxen sind 300 Einheiten breit; die Zeichenflaeche ist
+   gedeckelt, damit die Beschriftungen ueberall zwischen etwa 11 und 18 px
+   landen und NICHT einfach mitverkleinert werden.                          */
+.wimm__bild { min-width: 0; }
+.wimm__svg {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  overflow: visible;
+}
+.wimm__svg text {
+  font-family: var(--font-ui);
+  font-weight: 400;
+}
+
+/* Schriftgrade im Diagramm — Angaben in Benutzereinheiten der viewBox */
+.wi-t      { font-size: 12px;   fill: var(--ink-black); }
+.wi-t-s    { font-size: 10.5px; fill: var(--ink-black); }
+.wi-t-m    { font-size: 10.5px; fill: var(--ink-soft); }
+.wi-t-k    { font-size: 13px;   fill: var(--navy-800); }
+.wi-t-w    { fill: #fff; }
+.wi-t-g    { fill: var(--gold-text); }
+.wi-t-gr   { fill: var(--wi-gruen); }
+.wi-t-mini { font-size: 9.5px;  fill: var(--ink-mute); }
+.wi-t-11   { font-size: 11px; }
+.wi-sperr  { letter-spacing: 0.1em; }
+
+/* Symbolinhalte erben Strich und Fuellung in den Schattenbaum */
+.wimm__svg use { fill: none; stroke: var(--gold); stroke-width: 1.3; }
+/* Gold bleibt fuer Wert und Steuer reserviert. Ein reiner Verbindungspfeil
+   traegt keine dieser Bedeutungen und steht deshalb in Navy. */
+.wimm__svg use.wi-navy { stroke: var(--navy-600); }
+
+/* ---------------------------------------------------------------------------
+   FLAECHE 1 — BANKKAPITAL
+   Kapitalbalken: links gross das Bankkapital, rechts kleiner der eigene
+   Beitrag, darueber die Klammer „Erworbener Sachwert". Bewusst OHNE
+   Prozentzahl — der Balken zeigt ein Verhaeltnis, keinen Wert.
+--------------------------------------------------------------------------- */
+.wi1-bank    { fill: var(--navy-800); }
+.wi1-beitrag { fill: var(--gold-soft); }
+.wi1-rahmen  { fill: none; stroke: var(--gold); stroke-width: 1.3; }
+.wi1-trenn   { stroke: var(--gold); stroke-width: 1.3; }
+.wi1-klammer { fill: none; stroke: var(--gold); stroke-width: 1.2; stroke-linejoin: round; stroke-linecap: round; }
+
+/* ---------------------------------------------------------------------------
+   FLAECHE 2 — STEUERLICHE POTENZIALE
+   Drei duenne Zeilen mit goldenem Minuszeichen, eine Sammelschiene, ein
+   gemeinsames Ergebnisfeld. Keine Eurobetraege, keine Prozentzahlen.
+--------------------------------------------------------------------------- */
+.wi2-feldrahmen { fill: rgba(168, 135, 79, 0.05); stroke: var(--line-gold); stroke-width: 1; }
+.wi2-linie      { fill: none; stroke: var(--gold); stroke-width: 1.2; stroke-linejoin: round; stroke-linecap: round; }
+.wi2-ergebnis   { fill: rgba(168, 135, 79, 0.12); stroke: var(--gold); stroke-width: 1.2; }
+
+/* ---------------------------------------------------------------------------
+   FLAECHE 3 — MIETEINNAHMEN
+   Breiter gruener Strom in den Finanzierungsblock, von unten die deutlich
+   schmalere sandfarbene Linie. Der gruene Strom wirkt groesser — ohne Quote.
+--------------------------------------------------------------------------- */
+.wi3-seg     { fill: rgba(16, 41, 73, 0.05); stroke: var(--navy-400); stroke-width: 1; }
+.wi3-tilg    { fill: rgba(168, 135, 79, 0.10); stroke: var(--gold); stroke-width: 1.5; }
+.wi3-strom   { fill: var(--wi-gruen); }
+.wi3-beitrag { fill: var(--gold-soft); stroke: var(--gold); stroke-width: 1; }
+.wi3-tick    { fill: none; stroke: var(--gold); stroke-width: 1; }
+.wi3-ab      { fill: none; stroke: var(--gold); stroke-width: 1.2; stroke-linecap: round; }
+
+/* ---------------------------------------------------------------------------
+   FLAECHE 4 — EIGENTUMSAUFBAU
+   Rot und Gruen teilen sich EINE gemeinsame Grenzlinie und bilden zusammen
+   ein Band konstanter Hoehe. Zwei getrennt bis zur Achse gefuellte Flaechen
+   waeren eine Aussage ueber Betraege — gemeint sind Verhaeltnisse.
+   Keine Prozentangaben, keine Jahreszahlen, keine exponentielle Kurve.
+--------------------------------------------------------------------------- */
+.wi4-rot    { fill: var(--wi-rot); }
+.wi4-gruen  { fill: var(--wi-gruen); }
+.wi4-grenze { fill: none; stroke: var(--paper-cool); stroke-width: 1.6; }
+.wi4-achse  { fill: none; stroke: var(--navy-400); stroke-width: 1.1; }
+.wi4-tick   { fill: none; stroke: var(--navy-400); stroke-width: 1.1; }
+.wi4-strich { fill: none; stroke: var(--gold); stroke-width: 1.3; stroke-dasharray: 5 4; stroke-linecap: round; }
+
+/* ===========================================================================
+   5  RESPONSIV
+   =========================================================================== */
+
+/* Ab hier ist der Kasten breit genug, dass Text und Schaubild NEBENEINANDER
+   beide lesbar bleiben. Darunter steht das Schaubild unter dem Text und
+   nutzt die volle Kastenbreite — es wird nicht bloss verkleinert. */
+@media (min-width: 900px) {
+  .wimm__kasten {
+    grid-template-columns: 43fr 57fr;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    column-gap: clamp(1.6rem, 2.6vw, 2.6rem);
+  }
+  .wimm__marke  { grid-column: 1 / -1; grid-row: 1; }
+  .wimm__k-text { grid-column: 1; grid-row: 2; align-self: center; }
+  .wimm__bild   { grid-column: 2; grid-row: 2; align-self: stretch;
+                  display: flex; align-items: center; justify-content: center;
+                  min-height: 0; }
+  .wimm__note   { grid-column: 1 / -1; grid-row: 3; align-self: end; }
+  /* Die Zeichnung darf nie hoeher werden als das ihr zugewiesene Feld —
+     sonst waere die feste Kastenhoehe nicht zu halten. Sie nutzt die
+     Feldbreite ganz aus: im Kasten ist sie die Hauptsache, nicht die
+     Beigabe. */
+  .wimm__svg    { max-width: 100%; max-height: 100%; }
+}
+
+/* --- Der klebende Zustand -------------------------------------------------
+   Bewusst dreifach gebunden: breiter Bildschirm UND Bewegung erlaubt UND
+   Javascript hat sich angemeldet. Faellt eine der drei Bedingungen weg,
+   greift der Grundzustand — vier Kaesten untereinander, nichts klebt.
+--------------------------------------------------------------------------- */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+
+  .wimm[data-js='an'] .wimm__raster {
+    display: grid;
+    grid-template-columns: minmax(240px, 32fr) 68fr;
+    gap: clamp(2rem, 3.6vw, 4rem);
+    align-items: center;
+  }
+
+  .wimm[data-js='an'] .wimm__liste  { display: block; }
+  .wimm[data-js='an'] .wimm__spuren { display: block; }
+
+  .wimm[data-js='an'] .wimm__klebe {
+    position: sticky;
+    top: var(--wi-oben);
+  }
+
+  /* Die Buehne: feste Hoehe, alle vier Kaesten deckungsgleich darin. */
+  .wimm[data-js='an'] .wimm__buehne {
+    display: block;
+    position: relative;
+    height: var(--wi-buehne-h);
+  }
+
+  .wimm[data-js='an'] .wimm__kasten {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    /* Weiches Ueberblenden, rund 450 ms. Bewegt werden ausschliesslich
+       opacity und transform; `visibility` schaltet erst danach, damit der
+       ruhende Kasten weder vorgelesen noch angesprungen werden kann. */
+    transition: opacity 0.45s var(--wi-ease),
+                transform 0.45s var(--wi-ease),
+                visibility 0s linear 0.45s;
+  }
+  .wimm[data-js='an'] .wimm__kasten[data-an] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.45s var(--wi-ease),
+                transform 0.45s var(--wi-ease),
+                visibility 0s linear 0s;
+  }
+
+  /* Den Namen traegt links die Liste — im Kasten waere er doppelt. */
+  .wimm[data-js='an'] .wimm__marke { display: none; }
+}
+
+/* Auf schmalen Geraeten darf das Schaubild ein Stueck in den Innenrand des
+   Kastens laufen. Dadurch bleibt der Massstab gross genug, dass die
+   Beschriftungen bei 390 px nicht unter rund 11 px fallen. */
+@media (max-width: 560px) {
+  .wimm { --wi-rund: 18px; }
+  .wimm__svg { margin-inline: -0.5rem; max-width: none; width: calc(100% + 1rem); }
+}
+
+/* ===========================================================================
+   6  EINLAUF
+   Alles Folgende haengt an [data-js='an']. Setzt warum.js das Merkmal
+   nicht, gibt es keinen Anfangszustand — der Abschnitt steht dann fertig da.
+   =========================================================================== */
+
+.wimm[data-js='an'] .wimm__auftakt > *,
+.wimm[data-js='an'] .wimm__raster {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.85s var(--wi-ease), transform 0.85s var(--wi-ease);
+}
+.wimm[data-js='an'] .wimm__auftakt[data-auf] > *,
+.wimm[data-js='an'] .wimm__raster[data-auf] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Gemeinsame Bausteine der Schaubilder ---------------------------------
+   `--len` setzt warum.js aus getTotalLength(); `--t` ist der Einsatz in
+   Sekunden. Gezeichnet wird ueber stroke-dashoffset, bewegt nur opacity
+   und transform. Keine Dauerbewegung: jeder Kasten laeuft genau einmal.   */
+.wimm[data-js='an'] [data-zeichnen] {
+  stroke-dasharray: var(--len, 400);
+  stroke-dashoffset: var(--len, 400);
+  transition: stroke-dashoffset 0.9s var(--wi-ease) calc(var(--t, 0) * 1s);
+}
+.wimm[data-js='an'] [data-bild] [data-zeichnen] { stroke-dashoffset: 0; }
+
+/* Die gestrichelte Goldlinie darf ihr Muster nicht verlieren — sie blendet
+   auf und waechst waagerecht, statt sich zu zeichnen. */
+.wimm[data-js='an'] [data-blenden] {
+  opacity: 0;
+  transition: opacity 0.7s var(--wi-ease) calc(var(--t, 0) * 1s);
+}
+.wimm[data-js='an'] [data-bild] [data-blenden] { opacity: 1; }
+
+.wimm[data-js='an'] [data-wachsen] {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.9s var(--wi-ease) calc(var(--t, 0) * 1s);
+}
+.wimm[data-js='an'] [data-wachsen='rechts'] { transform-origin: right center; }
+.wimm[data-js='an'] [data-bild] [data-wachsen] { transform: scaleX(1); }
+
+/* ===========================================================================
+   7  OHNE BEWEGUNG
+   Kein Kleben (siehe Medienabfrage oben), kein Ueberblenden: die vier
+   Kaesten stehen einfach untereinander. Alle Schaubilder stehen sofort im
+   Endzustand, es bleibt nur eine weiche Deckkraft.
+   =========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .wimm[data-js='an'] .wimm__auftakt > *,
+  .wimm[data-js='an'] .wimm__raster {
+    transform: none;
+    transition: opacity 0.4s linear;
+  }
+  .wimm[data-js='an'] .wimm__kasten {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+  .wimm[data-js='an'] [data-zeichnen] {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+  .wimm[data-js='an'] [data-wachsen] {
+    transform: none;
+    transition: none;
+  }
+  .wimm[data-js='an'] [data-blenden] {
+    opacity: 1;
+    transition: none;
+  }
+}

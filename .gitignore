@@ -6,3 +6,10 @@ Thumbs.db
 
 node_modules/
 *.log
+
+# Rohmaterial der Videos — Ausgangsdateien des Kunden, nicht die
+# ausgelieferten Fassungen. Sie liegen im Ordner Bilder/ und werden nur zum
+# Neurendern gebraucht; zusammen rund 31 MB, die das Repository unnoetig
+# aufblaehen. Die fertigen Videos unter assets/video/ sind versioniert.
+Bilder/*.mov
+Bilder/b28f8eb9*.mp4

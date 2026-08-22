@@ -2,6 +2,80 @@
    SECTION 6b — REFERENZOBJEKTE NACH OBJEKTART
    Steht direkt hinter „Viele Bausteine. Ein strukturierter Weg." (#bausteine).
 
+   ###########################################################################
+   UMBAU 21.08.2026 — NUR NOCH DAS VIDEO
+   ###########################################################################
+
+   Der Kunde am 21.08. woertlich: „Du musst keine Rand- und Eckdaten zu den
+   Wohnungen nennen, also alle Daten können raus. Es soll nur das Video erst
+   mal zu sehen sein."
+
+   Damit faellt alles weg, was unter dem Video stand: die Infokarte, die seit
+   dem 18.08. halb ueber der Videokante hing, die Zeilen ECKDATEN und
+   BESCHREIBUNG daneben und das Cremeband mit dem Bildhinweis. Der Abschnitt
+   besteht jetzt aus Kopf, Umschalter und Video — sonst nichts.
+
+   WARUM DIE REGELN TROTZDEM STEHEN BLEIBEN
+   Geloescht ist hier nichts. Alle Regeln fuer Infokarte, Zeilenliste,
+   Cremeband, Vorschaubild und Zwischenansicht bleiben unveraendert liegen und
+   sind unten als SCHLAEFT gekennzeichnet. Der Grund ist der gleiche wie im
+   HTML, wo die Bloecke auskommentiert stehen: die Angaben waren nie von
+   Estera freigegeben, sie kommen zurueck, sobald echte Objektdaten vorliegen.
+   Wer sie zurueckholt, macht im HTML die Kommentarzeichen weg — am CSS ist
+   dann nichts zu tun. Loeschten wir die Regeln, muesste die halbe Datei neu
+   geschrieben werden, und die muehsam austarierte Ueberlappung der Karte
+   waere ein zweites Mal zu finden.
+
+   WAS SICH DADURCH AN DEN MASSEN AENDERT
+   Die Hoehenreserve --robj-reserve wird kleiner. Sie rechnete bisher die
+   ueber die Videokante ragende Kartenhaelfte mit ein (92 bis 121 px); die
+   gibt es nicht mehr. Was uebrig bleibt, ist der fixierte Seitenkopf, der
+   Umschalter und der Abstand zum Video. Weniger Reserve heisst: das Video
+   darf breiter stehen — genau das, was der Kunde mit „nur das Video" meint.
+
+   DAS VIDEO SELBST — assets/video/referenz-wohnung.mp4 / .webm
+   Es ist aus zwei Aufnahmen des Kunden zusammengesetzt (Drohnenanflug und
+   Rundgang durch die Musterwohnung, verbunden ueber die weisse Stelle, an der
+   beide sich treffen). Der Flug laeuft in 62,5 % Geschwindigkeit. Es laeuft
+   stumm, in der Schleife und ausschliesslich auf Druck des Knopfes — die
+   Steuerung dafuer steht in referenzobjekte.js.
+   Der Eckenradius ist ab jetzt --radius-img aus base.css, also derselbe wie
+   bei jedem anderen Bild der Seite; der frueher hier eigens gesetzte
+   --robj-radius bleibt fuer die schlafenden Karten stehen.
+
+   ZWEITER DURCHGANG AM SELBEN TAG — KOPF UND UMSCHALTER
+   Der Kunde, woertlich: „Die Headline soll einfach nur lauten: ‚Eindruck
+   einer Musterwohnung'. Das ‚WG-, Konzept- und Bestandswohnungen' kann raus.
+   Das ist unnötig." Damit sind auch die Goldzeile und der Umschalter
+   zwischen den Objektarten entfallen. Uebrig bleiben genau zwei Dinge: die
+   Ueberschrift und darunter das Video. Die Regeln fuer den Umschalter stehen
+   unten als SCHLAEFT — Umschalter.
+
+   DAS WACHSEN BEIM SCROLLEN
+   „Man scrollt runter und mit dem Scrollen wird der Kasten ein bisschen
+   größer." Umgesetzt ueber --robj-wachs, ausschliesslich als transform, von
+   0,90 auf 1,00 — nur verkleinern, nie darueber hinaus. Das Warum steht bei
+   .robj__video.
+
+   DER START DES VIDEOS — GAR NICHT VON ALLEIN
+   „Man braucht bei dem Video zur Musterwohnung immer einen Abspielbutton. Man
+   muss zuerst auf den Abspielbutton drücken, erst dann beginnt das Video."
+   Es gibt also kein autoplay und keine Sichtbarkeitsschwelle mehr, ab der
+   etwas losliefe. Zwischenzeitlich galt „startet, sobald der Kasten
+   vollstaendig im Fenster steht" — das ist zurueckgenommen. Der
+   Sichtbarkeits-Beobachter in referenzobjekte.js darf seither nur noch
+   ANHALTEN, wenn das Video das Bild verlaesst, und laeuft danach nicht von
+   selbst wieder an.
+
+   DER ABSPIELKNOPF
+   Zwischenzeitlich eine Kachel nach dem Vorbild von YouTube, seit der
+   Ruecknahme des Kunden wieder der runde Navy-Knopf mit Goldring — woertlich
+   die Fassung von davor. Siehe „Die Abspielflaeche" weiter unten.
+
+   OFFEN: Es liegt bisher nur EIN Video vor. Fuer die zweite Objektart fehlt
+   eine eigene Aufnahme; erfunden oder nachgestellt wird dafuer nichts.
+   ###########################################################################
+
    Aufbau (Kundenwunsch 18.08.):
      Kopf         — knapp: Goldzeile, Ueberschrift, eine Unterzeile
      Umschalter   — unmittelbar darunter, Pille mit goldener Aussenlinie
@@ -113,20 +187,48 @@
   --robj-ueber: clamp(2.6rem, 5.5vw, 5.4rem);
 
   /* Was oberhalb und unterhalb des Videos an Hoehe gebraucht wird: der
-     fixierte Kopf der Seite, der Umschalter, die Abstaende und der ueber die
-     Videokante ragende Teil der Infokarte. Aus dieser Reserve rechnet die
-     Buehne ihre Hoechstbreite — dadurch bleiben Umschalter und Video
-     gemeinsam sichtbar, ohne dass gescrollt werden muss.
-     Der zweite Summand ist gemessen, nicht geschaetzt: Umschalter mit
-     Aussenabstand rund 74 px, Abstand zum Video rund 14 px, ueberstehende
-     Kartenhaelfte 92 bis 121 px — zusammen 180 bis 210 px. */
-  --robj-reserve: calc(var(--header-h) + clamp(11.5rem, 17vh, 13rem));
+     fixierte Kopf der Seite und die Abstaende. Aus dieser Reserve rechnet die
+     Buehne ihre Hoechstbreite.
+
+     DAS IST JETZT MEHR ALS EINE SCHOENHEITSFRAGE. Das Video startet erst,
+     wenn der Kasten VOLLSTAENDIG im Fenster steht (siehe referenzobjekte.js).
+     Waere der Kasten hoeher als das Fenster, koennte diese Bedingung nie
+     eintreten. Die Reserve garantiert das Gegenteil: die Videohoehe ist immer
+     hoechstens Fensterhoehe minus Reserve, passt also mit Luft hinein. Wer
+     die Reserve verkleinert, muss den Ausweichweg im Javascript pruefen —
+     dort ist der Fall zwar abgefangen, aber er soll gar nicht erst eintreten.
+
+     Verlauf der Werte: bis zum 18.08. rund 180 bis 210 px (darin die ueber
+     die Videokante ragende Haelfte der Infokarte), am 21.08. auf rund 90 px
+     (Infokarte weg, Umschalter noch da), jetzt auf rund 56 bis 80 px — auch
+     der Umschalter ist entfallen. Was bleibt, ist der Abstand zum Kopf der
+     Seite und Luft nach unten. */
+  --robj-reserve: calc(var(--header-h) + clamp(3.5rem, 6vh, 5rem));
+
+  /* Der scrollgekoppelte Wachstumsfaktor. 1 heisst: volle Layoutgroesse.
+     referenzobjekte.js schreibt hier Werte zwischen 0,90 und 1,00 hinein.
+     Die 1 als Voreinstellung ist wichtig: ohne Javascript — und in der
+     Zehntelsekunde, bevor es laeuft — steht das Video in voller Groesse da,
+     nie verkleinert und nie halbfertig. */
+  --robj-wachs: 1;
 
   position: relative;
   z-index: 1;
   overflow-x: clip;
   background: var(--paper);
-  padding: clamp(3rem, 7vh, 5.5rem) 0 clamp(3.4rem, 8vh, 6.5rem);
+  /* Kundenwunsch 21.08.: „Die Überschrift ‚Eindruck einer Musterwohnung' muss
+     einen Ticken weiter nach oben." Der obere Innenabstand ist deshalb um
+     rund ein Drittel gekuerzt — 3 auf 2 rem, 7 auf 4,7 vh, 5,5 auf 3,7 rem.
+     „Einen Ticken", nicht drastisch: der Abschnitt soll ruhig bleiben und
+     nicht gedraengt wirken.
+
+     Alle drei Werte sind mitgekuerzt, nicht nur einer. Nur so waechst der
+     Abstand weiter mit der Fensterhoehe mit: auf 390 px klebt die
+     Ueberschrift dadurch nicht am Abschnitt darueber, auf 1920 px faellt
+     sie nicht davon ab. Wer hier nachjustiert, muss alle drei anfassen.
+     Der untere Abstand bleibt unveraendert — er trennt zum naechsten
+     Abschnitt und hat mit der Ueberschrift nichts zu tun. */
+  padding: clamp(2rem, 4.7vh, 3.7rem) 0 clamp(3.4rem, 8vh, 6.5rem);
   scroll-margin-top: calc(var(--header-h) + 1rem);
 }
 
@@ -194,11 +296,26 @@
   text-wrap: pretty;
 }
 
-/* --- Der Umschalter -------------------------------------------------------
+/* ===== SCHLAEFT — Umschalter =============================================
+   21.08. auf Kundenwunsch entfernt — kommt zurueck, sobald Estera je
+   Objektart ein eigenes Video liefert. „Das ‚WG-, Konzept- und
+   Bestandswohnungen' kann raus. Das ist unnötig."
+
+   Er hatte seine Berechtigung ohnehin verloren: es liegt nur EINE Aufnahme
+   vor, beide Schaltflaechen haetten dasselbe Video gezeigt. Im HTML steht der
+   Block auskommentiert, die Logik in referenzobjekte.js ebenfalls. Die Regeln
+   bleiben unveraendert liegen — mit der zweiten Aufnahme kommt der Umschalter
+   samt seiner Pille genau so zurueck, wie er war.
+
+   Betroffen sind alle .robj__schalter-, .robj__schieber- und .robj__knopf-
+   Regeln bis zum naechsten Abschnitt, dazu ihre Anpassungen ganz unten im
+   Abschnitt „Responsive".
+
+   --- Der Umschalter -------------------------------------------------------
    Pille mit goldener Aussenlinie; dahinter ein wandernder Navy-Schieber. Der
    Schieber liegt als eigenes Element hinter den Beschriftungen und wird per
    transform bewegt — dadurch laeuft er weich, ohne das Raster zu verschieben.
-   Er steht jetzt unmittelbar ueber dem Video. --------------------------- */
+   ======================================================================== */
 .robj__schalter {
   position: relative;
   width: max-content;
@@ -297,14 +414,20 @@
   transition: opacity var(--robj-wechsel), visibility 0s linear 0s;
 }
 
-/* --- Der Bildplatz --------------------------------------------------------
-   Kein Kasten mehr: .robj__rahmen ist nur noch die Klammer um das Bild,
-   ohne Rand, ohne Flaeche. .robj__video ist die verbindliche 16:9-Flaeche.
-   Bild, Zwischenansicht und spaeteres Video liegen darin uebereinander —
-   deshalb aendert kein Zustandswechsel die Hoehe.
+/* --- Der Videoplatz -------------------------------------------------------
+   Kein Kasten mehr: .robj__rahmen ist nur noch die Klammer, ohne Rand, ohne
+   Flaeche. .robj__video ist die verbindliche 16:9-Flaeche, und das Video
+   darin ist ebenfalls exakt 16:9 (1920 x 1080) — es wird also weder
+   beschnitten noch verzerrt.
+
+   KEIN LAYOUTSPRUNG: Die Hoehe steht fest, bevor irgendetwas geladen ist.
+   Sie kommt aus aspect-ratio hier UND aus width/height am <video> im HTML;
+   beide sagen dasselbe. Was das Video ersetzt, ersetzt es an Ort und Stelle —
+   erst das Poster, dann das laufende Bild, beide absolut im selben Rahmen.
+
    container-type macht die Flaeche zur Bezugsgroesse fuer cqw weiter unten:
-   Knopf und Zwischenansicht richten sich nach dem BILD, nicht nach dem
-   Fenster, und bleiben dadurch in jeder Breite stimmig. -------------------- */
+   die Abspielflaeche richtet sich nach dem VIDEO, nicht nach dem Fenster, und
+   bleibt dadurch in jeder Breite stimmig. ---------------------------------- */
 .robj__rahmen {
   margin: 0;
   padding: 0;
@@ -317,10 +440,67 @@
   container-type: inline-size;
   aspect-ratio: 16 / 9;          /* verbindliches Seitenverhaeltnis */
   overflow: hidden;
-  border-radius: var(--robj-radius);
-  background: #04101F;           /* dunkle Flaeche, bevor das Bild da ist */
+  /* 21.08.: der Eckenradius der Seite (base.css, 12 px) statt des eigenen
+     --robj-radius. Das Video ist jetzt das einzige Bildelement des
+     Abschnitts und soll dieselbe Kante haben wie jedes andere Bild der
+     Seite. --robj-radius bleibt fuer die schlafenden Karten in Kraft. */
+  border-radius: var(--radius-img);
+  /* Ruhige helle Flaeche, solange das Poster noch nicht da ist. Frueher
+     stand hier Navy (#04101F): das war richtig, als ein dunkles
+     Vorschaubild folgte, gaebe jetzt aber beim Laden einen schwarzen Kasten
+     auf weissem Grund. Das Poster deckt die Flaeche ohnehin sofort ab. */
+  background: #EEF2F7;
   box-shadow: var(--robj-bild-schatten);
+
+  /* ===== DAS WACHSEN BEIM SCROLLEN ======================================
+     Kundenwunsch 21.08.: „Man scrollt runter und mit dem Scrollen wird der
+     Kasten ein bisschen größer." Der Faktor kommt aus der Scrollposition und
+     wird von referenzobjekte.js gesetzt; hier steht nur, WIE er wirkt.
+
+     AUSSCHLIESSLICH transform. Kein width, kein height, kein margin — die
+     wuerden bei jedem Bild das Layout neu rechnen lassen und die ganze Seite
+     unter dem Abschnitt mitrucken. transform bewegt nur die fertig
+     gezeichnete Flaeche und laeuft auf dem Compositor; will-change sagt dem
+     Browser vorab Bescheid, damit er die Ebene schon bereitgelegt hat und
+     nicht erst beim ersten Scrollruck.
+
+     NUR VERKLEINERN, NIE UEBER 1. Der Platz im Layout ist immer die
+     Endgroesse; die Bewegung findet ausschliesslich darunter statt. Wuechse
+     der Kasten ueber seine Layoutgroesse hinaus, ragte er seitlich aus dem
+     Raster und erzeugte eine waagerechte Rollflaeche — dieser Fehler hat
+     heute schon einmal die ganze Seite verrutschen lassen. Deshalb liegt der
+     Startwert UNTER 1 (0,90) und das Ziel GENAU auf 1.
+
+     Ein transition ist bewusst NICHT gesetzt: der Wert wird bei jedem
+     Scrollbild neu geschrieben. Eine Uebergangszeit darauf liefe der
+     Scrollbewegung hinterher und fuehlte sich gummiartig an. Die weiche
+     Kurve steckt stattdessen in der Rechnung — siehe referenzobjekte.js. */
+  transform: scale(var(--robj-wachs, 1));
+  transform-origin: center;
+  will-change: transform;
 }
+
+/* Das Video fuellt den Rahmen vollstaendig aus. object-fit: cover ist hier
+   die Rueckversicherung, nicht der Regelfall: Rahmen und Video sind beide
+   16:9, es gibt also nichts zu beschneiden. Sollte spaeter ein Video mit
+   anderem Seitenverhaeltnis eingehaengt werden, fuellt cover den Rahmen
+   randlos, statt schwarze Balken stehen zu lassen. */
+.robj__film {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  background: #EEF2F7;
+}
+
+/* ===== SCHLAEFT — Vorschaubild ============================================
+   Gehoert zum Beispielbild, das bis zum 21.08. im Rahmen stand. Seit das
+   echte Video da ist, uebernimmt dessen poster-Attribut diese Rolle. Die
+   Regeln bleiben stehen, damit das Zurueckholen im HTML genuegt.
+   ======================================================================== */
 .robj__bild {
   position: absolute;
   z-index: 1;
@@ -333,20 +513,16 @@
 .robj__video[data-zustand='film'] .robj__bild,
 .robj__video[data-zustand='folgt'] .robj__bild { opacity: 0; }
 
-/* Das spaetere Video fuellt denselben Rahmen vollstaendig aus. */
-.robj__film {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 0;
-  background: #04101F;
-}
+/* ===== SCHLAEFT — Zwischenansicht „Video folgt" ===========================
+   Sie sprang ein, solange kein Video hinterlegt war. Seit dem 21.08. liegt
+   das Video vor, die Zwischenansicht steht im HTML auskommentiert und wird
+   nie mehr eingeblendet. Die Regeln bleiben unveraendert liegen — faellt ein
+   Video spaeter einmal aus oder kommt eine dritte Objektart ohne Aufnahme
+   dazu, ist der ruhige Ersatz sofort wieder da.
 
-/* Zwischenansicht, solange kein Video hinterlegt ist: dieselbe Flaeche, ruhig
-   gefuellt. Kein Fehler, kein leeres Feld, kein Sprung im Layout. */
+   Zwischenansicht, solange kein Video hinterlegt ist: dieselbe Flaeche, ruhig
+   gefuellt. Kein Fehler, kein leeres Feld, kein Sprung im Layout.
+   ======================================================================== */
 .robj__ersatz {
   position: absolute;
   z-index: 3;
@@ -416,9 +592,33 @@
   .robj__ersatz-kreis { display: none; }
 }
 
-/* Abspielknopf: gefuellter Navy-Kreis, darum eine Goldhaarlinie in Abstand —
-   dasselbe Motiv wie die Kante des Bildes, nur klein. Er sitzt in der Mitte
-   der Bildflaeche und ruehrt sich beim Wechsel der Objektart nicht. */
+/* --- Die Abspielflaeche ---------------------------------------------------
+   Gefuellter Navy-Kreis, darum eine Goldhaarlinie in Abstand — dasselbe Motiv
+   wie die Kante des Videos, nur klein. Er sitzt in der Mitte der Videoflaeche.
+
+   ZURUECKGENOMMEN AM 21.08.: Zwischenzeitlich stand hier eine liegende
+   Kachel nach dem Vorbild von YouTube, in Navy statt Rot. Der Kunde hat sie
+   wieder abbestellt — „Der Play-Button gefällt mir doch nicht. Mache ihn so,
+   wie er davor war." Diese Fassung ist deshalb woertlich die alte: derselbe
+   Kreis, dieselbe Groesse, dieselben Farben, derselbe Schatten, dasselbe
+   Verhalten beim Ueberfahren.
+
+   SEINE AUFGABE IST DAFUER GEWACHSEN. Er ist seit dem 21.08. der EINZIGE Weg,
+   das Video zu starten — „Man muss zuerst auf den Abspielbutton drücken, erst
+   dann beginnt das Video." Er steht also nicht mehr nur fuer den Sonderfall
+   „weniger Bewegung" da, sondern von Anfang an fuer jeden. Nach dem ersten
+   Druck verschwindet er und die Bedienleiste des Browsers uebernimmt.
+
+   TREFFERFLAECHE: Der untere Anschlag ist 2,9 rem = 46,4 px und liegt ueber
+   den geforderten 44 px. Dazu kommt der Goldring aus ::after, der noch einmal
+   rund 10 px nach jeder Seite hinausreicht und mit angeklickt werden kann —
+   die tatsaechlich treffbare Flaeche ist also deutlich groesser als der
+   sichtbare Kreis. Das ist hier wichtig, weil der Kasten beim Hereinscrollen
+   bis auf 0,90 verkleinert steht und der Knopf optisch mitgeht.
+
+   Die Container-Abfrage weiter oben verkleinert diesen Knopf AUSDRUECKLICH
+   nicht; er darf auf schmalen Bildern nicht mitschrumpfen.
+   ------------------------------------------------------------------------ */
 .robj__play {
   position: absolute;
   z-index: 4;
@@ -427,7 +627,15 @@
   transform: translate(-50%, -50%);
   display: grid;
   place-items: center;
-  width: clamp(2.9rem, 10cqw, 4.4rem);
+  /* NACHGEBESSERT 21.08.2026 — Untergrenze von 2.9rem auf 3.2rem.
+     Der Knopf war bei 390 px mit 46,4 px angelegt und haette die Schwelle
+     von 44 px gehalten. Gemessen kam er aber auf 42 px: der Videokasten
+     steht beim Hereinscrollen auf `scale(0.90)`, und diese Skalierung
+     verkleinert die Trefferflaeche mit — 46,4 × 0,90 = 41,8.
+     Die Container-Abfrage schuetzt nur vor dem Schrumpfen durch die
+     Kastenbreite, nicht vor der Skalierung des Elternteils.
+     3.2rem = 51,2 px ergeben auch bei 0,90 noch 46,1 px. */
+  width: clamp(3.2rem, 10cqw, 4.4rem);
   aspect-ratio: 1;
   padding: 0;
   border: 0;
@@ -462,7 +670,20 @@
   margin-left: 8%;               /* Dreieck optisch mittig im Kreis */
 }
 
-/* --- Unter dem Video: Infokarte und Restzeilen ----------------------------
+/* ===== SCHLAEFT — alles unter dem Video ===================================
+   21.08. auf Kundenwunsch entfernt: „alle Daten können raus. Es soll nur das
+   Video erst mal zu sehen sein." Betroffen sind die Infokarte (.robj__unter,
+   .robj__info und alles darin) und das Cremeband (.robj__band) weiter unten.
+   Im HTML stehen beide Bloecke auskommentiert; hier bleiben die Regeln
+   unveraendert liegen, damit das Zurueckholen ein Handgriff bleibt.
+
+   Sie kommen zurueck, sobald Estera echte Objektdaten liefert — freigegeben
+   war nie eine Zahl. Bis dahin gilt unveraendert: keine Lage, keine Groesse,
+   kein Preis, keine Miete, keine Rendite. Was hier steht, ist Handwerk auf
+   Vorrat, keine Behauptung ueber eine Wohnung.
+   ========================================================================
+
+   --- Unter dem Video: Infokarte und Restzeilen ----------------------------
    Zwei Spalten. Links die Infokarte, die ueber die Videokante nach oben
    ragt; rechts die beiden uebrigen Zeilen, die unter dem Video anfangen.
 
@@ -575,7 +796,13 @@
   max-width: 46rem;
 }
 
-/* --- Das Cremeband -------------------------------------------------------- */
+/* --- Das Cremeband (SCHLAEFT, siehe Vermerk oben) --------------------------
+   Es trug den Satz, das Bild im Rahmen sei ein lizenziertes Beispielbild. Der
+   Satz war ab dem 21.08. schlicht nicht mehr wahr — im Rahmen laeuft jetzt
+   das Material von Estera. Ein falsch gewordener Hinweis ist schlimmer als
+   gar keiner, und der Kunde wollte ohnehin nur das Video sehen. Also raus,
+   nicht umformuliert: einen neuen Satz haetten wir uns ausdenken muessen.
+   -------------------------------------------------------------------------- */
 .robj__band {
   position: relative;
   display: grid;
@@ -657,6 +884,13 @@
   .robj__knopf { font-size: 0.64rem; letter-spacing: 0.03em; text-indent: 0.03em; }
 }
 
+/* --- Weniger Bewegung -----------------------------------------------------
+   Hier stehen die Uebergaenge und das Wachsen. Am Video selbst aendert sich
+   fuer diese Gruppe nichts mehr: es startet seit dem 21.08. bei NIEMANDEM von
+   allein, sondern erst auf Druck der Abspielflaeche. Was hier wegfaellt, ist
+   also nur das Wachsen des Kastens beim Scrollen — und das ist der einzige
+   Punkt, an dem sich der Abschnitt ohne Zutun noch bewegt hat.
+   ------------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   .robj__schieber,
   .robj__knopf,
@@ -668,4 +902,22 @@
     transition: none;
   }
   .robj__play:hover { transform: translate(-50%, -50%); }
+
+  /* Kein Wachsen beim Scrollen. Das Javascript setzt den Faktor hier ohnehin
+     nicht mehr an; diese Zeile ist die Rueckversicherung fuer den Fall, dass
+     jemand die Angabe waehrend des Besuchs umstellt und ein zuletzt
+     geschriebener Wert am Element haengt.
+
+     Sie hat einen zweiten Nutzen: der Kasten steht dann garantiert auf voller
+     Groesse, und damit steht auch die Abspielflaeche .robj__play auf ihrem
+     vollen Mass von 72 x 50,8 px statt auf 64,8 x 45,7 px. Gebraucht wird sie
+     hier genauso wie ueberall sonst — sie ist der einzige Weg, das Video zu
+     starten.
+
+     Der Selektor muss .robj__video treffen, nicht den Abschnitt: das
+     Javascript schreibt den Faktor als Inline-Angabe an genau dieses
+     Element, und eine geerbte Angabe vom Vorfahren kaeme dagegen nicht an.
+     Mit !important am Element selbst schon — wichtige Angaben aus dem
+     Stilbogen stehen ueber gewoehnlichen Inline-Angaben. */
+  .robj__video { --robj-wachs: 1 !important; }
 }

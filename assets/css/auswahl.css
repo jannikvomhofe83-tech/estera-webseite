@@ -1,76 +1,127 @@
 /* ===========================================================================
    SECTION — UNSERE LEISTUNGEN
-   Ausgangspunkt war die Kundenvorlage `Bilder/referenz-leistungen.png` mit
-   ihrem waagerechten Ablauf. Nach mehreren Abstimmungsrunden steht der
-   Abschnitt inzwischen deutlich anders da; was aus der Vorlage geblieben
-   ist: Kartenform, Symbolsprache, die gefuellten Pfeilspitzen und der
-   Estera-Kreis als Mittelpunkt.
 
-   ABWEICHUNGEN, alle vom Auftrag gedeckt:
-   1. SCHRIFT. Die Vorlage mischt eine Antiqua mit einer Grotesk. Hier laeuft
-      alles in der Hausschrift (Cormorant Garamond ueber --font-display /
-      --font-ui). Cormorant hat eine kleine x-Hoehe; alle Groessen liegen
-      deshalb spuerbar ueber denen der Vorlage.
-   2. BESCHRIFTUNG. Die Vorlage enthaelt Aussagen, die das Masterbriefing
-      untersagt (Zins-, Rendite- und Sicherheitszusagen, „Direktverkauf",
-      „Projektvertrieb"). Sie sind durch belastbare Formulierungen aus dem
-      Briefing ersetzt; der Nachweis steht im Kommentar der Section in
-      variante-a.html.
+   ===== UMBAU 21.08.2026 — DIE NETZGRAFIK NACH DER NEUEN KUNDENVORLAGE =====
+   Der Kunde hat einen Screenshot einer fremden Grafik geschickt und sie 1:1
+   nachgebaut haben wollen — „Struktur, Linienfuehrung, Linienform,
+   Kastenform", nur auf weissem Grund und in den Estera-Farben. Damit ist der
+   bisherige senkrechte Ablaufplan (drei Ebenen uebereinander, Linien aus
+   gemessenen Kartenmitten) vollstaendig ersetzt. Sein Aufbau und seine
+   Begruendungen stehen in der Versionsgeschichte (Stand 820e7b7); hier steht
+   nur noch, was jetzt gilt.
 
-   ===== UMBAU 17.08. — SENKRECHTE LESERICHTUNG ============================
-   „Es geht aktuell von links nach rechts, aber es muss von oben nach unten
-   gehen." Der Plan steht seitdem in drei Ebenen uebereinander:
+   DIE VORLAGE, in Worten: ein grosses Quadrat mit abgeschraegten Ecken in
+   der Mitte, darin ein Logo. Vier Trabanten weit aussen — oben links, oben
+   rechts, unten links, unten rechts. Von jedem Trabanten laeuft eine
+   1-px-Haarlinie waagerecht ein Stueck Richtung Mitte, knickt mit grossem
+   weichem Radius senkrecht ab, laeuft auf die Mittelhoehe und knickt dort
+   mit demselben Radius wieder waagerecht zur Mitte: eine liegende S-Form aus
+   zwei gerundeten 90-Grad-Knicken. Keine Diagonalen, keine Bezierschwuenge
+   quer durchs Bild, an diesen vier Linien keine Pfeilspitzen.
 
-      EBENE 1   zwei Quellkarten nebeneinander, mittig gesetzt
-                (Off-Market, Kapitalanlageimmobilien — die dritte Karte
-                „Gebuendelter Zugang" ist ersatzlos entfallen)
-        |       Stichleitungen, Sammler, Linie mit Pfeilspitze
-      EBENE 2   die vier Leistungskarten in EINER Reihe, in ihrer breiten
-                Mittelfuge der Estera-Kreis
-        |       vier Stichleitungen, Sammler, Linie mit Pfeilspitze
-      EBENE 3   die Zielkarte „Kapitalanlage" ueber die volle Breite
+   WAS DER KUNDE DAZUGESETZT HAT: ueber der Mitte ein Kasten „Off-Market",
+   unter der Mitte einer „Kapitalanlage", beide exakt in der Form der
+   uebrigen („Die Form der Kaesten ist 1:1 dann so wie die Form des Kastens
+   in der Mitte."), verbunden durch senkrechte Pfeile MIT Spitze.
 
-   WARUM EINE REIHE UND NICHT ZWEI MAL ZWEI: zwei Reihen kosten rund 240 px
-   Hoehe, und die hat der senkrechte Aufbau nicht mehr uebrig — der
-   Abschnitt soll ohne Scrollen ins Fenster passen. In einer Reihe bleibt er
-   bei 1512x900 rund 90 px unter der Fensterhoehe. Dazu kommt: nur so gibt
-   es wieder eine Mittelfuge, in der der Estera-Kreis wirklich im
-   Mittelpunkt steht.
+   ===== DIE DREI NACHBESSERUNGSRUNDEN DESSELBEN TAGES ======================
+   RUNDE 2. „Es ist nicht schlecht, aber es ist noch nicht eins zu eins so,
+   wie ich es haben wollte."
+     — Die Kaesten waren Rechtecke (264 zu 96). „Die Kaesten … sind mehr
+       rechteckig, aber die muessen mehr viereckig sein."
+     — Unter jeden Kasten gehoerten die Stichpunkte der frueheren
+       Leistungskarten.
+     — Estera in der Mitte: weisser Kasten, goldene Schrift.
+     — „Ich will, dass du die Linien eigentlich genauso laesst."
 
-   VERFEINERUNG in derselben Runde („es muss noch luxurioeser wirken"):
-   Kartentitel deutlich groesser, Hakenkreise von gefuellt auf feine Kontur
-   (die gefuellten Punkte zogen den Blick vom goldenen Titel weg), zwei
-   Schattenlagen mit einem Hauch Verlauf in der Kartenflaeche, 3 px Hub beim
-   Ueberfahren. Kein zusaetzliches Gold — Hochwertigkeit kommt hier aus
-   Ausrichtung und Ruhe, nicht aus Zierrat.
+   RUNDE 3, und sie hebt Teile von Runde 2 wieder auf:
+     — DER KASTEN UM ESTERA KOMMT WEG. „Der Kasten mit Estera in der Mitte
+       soll raus und es soll einfach nur in schwarz stehen: ‚Estera
+       Immobilien‘ in der 1:1-gleichen Schriftart wie im Header." Dazu
+       ausdruecklich „auch Immobilien unter Estera", also zweizeilig wie im
+       Seitenkopf. Der Goldwunsch aus Runde 2 ist damit ueberholt.
+     — DIE DURCHGEHENDE WAAGERECHTE KOMMT WEG. „Der Strich, der von links
+       nach rechts geht und auch durch die zwei Gabeln durchgeht … soll
+       weg." Ersatzlos. Die S-Boegen und die senkrechten Pfeile bleiben.
+     — DIE STICHPUNKTE WANDERN IN DIE KAESTEN HINEIN. Dafuer sind die
+       Kaesten von 192 zu 176 auf 280 zu 280 gewachsen — quadratisch, wie
+       aus Runde 2 verlangt, nur gross genug fuer Titel und vier Zeilen.
+     — SCHWARZ IST NUR DIE WORTMARKE, alles Uebrige blau. „…soll in schwarz
+       da stehen und der Rest ist alles blau." Gold kommt in der Grafik
+       nicht mehr vor.
 
-   ===== FARBE ==============================================================
-   Grund weiss. Verbindungslinien, Pfeilspitzen und Symbole in --gold-linie,
-   Kartenueberschriften in --gold-schrift, Aufzaehlungen und ihre Haken in
-   Navy, das Symbol der Zielkarte „Kapitalanlage" als einzige Ausnahme in
-   Gruen. Die Karten tragen KEINE Kontur (Kundenwunsch: „sonst wirkt es zu
-   goldlastig"), ihr Halt kommt aus dem Schatten.
+   ===== WARUM EIN EINZIGES INLINE-SVG UND KEIN HTML-RASTER MEHR ============
+   Bis zum 20.08. standen die Kaesten als HTML-Karten in einem Raster und
+   assets/js/leistungen.js rechnete die Linien auf die tatsaechlich
+   gemessenen Kartenmitten. Das war noetig, solange die Kaesten in Fugen
+   sassen, deren Breite erst der Umbruch entschied. Bei DIESER Vorlage sitzen
+   alle Knoten auf festen Rasterpunkten — dann gehoeren Kaesten UND Linien in
+   dieselbe Koordinatenwelt, und es kann konstruktionsbedingt nichts mehr
+   verrutschen. Das Skript misst deshalb keine Geometrie mehr; es schaltet
+   nur noch die Einlaufanimation frei.
 
-   ENTFERNT 16.08. — DER VORBEHALT ZUM LEISTUNGSUMFANG.
-   Unter der Grafik stand die Fussnote „Hinweis fuer die Abstimmung: Der
-   genaue Leistungsumfang wird vor der Veroeffentlichung von Estera
-   bestaetigt … kein Pruef- oder Haftungsversprechen." Der Absatz und seine
-   Regel .wahl__hinweis sind auf ausdruecklichen Kundenwunsch entfernt.
-   Herkunft: Masterbriefing S.14. Ohne ihn steht die Leistungsaufzaehlung
-   als vorbehaltlose Zusage da — das ist vor einer Veroeffentlichung noch
-   einmal mit Estera zu besprechen. Wortlaut: Versionsgeschichte.
+   ===== FARBE UND KONTRAST =================================================
+   Grund reines Weiss. Alle Werte gegen Weiss gemessen (WCAG 2.1, Relative
+   Luminanz); Text braucht 4.5:1, Konturen und Linien 3:1. Nachgemessen im
+   Browser an den tatsaechlich gerechneten Stilen, nicht aus der Palette
+   abgeschrieben.
+
+     TEXT (Schwelle 4.5:1)
+     Wortmarke „ESTERA"                 --ink-black #2B2E33  13.62:1
+     Kontur des Zielkastens             --ziel-gruen #1B7F3B   5.07:1
+     Titel in den Kaesten               --navy-800  #102949  14.63:1
+     Stichpunkte in den Kaesten         --ink-soft  #4A5F7A   6.54:1
+     Erklaerzeilen                      --ink-mute  #5F6E85   5.18:1
+
+     LINIEN UND KONTUREN (Schwelle 3:1)
+     Kastenkontur, S-Zuege              --navy-400  #4C6A93   5.54:1
+     Haken der Stichpunkte              --navy-400  #4C6A93   5.54:1
+     Die beiden senkrechten Pfeile      --navy-600  #1E4270  10.15:1
+     Die sechs Symbole                  --navy-600  #1E4270  10.15:1
+
+   KEIN GOLD MEHR. Bis Runde 3 trugen der Estera-Kasten, die Pfeile und die
+   Symbole Gold. Der Kunde hat es abbestellt („der Rest ist alles blau").
+   Zur Erinnerung fuer den Fall, dass es zurueckkommt: --gold #A8874F misst
+   auf Weiss nur 3.36:1 — als Linie zulaessig, als Schrift nicht; goldene
+   Schrift braucht --gold-text #86693A (5.13:1).
+
+   ZWEI BLAUTOENE UND NICHT EINER: --navy-400 traegt die Flaeche der Grafik
+   (sechs Kastenkonturen, vier lange S-Zuege, zweiunddreissig Haken). Wuerde
+   das alles in --navy-600 stehen, waere die Zeichnung ein Gitter statt einer
+   Andeutung. Die zwei Pfeile und die sechs Symbole tragen den dunkleren Ton,
+   weil sie einzeln stehen und Bedeutung haben: der Weg und das, was in jedem
+   Kasten geschieht.
+
+   ===== DER HINTERGRUND ====================================================
+   Das vollflaechige Gebaeudefoto und der weisse Schleier darueber sind am
+   21.08. auf Kundenwunsch raus („das Hintergrundbild soll erstmal weg sein,
+   sondern komplett weiss sein"). Beide Regelbloecke stehen weiter unten
+   auskommentiert — „erstmal" deutet auf eine moegliche Rueckkehr. Mit dem
+   Bild ist auch der weisse Saum um die Linien entfallen; er existierte nur,
+   um die Haarlinien gegen wechselnden Untergrund abzusetzen.
+
+   ===== ABWEICHUNGEN VON DER VORLAGE, BEWUSST ==============================
+   1. HELL STATT DUNKEL. Die Vorlage ist hell auf Tiefschwarz. Der innere
+      Schein und die aufgehellte Ober- und Linkskante, die dort die „leicht
+      angehobene Platte" machen, funktionieren auf Weiss nicht — sie waeren
+      unsichtbar. An ihre Stelle treten die zwei Schattenlagen, die im
+      Projekt ohnehin jede Karte traegt: ein enger Kontaktschatten macht die
+      Kante, ein weiter, sehr schwacher Umgebungsschatten die Hoehe.
+   2. SCHRIFT. Die des Projekts, nicht die der Vorlage.
+   3. DIE MITTE IST KEIN KASTEN. Die Vorlage hat dort ihr groesstes Element;
+      hier steht die Wortmarke frei auf Weiss. Das ist ausdruecklicher
+      Kundenwunsch aus Runde 3 und der einzige Punkt, an dem die Struktur der
+      Vorlage verlassen wird. Die vier S-Zuege enden deshalb 46 Einheiten vor
+      der Schrift, statt in eine Kante zu laufen — nachgemessen an der
+      tatsaechlichen Breite der Wortmarke, nicht geschaetzt.
+   4. SYMBOLE. Die Vorlage setzt in alle vier Trabanten DASSELBE
+      Personensymbol. Hier traegt jeder Kasten sein eigenes — woertlich die
+      der frueheren Leistungskarten. Viermal dasselbe Symbol unterscheidet
+      nichts; vier verschiedene tun es.
+   5. STICHPUNKTE. Die Vorlage hat keine. Sie stehen hier auf ausdrueckliche
+      Anweisung des Kunden — und weil eine Grafik aus sechs Ueberschriften
+      ohne einen Satz Inhalt fuer jemanden ohne Vorkenntnis nichts erklaert.
    =========================================================================== */
-
-/* --pfeil-luft wird von assets/js/leistungen.js ausgelesen. Ohne
-   @property gibt getComputedStyle bei einer eigenen Eigenschaft nur den
-   Text „clamp(5px, 0.6vw, 10px)" zurueck und nicht den gerechneten Wert;
-   registriert liefert sie px. Faellt @property aus, nimmt das Skript
-   seinen eigenen Ersatzwert. */
-@property --pfeil-luft {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 8px;
-}
 
 .wahl {
   position: relative;
@@ -83,65 +134,29 @@
 
 .wahl__inner {
   position: relative;
-  z-index: 1;              /* ueber dem Eckbild, siehe .wahl__ecke */
   max-width: 1520px;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 4.2rem);
 }
 
 
-/* --- Das Eckbild rechts oben ----------------------------------------------
-   Kundenwunsch vom 17.08. nach dem Vorbild von „So entsteht
-   Vermoegensaufbau" (`Bilder/referenz-vermoegen-neu.png`), dort aber ueber
-   die ganze linke Seite. Hier ausdruecklich kleiner und nur in der Ecke:
-   „nicht an gleicher Stelle und nicht ueber die komplette Section, sondern
-   beispielsweise rechts oben in die Ecke."
+/* ===========================================================================
+   ERSTMAL WEG, 21.08. AUF KUNDENWUNSCH — DAS HINTERGRUNDBILD UND SEIN
+   SCHLEIER.
+   „Das Hintergrundbild soll erstmal weg sein, sondern komplett weiss sein."
+   Nicht geloescht, weil „erstmal" auf eine moegliche Rueckkehr hindeutet.
+   Kommen sie zurueck, muessen die Markup-Elemente .wahl__ecke und
+   .wahl__schleier in variante-a.html wieder eingesetzt werden (dort stehen
+   sie ebenfalls auskommentiert), .wahl__inner braucht dann wieder
+   z-index: 1, und die Kontrastrechnung unten ist auf die neue Grafik neu
+   zu machen: sie stammt aus der Zeit der goldenen Linien und gilt fuer die
+   jetzigen Navy-Haarlinien nicht mehr.
 
-   NACHBESSERUNG 18.08. — WARUM DIE REGLER JETZT HIER STEHEN.
-   Bis dahin war hier eine goldene Strichzeichnung eingebunden, mit fest
-   eingebackenen 11 % Deckung und keinem einzigen Wert in CSS. Der Kunde hat
-   beides beanstandet: „Ich sehe es gerade ganz leicht, aber man sieht es
-   kaum. Das muss auch ein echtes Bild sein." Also ein Foto statt einer
-   Zeichnung — und Aufhellung, Deckung und Verlauf an die Stelle, an der man
-   sie nachziehen kann.
-
-   DIE MACHART IST DIE VON .vt__rand--links (assets/css/prinzip.css), nur
-   gespiegelt: dort laeuft das Gebaeude vom linken Rand nach RECHTS und unten
-   aus, hier vom rechten nach LINKS und unten. Die Aufhellung faellt etwas
-   zurueckhaltender aus (brightness 1.24 statt 1.46), die Deckung liegt bei
-   0.34 statt 0.46 — die Ecke steht naeher an der Grafik als der Zierrand
-   dort und darf ihr nicht ins Wort fallen.
-
-   DIE KONTRASTRECHNUNG. Bei 0.34 Deckung misst der dunkelste Bildpunkt am
-   Bildschirm #B5B5B5. Der hellste Text des Abschnitts, der goldene
-   Kartentitel #86693A, kaeme darauf auf 2,50:1 und die Goldlinie #9A7A3E
-   auf 1,96:1 — beides zu wenig. Das Bild ist deshalb NICHT blasser gemacht,
-   sondern aus der Text- und Linienzone herausgehalten:
-
-     1. z-index 0 gegen 1 an .wahl__inner — alles Geschriebene liegt darueber.
-     2. Die Karten sind deckend (--karte-flaeche, Weiss). Wo Text steht,
-        steht eine Karte darunter; dort ist vom Bild nichts zu sehen.
-     3. Ueberschrift und ESTERA-Zeichen stehen mittig, das Bild klebt am
-        rechten Rand; und die Grafik endet rechts frueher, als das Bild
-        beginnt — auch keine Verbindungslinie laeuft darueber.
-
-   Nachgemessen bei 1920/1512/1440/1280 ueber JEDES Textelement des
-   Abschnitts, jeweils gegen den hellsten UND den dunkelsten Punkt in seinem
-   Zeilenkasten, und zusaetzlich ueber jedes einzelne Linienpixel: alle Werte
-   sind mit Bild dieselben wie ohne. Schlechtester Text 5,08:1 („Kapital-
-   anlage" bei 1920), schlechteste Linie 2,86:1 — und die liegt auf dem
-   Kartenschatten, nicht auf dem Bild; sie steht mit und ohne Bild gleich.
-   Wer die Deckung erhoeht oder das Bild breiter macht, muss beides erneut
-   messen: die Grenze ist nicht die Deckung, sondern die Ueberdeckung.
---------------------------------------------------------------------------- */
 .wahl__ecke {
   position: absolute;
-  top: 0;
-  right: 0;
+  inset: 0;
   z-index: 0;
-  width: clamp(230px, 26vw, 470px);
-  aspect-ratio: 5 / 6;
-  overflow: hidden;        /* der Beschnitt gehoert dem Kasten, nicht der Datei */
+  overflow: hidden;
   pointer-events: none;
 }
 .wahl__ecke img {
@@ -149,39 +164,41 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 74% 34%;   /* die Gebaeudekante in die Ecke */
-  /* Aufgehellt und weitgehend entfaerbt: erkennbar soll ein Gebaeude sein,
-     keine Fotokachel. */
+  object-position: 74% 34%;
   filter: grayscale(0.34) brightness(1.24) contrast(0.68) saturate(0.3);
   opacity: 0.34;
-  /* Nach LINKS und nach UNTEN weich aus — sonst klebt ein Rechteck in der
-     Ecke. Zwei Verlaeufe, VERSCHNITTEN und nicht uebereinandergelegt: nur
-     wo beide decken, deckt die Maske.
-     Die 5 % oben sind kein Zierrat: die Oberkante des Bildes faellt auf die
-     Oberkante der Section, und darueber steht ein weisser Abschnitt. Ohne
-     den kurzen Anlauf zoege sich dort eine sichtbare waagerechte Kante quer
-     durch die Seite. */
-  -webkit-mask-image:
-    linear-gradient(270deg, #000 0%, #000 40%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 5%, #000 48%, transparent 100%);
-  -webkit-mask-composite: source-in;
-          mask-image:
-    linear-gradient(270deg, #000 0%, #000 40%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 5%, #000 48%, transparent 100%);
-          mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
-/* In schmalen Fenstern rueckt die Grafik an den Rand heran; dort waere das
-   Bild keine Ecke mehr, sondern Hintergrund unter dem Inhalt. */
 @media (max-width: 900px) {
   .wahl__ecke { display: none; }
 }
 
+.wahl__schleier {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 52%,
+      rgba(255,255,255,0.34) 0%,
+      rgba(255,255,255,0.26) 52%,
+      rgba(255,255,255,0.10) 74%,
+      rgba(255,255,255,0) 94%);
+}
+@media (max-width: 900px) { .wahl__schleier { display: none; } }
 
-/* --- Kopf -----------------------------------------------------------------
-   Ueberschrift und ESTERA-Zeile stehen mittig. Der frueher noetige
-   Achsversatz ist mit dem senkrechten Aufbau entfallen: die drei Ebenen
-   sind in sich symmetrisch, die Achse der Grafik liegt jetzt genau auf der
-   Mitte des Abschnitts. ---------------------------------------------------- */
+   ALTE KONTRASTRECHNUNG ZUM BILD, zur Wiedervorlage aufbewahrt:
+   Bei 0.34 Deckung mass der dunkelste Bildpunkt #B5B5B5. Der goldene
+   Kartentitel #86693A kam darauf auf 2.50:1 und die Goldlinie #9A7A3E auf
+   1.96:1 — beides zu wenig. Das Bild war deshalb nicht blasser gemacht,
+   sondern aus der Text- und Linienzone herausgehalten (Lesespalte per
+   z-index darueber, Karten deckend weiss). Die Grenze war nicht die
+   Deckung, sondern die Ueberdeckung.
+   =========================================================================== */
+
+
+/* --- Kopf ---------------------------------------------------------------- */
 .wahl__head {
   text-align: center;
 }
@@ -191,536 +208,631 @@
   color: var(--navy-800);
 }
 
-/* Die ESTERA-Zeile unter der Ueberschrift (.wahl__marke) ist am 17.08.
-   entfallen. Das Zeichen steht jetzt als Rechteck im Plan selbst und ist
-   dort der Ausgangspunkt — siehe .lstart. Zweimal ESTERA untereinander
-   waere eine Dopplung gewesen. */
-
 
 /* ===========================================================================
-   DER PLAN — drei Ebenen uebereinander, dazwischen die Verbindungen.
+   DIE NETZGRAFIK
+   Ein Rahmen, darin ein unsichtbares Sprite-SVG mit Kastenform, Haken und
+   Symbolen und zwei Zeichnungen: die breite nach der Vorlage, die schmale
+   als senkrechte Kette. Immer genau eine ist eingeblendet.
    =========================================================================== */
-.leist {
-  /* ===== GOLD ============================================================
-     Zwei Goldtoene, nicht einer — weil zwei verschiedene Schwellwerte
-     einzuhalten sind und das hellere Palettengold #A8874F sie nicht beide
-     schafft (es misst nur 3.32:1 auf Weiss und faellt als Schrift durch).
+.wnetz {
+  /* ===== Farben, alle aus der Palette in assets/css/base.css ==============
+     „Der Rest ist alles blau" — schwarz ist nur die Wortmarke. Die
+     gemessenen Kontraste stehen im Kopf dieser Datei.                      */
+  --wn-kontur: var(--navy-400);      /* Kastenkontur, S-Zuege, Haken        */
+  --wn-weg: var(--navy-600);         /* die zwei Pfeile und die Symbole     */
+  --wn-flaeche: var(--paper);        /* Fuellung der sechs Kaesten          */
+  --wn-titel: var(--navy-800);       /* Titel in den Kaesten                */
+  --wn-punkt: var(--ink-soft);       /* Stichpunkte in den Kaesten          */
+  --wn-marke: var(--ink-black);      /* die Wortmarke in der Mitte          */
 
-     --gold-schrift  Kartenueberschriften. Das ist Text, also gilt 4.5:1.
-                     #86693A (--gold-text der Palette) misst 5.13:1.
-     --gold-linie    Verbindungslinien, Pfeilspitzen, Symbole. Nichttextlich,
-                     also gilt 3:1. #9A7A3E misst 4.02:1 auf Weiss und laesst
-                     damit Luft fuer die Kantenglaettung duenner Linien.
-     ==================================================================== */
-  --gold-schrift: var(--gold-text);
-  --gold-linie: #9A7A3E;
+  /* ===== Strichstaerke ===================================================
+     Angegeben in SVG-Einheiten, nicht in Bildschirmpixeln — sie skaliert
+     also mit der Zeichnung. Die breite Zeichnung ist 1200 Einheiten breit
+     und wird zwischen rund 900 und 1100 px dargestellt; 1.25 Einheiten
+     landen damit zwischen 0.94 und 1.15 px, also praktisch immer auf der
+     1-px-Haarlinie der Vorlage.
 
-  /* ===== Karten ==========================================================
-     KEINE Kontur (Kundenwunsch). Halt aus zwei Schattenlagen: ein enger
-     Kontaktschatten macht die Kante, ein weiter, sehr schwacher
-     Umgebungsschatten macht die Hoehe. Wenn die Karten auf dem weissen
-     Grund verschwimmen: zuerst den ENGEN verstaerken. */
-  --karte-radius: clamp(11px, 1.1vw, 18px);
-  --karte-schatten:
-      0 2px 5px rgba(16, 41, 73, 0.10),
-      0 18px 40px -12px rgba(16, 41, 73, 0.17);
-  --karte-schatten-hoch:
-      0 4px 10px rgba(16, 41, 73, 0.12),
-      0 26px 54px -14px rgba(16, 41, 73, 0.21);
-  /* Ein Hauch Verlauf in der Flaeche — kein Farbwert, den man sehen soll.
-     Er nimmt der Karte die Gleichmaessigkeit und gibt ihr Volumen. */
-  --karte-flaeche: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 58%, #FBFCFE 100%);
-  /* Fuellung der Symbolkreise: warm, weil die Symbole darin golden sind. */
-  --symbolgrund: #FAF8F4;
-  /* BEWUSSTE AUSNAHME von der Zweifarbigkeit: das Symbol der Zielkarte
-     „Kapitalanlage" ist gruen (Kundenwunsch 16.08.). Farbton 150 Grad gegen
-     214 Grad beim Navy #102949 — nebeneinander eindeutig zu unterscheiden;
-     auf dem Symbolgrund misst er 5.02:1. Gilt NUR fuer dieses eine Symbol. */
-  --symbol-gruen: #1F7A4C;
+     WARUM NICHT vector-effect: non-scaling-stroke, das exakt 1 px liefern
+     wuerde: dieselbe Eigenschaft verschiebt auch die Rechnung fuer
+     stroke-dasharray in den Bildschirmraum, und genau darauf sitzt die
+     Einlaufanimation auf. Ein exakt gleichbleibendes Pixel waere den
+     Umstand nicht wert, die Animation von einer Eigenschaft abhaengig zu
+     machen, die Browser unterschiedlich auslegen.                          */
+  --wn-strich: 1.25;
 
-  /* ===== Linien ==========================================================
-     Durchgezogen, nicht gestrichelt (Kundenwunsch 17.08.). */
-  --strich: var(--gold-linie);
+  /* ===== Takt der Einlaufanimation ====================================== */
+  /* Versatz INNERHALB einer Stufe. 0.17 s ist kein runder Wert, sondern
+     gerechnet: die vier seitlichen Kaesten kommen seit dem 21.08. PAARWEISE
+     (obere Reihe, dann untere), und zwischen den beiden Paaren sollen
+     300 bis 400 ms liegen. Die Paare stehen auf Takt 1 und Takt 3, ihr
+     Abstand ist also zwei Takte — 2 x 0.17 s = 340 ms, mitten im Fenster.
+     Wer den Takt aendert, verschiebt damit auch den Paarabstand. */
+  --wn-takt: 0.17s;
+  --wn-kasten-dauer: 0.44s; /* Kasten blendet ein und laeuft hoch           */
+  --wn-zug-dauer: 0.6s;     /* Ersatzwert, falls das Skript nicht misst     */
 
-  /* ===== Ebene 1 — die beiden Quellkarten ================================
-     Sie stehen als Paar mittig und nehmen NICHT die volle Breite ein: zwei
-     Karten ueber 1400 px waeren leere Flaechen mit einer Zeile darin. */
-  --quellen-breite: 63%;
-  --quellen-spalte: clamp(1rem, 2.6vw, 2.8rem);
-
-  /* ===== Ebene 2 — die vier Leistungskarten ==============================
-     Vier gleiche Spalten, gleiche Fugen. Der frueher noetige Zuschlag an
-     der Mittelfuge ist entfallen: das ESTERA-Zeichen sitzt nicht mehr
-     dazwischen, sondern ganz oben. */
-  --mitte-spalte: clamp(0.8rem, 1.7vw, 1.85rem);
-
-  /* ===== Ebene 3 — die Zielkarte ========================================
-     Mittig und schmal: sie traegt nur noch Titel und eine Zeile. */
-  --ziel-breite: clamp(240px, 27%, 420px);
-
-  /* ===== Verbindungen ====================================================
-     --verb-hoehe ist der Zeilenabstand zwischen zwei Ebenen und damit der
-     Platz, in dem eine ganze Verbindung unterkommen muss: Stichleitungen,
-     Sammler, Linie und Pfeilspitze.
-     --pfeil-luft ist der Abstand, den die Spitze zur Karte haelt; das
-     Skript liest ihn aus und setzt die Pfadenden entsprechend.
-
-     WIE GROSS --verb-hoehe SEIN MUSS, ist keine Geschmacksfrage. In den
-     Zwischenraum muss der Reihe nach: die Stichleitung ueber dem Sammler
-     (STUMPF, 12 px), das gerade Stueck vor der Spitze (SCHAFT, 20 px), die
-     Spitze selbst (SPITZE, 9 px) und die Luft zur Karte. Alle vier Werte
-     stehen in assets/js/leistungen.js; zusammen sind das rund 49 px. Wer
-     hier unter 52 px geht, nimmt den Pfeilen wieder den Hals — genau das war
-     der Stand vor dem 17.08. (0,75 px sichtbarer Strich bei 1512x950).
-
-     ANGEHOBEN 18.08. VON 52 AUF 58 px. Die Linien laufen seit dem
-     Kundenwunsch „Ich will, dass die Striche bei unseren Leistungen alle so
-     eckig sind und eher abgerundet sind" mit einem EINHEITLICHEN Eckenradius
-     von 9 px. Beim Zug von ESTERA zu den beiden Quellen kostet der Radius
-     zweimal Hoehe: einmal beim Abknicken nach aussen, einmal beim
-     Einschwenken nach unten. Verfuegbar ist --verb-hoehe abzueglich der
-     Luft und abzueglich der 29 px langen Pfeilspitze samt Hals; davon
-     braucht die Rundung 2 x 9 = 18 px. Bei 52 px blieben bei 1440x900 genau
-     7,99 px uebrig — der Radius waere dort auf 7,99 gestutzt worden und
-     damit nicht mehr derselbe wie ueberall sonst. Bei 58 px bleiben an der
-     engsten Stelle (1512x950) 21,4 px, der Radius steht also mit Reserve.
-     Die Section bleibt auch dann ohne Scrollen im Fenster: bei 1280x800,
-     dem engsten Fall, sind es 743 + 18 = 761 px bei 800 px Fensterhoehe. */
-  --verb-hoehe: clamp(58px, 5.8vh, 68px);
-  --pfeil-luft: clamp(4px, 0.5vw, 8px);
-
-  /* ===== Gesamtbreite ====================================================
-     Zurueckgenommen am 17.08.: „Ich will, dass du es nicht ueber die ganze
-     Breite ziehst … sodass die Breite der ganzen Abbildung nicht zu breit
-     ist, sondern mehr Rand rechts und links ist." Vorher 1420 px und damit
-     praktisch die volle Lesespalte (1385 px bei 1920). Die Karten werden
-     dadurch schmaler und ihre Zeilen brechen frueher — die Ebenen werden
-     hoeher, und genau so ist es gewollt. Der Prozentanteil greift erst in
-     schmalen Fenstern und haelt auch dort einen Rand frei. */
-  max-width: min(1120px, 92%);
-  margin: 0 auto;
+  /* Nicht breiter als 1100 px. Das ist keine Geschmacksfrage: die Schrift
+     steht in SVG-Einheiten und skaliert mit der Zeichnung, die Stichpunkte
+     duerfen aber weder unter 12 px fallen noch ueber 16 px steigen. Zwischen
+     dem Umschaltpunkt (rund 903 px Zeichnungsbreite) und dieser Obergrenze
+     liegt ein Faktor von 1.22 — genau das Fenster, das die 17 Einheiten der
+     Stichpunkte von 12.8 auf 15.6 px bringt. Waere die Zeichnung breiter,
+     muesste der Umschaltpunkt mitwandern. */
+  max-width: min(1100px, 100%);
+  margin: clamp(0.4rem, 1.4vh, 1.2rem) auto 0;
+  /* Bezug fuer die drei unsichtbaren Marken, siehe .wnetz__marke. */
+  position: relative;
 }
 
-.leist__plan {
-  position: relative;          /* Bezug fuer das Linien-Overlay */
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: stretch;
-  /* Der Zeilenabstand IST der Platz fuer die Verbindungslinien. */
-  row-gap: var(--verb-hoehe);
-  margin-top: clamp(0.55rem, 1.3vh, 1.1rem);
-}
+/* --- Die drei Marken der Stufenanimation ----------------------------------
+   Unsichtbare Ankerpunkte, je einer fuer einen IntersectionObserver. Sie
+   haben keine Hoehe im Fluss (absolut gesetzt) und koennen deshalb nichts
+   verschieben.
 
+   IHRE HOEHE STEHT IN PROZENT der Zeichnung, nicht in Pixeln: die Zeichnung
+   skaliert, die Marke soll aber immer auf der Hoehe IHRER Gruppe sitzen.
+   Prozent einer absolut gesetzten Box beziehen sich auf die Hoehe von
+   .wnetz, und die ist die Hoehe der gerade eingeblendeten Zeichnung.
 
-/* ===========================================================================
-   EBENE 0 — der Ausgangspunkt
-   Ein Rechteck in der Machart der Karten, nur kleiner und ohne Inhalt ausser
-   dem gesperrten Schriftzug. Es steht mittig ueber den beiden Quellen und
-   ist mit ihnen verbunden; es ist der Anfang der Grafik, nicht ihre Mitte.
-   =========================================================================== */
-.leist__start {
-  display: flex;
-  justify-content: center;
-}
-.lstart {
-  display: grid;
-  place-items: center;
-  min-width: clamp(140px, 13vw, 210px);
-  padding: clamp(0.5rem, 0.8vw, 0.85rem) clamp(1rem, 1.8vw, 1.8rem);
-  border-radius: var(--karte-radius);
-  background: var(--karte-flaeche);
-  box-shadow: var(--karte-schatten);
-  font-family: var(--font-ui);
-  font-size: clamp(0.74rem, 0.8vw, 0.95rem);
-  font-weight: 500;
-  letter-spacing: 0.34em;
-  text-indent: 0.34em;
-  text-transform: uppercase;
-  color: var(--navy-800);
-}
-
-
-/* ===========================================================================
-   EBENE 1 — die Quellen
-   Zwei gleich hohe Karten nebeneinander. Symbol links, Titel und Erklaerzeile
-   rechts uebereinander: das haelt die Ebene flach, und in der senkrechten
-   Leserichtung zaehlt jede Zeile Hoehe.
-   =========================================================================== */
-.leist__quellen {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--quellen-spalte);
-  width: 100%;
-  max-width: var(--quellen-breite);
-  margin: 0 auto;
-}
-.lq {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  column-gap: clamp(0.7rem, 1.3vw, 1.3rem);
-  row-gap: 0.12rem;
-  padding: clamp(0.6rem, 1vw, 1.15rem) clamp(0.75rem, 1.2vw, 1.4rem);
-  border-radius: var(--karte-radius);
-  background: var(--karte-flaeche);
-  box-shadow: var(--karte-schatten);
-  text-align: left;
-}
-.lq__kreis {
-  grid-row: 1 / span 2;
-  display: grid;
-  place-items: center;
-  width: clamp(36px, 3.4vw, 56px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--symbolgrund);
-  color: var(--gold-linie);
-}
-.lq__kreis svg { width: 52%; height: 52%; }
-.lq__titel {
-  grid-column: 2;
-  align-self: end;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.04rem, 1.2vw, 1.36rem);
-  line-height: 1.14;
-  color: var(--gold-schrift);
-  text-wrap: balance;
-}
-/* Untergrenze 15 px: das ist Fliesstext, darunter leidet die Lesbarkeit. */
-.lq__sub {
-  grid-column: 2;
-  align-self: start;
-  font-size: clamp(0.94rem, 0.9vw, 1rem);
-  line-height: 1.32;
-  color: var(--ink-soft);
-  text-wrap: pretty;
-}
-
-
-/* ===========================================================================
-   DIE VERBINDUNGEN
-   Sie liegen als EIN Overlay-SVG ueber dem ganzen Plan; die Pfade schreibt
-   assets/js/leistungen.js aus den gemessenen Kartenmitten. Der Grund steht
-   im Kommentar der Section in variante-a.html: eine Linie, die eine
-   Kartenmitte treffen muss, kann ihre Koordinate nicht aus CSS-Prozenten
-   raten, und eine Pfeilspitze, die am Pfadende sitzen soll, gehoert als
-   `marker-end` an den Pfad und nicht als eigener Kasten daneben.
-
-   Die Zwischenraeume, in denen die Linien laufen, macht das Raster:
-   .leist__plan setzt --verb-hoehe als row-gap zwischen die Ebenen.
-   =========================================================================== */
-.leist__linien {
+   Die Werte, hergeleitet aus den viewBox-Koordinaten:
+     breit  (1200 x 995)   Stufe 1  Mitte des Off-Market-Kastens  164/995
+                           Stufe 2  Mitte des Trabantenfeldes     547/995
+                           Stufe 3  Oberkante des Zielkastens     796/995
+     schmal (400 x 2300)   Stufe 1  Mitte des Off-Market-Kastens  160/2300
+                           Stufe 2  Hoehe der Wortmarke           440/2300
+                           Stufe 3  Mitte des Zielkastens        2186/2300
+-------------------------------------------------------------------------- */
+.wnetz__marke {
   position: absolute;
   left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+  width: 1px;
+  height: 1px;
   pointer-events: none;
-  color: var(--strich);   /* die Pfeilspitzen fuellen mit currentColor */
-  z-index: 1;
 }
-.leist__linien path {
+.wnetz__marke--1 { top: 16.5%; }
+.wnetz__marke--2 { top: 55%; }
+.wnetz__marke--3 { top: 80%; }
+
+/* Das Sprite traegt die Kastenform, den Haken der Stichpunkte und die sechs
+   Symbole. Einmal abgelegt, per <use> geholt: die Kastenform zwoelfmal, die
+   Symbole je zweimal, der Haken zweiunddreissigmal. */
+.wnetz__sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.wnetz__bild {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Die Pfeilspitze fuellt mit currentColor. Sie haengt als <marker> in den
+     <defs> und erbt ihre Farbe deshalb NICHT vom Pfad, an dem sie sitzt,
+     sondern von ihrem eigenen Elternbaum — also von hier. */
+  color: var(--wn-weg);
+}
+
+/* Die schmale Zeichnung ist die senkrechte Kette; sie erscheint erst, wenn
+   die breite nicht mehr genug Platz hat — siehe den Block „SCHMALE FENSTER"
+   weiter unten. */
+.wnetz__bild--schmal {
+  display: none;
+}
+
+
+/* --- Die Kaesten ----------------------------------------------------------
+   EINE Form fuer alle sechs, alle gleich gross: 280 zu 280, also ein echtes
+   Quadrat, mit einem 45-Grad-Schnitt von 34 Einheiten an jeder Ecke — die
+   rund 12 Prozent der Kantenlaenge aus der Vorlage.
+
+   DIE GROESSE IST GERECHNET, NICHT GEWAEHLT. In den Kasten muessen
+   uebereinander: 30 Luft, ein Symbol von 40, 14 Luft, ein zweizeiliger Titel
+   von 50, 16 Luft, vier Stichpunktzeilen von je 22 (macht 88) und wieder
+   Luft. Das sind rund 244 Einheiten Inhalt; mit gleichem Rand oben und unten
+   kommt man auf 280. Die breiteste Stichpunktzeile („Persoenlicher
+   Ansprechpartner") misst mit Haken 219 Einheiten und passt damit in die
+   240 Einheiten zwischen den Innenraendern. Wer die Zeilen verlaengert oder
+   die Schrift vergroessert, muss den Kasten mitwachsen lassen — quadratisch
+   bleiben muss er in jedem Fall, das ist die Vorgabe des Kunden.
+--------------------------------------------------------------------------- */
+.wnetz__kasten {
+  fill: var(--wn-flaeche);
+  stroke: var(--wn-kontur);
+  stroke-width: var(--wn-strich);
+}
+/* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
+   weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
+   Vorlage, der auf Weiss nicht zu sehen waere.
+   Jede Zeichnung haelt ihren EIGENEN Filter in den eigenen <defs>. Ein
+   gemeinsamer im Sprite-SVG taete es zwar auch, aber ein `filter: url(...)`,
+   das ins Leere zeigt, laesst das Element in manchen Browsern gar nicht
+   erst erscheinen — dann waeren alle Kaesten weg. Zwei kurze Filter sind
+   der Preis dafuer, dass dieser Fall nicht eintreten kann. */
+/* NICHT AUF DEN ZIELKASTEN. Er dreht sich, und `filter` ist eine
+   Gruppierungseigenschaft: mit Filter wird das Element flach gerastert und
+   die Perspektive seiner Drehung faellt in sich zusammen. Seinen Schatten
+   traegt deshalb eine unbewegte Kopie darunter, siehe
+   .wnetz__kasten--zielschatten. */
+.wnetz__bild--breit  .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-b); }
+.wnetz__bild--schmal .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-s); }
+
+/* DER EINE QUERE KASTEN — der Zielkasten ganz unten.
+   Kundenwunsch vom 21.08.: „Er soll nicht zu lang rechteckig werden." Also
+   500 zu 250, ein Verhaeltnis von 2 zu 1 und damit in der Mitte der Vorgabe
+   von 1.8 bis 2.2. Er ist der einzige; Off-Market und die vier seitlichen
+   Kaesten bleiben quadratisch. Seine Form kommt aus einem EIGENEN Symbol
+   (#wn-kasten-quer) mit demselben 45-Grad-Schnitt von 12 Prozent der
+   kuerzeren Kante — ein gedehntes <use> des quadratischen Symbols haette den
+   Schnitt mitgedehnt und ihn aus der Familie fallen lassen.
+
+   ZUR STRICHSTAERKE IN DER SCHMALEN ANORDNUNG: dort steht dasselbe Symbol auf
+   360 zu 180, also im Massstab 0.72. Eine Strichstaerke von 1.25 im
+   Symbolraum kaeme dort nur als 0.9 Einheiten an. Der Kehrwert gleicht das
+   aus, damit die Kontur so stark bleibt wie an jedem anderen Kasten. */
+.wnetz__bild--schmal .wnetz__kasten--quer {
+  stroke-width: calc(var(--wn-strich) / 0.72);
+}
+
+
+/* --- Die Linien -----------------------------------------------------------
+   Alle Zuege liegen UNTER den Kaesten. Die vier S-Zuege tragen keine Spitze
+   (so wie in der Vorlage), die beiden senkrechten schon.
+
+   ENTFALLEN in Runde 3: die durchgehende Waagerechte auf Mittelhoehe samt
+   ihren zwei Verlaeufen (.wnetz__zug--aus-links / --aus-rechts). Sie lief
+   von links nach rechts durch das ganze Bild und durch beide Gabelungen und
+   ist auf Kundenwunsch ersatzlos entfernt.
+--------------------------------------------------------------------------- */
+.wnetz__zug {
   fill: none;
-  stroke: var(--strich);
-  stroke-width: 1;
-  stroke-linecap: butt;
+  stroke: var(--wn-kontur);
+  stroke-width: var(--wn-strich);
+  stroke-linecap: round;
   stroke-linejoin: round;
 }
+.wnetz__zug--weg { stroke: var(--wn-weg); }
 
-
-/* ===========================================================================
-   EBENE 2 — die vier Leistungskarten
-   Eine Reihe zu viert. In der breiten Mittelfuge steht der Estera-Kreis.
-   =========================================================================== */
-.leist__mitte {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: var(--mitte-spalte);
-  align-items: stretch;
+/* DIE BEKANNTE FALLE, hier gar nicht erst aufgestellt: eine Regel
+   `.wnetz__bild path { fill: none }` traefe auch den Pfad INNERHALB des
+   <marker> und liesse die Spitze hohl. Sie steht deshalb nirgends; `fill`
+   sitzt an .wnetz__zug. Die Regel hier ist die zweite Sicherung — sie ist
+   spezifischer und gewinnt, falls doch jemand eine allgemeine path-Regel
+   nachtraegt. */
+.wnetz__bild marker path {
+  fill: currentColor;
+  stroke: none;
 }
 
-.lk {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: clamp(0.65rem, 1vw, 1.2rem) clamp(0.6rem, 0.95vw, 1.15rem)
-           clamp(0.72rem, 1.1vw, 1.3rem);
-  border-radius: var(--karte-radius);
-  background: var(--karte-flaeche);
-  box-shadow: var(--karte-schatten);
+
+/* --- Die Symbole ----------------------------------------------------------
+   Woertlich die sechs Symbole der frueheren Leistungskarten; sie waren
+   abgenommen, es gab keinen Grund, sie neu zu zeichnen. Ihre Strichstaerke
+   steht im 24er-Koordinatensystem des <symbol> und wird durch die
+   Darstellung auf 40 Einheiten mitgedehnt: 1.1 dort ergibt 1.83 Einheiten
+   hier, bei Massstab 0.9 also rund 1.6 px. Sie sind damit bewusst eine Spur
+   staerker als die Haarlinien — ein Symbol muss auf 36 px lesbar bleiben.
+--------------------------------------------------------------------------- */
+.wnetz__symbol { color: var(--wn-weg); }
+
+
+/* --- Die Wortmarke in der Mitte -------------------------------------------
+   Kundenwunsch aus Runde 3: „…es soll einfach nur in schwarz stehen:
+   ‚Estera Immobilien‘ in der 1:1-gleichen Schriftart wie im Header." Kein
+   Kasten, keine Kontur, kein Schatten — nur Schrift auf Weiss.
+
+   DIE WERTE SIND AM SEITENKOPF NACHGEMESSEN, nicht nachempfunden. Aus
+   .wordmark__name und .wordmark__sub in assets/css/base.css, im Browser
+   ausgelesen:
+       Name   --font-display, 500, 24 px, Sperrung 0.36em, Zeilenhoehe 1
+       Sub    --font-wordmark-sub (Jost), 400, 10 px, Sperrung 0.38em,
+              Versalien, 5.5 px Abstand ueber dem Zeilenkasten
+       Verhaeltnis der Groessen 2.4 zu 1, Grundlinienabstand 0.79 der
+       Namensgroesse.
+   Hier steht der Name auf 41 Einheiten, der Zusatz folglich auf 17.1 und die
+   zweite Grundlinie 32 Einheiten unter der ersten. Die GROESSE ist an die
+   Grafik angepasst, das VERHAELTNIS ist das des Kopfes.
+
+   DIE MITTE DES WORTES LIEGT AUF DER ACHSE DER PFEILE, und zwar die Luecke
+   zwischen T und E. Kundenwunsch: „Estera muss genau mittig zu den beiden
+   Pfeilen stehen … Die beiden Pfeile muessen zwischen T und E sein."
+
+   ZWEI DINGE STANDEN DEM IM WEG, beide nachgemessen:
+     1. Hinter dem letzten Buchstaben einer gesperrten Zeile haengt noch ein
+        voller Sperrabstand, und text-anchor rechnet ihn mit. Das Wort steht
+        dadurch eine halbe Sperrweite zu weit links — bei 0.36em also 0.18em.
+     2. Selbst mit diesem Ausgleich sitzt die LUECKE nicht auf der Achse: E,
+        S, T sind zusammen 5.15 Einheiten schmaler als E, R, A. Wer die
+        Schriftflaeche zentriert, zentriert nicht die Wortmitte.
+
+   DIE LOESUNG STEHT IM MARKUP und nicht hier: „EST" ist rechtsbuendig, „ERA"
+   linksbuendig, beide auf derselben Achse und beide um 0.18em versetzt.
+   Damit endet die eine Haelfte eine halbe Sperrweite links der Achse und die
+   andere beginnt eine halbe Sperrweite rechts davon — die Luecke liegt
+   mittig, unabhaengig von jeder Glyphenbreite. Nachgemessen ueber
+   getEndPositionOfChar / getStartPositionOfChar: Abweichung 0.000 px bei
+   1920, 1512, 1280, 1024 und 390 px.
+
+   NICHT MIT getBBox NACHPRUEFEN: das meldet bei SVG-Text die Vorschubbreite
+   samt nachlaufender Sperrung und nicht die Schriftflaeche. Eine fruehere
+   Messung damit sah zentriert aus und war es optisch nicht.
+--------------------------------------------------------------------------- */
+.wnetz__wort--marke {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 41px;
+  letter-spacing: var(--track-logo);
+  fill: var(--wn-marke);
 }
-.lk__kreis {
-  display: grid;
-  place-items: center;
-  width: clamp(40px, 3.8vw, 62px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--symbolgrund);
-  color: var(--gold-linie);
-}
-.lk__kreis svg { width: 52%; height: 52%; }
-/* Der Titel traegt die Karte. Er steht deutlich ueber den Aufzaehlungs-
-   zeilen — vorher war es umgekehrt: die gefuellten Hakenkreise zogen den
-   Blick vom goldenen Titel weg. */
-.lk__titel {
-  /* ZWEI ZEILEN SIND GESETZT, auch wenn nur eine gebraucht wird. Seit die
-     Karten schmaler stehen, brechen „Erstgespraech & Einordnung" und
-     „Standort- & Objektanalyse" zweizeilig, „Finanzierung" aber nicht —
-     ohne das feste Mass begaennen die Aufzaehlungen der vier Karten auf
-     drei verschiedenen Hoehen. Der Titel steht in seinem Feld mittig, die
-     Karte wird dadurch nicht hoeher: die zweizeiligen Titel geben das Mass
-     der Reihe ohnehin vor. */
-  display: grid;
-  place-items: center;
-  min-height: 2.24em;      /* zwei Zeilen zu line-height 1.12 */
-  margin-top: clamp(0.34rem, 0.8vh, 0.6rem);
+/* ENTFALLEN am 21.08.: die zweite Zeile „Immobilien". Kundenwunsch — in der
+   Mitte steht nur noch die Wortmarke ESTERA, einzeilig. Der Zusatz und seine
+   Regel .wnetz__wort--marke-sub sind ersatzlos raus; die Machart steht in der
+   Versionsgeschichte, falls er zurueckkommt. */
+
+
+/* --- Titel und Stichpunkte in den Kaesten ---------------------------------
+   Schrift im SVG skaliert mit der Zeichnung. Die kleinste Groesse sind die
+   Stichpunkte und die Erklaerzeilen mit 17 Einheiten. Am Umschaltpunkt
+   (rund 903 px Zeichnungsbreite, Massstab 0.75) sind das 12.8 px, bei voller
+   Breite (1100 px, Massstab 0.92) 15.6 px, auf dem Telefon 14.9 px. Alles
+   ueber der Untergrenze von 12 px.
+
+   Kundenwunsch aus Runde 3: „die einzelnen Unterpunkte … in den Kasten
+   rein." Sie standen vorher darunter. Der Wortlaut ist woertlich der der
+   frueheren Leistungskarten; erfunden ist nichts.
+--------------------------------------------------------------------------- */
+.wnetz__wort {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.1rem, 1.3vw, 1.48rem);
-  line-height: 1.12;
-  text-align: center;
-  color: var(--gold-schrift);
-  text-wrap: balance;
+  font-size: 23px;
+  fill: var(--wn-titel);
 }
-/* Der kurze Strich unter dem Titel */
-.lk__regel {
-  width: clamp(20px, 2.1vw, 34px);
-  height: 1px;
-  margin: clamp(0.26rem, 0.58vh, 0.42rem) 0 clamp(0.4rem, 0.85vh, 0.64rem);
-  background: var(--gold-linie);
+/* Die Zeile unter „Off-Market" und die unter „Kapitalanlage", beide im
+   Kasten. „Off-Market" ist Fachjargon; der Kunde verlangt Verstaendlichkeit
+   ohne Vorwissen. Beide Zeilen sind woertlich die, die schon in der vorigen
+   Fassung unter der jeweiligen Karte standen — keine neuen Formulierungen,
+   keine Zusage. */
+.wnetz__wort--erklaerung {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  fill: var(--ink-mute);
 }
-.lk__liste {
-  display: grid;
-  gap: clamp(0.2rem, 0.45vh, 0.36rem);
-  width: 100%;
+.wnetz__punkt {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  fill: var(--wn-punkt);
 }
-/* Untergrenze 14 px fuer die Aufzaehlungszeilen. */
-.lk__liste li {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(0.42rem, 0.72vw, 0.72rem);
-  font-size: clamp(0.88rem, 0.9vw, 0.97rem);
-  line-height: 1.34;
-  color: var(--navy-600);
-  text-wrap: pretty;
-}
-/* Feiner Navy-Kreis mit Navy-Haken. Gefuellt war er zu laut: vier gefuellte
-   Punkte je Karte wogen schwerer als die Ueberschrift darueber. */
-.lk__haken {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: clamp(15px, 1.2vw, 19px);
-  aspect-ratio: 1;
-  /* Die Kreise stehen auf der ersten Textzeile, nicht auf deren Oberkante. */
-  margin-top: calc((1.34em - clamp(15px, 1.2vw, 19px)) / 2);
-  border: 1px solid rgba(16, 41, 73, 0.32);
-  border-radius: 50%;
-  color: var(--navy-600);
-}
-.lk__haken svg { width: 62%; height: 62%; }
+
+/* --- Der Zielkasten ganz unten -------------------------------------------
+   Sein Wortlaut ist vom Kunden woertlich vorgegeben: „Ihre Immobilie als
+   Kapitalanlage langfristig gedacht statt schnell entschieden, fuer die
+   Zukunft geruestet." Kein Wort davon ist weggelassen oder dazuerfunden; die
+   Aufteilung auf zwei Ebenen ist rein typografisch, weil der Satz als eine
+   Zeile eine unlesbare Bandwurmzeile waere.
+
+   In der schmalen Anordnung sind beide Groessen eine Stufe kleiner. Grund:
+   der quere Kasten steht dort auf 360 statt 500 Einheiten, die Ueberschrift
+   braucht aber eine Zeile — mit 23 Einheiten waere sie 324 breit und passte
+   nicht zwischen die Innenraender. Bei 20 Einheiten sind es 282, und in
+   Bildschirmpixeln bleibt sie mit 17.5 px sogar groesser als in der breiten
+   Anordnung bei kleinen Fenstern. Die Unterzeile faellt auf 15 Einheiten,
+   das sind auf dem Telefon 13.1 px und damit ueber der Untergrenze.
+-------------------------------------------------------------------------- */
+.wnetz__wort--ziel    { font-size: 23px; }
+.wnetz__wort--zielsub { font-size: 17px; }
+/* Der Haken im helleren Blau der Konturen und nicht im dunkleren der
+   Symbole: zweiunddreissig dunkle Haken wuerden schwerer wiegen als die
+   sechs Symbole, um die es geht. */
+.wnetz__haken { color: var(--wn-kontur); }
 
 
 /* ===========================================================================
-   EBENE 3 — die Zielkarte
-   Sie ist am 17.08. stark zurueckgenommen worden: „Bei Kapitalanlage muss
-   nicht so viel beschrieben werden … Es soll nur Kapitalanlage stehen und
-   die Subline." Geblieben sind Symbol, Titel, Strich und eine Zeile; die
-   vier Zeilen mit den runden Symbolen sind entfallen. Die Karte steht
-   mittig und deutlich schmaler als die Reihe darueber — sie ist der
-   Zielpunkt und nicht die breiteste Flaeche der Grafik.
+   SCHMALE FENSTER
+   Bis 980 px gilt die Anordnung der Vorlage, darunter die senkrechte Kette:
+   Off-Market, die Wortmarke, die vier Leistungen untereinander,
+   Kapitalanlage.
+
+   WARUM GENAU DORT: die breite Zeichnung wird beim Verkleinern nicht
+   umgebrochen, sondern skaliert — mit ihr die Schrift. Bei 981 px Fenster
+   bleiben nach den Seitenabstaenden rund 903 px fuer 1200 Einheiten, also
+   Massstab 0.75. Die kleinste Schrift sind die Stichpunkte mit 17 Einheiten;
+   sie landen damit bei 12.8 px, der Kastentitel bei 17.3 px. 12 px ist die
+   gesetzte Untergrenze — eine Stufe tiefer waere sie unterschritten, und
+   genau da wird umgeschaltet.
+
+   Umgeklappt wird die ANORDNUNG, nicht der Massstab: die schmale Zeichnung
+   hat ihre eigene viewBox (400 Einheiten breit statt 1200) und damit auf dem
+   Telefon dieselbe Schriftgroesse in Pixeln wie am Schreibtisch. Genau das
+   war die Vorgabe — die Grafik darf auf dem Telefon nicht bloss verkleinert
+   werden, und sie darf keine waagerechte Rollflaeche erzeugen.
+
+   DIE 430 px SIND EINE OBERGRENZE, keine Breite. Auf dem Telefon greift die
+   100 % daneben (bei 390 px Fenster bleiben 350 px). Auf einem Tablett im
+   Hochformat wuerde die Kette sonst mitwachsen und ihre Schrift ueber 20 px
+   treiben — eine senkrechte Kette wird nicht besser, wenn man sie aufblaest.
    =========================================================================== */
-.lz {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-self: center;
-  width: 100%;
-  max-width: var(--ziel-breite);
-  padding: clamp(0.58rem, 0.9vw, 1.05rem) clamp(0.9rem, 1.4vw, 1.7rem)
-           clamp(0.66rem, 1vw, 1.15rem);
-  border-radius: var(--karte-radius);
-  background: var(--karte-flaeche);
-  box-shadow: var(--karte-schatten);
-  text-align: center;
-}
-.lz__kreis {
-  display: grid;
-  place-items: center;
-  width: clamp(38px, 3.4vw, 56px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--symbolgrund);
-  color: var(--gold-linie);
-}
-/* Das eine gruene Symbol der Grafik. Der Kreis darum behaelt seine
-   Fuellung, alle uebrigen Symbole bleiben golden. Siehe --symbol-gruen. */
-.lz__kreis svg { width: 52%; height: 52%; color: var(--symbol-gruen); }
-.lz__titel {
-  margin-top: clamp(0.35rem, 0.8vh, 0.6rem);
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.12rem, 1.32vw, 1.5rem);
-  line-height: 1.1;
-  color: var(--gold-schrift);
-}
-.lz__regel {
-  width: clamp(20px, 2.1vw, 34px);
-  height: 1px;
-  margin: clamp(0.28rem, 0.6vh, 0.44rem) 0 clamp(0.34rem, 0.75vh, 0.55rem);
-  background: var(--gold-linie);
-}
-/* Untergrenze 15 px: Fliesstext. */
-.lz__text {
-  font-size: clamp(0.95rem, 0.94vw, 1.02rem);
-  line-height: 1.34;
-  color: var(--ink-soft);
-  text-wrap: pretty;
+@media (max-width: 980px) {
+  .wnetz__bild--breit  { display: none; }
+  .wnetz__bild--schmal { display: block; }
+  .wnetz { max-width: min(430px, 100%); }
+
+  /* Siehe die Begruendung bei .wnetz__wort--ziel. */
+  .wnetz__wort--ziel    { font-size: 20px; }
+  .wnetz__wort--zielsub { font-size: 15px; }
+
+  /* Die Kette ist viel hoeher als das Feld; die Marken sitzen entsprechend
+     anders. Siehe die Herleitung bei .wnetz__marke. */
+  .wnetz__marke--1 { top: 7%; }
+  .wnetz__marke--2 { top: 19%; }
+  .wnetz__marke--3 { top: 95%; }
 }
 
 
 /* ===========================================================================
-   SCHMALERE FENSTER
-   Der Aufbau ist ohnehin senkrecht; unter 1180 px reicht die Breite nur noch
-   fuer zwei Leistungskarten nebeneinander, unter 700 px fuer eine. Die
-   Verbindungen behalten ihre Linie, verlieren aber Stichleitungen und
-   Sammler — die haengen am Raster der Ebene darueber und stimmten sonst
-   nicht mehr.
+   DIE EINLAUFANIMATION IN DREI STUFEN
+   Kundenwunsch vom 21.08.: „Wenn man runter scrollt, zuerst kommt
+   Off-Market. Dann wenn man Off-Market sieht, scrollt man weiter. Dann
+   kommen die vier Punkte … und Estera in der Mitte. Erst wenn alle diese
+   vier sichtbar sind und man dann noch mal weiter scrollt, ploppt es so
+   richtig in gruen."
+
+     Stufe 1   der Kasten Off-Market und sein Pfeil nach unten
+     Stufe 2   die vier seitlichen Kaesten, die Wortmarke und die S-Boegen
+     Stufe 3   der lange Pfeil und der Zielkasten mit dem gruenen Puls
+
+   Welches Element zu welcher Stufe gehoert, steht als `data-st` am Element;
+   `--auf` staffelt innerhalb der Stufe. Die Schalter setzt
+   assets/js/leistungen.js:
+
+   data-bereit          schaltet die Startzustaende ueberhaupt erst frei.
+                        Ohne Javascript wird er nie gesetzt und die Grafik
+                        steht vollstaendig da, gruene Kontur inklusive —
+                        nie ein leerer oder halber Zustand.
+   data-s1 / s2 / s3    je eine Stufe im Endzustand.
+
+   ES GIBT KEINEN LAYOUT-SHIFT: alle Elemente liegen von Anfang an an ihrem
+   Platz, es aendern sich nur `opacity`, `transform` und
+   `stroke-dashoffset` — nichts davon loest ein Neuberechnen des Layouts aus.
+
+   Die Linien zeichnen sich ueber stroke-dashoffset. Damit das ohne jede
+   Messung stimmt, tragen alle Zuege im Markup pathLength="1": ihre Laenge
+   ist damit auf 1 normiert, und `stroke-dasharray: 1` deckt sie unabhaengig
+   von Massstab und viewBox exakt ab. Das Skript misst mit getTotalLength()
+   nur noch die DAUER dazu, damit alle Zuege gleich schnell laufen und nicht
+   gleich lange.
    =========================================================================== */
-@media (max-width: 1180px) {
-  .leist { --quellen-breite: min(100%, 720px); }
 
-  .leist__mitte { grid-template-columns: repeat(2, minmax(0, 1fr));
-                  row-gap: var(--mitte-spalte); }
-
-
-  .leist { --ziel-breite: clamp(240px, 44%, 460px); }
+/* --- Startzustand: unsichtbar und 18 Einheiten tiefer ---------------------
+   Die Stichpunkte laufen als GRUPPE, nicht Zeile fuer Zeile: sechzehn
+   einzeln gestaffelte Zeilen waeren Zappeln, und sie gehoeren ohnehin zu
+   ihrem Kasten. ---------------------------------------------------------- */
+.wnetz[data-bereit] .wnetz__kasten,
+.wnetz[data-bereit] .wnetz__symbol,
+.wnetz[data-bereit] .wnetz__schrift text,
+.wnetz[data-bereit] .wnetz__punkte > g {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.wnetz[data-bereit] .wnetz__zug {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
 
-@media (max-width: 700px) {
-  .leist__quellen { grid-template-columns: minmax(0, 1fr); row-gap: clamp(0.7rem, 2.4vw, 1.1rem); }
-  .leist__mitte { grid-template-columns: minmax(0, 1fr); row-gap: clamp(0.7rem, 2.4vw, 1.1rem); }
-  .leist { --ziel-breite: min(100%, 460px); }
-
+/* --- Endzustand, je Stufe -------------------------------------------------
+   Eine Regel je Stufe und nicht eine gemeinsame: so steht im Stylesheet
+   schwarz auf weiss, welcher Schalter welche Gruppe freigibt.
+   `stroke-dashoffset` steht in derselben Regel wie `opacity` — bei allem,
+   was kein Pfad ist, laeuft die Eigenschaft ins Leere und stoert nicht. --- */
+/* ZUR SPEZIFITAET, und das ist kein Zierrat: `.wnetz__bild` steht in jedem
+   dieser drei Selektoren mit drin, obwohl es zur Auswahl nichts beitraegt.
+   Ohne das Klassenglied kaeme die Regel auf (0,3,0) und verloere gegen die
+   Startzustaende oben — `.wnetz[data-bereit] .wnetz__schrift text` und
+   `.wnetz[data-bereit] .wnetz__punkte > g` haben durch ihr Elementglied
+   (0,3,1) und waeren staerker. Beim ersten Versuch war genau das der Fehler:
+   Kaesten und Symbole liefen ein, jede Schrift und jeder Stichpunkt blieb
+   unsichtbar. */
+.wnetz[data-s1] .wnetz__bild [data-st='1'],
+.wnetz[data-s2] .wnetz__bild [data-st='2'],
+.wnetz[data-s3] .wnetz__bild [data-st='3'] {
+  opacity: 1;
+  transform: none;
+  stroke-dashoffset: 0;
+  transition: opacity var(--wn-kasten-dauer) var(--ease-soft),
+              transform var(--wn-kasten-dauer) var(--ease-soft),
+              stroke-dashoffset var(--dauer, var(--wn-zug-dauer)) var(--ease-soft);
+  transition-delay: calc(var(--auf, 0) * var(--wn-takt));
 }
 
 
 /* ===========================================================================
-   AUFZIEHEN BEIM SCROLLEN
-   Der Plan baut sich EINMAL auf, wenn er ins Bild kommt — in der neuen
-   Leserichtung von oben nach unten: die beiden Quellen, die Verbindung
-   hinunter, die vier Leistungskarten, die Verbindung zum Ziel, die
-   Zielkarte, zuletzt der Estera-Kreis.
+   DIE GRUENE KONTUR AM ZIELKASTEN
+   „Erst wenn alle diese vier sichtbar sind und man dann noch mal weiter
+   scrollt, ploppt es so richtig in gruen, dass die Immobilie als
+   Kapitalanlage wirklich gruen ist. Es soll aber nur die Umrandung des
+   Kastens gruen sein."
 
-   Zwei Schalter, beide von assets/js/leistungen.js gesetzt:
-   data-bereit      schaltet die Startzustaende ueberhaupt erst frei. Ohne
-                    Javascript wird es nie gesetzt und der Abschnitt steht
-                    vollstaendig sichtbar da — nichts bleibt haengen.
-   data-gezeichnet  loest den Ablauf aus, genau einmal.
+   NUR DIE UMRANDUNG. Fuellung, Schrift, Symbol und alles Uebrige in der
+   Grafik bleiben unveraendert navy. Gruen ist im Estera-System keine Farbe;
+   --ziel-gruen ist die eine, bewusst gesetzte Ausnahme fuer den Zielzustand
+   und steht deshalb HIER und nicht in der Palette — es soll nirgendwo sonst
+   auf der Seite auftauchen.
 
-   Die Linien ziehen ueber `clip-path` auf und nicht ueber die Breite: so
-   bleibt die Linie in ihrer ganzen Staerke stehen und wird nur Stueck fuer
-   Stueck sichtbar. Die negativen Werte holen die Pfeilspitze mit, die
-   ausserhalb des 1 px schmalen Kastens liegt.
+   DAS PULSIEREN IST AM 21.08. ENTFALLEN. Es lief zuvor dreimal als zweiter,
+   nach aussen aufgehender Umriss. Kundenwunsch: „Das Pulsieren gefaellt mir
+   nicht bei ‚Ihre Immobilie als Kapitalanlage‘. Mache das Pulsieren weg."
+   Geblieben sind die ruhige gruene Kontur — sie war nicht beanstandet und
+   ist weiterhin die Hervorhebung des Zielzustands — und der kurze Einsprung
+   beim Erscheinen. Der Einsprung ist keine Dauerbewegung, sondern das
+   „Ploppen", das der Kunde ausdruecklich wollte.
    =========================================================================== */
-.leist {
-  --takt: 0.09s;          /* Schrittweite der Staffelung          */
-  --dauer-karte: 0.42s;   /* Komponentenwechsel                   */
-  --dauer-punkt: 0.26s;   /* Mikrobewegung der Aufzaehlungszeilen */
-  --dauer-linie: 0.5s;    /* Linienaufzug                         */
+.wnetz {
+  /* #1B7F3B misst auf Weiss 5.07:1 und liegt damit weit ueber der Schwelle
+     von 3:1 fuer nichttextliche Elemente. Kraeftig und eindeutig gruen, kein
+     gedecktes Salbei — der Kunde verlangt ausdruecklich „ein stark
+     sichtbares Gruen". */
+  --ziel-gruen: #1B7F3B;
+  --wn-dreh-dauer: 0.9s;
 }
 
-/* --- Karten: einblenden und 20 px hochlaufen ------------------------------ */
-.leist[data-bereit] .lq,
-.leist[data-bereit] .lk,
-.leist[data-bereit] .lz {
-  opacity: 0;
-  transform: translateY(20px);
+.wnetz__kasten--ziel { stroke: var(--ziel-gruen); }
+
+/* Die Gruppe, die sich dreht: Kontur, Symbol und beide Zeilen zusammen. Sie
+   traegt den Drehpunkt, nicht die Kontur — sonst kippte ein leerer Rahmen um
+   eine stehende Schrift. */
+.wnetz__ziel {
+  transform-box: fill-box;
+  transform-origin: center center;
 }
-.leist[data-gezeichnet='true'] .lq,
-.leist[data-gezeichnet='true'] .lk,
-.leist[data-gezeichnet='true'] .lz {
+/* Die Kinder der Gruppe sind von den allgemeinen Startzustaenden
+   ausgenommen: sie haben keinen eigenen Einlauf mehr, die Gruppe bringt sie
+   mit. Ohne diese Regel blieben Kontur und Symbol unsichtbar, weil
+   `.wnetz[data-bereit] .wnetz__kasten` und `… .wnetz__symbol` sie
+   weiterhin treffen. Die beiden Zeilen stehen ausserhalb von
+   .wnetz__schrift und werden ohnehin nicht getroffen. */
+.wnetz[data-bereit] .wnetz__ziel .wnetz__kasten,
+.wnetz[data-bereit] .wnetz__ziel .wnetz__symbol {
   opacity: 1;
   transform: none;
-  /* Vier Glieder: die ersten beiden gehoeren dem Aufzug, die letzten beiden
-     dem Ueberfahren. Das Ueberfahren laeuft ueber `translate` und nicht ueber
-     `transform`, damit es dem Aufzug nicht in die Quere kommt — und es
-     bekommt eine eigene Verzoegerung von 0s. Ohne diese Liste erbte es den
-     Takt des Aufzugs und die Karte reagierte erst nach einer Sekunde. */
-  transition: opacity var(--dauer-karte) var(--ease-soft),
-              transform var(--dauer-karte) var(--ease-soft),
-              translate 0.24s var(--ease-soft),
-              box-shadow 0.24s var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt)),
-                    calc(var(--auf, 0) * var(--takt)), 0s, 0s;
+  transition: none;
 }
 
-/* --- Die Aufzaehlungszeilen: einzeln nach ihrer Karte --------------------- */
-.leist[data-bereit] .lk__liste li {
-  opacity: 0;
-  transform: translateY(6px);
-}
-/* --auf erbt von der Karte; --zeile kommt aus der Stellung in der Liste. */
-.leist .lk__liste li:nth-child(2) { --zeile: 1; }
-.leist .lk__liste li:nth-child(3) { --zeile: 2; }
-.leist .lk__liste li:nth-child(4) { --zeile: 3; }
-.leist[data-gezeichnet='true'] .lk__liste li {
-  opacity: 1;
-  transform: none;
-  transition: opacity var(--dauer-punkt) var(--ease-soft),
-              transform var(--dauer-punkt) var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt) + 0.2s + var(--zeile, 0) * 0.06s);
-}
 
-/* --- Die Linien zeichnen sich selbst, von oben nach unten -----------------
-   Jede Verbindung ist eine Gruppe im Overlay-SVG. Sie wird von oben nach
-   unten aufgedeckt; die Pfeilspitze am Pfadende kommt dadurch zuletzt zum
-   Vorschein, ganz ohne eigene Regel. Der Ueberstand nach unten holt sie
-   vollstaendig mit. --auf setzt leistungen.js beim Zeichnen. */
-.leist[data-bereit] .ll {
-  -webkit-clip-path: inset(0 -40px 100% -40px);
-          clip-path: inset(0 -40px 100% -40px);
-}
-.leist[data-gezeichnet='true'] .ll {
-  -webkit-clip-path: inset(0 -40px -40px -40px);
-          clip-path: inset(0 -40px -40px -40px);
-  transition: -webkit-clip-path var(--dauer-linie) var(--ease-soft),
-                      clip-path var(--dauer-linie) var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt));
-}
+/* --- DIE DREHUNG DES ZIELKASTENS -----------------------------------------
+   Kundenwunsch vom 21.08.: „Es soll sich drehen, also um die eigene Achse
+   drehen, und dann zeigt es es an. Es soll sich aber einmal um die
+   Laengsachse drehen."
 
-/* --- Der Ausgangspunkt laeuft wie eine Karte ------------------------------ */
-.leist[data-bereit] .lstart {
-  opacity: 0;
-  transform: translateY(14px);
-}
-.leist[data-gezeichnet='true'] .lstart {
-  opacity: 1;
-  transform: none;
-  transition: opacity var(--dauer-karte) var(--ease-soft),
-              transform var(--dauer-karte) var(--ease-soft),
-              translate 0.24s var(--ease-soft),
-              box-shadow 0.24s var(--ease-soft);
-  transition-delay: calc(var(--auf, 0) * var(--takt)),
-                    calc(var(--auf, 0) * var(--takt)), 0s, 0s;
-}
+   Der Kasten liegt (500 zu 250), seine Laengsachse ist also die WAAGERECHTE.
+   Gedreht wird um sie, wie eine Karte, die nach hinten kippt und wieder nach
+   vorn kommt: rotateX, genau 360 Grad, danach steht sie wieder gerade.
 
-/* --- Anfassen: die Karte hebt sich beim Ueberfahren ----------------------- */
-@media (hover: hover) {
-  .leist .lstart:hover,
-  .leist .lq:hover,
-  .leist .lk:hover,
-  .leist .lz:hover {
-    translate: 0 -3px;
-    box-shadow: var(--karte-schatten-hoch);
+   DIE PERSPEKTIVE IST NICHT SCHMUCK, SONDERN NOTWENDIG. Ohne sie ist eine
+   rotateX-Drehung mathematisch nichts als ein Stauchen in der Hoehe — man
+   saehe den Kasten flach zusammenfallen und wieder aufgehen, aber keine
+   Kippung. Die Perspektive steht als FUNKTION im transform selbst und nicht
+   als `perspective`-Eigenschaft am Elternelement: bei SVG-Kindern ist der
+   Elternteil eine <g> im SVG, und `perspective` und `transform-style` gelten
+   dort nicht. In der Funktionsliste wirkt sie dagegen am Element selbst,
+   ganz ohne 3D-Kontext im Elternbaum.
+
+   DER FILTER MUSSTE DAFUER WEG. `filter` ist eine Gruppierungseigenschaft:
+   ein Element mit Filter wird in eine eigene, flache Ebene gerastert, und
+   die Perspektive faellt in sich zusammen. Das ist genau die bekannte Falle.
+   Der Zielkasten traegt seinen Schatten deshalb nicht mehr selbst, sondern
+   ueber eine zweite, unbewegte Kopie darunter (.wnetz__kasten--zielschatten)
+   — sichtbar ist davon nur der Schatten, die Kopie selbst ist randlos.
+
+   GEDREHT WIRD DIE GRUPPE, NICHT DER UMRISS. In der ersten Fassung sass die
+   Drehung am <use> der Kontur, waehrend Symbol und Schrift wie ueberall
+   sonst in .wnetz__symbole und .wnetz__schrift lagen. Zu sehen war dann ein
+   leerer Rahmen, der um eine stehende Schrift kippt — der Kunde hat es als
+   „der Rand fliegt nach innen ein" beschrieben. Kontur, Symbol und beide
+   Zeilen stehen deshalb jetzt in .wnetz__ziel, und nur diese Gruppe dreht
+   sich.
+-------------------------------------------------------------------------- */
+/* ZUM ABLAUF DER DREHUNG, und das ist nachgemessen und nicht Geschmack.
+   Zuerst lag die ganze Bewegung auf cubic-bezier(0.22, 1, 0.36, 1). Diese
+   Kurve legt rund 95 Prozent des Weges in das erste Fuenftel der Zeit: die
+   ersten 180 Grad waren nach 110 ms herum, also nach knapp sieben Bildern
+   bei 60 Hertz. Zu sehen war davon nichts als ein Zucken, danach kroch der
+   Kasten 750 ms lang die letzten Grade zurecht. Genau das hat der Kunde
+   beschrieben („fliegt jetzt einfach … ein").
+
+   Die Drehung laeuft deshalb in zwei Abschnitten:
+     0 bis 72 Prozent der Zeit   0 bis 330 Grad, GLEICHFOERMIG. Eine
+                                 Umdrehung liest man nur, wenn sie mit
+                                 gleichbleibender Geschwindigkeit laeuft.
+     72 bis 100 Prozent          die letzten 30 Grad mit der vorgegebenen
+                                 Kurve cubic-bezier(0.22, 1, 0.36, 1). Sie
+                                 gibt der Bewegung ihr weiches Einrasten,
+                                 dort wo man es auch sieht.
+   Die Zeitkurven stehen an den Keyframes selbst; am Element steht deshalb
+   `linear`, sonst ueberschriebe es sie.
+
+   DIE FRUEHERE SKALIERUNG 0.94 -> 1 IST ENTFALLEN. Neben einer lesbaren
+   Umdrehung war sie ein zweites Ereignis im selben Augenblick — der Kunde
+   wollte eines. */
+@keyframes wn-drehung {
+  0% {
+    animation-timing-function: linear;
+    transform: perspective(1200px) rotateX(0deg);
   }
+  72% {
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transform: perspective(1200px) rotateX(330deg);
+  }
+  100% { transform: perspective(1200px) rotateX(360deg); }
 }
+
+.wnetz[data-bereit] .wnetz__ziel {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(0deg);
+}
+.wnetz[data-s3] .wnetz__bild .wnetz__ziel {
+  opacity: 1;
+  transform: none;
+  /* Die Karte ist schon da, bevor sie sich dreht — sonst dreht sich etwas,
+     das man noch gar nicht sieht. 0.22 s sind rund ein Viertel der
+     Drehdauer. */
+  transition: opacity 0.22s linear;
+  transition-delay: calc(var(--auf, 0) * var(--wn-takt));
+  animation: wn-drehung var(--wn-dreh-dauer) linear
+             calc(var(--auf, 0) * var(--wn-takt)) 1 both;
+}
+
+/* Die unbewegte Kopie, die den Schatten traegt. Sie liegt im Markup direkt
+   vor dem Zielkasten, ist randlos und weiss gefuellt; zu sehen ist von ihr
+   nur der Schatten. Waehrend der Drehung steht der Schatten still — das ist
+   richtig so: eine Karte, die sich um ihre Laengsachse dreht, wirft weiter
+   denselben Schatten auf den Grund. */
+.wnetz__kasten--zielschatten {
+  stroke: none;
+}
+/* Sie blendet nur ein und bewegt sich nicht — weder das translateY der
+   uebrigen Kaesten noch die Drehung. Wuerde sie mitlaufen, waere es kein
+   Schatten mehr, sondern ein zweites Objekt. */
+.wnetz[data-bereit] .wnetz__bild .wnetz__kasten--zielschatten {
+  opacity: 0;
+  transform: none;
+}
+.wnetz[data-s3] .wnetz__bild .wnetz__kasten--zielschatten {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.34s linear;
+  transition-delay: calc(var(--auf, 0) * var(--wn-takt));
+}
+
+
+/* --- Die Pfeilspitzen ----------------------------------------------------
+   Ein <marker> wird unabhaengig vom Strichmuster gezeichnet: die Spitze
+   staende also fertig am Ende einer Linie, die noch gar nicht dort
+   angekommen ist. Sie wird deshalb eingeblendet, sobald ihr Pfad steht.
+   --wn-spitze-ab ist die Zeit bis dahin; sie steht am <marker> selbst, weil
+   sie von Pfeil zu Pfeil verschieden ist.
+
+   JE STUFE EIN EIGENER MARKER, obwohl beide gleich aussehen: der eine
+   gehoert zu Stufe 1, der andere zu Stufe 3. Ein gemeinsamer muesste sich
+   fuer eine der beiden Zeiten entscheiden — die Spitze kaeme dann entweder
+   zu frueh oder viel zu spaet.
+-------------------------------------------------------------------------- */
+.wnetz[data-bereit] .wnetz__bild marker path { opacity: 0; }
+.wnetz[data-s1] #wn-spitze-b1 path,
+.wnetz[data-s1] #wn-spitze-s1 path,
+.wnetz[data-s3] #wn-spitze-b3 path,
+.wnetz[data-s3] #wn-spitze-s3 path {
+  opacity: 1;
+  transition: opacity 0.2s linear var(--wn-spitze-ab);
+}
+/* NICHT WUNDERN: getComputedStyle auf diesem Pfad meldet dauerhaft
+   opacity 0. Was in <defs> steht, wird nicht selbst gezeichnet, und Chrome
+   loest den Stil dort nicht nach. GEZEICHNET wird trotzdem richtig —
+   nachgemessen am Bildpunkt an der Pfeilspitze: kurz nach dem Start noch
+   weiss, nach Ablauf der Verzoegerung in voller Farbe. Wer hier eine
+   Fehlfunktion vermutet, misst am Bildpunkt und nicht am Stil. */
 
 /* Ueberschrift laeuft ueber das siteweite [data-reveal]. Hier nur kuerzer
-   gefasst, damit sie im selben Takt liegt wie der Plan. */
+   gefasst, damit sie im selben Takt liegt wie die Grafik. */
 .wahl [data-reveal] {
   transition-duration: 0.4s;
 }
@@ -731,43 +843,46 @@
   .wahl [data-reveal] { opacity: 1; transform: none; }
 }
 
+
 /* --- Ruhebeduerfnis achten ------------------------------------------------
-   leistungen.js setzt data-bereit dann gar nicht erst; die Regeln hier sind
-   die zweite Sicherung, falls die Schalter doch gesetzt sind. -------------- */
+   leistungen.js setzt data-bereit dann gar nicht erst und schaltet alle drei
+   Stufen sofort scharf; die Regeln hier sind die zweite Sicherung, falls die
+   Schalter doch gesetzt sind. Kein Einsprung, kein Puls, kein Zeichnen — die
+   Grafik steht fertig da, die gruene Kontur ruhig und ohne Bewegung. ------- */
 @media (prefers-reduced-motion: reduce) {
-  /* Kein Uebergang, egal welcher Schalter steht. */
-  .leist[data-gezeichnet='true'] * { transition: none; }
+  .wnetz[data-s1] *,
+  .wnetz[data-s2] *,
+  .wnetz[data-s3] * { transition: none; }
 
-  /* Auch keine Bewegung beim Ueberfahren — der Schatten allein zeigt
-     genuegend an, dass die Karte unter dem Zeiger liegt. */
-  .leist .lstart:hover,
-  .leist .lq:hover,
-  .leist .lk:hover,
-  .leist .lz:hover { translate: 0 0; }
-
-  .leist[data-bereit] .lstart,
-  .leist[data-bereit] .lq,
-  .leist[data-bereit] .lk,
-  .leist[data-bereit] .lz,
-  .leist[data-bereit] .lk__liste li {
+  .wnetz[data-bereit] .wnetz__bild .wnetz__kasten,
+  .wnetz[data-bereit] .wnetz__bild .wnetz__symbol,
+  .wnetz[data-bereit] .wnetz__schrift text,
+  .wnetz[data-bereit] .wnetz__punkte > g {
     opacity: 1;
     transform: none;
     transition: none;
   }
-  .leist[data-bereit] .ll {
-    -webkit-clip-path: none;
-            clip-path: none;
+
+  /* KEINE DREHUNG. Eine volle Umdrehung ist genau die Art Bewegung, die bei
+     Bewegungsempfindlichkeit Beschwerden ausloest. Der Zielkasten blendet
+     stattdessen nur weich ein; die gruene Kontur steht danach ruhig da.
+     Die Regel muss BEIDE Schalter abdecken: `animation: none` allein an
+     data-bereit genuegt nicht, weil die Drehung an data-s3 haengt. */
+  .wnetz[data-bereit] .wnetz__bild .wnetz__ziel,
+  .wnetz[data-s3] .wnetz__bild .wnetz__ziel {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .wnetz[data-bereit] .wnetz__zug {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+  .wnetz[data-bereit] .wnetz__bild marker path {
+    opacity: 1;
     transition: none;
   }
   .wahl [data-reveal] { opacity: 1; transform: none; transition: none; }
-}
-
-/* Die Pfeilspitze muss gefuellt sein. Die Regel `.leist__linien path` oben
-   setzt `fill: none` und traf bisher auch den Pfad im <marker>, wodurch die
-   Spitzen hohl blieben. Diese Regel ist spezifischer und gewinnt.
-   Nicht ueber `> path` loesen: die Linienpfade liegen in einer Gruppe und
-   wuerden dann gar nicht mehr getroffen — sie liefen schwarz gefuellt. */
-.leist__linien marker path {
-  fill: currentColor;
-  stroke: none;
 }

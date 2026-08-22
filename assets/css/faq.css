@@ -1,0 +1,570 @@
+/* ===========================================================================
+   FAQ — NACHBAU DER KUNDENVORLAGE  (Bilder/referenz-faq.jpg, 736 x 546 px)
+   Angelegt 21.08.2026, Build B-201.
+
+   WAS AUF DER VORLAGE STEHT
+   Ein dunkler, fast schwarzblauer Grund. Mittig oben das Wort „FAQ" in
+   Weiss, fett, sehr kurz — cirka die doppelte Schriftgroesse der Fragen.
+   Darunter sechs schmale, flache Balken mit weich gerundeten Ecken. Sie
+   stehen ABWECHSELND eingerueckt: der erste weiter links, der zweite um
+   62 px nach rechts versetzt, der dritte wieder links und so fort. Jeder
+   Balken traegt links seine Frage in Weiss, rechts einen kleinen Winkel
+   („Chevron") nach unten, der das Aufklappen ankuendigt. Keine Kontur,
+   kein Schatten, keine Trennlinien. Die Balken selbst sind nicht einfarbig,
+   sondern haben einen ruhigen WAAGERECHTEN Verlauf von links dunkel nach
+   rechts eine Spur heller.
+
+   DIE VIER GEWOLLTEN ABWEICHUNGEN — und nur diese
+     1. Der Grund der Section ist reines Weiss (--paper) statt des dunklen
+        Vorlagengrunds (#131A22 … #151C26). Kundenwunsch.
+     2. Die Kaesten behalten EXAKT die Farben der Vorlage, samt Verlauf.
+        Sie sind bewusst NICHT auf das Projekt-Navy umgefaerbt. Kundenwunsch:
+        „Aber sonst, auch mit dem Farbverlauf und allem, sollen die Kaesten
+        1:1 gleich aussehen."
+     3. Die Ueberschrift „FAQ" steht in --ink-black (#2B2E33) statt Weiss.
+     4. Die Kaesten stehen buendig untereinander, gleiche linke Kante,
+        gleiche Breite. Der Wechselversatz der Vorlage entfaellt.
+
+   WAS SONST NOCH ABWEICHT UND WARUM — bitte lesen, bevor jemand es
+   „korrigiert":
+     a) SCHRIFTART. Die Vorlage ist in einer Grotesk gesetzt. Uebernommen
+        sind ihre GROESSENVERHAELTNISSE, nicht ihre Schriftart — der Kunde
+        nennt ausdruecklich „Schriftgroessenverhaeltnisse", und eine fremde
+        Grotesk mitten auf einer Seite in Cormorant Garamond waere ein
+        Bruch, den niemand bestellt hat. Cormorant hat aber eine deutlich
+        kleinere x-Hoehe (0,386em gegen 0,46em bei einer Grotesk); wie
+        ueberall im Projekt sind die Groessen deshalb um Faktor 1,19
+        angehoben, damit die OPTISCHE Groesse der Vorlage entsteht. Alle
+        Verhaeltniszahlen unten sind bereits um diesen Faktor bereinigt.
+        WAS DABEI UEBRIG BLEIBT, und zwar unvermeidlich: die Schriften der
+        Vorlage und Cormorant haben unterschiedliche Verhaeltnisse von
+        Versal- zu x-Hoehe (0,78 dort, 0,62 hier). Am fertigen Bild
+        nachgemessen steht unsere Frageschrift deshalb mit 13 % groesserer
+        Versalhoehe, aber 11 % kleinerer x-Hoehe da. Beides zugleich zu
+        treffen ist mit dieser Schriftart nicht moeglich; der Wert 1,19
+        ist genau die Mitte zwischen den beiden Fehlern und deshalb die
+        beste erreichbare Naeherung. Wer die Versalhoehe treffen will,
+        rechnet mit 1,05 — dann faellt die x-Hoehe 21 % zu klein aus und
+        der Text liest sich sichtbar kleiner als auf der Vorlage.
+     b) SCHNITT DER UEBERSCHRIFT. „FAQ" steht auf der Vorlage fett. Im
+        Projekt ist .display sonst im Schnitt 300 gesetzt. Hier steht 600 —
+        das ist der Kompromiss zwischen „fett wie die Vorlage" und
+        „gehoert noch zur Seite". Soll es leichter werden: eine Zeile,
+        --faq-titel-schnitt.
+     c) HOVER UND FOKUS. Die Vorlage zeigt nur Ruhezustaende. Ein Knopf
+        ohne sichtbaren Fokus ist aber nicht bedienbar; der Fokusrahmen
+        und der sehr zurueckhaltende Hover sind deshalb ergaenzt.
+     d) GEOEFFNETER ZUSTAND. Die Vorlage zeigt keinen offenen Kasten. Die
+        Antwort waechst innerhalb desselben Kastens nach unten — der
+        Verlauf ist waagerecht und bleibt dabei unveraendert.
+
+   AUSGEMESSENE WERTE AUS DER VORLAGE (Bildpunkte im 736er Bild)
+     Kasten:        350 breit, 46,7 hoch, Eckenradius ~7
+     Versatzpaar:   linker Kasten x 162…511, rechter x 224…573
+                    -> Gesamtbreite der Staffel 412 (= unsere Kastenbreite)
+     Abstand:       Rasterschritt 56,5  ->  Zwischenraum 9,8
+     Innenabstand:  16 links bis zum Text, 16 rechts bis zum Winkel
+     Winkel:        15 breit, 8 hoch, mittig auf halber Kastenhoehe
+     Frageschrift:  Versalhoehe 9, x-Hoehe 7  ->  nominal ~13,7 in einer
+                    Grotesk
+     „FAQ":         Versalhoehe 20, Tinte 60…79, Breite 46, bildmittig
+     Kopf -> erster Kasten: 45,8
+
+   GEMESSENE KONTRASTE — gegen den TATSAECHLICHEN Kastengrund, nicht gegen
+   Weiss. Der Verlauf laeuft von #1E222D (links) nach #2E3643 (rechts);
+   der rechte, hellere Rand ist der ungueenstigere Fall, deshalb steht er
+   jeweils dabei.
+     Frage       #EDF1F8  auf #1E222D  14,02:1   auf #2E3643  10,75:1  (AA ab 4,5)
+     Antwort     #C7CEDA  auf #1E222D  10,04:1   auf #2E3643   7,69:1  (AA ab 4,5)
+     Winkel      #BAC1CF  ————— nichttextlich, Schwelle 3:1 —————  6,73:1
+     Kasten      #1E222D…#2E3643 auf Weiss  16,10:1 … 12,49:1  (Kante ab 3:1)
+     „FAQ"       #2B2E33 auf Weiss  13,62:1
+   Keine uebernommene Vorlagenfarbe drueckt einen Wert unter die Schwelle —
+   der dunkle Kasten ist gegenueber Weiss und gegenueber seiner Schrift
+   ausgesprochen gutmuetig. Es war also nicht noetig, von der Vorlage
+   abzuweichen.
+
+   NICHT verwendet: --gold #A8874F. Es misst 3,32:1 auf Weiss und ist als
+   Schrift unzulaessig; als Schrift stuende --gold-text #86693A (5,13:1).
+   In dieser Section kommt beides nicht vor — die Vorlage kennt kein Gold.
+   =========================================================================== */
+
+.faq {
+  /* ===== DER MASSSTAB ======================================================
+     Genau EINE Groesse steuert die ganze Section: die KASTENHOEHE. Alles
+     andere haengt als Vielfaches daran, und die Vielfachen sind die
+     Messwerte der Vorlage, geteilt durch deren Kastenhoehe 46,7. Damit hat
+     jeder Kasten bei jeder Fensterbreite denselben Querschnitt wie auf der
+     Vorlage — gleicher Radius, gleicher Innenabstand, gleicher Winkel.
+     Wer den Abschnitt groesser oder kleiner will, aendert NUR diese Zeile.
+
+     Keine der drei Zahlen ist geraten:
+
+     5,711vw — das ist der Wert, bei dem der Abschnitt GENAU im Massstab
+       der Vorlage steht. Rechnung: der Rahmen der Vorlage entspricht der
+       Inhaltsspalte, und die ist 90 % der Fensterbreite (Fenster minus
+       zweimal --gutter, und --gutter ist im mittleren Bereich 5vw). Aus
+       46,7 / 736 x 0,9 folgt 0,05711 — also 5,711vw. Bei 1440px sind das
+       82,2px Kastenhoehe; auf 736 zurueckgerechnet exakt die 46,7 der
+       Vorlage.
+
+     5,4rem oben — ab 1520px Fensterbreite waechst die Inhaltsspalte nicht
+       mehr mit (.faq__inner ist bei 1520 gedeckelt, abzueglich zweimal
+       80px Steg bleiben 1360). Ab dort waere jedes weitere Wachstum eine
+       Abweichung von der Vorlage. 46,7 / 736 x 1360 = 86,3px = 5,4rem.
+
+     3,6rem unten — hier bricht das Verhaeltnis bewusst, und zwar zugunsten
+       der Lesbarkeit: bei 3,6rem misst die abgeleitete Frageschrift 20,1px
+       in Cormorant, optisch rund 17px in einer Grotesk. Weiter runter darf
+       der Fliesstext laut Auftrag nicht. Unterhalb von rund 1010px
+       Fensterbreite steht der Abschnitt deshalb etwas grosszuegiger als
+       die Vorlage. */
+  --faq-hoehe: clamp(3.6rem, 5.711vw, 5.4rem);
+
+  /* --- Rein geometrische Ableitungen: exakt die Vorlage ------------------ */
+  --faq-radius:   calc(var(--faq-hoehe) * 0.1499);  /*  7,0 / 46,7 */
+  --faq-innen:    calc(var(--faq-hoehe) * 0.3426);  /* 16,0 / 46,7 */
+  --faq-luft:     calc(var(--faq-hoehe) * 0.2098);  /*  9,8 / 46,7 */
+  --faq-winkel:   calc(var(--faq-hoehe) * 0.3212);  /* 15,0 / 46,7 — TINTENbreite */
+  /* Der SVG-Kasten ist groesser als die Tinte darin: der Winkelpfad belegt
+     12 von 24 viewBox-Einheiten, dazu kommt die halbe Strichstaerke an
+     jedem Ende — bei stroke-width 1,64 also 13,64 von 24. Damit die TINTE
+     die gemessenen 15 Bildpunkte breit wird, muss der Kasten
+     24 / 13,64 = 1,76 mal so gross sein. Nachgerechnet bei 46,7 Kastenhoehe:
+       Kasten 26,4  ->  Tinte 15,0 breit, 8,4 hoch, Strich 1,80
+       Vorlage gemessen: 15,0 breit, 8,0 hoch, Strich rund 1,8
+     Vorher stand hier glatt „x 2" mit stroke-width 1,5. Das ergab 16,5 x 9,7
+     — zehn Prozent zu breit, zwanzig Prozent zu hoch und einen zu fetten
+     Strich. Wer die Strichstaerke im HTML aendert, muss diesen Faktor
+     mitrechnen. */
+  --faq-winkel-kasten: calc(var(--faq-winkel) * 1.76);
+  /* ===== DIE UEBERSCHRIFT: NACH DER TINTE GESETZT, NICHT NACH DER ZAHL ====
+     Die drei Werte hier unten sind NICHT aus der Vorlage geteilt, sondern
+     am gerenderten Bild nachgemessen und so lange verschoben, bis die
+     TINTE deckt. Grund: Cormorant sitzt anders in seiner Zeile als die
+     Grotesk der Vorlage. Rechnerisch richtige Werte ergaben eine
+     Ueberschrift, die 5 % zu gross war, 7 Bildpunkte zu tief sass und den
+     ersten Kasten 16 Bildpunkte zu weit nach unten schob.
+
+     Gemessen und getroffen ist jetzt (in Bildpunkten der Vorlage):
+       Versalhoehe „FAQ"          20,0  — Vorlage 20,0
+       Oberkante der Tinte         60,0 — Vorlage 60,0
+       Versalfuss -> Kasten 1      45,0 — Vorlage 45,8
+
+     WAS SICH NICHT TREFFEN LAESST: die Breite. „FAQ" misst auf der Vorlage
+     46 Bildpunkte, bei uns rund 61. Das ist die Schriftart und sonst
+     nichts — Cormorant-Versalien sind bei gleicher Versalhoehe deutlich
+     breiter als eine fette Grotesk. Wer das angleichen wollte, muesste die
+     Schriftart wechseln, und die ist nicht Gegenstand der vier gewuenschten
+     Abweichungen. `letter-spacing` steht deshalb auf 0 statt auf dem sonst
+     ueblichen Hauch Sperrung — jedes Hundertstel em macht es breiter.
+
+     ZUM Q: Cormorant hat einen langen Schwanz am Q, die Grotesk der Vorlage
+     nicht. Der Abstand nach unten ist deshalb bewusst am VERSALFUSS
+     ausgerichtet und nicht an der untersten Tinte — sonst rueckte der erste
+     Kasten wegen eines Haarstrichs sieben Punkte weiter weg. */
+  --faq-kopfluft: calc(var(--faq-hoehe) * 0.8266);
+  --faq-titel:    calc(var(--faq-hoehe) * 0.6746);
+  --faq-titel-schnitt: 600;
+
+  /* --- Auch diese beiden stehen im exakten Vorlagenverhaeltnis ----------
+     Sie haben eine eigene Ueberschrift, weil sie die einzigen sind, die
+     eine PLATZBEDINGUNG erfuellen muessen: die Frage darf nicht umbrechen,
+     sonst waere der Kasten doppelt so hoch wie auf der Vorlage — der
+     sichtbarste Bruch von allen.
+
+     Rechenprobe mit dem Wortlaut, den der Kunde am 21.08.2026 geliefert
+     hat. Im Browser gemessen ist die laengste der fuenf Fragen („Kann ich
+     auch ausserhalb meiner Stadt investieren?") 19,81 em breit. Neben dem
+     Text belegen Innenabstand links, Abstand zum Winkel, Winkel und
+     Innenabstand rechts zusammen 0,3426 + 0,3426 + 0,3212 + 0,3426 =
+     1,349 Kastenhoehen. Also:
+         19,81 x 0,3491 + 1,349 = 8,27  <  8,822
+     Es bleiben 0,55 Kastenhoehen Reserve, rund 45px auf einem 1440er
+     Fenster — Platz genug fuer eine spaeter etwas laengere Frage.
+
+     ZUR VORGESCHICHTE, damit niemand den Schritt zurueckgeht: mit den
+     sechs Fragen, die vorher hier standen (bis 61 Zeichen, laengste
+     25,43 em), ging diese Rechnung NICHT auf. Damals mussten Schrift und
+     Kastenlaenge je um rund zehn Prozent von der Vorlage abweichen. Mit
+     dem Kundentext ist das nicht mehr noetig. Wird der Wortlaut noch
+     einmal laenger, ist DAS hier die Stelle, die als Erstes reisst. */
+  --faq-frage:  calc(var(--faq-hoehe) * 0.3491);  /* 13,7 x 1,19 / 46,7 */
+  --faq-breite: calc(var(--faq-hoehe) * 8.822);   /* 412,0 / 46,7 */
+
+  /* ===== DIE FARBEN DER VORLAGE ============================================
+     Aus referenz-faq.jpg ausgelesen und als Zahlen uebernommen — NICHT auf
+     die Projektpalette umgerechnet. Das ist ausdruecklicher Kundenwunsch.
+     Der Verlauf ist rein WAAGERECHT: ueber die Kastenhoehe aendert sich
+     nichts, quer dazu laeuft er gleichmaessig (linear geprueft ueber acht
+     Bildzeilen, Abweichung hoechstens ein Zahlenschritt je Kanal).
+     Genau deshalb darf der Kasten beim Aufklappen wachsen, ohne dass sich
+     der Verlauf verschiebt. */
+  --faq-kasten-links:  #1E222D;
+  --faq-kasten-rechts: #2E3643;
+  --faq-kasten: linear-gradient(90deg, var(--faq-kasten-links) 0%, var(--faq-kasten-rechts) 100%);
+  /* Die drei Schriftfarben sind nicht am Einzelpixel abgelesen, sondern an
+     der HELLIGKEIT DER TINTE: fuer jede Flaeche das hellste Fuenftel aller
+     Tintenpunkte gemittelt und mit der Vorlage verglichen. Ein einzelner
+     Spitzenwert taeuscht, weil beide Bilder kantengeglaettet sind und die
+     Vorlage zusaetzlich JPEG-Artefakte hat.
+       Frage   Vorlage 0,843 — unsere zuerst 0,911, jetzt 0,85
+       Winkel  Vorlage 0,521 — unsere zuerst 0,613, jetzt 0,53
+     Cormorant hat feinere Striche als die Grotesk der Vorlage, faellt
+     dadurch aber gleichzeitig weniger deckend aus; beides zusammen ergibt
+     die leicht abgesenkten Werte hier. */
+  --faq-schrift:       #EDF1F8;  /* Frage — auf der Vorlage nahezu Weiss  */
+  --faq-schrift-leise: #C7CEDA;  /* Antwort                               */
+  --faq-winkel-farbe:  #BAC1CF;  /* Winkel — auf der Vorlage gedaempfter  */
+
+  /* ===== BEWEGUNG ==========================================================
+     Zeiten und Kurve aus dem Projekt (--ease-soft steht in base.css). */
+  --faq-ms:   0.42s;
+  --faq-ease: var(--ease-soft, cubic-bezier(0.33, 0, 0.15, 1));
+
+  position: relative;
+  z-index: 1;
+  /* Wie .lst und .robj: springt jemand spaeter per #faq hierher, soll die
+     Ueberschrift nicht unter dem klebenden Kopf verschwinden. Es zeigt
+     zurzeit kein Navigationseintrag hierher — die Regel kostet nichts und
+     verhindert genau den Fehler, den man erst nach dem Verlinken sieht. */
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  /* ABWEICHUNG 1: reines Weiss statt des dunklen Vorlagengrunds. */
+  background: var(--paper);
+  /* Aus der Vorlage: ueber der TINTE des Kopfes 60, unter dem letzten
+     Kasten 91,5 Bildpunkte. Unten sind das glatt 1,959 Kastenhoehen; oben
+     ist der Wert um den Vorlauf gekuerzt, den Cormorant in seiner Zeile
+     ueber der Versalhoehe stehen laesst (1,285 - 0,144 = 1,1413). Auch das
+     haengt am Massstab, sonst wanderte der Kopf bei schmalen Fenstern nach
+     oben weg.
+     Dass unten deutlich mehr Luft steht als oben, ist so auf der Vorlage —
+     und es trifft sich gut: seit dem Wegfall von #wissen-teaser am
+     21.08.2026 ist dieser Abschnitt der letzte Inhalt der Seite, und diese
+     1,959 Kastenhoehen sind der ganze Uebergang zum Fuss. Wer sie kuerzt,
+     setzt den dunklen Fuss dicht unter den letzten Kasten. */
+  padding: calc(var(--faq-hoehe) * 1.1413) 0 calc(var(--faq-hoehe) * 1.959);
+}
+
+/* Aussenmass wie .vt__inner und .wahl__inner — der Abschnitt soll nicht
+   schmaler stehen als seine Nachbarn. Die Kaesten selbst sind darin eine
+   mittige Saeule, genau wie auf der Vorlage. */
+.faq__inner {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------------------------------------------------------------------------
+   1 — DIE UEBERSCHRIFT „FAQ"
+   Auf der Vorlage exakt bildmittig (Textmitte 367,5 bei Bildmitte 368).
+   ABWEICHUNG 3: sie steht in --ink-black statt Weiss.
+--------------------------------------------------------------------------- */
+.faq__titel {
+  margin: 0 0 var(--faq-kopfluft);
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: var(--faq-titel-schnitt);
+  font-size: var(--faq-titel);
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--ink-black);
+}
+
+/* ---------------------------------------------------------------------------
+   2 — DIE SAEULE
+   ABWEICHUNG 4: keine Staffelung. Alle Kaesten haben dieselbe linke Kante
+   und dieselbe Breite. Die Breite ist die GESAMTBREITE der versetzten
+   Staffel aus der Vorlage (412 von 736 Bildpunkten, also 56 % der
+   Abschnittsbreite) — der Block nimmt damit denselben Platz ein wie zuvor,
+   nur eben als eine Saeule statt als Zickzack.
+--------------------------------------------------------------------------- */
+.faq__liste {
+  width: min(var(--faq-breite), 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--faq-luft);
+}
+
+/* ---------------------------------------------------------------------------
+   3 — DER EINZELNE KASTEN
+   Keine Kontur, kein Schatten — die Vorlage hat beides nicht; nachgemessen
+   am senkrechten Schnitt durch die Kastenkante, dort geht der Verlauf ohne
+   Zwischenstufe in den Grund ueber.
+--------------------------------------------------------------------------- */
+.faq__punkt {
+  border-radius: var(--faq-radius);
+  background: var(--faq-kasten);
+  /* Der Radius muss auch fuer die aufgeklappte Antwort gelten. `clip` statt
+     `hidden`: es beschneidet genauso, richtet aber keinen Rollbereich ein —
+     sonst koennte ein fokussiertes Element den Kasten intern verschieben.
+     Der Fokusrahmen liegt bewusst INNEN (outline-offset negativ) und wird
+     davon nicht abgeschnitten. */
+  overflow: clip;
+}
+
+/* Die Ueberschrift traegt keine eigene Optik — sie ist nur die korrekte
+   Stufe in der Gliederung (die Seite hat mehrere h2, die Fragen sind h3). */
+.faq__frage {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------------------
+   4 — DER KNOPF
+   Echter <button>, kein <details>: nur so laesst sich die Hoehe weich
+   ueber `grid-template-rows: 0fr -> 1fr` fuehren (Muster aus warum.css,
+   .wimm__fenster). Er fuellt den ganzen Kasten — die Trefferflaeche ist
+   damit so gross wie der Balken. Selbst auf der kleinsten Stufe sind das
+   3,6rem = 58px Hoehe, deutlich ueber den geforderten 44px; nachgemessen
+   bei 1024, 768 und 390px Fensterbreite.
+--------------------------------------------------------------------------- */
+.faq__knopf {
+  display: flex;
+  align-items: center;
+  gap: var(--faq-innen);
+  width: 100%;
+  min-height: var(--faq-hoehe);
+  margin: 0;
+  /* Senkrecht traegt die Hoehe das `min-height`, nicht der Polster: bei
+     einzeiliger Frage steht der Balken damit exakt auf Vorlagenhoehe (der
+     Inhalt ist niedriger und wird mittig gestellt). Bricht eine Frage auf
+     schmalen Fenstern doch um, waechst der Balken sauber mit, statt zu
+     klemmen — dafuer ist der Polster da. 0,2 Kastenhoehen oben und unten
+     lassen zwei Zeilen zu, ohne dass sie die Kante beruehren. */
+  padding: calc(var(--faq-hoehe) * 0.2) var(--faq-innen);
+  border: 0;
+  background: none;
+  color: var(--faq-schrift);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--faq-frage);
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: color 0.22s linear;
+}
+
+.faq__fragetext {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* Ausgleich der Cormorant-Metrik: die Schrift sitzt in ihrer Zeile
+     etwas hoch, ohne diese Feinkorrektur staende der Text sichtbar ueber
+     der Kastenmitte. Auf der Vorlage ist er exakt mittig (Textmitte 148,5
+     bei Kastenmitte 148,15). */
+  transform: translateY(0.04em);
+}
+
+/* --- Der Winkel ------------------------------------------------------------
+   Auf der Vorlage 15 x 8 Bildpunkte Tinte, Strichstaerke rund 1,8, runde
+   Enden, Abstand zur rechten Kante 16 — also genau derselbe Wert wie der
+   Textabstand links. Wie der SVG-Kasten daraus berechnet wird, steht oben
+   bei --faq-winkel-kasten. Nachgemessen im fertigen Bild: 14,8 x 8,5,
+   rechte Kante bei 16,5. */
+.faq__winkel {
+  flex: 0 0 auto;
+  display: block;
+  width: var(--faq-winkel-kasten);
+  height: var(--faq-winkel-kasten);
+  /* WICHTIG, und beim ersten Anlauf uebersehen: der SVG-Kasten ist groesser
+     als die Tinte darin. Ohne Ausgleich zaehlte im Layout der KASTEN — der
+     Winkel staende dann rund 23 statt 16 Bildpunkte von der Kastenkante
+     entfernt und naehme dem Fragetext ein Drittel einer Kastenhoehe weg.
+     Die negativen Raender ziehen den Layout-Kasten genau auf die TINTE
+     zusammen: waagerecht auf 1,00 Winkelbreite, senkrecht auf 0,56 (der
+     Winkel ist flach). Sie schneiden nichts ab, sie ueberlappen nur —
+     deshalb bleibt der Strich vollstaendig sichtbar. */
+  margin-inline: calc(var(--faq-winkel) * -0.38);
+  margin-block:  calc(var(--faq-winkel) * -0.60);
+  color: var(--faq-winkel-farbe);
+  /* Nur `transform` und `opacity` bewegen sich — beides laeuft auf der
+     Grafikkarte und loest keine Neuberechnung des Layouts aus. */
+  transition: transform var(--faq-ms) var(--faq-ease), color 0.22s linear;
+  will-change: transform;
+}
+.faq__winkel svg { width: 100%; height: 100%; display: block; }
+
+/* ---------------------------------------------------------------------------
+   5 — DAS ANTWORTFACH
+   OHNE JAVASCRIPT steht hier alles offen: keine `display:none`, keine
+   `hidden`. Eine FAQ, die ohne Skript leer ist, waere keine FAQ. Erst wenn
+   faq.js das Wurzelelement mit data-js="an" markiert, wird ueberhaupt
+   zugeklappt.
+--------------------------------------------------------------------------- */
+.faq__fach-klappe { min-height: 0; }
+
+.faq__antwort {
+  /* Oben ein knapper Zusatz zum Polster des Knopfes: der Knopf endet 0,2
+     Kastenhoehen unter seiner Zeile, das allein setzt die Antwort zu dicht
+     unter die Frage. Unten mehr, damit der Kasten nicht auf dem letzten
+     Buchstaben endet. */
+  padding: calc(var(--faq-hoehe) * 0.10) var(--faq-innen) calc(var(--faq-innen) * 1.15);
+  /* Die Antwort endet dort, wo auf der Vorlage der Winkel beginnt — sie
+     laeuft also nicht unter ihn, sondern haelt dieselbe Fluchtlinie wie
+     der Fragetext. */
+  padding-right: calc(var(--faq-innen) * 2 + var(--faq-winkel));
+  margin: 0;
+  color: var(--faq-schrift-leise);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  /* 0,82 der Frage — die Vorlage zeigt keinen offenen Kasten und gibt dafuer
+     nichts vor; das Verhaeltnis ist so gewaehlt, dass die Frage klar die
+     Ueberschrift bleibt. Die untere Schranke ist dagegen zwingend: 1,2rem
+     sind 19,2px in Cormorant, optisch rund 16px in einer Grotesk. Ohne sie
+     faellt die Antwort ab 1024px Fensterbreite unter die 16px-Marke aus dem
+     Auftrag — dort greift naemlich schon die Untergrenze der Kastenhoehe,
+     und alles, was daran haengt, hoert auf zu schrumpfen. */
+  font-size: max(calc(var(--faq-frage) * 0.82), 1.2rem);
+  line-height: 1.62;
+}
+.faq__antwort p { margin: 0; }
+.faq__antwort p + p { margin-top: 0.7em; }
+
+/* --- Schaltbetrieb: erst mit Javascript ------------------------------------
+   Muster aus warum.css: das Fach ist ein einzelliges Raster, dessen Zeile
+   von 0fr auf 1fr faehrt. Der Vorteil gegenueber `max-height`: es faehrt
+   auf die WIRKLICHE Hoehe, nicht auf einen geratenen Hoechstwert — kein
+   Nachrucken am Ende, kein Layout Shift.
+   `visibility` wird beim Zuklappen erst NACH der Bewegung ausgeschaltet und
+   beim Aufklappen sofort ein; sonst waere der Inhalt waehrend des Zufahrens
+   schon nicht mehr da beziehungsweise beim Auffahren noch nicht sichtbar. */
+.faq[data-js='an'] .faq__fach {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows var(--faq-ms) var(--faq-ease),
+              opacity 0.2s linear,
+              visibility 0s linear var(--faq-ms);
+}
+.faq[data-js='an'] .faq__fach-klappe { overflow: hidden; }
+
+.faq[data-js='an'] .faq__fach[data-offen='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows var(--faq-ms) var(--faq-ease),
+              opacity 0.28s linear 0.06s,
+              visibility 0s linear 0s;
+}
+
+/* Beim Laden faehrt faq.js alle Faecher einmal zu. Das darf der Besucher
+   nicht sehen — waehrend dieses einen Schrittes traegt der Abschnitt
+   data-start und alle Ueberblendungen sind gesperrt. faq.js nimmt das
+   Merkmal zwei Bilddurchlaeufe spaeter wieder weg. */
+.faq[data-start] .faq__fach,
+.faq[data-start] .faq__winkel,
+.faq[data-start] .faq__punkt {
+  transition: none !important;
+}
+
+/* Der Winkel dreht sich beim Oeffnen um eine halbe Umdrehung. Nur im
+   Schaltbetrieb — steht alles offen, waere ein dauerhaft gedrehter Winkel
+   nur Zierat ohne Aussage. */
+.faq[data-js='an'] .faq__knopf[aria-expanded='true'] .faq__winkel {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------------------
+   6 — HOVER UND FOKUS  (nicht auf der Vorlage, siehe Kopf, Punkt c)
+--------------------------------------------------------------------------- */
+@media (hover: hover) {
+  .faq__knopf:hover .faq__winkel { color: var(--faq-schrift); }
+  /* Sehr zurueckhaltend: der Kasten hebt sich um einen Hauch auf, ohne
+     seine Vorlagenfarbe zu verlassen. `filter` statt zweiter Verlauf,
+     damit der Farbabstand ueber die ganze Breite gleich bleibt. */
+  .faq__punkt:has(.faq__knopf:hover) { filter: brightness(1.16); }
+}
+.faq__punkt { transition: filter 0.22s linear; }
+
+/* Der Rahmen liegt INNEN (negativer Versatz), damit ihn `overflow: clip`
+   am Kasten nicht abschneidet. Nahezu Weiss auf dem dunklen Kasten —
+   14,02:1 gegen die dunkle Seite des Verlaufs, 10,75:1 gegen die helle.
+   Beide Werte liegen weit ueber den 3:1, die fuer einen Fokusrahmen
+   gefordert sind. */
+.faq__knopf:focus-visible {
+  outline: 2px solid var(--faq-schrift);
+  outline-offset: calc(var(--faq-radius) * -1);
+  border-radius: var(--faq-radius);
+}
+.faq__knopf:focus:not(:focus-visible) { outline: none; }
+
+/* ---------------------------------------------------------------------------
+   7 — SCHMALE FENSTER
+   Ab hier bricht das Vorlagenverhaeltnis zwangslaeufig — nicht erst hier,
+   sondern schon bei rund 1010px, wo die Untergrenze der Kastenhoehe
+   greift. Bei 390px Fensterbreite haette ein Kasten mit reiner
+   Vorlagenproportion nur noch 36px Hoehe; die Schrift darin waere 11px und
+   die Trefferflaeche laege unter der 44px-Marke. Die Kastenhoehe ist
+   deshalb ab 3,6rem eine MINDESThoehe: die Kaesten werden zweizeilig und
+   wachsen mit. Das ist bei deutschen Fragen auf einem Telefon nicht zu
+   vermeiden und auf jeder FAQ so.
+
+   Die Saeule steht hier ueber die volle Breite — dafuer sorgt schon
+   `min(…, 100%)` an .faq__liste, es braucht keine eigene Regel. Radius,
+   Winkel und Zwischenraum bleiben an der Kastenhoehe und damit im
+   Verhaeltnis der Vorlage; angefasst werden nur zwei Dinge.
+--------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  /* ERSTENS der Innenabstand: der Vorlagenwert von 0,3426 Kastenhoehen
+     waere auf einem Telefon viel Rand und wenig Text. */
+  .faq { --faq-innen: calc(var(--faq-hoehe) * 0.28); }
+
+  /* ZWEITENS die Lage des Winkels. Zweizeilige Fragen sind hier die Regel;
+     ein Winkel in der Mitte der beiden Zeilen schwebt dann neben nichts.
+     Er wird deshalb auf die Mitte der ERSTEN Zeile gesetzt. */
+  .faq__knopf { align-items: flex-start; }
+  .faq__winkel {
+    /* Rechnung: durch den negativen Rand der Grundregel liegt die Tinte
+       mit ihrer Oberkante buendig am Inhaltsanfang. Ihre Mitte sitzt
+       0,28 Winkelbreiten tiefer, die Mitte der ersten Zeile bei
+       0,65 Schriftgroessen (Zeilenabstand 1,3). Aus der Differenz folgt
+       der zusaetzliche Versatz — der Rand UNTEN bleibt der der
+       Grundregel, sonst waere der Winkel im Layout wieder zu hoch. */
+    margin-top: calc(var(--faq-frage) * 0.65 - var(--faq-winkel) * 0.88);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   8 — WENIGER BEWEGUNG
+   Auftrag: „kein Aufziehen, nur Deckkraft." Die Hoehe springt also sofort
+   auf ihren Wert, der Inhalt blendet nur ein und aus. Zugeklappt wird
+   weiterhin — ein Aufklapper, der sich nicht mehr schliesst, waere keine
+   Ruecksicht, sondern ein Fehler.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .faq[data-js='an'] .faq__fach,
+  .faq[data-js='an'] .faq__fach[data-offen='true'] {
+    transition: opacity 0.2s linear, visibility 0s linear;
+  }
+  .faq__winkel,
+  .faq__punkt,
+  .faq__knopf {
+    transition: none;
+  }
+  .faq[data-js='an'] .faq__knopf[aria-expanded='true'] .faq__winkel {
+    transform: rotate(180deg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   9 — DRUCK
+   Auf Papier gibt es kein Aufklappen. Alles steht offen, und der dunkle
+   Kasten wird zur Haarlinie — ein vollflaechig dunkler Balken frisst
+   Toner und liest sich schlechter als der blosse Text.
+--------------------------------------------------------------------------- */
+@media print {
+  .faq { background: #fff; padding: 1.5rem 0; }
+  .faq__punkt { background: none; border: 1px solid #999; }
+  .faq__knopf { color: #000; }
+  .faq__antwort { color: #222; }
+  .faq__winkel { display: none; }
+  .faq[data-js='an'] .faq__fach {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+}

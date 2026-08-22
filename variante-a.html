@@ -16,12 +16,23 @@
 <link rel="stylesheet" href="assets/css/leistungen.css">
 <link rel="stylesheet" href="assets/css/auswahl.css">
 <link rel="stylesheet" href="assets/css/prinzip.css">
-<link rel="stylesheet" href="assets/css/vergleich.css">
 <link rel="stylesheet" href="assets/css/referenzobjekte.css">
-<link rel="stylesheet" href="assets/css/spiel.css">
-<link rel="stylesheet" href="assets/css/schluss.css">
 <link rel="stylesheet" href="assets/css/loop.css">
 <link rel="stylesheet" href="assets/css/banken.css">
+<!-- WIEDER EINGEBUNDEN am 21.08.2026. Beim Entfernen der Section
+     #wissen-teaser war schluss.css ausgehaengt worden. Das war ein
+     Fehler: in dieser Datei stehen NICHT nur die Regeln jener Section,
+     sondern auch der Aufruf-Abschnitt (.cta, .cta__inner) UND die
+     komplette Fusszeile (.fuss, .fuss__inner, .fuss__liste,
+     .fuss__marke, .fuss__risiko, .fuss__titel, .fuss__unten,
+     .fuss__anker). Ohne sie stand der Knopf am linken Fensterrand und
+     die Fusszeile war ungestaltet.
+     Die verwaisten Regeln der entfernten Section bleiben vorerst
+     drin — sie greifen ins Leere und schaden nicht. Aufraeumen erst,
+     wenn nichts anderes mehr daran haengt. -->
+<link rel="stylesheet" href="assets/css/schluss.css">
+<link rel="stylesheet" href="assets/css/warum.css">
+<link rel="stylesheet" href="assets/css/faq.css">
 </head>
 <body>
 
@@ -41,7 +52,6 @@
       <li><a href="#leistungen">Leistungen</a></li>
       <li><a href="#vorteile">Vorteile</a></li>
       <li><a href="#referenzobjekte">Referenzobjekte</a></li>
-      <li><a href="#bausteine">Bausteine</a></li>
     </ul>
   </nav>
 
@@ -361,6 +371,441 @@
   </div>
 </section>
 <!-- =====================================================================
+     VORTEILE VON IMMOBILIEN   —   neu angeordnet am 21.08.2026 (B-201)
+
+     WOZU DIESER ABSCHNITT DA IST
+     Er steht bewusst VOR „Unsere Leistungen". Wer nicht verstanden hat,
+     warum eine fremdfinanzierte Wohnung ueberhaupt Vermoegen aufbaut, den
+     interessiert der Ablauf einer Beratung noch nicht. Erst das Warum,
+     dann das Wie.
+
+     WAS DER KUNDE VORGEGEBEN HAT — und was daraus geworden ist
+     Das Bento-Raster ist abgelehnt worden. Der Kunde wollte es so:
+       „Die Überschrift lautet ‚Vorteile von Immobilien'. Das ist die
+        einzige Überschrift. Auf der linken Bildhälfte lassen wir es wie
+        vorher, wo wir die vier Vorteile aufgelistet haben … Auf der
+        rechten Seite kommen dann die ganzen Kästen mit den Grafiken. Die
+        müssen alle gleich groß sein … Es soll aber eine Scroll-Animation
+        daraus gemacht werden … man muss nirgendwohin drücken."
+     Genau das steht hier:
+       LINKS   vier Eintraege untereinander, je mit Symbol davor, in der
+               Reihenfolge Bankkapital, steuerliche Potenziale,
+               Mieteinnahmen, Eigentumsaufbau. Feine Navy-Konturzeichnung,
+               KEIN Kasten um das Symbol, KEINE Trennstriche, Schrift
+               schwarz — so hatte der Kunde es frueher schon verlangt.
+       RECHTS  vier Kaesten, einer je Vorteil, ALLE EXAKT GLEICH GROSS,
+               mit der Grafik und dem erklaerenden Text.
+       DAZU    eine Scroll-Animation: die rechte Buehne klebt, links laeuft
+               je Vorteil eine Spur von 78vh durch, der Wechsel geschieht
+               von allein. Die Eintraege links sind zusaetzlich anklickbar —
+               das ist Komfort, keine Bedingung.
+
+     ERSATZLOS ENTFALLEN
+     Kleinzeile, Unterzeile, Vorschauzeile, die Kategorien-Nummern
+     („01 —"), die Abschlussleiste und jeder Aufruf zum Handeln. Es bleibt
+     EINE Ueberschrift. In dieser Section wird nichts verlangt — erst soll
+     der Besucher den Mechanismus verstehen.
+
+     WARUM DIE VIER KAESTEN AUF DEN PIXEL GLEICH SIND
+     Die Buehne hat eine feste Hoehe (--wi-buehne-h in warum.css) und ist
+     `position: relative`. Alle vier Kaesten liegen darin als
+     `position: absolute; inset: 0` — deckungsgleich. Es gibt damit gar
+     keine Moeglichkeit, dass einer groesser ausfaellt als ein anderer.
+
+     FARBE — die eine bewusste Abweichung vom Briefing
+     Das Briefing beschrieb einen dunkelblauen Abschnitt. Der Kunde hat das
+     ausdruecklich ueberstimmt: „Hintergrundfarbe muss ganz normal weiss
+     sein, Akzentfarbe ist blau, und du sollst auch schwarz verwenden fuer
+     die Schriftfarbe." Also weisser Grund, Kaesten nur minimal kuehler
+     abgesetzt, Schrift schwarz, Navy als Akzent. Gold traegt Wert und
+     steuerliche Potenziale, Gruen ausschliesslich Mieteinnahmen und
+     Eigentum, Rot ausschliesslich die Restschuld. Gemessene Kontraste
+     stehen im Kopf von assets/css/warum.css.
+
+     GRENZEN — hier eingehalten, Punkt fuer Punkt geprueft
+     Kein einziger erfundener Eurobetrag, kein Prozentsatz, keine Rendite,
+     kein Zinssatz, keine Jahreszahl — auch nicht in den Schaubildern. Die
+     Balken und Flaechen zeigen VERHAELTNISSE, keine Werte. Es steht
+     nirgends „garantiert", „krisensicher", „steuerfrei", „der Staat
+     bezahlt", „der Mieter zahlt alles", „null Euro". Jede starke Aussage
+     traegt ihren Vorbehalt im selben Kasten, sichtbar und ungekuerzt.
+     Rot und Gruen sind IMMER zusaetzlich beschriftet; keine Information
+     haengt allein an der Farbe.
+
+     OFFEN VOR VEROEFFENTLICHUNG
+     Der Text dieses Abschnitts ist von uns formuliert und Estera noch
+     nicht vorgelegt worden. Vor dem Livegang ist er fachlich freizugeben —
+     insbesondere die Steuerpassage in Kasten 02.
+
+     TECHNIK: assets/css/warum.css und assets/js/warum.js.
+     Alle Schaubilder sind unveraendert aus der Vorfassung uebernommen:
+     Inline-SVG mit viewBox (festes Seitenverhaeltnis, kein Layout Shift),
+     wiederkehrende Formen als <symbol> im Vorrat direkt unter dem
+     Section-Anfang. Der Wechsel laeuft ueber eine rAF-gedrosselte
+     Scrollmessung ohne jeden Eingriff ins Scrollen; Klebemechanik und
+     Anfangszustaende haengen an data-js="an", das erst warum.js setzt.
+     OHNE JAVASCRIPT stehen die vier Kaesten schlicht untereinander, jeder
+     mit Symbol und Namen seines Vorteils — nichts ist unsichtbar.
+     ===================================================================== -->
+<section class="wimm" id="warum-immobilien" aria-labelledby="wimm-titel">
+
+  <!-- Wiederkehrende Formen stehen EINMAL hier und werden geholt: die vier
+       Vorteilssymbole, das goldene Minuszeichen dreimal in Kasten 02 und
+       die Pfeilspitze in Kasten 01. Rein zeichnerisch — deshalb aria-hidden.
+       Die vier Vorteilssymbole folgen der Symbolsprache, die auf der Seite
+       schon besteht: 24er-Raster, feine Kontur, runde Enden, keine
+       Fuellung, kein Kasten drumherum. -->
+  <svg class="wimm__defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="wi-minus" viewBox="0 0 20 20">
+        <circle cx="10" cy="10" r="9"/>
+        <path d="M5.5 10H14.5"/>
+      </symbol>
+      <symbol id="wi-pfeil" viewBox="0 0 12 12">
+        <path d="M2.5 2.5 8 6 2.5 9.5"/>
+      </symbol>
+
+      <!-- Bankkapital: Giebelfassade mit fuenf Saeulen und Sockel -->
+      <symbol id="wi-ic-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3.1 21.4 8.4H2.6z"/>
+        <path d="M2.9 10.3h18.2"/>
+        <path d="M5.4 10.9v6.4M8.7 10.9v6.4M12 10.9v6.4M15.3 10.9v6.4M18.6 10.9v6.4"/>
+        <path d="M3.6 18.2h16.8"/>
+        <path d="M2.3 20.7h19.4"/>
+      </symbol>
+
+      <!-- steuerliche Potenziale: Prozentzeichen im Kreis -->
+      <symbol id="wi-ic-steuer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M15.4 8.6 8.6 15.4"/>
+        <circle cx="9.5" cy="9.5" r="1.35"/>
+        <circle cx="14.5" cy="14.5" r="1.35"/>
+      </symbol>
+
+      <!-- Mieteinnahmen: Muenze, die in eine offene Hand faellt -->
+      <symbol id="wi-ic-miete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12.4" cy="7.2" r="3.9"/>
+        <circle cx="12.4" cy="7.2" r="1.5"/>
+        <path d="M2.9 14.6v5.5"/>
+        <path d="M2.9 15.2c1.5 0 2.6.6 3.7 1.5 1.5 1.2 3.2 2 5.2 2h3.3a1.5 1.5 0 0 0 0-3h-2.5"/>
+        <path d="M20.9 15.6c-1.8 1.7-3.7 3.1-5.8 4"/>
+      </symbol>
+
+      <!-- Eigentumsaufbau: Haus mit Tuer -->
+      <symbol id="wi-ic-eigen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2.8 11.7 12 4.1l9.2 7.6"/>
+        <path d="M5.9 11.1v9.4h12.2v-9.4"/>
+        <path d="M10.2 20.5v-5h3.6v5"/>
+        <path d="M12 8.3v1.6"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="wimm__inner">
+
+    <!-- ---------- DIE EINZIGE UEBERSCHRIFT ---------- -->
+    <header class="wimm__auftakt" data-block>
+      <h2 class="display wimm__h2" id="wimm-titel">Vorteile von Immobilien</h2>
+    </header>
+
+    <!-- ---------- LAUF: klebende Buehne + vier Spuren ----------
+         .wimm__klebe ist das ERSTE Kind und hat keine Aussenabstaende.
+         Dadurch entspricht der Klebeweg exakt der Summe der vier Spuren:
+         die Buehne loest sich genau dann, wenn die vierte Spur
+         durchgelaufen ist. Die Spuren sind leer und tragen nur Hoehe. -->
+    <div class="wimm__lauf">
+
+      <div class="wimm__klebe">
+        <div class="wimm__raster" data-block>
+
+          <!-- ========== LINKS: die vier Vorteile ==========
+               Knoepfe statt Verweise: sie steuern die Buehne rechts, sie
+               fuehren nicht auf eine andere Seite. Wer mit der Tastatur
+               unterwegs ist oder einen Screenreader nutzt, kann damit
+               denselben Wechsel ausloesen, den das Scrollen sonst von
+               allein macht. Klicken MUSS aber niemand. -->
+          <ol class="wimm__liste" role="list">
+            <li>
+              <button type="button" class="wimm__eintrag" data-zu="0" aria-controls="wimm-k1" aria-current="true">
+                <span class="wimm__balken" aria-hidden="true"></span>
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-bank"/></svg>
+                <span class="wimm__wort">Bankkapital</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="wimm__eintrag" data-zu="1" aria-controls="wimm-k2">
+                <span class="wimm__balken" aria-hidden="true"></span>
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-steuer"/></svg>
+                <span class="wimm__wort">steuerliche Potenziale</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="wimm__eintrag" data-zu="2" aria-controls="wimm-k3">
+                <span class="wimm__balken" aria-hidden="true"></span>
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-miete"/></svg>
+                <span class="wimm__wort">Mieteinnahmen</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="wimm__eintrag" data-zu="3" aria-controls="wimm-k4">
+                <span class="wimm__balken" aria-hidden="true"></span>
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-eigen"/></svg>
+                <span class="wimm__wort">Eigentumsaufbau</span>
+              </button>
+            </li>
+          </ol>
+
+          <!-- ========== RECHTS: die Buehne mit den vier Kaesten ==========
+               Alle vier liegen deckungsgleich uebereinander und sind damit
+               exakt gleich gross. Auf schmalen Geraeten und ohne Javascript
+               stehen sie stattdessen untereinander. -->
+          <div class="wimm__buehne">
+
+            <!-- ---------- 01  BANKKAPITAL ----------
+                 Kapitalbalken: der Bankanteil wirkt deutlich groesser als
+                 der eigene Beitrag — ohne Prozentzahl. -->
+            <article class="wimm__kasten" id="wimm-k1" data-kasten="0" aria-labelledby="wimm-m1">
+              <p class="wimm__marke" id="wimm-m1">
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-bank"/></svg>
+                <span>Bankkapital</span>
+              </p>
+
+              <div class="wimm__k-text">
+                <h3 class="wimm__k-h">Mit fremdem Kapital einen eigenen Sachwert erwerben.</h3>
+                <p class="wimm__k-t">
+                  Eine passend strukturierte Finanzierung kann einen wesentlichen
+                  Teil des Kaufpreises bereitstellen. Entscheidend sind
+                  Einkommen, Bonität, Objekt und die Finanzierungsentscheidung
+                  der Bank.
+                </p>
+                <p class="wimm__kern">Ihre Bonität kann zum Vermögenshebel werden.</p>
+              </div>
+
+              <div class="wimm__bild">
+                <svg class="wimm__svg" viewBox="0 0 300 168" role="img"
+                     aria-label="Schaubild: ein waagerechter Kapitalbalken. Der linke, deutlich größere Abschnitt steht für das Bankkapital, der rechte, kleinere für den individuellen Beitrag. Zusammen bilden beide den erworbenen Sachwert. Darunter der Zusammenhang: Einkommen und Bonität eröffnen den Zugang zu einer Finanzierung. Der Balken zeigt ein Verhältnis, keine Beträge.">
+
+                  <!-- Klammer „Erworbener Sachwert" — laeuft zuletzt ein -->
+                  <text class="wi-t-m wi-sperr" x="150" y="12" text-anchor="middle" data-blenden style="--t:1.55">Erworbener Sachwert</text>
+                  <path class="wi1-klammer" d="M150 30V20" data-zeichnen style="--t:1.3"/>
+                  <path class="wi1-klammer" d="M12 42V30H288V42" data-zeichnen style="--t:1.3"/>
+
+                  <!-- Der Balken. Beide Abschnitte liegen in einem Beschnitt,
+                       damit die Aussenecken gerundet bleiben, waehrend die
+                       Trennkante in der Mitte scharf bleibt. -->
+                  <clipPath id="wi1-clip"><rect x="12" y="54" width="276" height="74" rx="8"/></clipPath>
+                  <g clip-path="url(#wi1-clip)">
+                    <rect class="wi1-bank" x="12" y="54" width="188" height="74" data-wachsen style="--t:0.15"/>
+                    <rect class="wi1-beitrag" x="200" y="54" width="88" height="74" data-wachsen="rechts" style="--t:0.85"/>
+                  </g>
+                  <line class="wi1-trenn" x1="200" y1="54" x2="200" y2="128" data-blenden style="--t:1.1"/>
+                  <rect class="wi1-rahmen" x="12" y="54" width="276" height="74" rx="8"/>
+
+                  <text class="wi-t-k wi-t-w" x="26" y="97" data-blenden style="--t:0.8">Bankkapital</text>
+                  <text class="wi-t-s" x="244" y="87" text-anchor="middle" data-blenden style="--t:1.3">individueller</text>
+                  <text class="wi-t-s" x="244" y="100" text-anchor="middle" data-blenden style="--t:1.3">Beitrag</text>
+
+                  <!-- Woraus der Zugang entsteht -->
+                  <text class="wi-t-m" x="136" y="156" text-anchor="end" data-blenden style="--t:1.8">Einkommen + Bonität</text>
+                  <use class="wi-navy" href="#wi-pfeil" x="142" y="146" width="12" height="12" data-blenden style="--t:1.8"/>
+                  <text class="wi-t-m" x="160" y="156" data-blenden style="--t:1.8">Zugang zu Finanzierung</text>
+                </svg>
+              </div>
+            </article>
+
+            <!-- ---------- 02  STEUERLICHE POTENZIALE ----------
+                 Stark reduzierte Aufstellung: drei Zeilen, eine
+                 Sammelschiene, ein gemeinsames Ergebnisfeld. Keine
+                 Eurobetraege, keine Prozentzahlen. -->
+            <article class="wimm__kasten" id="wimm-k2" data-kasten="1" aria-labelledby="wimm-m2">
+              <p class="wimm__marke" id="wimm-m2">
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-steuer"/></svg>
+                <span>steuerliche Potenziale</span>
+              </p>
+
+              <div class="wimm__k-text">
+                <h3 class="wimm__k-h">Nicht mehr Steuern zahlen als gesetzlich erforderlich.</h3>
+                <p class="wimm__k-t">
+                  AfA, Darlehenszinsen und bestimmte Aufwendungen können bei
+                  einer vermieteten Immobilie steuerlich berücksichtigt werden.
+                </p>
+                <p class="wimm__kern">
+                  Dadurch kann mehr Liquidität für den langfristigen
+                  Vermögensaufbau erhalten bleiben.
+                </p>
+              </div>
+
+              <div class="wimm__bild">
+                <svg class="wimm__svg" viewBox="0 0 300 220" role="img"
+                     aria-label="Schaubild: drei steuerlich berücksichtigungsfähige Positionen untereinander — AfA beziehungsweise Abschreibung, Darlehenszinsen und bestimmte Aufwendungen, jeweils mit einem Minuszeichen. Eine feine Linie führt sie in ein gemeinsames Ergebnisfeld: individuelle steuerliche Wirkung. Darunter der Hinweis auf mögliche zusätzliche Liquidität. Es werden keine Beträge und keine Prozentsätze genannt.">
+
+                  <!-- Sammelschiene: laeuft ERST, nachdem die drei Positionen
+                       stehen, und zieht dann ins Ergebnisfeld. -->
+                  <path class="wi2-linie" d="M14 25H26" data-zeichnen style="--t:0.78"/>
+                  <path class="wi2-linie" d="M14 67H26" data-zeichnen style="--t:0.85"/>
+                  <path class="wi2-linie" d="M14 109H26" data-zeichnen style="--t:0.92"/>
+                  <path class="wi2-linie" d="M14 25V140H157V150" data-zeichnen style="--t:0.98"/>
+
+                  <g data-blenden style="--t:0.15">
+                    <rect class="wi2-feldrahmen" x="26" y="8" width="262" height="34" rx="6"/>
+                    <text class="wi-t" x="40" y="30">AfA / Abschreibung</text>
+                    <use href="#wi-minus" x="252" y="15" width="20" height="20"/>
+                  </g>
+                  <g data-blenden style="--t:0.31">
+                    <rect class="wi2-feldrahmen" x="26" y="50" width="262" height="34" rx="6"/>
+                    <text class="wi-t" x="40" y="72">Darlehenszinsen</text>
+                    <use href="#wi-minus" x="252" y="57" width="20" height="20"/>
+                  </g>
+                  <g data-blenden style="--t:0.47">
+                    <rect class="wi2-feldrahmen" x="26" y="92" width="262" height="34" rx="6"/>
+                    <text class="wi-t" x="40" y="114">bestimmte Aufwendungen</text>
+                    <use href="#wi-minus" x="252" y="99" width="20" height="20"/>
+                  </g>
+
+                  <g data-blenden style="--t:1.4">
+                    <rect class="wi2-ergebnis" x="26" y="152" width="262" height="38" rx="8"/>
+                    <text class="wi-t" x="157" y="176" text-anchor="middle">Individuelle steuerliche Wirkung</text>
+                  </g>
+                  <text class="wi-t wi-t-g" x="157" y="210" text-anchor="middle" data-blenden style="--t:1.7">Mögliche zusätzliche Liquidität</text>
+                </svg>
+              </div>
+
+              <p class="wimm__note">
+                Steuerliche Auswirkungen sind individuell. Die Beurteilung
+                erfolgt durch entsprechend qualifizierte Fachberatung.
+              </p>
+            </article>
+
+            <!-- ---------- 03  MIETEINNAHMEN ----------
+                 Breiter gruener Strom in den Finanzierungsblock, von unten
+                 die deutlich schmalere sandfarbene Linie. Der gruene Strom
+                 wirkt groesser als der eigene Beitrag — ohne konkrete Quote. -->
+            <article class="wimm__kasten" id="wimm-k3" data-kasten="2" aria-labelledby="wimm-m3">
+              <p class="wimm__marke" id="wimm-m3">
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-miete"/></svg>
+                <span>Mieteinnahmen</span>
+              </p>
+
+              <div class="wimm__k-text">
+                <h3 class="wimm__k-h">Die laufende Finanzierung wird nicht allein von Ihnen getragen.</h3>
+                <p class="wimm__k-t">
+                  Mieteinnahmen beteiligen sich an Zins, Tilgung und laufenden
+                  Kosten. Dadurch kann sich der Betrag reduzieren, der monatlich
+                  aus dem eigenen Einkommen eingebracht werden muss.
+                </p>
+                <p class="wimm__kern">Der Mieter trägt zum Aufbau Ihres Eigentums bei.</p>
+              </div>
+
+              <div class="wimm__bild">
+                <svg class="wimm__svg" viewBox="0 0 300 172" role="img"
+                     aria-label="Schaubild: von links fließt ein breiter grüner Strom mit der Beschriftung Mieteinnahmen in einen waagerechten Finanzierungsblock, der in Zins, Tilgung und laufende Kosten unterteilt ist. Von unten ergänzt eine deutlich schmalere sandfarbene Linie den individuellen Beitrag. Der Bereich Tilgung ist golden umrandet; von ihm führt eine Linie zum wachsenden Eigentumsanteil. Das Bild zeigt Verhältnisse, keine Beträge und keine Quote.">
+
+                  <text class="wi-t-m" x="96" y="34" data-blenden style="--t:0.15">monatliche Finanzierung</text>
+
+                  <g data-blenden style="--t:0.15">
+                    <rect class="wi3-seg" x="96" y="44" width="56" height="56"/>
+                    <rect class="wi3-seg" x="216" y="44" width="72" height="56"/>
+                  </g>
+                  <!-- Tilgung: feine goldene Umrandung, weil von hier das
+                       Eigentum waechst -->
+                  <rect class="wi3-tilg" x="152" y="44" width="64" height="56" data-blenden style="--t:0.95"/>
+                  <g data-blenden style="--t:0.3">
+                    <text class="wi-t-s" x="124" y="76" text-anchor="middle">Zins</text>
+                    <text class="wi-t-s" x="184" y="76" text-anchor="middle">Tilgung</text>
+                    <text class="wi-t-s" x="252" y="69" text-anchor="middle">laufende</text>
+                    <text class="wi-t-s" x="252" y="82" text-anchor="middle">Kosten</text>
+                  </g>
+
+                  <rect class="wi3-strom" x="0" y="48" width="96" height="40" data-wachsen style="--t:0.35"/>
+                  <text class="wi-t-11 wi-t-w" x="8" y="72" data-blenden style="--t:0.75">Mieteinnahmen</text>
+
+                  <rect class="wi3-beitrag" x="0" y="88" width="96" height="12" data-wachsen style="--t:0.8"/>
+                  <path class="wi3-tick" d="M24 100V110" data-zeichnen style="--t:1.05"/>
+                  <text class="wi-t-s" x="0" y="122" data-blenden style="--t:1.1">individueller Beitrag</text>
+
+                  <path class="wi3-ab" d="M184 100V138" data-zeichnen style="--t:1.15"/>
+                  <path class="wi3-ab" d="M179 133 184 140 189 133" data-blenden style="--t:1.4"/>
+                  <text class="wi-t-11 wi-t-gr" x="184" y="158" text-anchor="middle" data-blenden style="--t:1.5">wachsender Eigentumsanteil</text>
+                </svg>
+              </div>
+
+              <p class="wimm__note">
+                Die konkrete monatliche Belastung wird für jedes Objekt
+                individuell berechnet.
+              </p>
+            </article>
+
+            <!-- ---------- 04  EIGENTUMSAUFBAU ----------
+                 Rot und Gruen teilen sich EINE gemeinsame Grenzlinie und
+                 bilden zusammen ein Band konstanter Hoehe. Zwei getrennt bis
+                 zur Achse gefuellte Flaechen wuerden sich ueberlappen und
+                 waeren eine Aussage ueber Betraege — gemeint sind
+                 Verhaeltnisse. -->
+            <article class="wimm__kasten" id="wimm-k4" data-kasten="3" aria-labelledby="wimm-m4">
+              <p class="wimm__marke" id="wimm-m4">
+                <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-eigen"/></svg>
+                <span>Eigentumsaufbau</span>
+              </p>
+
+              <div class="wimm__k-text">
+                <h3 class="wimm__k-h">Tilgung macht Fremdkapital Schritt für Schritt zu Eigentum.</h3>
+                <p class="wimm__k-t">
+                  Mit jeder Tilgung sinkt die Restschuld. Gleichzeitig wächst der
+                  wirtschaftliche Anteil an der Immobilie, der Ihnen gehört.
+                </p>
+                <p class="wimm__kern">Aus Finanzierung entsteht langfristig eigenes Vermögen.</p>
+              </div>
+
+              <div class="wimm__bild">
+                <svg class="wimm__svg" viewBox="0 0 300 192" role="img"
+                     aria-label="Schaubild: eine waagerechte Zeitachse von heute über mittelfristig bis langfristig. Darüber ein Band gleichbleibender Höhe, dessen zwei Flächen sich eine gemeinsame Grenzlinie teilen — oben in gedecktem Rot die Restschuld, die hoch beginnt und sinkt, unten in gedecktem Grün der Eigentumsanteil, der niedrig beginnt und wächst. Darüber verläuft eine dünne gestrichelte Goldlinie für eine mögliche Wertentwicklung, ausdrücklich ein Potenzial und keine Prognose. Das Band zeigt Verhältnisse, keine Beträge; es nennt keine Jahre und keine Prozentsätze.">
+
+                  <text class="wi-t-11 wi-t-g" x="30" y="16" data-blenden style="--t:1.5">Mögliche Wertentwicklung</text>
+                  <text class="wi-t-mini" x="30" y="30" data-blenden style="--t:1.6">Potenzial – keine Prognose</text>
+                  <path class="wi4-strich" d="M30 48C120 45 210 38 288 30" data-blenden style="--t:1.35"/>
+
+                  <!-- Aufziehen der beiden Flaechen ueber je einen Beschnitt:
+                       erst sinkt die Restschuld, dann waechst das Eigentum. -->
+                  <clipPath id="wi4-c-rot"><rect x="30" y="58" width="258" height="98" data-wachsen style="--t:0.45"/></clipPath>
+                  <clipPath id="wi4-c-gruen"><rect x="30" y="58" width="258" height="98" data-wachsen style="--t:0.8"/></clipPath>
+
+                  <path class="wi4-rot" clip-path="url(#wi4-c-rot)" d="M30 58H288V72C200 102 110 132 30 140Z"/>
+                  <path class="wi4-gruen" clip-path="url(#wi4-c-gruen)" d="M30 140C110 132 200 102 288 72V156H30Z"/>
+                  <path class="wi4-grenze" clip-path="url(#wi4-c-gruen)" d="M30 140C110 132 200 102 288 72"/>
+
+                  <path class="wi4-achse" d="M30 58V156H288" data-zeichnen style="--t:0.15"/>
+                  <path class="wi4-tick" d="M30 156V162M159 156V162M288 156V162" data-blenden style="--t:0.3"/>
+                  <text class="wi-t-m" x="30" y="178" data-blenden style="--t:0.35">Heute</text>
+                  <text class="wi-t-m" x="159" y="178" text-anchor="middle" data-blenden style="--t:0.45">mittelfristig</text>
+                  <text class="wi-t-m" x="288" y="178" text-anchor="end" data-blenden style="--t:0.55">langfristig</text>
+
+                  <text class="wi-t-11 wi-t-w" x="42" y="96" data-blenden style="--t:1">Restschuld</text>
+                  <text class="wi-t-11 wi-t-w" x="278" y="134" text-anchor="end" data-blenden style="--t:1.2">Eigentumsanteil</text>
+                </svg>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Vier leere Spuren zu je 78vh — zusammen 312vh Erzaehlteil. Sie
+           tragen keinen Inhalt, nur die Scrollstrecke, an der warum.js den
+           aktiven Vorteil ablesen kann. -->
+      <div class="wimm__spuren" aria-hidden="true">
+        <div class="wimm__spur"></div>
+        <div class="wimm__spur"></div>
+        <div class="wimm__spur"></div>
+        <div class="wimm__spur"></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================================
      UNSERE LEISTUNGEN   (Briefing 02 Punkt 3, Briefing 03 B)
      Hiess bisher „So funktioniert es" beziehungsweise „So funktioniert
      Estera." und stand als Section 4.
@@ -408,34 +853,239 @@
      OFFEN: Der genaue Leistungsumfang muss vor der Veroeffentlichung von
      Estera bestaetigt werden (Masterbriefing S.14). Der sichtbare Hinweis
      unter der Grafik bleibt so lange stehen.
+
+     ===== UMBAU 21.08.2026 — DIE NEUE KUNDENVORLAGE =======================
+     Der Kunde hat den Screenshot einer fremden Netzgrafik geschickt und sie
+     1:1 nachgebaut haben wollen: „Struktur, Linienfuehrung, Linienform,
+     Kastenform" — nur auf weissem Grund und in den Estera-Farben. Damit ist
+     die bisherige Darstellung (senkrechter Ablaufplan aus Quell-, Leistungs-
+     und Zielkarten) vollstaendig ersetzt.
+
+     WAS DER KUNDE VERLANGT HAT, und was daraus geworden ist:
+
+       Zentralkasten mit abgeschraegten Ecken, darin das Zeichen.
+         > Achteckform als EIN <symbol>, siebenmal per <use> geholt. Die
+           Mitte navy gefuellt mit weisser Schrift, alle uebrigen weiss mit
+           Navy-Haarlinie und zwei Schattenlagen.
+
+       Vier Trabanten weit aussen, verbunden durch liegende S-Zuege aus zwei
+       gerundeten rechten Winkeln, ohne Pfeilspitzen; dazu zwei Waagerechte,
+       die auf Mittelhoehe aus dem Bild laufen und dabei ausblenden.
+         > genau so. Radius ueberall 40 Einheiten auf 330 Einheiten
+           Kastenbreite, als echte Kreisboegen gezeichnet.
+
+       „Estera" in der Mitte, „Off-Market" darueber, „Kapitalanlage"
+       darunter, beide senkrecht mit Pfeilspitze angebunden; links
+       „Erstgespraech / Einordnung" und „Standort / Analyse", rechts
+       „Finanzierung" und „Begleitung / Betreuung".
+         > woertlich uebernommen, die paarigen Begriffe zweizeilig gesetzt.
+           Es sind dieselben vier Leistungen wie zuvor, auf die vom Kunden
+           genannten Woerter gekuerzt. Erfunden ist nichts dazu.
+
+       „Die Form der Kaesten ist 1:1 dann so wie die Form des Kastens in der
+       Mitte."
+         > alle sieben stammen aus demselben Symbol. Der Zentralkasten ist
+           dieselbe Form in 1.25-facher Groesse — gleiches Seitenverhaeltnis,
+           also derselbe Zuschnitt.
+
+       „Das Hintergrundbild soll erstmal weg sein, sondern komplett weiss
+       sein."
+         > .wahl__ecke und .wahl__schleier stehen auskommentiert im Markup,
+           ihre Regeln ebenso in assets/css/auswahl.css. Nicht geloescht,
+           weil „erstmal" auf eine moegliche Rueckkehr hindeutet. Mit dem
+           Bild ist auch der weisse Saum um die Linien entfallen; er
+           existierte nur, um sie gegen das Bild abzusetzen.
+
+     ENTFALLEN sind die Aufzaehlungen der vier Leistungskarten, die beiden
+     Quellkarten und die Zielkarte samt ihren Symbolen. Die Pruefvermerke
+     oben bleiben trotzdem stehen: sie halten fest, welche Formulierungen der
+     Vorlage das Masterbriefing untersagt, und gelten damit weiter fuer alles,
+     was hier je wieder hineingeschrieben wird.
+
+     GEBLIEBEN IST die Erklaerzeile zu „Off-Market" („Wohnungen, die nicht
+     oeffentlich angeboten werden.") — im selben Wortlaut wie zuvor, weil der
+     Kunde Verstaendlichkeit ohne Vorwissen verlangt und „Off-Market"
+     Fachjargon ist.
+
+     Das Raster der Grafik steht im Kommentar direkt an ihr, Farbe und
+     Kontrastrechnung im Kopf von assets/css/auswahl.css.
+
+     ===== NACHBESSERUNG 21.08.2026, ZWEITE RUNDE =========================
+     Der Kunde hat die erste Fassung im Browser gesehen: „Es ist nicht
+     schlecht, aber es ist noch nicht eins zu eins so, wie ich es haben
+     wollte, von Beginn an." Vier Punkte, alles andere blieb.
+
+       1. DIE KASTENFORM. „Die Kaesten … sind mehr rechteckig, aber die
+          muessen mehr viereckig sein." Sie waren 264 zu 96 und damit
+          Rechtecke; sie sind jetzt 192 zu 176, also 1.09 zu 1. Der
+          Eckschnitt betraegt weiter 21 Einheiten (12 Prozent der kuerzeren
+          Kante) bei 45 Grad. Der Zentralkasten ist dieselbe Form in
+          1.25-facher Groesse, 240 zu 220.
+
+       2. STICHPUNKTE UNTER JEDEN KASTEN. „Dann soll bei den einzelnen
+          Punkten … ein kurzer Text jeweils darunter stehen oder kurze
+          Punkte, die davor auch dabei waren." Es sind woertlich die vier
+          Zeilen, die vor dem ersten Umbau in der jeweiligen Leistungskarte
+          standen, samt ihrem Haken. Unter „Off-Market" und
+          „Kapitalanlage" steht je die Erklaerzeile von damals. Erfunden
+          ist nichts; die Pruefvermerke oben gelten unveraendert weiter.
+
+       3. ESTERA IN DER MITTE. „Estera muss in der Mitte in Gold stehen,
+          also weisser Kasten, goldene Schrift." Der Zentralkasten war navy
+          gefuellt mit weisser Schrift und ist jetzt weiss wie die uebrigen,
+          mit goldener Kontur und goldenem Schriftzug. Die Kontur darf
+          --gold #A8874F tragen (3.36:1, als Linie zulaessig), die SCHRIFT
+          nicht — sie steht in --gold-text #86693A (5.13:1).
+
+       4. DIE LINIEN BLEIBEN. „Ich will, dass du die Linien eigentlich
+          genauso laesst. Die Linien rechts und links finde ich so gut."
+          Form, Radius, Ausblenden und Pfeilspitzen sind unveraendert;
+          verschoben sind nur die Endpunkte, weil die Kaesten ihre Groesse
+          gewechselt haben. Die senkrechten Stuecke der S-Zuege liegen rund
+          70 Einheiten neben den Stichpunkten — es kreuzt nichts.
+
+     ===== NACHBESSERUNG 21.08.2026, DRITTE RUNDE =========================
+     Wieder am Bildschirm, wieder vier Punkte — und sie heben Teile der
+     zweiten Runde auf.
+
+       1. DER KASTEN UM ESTERA KOMMT WEG. „Der Kasten mit Estera in der
+          Mitte soll raus und es soll einfach nur in schwarz stehen:
+          ‚Estera Immobilien‘ in der 1:1-gleichen Schriftart wie im
+          Header." Dazu ausdruecklich „auch Immobilien unter Estera".
+          -> In der Mitte steht jetzt die Wortmarke frei auf Weiss, zwei
+             Zeilen wie im Seitenkopf, in --ink-black. Keine Kontur, keine
+             Flaeche, kein Schatten. Die Werte sind an .wordmark__name und
+             .wordmark__sub in assets/css/base.css nachgemessen und im
+             Verhaeltnis uebernommen. Der Goldwunsch aus Runde 2 ist damit
+             ueberholt.
+
+       2. DIE DURCHGEHENDE WAAGERECHTE KOMMT WEG. „Der Strich, der von
+          links nach rechts geht und auch durch die zwei Gabeln durchgeht
+          … soll weg."
+          -> Ersatzlos entfernt, samt ihren beiden Verlaeufen. Die vier
+             S-Boegen und die zwei senkrechten Pfeile bleiben unangetastet;
+             die hatte derselbe Kunde in Runde 2 ausdruecklich gelobt.
+
+       3. DIE STICHPUNKTE WANDERN IN DIE KAESTEN. „Die einzelnen
+          Unterpunkte … in den Kasten rein."
+          -> Titel oben, darunter die Stichpunkte, alles innerhalb der
+             Kontur. Dafuer sind die Kaesten von 192 zu 176 auf 280 zu 280
+             gewachsen: quadratisch, wie in Runde 2 verlangt, nur gross
+             genug. Die Rechnung dazu steht bei .wnetz__kasten in
+             assets/css/auswahl.css.
+
+       4. SCHWARZ IST NUR DIE WORTMARKE. „…soll in schwarz da stehen und
+          der Rest ist alles blau."
+          -> Kein Gold mehr in der Grafik. Konturen, Linien, Titel,
+             Stichpunkte, Symbole und Pfeile stehen in zwei Blautoenen; die
+             gemessenen Kontraste stehen im Kopf von
+             assets/css/auswahl.css.
+
+     ===== FUENFTE RUNDE — DIE GESTAFFELTE SCROLL-ANIMATION ===============
+     „Wenn man runter scrollt, zuerst kommt Off-Market. Dann wenn man
+     Off-Market sieht, scrollt man weiter. Dann kommen die vier Punkte …
+     und Estera in der Mitte. Erst wenn alle diese vier sichtbar sind und
+     man dann noch mal weiter scrollt, ploppt es so richtig in gruen …
+     Es soll aber nur die Umrandung des Kastens gruen sein, aber wirklich
+     gruen pulsieren, in einem stark sichtbaren Gruen."
+
+     Drei Stufen, ausgeloest von drei unsichtbaren Marken, die Reihenfolge
+     erzwungen von einer Warteschlange in assets/js/leistungen.js. Kein
+     Scroll-Hijacking: es wird nichts abgefangen und nichts eingerastet.
+     Welches Element zu welcher Stufe gehoert, steht als `data-st` am
+     Element selbst.
+
+     ZWEI ENTSCHEIDUNGEN, die ueber den Wortlaut hinausgehen und begruendet
+     sind:
+       > Der Puls laeuft DREIMAL und hoert dann auf; die gruene Kontur
+         bleibt stehen. Ein endlos blinkendes Element auf einer Finanzseite
+         wirkt billig, zieht den Blick dauerhaft vom Text ab und ist fuer
+         bewegungsempfindliche Menschen ein echtes Problem. Nach drei
+         Durchlaeufen ist die Aussage angekommen.
+       > Der Puls ist ein ZWEITER Umriss unter der Kontur, nicht die Kontur
+         selbst. Wuerde die Kontur ihre Deckkraft aendern, zitterte die
+         Kantenglaettung der 1-px-Linie sichtbar mit.
+
+     Gruen ist im Estera-System keine Farbe. Der Token ziel-gruen #1B7F3B
+     (5.07:1 auf Weiss) ist die eine bewusste Ausnahme und steht deshalb
+     nur hier.
+
+     ===== SECHSTE RUNDE ==================================================
+       1. IN DER MITTE STEHT NUR NOCH „ESTERA". Die zweite Zeile
+          „Immobilien" ist entfallen.
+       2. DIE ACHSE DER BEIDEN PFEILE LIEGT IN DER LUECKE ZWISCHEN T UND E.
+          „Estera muss genau mittig zu den beiden Pfeilen stehen … Die
+          beiden Pfeile muessen zwischen T und E sein." Umgesetzt durch die
+          Aufteilung in „EST" rechtsbuendig und „ERA" linksbuendig auf
+          derselben Achse; die Begruendung steht am Element und bei
+          .wnetz__wort--marke in assets/css/auswahl.css. Nachgemessen:
+          Abweichung 0.000 px bei 1920, 1512, 1280, 1024 und 390 px.
+       3. DAS PULSIEREN IST WEG. „Das Pulsieren gefaellt mir nicht bei
+          ‚Ihre Immobilie als Kapitalanlage‘. Mache das Pulsieren weg."
+          Geblieben sind die ruhige gruene Kontur und der kurze Einsprung
+          beim Erscheinen. Die drei Stufen und ihre Reihenfolge sind
+          unveraendert.
+
+     ===== SIEBTE RUNDE — DER TAKT DER ANIMATION ==========================
+       1. DIE VIER KAESTEN KOMMEN PAARWEISE. Erst die obere Reihe
+          (Erstgespraech und Finanzierung gleichzeitig), 340 ms spaeter die
+          untere (Standort und Begleitung gleichzeitig). Die S-Boegen laufen
+          mit ihrem Kasten. Umgesetzt ueber die Staffelziffer `auf`: beide
+          Kaesten eines Paares tragen dieselbe, die Paare liegen auf Takt 1
+          und Takt 3. Nachgemessen: Versatz innerhalb eines Paares 0 ms.
+       2. DER ZIELKASTEN KOMMT FRUEHER. „Ihre Immobilie als Kapitalanlage
+          braucht noch einen Ticken zu lange, bis es reinkommt." Die
+          Wartezeit zwischen Stufe 2 und Stufe 3 ist von 1300 auf 650 ms
+          halbiert; der Kasten erscheint damit 648 ms nach dem zweiten Paar.
+       3. DER ZIELKASTEN DREHT SICH EINMAL UM SEINE WAAGERECHTE LAENGSACHSE.
+          „Es soll sich drehen … einmal um die Laengsachse."
+          -> rotateX(360deg) mit perspective(1200px), 900 ms, danach steht
+             er still und vollstaendig da. Gedreht wird die GRUPPE
+             .wnetz__ziel — Kontur, Symbol und beide Zeilen zusammen. Dass
+             der Zielkasten seinen Schatten nicht mehr selbst traegt,
+             sondern eine unbewegte Kopie darunter, hat einen Grund:
+             `filter` ist eine Gruppierungseigenschaft und haette die
+             Perspektive flach gerastert. Bei prefers-reduced-motion faellt
+             die Drehung aus; ohne Javascript steht der Kasten gerade da.
+
+     ===== NACHBESSERUNG 21.08.2026, VIERTE RUNDE =========================
+     „Die Section ist sehr, sehr gut geworden." Geblieben ist eine einzige
+     Aenderung, und sie betrifft nur den Kasten ganz unten.
+
+       1. DER PFEIL DORTHIN WIRD UM DIE HAELFTE LAENGER. Aus 122 Einheiten
+          werden 183; der Kasten rutscht entsprechend nach unten und die
+          viewBox waechst von 964 auf 995. Alles darueber steht unveraendert
+          an seinem Platz — Wortmarke, Off-Market, die vier seitlichen
+          Kaesten und ihre S-Boegen sind nicht angefasst.
+
+       2. NUR DIESER KASTEN WIRD QUER. „Er soll nicht zu lang rechteckig
+          werden." 500 zu 250, also 2 zu 1 und damit in der Mitte der
+          Vorgabe. Eigenes <symbol>, damit der 45-Grad-Schnitt 45 Grad
+          bleibt; ein gedehntes <use> des quadratischen haette daraus einen
+          27-Grad-Schnitt gemacht.
+
+       3. SEIN INHALT IST WOERTLICH DER DES KUNDEN: „Ihre Immobilie als
+          Kapitalanlage langfristig gedacht statt schnell entschieden, fuer
+          die Zukunft geruestet." Kein Wort weggelassen, keins dazuerfunden.
+          Die Aufteilung auf Ueberschrift und Unterzeile ist rein
+          typografisch — als eine Zeile waere der Satz nicht lesbar. Die
+          bisherige kurze Zeile in diesem Kasten ist damit entfallen.
      ===================================================================== -->
 <section class="wahl" id="leistungen">
 
-  <!-- DAS ECKBILD, Kundenwunsch vom 17.08.: „bei ‚So entsteht
-       Vermoegensaufbau' ist links im Bild eine Abbildung. Ich will, dass du
-       ein aehnliches Bild auf der Leistungen-Section einfuegst, aber nicht
-       an gleicher Stelle und nicht ueber die komplette Section, sondern
-       beispielsweise rechts oben in die Ecke."
+  <!-- ERSTMAL WEG, 21.08. AUF KUNDENWUNSCH — DAS HINTERGRUNDBILD UND SEIN
+       SCHLEIER. „Das Hintergrundbild soll erstmal weg sein, sondern komplett
+       weiss sein." Nicht geloescht, weil „erstmal" auf eine moegliche
+       Rueckkehr hindeutet; die zugehoerigen Regeln stehen ebenfalls
+       auskommentiert in assets/css/auswahl.css, samt der Kontrastrechnung,
+       die dann neu zu machen waere.
 
-       NACHBESSERUNG 18.08. Hier stand bis dahin eine goldene Strich-
-       zeichnung (`leistungen-ecke.png`) auf 11 % Deckung. Zwei Beanstandungen
-       auf einmal: „Ich sehe es gerade ganz leicht, aber man sieht es kaum.
-       Das muss auch ein echtes Bild sein." Also ein Foto statt einer
-       Zeichnung und deutlich mehr Deckung.
-
-       Es ist derselbe Bestand, aus dem auch das blasse Gebaeude links bei
-       „So entsteht Vermoegensaufbau" kommt: `haus-a-v2.jpg`, hier auf 5:6
-       beschnitten und gespiegelt, damit die Gebaeudekante nach rechts oben
-       laeuft und der Himmel dort liegt, wo das Bild ohnehin ausblendet.
-       Aufhellung, Deckung und Verlauf stehen in assets/css/auswahl.css bei
-       .wahl__ecke; dort steht auch die Kontrastrechnung.
-
-       Es liegt HINTER der Lesespalte (z-index 0 gegen 1) und traegt keine
-       Aussage: aria-hidden, leeres alt. -->
   <span class="wahl__ecke" aria-hidden="true">
     <img src="assets/img/leistungen-ecke.jpg" alt="" width="900" height="1080"
          loading="lazy" decoding="async">
   </span>
+  <span class="wahl__schleier" aria-hidden="true"></span>
+  -->
 
   <div class="wahl__inner">
 
@@ -443,180 +1093,441 @@
       <h2 class="display wahl__h2">Unsere Leistungen.</h2>
     </header>
 
-    <!-- Der Plan. Ausgangspunkt war die Kundenvorlage
-         Bilder/referenz-leistungen.png mit ihrem waagerechten Ablauf; nach
-         den Abstimmungsrunden vom 17.08. laeuft er von oben nach unten:
-         ESTERA als Ausgangspunkt, darunter die beiden Quellen, darunter die
-         vier Leistungen, darunter das Ziel. Kartenform und Symbolsprache
-         sind aus der Vorlage; Schrift und Beschriftung folgen dem Projekt
-         beziehungsweise dem Masterbriefing.
+    <!-- DIE NETZGRAFIK, nach der Kundenvorlage vom 21.08. und den
+         Nachbesserungsrunden desselben Tages.
 
-         Die Verbindungslinien zeichnet assets/js/leistungen.js in das
-         Overlay-SVG .leist__linien. Sie stehen NICHT in CSS, weil ihre
-         Endpunkte auf die tatsaechlichen Kartenmitten rechnen muessen; die
-         Pfeilspitze haengt als `marker-end` am Pfadende und kann deshalb
-         nicht verrutschen. Ohne Javascript bleiben die Linien weg — die
-         Reihenfolge der Karten traegt die Aussage dann allein. -->
-    <div class="leist" data-zeichnen>
+         EIN einziges Inline-SVG je Anordnung, nicht HTML-Kaesten plus
+         gerechnete Linien. Alle Knoten sitzen auf festen Rasterpunkten;
+         Kaesten und Linien gehoeren deshalb in dieselbe Koordinatenwelt,
+         und es kann konstruktionsbedingt nichts mehr verrutschen. Die
+         Bauweise, die Farb- und Kontrastrechnung stehen im Kopf von
+         assets/css/auswahl.css.
 
-      <!-- Der Haken sitzt sechzehnmal in der Grafik. Einmal als Symbol
-           abgelegt und per <use> geholt statt sechzehnmal ausgeschrieben. -->
-      <svg class="leist__sprite" aria-hidden="true" focusable="false" width="0" height="0">
-        <symbol id="l-haken" viewBox="0 0 20 20">
-          <path d="m5 10.4 3.2 3.2L15 6.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+         DAS RASTER DER BREITEN ZEICHNUNG (viewBox 1200 x 995):
+           Mittelachse x = 600, Mittelhoehe y = 480
+           Wortmarke frei auf Weiss, einzeilig, Grundlinie 493
+           Off-Market       460|24,  280 x 280
+           Zielkasten       350|721, 500 x 250 (der einzige quere)
+           Trabanten links   24|164 und  24|516, je 280 x 280
+           Trabanten rechts 896|164 und 896|516, je 280 x 280
+           Radius jedes Knicks 40, Ecken der S-Zuege bei x = 364 und 836
+           Die S-Zuege enden 46 Einheiten vor der Wortmarke (x 435 / 765)
+
+         Die Kastenform steht EINMAL als <symbol> und wird per <use> geholt.
+         Sie ist quadratisch (280 zu 280) mit einem 45-Grad-Schnitt von 34
+         Einheiten an jeder Ecke — die rund 12 Prozent der Kantenlaenge aus
+         der Vorlage. Der Zielkasten ganz unten hat sein eigenes, queres
+         Symbol in derselben Machart.
+
+         DIE STUFEN DER EINLAUFANIMATION stehen als `data-st` an jedem
+         Element: 1 = Off-Market samt Pfeil, 2 = die vier Trabanten, die
+         Wortmarke und die S-Boegen, 3 = der lange Pfeil und der Zielkasten
+         mit dem gruenen Puls. Die Eigenschaft `auf` staffelt INNERHALB
+         einer Stufe.
+         Ausgeloest werden die Stufen von den drei unsichtbaren Marken
+         .wnetz__marke; die Reihenfolge erzwingt assets/js/leistungen.js. -->
+    <div class="wnetz">
+
+      <!-- DIE DREI MARKEN. Unsichtbar, ohne Hoehe im Fluss (absolut
+           gesetzt), nur Ankerpunkte fuer je einen IntersectionObserver.
+           Ihre Hoehe steht in Prozent der Zeichnung und damit an derselben
+           Stelle wie die Gruppe, die sie ausloesen — die Werte und ihre
+           Herleitung stehen bei .wnetz__marke in assets/css/auswahl.css. -->
+      <span class="wnetz__marke wnetz__marke--1" data-stufe="1" aria-hidden="true"></span>
+      <span class="wnetz__marke wnetz__marke--2" data-stufe="2" aria-hidden="true"></span>
+      <span class="wnetz__marke wnetz__marke--3" data-stufe="3" aria-hidden="true"></span>
+
+      <!-- Die Kastenform, der Haken der Stichpunkte und die sechs Symbole.
+           Alle sechs Symbole sind woertlich die der frueheren
+           Leistungskarten — sie waren abgenommen, es gibt keinen Grund, sie
+           neu zu zeichnen. -->
+      <svg class="wnetz__sprite" aria-hidden="true" focusable="false" width="0" height="0">
+        <symbol id="wn-kasten" viewBox="0 0 280 280">
+          <path d="M34 0H246L280 34V246L246 280H34L0 246V34Z"/>
+        </symbol>
+        <!-- NUR FUER DEN ZIELKASTEN GANZ UNTEN. Kundenwunsch vom 21.08.:
+             „Er soll nicht zu lang rechteckig werden." Also 500 zu 250, ein
+             Verhaeltnis von 2 zu 1 und damit in der Mitte der Vorgabe von
+             1.8 bis 2.2. Der Eckschnitt ist derselbe wie ueberall: 45 Grad
+             und 30 Einheiten, also 12 Prozent der kuerzeren Kante. Ein
+             eigenes Symbol und kein gedehntes <use> des quadratischen —
+             beim Dehnen waere aus dem 45-Grad-Schnitt ein 27-Grad-Schnitt
+             geworden, und der Kasten haette sichtbar nicht mehr zur Familie
+             gehoert. -->
+        <symbol id="wn-kasten-quer" viewBox="0 0 500 250">
+          <path d="M30 0H470L500 30V220L470 250H30L0 220V30Z"/>
+        </symbol>
+        <symbol id="wn-haken" viewBox="0 0 20 20">
+          <path d="m5 10.4 3.2 3.2L15 6.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="wn-i-off" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.4" cy="8.6" r="4.4"/><path d="M12.3 11.7 4 20M6.4 17.6l2.1 2.1M8.8 15.2l2.1 2.1"/></g>
+        </symbol>
+        <symbol id="wn-i-erst" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 6.4A1.8 1.8 0 0 1 4.6 4.6h9.6a1.8 1.8 0 0 1 1.8 1.8v4.8a1.8 1.8 0 0 1-1.8 1.8H8l-3.6 2.7v-2.7a1.8 1.8 0 0 1-1.6-1.8z"/><path d="M19 9.6a1.8 1.8 0 0 1 1.8 1.8v4.4a1.8 1.8 0 0 1-1.8 1.8v2.4l-3.2-2.4h-4.4"/></g>
+        </symbol>
+        <symbol id="wn-i-stand" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.4" cy="10.4" r="6.6"/><path d="m15.3 15.3 5.4 5.4"/><path d="m7.4 11.1 3-2.6 3 2.6"/><path d="M8.4 10.4v3.4h4v-3.4"/></g>
+        </symbol>
+        <symbol id="wn-i-finanz" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 9.6 12 4.4l9.2 5.2"/><path d="M4.8 10.2v8.2M9.2 10.2v8.2M14.8 10.2v8.2M19.2 10.2v8.2"/><path d="M2.6 20.6h18.8"/></g>
+        </symbol>
+        <symbol id="wn-i-begl" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 13.6v-1.8a7.4 7.4 0 0 1 14.8 0v1.8"/><rect x="2.6" y="13" width="4" height="5.6" rx="1.8"/><rect x="17.4" y="13" width="4" height="5.6" rx="1.8"/><path d="M19.4 18.6v.6a2.4 2.4 0 0 1-2.4 2.4h-2.6"/></g>
+        </symbol>
+        <symbol id="wn-i-kapital" viewBox="0 0 24 24">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 20.8h17.6"/><path d="M6 20.8v-5.2M10 20.8v-7.4M14 20.8v-4.4M18 20.8v-8.6"/><path d="m4.6 10.4 4-3.8 3.2 3 6-6"/><path d="M13.6 3.6h4.4V8"/></g>
         </symbol>
       </svg>
 
-      <div class="leist__plan">
 
-        <!-- Overlay fuer die Verbindungslinien. Leer im Markup; Pfade und
-             Pfeilspitzen setzt assets/js/leistungen.js. -->
-        <svg class="leist__linien" aria-hidden="true" focusable="false">
-          <defs>
-            <!-- Die Spitze haengt als marker-end am Pfad und sitzt damit
-                 konstruktionsbedingt auf dem Pfadende: refX/refY zeigen auf
-                 die Spitze des Dreiecks (9|5). Das Fenster ist eine Einheit
-                 groesser als das Dreieck und `overflow` steht auf sichtbar —
-                 sonst schneidet der Rand des Markerfensters die Spitze an
-                 und sie sitzt einen Pixel zu weit hinten. -->
-            <marker id="l-spitze" markerWidth="10" markerHeight="10" refX="9" refY="5"
-                    orient="auto" markerUnits="userSpaceOnUse" overflow="visible">
-              <path d="M0 1 9 5 0 9Z" fill="currentColor"/>
-            </marker>
-          </defs>
-        </svg>
+      <!-- ================= DIE BREITE ANORDNUNG ========================= -->
+      <svg class="wnetz__bild wnetz__bild--breit" viewBox="0 0 1200 995"
+           role="img" focusable="false" aria-describedby="wn-text-b"
+           aria-label="Schaubild: In der Mitte steht die Wortmarke Estera Immobilien. Von links laufen Erstgespräch und Einordnung sowie Standort und Analyse auf sie zu, von rechts Finanzierung sowie Begleitung und Betreuung. Von oben führt ein Pfeil vom Off-Market-Zugang auf die Mitte, von der Mitte einer hinunter zum Ziel: Ihre Immobilie als Kapitalanlage.">
+        <desc id="wn-text-b">Off-Market: Wohnungen, die nicht öffentlich angeboten werden. Estera Immobilien. Erstgespräch und Einordnung: Ziele und Situation klären, gegenseitige Eignung prüfen, erste Einschätzung, auch ein Nein ist möglich. Standort und Analyse: Lagebewertung, Marktanalyse, Zustandsprüfung, wirtschaftliche Einordnung. Finanzierung: spezialisiertes Netzwerk, strukturierte Vorprüfung, Unterlagen aufbereitet, Entscheidung bei den Banken. Begleitung und Betreuung: Beteiligte zusammengeführt, Begleitung bis zum Notar, persönlicher Ansprechpartner, Betreuung nach dem Kauf. Ihre Immobilie als Kapitalanlage: langfristig gedacht statt schnell entschieden, für die Zukunft gerüstet.</desc>
+        <defs>
+          <!-- Die zwei Schattenlagen der Kaesten: eng fuer die Kante, weit
+               und schwach fuer die Hoehe. Das Fenster ist grosszuegig, weil
+               die weite Lage bei dy 10 und Streuung 11 rund 43 Einheiten
+               nach unten braucht; ein zu enges Filterfenster schneidet den
+               Schatten mit einer sichtbaren Kante ab. -->
+          <filter id="wn-hebung-b" x="-25%" y="-25%" width="150%" height="160%"
+                  color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#102949" flood-opacity="0.13"/>
+            <feDropShadow dx="0" dy="10" stdDeviation="11" flood-color="#102949" flood-opacity="0.16"/>
+          </filter>
 
-        <!-- EBENE 0 — der Ausgangspunkt. Bis zum 17.08. sass das
-             ESTERA-Zeichen als Kreis in der Mitte der Grafik; auf
-             Kundenwunsch steht es jetzt als Rechteck an ihrem Anfang und ist
-             mit den beiden Quellen darunter verbunden. -->
-        <div class="leist__start">
-          <span class="lstart" style="--auf:0">Estera</span>
-        </div>
+          <!-- ZWEI SPITZEN UND NICHT EINE, obwohl sie gleich aussehen: die
+               eine gehoert zu Stufe 1, die andere zu Stufe 3, und beide
+               werden erst eingeblendet, wenn ihre Linie angekommen ist. Ein
+               gemeinsamer Marker muesste sich fuer eine der beiden Zeiten
+               entscheiden.
+               Die Spitze haengt als marker-end am Pfad und sitzt damit
+               konstruktionsbedingt auf dessen Ende: refX/refY zeigen auf die
+               Spitze des Dreiecks (14|7.5). `overflow` steht auf sichtbar,
+               sonst schneidet der Rand des Markerfensters die Spitze an.
+               Die Eigenschaft wn-spitze-ab ist die Zeit, nach der sie
+               erscheint: Verzoegerung der Linie plus deren Ziehdauer. -->
+          <marker id="wn-spitze-b1" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
+                  orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
+                  style="--wn-spitze-ab:0.50s">
+            <path d="M0 2.5 14 7.5 0 12.5Z"/>
+          </marker>
+          <marker id="wn-spitze-b3" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
+                  orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
+                  style="--wn-spitze-ab:0.38s">
+            <path d="M0 2.5 14 7.5 0 12.5Z"/>
+          </marker>
+        </defs>
 
-        <!-- EBENE 1 — woher die Objekte kommen.
-             Die Vorlage nennt hier „Projektvertrieb" und „Direktverkauf".
-             Beides ist gesperrt: das Masterbriefing untersagt Bautraeger-
-             optik (S.2) und das Wort „Direktverkaeufer". An ihrer Stelle
-             stehen die Zugangsmerkmale, die das Briefing selbst benennt
-             (S.4 „selektiver Off-Market-Zugang", S.13 „Objektzugang
-             buendeln", S.6 „Kapitalanlageimmobilien"). -->
-        <div class="leist__quellen">
-          <article class="lq" style="--auf:1">
-            <span class="lq__kreis" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.4" cy="8.6" r="4.4"/><path d="M12.3 11.7 4 20M6.4 17.6l2.1 2.1M8.8 15.2l2.1 2.1"/></svg>
-            </span>
-            <h3 class="lq__titel">Off-Market</h3>
-            <p class="lq__sub">Wohnungen, die nicht öffentlich angeboten werden.</p>
-          </article>
-          <!-- Die Karte „Gebuendelter Zugang" stand hier und ist auf
-               Kundenwunsch vom 17.08. ersatzlos entfallen. -->
-          <article class="lq" style="--auf:2">
-            <span class="lq__kreis" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.4" cy="7" r="2.6"/><path d="M3.2 20.4v-2a4.4 4.4 0 0 1 4.4-4.4h.8"/><path d="M12.4 20.4v-6.6l4.4-3.4 4.4 3.4v6.6z"/><path d="M15.4 20.4v-3.4h2.8v3.4"/></svg>
-            </span>
-            <h3 class="lq__titel">Kapitalanlage&shy;immobilien</h3>
-            <p class="lq__sub">Wohnungen, die vermietet und nicht selbst bewohnt werden.</p>
-          </article>
-        </div>
+        <!-- DIE LINIEN.
+             ENTFALLEN am 21.08.: die durchgehende Waagerechte auf
+             Mittelhoehe, die frueher von links nach rechts durch das ganze
+             Bild und durch beide Gabelungen lief. Kundenwunsch: „der Strich,
+             der von links nach rechts geht und auch durch die zwei Gabeln
+             durchgeht … soll weg." Ersatzlos.
 
-        <!-- EBENE 2 — die vier Leistungen. Reihenfolge wie im
-             Masterbriefing S.6 und S.9: Erstgespraech, Auswahl und Pruefung,
-             Finanzierung, Notar und Betreuung danach. -->
-        <div class="leist__mitte">
-          <article class="lk" style="--auf:4">
-            <span class="lk__kreis" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 6.4A1.8 1.8 0 0 1 4.6 4.6h9.6a1.8 1.8 0 0 1 1.8 1.8v4.8a1.8 1.8 0 0 1-1.8 1.8H8l-3.6 2.7v-2.7a1.8 1.8 0 0 1-1.6-1.8z"/><path d="M19 9.6a1.8 1.8 0 0 1 1.8 1.8v4.4a1.8 1.8 0 0 1-1.8 1.8v2.4l-3.2-2.4h-4.4"/></svg>
-            </span>
-            <h3 class="lk__titel">Erstgespräch &amp; Einordnung</h3>
-            <span class="lk__regel" aria-hidden="true"></span>
-            <ul class="lk__liste">
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Ziele und Situation klären</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Gegenseitige Eignung prüfen</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Erste Einschätzung</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Auch ein Nein ist möglich</li>
-            </ul>
-          </article>
+             pathLength="1" normiert jede Laenge auf 1; damit deckt
+             `stroke-dasharray: 1` den Zug unabhaengig von Massstab und
+             viewBox exakt ab (siehe assets/css/auswahl.css). -->
+        <g class="wnetz__zuege">
+          <!-- Waagerecht aus dem Trabanten, gerundeter rechter Winkel,
+               senkrecht auf die Mittelhoehe, gerundeter rechter Winkel,
+               waagerecht bis 46 Einheiten vor die Wortmarke. Radius ueberall
+               40. Keine Diagonalen, keine Bezierschwuenge, keine
+               Pfeilspitzen — so wie in der Vorlage. Die Boegen sind echte
+               Kreisboegen (A), keine quadratischen Beziers: deren
+               Kruemmungsradius im Scheitel betraegt nur r / Wurzel 2, der
+               genannte Radius waere also nicht der gezeichnete.
+               Jeder Zug traegt die Staffelziffer SEINES Kastens, damit Linie
+               und Kasten zusammen hereinkommen. -->
+          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M304 304H324A40 40 0 0 1 364 344V440A40 40 0 0 0 404 480H435"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M304 656H324A40 40 0 0 0 364 616V520A40 40 0 0 1 404 480H435"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M896 304H876A40 40 0 0 0 836 344V440A40 40 0 0 1 796 480H765"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M896 656H876A40 40 0 0 1 836 616V520A40 40 0 0 0 796 480H765"/>
 
-          <article class="lk" style="--auf:5">
-            <span class="lk__kreis" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.4" cy="10.4" r="6.6"/><path d="m15.3 15.3 5.4 5.4"/><path d="m7.4 11.1 3-2.6 3 2.6"/><path d="M8.4 10.4v3.4h4v-3.4"/></svg>
-            </span>
-            <h3 class="lk__titel">Standort- &amp; Objektanalyse</h3>
-            <span class="lk__regel" aria-hidden="true"></span>
-            <ul class="lk__liste">
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Lagebewertung</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Marktanalyse</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Zustandsprüfung</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Wirtschaftliche Einordnung</li>
-            </ul>
-          </article>
-          <!-- Die Vorlage fuehrt hier „Attraktive Zinskonditionen" und
-               „Eigene Finanzierungsexpertise". Beides faellt weg: das
-               Masterbriefing untersagt Konditionszusagen und stellt
-               ausdruecklich fest, dass Estera die Finanzierung ueber ein
-               spezialisiertes Netzwerk KOORDINIERT und die Entscheidung bei
-               den Finanzierungspartnern liegt (S.9). -->
-          <article class="lk" style="--auf:6">
-            <span class="lk__kreis" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 9.6 12 4.4l9.2 5.2"/><path d="M4.8 10.2v8.2M9.2 10.2v8.2M14.8 10.2v8.2M19.2 10.2v8.2"/><path d="M2.6 20.6h18.8"/></svg>
-            </span>
-            <h3 class="lk__titel">Finanzierung</h3>
-            <span class="lk__regel" aria-hidden="true"></span>
-            <ul class="lk__liste">
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Spezialisiertes Netzwerk</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Strukturierte Vorprüfung</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Unterlagen aufbereitet</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Entscheidung bei den Banken</li>
-            </ul>
-          </article>
+          <!-- Der senkrechte Weg: Off-Market hinunter auf die Wortmarke
+               (Stufe 1), die Wortmarke hinunter auf den Zielkasten
+               (Stufe 3). Nur diese beiden tragen Spitzen. Sie halten 20
+               Einheiten Abstand zur Schrift und 10 zur Kastenkante — eine
+               Spitze soll zeigen, nicht anstossen. -->
+          <path class="wnetz__zug wnetz__zug--weg" data-st="1" style="--auf:1" pathLength="1" marker-end="url(#wn-spitze-b1)" d="M600 304V446"/>
+          <path class="wnetz__zug wnetz__zug--weg" data-st="3" style="--auf:0" pathLength="1" marker-end="url(#wn-spitze-b3)" d="M600 511V711"/>
+        </g>
 
-          <!-- Die Vorlage nennt diese Karte „Verwaltungsservice" und die
-               daneben „Erstvermietung" mit dem Punkt „Kostenlose
-               Erstvermietung". Eine Verwalterpositionierung schliesst das
-               Masterbriefing aus (S.22), eine kostenlose Leistung ist eine
-               Zusage, die Estera erst bestaetigen muss. Beides ist hier zu
-               dem zusammengefasst, was das Briefing deckt: Begleitung bis
-               zum Notar und Betreuung danach (S.9, S.13). -->
-          <article class="lk" style="--auf:7">
-            <span class="lk__kreis" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 13.6v-1.8a7.4 7.4 0 0 1 14.8 0v1.8"/><rect x="2.6" y="13" width="4" height="5.6" rx="1.8"/><rect x="17.4" y="13" width="4" height="5.6" rx="1.8"/><path d="M19.4 18.6v.6a2.4 2.4 0 0 1-2.4 2.4h-2.6"/></svg>
-            </span>
-            <h3 class="lk__titel">Begleitung &amp; Betreuung</h3>
-            <span class="lk__regel" aria-hidden="true"></span>
-            <ul class="lk__liste">
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Beteiligte zusammengeführt</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Begleitung bis zum Notar</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Persönlicher Ansprechpartner</li>
-              <li><span class="lk__haken" aria-hidden="true"><svg><use href="#l-haken"/></svg></span>Betreuung nach dem Kauf</li>
-            </ul>
-          </article>
-        </div>
+        <!-- DIE KAESTEN. Fuenf quadratische und der quere Zielkasten. Der
+             Kasten, der frueher um die Wortmarke stand, ist am 21.08.
+             entfallen: „der Kasten mit Estera in der Mitte soll raus". -->
+        <g class="wnetz__platten">
+          <use class="wnetz__kasten" data-st="1" style="--auf:0" href="#wn-kasten" x="460" y="24"  width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="24"  y="164" width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="24"  y="516" width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="896" y="164" width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="896" y="516" width="280" height="280"/>
 
-        <!-- EBENE 3 — wohin das fuehrt.
-             Die Vorlage fuehrt hier drei Zeilen, die das Masterbriefing
-             untersagt: „Attraktive Renditechancen durch ausgewaehlte
-             Immobilien" (Renditeversprechen, dazu die gesperrte Wendung
-             „ausgewaehlte Immobilien", S.6), „Langfristige Perspektiven und
-             stabile Ertraege" (Ertragszusage) und „Sichere Entscheidungen
-             durch fundierte Analysen" (Sicherheitsversprechen). Ersetzt sind
-             sie durch Aussagen aus dem Briefing selbst; die vierte Zeile der
-             Vorlage bleibt unveraendert. -->
-        <article class="lz" style="--auf:8">
-          <span class="lz__kreis" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 20.8h17.6"/><path d="M6 20.8v-5.2M10 20.8v-7.4M14 20.8v-4.4M18 20.8v-8.6"/><path d="m4.6 10.4 4-3.8 3.2 3 6-6"/><path d="M13.6 3.6h4.4V8"/></svg>
-          </span>
-          <h3 class="lz__titel">Kapitalanlage</h3>
-          <span class="lz__regel" aria-hidden="true"></span>
-          <!-- Gekuerzt am 17.08.: „Kapitalanlage soll viel kleiner sein. Es
-               soll nur Kapitalanlage stehen und die Subline." Der Satz ist
-               der bisherige, nur um seinen zweiten Teil („mit einem Ablauf,
-               der zu Ihrer Situation passt") gekuerzt. Die vier Zeilen mit
-               den runden Symbolen sind aus dieser Karte entfallen. -->
-          <p class="lz__text">Langfristig gedacht statt schnell entschieden.</p>
-        </article>
+          <!-- DER ZIELKASTEN, zweimal aufgetragen.
+               Der erste, randlose Auftrag traegt NUR DEN SCHATTEN und steht
+               still. Der zweite ist der sichtbare Kasten mit der gruenen
+               Kontur; er dreht sich beim Erscheinen einmal um seine
+               waagerechte Laengsachse. Getrennt werden musste beides, weil
+               `filter` eine Gruppierungseigenschaft ist: mit Schatten am
+               drehenden Element waere es flach gerastert worden und von der
+               Perspektive nichts uebrig geblieben. Die Begruendung steht
+               im Abschnitt „DIE DREHUNG DES ZIELKASTENS" in
+               assets/css/auswahl.css.
+               Das PULSIEREN, das hier bis zum 21.08. lag, ist auf
+               Kundenwunsch entfallen: „Mache das Pulsieren weg." -->
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--zielschatten" data-st="3" style="--auf:3" href="#wn-kasten-quer" x="350" y="721" width="500" height="250"/>
+        </g>
 
-      </div>
+        <!-- DIE SYMBOLE. Oben im Kasten, darunter der Titel, darunter die
+             Stichpunkte — alles innerhalb der Kontur. -->
+        <g class="wnetz__symbole">
+          <use class="wnetz__symbol" data-st="1" style="--auf:0" href="#wn-i-off"     x="580"  y="84"  width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-erst"    x="144"  y="194" width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-stand"   x="144"  y="546" width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-finanz"  x="1016" y="194" width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-begl"    x="1016" y="546" width="40" height="40"/>
+        </g>
+
+        <!-- DIE WORTMARKE IN DER MITTE, IN ZWEI HAELFTEN GESETZT.
+             Kundenwunsch 21.08.: „Estera muss genau mittig zu den beiden
+             Pfeilen stehen … Die beiden Pfeile muessen zwischen T und E
+             sein." Genau das leistet die Aufteilung: „EST" endet an der
+             Achse, „ERA" beginnt an ihr, und weil beide um ein halbes
+             Sperrmass (0.18em) versetzt sind, liegt die Luecke zwischen T
+             und E mittig auf x = 600 beziehungsweise x = 200.
+
+             WARUM NICHT EIN <text> MIT EINEM AUSGLEICH: mit text-anchor
+             middle laesst sich nur die MITTE DER SCHRIFTFLAECHE auf die
+             Achse legen. Weil E, S, T anders breit sind als E, R, A, liegt
+             die Luecke zwischen T und E dann 5.15 Einheiten daneben —
+             nachgemessen, nicht geschaetzt. Ein fester Ausgleichswert
+             wuerde die Glyphenbreiten der Hausschrift einbacken und beim
+             naechsten Schriftwechsel still falsch. Diese Konstruktion
+             stimmt unabhaengig von jeder Glyphenbreite; sie haengt nur an
+             der Sperrung, und die steht als em-Wert daneben.
+             Kundenwunsch 21.08.: „…es soll einfach nur in schwarz stehen:
+             ‚Estera Immobilien‘ in der 1:1-gleichen Schriftart wie im
+             Header." Zwei Zeilen wie im Seitenkopf; die Werte sind an
+             .wordmark__name und .wordmark__sub in assets/css/base.css
+             nachgemessen und im Verhaeltnis uebernommen (24 zu 10, also
+             2.4 zu 1; Grundlinienabstand 0.79 der Namensgroesse). Hier
+             41 zu 17.1 Einheiten, Abstand 32. -->
+        <g class="wnetz__schrift" text-anchor="middle">
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="end"   x="600" dx="0.18em" y="493">EST</text>
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="start" x="600" dx="0.18em" y="493">ERA</text>
+        </g>
+
+        <!-- TITEL UND STICHPUNKTE, alles im Kasten.
+             Kundenwunsch 21.08.: „die einzelnen Unterpunkte … in den Kasten
+             rein." Der Wortlaut ist woertlich der der frueheren
+             Leistungskarten; erfunden ist nichts. -->
+        <g class="wnetz__schrift" text-anchor="middle">
+          <text class="wnetz__wort" data-st="1" style="--auf:0" x="600" y="172">Off-Market</text>
+          <!-- „Off-Market" ist Fachjargon, und der Kunde verlangt
+               Verstaendlichkeit ohne Vorwissen. Die Zeile ist woertlich die,
+               die schon vorher unter der Karte stand — keine neue
+               Formulierung, keine Zusage. -->
+          <text class="wnetz__wort--erklaerung" data-st="1" style="--auf:0" x="600" y="212">Wohnungen, die nicht<tspan x="600" y="236">öffentlich angeboten werden.</tspan></text>
+
+          <text class="wnetz__wort" data-st="2" style="--auf:1" x="164"  y="266">Erstgespräch<tspan x="164" y="293">&amp; Einordnung</tspan></text>
+          <text class="wnetz__wort" data-st="2" style="--auf:3" x="164"  y="618">Standort<tspan x="164" y="645">&amp; Analyse</tspan></text>
+          <text class="wnetz__wort" data-st="2" style="--auf:1" x="1036" y="279">Finanzierung</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:3" x="1036" y="618">Begleitung<tspan x="1036" y="645">&amp; Betreuung</tspan></text>
+
+        </g>
+
+        <!-- DER ZIELKASTEN ALS EINE EINHEIT.
+             Kontur, Symbol und beide Zeilen stehen in EINER Gruppe, und die
+             Gruppe dreht sich. Zuerst drehte sich nur die Kontur, weil
+             Symbol und Schrift wie ueberall sonst in .wnetz__symbole und
+             .wnetz__schrift lagen — das sah aus, als kippe ein leerer
+             Rahmen um eine stehende Schrift. Der Wortlaut ist vom Kunden
+             woertlich vorgegeben und hier nur typografisch auf zwei Ebenen
+             gelegt; kein Wort weggelassen, keins dazuerfunden. -->
+        <g class="wnetz__ziel" data-st="3" style="--auf:3" text-anchor="middle">
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--ziel" href="#wn-kasten-quer" x="350" y="721" width="500" height="250"/>
+          <use class="wnetz__symbol" href="#wn-i-kapital" x="580" y="769" width="40" height="40"/>
+          <text class="wnetz__wort wnetz__wort--ziel" x="600" y="853">Ihre Immobilie als Kapitalanlage</text>
+          <text class="wnetz__wort--erklaerung wnetz__wort--zielsub" x="600" y="893">Langfristig gedacht statt schnell entschieden,<tspan x="600" y="917">für die Zukunft gerüstet.</tspan></text>
+        </g>
+
+        <g class="wnetz__punkte" text-anchor="start">
+          <g data-st="2" style="--auf:1">
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="325" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="336">Ziele und Situation klären</text>
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="347" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="358">Gegenseitige Eignung prüfen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="369" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="380">Erste Einschätzung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="391" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="402">Auch ein Nein ist möglich</text>
+          </g>
+          <g data-st="2" style="--auf:3">
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="677" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="688">Lagebewertung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="699" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="710">Marktanalyse</text>
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="721" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="732">Zustandsprüfung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="54" y="743" width="13" height="13"/>
+            <text class="wnetz__punkt" x="76" y="754">Wirtschaftliche Einordnung</text>
+          </g>
+          <g data-st="2" style="--auf:1">
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="325" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="336">Spezialisiertes Netzwerk</text>
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="347" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="358">Strukturierte Vorprüfung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="369" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="380">Unterlagen aufbereitet</text>
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="391" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="402">Entscheidung bei den Banken</text>
+          </g>
+          <g data-st="2" style="--auf:3">
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="677" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="688">Beteiligte zusammengeführt</text>
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="699" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="710">Begleitung bis zum Notar</text>
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="721" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="732">Persönlicher Ansprechpartner</text>
+            <use class="wnetz__haken" href="#wn-haken" x="926" y="743" width="13" height="13"/>
+            <text class="wnetz__punkt" x="948" y="754">Betreuung nach dem Kauf</text>
+          </g>
+        </g>
+      </svg>
+
+
+      <!-- ================= DIE SCHMALE ANORDNUNG =======================
+           Unter 980 px klappt die Anordnung senkrecht um: Off-Market, die
+           Wortmarke, die vier Leistungen untereinander, der Zielkasten.
+           Eigene viewBox (400 statt 1200 Einheiten breit), damit die Schrift
+           auf dem Telefon dieselbe Groesse in Pixeln hat wie am
+           Schreibtisch — die Grafik wird umgestellt, nicht verkleinert, und
+           erzeugt keine waagerechte Rollflaeche. Der Umschaltpunkt ist
+           gerechnet, nicht geraten; die Rechnung steht in
+           assets/css/auswahl.css.
+
+           Die Stufen sind dieselben wie in der breiten Anordnung.
+           Pfeilspitzen tragen nur der Zugang von oben und der Weg zum Ziel;
+           die vier Verbinder dazwischen tragen keine und beruehren deshalb
+           beide Kaesten. -->
+      <svg class="wnetz__bild wnetz__bild--schmal" viewBox="0 0 400 2300"
+           role="img" focusable="false" aria-describedby="wn-text-s"
+           aria-label="Schaubild: Vom Off-Market-Zugang führt ein Pfeil auf die Wortmarke Estera Immobilien, von dort der Reihe nach zu Erstgespräch und Einordnung, Standort und Analyse, Finanzierung sowie Begleitung und Betreuung, und von dort ein Pfeil zum Ziel: Ihre Immobilie als Kapitalanlage.">
+        <desc id="wn-text-s">Off-Market: Wohnungen, die nicht öffentlich angeboten werden. Estera Immobilien. Erstgespräch und Einordnung: Ziele und Situation klären, gegenseitige Eignung prüfen, erste Einschätzung, auch ein Nein ist möglich. Standort und Analyse: Lagebewertung, Marktanalyse, Zustandsprüfung, wirtschaftliche Einordnung. Finanzierung: spezialisiertes Netzwerk, strukturierte Vorprüfung, Unterlagen aufbereitet, Entscheidung bei den Banken. Begleitung und Betreuung: Beteiligte zusammengeführt, Begleitung bis zum Notar, persönlicher Ansprechpartner, Betreuung nach dem Kauf. Ihre Immobilie als Kapitalanlage: langfristig gedacht statt schnell entschieden, für die Zukunft gerüstet.</desc>
+        <defs>
+          <filter id="wn-hebung-s" x="-25%" y="-25%" width="150%" height="160%"
+                  color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#102949" flood-opacity="0.13"/>
+            <feDropShadow dx="0" dy="10" stdDeviation="11" flood-color="#102949" flood-opacity="0.16"/>
+          </filter>
+          <marker id="wn-spitze-s1" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
+                  orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
+                  style="--wn-spitze-ab:0.50s">
+            <path d="M0 2.5 14 7.5 0 12.5Z"/>
+          </marker>
+          <marker id="wn-spitze-s3" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
+                  orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
+                  style="--wn-spitze-ab:0.38s">
+            <path d="M0 2.5 14 7.5 0 12.5Z"/>
+          </marker>
+        </defs>
+
+        <g class="wnetz__zuege">
+          <path class="wnetz__zug wnetz__zug--weg" data-st="1" style="--auf:1" pathLength="1" marker-end="url(#wn-spitze-s1)" d="M200 300V406"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M200 471V579"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:2" pathLength="1" d="M200 859V949"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M200 1229V1319"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:4" pathLength="1" d="M200 1599V1689"/>
+          <path class="wnetz__zug wnetz__zug--weg" data-st="3" style="--auf:0" pathLength="1" marker-end="url(#wn-spitze-s3)" d="M200 1969V2086"/>
+        </g>
+
+        <g class="wnetz__platten">
+          <use class="wnetz__kasten" data-st="1" style="--auf:0" href="#wn-kasten" x="60" y="20"   width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="60" y="579"  width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:2" href="#wn-kasten" x="60" y="949"  width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="60" y="1319" width="280" height="280"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:4" href="#wn-kasten" x="60" y="1689" width="280" height="280"/>
+
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--zielschatten" data-st="3" style="--auf:3" href="#wn-kasten-quer" x="20" y="2096" width="360" height="180"/>
+        </g>
+
+        <g class="wnetz__symbole">
+          <use class="wnetz__symbol" data-st="1" style="--auf:0" href="#wn-i-off"     x="180" y="80"   width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-erst"    x="180" y="609"  width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:2" href="#wn-i-stand"   x="180" y="979"  width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-finanz"  x="180" y="1349" width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:4" href="#wn-i-begl"    x="180" y="1719" width="40" height="40"/>
+        </g>
+
+        <g class="wnetz__schrift" text-anchor="middle">
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="end"   x="200" dx="0.18em" y="453">EST</text>
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="start" x="200" dx="0.18em" y="453">ERA</text>
+
+          <text class="wnetz__wort" data-st="1" style="--auf:0" x="200" y="168">Off-Market</text>
+          <text class="wnetz__wort--erklaerung" data-st="1" style="--auf:0" x="200" y="208">Wohnungen, die nicht<tspan x="200" y="232">öffentlich angeboten werden.</tspan></text>
+
+          <text class="wnetz__wort" data-st="2" style="--auf:1" x="200" y="681">Erstgespräch<tspan x="200" y="708">&amp; Einordnung</tspan></text>
+          <text class="wnetz__wort" data-st="2" style="--auf:2" x="200" y="1051">Standort<tspan x="200" y="1078">&amp; Analyse</tspan></text>
+          <text class="wnetz__wort" data-st="2" style="--auf:3" x="200" y="1434">Finanzierung</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:4" x="200" y="1791">Begleitung<tspan x="200" y="1818">&amp; Betreuung</tspan></text>
+
+        </g>
+
+        <!-- Der Zielkasten als eine Einheit, siehe die breite Anordnung. -->
+        <g class="wnetz__ziel" data-st="3" style="--auf:3" text-anchor="middle">
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--ziel" href="#wn-kasten-quer" x="20" y="2096" width="360" height="180"/>
+          <use class="wnetz__symbol" href="#wn-i-kapital" x="182" y="2122" width="36" height="36"/>
+          <text class="wnetz__wort wnetz__wort--ziel" x="200" y="2192">Ihre Immobilie als Kapitalanlage</text>
+          <text class="wnetz__wort--erklaerung wnetz__wort--zielsub" x="200" y="2222">Langfristig gedacht statt schnell entschieden,<tspan x="200" y="2244">für die Zukunft gerüstet.</tspan></text>
+        </g>
+
+        <g class="wnetz__punkte" text-anchor="start">
+          <g data-st="2" style="--auf:1">
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="740" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="751">Ziele und Situation klären</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="762" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="773">Gegenseitige Eignung prüfen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="784" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="795">Erste Einschätzung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="806" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="817">Auch ein Nein ist möglich</text>
+          </g>
+          <g data-st="2" style="--auf:2">
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1110" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1121">Lagebewertung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1132" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1143">Marktanalyse</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1154" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1165">Zustandsprüfung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1176" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1187">Wirtschaftliche Einordnung</text>
+          </g>
+          <g data-st="2" style="--auf:3">
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1480" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1491">Spezialisiertes Netzwerk</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1502" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1513">Strukturierte Vorprüfung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1524" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1535">Unterlagen aufbereitet</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1546" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1557">Entscheidung bei den Banken</text>
+          </g>
+          <g data-st="2" style="--auf:4">
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1850" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1861">Beteiligte zusammengeführt</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1872" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1883">Begleitung bis zum Notar</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1894" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1905">Persönlicher Ansprechpartner</text>
+            <use class="wnetz__haken" href="#wn-haken" x="90" y="1916" width="13" height="13"/>
+            <text class="wnetz__punkt" x="112" y="1927">Betreuung nach dem Kauf</text>
+          </g>
+        </g>
+      </svg>
+
     </div>
 
 
@@ -1609,52 +2520,77 @@
      Zwei Objektarten stehen zur Wahl — WG-Konzept und Bestandswohnungen.
      Zu jeder gehoert genau EINE Referenzwohnung mit einem Video.
 
-     Aufbau: knapper Kopf, unmittelbar darunter der Umschalter, unmittelbar
-     darunter das Video. Unten links haengt die Infokarte etwa zur Haelfte
-     ueber dem Video und zur Haelfte darunter. Rechts neben der Karte stehen
-     die beiden uebrigen Zeilen, ganz unten das Cremeband.
+     STAND 21.08.2026 — NUR NOCH DAS VIDEO
+     Der Kunde woertlich: „Du musst keine Rand- und Eckdaten zu den Wohnungen
+     nennen, also alle Daten können raus. Es soll nur das Video erst mal zu
+     sehen sein."
+
+     Aufbau seither: knapper Kopf, unmittelbar darunter der Umschalter,
+     unmittelbar darunter das Video — und sonst nichts. Entfallen sind
+       · die Infokarte, die seit dem 18.08. halb ueber der unteren Videokante
+         hing, samt der Zeile VIDEO darin,
+       · die Zeilen ECKDATEN und BESCHREIBUNG rechts daneben,
+       · das Cremeband darunter mit dem Hinweis auf das Beispielbild,
+       · das Beispielbild selbst und die Zwischenansicht „Video folgt".
+     Alle stehen weiter unten auskommentiert, jeweils mit Vermerk an Ort und
+     Stelle. Geloescht ist nichts: freigegeben war ohnehin nie eine Zahl, und
+     sobald Estera echte Objektdaten liefert, ist das Zurueckholen ein
+     Handgriff.
+
+     DAS VIDEO — assets/video/referenz-wohnung.mp4 / .webm
+     Aus zwei Aufnahmen des Kunden zusammengesetzt: der Drohnenanflug endet in
+     Weiss, der Rundgang durch die Musterwohnung beginnt in Weiss. Genau dort
+     ist geschnitten, mit einer kurzen Blende ueber die weisse Stelle — die
+     Naht ist deshalb nicht zu sehen. 1920 x 1080, 30 Bilder je Sekunde,
+     rund 18,1 s, OHNE TON. Es laeuft stumm, in der Schleife und erst, wenn es
+     im Bild ist; wer „weniger Bewegung" angefordert hat, bekommt das Poster
+     und einen Knopf. Die Steuerung steht in assets/js/referenzobjekte.js.
+
+     OFFEN — nur EIN Video: Fuer die zweite Objektart liegt keine eigene
+     Aufnahme vor. Beide zeigen deshalb vorerst dasselbe Video. Das ist
+     bewusst so und ausdruecklich vorlaeufig; nachgestellt oder erfunden wird
+     dafuer nichts. Sobald die zweite Aufnahme da ist, wird sie in der
+     Fassung --bestand eingehaengt — dort steht der Vermerk noch einmal.
 
      OPTIK — Kundenwunsch vom 18.08.: „Das muss alles auf einmal zu sehen
-     sein", „der Kasten um das Referenzvideo ist weg", „da muss quasi so ein
-     kleiner Kasten eingefuegt werden. Unten links vom Video ragt er halb
-     ueber das Video und halb unter dem Video raus". Deshalb: der Kopf ist
-     zusammengezogen, das Passepartout um das Video ist ersatzlos entfallen,
-     und die Angaben sitzen in einer weissen Karte in der Machart der
-     Abschnitte „So entsteht Vermoegensaufbau" und „Unsere Leistungen" —
-     zwei Schattenlagen, grosser Eckenradius, goldene Haarlinie,
-     Kleinversalien. Frueher gezeigt und verworfen: das gezeichnete Notebook
-     (17.08.) und die Passepartout-Fassung (18.08.).
+     sein", „der Kasten um das Referenzvideo ist weg". Das Passepartout um das
+     Video ist seither ersatzlos entfallen; das Video steht frei, mit dem
+     Eckenradius der Seite, einer Goldhaarlinie als Kante und zwei
+     Schattenlagen. Frueher gezeigt und verworfen: das gezeichnete Notebook
+     (17.08.), die Passepartout-Fassung (18.08.) und die halb ueberlappende
+     Infokarte (18.08. eingebaut, 21.08. wieder heraus).
 
-     WICHTIG — bewusst ohne Objektdaten: Ausser den beiden Bezeichnungen
-     liegt nichts vor. Keine Lage, keine Groesse, keine Preise, Mieten oder
-     Renditen, keine eigenen Bilder. Das Masterbriefing untersagt erfundene
-     Zahlen, Objekte und Versprechen; eine erfundene Referenzwohnung waere
-     gegenueber Kaufinteressenten eine falsche Tatsachenbehauptung. Die drei
-     Zeilen sagen deshalb nur, WAS dort spaeter zu sehen sein wird.
+     WICHTIG — bewusst ohne Objektdaten: Ausser den beiden Bezeichnungen liegt
+     nichts vor. Keine Lage, keine Groesse, keine Preise, Mieten oder
+     Renditen. Das Masterbriefing untersagt erfundene Zahlen, Objekte und
+     Versprechen; eine erfundene Referenzwohnung waere gegenueber
+     Kaufinteressenten eine falsche Tatsachenbehauptung. Deshalb steht hier
+     jetzt nur, was tatsaechlich vorliegt: die Aufnahme.
      ===================================================================== -->
-<section class="robj" id="referenzobjekte" data-robj data-art="wg" aria-label="Referenzobjekte nach Objektart">
+<section class="robj" id="referenzobjekte" data-robj data-art="wg" aria-label="Eindruck einer Musterwohnung">
   <!-- =====================================================================
        VOR DER VEROEFFENTLICHUNG ZU ERSETZEN
 
-       1. Das im Rahmen gezeigte Foto ist ein lizenziertes Beispielbild und
-          NICHT die Referenzwohnung von Estera. Es steht nur da, damit die
-          Wirkung des spaeteren Videos beurteilt werden kann.
-       2. Von Estera zu liefern: das Video der Musterwohnung je Objektart,
-          die Eckdaten der Referenzwohnung und eine kurze Beschreibung.
-       3. Vor einer Veroeffentlichung ist beides zu ersetzen. Das Video wird
-          eingehaengt, indem je Objektart GENAU EINE ZEILE geaendert wird —
-          naemlich die Zeile
+       1. DIE UEBERSCHRIFT. Sie ist ein Platzhalter im Wortlaut des Kunden,
+          der ausdruecklich vorlaeufig ist. Der Vermerk steht direkt darueber.
+       2. DAS ZWEITE VIDEO. Es liegt nur eine Aufnahme vor; beide Objektarten
+          zeigen deshalb dasselbe Video. Von Estera zu liefern ist die
+          Aufnahme fuer die zweite Objektart.
+       3. DIE ANGABEN ZUR WOHNUNG. Sie sind am 21.08. auf Kundenwunsch heraus
+          und stehen unten auskommentiert bereit. Sie kommen zurueck, sobald
+          echte Objektdaten vorliegen.
 
-            <div class="robj__video" data-film="" data-zustand="vorschau">
+       WIE DAS ZWEITE VIDEO EINGEHAENGT WIRD — zwei Zeilen je Fassung:
+       In der Fassung --bestand die beiden <source>-Zeilen auf die neuen
+       Dateinamen umstellen und das poster-Attribut mitziehen. Sonst ist
+       nichts zu aendern — kein CSS, kein Javascript. Die Stelle ist unten
+       eigens kommentiert.
 
-          Dort wird das leere data-film="" mit dem Pfad des Videos gefuellt,
-          zum Beispiel data-film="assets/video/referenz-wg-konzept.mp4".
-          Diese Zeile steht je Objektart einmal und ist weiter unten
-          kommentiert; sonst ist nichts zu aendern — kein CSS, kein
-          Javascript. Die drei Zeilen mit den Angaben werden durch die
-          gelieferten Texte ersetzt.
-
-       BILDNACHWEIS — beide Beispielbilder sind gemeinfrei (CC0 1.0, Public
+       BILDNACHWEIS — die beiden frueher hier gezeigten Beispielbilder sind
+       seit dem 21.08. nicht mehr eingebunden; im Rahmen laeuft das Material
+       von Estera. Die Dateien liegen weiter unter assets/img/referenz/ und
+       werden von den auskommentierten Bloecken unten noch benannt, deshalb
+       bleibt der Nachweis stehen. Beide sind gemeinfrei (CC0 1.0, Public
        Domain Dedication) und stammen aus Wikimedia Commons (Spiegelung der
        frueheren CC0-Bestaende von Unsplash). CC0 erlaubt jede Nutzung, auch
        kommerziell, ohne Namensnennung; die Urheber sind der Vollstaendig-
@@ -1677,7 +2613,20 @@
   <div class="robj__inner">
 
     <!-- Symbolvorrat des Abschnitts. Liegt einmal da und wird ueber <use>
-         in beide Fassungen geholt. -->
+         in beide Fassungen geholt.
+
+         In Gebrauch ist seit dem 21.08. nur noch EINES: play, das Dreieck auf
+         der Abspielflaeche. Die uebrigen gehoeren zu auskommentierten
+         Bloecken — gebaeude und haus zum Umschalter, grundriss und dokument
+         zur Infokarte, stern zum Cremeband, uhr zur Zwischenansicht.
+
+         Sie bleiben trotzdem liegen. Der Vorrat kostet nichts — die <svg> ist
+         0 x 0 gross und wird nicht gezeichnet —, und wer einen der Bloecke
+         zurueckholt, braucht sie in derselben Sekunde wieder. Loeschte man
+         sie mit, waeren die Bloecke beim Wiedereinschalten stumm kaputt:
+         <use> auf eine nicht vorhandene id zeichnet einfach nichts, ohne
+         Fehlermeldung. -->
+
     <svg class="robj__sprite" width="0" height="0" aria-hidden="true" focusable="false">
       <defs>
         <symbol id="robj-i-gebaeude" viewBox="0 0 24 24">
@@ -1694,6 +2643,10 @@
         <symbol id="robj-i-play" viewBox="0 0 24 24">
           <path d="M8.6 5.6 18.4 12l-9.8 6.4Z"/>
         </symbol>
+        <!-- Ein Pausensymbol stand hier kurzzeitig als Gegenstueck zum
+             Dreieck. Es wird nicht mehr gebraucht: nach dem ersten Druck
+             verschwindet die Abspielflaeche und die Bedienleiste des
+             Browsers uebernimmt das Anhalten und Spulen. -->
         <symbol id="robj-i-grundriss" viewBox="0 0 24 24">
           <rect x="4" y="4" width="16" height="16" rx="1.4"/>
           <path d="M11 4v6.6M11 14.4V20M4 13.4h7M14.6 13.4H20"/>
@@ -1714,21 +2667,55 @@
       </defs>
     </svg>
 
-    <!-- Kopf bewusst knapp: Goldzeile, Ueberschrift, eine Unterzeile. Der
-         frueher hier stehende Goldstrich ist entfallen — er steht jetzt als
-         Haarlinie in der Infokarte. Der Umschalter folgt unmittelbar, damit
-         Umschalter und Video zusammen ins Bild passen. -->
+    <!-- Der Kopf ist auf EINE Zeile zusammengeschmolzen. Kundenwunsch vom
+         21.08., woertlich: „Die Headline soll einfach nur lauten: ‚Eindruck
+         einer Musterwohnung'. Das ‚WG-, Konzept- und Bestandswohnungen' kann
+         raus. Das ist unnötig."
+
+         Damit ist auch der zuvor diktierte Platzhalter „Meine
+         Provisionsprovisionen" erledigt — er ist durch diesen Titel ersetzt,
+         der Warnvermerk dazu ist entfallen. Der Titel unten ist der echte. -->
     <header class="robj__head" data-reveal>
-      <p class="kicker robj__kicker">Die zwei Objektarten</p>
-      <h2 class="display robj__h2">Zwei Objektarten. Je eine Referenzwohnung.</h2>
-      <p class="robj__lead">
-        Wählen Sie eine Objektart — darunter erscheint die zugehörige
-        Referenzwohnung mit Video und den Angaben dazu.
-      </p>
+
+      <!-- 21.08. auf Kundenwunsch entfernt — kommt zurueck, sobald Estera je
+           Objektart ein eigenes Video liefert. Die Goldzeile lautete:
+
+           <p class="kicker robj__kicker">Die zwei Objektarten</p>
+
+           Sie kuendigte den Umschalter an, den es nicht mehr gibt; ohne ihn
+           war sie eine Ankuendigung ins Leere. -->
+      <h2 class="display robj__h2">Eindruck einer Musterwohnung</h2>
+
+      <!-- 21.08. auf Kundenwunsch entfernt, kommt zurueck, sobald Estera
+           echte Objektdaten liefert. Die Zeile lautete:
+
+           <p class="robj__lead">
+             Wählen Sie eine Objektart — darunter erscheint die zugehörige
+             Referenzwohnung mit Video und den Angaben dazu.
+           </p>
+
+           Sie versprach „die Angaben dazu". Die gibt es seit dem 21.08. nicht
+           mehr, also war der Satz falsch geworden. Umformuliert ist er
+           nicht: „Es soll nur das Video erst mal zu sehen sein" — und jeder
+           neue Satz waere ein von uns erfundener. -->
     </header>
 
-    <!-- Umschalter: Pille mit goldener Aussenlinie, gleitender Navy-Schieber,
-         aria-pressed. Vor jeder Beschriftung steht ihr Symbol. -->
+    <!-- 21.08. auf Kundenwunsch entfernt — kommt zurueck, sobald Estera je
+         Objektart ein eigenes Video liefert.
+
+         Hier stand der Umschalter zwischen den beiden Objektarten: eine Pille
+         mit goldener Aussenlinie und gleitendem Navy-Schieber. Er hatte seine
+         Berechtigung verloren, noch bevor der Kunde ihn abbestellte — es
+         liegt nur EINE Aufnahme vor, beide Schaltflaechen haetten also
+         dasselbe Video gezeigt. Ein Schalter, der nichts umschaltet, ist eine
+         Zumutung; mit der Tastatur waere man zwischen zwei Zustaenden hin und
+         her gewandert, die sich nicht unterscheiden.
+
+         Die CSS-Regeln stehen in referenzobjekte.css unter „SCHLAEFT —
+         Umschalter", die Logik in referenzobjekte.js im gleichnamigen
+         stillgelegten Block. Zurueckholen heisst: hier die Kommentarzeichen
+         weg, dort ebenso. Wortlaut unveraendert:
+
     <div class="robj__schalter" role="group" aria-label="Objektart wählen" data-reveal>
       <span class="robj__schieber" aria-hidden="true"></span>
       <button class="robj__knopf" type="button" data-art-knopf="wg" aria-pressed="true">
@@ -1739,171 +2726,270 @@
         <svg class="robj__ic robj__knopf-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
         <span>Bestandswohnungen</span>
       </button>
-    </div>
+    </div> -->
 
-    <!-- Beide Fassungen liegen in derselben Rasterzelle uebereinander.
-         Dadurch ist der Bereich immer so hoch wie die hoehere von beiden und
-         die Hoehe springt beim Wechsel nicht. -->
+    <!-- Es steht nur noch EINE Fassung in der Buehne. Der Aufbau mit
+         Rasterzelle und uebereinanderliegenden Fassungen bleibt trotzdem
+         stehen: er kostet bei einem einzigen Kind nichts und nimmt die
+         zweite Aufnahme wieder auf, ohne dass etwas umgebaut werden muss.
+         data-art="wg" am Abschnitt haelt diese eine Fassung sichtbar. -->
     <div class="robj__karte" data-reveal>
       <div class="robj__buehne">
 
       <article class="robj__fassung robj__fassung--wg" data-art-inhalt="wg">
-        <!-- DER BILDPLATZ — frei stehend, ohne Kasten drumherum.
-             .robj__rahmen traegt nur noch die Bildunterschrift-Rolle;
-             .robj__video darin ist exakt 16:9, damit das Video spaeter
-             unbeschnitten hineinpasst. Das Bild darin ist ein FREMDES
-             Beispielbild (CC0, Nachweis oben) und zeigt keine Wohnung von
-             Estera. -->
+        <!-- DER VIDEOPLATZ — frei stehend, ohne Kasten drumherum.
+             .robj__rahmen ist nur noch die Klammer; .robj__video darin ist
+             exakt 16:9 und das Video ebenfalls (1920 x 1080). Es wird also
+             weder beschnitten noch verzerrt.
+
+             KEIN LAYOUTSPRUNG: width und height stehen am <video>, das
+             Seitenverhaeltnis zusaetzlich fest im CSS. Die Hoehe des Platzes
+             steht damit, bevor eine einzige Datei geladen ist — es rutscht
+             beim Laden nichts nach. -->
         <figure class="robj__rahmen">
+            <div class="robj__video">
 
-            <!-- ===== SPAETERER TAUSCH — GENAU EINE ZEILE =================
-                 Sobald das Video der Musterwohnung vorliegt, wird allein in
-                 der naechsten Zeile das leere data-film="" mit dem Pfad
-                 gefuellt — genau diese eine Zeile, sonst nichts:
+              <!-- Reihenfolge der Quellen: erst webm/VP9, dann mp4/h264. Der
+                   Browser nimmt die erste, die er kann — webm ist bei
+                   gleicher Bildguete rund ein Drittel kleiner, mp4 laeuft
+                   ueberall. Das HEVC-Original des Kunden ist bewusst NICHT
+                   eingebunden: es laeuft nicht in allen Browsern.
 
-                   <div class="robj__video" data-film="assets/video/referenz-wg-konzept.mp4" data-zustand="vorschau">
+                   muted und playsinline sind Bedingung dafuer, dass eine
+                   Wiedergabe ohne Zutun ueberhaupt erlaubt ist; ohne Ton ist
+                   das Video ohnehin — die Tonspuren sind beim Zusammensetzen
+                   entfernt worden, das Video hat gar keine.
 
-                 Damit laeuft das Video beim Klick auf den Abspielknopf im
-                 Rahmen. Sonst ist NICHTS zu aendern — kein CSS, kein
-                 Javascript, keine Fassung. Solange der Wert leer ist, zeigt
-                 der Klick die ruhige Zwischenansicht .robj__ersatz.
-                 ========================================================= -->
-            <div class="robj__video" data-film="" data-zustand="vorschau">
+                   preload="metadata" laedt zunaechst nur Masse und Dauer,
+                   nicht die 13 MB. Geladen wird erst, wenn es losgeht — und
+                   das tut es erst, wenn der Abschnitt im Bild ist. Bis dahin
+                   steht das poster-Standbild.
 
-              <img class="robj__bild" src="assets/img/referenz/wg-konzept-beispiel.jpg"
-                   alt="Beispielbild eines hellen Wohnraums"
-                   width="1600" height="900" loading="lazy" decoding="async">
+                   KEIN autoplay-Attribut, und auch sonst startet nichts von
+                   allein. Kundenwunsch 21.08., woertlich: „Man braucht bei
+                   dem Video zur Musterwohnung immer einen Abspielbutton. Man
+                   muss zuerst auf den Abspielbutton drücken, erst dann
+                   beginnt das Video." Beim Laden steht also das Poster und
+                   darueber der Knopf — mehr passiert nicht.
 
-              <!-- Zwischenansicht, solange kein Video hinterlegt ist. Liegt
-                   im selben Rahmen wie Bild und Video — die Hoehe aendert
-                   sich beim Umschalten deshalb um 0 px. -->
-              <div class="robj__ersatz" hidden>
-                <span class="robj__ersatz-kreis" aria-hidden="true">
-                  <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
-                </span>
-                <p class="robj__ersatz-text">
-                  Das Video der Musterwohnung wird gerade fertiggestellt und
-                  läuft danach hier im Rahmen.
-                </p>
-                <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
-              </div>
+                   WARUM controls IM MARKUP STEHT UND JAVASCRIPT ES WEGNIMMT:
+                   Ohne Javascript bleibt unsere eigene Abspielflaeche
+                   verborgen (sie traegt hidden und wird erst vom Script
+                   eingeblendet). Der Besuch saesse dann vor einem Standbild
+                   ohne jeden Ausweg. Mit controls im Markup bekommt er
+                   stattdessen die Bedienleiste des Browsers und kann das
+                   Video abspielen. Laeuft das Script, nimmt es controls in
+                   derselben Sekunde wieder weg und zeigt den Knopf; nach dem
+                   ersten Druck kommt die Leiste zurueck, damit man anhalten
+                   und spulen kann. Ein toter Knopf ist so nie zu sehen und
+                   eine Bedienleiste nie ohne Grund. -->
+              <video class="robj__film"
+                     muted loop playsinline controls
+                     preload="metadata"
+                     poster="assets/video/referenz-wohnung.jpg"
+                     width="1920" height="1080"
+                     aria-label="Rundgang durch die Musterwohnung — ohne Ton">
+                <source src="assets/video/referenz-wohnung.webm" type="video/webm">
+                <source src="assets/video/referenz-wohnung.mp4" type="video/mp4">
+              </video>
 
-              <button class="robj__play" type="button"
-                      aria-label="Video der Musterwohnung zum WG-Konzept abspielen">
+              <!-- DIE ABSPIELFLAECHE — der einzige Weg, das Video zu
+                   starten. Kundenwunsch 21.08.: „Man muss zuerst auf den
+                   Abspielbutton drücken, erst dann beginnt das Video."
+
+                   Gefuellter Navy-Kreis mit Goldring, mittig auf dem Poster.
+                   Zwischenzeitlich stand hier eine liegende Kachel nach dem
+                   Vorbild von YouTube; der Kunde hat sie wieder abbestellt
+                   („Mache ihn so, wie er davor war"), deshalb ist dies
+                   woertlich die Fassung von davor.
+
+                   hidden steht bewusst hier: ohne Javascript bliebe der Knopf
+                   wirkungslos, und ein Knopf, der nichts tut, ist schlimmer
+                   als keiner. Das Script blendet ihn ein und nimmt dafuer die
+                   Bedienleiste des Browsers weg. Nach dem ersten Druck ist es
+                   umgekehrt: der Knopf geht, die Leiste kommt. -->
+              <button class="robj__play" type="button" hidden aria-label="Video abspielen">
                 <svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
               </button>
+
+              <!-- 21.08. auf Kundenwunsch entfernt, kommt zurueck, sobald
+                   Estera echte Objektdaten liefert.
+                   Hier standen das lizenzierte Beispielbild und die ruhige
+                   Zwischenansicht „Video folgt". Beide waren Statthalter fuer
+                   das Video — das jetzt da ist. Der Wortlaut:
+
+                   <img class="robj__bild" src="assets/img/referenz/wg-konzept-beispiel.jpg"
+                        alt="Beispielbild eines hellen Wohnraums"
+                        width="1600" height="900" loading="lazy" decoding="async">
+
+                   <div class="robj__ersatz" hidden>
+                     <span class="robj__ersatz-kreis" aria-hidden="true">
+                       <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
+                     </span>
+                     <p class="robj__ersatz-text">
+                       Das Video der Musterwohnung wird gerade fertiggestellt und
+                       läuft danach hier im Rahmen.
+                     </p>
+                     <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
+                   </div> -->
             </div>
         </figure>
 
-        <!-- DIE INFOKARTE — Kundenwunsch 18.08.: „Unten links vom Video ragt
-             er halb ueber das Video und halb unter dem Video raus."
-             Sie traegt die Objektart, die Zeile „Referenzwohnung" und die
-             Zeile VIDEO — die gehoert zum Video, ueber dem die Karte haengt.
-             ECKDATEN und BESCHREIBUNG stehen im Wortlaut unveraendert rechts
-             daneben. Es ist kein Wort entfallen. Erfunden ist nichts: keine
-             Lage, keine Groesse, kein Preis, keine Miete, keine Rendite. -->
-        <div class="robj__unter">
-          <div class="robj__info">
-            <p class="kicker robj__art">
-              <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-gebaeude"></use></svg>
-              <span>WG-Konzept</span>
-            </p>
-            <h3 class="robj__h3">Referenzwohnung</h3>
-            <span class="robj__haar" aria-hidden="true"></span>
-            <p class="robj__zeile robj__zeile--haupt">
-              <svg class="robj__ic robj__ic--fill robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
-              <span class="robj__label">Video</span>
-              <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
-            </p>
-          </div>
+        <!-- 21.08. auf Kundenwunsch entfernt, kommt zurueck, sobald Estera
+             echte Objektdaten liefert.
 
-          <!-- Die Zeilen sagen nur, WAS spaeter zu sehen sein wird — keine
-               Zahl, keine Lage, keine Groesse. Wortlaut unveraendert. -->
-          <ul class="robj__liste">
-            <li class="robj__zeile">
-              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-grundriss"></use></svg>
-              <span class="robj__label">Eckdaten</span>
-              <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
-            </li>
-            <li class="robj__zeile">
-              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-dokument"></use></svg>
-              <span class="robj__label">Beschreibung</span>
-              <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
-            </li>
-          </ul>
-        </div>
+             Der Kunde woertlich: „Du musst keine Rand- und Eckdaten zu den
+             Wohnungen nennen, also alle Daten können raus. Es soll nur das
+             Video erst mal zu sehen sein." Hier stand die Infokarte, die seit
+             dem 18.08. halb ueber der unteren Videokante hing, und daneben
+             die Zeilen ECKDATEN und BESCHREIBUNG. Freigegeben war davon
+             ohnehin nie etwas; die Zeilen sagten nur, WAS spaeter zu sehen
+             sein wuerde, und nannten keine Zahl, keine Lage, keine Groesse.
+
+             Die zugehoerigen CSS-Regeln stehen unveraendert in
+             referenzobjekte.css unter „SCHLAEFT — alles unter dem Video".
+             Zurueckholen heisst also: hier die Kommentarzeichen weg, fertig.
+             Wortlaut unveraendert:
+
+             <div class="robj__unter">
+               <div class="robj__info">
+                 <p class="kicker robj__art">
+                   <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-gebaeude"></use></svg>
+                   <span>WG-Konzept</span>
+                 </p>
+                 <h3 class="robj__h3">Referenzwohnung</h3>
+                 <span class="robj__haar" aria-hidden="true"></span>
+                 <p class="robj__zeile robj__zeile--haupt">
+                   <svg class="robj__ic robj__ic--fill robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
+                   <span class="robj__label">Video</span>
+                   <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
+                 </p>
+               </div>
+
+               <ul class="robj__liste">
+                 <li class="robj__zeile">
+                   <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-grundriss"></use></svg>
+                   <span class="robj__label">Eckdaten</span>
+                   <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
+                 </li>
+                 <li class="robj__zeile">
+                   <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-dokument"></use></svg>
+                   <span class="robj__label">Beschreibung</span>
+                   <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
+                 </li>
+               </ul>
+             </div> -->
       </article>
+
+      <!-- 21.08. auf Kundenwunsch entfernt — kommt zurueck, sobald Estera je
+           Objektart ein eigenes Video liefert.
+
+           Hier stand die zweite Fassung, die Bestandswohnungen. Sie zeigte
+           dasselbe Video wie die erste, weil nur EINE Aufnahme vorliegt — mit
+           dem Umschalter davor waere man zwischen zwei identischen Bildern
+           hin und her gesprungen. Mit dem Umschalter faellt sie mit weg.
+
+           Ein zweites Mal dieselbe Datei zu laden kostete nichts, aber es
+           lief eben auch ein zweites <video> im Dokument, das nie jemand sah.
+           Behauptet wurde dabei nie etwas: an keiner Stelle stand, die
+           Aufnahme zeige eine bestimmte Bestandswohnung — erfunden oder
+           nachgestellt wird dafuer nichts.
+
+           VON ESTERA ZU LIEFERN: die Aufnahme fuer die zweite Objektart.
+           Sobald sie da ist, wird dieser Block wieder eingeschaltet, in den
+           beiden <source>-Zeilen und im poster-Attribut auf die neuen
+           Dateinamen umgestellt — und der Umschalter oben kommt mit zurueck.
+           Sonst ist nichts zu tun. Wortlaut unveraendert, die darin frueher
+           auskommentierten Teile stehen hier ohne ihre Kommentarzeichen:
 
       <article class="robj__fassung robj__fassung--bestand" data-art-inhalt="bestand">
         <figure class="robj__rahmen">
+            <div class="robj__video">
+              <video class="robj__film"
+                     muted loop playsinline controls
+                     preload="metadata"
+                     poster="assets/video/referenz-wohnung.jpg"
+                     width="1920" height="1080"
+                     aria-label="Rundgang durch die Musterwohnung — ohne Ton">
+                <source src="assets/video/referenz-wohnung.webm" type="video/webm">
+                <source src="assets/video/referenz-wohnung.mp4" type="video/mp4">
+              </video>
 
-            <!-- ===== SPAETERER TAUSCH — GENAU EINE ZEILE =================
-                 Wie oben: allein in der naechsten Zeile das leere
-                 data-film="" mit dem Pfad des Videos fuellen, z. B.
-
-                   <div class="robj__video" data-film="assets/video/referenz-bestandswohnung.mp4" data-zustand="vorschau">
-                 ========================================================= -->
-            <div class="robj__video" data-film="" data-zustand="vorschau">
-
-              <img class="robj__bild" src="assets/img/referenz/bestandswohnung-beispiel.jpg"
-                   alt="Beispielbild eines hellen Wohnraums"
-                   width="1600" height="900" loading="lazy" decoding="async">
-
-              <div class="robj__ersatz" hidden>
-                <span class="robj__ersatz-kreis" aria-hidden="true">
-                  <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
-                </span>
-                <p class="robj__ersatz-text">
-                  Das Video der Musterwohnung wird gerade fertiggestellt und
-                  läuft danach hier im Rahmen.
-                </p>
-                <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
-              </div>
-
-              <button class="robj__play" type="button"
-                      aria-label="Video der Musterwohnung zu den Bestandswohnungen abspielen">
+              <button class="robj__play" type="button" hidden aria-label="Video abspielen">
                 <svg class="robj__ic robj__ic--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
               </button>
+
+              [frueher hier, ebenfalls stillgelegt: Beispielbild und
+               Zwischenansicht]
+                   <img class="robj__bild" src="assets/img/referenz/bestandswohnung-beispiel.jpg"
+                        alt="Beispielbild eines hellen Wohnraums"
+                        width="1600" height="900" loading="lazy" decoding="async">
+                   <div class="robj__ersatz" hidden>
+                     <span class="robj__ersatz-kreis" aria-hidden="true">
+                       <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-uhr"></use></svg>
+                     </span>
+                     <p class="robj__ersatz-text">
+                       Das Video der Musterwohnung wird gerade fertiggestellt und
+                       läuft danach hier im Rahmen.
+                     </p>
+                     <button class="robj__zurueck" type="button">Zurück zur Vorschau</button>
+                   </div>
             </div>
         </figure>
 
-        <!-- Infokarte wie oben, nur mit der anderen Objektart. -->
-        <div class="robj__unter">
-          <div class="robj__info">
-            <p class="kicker robj__art">
-              <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
-              <span>Bestandswohnungen</span>
-            </p>
-            <h3 class="robj__h3">Referenzwohnung</h3>
-            <span class="robj__haar" aria-hidden="true"></span>
-            <p class="robj__zeile robj__zeile--haupt">
-              <svg class="robj__ic robj__ic--fill robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
-              <span class="robj__label">Video</span>
-              <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
-            </p>
-          </div>
+             [frueher hier, ebenfalls stillgelegt: Infokarte und Zeilen]
+             <div class="robj__unter">
+               <div class="robj__info">
+                 <p class="kicker robj__art">
+                   <svg class="robj__ic robj__art-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-haus"></use></svg>
+                   <span>Bestandswohnungen</span>
+                 </p>
+                 <h3 class="robj__h3">Referenzwohnung</h3>
+                 <span class="robj__haar" aria-hidden="true"></span>
+                 <p class="robj__zeile robj__zeile--haupt">
+                   <svg class="robj__ic robj__ic--fill robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-play"></use></svg>
+                   <span class="robj__label">Video</span>
+                   <span class="robj__wert">Ein kurzer Rundgang durch die Musterwohnung — Sie sehen die Räume, bevor Sie einen Termin vereinbaren.</span>
+                 </p>
+               </div>
 
-          <!-- Die Zeilen sagen nur, WAS spaeter zu sehen sein wird — keine
-               Zahl, keine Lage, keine Groesse. Wortlaut unveraendert. -->
-          <ul class="robj__liste">
-            <li class="robj__zeile">
-              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-grundriss"></use></svg>
-              <span class="robj__label">Eckdaten</span>
-              <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
-            </li>
-            <li class="robj__zeile">
-              <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-dokument"></use></svg>
-              <span class="robj__label">Beschreibung</span>
-              <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
-            </li>
-          </ul>
-        </div>
-      </article>
+               <ul class="robj__liste">
+                 <li class="robj__zeile">
+                   <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-grundriss"></use></svg>
+                   <span class="robj__label">Eckdaten</span>
+                   <span class="robj__wert">Die wichtigsten Angaben zur Wohnung stehen gebündelt an einer Stelle statt verstreut in Unterlagen.</span>
+                 </li>
+                 <li class="robj__zeile">
+                   <svg class="robj__ic robj__zeile-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#robj-i-dokument"></use></svg>
+                   <span class="robj__label">Beschreibung</span>
+                   <span class="robj__wert">Eine kurze Einordnung des Objekts in verständlicher Sprache — ohne Fachbegriffe.</span>
+                 </li>
+               </ul>
+             </div>
+      </article> -->
 
       </div>
     </div>
 
-    <!-- Cremeband: der sichtbare, ehrliche Hinweis zum Bild. -->
+    <!-- 21.08. auf Kundenwunsch entfernt, kommt zurueck, sobald Estera echte
+         Objektdaten liefert.
+
+         Hier stand das Cremeband mit dem Hinweis, das Bild im Rahmen sei ein
+         lizenziertes Beispielbild. Zwei Gruende, warum es weg ist:
+
+         1. Der Satz stimmt nicht mehr. Im Rahmen laeuft seit dem 21.08. das
+            Material von Estera, kein gekauftes Beispielbild. Ein falsch
+            gewordener Hinweis ist schlimmer als gar keiner — er wuerde
+            Besucher ueber echtes Material in die Irre fuehren.
+         2. „Es soll nur das Video erst mal zu sehen sein."
+
+         Umformuliert ist der Satz NICHT: jede neue Fassung waere ein von uns
+         erfundener Text, und der Kunde wollte an dieser Stelle ohnehin nichts
+         lesen. Das Cremeband kommt zurueck, sobald es wieder etwas Wahres zu
+         sagen hat — etwa den Hinweis, welche Objektart welche Aufnahme zeigt,
+         sobald die zweite vorliegt. Die CSS-Regeln stehen unveraendert unter
+         „Das Cremeband (SCHLAEFT ...)". Wortlaut unveraendert:
+
     <div class="robj__band" data-reveal>
       <span class="robj__band-kreis" aria-hidden="true">
         <svg class="robj__ic" viewBox="0 0 24 24" focusable="false"><use href="#robj-i-stern"></use></svg>
@@ -1935,384 +3021,272 @@
         <path d="M382 46c6.4 0 10.4 4.2 10.4 9.6S388.4 64 382 64s-10.4-3-10.4-8.4S375.6 46 382 46Z"/>
         <path d="M10 80h400"/>
       </svg>
-    </div>
+    </div> -->
 
   </div>
 </section>
 <!-- =====================================================================
-     VIER BAUSTEINE — EIN STRUKTURIERTER WEG   (Briefing 03 F)
-     Position vorlaeufig, siehe Anmerkung im vorigen Abschnitt.
+     ENTFALLEN am 21.08.2026 auf Kundenwunsch:
+     „Viele Bausteine. Ein strukturierter Weg." (Section #bausteine,
+     Klasse .verg, mit dem Umschalter „Selbst koordinieren / Mit Estera
+     begleitet" und der Hausgrafik aus sechs Teilen).
 
-     NOCH UMZUBAUEN, laut Briefing 03 F:
-       — das Haus steht MITTIG und wird animiert
-       — das Haus deutlich schoener dargestellt
-       — die Punkte liegen zunaechst durcheinander um das Haus herum
-       — beim Wechsel auf „Mit Estera" sortieren sie sich sichtbar ein
-       — beide Zustaende vollstaendig auf einen Blick, ohne Scrollen
-     Derzeit steht das Haus links und die Liste rechts daneben.
+     Ersatzlos. Der Wortlaut, die Grafik und die Regeln stehen
+     vollstaendig in der Versionsgeschichte (letzter Stand mit diesem
+     Abschnitt: der Commit vor dem 21.08.2026).
 
-     RUECKFRAGE: Das Briefing spricht von VIER Bausteinen, die Seite fuehrt
-     sechs. Die Ueberschrift lautet unveraendert „Viele Bausteine." — sie
-     ist im Briefing nicht als Umbenennung aufgefuehrt. Welche vier gelten,
-     beziehungsweise bleibt es bei sechs?
+     Mit entfernt: der Eintrag „Bausteine" in beiden Navigationen und
+     die Einbindung von assets/css/vergleich.css und
+     assets/css/spiel.css im Kopf. Die beiden Dateien selbst bleiben
+     vorerst im Projekt liegen, damit der Abschnitt ohne Aufwand
+     zurueckgeholt werden kann.
+
+     In assets/js/site.js steht weiterhin die Schleife ueber
+     [data-vergleich]. Sie findet jetzt nichts mehr und tut nichts —
+     absichtlich stehengelassen, damit ein Zurueckholen ohne Eingriff
+     ins gemeinsame Skript moeglich bleibt.
      ===================================================================== -->
-<section class="verg" id="bausteine" data-vergleich data-modus="selbst">
-  <div class="verg__inner">
 
-    <!-- Kopf im Aufbau der ersten Abschnitte (vgl. „So entsteht
-         Vermoegensaufbau"): goldene Kleinversalienzeile, Ueberschrift,
-         Unterzeile — mittig. -->
-    <header class="verg__head" data-reveal>
-      <p class="verg__kicker">Estera</p>
-      <h2 class="display verg__h2">Viele Bausteine. Ein strukturierter Weg.</h2>
-      <p class="verg__lead">
-        Eine Kapitalanlage besteht nicht nur aus dem Objekt. Zugang, Lage, Kaufpreis,
-        Unterlagen, wirtschaftliche Einordnung, Finanzierung und Kaufprozess müssen
-        <span class="hl">zusammenpassen</span>.
-      </p>
-    </header>
-
-    <div class="verg__schalter" role="group" aria-label="Darstellung umschalten" data-reveal>
-      <span class="verg__schieber" aria-hidden="true"></span>
-      <button class="verg__knopf" type="button" data-modus-knopf="selbst" aria-pressed="true">Selbst koordinieren</button>
-      <button class="verg__knopf" type="button" data-modus-knopf="estera" aria-pressed="false">Mit Estera begleitet</button>
-    </div>
-
-    <div class="verg__buehne">
-
-      <!-- Punktkarten links. Die Reihenfolge folgt den Ruheplaetzen der
-           Bausteine daneben: Fenster 2. OG oben, Fenster 1. OG in der Mitte,
-           Haustuer unten. --dx und --dy setzen den Versatz im Zustand
-           "Selbst koordinieren"; im Zustand "Mit Estera begleitet" fluchten
-           alle Karten auf einer Kante. -->
-      <ul class="verg__karten verg__karten--links" data-reveal>
-        <li class="verg__karte" style="--dx:-54px; --dy:-28px; --dr:-1.6deg; --dw:0px">
-          <span class="verg__ikon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 21s6.6-5.4 6.6-10.4a6.6 6.6 0 1 0-13.2 0C5.4 15.6 12 21 12 21Z"/><circle cx="12" cy="10.3" r="2.5"/></svg>
-          </span>
-          <p class="verg__name">Objekt &amp; Lage</p>
-          <div class="verg__texte">
-            <p class="verg__text verg__text--selbst">Objekte finden und vergleichen; Makro- und Mikrolage selbst einordnen.</p>
-            <p class="verg__text verg__text--estera">Passende Kapitalanlageimmobilien vorauswählen; Lage und Nachfrage strukturiert einordnen.</p>
-          </div>
-          <div class="verg__status">
-            <span class="verg__stand verg__stand--selbst">Noch zu vergleichen</span>
-            <span class="verg__stand verg__stand--estera">Vorausgewählt</span>
-          </div>
-        </li>
-        <li class="verg__karte" style="--dx:26px; --dy:18px; --dr:1.2deg; --dw:30px">
-          <span class="verg__ikon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6.5 20v-6.5M12 20V7.5M17.5 20v-9"/></svg>
-          </span>
-          <p class="verg__name">Wirtschaftlichkeit</p>
-          <div class="verg__texte">
-            <p class="verg__text verg__text--selbst">Kaufpreis, Miete, Hausgeld, laufende Kosten und eigenen Beitrag zusammenführen.</p>
-            <p class="verg__text verg__text--estera">Eckdaten und wirtschaftliche Zusammenhänge verständlich aufbereiten.</p>
-          </div>
-          <div class="verg__status">
-            <span class="verg__stand verg__stand--selbst">Kosten noch einzuordnen</span>
-            <span class="verg__stand verg__stand--estera">Eingeordnet</span>
-          </div>
-        </li>
-        <li class="verg__karte" style="--dx:-36px; --dy:46px; --dr:-0.9deg; --dw:14px">
-          <span class="verg__ikon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5Z"/><path d="M14 3.5V7.5H18"/><path d="M9 13h6M9 16.5h4"/></svg>
-          </span>
-          <p class="verg__name">Objektunterlagen</p>
-          <div class="verg__texte">
-            <p class="verg__text verg__text--selbst">Teilungserklärung, Energieausweis, Mietunterlagen und weitere Dokumente selbst sichten.</p>
-            <p class="verg__text verg__text--estera">Relevante Unterlagen bündeln, einordnen und offene Fragen sichtbar machen.</p>
-          </div>
-          <div class="verg__status">
-            <span class="verg__stand verg__stand--selbst">Unterlagen noch offen</span>
-            <span class="verg__stand verg__stand--estera">Aufbereitet</span>
-          </div>
-        </li>
-      </ul>
-
-      <!-- Das Haus, mittig als Blickfang. Haus und lose Bausteine sind aus der
-           Vorlage `Bilder/referenz-haus-neu.png` aufbereitet und liegen als
-           PNG mit Alphakanal in assets/img/haus/ — dadurch stimmen Putz,
-           Faschen, Ziegel und Licht 1:1 mit der Vorlage. Die Kanten sind
-           weich gezogen und die Farbstimmung ist an die Seite angeglichen
-           (Tiefen zum Navy #102949, Lichter warm zum Papierton).
-           Sechs Oeffnungen, sechs lose Teile — fuer jede Oeffnung genau eines,
-           jedes aus demselben Bild geschnitten. An seiner Stelle steht im
-           Hausbild eine leere Vertiefung, damit das Einrasten sichtbar ist.
-           Bei "Selbst koordinieren" versuchen alle gleichzeitig, sich
-           einzufuegen — es klappt nicht, sie weichen zurueck und versuchen es
-           erneut. Bei "Mit Estera begleitet" sitzt jedes sofort sauber in
-           seiner Oeffnung.
-           Rein dekorativ, deshalb aria-hidden und leere alt-Attribute. -->
-      <div class="spiel" aria-hidden="true">
-        <div class="spiel__feld">
-          <!-- Boden: Kontaktschatten und Umgebungsschatten, darauf die kurze
-               Spiegelung des Sockels. Beides zusammen setzt das Haus auf eine
-               Flaeche, ohne die Frontalansicht zu verzerren. -->
-          <img class="spiel__spiegel" src="assets/img/haus/haus.png" alt="" width="1200" height="668" decoding="async" loading="lazy">
-          <span class="spiel__boden"></span>
-
-          <img class="spiel__haus" src="assets/img/haus/haus.png" alt="" width="1200" height="668" decoding="async" loading="lazy">
-
-          <!-- Die sechs Zielstellen am Haus. Alle sind im Bild bereits leere
-               Vertiefungen; die Marken tragen nur den goldenen Ring. -->
-          <span class="spiel__nische spiel__nische--og-links"></span>
-          <span class="spiel__nische spiel__nische--og1-links"></span>
-          <span class="spiel__nische spiel__nische--tuer"></span>
-          <span class="spiel__nische spiel__nische--og-rechts"></span>
-          <span class="spiel__nische spiel__nische--og1-rechts"></span>
-          <span class="spiel__nische spiel__nische--eg-rechts"></span>
-
-          <!-- LINKE Seite: die drei Teile zu den Karten links -->
-          <!-- Fenster 2. Obergeschoss, aussen links -->
-          <img class="spiel__teil spiel__teil--og-links" src="assets/img/haus/teil-og-links.png" alt="" width="129" height="136" decoding="async" loading="lazy">
-          <!-- Fenster 1. Obergeschoss, innen links -->
-          <img class="spiel__teil spiel__teil--og1-links" src="assets/img/haus/teil-og1-links.png" alt="" width="122" height="135" decoding="async" loading="lazy">
-          <!-- Haustuer mit Briefkastenanlage -->
-          <img class="spiel__teil spiel__teil--tuer" src="assets/img/haus/teil-tuer.png" alt="" width="178" height="182" decoding="async" loading="lazy">
-          <!-- RECHTE Seite: die drei Teile zu den Karten rechts -->
-          <!-- Fenster 2. Obergeschoss, aussen rechts -->
-          <img class="spiel__teil spiel__teil--og-rechts" src="assets/img/haus/teil-og-rechts.png" alt="" width="120" height="137" decoding="async" loading="lazy">
-          <!-- Fenster 1. Obergeschoss, Mitte rechts -->
-          <img class="spiel__teil spiel__teil--og1-rechts" src="assets/img/haus/teil-og1-rechts.png" alt="" width="118" height="135" decoding="async" loading="lazy">
-          <!-- Fenster Erdgeschoss, innen rechts -->
-          <img class="spiel__teil spiel__teil--eg-rechts" src="assets/img/haus/teil-eg-rechts.png" alt="" width="115" height="142" decoding="async" loading="lazy">
-        </div>
-      </div>
-
-      <!-- Punktkarten rechts. Reihenfolge wie die Ruheplaetze daneben:
-           Fenster 2. OG oben, Fenster 1. OG in der Mitte, Fenster EG unten. -->
-      <ul class="verg__karten verg__karten--rechts" data-reveal>
-        <li class="verg__karte" style="--dx:48px; --dy:-32px; --dr:1.5deg; --dw:0px">
-          <span class="verg__ikon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="m12 3.6 8.4 4.3-8.4 4.3-8.4-4.3Z"/><path d="m3.6 13 8.4 4.3 8.4-4.3"/><path d="m3.6 17.4 8.4 4.3 8.4-4.3"/></svg>
-          </span>
-          <p class="verg__name">WEG-Unterlagen</p>
-          <div class="verg__texte">
-            <p class="verg__text verg__text--selbst">Wirtschaftspläne, Jahresabrechnungen und WEG-Protokolle selbst sichten.</p>
-            <p class="verg__text verg__text--estera">Verfügbare WEG-Unterlagen einbeziehen und auffällige Punkte nachvollziehbar darstellen.</p>
-          </div>
-          <div class="verg__status">
-            <span class="verg__stand verg__stand--selbst">Noch zu sichten</span>
-            <span class="verg__stand verg__stand--estera">Einbezogen</span>
-          </div>
-        </li>
-        <li class="verg__karte" style="--dx:-24px; --dy:22px; --dr:-1.3deg; --dw:26px">
-          <span class="verg__ikon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M17.6 6.6a6.9 6.9 0 1 0 0 10.8"/><path d="M4.6 10.4h8.2M4.6 13.6h8.2"/></svg>
-          </span>
-          <p class="verg__name">Finanzierung</p>
-          <div class="verg__texte">
-            <p class="verg__text verg__text--selbst">Finanzierungswege, Bankunterlagen und Konditionen selbst abstimmen.</p>
-            <p class="verg__text verg__text--estera">Finanzierung über das Netzwerk koordinieren und passend zum Objekt strukturieren.</p>
-          </div>
-          <div class="verg__status">
-            <span class="verg__stand verg__stand--selbst">Noch nicht abgestimmt</span>
-            <span class="verg__stand verg__stand--estera">Koordiniert</span>
-          </div>
-        </li>
-        <li class="verg__karte" style="--dx:60px; --dy:42px; --dr:1.7deg; --dw:12px">
-          <span class="verg__ikon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M2.6 12.4 6 9h4.2l1.8 1.8"/><path d="M21.4 12.4 18 9h-4.2L12 10.8"/><path d="m10.2 12.6-1.8 1.8a1.5 1.5 0 0 0 2.1 2.1l.9-.9 2.1 2.1a1.4 1.4 0 0 0 2-2"/><path d="M2.6 12.4v2.2l2.6 2.6M21.4 12.4v2.2l-2.6 2.6"/></svg>
-          </span>
-          <p class="verg__name">Kaufprozess</p>
-          <div class="verg__texte">
-            <p class="verg__text verg__text--selbst">Ansprechpartner, Unterlagen, Fristen und Schritte bis zum Notar zusammenhalten.</p>
-            <p class="verg__text verg__text--estera">Beteiligte und Schritte von der Objektvorstellung bis zum Notar zusammenführen.</p>
-          </div>
-          <div class="verg__status">
-            <span class="verg__stand verg__stand--selbst">Noch zusammenzuhalten</span>
-            <span class="verg__stand verg__stand--estera">Zusammengeführt</span>
-          </div>
-        </li>
-      </ul>
-
-    </div>
-
-    <!-- Das Band unter dem Haus: Symbol, Satz, Schaltflaeche. -->
-    <div class="verg__band" data-reveal>
-      <span class="verg__bandsymbol" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M4.5 21V7.6L12 3.2l7.5 4.4V21"/><path d="M2.5 21h19"/><path d="M9.8 21v-4.6h4.4V21"/><path d="M8 9.6h2.1M13.9 9.6H16M8 13h2.1M13.9 13H16"/></svg>
-      </span>
-      <p class="verg__bandtext">
-        Alle Bausteine müssen zusammenpassen –
-        <em>wir machen den Weg verständlich und strukturiert.</em>
-      </p>
-      <span class="verg__bandstrich" aria-hidden="true"></span>
-      <a class="verg__bandcta" href="erstgespraech.html">
-        Beratung anfragen
-        <svg viewBox="0 0 20 12" aria-hidden="true"><path d="M0.8 6h17.4M13.4 1.2 18.2 6l-4.8 4.8"/></svg>
-      </a>
-    </div>
-
-    <p class="verg__hinweis">
-      Die Übersicht ist eine Arbeitsgrundlage und kein pauschales Prüf- oder
-      Haftungsversprechen. Welche Unterlagen Estera selbst prüft, welche
-      strukturiert aufbereitet werden und wann rechtliche, steuerliche oder
-      technische Fachpartner eingebunden werden, klärt der konkrete
-      Leistungsumfang.
-    </p>
-
-  </div>
-</section>
 <!-- =====================================================================
-     SECTION 9 — WISSEN UND KARRIERE (Briefing S.7, S.18, S.19)
-     "Ein kurzer Einstieg in Wissen & Fragen und ein kompakter
-      Karriere-Teaser. Kein umfangreiches oeffentliches
-      Qualifikationsformular."
+     FAQ — NACHBAU DER KUNDENVORLAGE  (Bilder/referenz-faq.jpg)
+     Neu am 21.08.2026. Regeln: assets/css/faq.css, Steuerung:
+     assets/js/faq.js. Beide Dateien gehoeren ausschliesslich zu diesem
+     Abschnitt.
 
-     Hier stehen nur die FRAGEN, keine Antworten: die gehoeren laut S.3 auf
-     die Unterseite. Die Karriere-Aussage ist woertlich von S.19.
+     Der Kunde hat eine Vorlage geliefert und dazu gesagt: „Ich will, dass
+     du sie 1:1 genauso nachbaust." Vier Abweichungen sind ausdruecklich
+     gewuenscht und NUR diese:
+       1. Der Grund der Section ist weiss (Vorlage: dunkelblauschwarz).
+       2. Die Kaesten behalten exakt die Farben der Vorlage, samt Verlauf.
+       3. „FAQ" steht in Schwarz (--ink-black) statt in Weiss.
+       4. Die Kaesten stehen buendig untereinander. Die Vorlage staffelt
+          sie abwechselnd um 62 Bildpunkte nach rechts.
+     Alles Weitere — Form, Rundung, Abstaende, Groessenverhaeltnisse,
+     Winkel, Aufklappen — folgt der Vorlage. Die ausgemessenen Werte und
+     die gemessenen Kontraste stehen im Kopf von faq.css.
 
-     Auf Kundenwunsch entfallen ist der Abschluss-CTA "Der naechste Schritt
-     ist ein Gespraech". Damit ist auch die Sprungmarke #erstgespraech fort;
-     alle Verweise gehen jetzt auf erstgespraech.html.
+     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     WORTLAUT VOM KUNDEN. NICHT UMFORMULIEREN, NICHT KUERZEN, NICHT
+     ERGAENZEN.
+     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     Quelle: Bilder/faq-inhalt-1.jpeg bis faq-inhalt-5.jpeg, geliefert am
+     21.08.2026. Woertlich der Kunde: „Das sind die fuenf Fragen mit
+     Antworten, die du verwenden sollst." Frage und Antwort sind Zeichen
+     fuer Zeichen aus den Bildern uebertragen — einschliesslich Satzzeichen,
+     Bindestrichen und Doppelpunkt.
+
+     ES SIND FUENF, NICHT SECHS. Die sechs Fragen aus der frueheren Section
+     #wissen-teaser, die hier zuvor standen, sind damit hinfaellig. Ebenso
+     hinfaellig und ersatzlos entfernt sind die Antworten, die wir selbst
+     formuliert hatten (samt ihrem Vermerk „noch nicht vorgelegt") — der
+     Text stammt jetzt vom Kunden. Die Section #wissen-teaser ist am selben
+     Tag auf Kundenwunsch ganz entfallen; der Vermerk dazu steht unten, wo
+     sie stand. Diese FAQ ist damit der letzte Inhaltsabschnitt der Seite.
+
+     ---------------------------------------------------------------------
+     ZUR PRUEFUNG DURCH ESTERA VORGEMERKT — NICHT VON UNS GEAENDERT
+     Der gelieferte Text enthaelt Stellen, die auf einer Finanzseite
+     regulatorisch heikel sein koennen. Sie stehen bewusst UNVERAENDERT so,
+     wie der Kunde sie geliefert hat; die Entscheidung darueber liegt beim
+     Kunden, nicht bei uns. Die einzelnen Stellen sind unten jeweils direkt
+     an ihrer Frage vermerkt (Suchwort: PRUEFEN). Zusaetzlich generell:
+
+       — Der Text ist durchgehend geduzt („dein", „dir", „du"). Die
+         uebrige Seite siezt ausnahmslos. Das ist ein Bruch im Ton, den wir
+         nicht eigenmaechtig geglaettet haben.
+       — Der Text spricht in der ICH-Form („Mein Fokus", „Ich reduziere").
+         Er stammt sichtlich aus einer persoenlichen Fassung (Sebastian
+         Meilbeck) und nicht aus der Unternehmensstimme von Estera.
+     ---------------------------------------------------------------------
+
+     Zugaenglichkeit: echte <button> mit aria-expanded und aria-controls,
+     Fragen als h3 unter dem h2 „FAQ". OHNE JAVASCRIPT steht hier alles
+     offen (aria-expanded="true", data-offen="true") — faq.js klappt beim
+     Laden einmal lautlos zu. Faellt das Skript aus, bleibt eine lesbare
+     Liste aus Fragen und Antworten.
      ===================================================================== -->
-<section class="schluss" id="wissen-teaser">
-  <div class="schluss__inner">
+<section class="faq" id="faq" data-faq aria-labelledby="faq-titel">
+  <div class="faq__inner">
 
-    <!-- UMBAU 18.08.2026 — Kundenwunsch: „Die Section soll generell im Stil
-         der ersten vier Sections gebaut werden, vor allem ‚So entsteht
-         Vermoegensaufbau' und ‚Unsere Leistungen'."
+    <h2 class="faq__titel" id="faq-titel">FAQ</h2>
 
-         Uebernommen ist deren Formensprache: mittiger Kopf mit goldener
-         Kleinversalienzeile, weisse Karten mit grossem Eckenradius und zwei
-         Schattenlagen, Symbole als feine Goldkontur im hellen Kreis,
-         gestaffelter Einlauf. Die Regeln stehen in assets/css/schluss.css.
-
-         Der WORTLAUT ist unveraendert: Ueberschrift, Lead und alle sechs
-         Fragen stehen woertlich wie zuvor. -->
-    <header class="wissen__kopf" data-reveal>
-      <p class="wissen__kicker">Estera</p>
-      <h2 class="display wissen__h2">Fragen, die vor der ersten Immobilie kommen.</h2>
-      <p class="wissen__lead">
-        Kurze, klare Antworten statt Fachbuch — und immer mit dem nächsten
-        Schritt am Ende.
-      </p>
-    </header>
-
-    <!-- Der Pfeil sitzt siebenmal auf der Seite (sechs Karten und der
-         Karriere-Verweis). Einmal als Symbol abgelegt und per <use> geholt
-         statt siebenmal ausgeschrieben — wie #l-haken in den Leistungen. -->
-    <svg class="wissen__sprite" aria-hidden="true" focusable="false" width="0" height="0">
-      <symbol id="wt-pfeil" viewBox="0 0 24 24">
-        <path d="M4.4 12h14.6m-5.6-5.6L19 12l-5.6 5.6" fill="none" stroke="currentColor"
-              stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Der Winkel sitzt fuenfmal in dieser Section. Einmal als Symbol
+         abgelegt und per <use> geholt — dasselbe Vorgehen wie bei
+         #wt-pfeil im Abschnitt darunter und #l-haken in den Leistungen.
+         Masse aus der Vorlage: gezeichnete Spur 15 x 8 Bildpunkte,
+         Strichstaerke 1,64 Einheiten, runde Enden. Die Groesse des SVG-
+         Kastens haengt an dieser Strichstaerke — siehe --faq-winkel-kasten
+         in faq.css, wer hier etwas aendert, muss dort mitrechnen. -->
+    <svg class="faq__sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+      <symbol id="faq-winkel" viewBox="0 0 24 24">
+        <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor"
+              stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/>
       </symbol>
     </svg>
 
-    <!-- Nur die FRAGEN, keine Antworten: die gehoeren laut Briefing S.3 auf
-         wissen.html. Die Karten sind deshalb Verweise und kein Aufklapper;
-         ihr Pfeil zeigt nach rechts (weiter), nicht nach unten.
-         Je Frage ein zurueckhaltendes Symbol in der Machart der uebrigen
-         Abschnitte: viewBox 24, stroke-width 1.2, runde Enden. Das Symbol
-         der letzten Karte ist bewusst dasselbe wie bei „Begleitung &
-         Betreuung" in den Leistungen — es geht um dieselbe Sache. -->
-    <div class="wissen__fragen">
+    <div class="faq__liste">
 
-      <a class="wissen__frage" href="wissen.html" data-reveal>
-        <span class="wissen__kreis" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.4" r="3.6"/><path d="M4.8 20.4v-1.4a5.4 5.4 0 0 1 5.4-5.4h3.6a5.4 5.4 0 0 1 5.4 5.4v1.4"/></svg>
-        </span>
-        <span class="wissen__text">Für wen kann eine Kapitalanlageimmobilie sinnvoll sein?</span>
-        <span class="wissen__fuss" aria-hidden="true">
-          <span class="wissen__regel"></span>
-          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
-        </span>
-      </a>
+      <!-- 1 von 5 — Quelle: Bilder/faq-inhalt-1.jpeg
+           PRUEFEN: „dass auch ein Kauf ohne Eigenkapital moeglich ist"
+           ist eine weitreichende Finanzierungsaussage. Sie traegt zwar den
+           Vorbehalt „Je nach Einkommen und Bonitaet" im selben Satz, bleibt
+           aber eine Aussage ueber die Kreditvergabe Dritter. Unveraendert
+           uebernommen; Freigabe liegt beim Kunden. -->
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="faq-k1" data-faq-knopf
+                  aria-expanded="true" aria-controls="faq-a1">
+            <span class="faq__fragetext">Brauche ich Eigenkapital?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="faq-a1" data-offen="true" role="region" aria-labelledby="faq-k1">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>Nein, nicht zwingend. Je nach Einkommen und Bonität lässt sich die
+                 Finanzierung so aufstellen, dass auch ein Kauf ohne Eigenkapital
+                 möglich ist, oder dass Ihr Erspartes größtenteils liegen bleibt.
+                 Was in Ihrem Fall geht, klären wir im Erstgespräch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <a class="wissen__frage" href="wissen.html" data-reveal>
-        <span class="wissen__kreis" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.6" rx="7.2" ry="2.8"/><path d="M4.8 6.6v10.2c0 1.55 3.22 2.8 7.2 2.8s7.2-1.25 7.2-2.8V6.6"/><path d="M4.8 11.7c0 1.55 3.22 2.8 7.2 2.8s7.2-1.25 7.2-2.8"/></svg>
-        </span>
-        <span class="wissen__text">Ist Eigenkapital immer notwendig?</span>
-        <span class="wissen__fuss" aria-hidden="true">
-          <span class="wissen__regel"></span>
-          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
-        </span>
-      </a>
+      <!-- 2 von 5 — Quelle: Bilder/faq-inhalt-2.jpeg -->
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="faq-k2" data-faq-knopf
+                  aria-expanded="true" aria-controls="faq-a2">
+            <span class="faq__fragetext">Wo befinden sich die Immobilien?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="faq-a2" data-offen="true" role="region" aria-labelledby="faq-k2">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>Unser Fokus liegt auf A- und B-Lagen in ganz Deutschland, dort, wo
+                 Zahlen, Daten und Fakten stimmen: stabile Mietnachfrage,
+                 Bevölkerungszuwachs, solide Wirtschaftsstruktur und gute
+                 Zukunftsaussichten.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <a class="wissen__frage" href="wissen.html" data-reveal>
-        <span class="wissen__kreis" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4v17"/><path d="M7.4 20.4h9.2"/><path d="M3.4 7.4h2c2 0 5-1 6.6-1.9 1.6.9 4.6 1.9 6.6 1.9h2"/><path d="m2.6 16.4 2.8-7.6 2.8 7.6c-.82.6-1.8.92-2.8.92s-1.98-.32-2.8-.92Z"/><path d="m15.8 16.4 2.8-7.6 2.8 7.6c-.82.6-1.8.92-2.8.92s-1.98-.32-2.8-.92Z"/></svg>
-        </span>
-        <span class="wissen__text">Welche Faktoren bestimmen, was Sie selbst tragen müssen?</span>
-        <span class="wissen__fuss" aria-hidden="true">
-          <span class="wissen__regel"></span>
-          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
-        </span>
-      </a>
+      <!-- 3 von 5 — Quelle: Bilder/faq-inhalt-3.jpeg
+           PRUEFEN: „Ihr Investment laeuft danach quasi auf Autopilot" legt
+           nahe, dass nach dem Kauf weder Aufwand noch Risiko bleibt. Das ist
+           die deutlichste der heiklen Stellen. Unveraendert uebernommen;
+           Freigabe liegt beim Kunden. -->
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="faq-k3" data-faq-knopf
+                  aria-expanded="true" aria-controls="faq-a3">
+            <span class="faq__fragetext">Kann ich auch außerhalb meiner Stadt investieren?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="faq-a3" data-offen="true" role="region" aria-labelledby="faq-k3">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>Ja. Durch die Verwaltung können Sie komplett ortsunabhängig
+                 investieren, und Ihr Investment läuft danach quasi auf
+                 Autopilot.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <a class="wissen__frage" href="wissen.html" data-reveal>
-        <span class="wissen__kreis" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 2.8H6.8a2 2 0 0 0-2 2v14.4a2 2 0 0 0 2 2h10.4a2 2 0 0 0 2-2V7.6Z"/><path d="M14.4 2.8v4.8h4.8"/><path d="M8.6 13.2h6.8M8.6 16.8h6.8M8.6 9.6h2"/></svg>
-        </span>
-        <span class="wissen__text">Wie funktioniert die Abschreibung einer vermieteten Immobilie?</span>
-        <span class="wissen__fuss" aria-hidden="true">
-          <span class="wissen__regel"></span>
-          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
-        </span>
-      </a>
+      <!-- 4 von 5 — Quelle: Bilder/faq-inhalt-4.jpeg
+           PRUEFEN: „Viele kommen innerhalb weniger Wochen ... zur ersten
+           oder weiteren Immobilie" ist eine Zeitaussage ueber einen Ablauf,
+           der von Bank und Notar abhaengt. Der Vorbehalt steht im Satz davor.
+           Unveraendert uebernommen; Freigabe liegt beim Kunden. -->
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="faq-k4" data-faq-knopf
+                  aria-expanded="true" aria-controls="faq-a4">
+            <span class="faq__fragetext">Wie lange dauert der Prozess?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="faq-a4" data-offen="true" role="region" aria-labelledby="faq-k4">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>Das hängt von Ihrer Situation ab. Viele kommen innerhalb weniger
+                 Wochen nach dem Erstgespräch zur ersten oder weiteren
+                 Immobilie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <a class="wissen__frage" href="wissen.html" data-reveal>
-        <span class="wissen__kreis" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.2 10.4c0 5.6-7.2 10.8-7.2 10.8s-7.2-5.2-7.2-10.8a7.2 7.2 0 0 1 14.4 0Z"/><circle cx="12" cy="10.2" r="2.7"/></svg>
-        </span>
-        <span class="wissen__text">Woran erkennt Estera eine gute Makro- und Mikrolage?</span>
-        <span class="wissen__fuss" aria-hidden="true">
-          <span class="wissen__regel"></span>
-          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
-        </span>
-      </a>
-
-      <a class="wissen__frage" href="wissen.html" data-reveal>
-        <span class="wissen__kreis" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 13.6v-1.8a7.4 7.4 0 0 1 14.8 0v1.8"/><rect x="2.6" y="13" width="4" height="5.6" rx="1.8"/><rect x="17.4" y="13" width="4" height="5.6" rx="1.8"/><path d="M19.4 18.6v.6a2.4 2.4 0 0 1-2.4 2.4h-2.6"/></svg>
-        </span>
-        <span class="wissen__text">Welche Unterstützung bleibt nach dem Kauf bestehen?</span>
-        <span class="wissen__fuss" aria-hidden="true">
-          <span class="wissen__regel"></span>
-          <svg class="wissen__pfeil"><use href="#wt-pfeil"/></svg>
-        </span>
-      </a>
+      <!-- 5 von 5 — Quelle: Bilder/faq-inhalt-5.jpeg -->
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="faq-k5" data-faq-knopf
+                  aria-expanded="true" aria-controls="faq-a5">
+            <span class="faq__fragetext">Welche Risiken gibt es?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="faq-a5" data-offen="true" role="region" aria-labelledby="faq-k5">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>Jedes Investment hat Risiken. Wir reduzieren sie durch sorgfältige
+                 Standort- und Objektauswahl und transparente Kalkulationen, und
+                 sprechen alles offen mit Ihnen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
-
-    <!-- KARRIERE — inhaltlich unveraendert, gestalterisch angeglichen.
-         Er bleibt NAVY: nach sechs weissen Karten auf weissem Grund waere
-         ein siebter weisser Kasten nur eine groessere Karte und kein
-         Schluss. Damit er als gesetzter Akzent wirkt, traegt er dieselbe
-         Form wie die Karten — gleicher Eckenradius, zwei Schattenlagen,
-         keine Kontur — und die Zierzeichnung aus konzentrischen Bogen, wie
-         sie auch im Band „Langfristig gedacht" steht. -->
-    <div class="karriere" data-reveal>
-      <span class="karriere__zier" aria-hidden="true">
-        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1" focusable="false">
-          <circle cx="200" cy="0" r="48"/>
-          <circle cx="200" cy="0" r="76"/>
-          <circle cx="200" cy="0" r="104"/>
-          <circle cx="200" cy="0" r="132"/>
-          <circle cx="200" cy="0" r="160"/>
-          <circle cx="200" cy="0" r="188"/>
-        </svg>
-      </span>
-      <div class="karriere__links">
-        <span class="karriere__regel" aria-hidden="true"></span>
-        <p class="karriere__titel">Wir bauen Estera <em>langfristig</em> auf.</p>
-      </div>
-      <div class="karriere__rechts">
-        <p class="karriere__satz">
-          Wir suchen Menschen, die Verantwortung übernehmen, hohe Ansprüche an ihre
-          Arbeit stellen und gemeinsam mit uns eine neue Generation der
-          Immobilienberatung aufbauen möchten.
-        </p>
-        <a class="karriere__link" href="karriere.html"><span class="karriere__linktext">Offene Positionen und Initiativbewerbung</span><svg class="wissen__pfeil" aria-hidden="true"><use href="#wt-pfeil"/></svg></a>
-      </div>
-    </div>
-
   </div>
 </section>
 
+
+<!-- =====================================================================
+     ENTFALLEN am 21.08.2026 auf Kundenwunsch: die Section #wissen-teaser
+     („Fragen, die vor der ersten Immobilie kommen" und der Karriere-Teaser
+     „Wir bauen Estera langfristig auf"). Ersatzlos. Wortlaut und Regeln
+     stehen vollstaendig in der Versionsgeschichte. Die sechs Fragen sind
+     nicht verloren — sie sind durch die fuenf vom Kunden gelieferten Fragen
+     in der neuen FAQ-Section ersetzt worden.
+
+     Woertlich der Kunde: „Estera / Fragen, die vor der ersten Immobilie
+     kommen. / Kurze, klare Antworten statt Fachbuch — und immer mit dem
+     naechsten Schritt am Ende. / Wir bauen Estera langfristig auf. — Diese
+     Sektion mit dem Kasten darunter kann raus."
+
+     ACHTUNG, assets/css/schluss.css BLEIBT EINGEBUNDEN. Sie war beim ersten
+     Anlauf mit ausgehaengt worden — ein Fehler, der sofort auffiel: in der
+     Datei stehen NICHT NUR die Regeln dieser Section, sondern auch der
+     Aufruf-Abschnitt #cta (.cta, .cta__inner, .cta .btn) und die komplette
+     Fusszeile (.fuss, .fuss__inner, .fuss__liste, .fuss__marke,
+     .fuss__risiko, .fuss__titel, .fuss__unten, .fuss__anker). Ohne sie
+     stand der Knopf „Erstgespraech vereinbaren" am linken Fensterrand und
+     der Fuss war ungestaltet. Die Einbindung steht deshalb wieder im Kopf,
+     zwischen banken.css und warum.css.
+
+     Die verwaisten Regeln .schluss__*, .wissen__* und .karriere* bleiben
+     vorerst in der Datei stehen. Sie greifen ins Leere und schaden nicht;
+     aufgeraeumt wird spaeter, wenn sicher ist, dass nichts anderes daran
+     haengt. Im MARKUP wird nach diesem Schnitt keine davon mehr benutzt
+     (nachgezaehlt: 0 Vorkommen ausserhalb von Kommentaren). Die Klassen
+     .fuss__* gehoeren zur Fusszeile und bleiben selbstverstaendlich.
+
+     KEINE Sprungmarke zeigt ins Leere: auf #wissen-teaser hat nie ein
+     Navigationseintrag verwiesen. Das Symbol #wt-pfeil ist mit der Section
+     gegangen und wurde nur von ihr benutzt.
+
+     karriere.html bleibt als eigene Seite bestehen und steht unveraendert
+     in der rechten Kopfnavigation — das ist eine Seite, kein Teaser.
+
+     Die FAQ-Section darueber ist damit der letzte Inhaltsabschnitt der
+     Seite. Ihr unterer Abstand (1,959 Kastenhoehen, aus der Vorlage) traegt
+     jetzt allein den Uebergang zum Fuss.
+     ===================================================================== -->
 
 <!-- =====================================================================
      FUSS
@@ -2394,10 +3368,9 @@
     <ul class="menu__nav">
       <li><a class="menu__link" href="#bewertungen"><span class="num">01</span> Bewertungen</a></li>
       <li><a class="menu__link" href="#leistungen"><span class="num">02</span> Leistungen</a></li>
-      <li><a class="menu__link" href="#vorteile"><span class="num">04</span> Vorteile</a></li>
-      <li><a class="menu__link" href="#referenzobjekte"><span class="num">06</span> Referenzobjekte</a></li>
-      <li><a class="menu__link" href="#bausteine"><span class="num">05</span> Bausteine</a></li>
-      <li><a class="menu__link" href="erstgespraech.html"><span class="num">07</span> Erstgespräch</a></li>
+      <li><a class="menu__link" href="#vorteile"><span class="num">03</span> Vorteile</a></li>
+      <li><a class="menu__link" href="#referenzobjekte"><span class="num">04</span> Referenzobjekte</a></li>
+      <li><a class="menu__link" href="erstgespraech.html"><span class="num">05</span> Erstgespräch</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
@@ -2444,5 +3417,7 @@
 <script src="assets/js/rezensionen.js"></script>
 <script src="assets/js/referenzobjekte.js"></script>
 <script src="assets/js/banken.js"></script>
+<script src="assets/js/warum.js"></script>
+<script src="assets/js/faq.js"></script>
 </body>
 </html>

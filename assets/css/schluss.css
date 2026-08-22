@@ -547,8 +547,43 @@
 }
 
 /* Der Knopf im CTA-Block etwas hoeher als der Standardknopf der Seite — er
-   steht dort allein und traegt den Abschnitt. */
+   steht dort allein und traegt den Abschnitt.
+
+   KNALLGELB, auf Kundenwunsch vom 21.08.2026. Er steht direkt unter dem
+   Kasten „Ihre Immobilie als Kapitalanlage".
+
+   Zwischenschritt und warum er verworfen wurde: zuerst stand hier Gold. Der
+   Kunde hat ausdruecklich nachgebessert — „Der muss wirklich knallgelb sein.
+   Gelb, nicht Gold." Also ein Signalgelb, nicht der warme Estera-Ton.
+
+   SCHRIFTFARBE. Gelb ist eine sehr helle Flaeche: Weiss darauf misst nur
+   1.35:1 und ist unbrauchbar. Die Schrift steht deshalb in --navy-900
+   #0A192E und misst 13.11:1 — das ist mit grossem Abstand ueber der
+   Schwelle von 4.5:1 und zugleich der Ton, der zur uebrigen Seite passt.
+
+   ANMERKUNG ZUR MARKE. Dieses Gelb ist der einzige Signalton auf einer sonst
+   in Navy, Gold und Weiss gehaltenen Seite. Es ist bewusst gesetzt und
+   ausschliesslich fuer diesen einen Knopf gedacht — der Token darf nirgends
+   sonst verwendet werden. */
+/* ABGESCHWAECHT am 21.08.2026. Zuerst stand hier das reine Signalgelb
+   #FFDD00. Der Kunde: „Das ist doch ein bisschen zu knallig, schwäche das
+   Gelb ein bisschen ab. Es soll immer noch aussehen wie Gelb."
+   Also Saettigung und Helligkeit je eine Stufe zurueckgenommen und einen
+   Hauch waermer gestellt — es bleibt eindeutig Gelb, verliert aber das
+   Grelle. Navy darauf misst weiterhin 11.45:1. */
+.cta {
+  --cta-gelb:       #F0CE45;
+  --cta-gelb-tief:  #E4C038;   /* Navy darauf 10.00:1 */
+}
 .cta .btn {
+  --btn-fg: var(--navy-900);
+  --btn-bg: var(--cta-gelb);
   min-height: 3.6rem;
   padding-inline: clamp(1.8rem, 4vw, 2.6rem);
+  border-color: var(--cta-gelb);
+  font-weight: 600;
+}
+.cta .btn:hover {
+  --btn-bg: var(--cta-gelb-tief);
+  border-color: var(--cta-gelb-tief);
 }
