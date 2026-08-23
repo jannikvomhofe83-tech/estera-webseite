@@ -1,0 +1,529 @@
+/* ===========================================================================
+   ESTERA — Unterseiten: Über Estera, Karriere, Kontakt
+   Markenkern: Diskret. Strukturiert. Langfristig.
+
+   WOZU DIESE DATEI
+   Kopfleiste, Menue, Wortmarke, Schaltflaechen und Fusszeile stehen bereits
+   vollstaendig in base.css und schluss.css. Beide werden hier NICHT
+   angefasst — die Unterseiten sollen sich anfuehlen wie dieselbe Seite, und
+   das gelingt am sichersten, indem sie exakt dieselben Regeln benutzen.
+   Hier steht ausschliesslich das, was auf der Startseite nicht vorkommt:
+   der Seitenkopf einer Unterseite, der Abschnittsrhythmus, Wertekarten,
+   Aufzaehlungen mit Goldstrich, die Datenliste, der sichtbare Vermerk fuer
+   fehlende Angaben und das Kontaktformular.
+
+   ALLE Farben, Schriften, Abstaende und Kurven kommen aus den Token in
+   base.css. Es wird kein einziger neuer Farbwert erfunden — sonst driftet
+   die Unterseite optisch von der Startseite weg, und genau das faellt beim
+   Wechsel zwischen zwei Seiten sofort auf.
+   =========================================================================== */
+
+:root {
+  /* Dieselbe Satzbreite wie die Fusszeile (schluss.css: .fuss__inner).
+     Damit stehen Fliesstext oben und Fusszeile unten in einer Flucht — die
+     senkrechten Kanten laufen ueber die ganze Seite durch. */
+  --sp-breite: 1180px;
+  /* Ein Abschnittsabstand, der auf 390 px nicht zerfaellt und auf 1920 px
+     nicht muede wirkt. Die Startseite arbeitet mit denselben Groessen. */
+  --sp-luft: clamp(3.4rem, 8.5vh, 6.6rem);
+}
+
+/* ---------------------------------------------------------------------------
+   SEITENKOPF
+   Die Unterseiten haben bewusst KEIN Bildband. Das Briefing verlangt
+   „hell, ruhig, praezise" und warnt vor Effekten an jeder Ecke (S.20); der
+   filmische Auftritt bleibt der Startseite vorbehalten. Ein Seitenkopf aus
+   Weissraum, Kicker, Ueberschrift und einer Goldlinie traegt hier mehr.
+
+   Der obere Abstand rechnet die Kopfhoehe mit ein: die Kopfleiste liegt
+   absolut ueber dem Inhalt (base.css, .site-header), sie schiebt also
+   nichts nach unten. Ohne diesen Zuschlag laege die Ueberschrift unter der
+   Navigation.
+--------------------------------------------------------------------------- */
+.sp-hero {
+  padding: calc(var(--header-h) + clamp(3rem, 9vh, 6.5rem)) var(--gutter)
+           clamp(2.6rem, 6vh, 4.4rem);
+  background: var(--paper-warm);
+}
+.sp-hero__inner {
+  max-width: var(--sp-breite);
+  margin: 0 auto;
+}
+.sp-hero__kicker {
+  /* Nicht .kicker--gold: reines Gold erreicht als Schrift auf Weiss nur
+     rund 3,1:1. --gold-text ist der geprueft lesbare Ton (4,82:1). */
+  color: var(--gold-text);
+}
+.sp-hero__h1 {
+  margin-top: clamp(1.1rem, 2.6vh, 1.7rem);
+  /* Grosszuegig, aber eine Stufe unter der Startseiten-H1: die Startseite
+     bleibt der lauteste Moment der Website. */
+  font-size: clamp(2.35rem, 5.1vw, 4.05rem);
+  max-width: 20ch;
+}
+.sp-hero__lead {
+  margin-top: clamp(1.3rem, 3vh, 2rem);
+  max-width: 62ch;
+}
+.sp-hero .rule-gold {
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+}
+
+/* ---------------------------------------------------------------------------
+   ABSCHNITTE
+   Drei Untergruende, mehr braucht es nicht: Weiss als Normalfall, ein
+   kuehles Hellgrau zum Absetzen, Navy als bewusster Spannungsmoment
+   (Briefing S.20: „Dunkle Vollflaechen nur als bewusste Spannungsmomente").
+--------------------------------------------------------------------------- */
+.sp-band {
+  padding: var(--sp-luft) var(--gutter);
+}
+.sp-band__inner {
+  max-width: var(--sp-breite);
+  margin: 0 auto;
+}
+.sp-band--cool { background: var(--paper-cool); }
+.sp-band--navy {
+  background: var(--navy-900);
+  color: rgba(255, 255, 255, 0.78);
+}
+/* Innerhalb der dunklen Flaeche kehren sich die Textfarben um. Alles ueber
+   Variablen, damit die Bausteine darunter unveraendert weiterfunktionieren. */
+.sp-band--navy .display,
+.sp-band--navy .sp-kopf__h2 { color: #fff; }
+.sp-band--navy .kicker      { color: rgba(200, 172, 122, 0.9); }
+.sp-band--navy .sp-kopf__lead,
+.sp-band--navy .sp-prosa p  { color: rgba(255, 255, 255, 0.78); }
+.sp-band--navy .sp-punkte li { color: rgba(255, 255, 255, 0.78); }
+.sp-band--navy .sp-punkte li::before { background: var(--gold-soft); }
+
+/* Haarlinie als Abschnittsgrenze auf gleichfarbigem Grund. Zwei weisse
+   Flaechen ohne Trennung lesen sich als ein einziger langer Block. */
+.sp-band + .sp-band:not(.sp-band--cool):not(.sp-band--navy) .sp-band__inner {
+  border-top: 1px solid var(--line-soft);
+  padding-top: var(--sp-luft);
+  margin-top: calc(var(--sp-luft) * -1);
+}
+
+/* --- Abschnittskopf ------------------------------------------------------- */
+.sp-kopf { max-width: 68ch; }
+.sp-kopf__h2 {
+  margin-top: clamp(0.9rem, 2vh, 1.3rem);
+  font-size: clamp(1.72rem, 3.1vw, 2.55rem);
+}
+.sp-kopf__lead {
+  margin-top: clamp(1rem, 2.2vh, 1.4rem);
+  font-size: clamp(1.06rem, 1.15vw, 1.19rem);
+  line-height: 1.75;
+  color: var(--ink-black);
+}
+
+/* --- Fliesstext ----------------------------------------------------------- */
+.sp-prosa {
+  margin-top: clamp(1.6rem, 3.6vh, 2.4rem);
+  max-width: 68ch;
+  display: grid;
+  gap: clamp(0.9rem, 2vh, 1.25rem);
+}
+.sp-prosa p {
+  font-size: clamp(1rem, 1.05vw, 1.09rem);
+  line-height: 1.78;
+  color: var(--ink-black);
+}
+/* Der Vorbehalt zu einer starken Aussage. Steht kleiner, aber nie unter
+   16 px und nie unter 4,5:1 — ein Hinweis, den man nicht lesen kann, ist
+   kein Hinweis. */
+.sp-vorbehalt {
+  margin-top: clamp(1.2rem, 2.6vh, 1.8rem);
+  max-width: 68ch;
+  padding-left: clamp(0.9rem, 1.6vw, 1.3rem);
+  border-left: 1px solid var(--line-gold);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-mute);
+}
+.sp-band--navy .sp-vorbehalt {
+  border-left-color: rgba(200, 172, 122, 0.55);
+  color: rgba(255, 255, 255, 0.66);
+}
+
+/* ---------------------------------------------------------------------------
+   AUFZAEHLUNG MIT GOLDSTRICH
+   Kein Punkt, kein Haken, kein Symbol: eine kurze waagerechte Haarlinie.
+   Dieselbe Geste wie .rule-gold auf der Startseite.
+--------------------------------------------------------------------------- */
+.sp-punkte {
+  margin-top: clamp(1.6rem, 3.4vh, 2.2rem);
+  max-width: 68ch;
+  display: grid;
+  gap: clamp(0.85rem, 1.9vh, 1.15rem);
+}
+.sp-punkte li {
+  position: relative;
+  padding-left: 2.4rem;
+  font-size: clamp(1rem, 1.05vw, 1.09rem);
+  line-height: 1.72;
+  color: var(--ink-black);
+}
+.sp-punkte li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  /* An der ersten Zeile ausgerichtet, nicht an der Kastenmitte: bei
+     zweizeiligen Punkten saesse der Strich sonst zu tief. */
+  top: 0.85em;
+  width: 22px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------------------------
+   WERTEKARTEN
+   Drei nebeneinander (Diskret · Strukturiert · Langfristig), darunter
+   gestapelt. Keine Kaesten mit Schatten — nur eine Haarlinie oben. Das
+   Briefing verbietet Guru- und Vertriebsoptik; Karten mit Schlagschatten
+   sind genau das.
+--------------------------------------------------------------------------- */
+.sp-werte {
+  margin-top: clamp(2rem, 4.5vh, 3rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3.4vw, 3rem);
+}
+.sp-wert {
+  padding-top: clamp(1.1rem, 2.4vh, 1.6rem);
+  border-top: 1px solid var(--line);
+}
+.sp-wert__titel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.24rem, 1.7vw, 1.5rem);
+  color: var(--ink-black);
+}
+.sp-wert__text {
+  margin-top: clamp(0.7rem, 1.6vh, 1rem);
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+.sp-wert__zeigt {
+  margin-top: clamp(0.8rem, 1.8vh, 1.1rem);
+  padding-top: clamp(0.7rem, 1.5vh, 0.95rem);
+  border-top: 1px solid var(--line-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-mute);
+}
+.sp-band--navy .sp-wert { border-top-color: rgba(255, 255, 255, 0.2); }
+.sp-band--navy .sp-wert__titel { color: #fff; }
+.sp-band--navy .sp-wert__text  { color: rgba(255, 255, 255, 0.78); }
+.sp-band--navy .sp-wert__zeigt {
+  border-top-color: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* ---------------------------------------------------------------------------
+   SCHRITTFOLGE
+   Der Ablauf vom Erstgespraech bis zum Notar. Auf der Startseite ist das
+   eine grosse Inszenierung; hier reicht eine ruhige Senkrechte mit
+   Ziffern — die Kontaktseite soll den Ablauf benennen, nicht ihn noch
+   einmal auffuehren.
+--------------------------------------------------------------------------- */
+.sp-schritte {
+  margin-top: clamp(2rem, 4.5vh, 3rem);
+  display: grid;
+  gap: 0;
+  max-width: 74ch;
+}
+.sp-schritt {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  padding: clamp(1.1rem, 2.6vh, 1.7rem) 0;
+  border-top: 1px solid var(--line-soft);
+}
+.sp-schritt:last-child { border-bottom: 1px solid var(--line-soft); }
+.sp-schritt__nr {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1rem, 1.1vw, 1.05rem);
+  letter-spacing: 0.16em;
+  /* Gold als Ziffer ist hier vertretbar: --gold-text, nicht --gold. */
+  color: var(--gold-text);
+  padding-top: 0.15em;
+}
+.sp-schritt__titel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.14rem, 1.5vw, 1.34rem);
+  color: var(--ink-black);
+}
+.sp-schritt__text {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   DATENLISTE — Unternehmensangaben, Kontaktwege
+--------------------------------------------------------------------------- */
+.sp-daten {
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr);
+  gap: 0;
+  max-width: 60ch;
+}
+.sp-daten dt,
+.sp-daten dd {
+  padding: clamp(0.75rem, 1.7vh, 1rem) 0;
+  border-top: 1px solid var(--line-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.sp-daten dt {
+  /* 1rem, nicht 0,94rem: 15 px reichten zwar fuer eine Beschriftung, aber
+     die Vorgabe fuer diese Seiten lautet 16 px Untergrenze — und eine
+     Ausnahme fuer „ist ja nur ein Etikett" faengt genau die Diskussion an,
+     die man beim naechsten Etikett wieder fuehren muss. */
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding-right: 1rem;
+}
+.sp-daten dd {
+  margin: 0;
+  color: var(--ink-black);
+}
+.sp-daten dd a {
+  /* Gemessen, nicht geschaetzt: mit 0,35rem Innenabstand kam der Verweis auf
+     38 px und blieb damit unter der Mindestgroesse einer Trefferflaeche.
+     min-height setzt sie hart auf 44 px; inline-flex haelt den Text dabei
+     mittig, sodass die Haarlinie darunter nicht abrutscht. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line-gold);
+  color: var(--navy-800);
+  transition: border-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+.sp-daten dd a:hover { border-bottom-color: var(--gold); color: var(--navy-900); }
+
+/* ---------------------------------------------------------------------------
+   SICHTBARE LUECKE
+   Fuer alles, was Estera noch liefern muss: Anschrift, Telefon, Register,
+   Erlaubnis, offene Stellen, Empfaenger fuer Lebenslaeufe.
+
+   Bewusst SICHTBAR und bewusst haesslich genug, um nicht uebersehen zu
+   werden. Ein erfundener Platzhalter, der echt aussieht („Musterstrasse 1"),
+   waere hier der schlimmere Fehler: solche Angaben ueberleben jede
+   Abnahme und landen live. Ein Vermerk in Grossbuchstaben tut das nicht.
+--------------------------------------------------------------------------- */
+.sp-offen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.28em 0.7em;
+  border: 1px dashed rgba(134, 105, 58, 0.55);
+  border-radius: 3px;
+  background: rgba(168, 135, 79, 0.07);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  white-space: nowrap;
+}
+.sp-band--navy .sp-offen {
+  border-color: rgba(201, 176, 138, 0.6);
+  background: rgba(201, 176, 138, 0.1);
+  color: var(--gold-soft);
+}
+/* Ein ganzer Block, der noch fehlt — nicht nur ein einzelnes Feld. */
+.sp-luecke {
+  margin-top: clamp(1.6rem, 3.4vh, 2.2rem);
+  max-width: 68ch;
+  padding: clamp(1.1rem, 2.4vh, 1.6rem) clamp(1.1rem, 2.2vw, 1.6rem);
+  border: 1px dashed rgba(134, 105, 58, 0.45);
+  border-radius: 4px;
+  background: rgba(168, 135, 79, 0.05);
+}
+.sp-luecke p {
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.sp-luecke p:first-of-type { margin-top: 0.8rem; }
+
+/* ---------------------------------------------------------------------------
+   ZITAT / MARKENMOMENT
+   Eine einzelne Aussage, gross gesetzt. Auf Karriere traegt sie die
+   Kernaussage des Briefings; auf Über Estera die Markenaussage.
+--------------------------------------------------------------------------- */
+.sp-zitat {
+  max-width: 26ch;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.7rem, 3.6vw, 2.85rem);
+  line-height: 1.24;
+  letter-spacing: -0.004em;
+  text-wrap: balance;
+}
+.sp-zitat--breit { max-width: 34ch; }
+.sp-zitat__quelle {
+  margin-top: clamp(1.2rem, 2.6vh, 1.8rem);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200, 172, 122, 0.9);
+}
+
+/* ---------------------------------------------------------------------------
+   ZWEISPALTER — Text links, Nebenspalte rechts
+--------------------------------------------------------------------------- */
+.sp-zwei {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.sp-zwei > * { min-width: 0; }
+
+/* ---------------------------------------------------------------------------
+   FORMULAR  (nur kontakt.html)
+   Es hat KEIN Ziel. Kein action, kein fremder Dienst, keine Weitergabe von
+   Daten. Das ist kein Versehen, sondern Absicht: solange keine
+   Datenschutzerklaerung und kein abgestimmter Empfaenger vorliegen, darf
+   dieses Formular nichts versenden. Der Hinweis darueber sagt das dem
+   Besucher auch.
+--------------------------------------------------------------------------- */
+.sp-form {
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  display: grid;
+  gap: clamp(1.1rem, 2.4vh, 1.5rem);
+  max-width: 46rem;
+}
+.sp-form__reihe {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2.4vw, 1.5rem);
+}
+.sp-feld { display: grid; gap: 0.5rem; }
+.sp-feld > label {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.sp-feld input,
+.sp-feld textarea {
+  /* 16 px Mindestgroesse: darunter zoomt iOS beim Antippen die ganze Seite. */
+  font-family: var(--font-ui);
+  font-size: 1.06rem;
+  line-height: 1.6;
+  color: var(--ink-black);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  padding: 0.75rem 0.9rem;
+  min-height: 48px;
+  transition: border-color 0.4s var(--ease);
+}
+.sp-feld textarea { min-height: 9.5rem; resize: vertical; }
+.sp-feld input:hover,
+.sp-feld textarea:hover { border-color: var(--navy-400); }
+.sp-feld input:focus-visible,
+.sp-feld textarea:focus-visible {
+  border-color: var(--navy-800);
+  outline: 1px solid var(--gold);
+  outline-offset: 2px;
+}
+.sp-form__fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+}
+/* Die Schaltflaeche ist ausgegraut und nicht ausloesbar — sie kann nichts
+   senden. Sie steht trotzdem da, weil sonst nicht erkennbar waere, dass an
+   dieser Stelle spaeter ein Absenden steht. */
+.sp-form button[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+/* max-width, nicht nur flex-basis: ohne Deckel laeuft der Hinweis auf 1920 px
+   ueber die halbe Seitenbreite und liest sich als Fliesstext statt als
+   Randbemerkung. */
+.sp-form__hinweis {
+  flex: 1 1 18rem;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-mute);
+}
+
+/* ---------------------------------------------------------------------------
+   EINLAUF BEIM SCROLLEN
+   site.js setzt data-seen auf alles mit [data-reveal]. Die zugehoerige
+   Grundregel steht auf der Startseite in leistungen.css — diese Datei ist
+   hier nicht eingebunden, deshalb steht die Regel noch einmal, aber
+   ausschliesslich innerhalb von .sp. So kann sie nichts auf der Startseite
+   ueberschreiben.
+--------------------------------------------------------------------------- */
+.sp [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+.sp [data-reveal][data-seen='true'] { opacity: 1; transform: none; }
+
+/* ---------------------------------------------------------------------------
+   SCHMALE FENSTER
+   Ab 900 px werden die Spalten aufgeloest, ab 620 px auch die Datenliste.
+   Getestet bis 390 px: keine waagerechte Rollflaeche, kein Fliesstext
+   unter 16 px.
+--------------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .sp-werte { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .sp-zwei  { grid-template-columns: minmax(0, 1fr); }
+  .sp-zitat { max-width: 34ch; }
+}
+@media (max-width: 700px) {
+  .sp-werte { grid-template-columns: minmax(0, 1fr); }
+  .sp-form__reihe { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  /* Begriff ueber Wert statt daneben — nebeneinander bleibt fuer den Wert
+     bei 390 px keine lesbare Zeilenlaenge uebrig. */
+  .sp-daten { grid-template-columns: minmax(0, 1fr); }
+  .sp-daten dt { padding-bottom: 0; border-bottom: 0; }
+  .sp-daten dd { padding-top: 0.35rem; border-top: 0; }
+  .sp-daten dd + dt { border-top: 1px solid var(--line-soft); margin-top: 0.5rem; }
+
+  .sp-schritt { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+  .sp-hero__h1 { max-width: none; }
+  .sp-punkte li { padding-left: 1.9rem; }
+  .sp-punkte li::before { width: 14px; }
+  .sp-offen { white-space: normal; }
+}
+
+/* --- Ruhige Darstellung --------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .sp [data-reveal],
+  .sp [data-reveal][data-seen='true'] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

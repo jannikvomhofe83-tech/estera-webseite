@@ -1,0 +1,388 @@
+/* ===========================================================================
+   ESTERA — VERTRAUENSLEISTE  (#vertrauen)
+
+   Steht zwischen „Vorteile von Immobilien" (#warum-immobilien) und
+   „Unsere Leistungen" (#leistungen). Beide Nachbarn stehen auf Weiss:
+   .wimm setzt keinen eigenen Grund und erbt den der Seite, .wahl setzt
+   var(--paper). Der Verlauf dieser Leiste laeuft nach rechts in genau
+   dieses Weiss aus — an beiden Nahtstellen entsteht deshalb keine Kante,
+   die abgestimmt werden muesste, und es braucht weiterhin keine
+   Haarlinie.
+
+   Inhalt ist ein einzelnes Zitat, mittig, ohne Ueberschrift. Es fuellt
+   sich beim Scrollen Wort fuer Wort mit Schwarz.
+
+   ---------------------------------------------------------------------
+   1  DER KONFLIKT: NAVY LINKS UND DER SATZ IN DER MITTE
+   ---------------------------------------------------------------------
+   Der Kunde will beides — „es soll wirklich navyblau sein" und „das
+   Zitat soll mittig sein". Ein mittiger Satz laeuft mit seiner linken
+   Kante aber in die dunkle Zone, und dort ist dunkler Text unlesbar:
+   --ink-mute misst auf --navy-800 nur 2.83:1, auf --navy-600 1.96:1.
+
+   Geloest ueber die BREITE der Navy-Zone, nicht ueber Schrift oder
+   Kontrast. Der Verlauf ist bei 22 Prozent der Breite bei reinem Weiss
+   angekommen; das Navy bleibt als kraeftiger Anschnitt am linken Rand
+   stehen. Die ersten fuenf Prozent sind unveraendertes --navy-800, bei
+   1920 px also rund 96 px volle Leitfarbe.
+   Der Satz ist ueber `max-width` in `em` begrenzt statt in Pixeln. Das
+   ist der Kniff, der die Sache stabil macht: Blockbreite und
+   Schriftgroesse wachsen gemeinsam, also bleibt der Anteil, den der Satz
+   von der Leiste einnimmt, ueber alle Breiten fast gleich — und damit
+   auch die Stelle, an der seine linke Kante sitzt.
+
+   NACHGEMESSEN an der TATSAECHLICHEN Kante der aeussersten Glyphe
+   (Anteil t an der Breite der Leiste, gemessen ueber alle drei Zeilen):
+        1920 x 1080   t = 0.315     Verlauf dort weiss ab t = 0.22
+        1280 x  800   t = 0.300     Verlauf dort weiss ab t = 0.22
+         390 x  844   t = 0.361     senkrechter Verlauf, t misst von
+                                    oben, weiss ab t = 0.28
+   Der Satz beginnt damit auf jeder Breite mit mindestens acht
+   Prozentpunkten Sicherheitsabstand hinter dem Ende der Toenung. Kein
+   Buchstabe steht auf getoentem Grund.
+
+   ---------------------------------------------------------------------
+   2  KONTRASTE — BEIDE ZUSTAENDE, GEGEN DEN ECHTEN GRUND
+   ---------------------------------------------------------------------
+   Massgeblich ist der UNGEFUELLTE Zustand; er ist der schwaechere von
+   beiden. „Blass" heisst hier ausdruecklich nicht „noch nicht sichtbar":
+   der Satz ist Fliesstext und muss auch ungefuellt lesbar sein. Die
+   Fuellung ist eine Betonung, kein Sichtbarwerden — man liest den Satz
+   sofort und sieht ihn sich dann fuellen.
+   Der Grund unter jedem Buchstaben ist nach Punkt 1 reines #FFFFFF:
+
+     ungefuellt   --vtr-blass  #5F6E85 (--ink-mute)    5.18:1   ✓
+     gefuellt     --vtr-voll   #000000               21.00:1   ✓
+     Schwelle fuer Fliesstext 4.5:1
+
+   Der Sprung zwischen beiden Zustaenden betraegt damit das Vierfache im
+   Kontrastverhaeltnis. Vorher stand gefuellt --navy-800 (14.63:1); der
+   Kunde wollte ausdruecklich „ganz normal schwarz", und der groessere
+   Abstand ist genau der Grund, warum die Fuellung jetzt auffaellt.
+
+   Zur Sicherheit dieselben Werte an der dunkelsten Stelle, die der Grund
+   unter einem Buchstaben ueberhaupt erreichen koennte — t = 0.30 quer
+   beziehungsweise t = 0.32 hoch, beide Male reines #FFFFFF: unveraendert
+   5.18:1 und 21.00:1. Selbst am aeussersten noch getoenten Punkt
+   t = 0.21 (#F7F9FC, dort steht kein Text) haelt der ungefuellte Ton
+   noch 4.92:1.
+
+   Die dunkle Zone links traegt keinen Text und keine Information; sie
+   ist Flaeche. WCAG 1.4.11 greift dort nicht.
+   Der Sonderfarbwert --vtr-gold ist mit der Kleinzeile entfallen; er
+   wird nirgends mehr gebraucht.
+   =========================================================================== */
+
+.vtr {
+  position: relative;
+  /* z-index 2, NICHT 1 — und das ist der Kern der ganzen Sache.
+     #leistungen darunter traegt `background: var(--paper)` und selbst
+     `z-index: 1`. Bei gleichem Rang gewinnt das spaetere Element im
+     Markup: der weisse Grund der Leistungen deckte das ueberhaengende
+     Stueck des Fotos vollstaendig zu. Mit 2 liegen die Kinder dieser
+     Section darueber.
+     Geaendert wird das ausschliesslich hier. assets/css/auswahl.css
+     bleibt unangetastet — der Abschnitt gehoert dieser Section nicht. */
+  z-index: 2;
+  /* Ausdruecklich gesetzt, obwohl es der Vorgabewert ist: das Foto ragt
+     absichtlich aus der Leiste heraus. Wer hier je `hidden` oder `clip`
+     einsetzt, schneidet den Ueberhang ab. */
+  overflow: visible;
+
+  --vtr-blass:  var(--ink-mute);   /* #5F6E85 — ungefuellt, aber lesbar   */
+  --vtr-voll:   #000;              /* Kundenwunsch: ganz normal schwarz   */
+  --vtr-strich: 0.34px;            /* Hauch mehr Zeichnung fuer gefuellte Woerter */
+
+  background: linear-gradient(90deg,
+    var(--navy-800)   0%,
+    var(--navy-800)   5%,
+    var(--navy-600)   9%,
+    #6D8CB6          13%,
+    #B9C9DE          17%,
+    #EEF2F8          20%,
+    #FFFFFF          22%);
+
+  /* HOEHE. Der laengere Satz darf sie wachsen lassen, aber nicht zurueck
+     auf den alten Stand — Richtwert hoechstens 180 px bei 1920. Der
+     Aussenabstand rechnet in vh, weil die Vorgabe eine Bauhoehe ist und
+     keine Breite; Untergrenze fuer flache Laptops, Deckel gegen hohe
+     Bildschirme.
+     NACHGEMESSEN am gerenderten Abschnitt
+       1920 x 1080   156 px   drei Zeilen
+       1280 x  800   122 px   drei Zeilen
+        390 x  844   190 px   vier Zeilen
+     Zum Vergleich: mit dem kurzen Satz und der goldenen Kleinzeile stand
+     die Leiste bei 153 / 121 / 177 px. Der mehr als doppelt so lange
+     Satz kostet also fast nichts — das ist der Verdienst der um eine
+     Stufe kleineren Schrift und des Wegfalls der Kleinzeile. */
+  padding: clamp(1.5rem, 2.5vh, 1.8rem) 0;
+
+  /* Bewegung des Einlaufs */
+  --vtr-ease:  cubic-bezier(0.22, 1, 0.36, 1);
+  --vtr-dauer: 820ms;
+  --vtr-weg:   12px;
+}
+
+.vtr__inner {
+  /* Ueber dem Foto. Beide liegen in derselben Section; ohne eigenen Rang
+     entschiede die Reihenfolge im Markup, und das Foto stuende dann
+     zwar hinter dem Zitat, aber nur zufaellig. */
+  position: relative;
+  z-index: 1;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 4.2rem);
+}
+
+/* ---------------------------------------------------------------------------
+   DAS FOTO RECHTS
+
+   Es beginnt an der Oberkante der Leiste und haengt nach unten in
+   #leistungen hinein. Buendig am rechten Fensterrand, nicht am 1520er
+   Mass der Seite — der Anschnitt ist gewollt und nimmt den Navy-Anschnitt
+   auf der linken Seite auf: links Farbe, rechts Bild, dazwischen der Satz.
+
+   MASSE UND UEBERHANG
+   Breite und Seitenverhaeltnis bestimmen die Hoehe, nicht umgekehrt. Der
+   Ueberhang ist damit die Differenz zur Bauhoehe der Leiste. NACHGEMESSEN
+   am gerenderten Abschnitt:
+        1920 x 1080   310 x 413 px   Leiste 156 px   Ueberhang 257 px = 62 %
+        1440 x  900   245 x 326 px   Leiste 131 px   Ueberhang 196 px = 60 %
+        1280 x  800   218 x 290 px   Leiste 122 px   Ueberhang 169 px = 58 %
+        1024 x  768   200 x 267 px   Leiste 120 px   Ueberhang 147 px = 55 %
+   Der Ueberstand liegt damit im vorgegebenen Fenster von 40 bis 60
+   Prozent; bei 1920 px sind es zwei Punkte mehr, weil ein kuerzeres Foto
+   bei dieser Breite abgeschnitten aussieht statt ueberhaengend.
+   Die Bauhoehe der Leiste selbst ist durch das Foto UNVERAENDERT — es
+   liegt absolut und traegt nichts zum Fluss bei. Nachgemessen vor und
+   nach dem Einbau: 156 / 131 / 122 / 120 px.
+
+   WARUM DIE BREITE BEGRENZT IST — DAS IST KEINE KOSMETIK
+   Das Foto liegt wegen `z-index: 2` UEBER dem Inhalt der Leistungen, nicht
+   dahinter. Deshalb darf es die Leistungsgrafik nicht beruehren. Der
+   Deckel von 310 px haelt es im leeren rechten Rand des Abschnitts.
+   NACHGEMESSEN am gerenderten Bild, senkrecht von der Oberkante der
+   Leistungen bis zur Unterkante des Fotos: in diesem Streifen ist der
+   Grund unter dem Foto auf ganzer Flaeche reines Weiss — kein einziger
+   Bildpunkt unter L = 0.98. Es liegt dort also weder Schrift noch Linie,
+   deren Kontrast das Foto mindern koennte.
+   Abstand von der linken Bildkante zur naechsten Zeichnung:
+        1920 px   470 px        1440 px   326 px
+        1280 px   289 px        1024 px   202 px
+
+   WAS PASSIEREN WUERDE, WENN DOCH ETWAS DARUNTER LAEGE
+   Zur Kontrolle ist das Foto versuchsweise ueber die Leistungsgrafik
+   geschoben und dort gemessen worden. Die duennen Navy-Konturen fallen
+   dann von 14.63 / 11.90 / 8.37 / 3.43:1 auf 4.31 / 3.92 / 3.35 / 2.16:1
+   (1920 / 1440 / 1280 / 1024). Auf schmalen Fenstern reisst das die
+   Schwelle deutlich. Die Messung ist am 23.08.2026 mit dem
+   ausgetauschten Motiv wiederholt worden — ein anderes Bild hat andere
+   dunkle Stellen. Die dunkelste Stelle des eingebauten Fotos misst
+   L = 0.366 (vorher 0.371); die Werte verschieben sich dadurch um
+   hoechstens 0.14 Punkte, das Ergebnis bleibt dasselbe. Genau deshalb ist die Breitenbegrenzung tragend und
+   nicht schmueckend, und genau deshalb faellt das Foto unter 1024 px
+   ganz weg: dort waere kein leerer Rand mehr, auf dem es liegen koennte.
+   Wer den Deckel anhebt oder die Grafik in den Leistungen verbreitert,
+   muss diese Messung wiederholen.
+
+   AUSBLASSUNG
+   Die Werte sind aus assets/css/prinzip.css uebernommen, `.vt__rand--links
+   img` im Abschnitt „So entsteht Vermoegensaufbau" — genau das Bild, auf
+   das der Kunde verwiesen hat. Unveraendert: grayscale, brightness,
+   contrast, saturate und die Deckkraft. Sie sind auch beim Bildtausch am
+   22.08.2026 unveraendert geblieben; gewechselt hat nur die Datei. Gespiegelt ist allein die
+   Richtung der waagerechten Maske: dort steht das Bild links und laeuft
+   nach rechts aus (90deg), hier steht es rechts und laeuft nach links aus
+   (270deg). Die senkrechte Maske ist unveraendert 180deg und traegt den
+   Ueberhang: das Foto endet nicht mit einer Kante, sondern loest sich auf.
+--------------------------------------------------------------------------- */
+.vtr__bild {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(200px, 17vw, 310px);
+  aspect-ratio: 3 / 4;
+  /* Feste Groesse und festes Verhaeltnis: der Platz steht vor dem Laden
+     des Bildes fest, es gibt keinen Nachsprung. */
+  z-index: 0;
+  /* Das Foto liegt ueber dem oberen rechten Rand von #leistungen. Ohne
+     diese Zeile finge es dort Klicks ab. */
+  pointer-events: none;
+}
+
+/* <picture> liegt zwischen .vtr__bild und dem <img> und ist ohne eigene
+   Angabe ein Inline-Kasten — das <img> darin bekaeme dann nicht die volle
+   Hoehe. Deshalb wird es mitgestreckt. */
+.vtr__bild picture { display: block; width: 100%; height: 100%; }
+
+.vtr__bild img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Der Kasten ist 3:4, die Quelle 2:3 — bei `cover` wird also nach der
+     BREITE skaliert und oben wie unten beschnitten. Waagerecht gibt es
+     nichts zu verschieben; allein der senkrechte Wert zaehlt. 32 Prozent
+     behaelt die Fassade mit den Fensterreihen und schneidet Strasse und
+     Baeume unten weg — die haetten im ausgeblassten Zustand nur unruhige
+     Flecken ergeben. */
+  object-position: 50% 32%;
+
+  /* AUSBLASSUNG UND MASKE UNVERAENDERT AUS DER VORHERIGEN FASSUNG.
+     Beim Bildtausch am 22.08.2026 ist ausschliesslich die Datei
+     gewechselt worden. Die Werte stammen weiterhin Zeichen fuer Zeichen
+     aus assets/css/prinzip.css, `.vt__rand--links img` — dem Bild, auf
+     das der Kunde verwiesen hat. Gespiegelt ist nach wie vor nur die
+     Richtung der waagerechten Maske (270deg statt 90deg). */
+  filter: grayscale(0.42) brightness(1.46) contrast(0.56) saturate(0.28);
+  opacity: 0.46;
+
+  -webkit-mask-image:
+    linear-gradient(270deg, #000 0%, #000 42%, transparent 100%),
+    linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(270deg, #000 0%, #000 42%, transparent 100%),
+    linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
+          mask-composite: intersect;
+}
+
+/* --- Das Zitat ------------------------------------------------------------- */
+.vtr__zitat {
+  margin: 0 auto;
+  font-family: var(--font-display);
+  /* Eine Stufe kleiner als zuvor (war clamp(1.2rem, 1.7vw, 1.72rem)) —
+     Kundenwunsch. Der kleinere Satz ist zugleich der Grund, warum die
+     Leiste trotz 29 statt 15 Woertern flach bleibt. */
+  font-size: clamp(1.05rem, 1.35vw, 1.5rem);
+
+  /* In `em`, nicht in Pixeln — die Begruendung steht oben unter Punkt 1.
+     ACHTUNG, hier lag ein Fehler: stand die Groesse erst am <p> darunter
+     und die Breite hier, rechnete `em` gegen die geerbten 16 px der
+     Seite statt gegen die Schriftgroesse des Zitats. Der Block war
+     dadurch 480 statt 720 px breit, der Satz lief auf fuenf Zeilen und
+     die Leiste war 224 px hoch. Groesse und Breite muessen am SELBEN
+     Element stehen. Wer den Wert aendert, verschiebt die linke
+     Textkante und muss die Kontraste neu messen. */
+  max-width: 30em;
+}
+
+.vtr__satz {
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: -0.004em;
+  text-align: center;
+  /* Kein `text-wrap: balance`: es wuerde die Zeilenzahl je nach Fenster
+     umverteilen und damit die Bauhoehe springen lassen. */
+  text-wrap: pretty;
+}
+
+/* --- Die Fuellung ---------------------------------------------------------- */
+/* GRUNDZUSTAND IST VOLL GEFUELLT. Ohne Javascript, in alten Browsern und
+   bei prefers-reduced-motion bleibt es dabei — die blasse Lage schaltet
+   erst `data-vtr-fuellen` ein, und das setzt allein
+   assets/js/vertrauen.js. So kann der Satz nicht blass haengenbleiben. */
+.vtr__wort {
+  color: var(--vtr-voll);
+  -webkit-text-stroke: var(--vtr-strich) currentColor;
+}
+
+/* Ungefuellt: blass, ohne die zusaetzliche Zeichnung. */
+[data-vtr-fuellen] .vtr__wort {
+  color: var(--vtr-blass);
+  -webkit-text-stroke: 0 currentColor;
+  /* KEINE Uebergangszeit. Der Kunde will sehen, wie ein Wort nach dem
+     anderen umschlaegt; ein Ueberblenden wuerde genau die harte Kante
+     wegnehmen, um die es geht. Die Kante ist hier die Wortgrenze
+     selbst — nicht ein Verlauf, der durch den Satz wandert. */
+}
+
+/* Umgeschlagen. Das Attribut setzt assets/js/vertrauen.js Wort fuer Wort
+   entlang der Scrollposition und nimmt es beim Zurueckscrollen wieder
+   weg. Zwei Merkmale zugleich, damit der Wechsel auch aus dem Augenwinkel
+   auffaellt: die Farbe springt von #5F6E85 auf #000, und die Zeichnung
+   wird um 0.34 px kraeftiger.
+   WARUM NICHT `font-weight`: ein anderer Schnitt hat andere
+   Buchstabenbreiten. Der Satz braeche bei jedem umschlagenden Wort neu
+   um und die ganze Leiste zappelte. `-webkit-text-stroke` faerbt nur die
+   Kontur nach und laesst das Mass unangetastet. */
+[data-vtr-fuellen] .vtr__wort[data-voll] {
+  color: var(--vtr-voll);
+  -webkit-text-stroke: var(--vtr-strich) currentColor;
+}
+
+/* --- Einlauf --------------------------------------------------------------- */
+/* Nur `opacity` und `transform`, hoechstens 12 px Versatz, einmalig.
+   Der Anfangszustand haengt an `data-vtr-bereit`; auch dieses Attribut
+   setzt erst das Skript. */
+[data-vtr-bereit] .vtr__auf {
+  opacity: 0;
+  transform: translateY(var(--vtr-weg));
+}
+[data-vtr-bereit][data-vtr-sicht] .vtr__auf {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   var(--vtr-dauer) var(--vtr-ease),
+    transform var(--vtr-dauer) var(--vtr-ease);
+}
+
+/* --- Unter 1024 px kein Foto ------------------------------------------------ */
+/* Dort ist neben dem Zitat kein Platz, und weiter unten laege das Foto
+   nicht mehr am leeren rechten Rand der Leistungen, sondern mitten auf
+   deren Schaubild. Ein ausgeblasstes Haus ueber der Ablaufgrafik waere
+   auf einem schmalen Fenster nur noch Stoerung. */
+@media (max-width: 1023px) {
+  .vtr__bild { display: none; }
+}
+
+/* --- Schmale Fenster ------------------------------------------------------- */
+/* Der Verlauf dreht auf die Senkrechte: quer gelegt liegt er auf einer
+   Handbreite so steil, dass er wie ein Darstellungsfehler wirkt. Von oben
+   nach unten getoent ins Weisse bleibt es dasselbe Band.
+   Damit wandert die dunkle Zone aber ueber den Satz. Der obere
+   Aussenabstand ist deshalb so bemessen, dass die erste Zeile erst
+   unterhalb der Toenung beginnt — nachgemessen bei 390 x 844 liegt ihre
+   Oberkante bei t = 0.361, der Verlauf ist ab t = 0.28 weiss. */
+@media (max-width: 620px) {
+  .vtr {
+    /* Die Stufen liegen hier weiter auseinander als in der Waagerechten.
+       Grund: quer misst die Zone 22 Prozent von 1920 px, also gut 420 px
+       — senkrecht waeren 22 Prozent von 190 px nur 42 px, und davon
+       waeren keine 15 wirklich dunkel. Die Toenung reicht deshalb bis
+       28 Prozent, und der obere Aussenabstand ist entsprechend groesser.
+       „Es soll aber wirklich navyblau sein, das ist wichtig." */
+    background: linear-gradient(180deg,
+      var(--navy-800)   0%,
+      var(--navy-800)   8%,
+      var(--navy-600)  13%,
+      #6D8CB6          18%,
+      #B9C9DE          22%,
+      #EEF2F8          25%,
+      #FFFFFF          28%);
+    padding: clamp(3.6rem, 8vh, 4.6rem) 0 clamp(1.4rem, 3vh, 1.9rem);
+  }
+  .vtr__inner { padding: 0 1.15rem; }
+  /* Fliesstext bleibt bei 16.8 px — die Lesbarkeitsgrenze auf dem
+     Telefon wird nicht fuer die Bauhoehe geopfert. */
+  .vtr__zitat { font-size: 1.05rem; }
+  .vtr__satz  { line-height: 1.44; }
+}
+
+/* --- Ohne Bewegung --------------------------------------------------------- */
+/* Der Einlauf steht sofort. Die Fuellung wird gar nicht erst
+   eingeschaltet — assets/js/vertrauen.js setzt `data-vtr-fuellen` dann
+   nicht, der Satz steht also voll schwarz da. Die Regel hier ist die
+   zweite Sicherung fuer den Fall, dass die Einstellung erst nach dem
+   Laden umgeschaltet wird. */
+@media (prefers-reduced-motion: reduce) {
+  [data-vtr-bereit] .vtr__auf,
+  [data-vtr-bereit][data-vtr-sicht] .vtr__auf {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  [data-vtr-fuellen] .vtr__wort {
+    color: var(--vtr-voll);
+    -webkit-text-stroke: var(--vtr-strich) currentColor;
+  }
+}

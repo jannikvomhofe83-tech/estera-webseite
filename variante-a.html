@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="assets/css/schluss.css">
 <link rel="stylesheet" href="assets/css/warum.css">
 <link rel="stylesheet" href="assets/css/faq.css">
+<link rel="stylesheet" href="assets/css/vertrauen.css">
 </head>
 <body>
 
@@ -40,18 +41,36 @@
 <header class="site-header site-header--invert" data-header>
 
   <!-- LINKS: die Abschnitte DIESER Seite (Sprungmarken).
-       Reihenfolge und Benennung nach dem Umbau-Briefing vom 14.08.2026:
-       Bewertungen, Leistungen, Geschaeftsfuehrung — danach die beiden
-       Abschnitte, deren Position noch offen ist.
-       „Auswahl" ist fort, weil die Section „Lieber weniger Empfehlungen"
-       laut Briefing 04 komplett entfaellt. „Ablauf" heisst jetzt
-       „Leistungen", weil dort nicht mehr der Ablauf steht. -->
+       Kundenwortlaut vom 22.08.2026: „Bei den Unterpunkten oben im Header
+       soll links vom Logo nur stehen: Vorteile, Leistungen,
+       Eigentumsaufbau." Genau drei Punkte, in dieser Reihenfolge.
+       „Bewertungen" und „Referenzobjekte" fallen damit aus der Kopfleiste.
+       Beide Abschnitte bleiben auf der Seite — sie stehen nur nicht mehr in
+       der Waagerechten. Wer sie sucht, findet sie beim Scrollen.
+
+       ZUORDNUNG „Vorteile" -> #warum-immobilien
+       Die Section traegt die Ueberschrift „Vorteile von Immobilien"; ihre
+       Sprungmarke heisst noch #warum-immobilien, weil der Name aelter ist
+       als die Ueberschrift. Umbenannt wird die Marke hier bewusst NICHT:
+       an diesem Block arbeitet zeitgleich ein zweiter Bearbeiter, und eine
+       Umbenennung wuerde ihm die Datei unter den Haenden verschieben.
+
+       ZUORDNUNG „Eigentumsaufbau" -> #vorteile   ── RUECKFRAGE OFFEN ──
+       Eine eigenstaendige Section mit diesem Namen gibt es nicht.
+       „Eigentumsaufbau" ist einer der vier Punkte INNERHALB der
+       Vorteile-Section. Die inhaltlich naechstliegende eigene Section ist
+       „So entsteht Vermoegensaufbau" (#vorteile) — sie handelt genau davon:
+       wie aus Miete, Tilgung und Zeit Eigentum entsteht. Darauf zeigt der
+       Eintrag jetzt.
+       Meinte der Kunde stattdessen den Einzelpunkt in der Vorteile-Section,
+       muss dort eine eigene Marke gesetzt und dieser Verweis umgehaengt
+       werden. Das ist eine Zeile Arbeit — aber es ist eine Entscheidung des
+       Kunden, keine des Entwicklers. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
-      <li><a href="#bewertungen">Bewertungen</a></li>
+      <li><a href="#warum-immobilien">Vorteile</a></li>
       <li><a href="#leistungen">Leistungen</a></li>
-      <li><a href="#vorteile">Vorteile</a></li>
-      <li><a href="#referenzobjekte">Referenzobjekte</a></li>
+      <li><a href="#vorteile">Eigentumsaufbau</a></li>
     </ul>
   </nav>
 
@@ -60,20 +79,36 @@
     <span class="wordmark__sub">Immobilien</span>
   </a>
 
-  <!-- RECHTS: die einzelnen Seiten. Wortlaut und Reihenfolge exakt nach der
-       vorgeschlagenen Hauptnavigation, Briefing S.5:
-       "Konzept · Qualität · Wissen · Über Estera · Karriere | Erstgespräch"
-       Die Dateien gibt es noch nicht — die Adressen stehen aber schon so,
-       wie sie spaeter heissen sollen. -->
+  <!-- RECHTS: die einzelnen Seiten.
+       Kundenwortlaut vom 22.08.2026: „Rechts kannst du Konzept, Qualität und
+       Wissen streichen. Rechts steht nur ‚Über Estera' und ‚Karriere'. Statt
+       ‚Erstgespräch' steht ‚Kontakt'."
+
+       Damit ist die im Masterbriefing S.5 vorgeschlagene Reihe
+       „Konzept · Qualität · Wissen · Über Estera · Karriere | Erstgespräch"
+       ueberholt. Kein Verlust: die drei gestrichenen Seiten waren nie gebaut,
+       ihre Adressen zeigten ins Leere.
+
+       Neu und wichtig: alle drei verbleibenden Ziele gibt es jetzt wirklich
+       — ueber-estera.html und kontakt.html als Datei, „Karriere" als
+       Abschnitt 4 von ueber-estera.html (Stand 22.08.2026, siehe unten).
+       Die Kopfleiste verweist damit zum ersten Mal ausschliesslich auf
+       vorhandene Ziele.
+
+       „Kontakt" behaelt die Rolle des Abschlusses (.kopfnav__cta): Steg
+       davor, Gold statt Navy. Es ist derselbe Platz, den vorher
+       „Erstgespräch" hatte — nur der Name und das Ziel haben gewechselt. -->
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
     <ul>
-      <li><a href="konzept.html">Konzept</a></li>
-      <li><a href="qualitaet.html">Qualität</a></li>
-      <li><a href="wissen.html">Wissen</a></li>
       <li><a href="ueber-estera.html">Über Estera</a></li>
-      <li><a href="karriere.html">Karriere</a></li>
-      <li class="kopfnav__cta"><a href="erstgespraech.html">Erstgespräch</a></li>
+      <!-- Karriere ist seit dem 22.08.2026 keine eigene Seite mehr, sondern
+           Abschnitt 4 von ueber-estera.html — Kundenwunsch: „eine Seite, die
+           zwei Unterpunkte bleiben". karriere.html ist geloescht, _redirects
+           leitet die alte Adresse dorthin um. -->
+      <li><a href="ueber-estera.html#karriere">Karriere</a></li>
+      <li class="kopfnav__cta"><a href="kontakt.html">Kontakt</a></li>
     </ul>
+
   </nav>
 
   <!-- Bleibt fuer schmale Fenster: eine Waagerechte mit elf Punkten passt
@@ -174,7 +209,7 @@
       </p>
 
       <div class="heroA__actions">
-        <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
+        <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
         <!-- Zielt jetzt auf die Leistungen: der Ablauf, auf den dieser Knopf
              frueher sprang, ist entfallen. RUECKFRAGE: soll die Beschriftung
              mitwandern? Sie wurde bisher nicht geaendert. -->
@@ -371,7 +406,105 @@
   </div>
 </section>
 <!-- =====================================================================
-     VORTEILE VON IMMOBILIEN   —   neu angeordnet am 21.08.2026 (B-201)
+     VORTEILE VON IMMOBILIEN   —   neu angeordnet am 21.08.2026 (B-201),
+     Schaubilder und Massstab der Liste ueberarbeitet am 22.08.2026,
+     Kastenrand und Farbfuehrung ueberarbeitet am 23.08.2026
+
+     NACHTRAG 23.08.2026 — drei Rueckmeldungen des Kunden
+
+       1  „Die Animation ist perfekt und vom Design her ist es auch gut —
+          bis auf die schwarze Umrandung des Kastens. Wir müssen den Kasten
+          ohne Umrandung darstellen, aber so, dass man klar sieht, dass der
+          Kasten da ist und er jetzt nicht in einem cremeweißen Hintergrund
+          ist. Das will ich auch nicht so, wie es davor war."
+          Die 2-px-Kontur ist weg. Abgegrenzt wird der Kasten jetzt nur
+          noch durch zwei Schattenlagen: eine kurze,
+          dichte, die die Kante ablesbar macht, und eine weite, blasse, die
+          den Abstand zum Papier erzeugt. Werte und Begruendung stehen in
+          warum.css, Abschnitt 4.
+
+          NEBENWIRKUNG, die eine Umstellung erzwungen hat: solange jeder
+          Kasten seinen eigenen Grund und Schatten trug, verschwand er
+          waehrend des Wechsels fuer einen Moment ganz — der alte war weg,
+          der neue noch nicht da. Deshalb traegt jetzt die BUEHNE die
+          Kartenoptik, und nur ihr Inhalt wird gewechselt. Der Kasten steht
+          durchgehend da, auch mitten im Uebergang.
+
+       2  „Du musst jedem Punkt eine Farbe geben. Der Kasten behält die
+          Hintergrundfarbe Weiß, aber wir brauchen einzelne Farben. Der
+          Switch, wenn man von Bankkapital auf steuerliche Potenziale
+          wechselt, muss richtig krass dargestellt werden, sodass man
+          gleich sieht: okay, es hat sich etwas verändert."
+          Jeder Vorteil traegt ein data-ton — Bankkapital, steuer, miete,
+          eigen. Die Farbe dahinter steht ausschliesslich in warum.css
+          (Abschnitt 3a); Eintrag links und Kasten rechts lesen aus
+          derselben Quelle und koennen deshalb nicht auseinanderlaufen.
+
+       3  NACHGESCHAERFT AM SELBEN TAG, in drei Punkten:
+
+          a) ANDERE TOENE. „Bankkapital bleibt navyblau. Steuerliche
+             Potenziale wird ein helles Grün. Mieteinnahmen wird das Gelb,
+             das wir schon mal verwendet hatten. Eigentumsaufbau eine
+             andere Farbe, die dazu passt — vielleicht ein Hellblau."
+             Also Navy #1E4270, Hellgruen #6FA97C, Gelb #F0CE45 und
+             Hellblau #6E93BD. Das Gelb ist nicht neu gemischt, sondern
+             derselbe Wert, der als --cta-gelb am Erstgespraechs-Knopf
+             sitzt — die Seite soll EINE Gelbfamilie haben.
+             Wo ein Ton als Schrift oder Symbol auftaucht, tritt eine
+             abgedunkelte Zweitfassung mit mindestens 4.5:1 an seine
+             Stelle. Alle Messwerte stehen im Kopf von warum.css.
+
+          b) FARBVERLAUF. „Ich will, dass die Kästen einen Farbverlauf
+             erhalten: oben ist der blaue oder gelbe oder grüne Balken am
+             Kasten, und von dort geht ein Farbverlauf nach unten mit der
+             Farbe zum passenden Punkt. Unten ist dann weiß."
+             Der Verlauf beginnt unter dem Streifen und ist bei 52 % der
+             Kastenhoehe auf null. Die Beschriftungen der Schaubilder sind
+             danach an ihrer farbigsten Stelle neu gemessen worden: der
+             schwaechste Wert liegt bei 5.05:1.
+
+          c) ERST FARBE, DANN INHALT. „Wenn der Switch da ist, soll die
+             Farbe ganz stark aufploppen, und dann kommt erst der Inhalt
+             des Kastens." Beim Wechsel schlagen Balken und Verlauf
+             zuerst in der neuen Farbe auf — der Balken wird kurz von 6
+             auf 11 px dicker, der Verlauf auf doppelte Deckung —, fallen
+             dann auf ihren ruhigen Wert zurueck, und ERST DANACH laeuft
+             der neue Inhalt ein. Es steht also einen Moment lang nur
+             Farbe da. Rueckwaerts laeuft alles spiegelbildlich.
+             Ohne Bewegungswunsch und ohne Javascript ploppt und wischt
+             nichts; dann steht jeder Kasten mit seinem eigenen Streifen
+             und seinem eigenen Verlauf fertig da.
+
+     NACHTRAG 22.08.2026 — zwei Rueckmeldungen des Kunden
+
+       1  „Die vier Punkte links mit dem Icon und dem goldenen Strich
+          jeweils bei dem Punkt, wo man gerade drauf ist — das ist sehr
+          schön. Die Punkte müssen nur größer sein."
+          Aufbau, Symbol, goldener Balken und Verhalten sind unveraendert
+          geblieben. Gewachsen ist allein der Massstab: Schrift, Symbol,
+          Zeilenabstand und Trefferflaeche um rund ein Drittel. Die Werte
+          stehen in warum.css, Abschnitt 3.
+
+       2  „Die Darstellung jeweils in dem rechten Kasten ist bei allen vier
+          Punkten katastrophal … Ich will, dass du gpt-image-2 über kie.ai
+          verwendest und damit die Grafiken dieser vier Punkte baust."
+          Die vier gezeichneten Inline-SVG sind durch erzeugte Bilder
+          ersetzt (assets/img/vorteile/, 3:2, WebP mit JPG-Rueckfall).
+
+     WIE DIE BESCHRIFTUNG DABEI ECHT GEBLIEBEN IST — der wichtigste Punkt
+     Ein erzeugtes Bild kann keine verlaessliche Schrift setzen, und auf
+     dieser Seite darf ohnehin keine erfundene Zahl entstehen. Die vier
+     Bilder sind deshalb ausdruecklich OHNE jede Schrift erzeugt und Stueck
+     fuer Stueck darauf geprueft worden. Jedes bedeutungstragende Wort —
+     „Bankkapital", „Zins", „Tilgung", „laufende Kosten", „Restschuld",
+     „Eigentumsanteil", „Mögliche Wertentwicklung — Potenzial, keine
+     Prognose" und alle uebrigen — steht weiterhin als echter Text im
+     Dokument, in einer durchsichtigen SVG-Lage genau ueber dem Bild
+     (.wimm__lagen). Die Koordinaten dieser Lage sind an der jeweiligen
+     Zeichnung ausgemessen; sie skaliert mit dem Bild und kann deshalb bei
+     keiner Fensterbreite verrutschen.
+     Auch die beiden Vorbehalte — Steuerberatung in Kasten 02, monatliche
+     Belastung in Kasten 03 — stehen unveraendert in ihrem Kasten.
 
      WOZU DIESER ABSCHNITT DA IST
      Er steht bewusst VOR „Unsere Leistungen". Wer nicht verstanden hat,
@@ -411,16 +544,24 @@
      `position: relative`. Alle vier Kaesten liegen darin als
      `position: absolute; inset: 0` — deckungsgleich. Es gibt damit gar
      keine Moeglichkeit, dass einer groesser ausfaellt als ein anderer.
+     Gemessen bei 1920 px: viermal 899 x 600.
 
      FARBE — die eine bewusste Abweichung vom Briefing
      Das Briefing beschrieb einen dunkelblauen Abschnitt. Der Kunde hat das
      ausdruecklich ueberstimmt: „Hintergrundfarbe muss ganz normal weiss
      sein, Akzentfarbe ist blau, und du sollst auch schwarz verwenden fuer
-     die Schriftfarbe." Also weisser Grund, Kaesten nur minimal kuehler
-     abgesetzt, Schrift schwarz, Navy als Akzent. Gold traegt Wert und
-     steuerliche Potenziale, Gruen ausschliesslich Mieteinnahmen und
-     Eigentum, Rot ausschliesslich die Restschuld. Gemessene Kontraste
-     stehen im Kopf von assets/css/warum.css.
+     die Schriftfarbe." Also weisser Grund und schwarze Schrift.
+     Seit dem 23.08.2026 traegt jeder Vorteil zusaetzlich einen eigenen Ton
+     — Navy fuer Bankkapital, Hellgruen fuer die steuerlichen Potenziale,
+     das CTA-Gelb fuer die Mieteinnahmen, Hellblau fuer den
+     Eigentumsaufbau. Sichtbar wird er am Balken und am Symbol des aktiven
+     Eintrags links, am Streifen ueber der Kastenoberkante und in einem
+     Verlauf, der von dort ins Weisse auslaeuft. Die untere Haelfte des
+     Kastens bleibt weiss.
+     Die vier Schaubilder sind davon nicht beruehrt und halten sich
+     weiterhin an Navy, Sand und Weiss. Gemessene Kontraste aller vier
+     Toene und aller Beschriftungen stehen im Kopf von
+     assets/css/warum.css.
 
      GRENZEN — hier eingehalten, Punkt fuer Punkt geprueft
      Kein einziger erfundener Eurobetrag, kein Prozentsatz, keine Rendite,
@@ -429,8 +570,11 @@
      nirgends „garantiert", „krisensicher", „steuerfrei", „der Staat
      bezahlt", „der Mieter zahlt alles", „null Euro". Jede starke Aussage
      traegt ihren Vorbehalt im selben Kasten, sichtbar und ungekuerzt.
-     Rot und Gruen sind IMMER zusaetzlich beschriftet; keine Information
-     haengt allein an der Farbe.
+     Jede Flaeche in jedem Schaubild traegt ihren Namen als echten Text;
+     keine Information haengt allein an der Farbe. Das gilt auch fuer die
+     vier Akzenttoene: welcher Vorteil gerade steht, sagt immer der
+     ausgeschriebene Name — links im hervorgehobenen Eintrag, gestapelt in
+     der Marke des Kastens. Die Farbe ist Zugabe, nicht Traeger.
 
      OFFEN VOR VEROEFFENTLICHUNG
      Der Text dieses Abschnitts ist von uns formuliert und Estera noch
@@ -438,10 +582,16 @@
      insbesondere die Steuerpassage in Kasten 02.
 
      TECHNIK: assets/css/warum.css und assets/js/warum.js.
-     Alle Schaubilder sind unveraendert aus der Vorfassung uebernommen:
-     Inline-SVG mit viewBox (festes Seitenverhaeltnis, kein Layout Shift),
-     wiederkehrende Formen als <symbol> im Vorrat direkt unter dem
-     Section-Anfang. Der Wechsel laeuft ueber eine rAF-gedrosselte
+     Jedes Schaubild besteht aus zwei Lagen im selben Behaelter: dem Bild
+     (WebP mit JPG-Rueckfall, width/height am Element und festes
+     Seitenverhaeltnis am Behaelter — kein Layout Shift, lazy und async)
+     und darueber der Beschriftungslage als SVG. Deren viewBox ist genau
+     das Fenster, auf das die Bilddatei beschnitten worden ist; beide
+     decken sich dadurch Punkt fuer Punkt.
+     Beide laufen gemeinsam ein, damit die Schrift dabei nicht gegen das
+     Bild verrutschen kann; die einzelnen Beschriftungen ziehen danach
+     gestaffelt nach. Wiederkehrende Formen stehen als <symbol> im Vorrat
+     direkt unter dem Section-Anfang. Der Wechsel laeuft ueber eine rAF-gedrosselte
      Scrollmessung ohne jeden Eingriff ins Scrollen; Klebemechanik und
      Anfangszustaende haengen an data-js="an", das erst warum.js setzt.
      OHNE JAVASCRIPT stehen die vier Kaesten schlicht untereinander, jeder
@@ -524,30 +674,35 @@
                unterwegs ist oder einen Screenreader nutzt, kann damit
                denselben Wechsel ausloesen, den das Scrollen sonst von
                allein macht. Klicken MUSS aber niemand. -->
+          <!-- data-ton benennt den Vorteil, NICHT die Farbe. Welcher Ton
+               dahinter steht, entscheidet allein warum.css (Abschnitt 3a).
+               Eintrag links und Kasten rechts tragen denselben Wert und
+               leben dadurch aus derselben Quelle — es gibt keine Stelle,
+               an der die beiden auseinanderlaufen koennten. -->
           <ol class="wimm__liste" role="list">
             <li>
-              <button type="button" class="wimm__eintrag" data-zu="0" aria-controls="wimm-k1" aria-current="true">
+              <button type="button" class="wimm__eintrag" data-ton="bank" data-zu="0" aria-controls="wimm-k1" aria-current="true">
                 <span class="wimm__balken" aria-hidden="true"></span>
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-bank"/></svg>
                 <span class="wimm__wort">Bankkapital</span>
               </button>
             </li>
             <li>
-              <button type="button" class="wimm__eintrag" data-zu="1" aria-controls="wimm-k2">
+              <button type="button" class="wimm__eintrag" data-ton="steuer" data-zu="1" aria-controls="wimm-k2">
                 <span class="wimm__balken" aria-hidden="true"></span>
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-steuer"/></svg>
                 <span class="wimm__wort">steuerliche Potenziale</span>
               </button>
             </li>
             <li>
-              <button type="button" class="wimm__eintrag" data-zu="2" aria-controls="wimm-k3">
+              <button type="button" class="wimm__eintrag" data-ton="miete" data-zu="2" aria-controls="wimm-k3">
                 <span class="wimm__balken" aria-hidden="true"></span>
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-miete"/></svg>
                 <span class="wimm__wort">Mieteinnahmen</span>
               </button>
             </li>
             <li>
-              <button type="button" class="wimm__eintrag" data-zu="3" aria-controls="wimm-k4">
+              <button type="button" class="wimm__eintrag" data-ton="eigen" data-zu="3" aria-controls="wimm-k4">
                 <span class="wimm__balken" aria-hidden="true"></span>
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-eigen"/></svg>
                 <span class="wimm__wort">Eigentumsaufbau</span>
@@ -564,7 +719,7 @@
             <!-- ---------- 01  BANKKAPITAL ----------
                  Kapitalbalken: der Bankanteil wirkt deutlich groesser als
                  der eigene Beitrag — ohne Prozentzahl. -->
-            <article class="wimm__kasten" id="wimm-k1" data-kasten="0" aria-labelledby="wimm-m1">
+            <article class="wimm__kasten" id="wimm-k1" data-ton="bank" data-kasten="0" aria-labelledby="wimm-m1">
               <p class="wimm__marke" id="wimm-m1">
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-bank"/></svg>
                 <span>Bankkapital</span>
@@ -581,35 +736,40 @@
                 <p class="wimm__kern">Ihre Bonität kann zum Vermögenshebel werden.</p>
               </div>
 
+              <!-- SCHAUBILD 01. Das erzeugte Bild zeigt den Kapitalbalken:
+                   ein langer Abschnitt, ein kurzer, darueber und darunter
+                   die Masszeichen. Es traegt keine Schrift — geprueft.
+                   Die Beschriftung liegt darueber als echter Text, an den
+                   ausgemessenen Stellen der Zeichnung. Die viewBox ist
+                   genau das Fenster, auf das die Bilddatei beschnitten
+                   worden ist — deshalb decken Bild und Beschriftung sich
+                   Punkt fuer Punkt, und die leeren Aussenraender der
+                   Erzeugung sind weg. -->
               <div class="wimm__bild">
-                <svg class="wimm__svg" viewBox="0 0 300 168" role="img"
-                     aria-label="Schaubild: ein waagerechter Kapitalbalken. Der linke, deutlich größere Abschnitt steht für das Bankkapital, der rechte, kleinere für den individuellen Beitrag. Zusammen bilden beide den erworbenen Sachwert. Darunter der Zusammenhang: Einkommen und Bonität eröffnen den Zugang zu einer Finanzierung. Der Balken zeigt ein Verhältnis, keine Beträge.">
+                <div class="wimm__figur">
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/vorteile/bankkapital.webp">
+                    <img class="wimm__foto" src="assets/img/vorteile/bankkapital.jpg"
+                         width="1440" height="960" alt="" aria-hidden="true"
+                         loading="lazy" decoding="async">
+                  </picture>
+                  <svg class="wimm__lagen" viewBox="29.5 32 252 168" role="img"
+                       aria-label="Schaubild: ein waagerechter Kapitalbalken. Der linke, deutlich größere Abschnitt steht für das Bankkapital, der rechte, kleinere für den individuellen Beitrag. Zusammen bilden beide den erworbenen Sachwert. Darunter der Zusammenhang: Einkommen und Bonität eröffnen den Zugang zu einer Finanzierung. Der Balken zeigt ein Verhältnis, keine Beträge.">
 
-                  <!-- Klammer „Erworbener Sachwert" — laeuft zuletzt ein -->
-                  <text class="wi-t-m wi-sperr" x="150" y="12" text-anchor="middle" data-blenden style="--t:1.55">Erworbener Sachwert</text>
-                  <path class="wi1-klammer" d="M150 30V20" data-zeichnen style="--t:1.3"/>
-                  <path class="wi1-klammer" d="M12 42V30H288V42" data-zeichnen style="--t:1.3"/>
+                    <!-- unter den beiden unteren Masszeichen (y = 131) -->
+                    <text class="wi-t-k" x="114" y="143" text-anchor="middle" data-blenden style="--t:0.35">Bankkapital</text>
+                    <text class="wi-t-s" x="233" y="142" text-anchor="middle" data-blenden style="--t:0.5">individueller</text>
+                    <text class="wi-t-s" x="233" y="153" text-anchor="middle" data-blenden style="--t:0.5">Beitrag</text>
 
-                  <!-- Der Balken. Beide Abschnitte liegen in einem Beschnitt,
-                       damit die Aussenecken gerundet bleiben, waehrend die
-                       Trennkante in der Mitte scharf bleibt. -->
-                  <clipPath id="wi1-clip"><rect x="12" y="54" width="276" height="74" rx="8"/></clipPath>
-                  <g clip-path="url(#wi1-clip)">
-                    <rect class="wi1-bank" x="12" y="54" width="188" height="74" data-wachsen style="--t:0.15"/>
-                    <rect class="wi1-beitrag" x="200" y="54" width="88" height="74" data-wachsen="rechts" style="--t:0.85"/>
-                  </g>
-                  <line class="wi1-trenn" x1="200" y1="54" x2="200" y2="128" data-blenden style="--t:1.1"/>
-                  <rect class="wi1-rahmen" x="12" y="54" width="276" height="74" rx="8"/>
+                    <!-- ueber dem oberen Masszeichen (y = 68) -->
+                    <text class="wi-t-m wi-sperr" x="150" y="61" text-anchor="middle" data-blenden style="--t:0.65">Erworbener Sachwert</text>
 
-                  <text class="wi-t-k wi-t-w" x="26" y="97" data-blenden style="--t:0.8">Bankkapital</text>
-                  <text class="wi-t-s" x="244" y="87" text-anchor="middle" data-blenden style="--t:1.3">individueller</text>
-                  <text class="wi-t-s" x="244" y="100" text-anchor="middle" data-blenden style="--t:1.3">Beitrag</text>
-
-                  <!-- Woraus der Zugang entsteht -->
-                  <text class="wi-t-m" x="136" y="156" text-anchor="end" data-blenden style="--t:1.8">Einkommen + Bonität</text>
-                  <use class="wi-navy" href="#wi-pfeil" x="142" y="146" width="12" height="12" data-blenden style="--t:1.8"/>
-                  <text class="wi-t-m" x="160" y="156" data-blenden style="--t:1.8">Zugang zu Finanzierung</text>
-                </svg>
+                    <!-- Woraus der Zugang entsteht -->
+                    <text class="wi-t-m" x="136" y="180" text-anchor="end" data-blenden style="--t:0.8">Einkommen + Bonität</text>
+                    <use class="wi-navy" href="#wi-pfeil" x="142" y="170" width="12" height="12" data-blenden style="--t:0.8"/>
+                    <text class="wi-t-m" x="160" y="180" data-blenden style="--t:0.8">Zugang zu Finanzierung</text>
+                  </svg>
+                </div>
               </div>
             </article>
 
@@ -617,7 +777,7 @@
                  Stark reduzierte Aufstellung: drei Zeilen, eine
                  Sammelschiene, ein gemeinsames Ergebnisfeld. Keine
                  Eurobetraege, keine Prozentzahlen. -->
-            <article class="wimm__kasten" id="wimm-k2" data-kasten="1" aria-labelledby="wimm-m2">
+            <article class="wimm__kasten" id="wimm-k2" data-ton="steuer" data-kasten="1" aria-labelledby="wimm-m2">
               <p class="wimm__marke" id="wimm-m2">
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-steuer"/></svg>
                 <span>steuerliche Potenziale</span>
@@ -635,39 +795,37 @@
                 </p>
               </div>
 
+              <!-- SCHAUBILD 02. Drei feine Zeilen laufen unten in ein
+                   gemeinsames Feld zusammen. Die Zeilennamen stehen ueber
+                   ihrer Zeile, das goldene Minuszeichen am jeweiligen Ende —
+                   es macht sichtbar, dass es sich um Abzuege handelt.
+                   Weiterhin ohne jeden Betrag und ohne Prozentsatz. -->
               <div class="wimm__bild">
-                <svg class="wimm__svg" viewBox="0 0 300 220" role="img"
-                     aria-label="Schaubild: drei steuerlich berücksichtigungsfähige Positionen untereinander — AfA beziehungsweise Abschreibung, Darlehenszinsen und bestimmte Aufwendungen, jeweils mit einem Minuszeichen. Eine feine Linie führt sie in ein gemeinsames Ergebnisfeld: individuelle steuerliche Wirkung. Darunter der Hinweis auf mögliche zusätzliche Liquidität. Es werden keine Beträge und keine Prozentsätze genannt.">
+                <div class="wimm__figur">
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/vorteile/steuer.webp">
+                    <img class="wimm__foto" src="assets/img/vorteile/steuer.jpg"
+                         width="1440" height="960" alt="" aria-hidden="true"
+                         loading="lazy" decoding="async">
+                  </picture>
+                  <svg class="wimm__lagen" viewBox="31.5 19 252 168" role="img"
+                       aria-label="Schaubild: drei steuerlich berücksichtigungsfähige Positionen untereinander — AfA beziehungsweise Abschreibung, Darlehenszinsen und bestimmte Aufwendungen, jeweils mit einem Minuszeichen. Feine Linien führen sie in ein gemeinsames Ergebnisfeld: individuelle steuerliche Wirkung. Darunter der Hinweis auf mögliche zusätzliche Liquidität. Es werden keine Beträge und keine Prozentsätze genannt.">
 
-                  <!-- Sammelschiene: laeuft ERST, nachdem die drei Positionen
-                       stehen, und zieht dann ins Ergebnisfeld. -->
-                  <path class="wi2-linie" d="M14 25H26" data-zeichnen style="--t:0.78"/>
-                  <path class="wi2-linie" d="M14 67H26" data-zeichnen style="--t:0.85"/>
-                  <path class="wi2-linie" d="M14 109H26" data-zeichnen style="--t:0.92"/>
-                  <path class="wi2-linie" d="M14 25V140H157V150" data-zeichnen style="--t:0.98"/>
+                    <!-- Die drei Zeilen liegen im Bild bei y = 53.8 / 73.1 / 92.3 -->
+                    <text class="wi-t" x="47" y="48.5" data-blenden style="--t:0.35">AfA / Abschreibung</text>
+                    <use href="#wi-minus" x="259" y="47.8" width="12" height="12" data-blenden style="--t:0.35"/>
 
-                  <g data-blenden style="--t:0.15">
-                    <rect class="wi2-feldrahmen" x="26" y="8" width="262" height="34" rx="6"/>
-                    <text class="wi-t" x="40" y="30">AfA / Abschreibung</text>
-                    <use href="#wi-minus" x="252" y="15" width="20" height="20"/>
-                  </g>
-                  <g data-blenden style="--t:0.31">
-                    <rect class="wi2-feldrahmen" x="26" y="50" width="262" height="34" rx="6"/>
-                    <text class="wi-t" x="40" y="72">Darlehenszinsen</text>
-                    <use href="#wi-minus" x="252" y="57" width="20" height="20"/>
-                  </g>
-                  <g data-blenden style="--t:0.47">
-                    <rect class="wi2-feldrahmen" x="26" y="92" width="262" height="34" rx="6"/>
-                    <text class="wi-t" x="40" y="114">bestimmte Aufwendungen</text>
-                    <use href="#wi-minus" x="252" y="99" width="20" height="20"/>
-                  </g>
+                    <text class="wi-t" x="47" y="67.8" data-blenden style="--t:0.5">Darlehenszinsen</text>
+                    <use href="#wi-minus" x="245.5" y="67.1" width="12" height="12" data-blenden style="--t:0.5"/>
 
-                  <g data-blenden style="--t:1.4">
-                    <rect class="wi2-ergebnis" x="26" y="152" width="262" height="38" rx="8"/>
-                    <text class="wi-t" x="157" y="176" text-anchor="middle">Individuelle steuerliche Wirkung</text>
-                  </g>
-                  <text class="wi-t wi-t-g" x="157" y="210" text-anchor="middle" data-blenden style="--t:1.7">Mögliche zusätzliche Liquidität</text>
-                </svg>
+                    <text class="wi-t" x="47" y="87" data-blenden style="--t:0.65">bestimmte Aufwendungen</text>
+                    <use href="#wi-minus" x="231" y="86.3" width="12" height="12" data-blenden style="--t:0.65"/>
+
+                    <!-- Das Sammelfeld liegt im Bild bei y = 110 bis 146 -->
+                    <text class="wi-t" x="150" y="132" text-anchor="middle" data-blenden style="--t:0.85">Individuelle steuerliche Wirkung</text>
+                    <text class="wi-t-11 wi-t-g" x="150" y="163" text-anchor="middle" data-blenden style="--t:1">Mögliche zusätzliche Liquidität</text>
+                  </svg>
+                </div>
               </div>
 
               <p class="wimm__note">
@@ -680,7 +838,7 @@
                  Breiter gruener Strom in den Finanzierungsblock, von unten
                  die deutlich schmalere sandfarbene Linie. Der gruene Strom
                  wirkt groesser als der eigene Beitrag — ohne konkrete Quote. -->
-            <article class="wimm__kasten" id="wimm-k3" data-kasten="2" aria-labelledby="wimm-m3">
+            <article class="wimm__kasten" id="wimm-k3" data-ton="miete" data-kasten="2" aria-labelledby="wimm-m3">
               <p class="wimm__marke" id="wimm-m3">
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-miete"/></svg>
                 <span>Mieteinnahmen</span>
@@ -696,37 +854,47 @@
                 <p class="wimm__kern">Der Mieter trägt zum Aufbau Ihres Eigentums bei.</p>
               </div>
 
+              <!-- SCHAUBILD 03. Der breite Strom sind die Mieteinnahmen, der
+                   deutlich schmalere der individuelle Beitrag; beide muenden
+                   in den dreigeteilten Finanzierungsblock. Der mittlere
+                   Abschnitt „Tilgung" bekommt hier — und nur hier — eine
+                   feine goldene Umrandung, denn von ihm aus waechst der
+                   Eigentumsanteil. Verhaeltnisse, keine Betraege, keine Quote. -->
               <div class="wimm__bild">
-                <svg class="wimm__svg" viewBox="0 0 300 172" role="img"
-                     aria-label="Schaubild: von links fließt ein breiter grüner Strom mit der Beschriftung Mieteinnahmen in einen waagerechten Finanzierungsblock, der in Zins, Tilgung und laufende Kosten unterteilt ist. Von unten ergänzt eine deutlich schmalere sandfarbene Linie den individuellen Beitrag. Der Bereich Tilgung ist golden umrandet; von ihm führt eine Linie zum wachsenden Eigentumsanteil. Das Bild zeigt Verhältnisse, keine Beträge und keine Quote.">
+                <div class="wimm__figur">
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/vorteile/mieteinnahmen.webp">
+                    <img class="wimm__foto" src="assets/img/vorteile/mieteinnahmen.jpg"
+                         width="1440" height="960" alt="" aria-hidden="true"
+                         loading="lazy" decoding="async">
+                  </picture>
+                  <svg class="wimm__lagen" viewBox="27.5 21.5 252 168" role="img"
+                       aria-label="Schaubild: von links fließt ein breiter Strom mit der Beschriftung Mieteinnahmen in einen Finanzierungsblock, der in Zins, Tilgung und laufende Kosten unterteilt ist. Darunter ergänzt ein deutlich schmalerer Strom den individuellen Beitrag. Der Bereich Tilgung ist golden umrandet; von ihm aus wächst der Eigentumsanteil. Das Bild zeigt Verhältnisse, keine Beträge und keine Quote.">
 
-                  <text class="wi-t-m" x="96" y="34" data-blenden style="--t:0.15">monatliche Finanzierung</text>
+                    <!-- Der breite Strom liegt im Bild bei y = 58 bis 101 -->
+                    <text class="wi-t-11" x="50" y="86" data-blenden style="--t:0.35">Mieteinnahmen</text>
 
-                  <g data-blenden style="--t:0.15">
-                    <rect class="wi3-seg" x="96" y="44" width="56" height="56"/>
-                    <rect class="wi3-seg" x="216" y="44" width="72" height="56"/>
-                  </g>
-                  <!-- Tilgung: feine goldene Umrandung, weil von hier das
-                       Eigentum waechst -->
-                  <rect class="wi3-tilg" x="152" y="44" width="64" height="56" data-blenden style="--t:0.95"/>
-                  <g data-blenden style="--t:0.3">
-                    <text class="wi-t-s" x="124" y="76" text-anchor="middle">Zins</text>
-                    <text class="wi-t-s" x="184" y="76" text-anchor="middle">Tilgung</text>
-                    <text class="wi-t-s" x="252" y="69" text-anchor="middle">laufende</text>
-                    <text class="wi-t-s" x="252" y="82" text-anchor="middle">Kosten</text>
-                  </g>
+                    <!-- Das schmale Band liegt bei y = 115 bis 124; die
+                         Beschriftung steht darunter, weil das Band zu
+                         schmal ist, um sie zu tragen. -->
+                    <path class="wi3-tick" d="M52 124.5V136" data-blenden style="--t:0.5"/>
+                    <text class="wi-t-s" x="44" y="146" data-blenden style="--t:0.5">individueller Beitrag</text>
 
-                  <rect class="wi3-strom" x="0" y="48" width="96" height="40" data-wachsen style="--t:0.35"/>
-                  <text class="wi-t-11 wi-t-w" x="8" y="72" data-blenden style="--t:0.75">Mieteinnahmen</text>
+                    <!-- Der Block liegt bei x = 189.5 bis 257.8, y = 41 bis 154,
+                         mit Trennlinien bei y = 77.6 und 116.2 -->
+                    <text class="wi-t-s" x="223.6" y="63" text-anchor="middle" data-blenden style="--t:0.65">Zins</text>
+                    <text class="wi-t-s" x="223.6" y="100.6" text-anchor="middle" data-blenden style="--t:0.65">Tilgung</text>
+                    <text class="wi-t-s" x="223.6" y="132" text-anchor="middle" data-blenden style="--t:0.65">laufende</text>
+                    <text class="wi-t-s" x="223.6" y="143" text-anchor="middle" data-blenden style="--t:0.65">Kosten</text>
 
-                  <rect class="wi3-beitrag" x="0" y="88" width="96" height="12" data-wachsen style="--t:0.8"/>
-                  <path class="wi3-tick" d="M24 100V110" data-zeichnen style="--t:1.05"/>
-                  <text class="wi-t-s" x="0" y="122" data-blenden style="--t:1.1">individueller Beitrag</text>
+                    <rect class="wi3-tilg" x="189.5" y="77.6" width="68.3" height="38.6" data-blenden style="--t:0.8"/>
 
-                  <path class="wi3-ab" d="M184 100V138" data-zeichnen style="--t:1.15"/>
-                  <path class="wi3-ab" d="M179 133 184 140 189 133" data-blenden style="--t:1.4"/>
-                  <text class="wi-t-11 wi-t-gr" x="184" y="158" text-anchor="middle" data-blenden style="--t:1.5">wachsender Eigentumsanteil</text>
-                </svg>
+                    <text class="wi-t-s" x="257.8" y="34" text-anchor="end" data-blenden style="--t:0.95">monatliche Finanzierung</text>
+
+                    <text class="wi-t-11 wi-t-g" x="223.6" y="171" text-anchor="middle" data-blenden style="--t:1.1">wachsender</text>
+                    <text class="wi-t-11 wi-t-g" x="223.6" y="182" text-anchor="middle" data-blenden style="--t:1.1">Eigentumsanteil</text>
+                  </svg>
+                </div>
               </div>
 
               <p class="wimm__note">
@@ -741,7 +909,7 @@
                  zur Achse gefuellte Flaechen wuerden sich ueberlappen und
                  waeren eine Aussage ueber Betraege — gemeint sind
                  Verhaeltnisse. -->
-            <article class="wimm__kasten" id="wimm-k4" data-kasten="3" aria-labelledby="wimm-m4">
+            <article class="wimm__kasten" id="wimm-k4" data-ton="eigen" data-kasten="3" aria-labelledby="wimm-m4">
               <p class="wimm__marke" id="wimm-m4">
                 <svg class="wimm__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#wi-ic-eigen"/></svg>
                 <span>Eigentumsaufbau</span>
@@ -756,34 +924,79 @@
                 <p class="wimm__kern">Aus Finanzierung entsteht langfristig eigenes Vermögen.</p>
               </div>
 
+              <!-- SCHAUBILD 04. Zwei Flaechen teilen sich EINE gemeinsame
+                   Grenzlinie und bilden zusammen ein Band gleichbleibender
+                   Hoehe: oben die Restschuld, die sinkt, unten der
+                   Eigentumsanteil, der waechst. Zwei getrennt bis zur Achse
+                   gefuellte Flaechen waeren eine Aussage ueber Betraege —
+                   gemeint sind Verhaeltnisse. Darueber die feine
+                   gestrichelte Linie fuer die moegliche Wertentwicklung,
+                   die im Text ausdruecklich als Potenzial bezeichnet wird.
+                   Keine Jahreszahlen, keine Prozentsaetze. -->
               <div class="wimm__bild">
-                <svg class="wimm__svg" viewBox="0 0 300 192" role="img"
-                     aria-label="Schaubild: eine waagerechte Zeitachse von heute über mittelfristig bis langfristig. Darüber ein Band gleichbleibender Höhe, dessen zwei Flächen sich eine gemeinsame Grenzlinie teilen — oben in gedecktem Rot die Restschuld, die hoch beginnt und sinkt, unten in gedecktem Grün der Eigentumsanteil, der niedrig beginnt und wächst. Darüber verläuft eine dünne gestrichelte Goldlinie für eine mögliche Wertentwicklung, ausdrücklich ein Potenzial und keine Prognose. Das Band zeigt Verhältnisse, keine Beträge; es nennt keine Jahre und keine Prozentsätze.">
+                <div class="wimm__figur">
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/vorteile/eigentumsaufbau.webp">
+                    <img class="wimm__foto" src="assets/img/vorteile/eigentumsaufbau.jpg"
+                         width="1440" height="960" alt="" aria-hidden="true"
+                         loading="lazy" decoding="async">
+                  </picture>
+                  <svg class="wimm__lagen" viewBox="25.3 9 252 168" role="img"
+                       aria-label="Schaubild: eine waagerechte Zeitachse von heute über mittelfristig bis langfristig. Darüber ein Band gleichbleibender Höhe, dessen zwei Flächen sich eine gemeinsame Grenzlinie teilen — oben die Restschuld, die hoch beginnt und sinkt, unten der Eigentumsanteil, der niedrig beginnt und wächst. Darüber verläuft eine dünne gestrichelte Linie für eine mögliche Wertentwicklung, ausdrücklich ein Potenzial und keine Prognose. Das Band zeigt Verhältnisse, keine Beträge; es nennt keine Jahre und keine Prozentsätze.">
 
-                  <text class="wi-t-11 wi-t-g" x="30" y="16" data-blenden style="--t:1.5">Mögliche Wertentwicklung</text>
-                  <text class="wi-t-mini" x="30" y="30" data-blenden style="--t:1.6">Potenzial – keine Prognose</text>
-                  <path class="wi4-strich" d="M30 48C120 45 210 38 288 30" data-blenden style="--t:1.35"/>
+                    <!-- Die Flaechen liegen im Bild zwischen y = 60.5 und
+                         154.9; die Grenzlinie steigt von links unten nach
+                         rechts oben. -->
+                    <text class="wi-t-11" x="48" y="80" data-blenden style="--t:0.35">Restschuld</text>
+                    <text class="wi-t-11" x="256" y="128" text-anchor="end" data-blenden style="--t:0.5">Eigentumsanteil</text>
 
-                  <!-- Aufziehen der beiden Flaechen ueber je einen Beschnitt:
-                       erst sinkt die Restschuld, dann waechst das Eigentum. -->
-                  <clipPath id="wi4-c-rot"><rect x="30" y="58" width="258" height="98" data-wachsen style="--t:0.45"/></clipPath>
-                  <clipPath id="wi4-c-gruen"><rect x="30" y="58" width="258" height="98" data-wachsen style="--t:0.8"/></clipPath>
+                    <!-- Zeitachse: die Teilstriche stehen im Bild -->
+                    <text class="wi-t-m" x="37.7" y="171" data-blenden style="--t:0.65">Heute</text>
+                    <text class="wi-t-m" x="151.7" y="171" text-anchor="middle" data-blenden style="--t:0.78">mittelfristig</text>
+                    <text class="wi-t-m" x="265.7" y="171" text-anchor="end" data-blenden style="--t:0.91">langfristig</text>
 
-                  <path class="wi4-rot" clip-path="url(#wi4-c-rot)" d="M30 58H288V72C200 102 110 132 30 140Z"/>
-                  <path class="wi4-gruen" clip-path="url(#wi4-c-gruen)" d="M30 140C110 132 200 102 288 72V156H30Z"/>
-                  <path class="wi4-grenze" clip-path="url(#wi4-c-gruen)" d="M30 140C110 132 200 102 288 72"/>
-
-                  <path class="wi4-achse" d="M30 58V156H288" data-zeichnen style="--t:0.15"/>
-                  <path class="wi4-tick" d="M30 156V162M159 156V162M288 156V162" data-blenden style="--t:0.3"/>
-                  <text class="wi-t-m" x="30" y="178" data-blenden style="--t:0.35">Heute</text>
-                  <text class="wi-t-m" x="159" y="178" text-anchor="middle" data-blenden style="--t:0.45">mittelfristig</text>
-                  <text class="wi-t-m" x="288" y="178" text-anchor="end" data-blenden style="--t:0.55">langfristig</text>
-
-                  <text class="wi-t-11 wi-t-w" x="42" y="96" data-blenden style="--t:1">Restschuld</text>
-                  <text class="wi-t-11 wi-t-w" x="278" y="134" text-anchor="end" data-blenden style="--t:1.2">Eigentumsanteil</text>
-                </svg>
+                    <!-- Der Vorbehalt steht unmittelbar bei der gestrichelten
+                         Linie, nicht irgendwo darunter. -->
+                    <text class="wi-t-11 wi-t-g" x="40" y="20" data-blenden style="--t:1.05">Mögliche Wertentwicklung</text>
+                    <text class="wi-t-mini" x="40" y="30.5" data-blenden style="--t:1.18">Potenzial – keine Prognose</text>
+                  </svg>
+                </div>
               </div>
             </article>
+
+            <!-- ---------- DER FARBSTREIFEN DER BUEHNE ----------
+                 Er steht ZULETZT, damit er ueber den Kaesten liegt, und
+                 gehoert bewusst der Buehne, nicht dem einzelnen Kasten:
+                 nur so kann er beim Wechsel durchlaufen, statt mit dem
+                 Kasten mit auszublenden. Ein Streifen, der aus- und wieder
+                 einblendet, ist ein Farbwechsel — den uebersieht man. Ein
+                 Streifen, der durchwischt, ist eine Bewegung — die sieht
+                 man.
+
+                 __band selbst deckt die Kastenflaeche ab, uebernimmt deren
+                 Rundung und beschneidet; dadurch endet der Streifen genau
+                 dort, wo die Kastenecke einbiegt. __grund traegt die Farbe
+                 des gerade stehenden Vorteils, __wisch faehrt die neue
+                 Farbe von der einen zur anderen Seite darueber. warum.js
+                 setzt beide Farben.
+
+                 __hauch ist der Farbverlauf, der unter dem Streifen ins
+                 Weisse auslaeuft. Er steht ZUERST, also unter den beiden
+                 Streifenlagen — der Balken deckt ihn oben ab, auch wenn er
+                 beim Wechsel kurz dicker wird. Dass er im Band liegt und
+                 nicht hinter den Kaesten, hat einen gemessenen Grund; er
+                 steht in warum.css bei .wimm__band-hauch.
+
+                 Nur in der klebenden Betriebsart sichtbar. Gestapelt und
+                 ohne Javascript traegt jeder Kasten seinen Streifen selbst
+                 (.wimm__kasten::before) — dann steht ohnehin nichts an,
+                 was durchwischen koennte. Rein zeichnerisch, deshalb
+                 aria-hidden. -->
+            <div class="wimm__band" aria-hidden="true">
+              <span class="wimm__band-hauch"></span>
+              <span class="wimm__band-grund"></span>
+              <span class="wimm__band-wisch"></span>
+            </div>
 
           </div>
         </div>
@@ -801,6 +1014,187 @@
 
     </div>
 
+  </div>
+</section>
+
+
+
+
+
+<!-- =====================================================================
+     VERTRAUENSLEISTE   (#vertrauen)
+     Angelegt am 22.08.2026, zwischen „Vorteile von Immobilien"
+     (#warum-immobilien) und „Unsere Leistungen" (#leistungen).
+
+     ===== DER SATZ ======================================================
+     Kundenwunsch: „‚Unsere Haltung‘ soll nicht dastehen, sondern einfach
+     nur der Satz, das Zitat. Das Zitat soll länger sein und mittig."
+     Die goldene Kleinversalienzeile ist deshalb ersatzlos entfallen. Der
+     Abschnitt traegt jetzt EINEN Inhalt und sonst nichts.
+
+     HERKUNFT — VIER SAETZE, ALLE WOERTLICH, ALLE VON SEITE 4
+     Der gewuenschte Umfang von 25 bis 35 Woertern steht im Masterbriefing
+     (`Briefing/ESTERA_Website_Masterbriefing_Entwickler.pdf`) an keiner
+     Stelle als zusammenhaengender Absatz. Die Haltung ist dort in kurze
+     Saetze zerlegt. Zusammengestellt ist der Satz deshalb aus vier davon
+     — ausgewaehlt und in eine Reihenfolge gebracht, aber KEIN WORT
+     geaendert, ergaenzt oder weggelassen:
+
+       1  „Estera macht Immobilien nicht für jeden."
+          Seite 4, „Die Haltung, die rüberkommen muss", erster Punkt.
+       2  „Nicht jede Immobilie ist eine gute Kapitalanlage."
+       3  „Und nicht jede Kapitalanlage passt zu jedem Menschen."
+          2 und 3 sind zusammen die MÖGLICHE MARKENAUSSAGE auf Seite 4.
+       4  „Nicht jeder schnelle Abschluss ist ein guter Abschluss."
+          Seite 4, Markenkern-Tabelle, Zeile „Langfristig.".
+
+     Die Reihenfolge ist die einzige eigene Leistung daran: erst die
+     Auswahl (wen), dann der Gegenstand (was), dann die Zeit (wann). Weil
+     kein Wort erfunden ist, steht an der Leiste keine sichtbare
+     Vorschlagskennzeichnung — die ist fuer selbst formulierte Saetze
+     gedacht. Estera sollte die Zusammenstellung vor der
+     Veroeffentlichung dennoch bestaetigen: es ist eine Aussage des
+     Unternehmens ueber sich selbst.
+     Keine Namensnennung darunter — eine Zuschreibung an die
+     Geschaeftsfuehrung waere ohne deren Freigabe erfundene Urheberschaft.
+     Die Anfuehrungszeichen tragen die Zitatform allein.
+     Keine Zahl, kein Versprechen, kein „garantiert".
+
+     ===== DIE FUELLUNG ==================================================
+     Kundenwunsch: „Die Animation muss noch sichtbarer sein … die
+     Schriftfarbe soll ganz normal schwarz sein."
+
+     Jedes Wort steht in einem eigenen <span data-vtr-wort> und schlaegt
+     BEIM SCROLLEN GANZ UM — von #5F6E85 auf reines Schwarz, ohne
+     Zwischenschritt. Vorher wanderte eine Kante durch das Wort; das war
+     dem Kunden zu unauffaellig. Jetzt ist die Kante die Wortgrenze
+     selbst, und man sieht, wie ein Wort nach dem anderen schwarz wird.
+     Dazu bekommt jedes umgeschlagene Wort einen Hauch mehr Strichstaerke
+     (`-webkit-text-stroke`), damit der Wechsel auch aus dem Augenwinkel
+     auffaellt. Bewusst NICHT ueber `font-weight`: ein anderer Schnitt
+     hat andere Buchstabenbreiten, der Satz wuerde bei jedem Wort neu
+     umbrechen. Die Strichstaerke veraendert nur die Zeichnung, nicht das
+     Mass.
+     Der ungefuellte Zustand ist ausdruecklich LESBAR und nicht bloss
+     angedeutet — die Messung steht in assets/css/vertrauen.css.
+     Ohne Javascript und bei `prefers-reduced-motion: reduce` steht der
+     Satz vollstaendig schwarz; die blasse Lage ist dann gar nicht erst
+     eingeschaltet.
+     ===================================================================== -->
+<section class="vtr" id="vertrauen" data-vtr aria-label="Haltung von Estera">
+
+  <!-- =================================================================
+       DAS FOTO RECHTS
+       Kundenwunsch: „Es muss auf der rechten Seite der Trust-Section
+       neben dem Text jetzt noch ein Bild rein, eine Immobilie. Das Bild
+       soll auch so ausgeblasst sein wie bei ‚So entsteht
+       Vermögensaufbau‘, und es darf in die Unsere-Leistungen-Section
+       runterragen."
+
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       BILD MASCHINELL ERZEUGT (gpt-image-2, 23.08.2026).
+       ES ZEIGT KEIN REALES OBJEKT VON ESTERA und darf nicht als
+       Referenzobjekt oder Musterwohnung verwendet werden. Rein
+       dekorativ, aria-hidden, leeres alt.
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       Dieser Vermerk ist kein Formalismus. Auf einer Immobilienseite
+       liest sich ein Gebaeudefoto sofort als konkretes Objekt — als
+       blass ausgeblendete Flaeche neben einem Zitat ist es
+       unbedenklich, an einer Objektvorstellung waere es das nicht. Wer
+       das Bild jemals aus dieser Section herausloest, muss diesen
+       Vermerk mitnehmen.
+       Das Motiv ist bewusst allgemein gehalten: Gruenderzeit-Eckhaus
+       deutscher Bauart, ohne Hausnummer, ohne Beschriftung, ohne
+       Menschen, ohne Fahrzeuge, ohne Marken — nichts daran ist
+       wiedererkennbar oder ortsgebunden. Vor dem Einbau eigens am
+       Sockelgeschoss nachgesehen, wo Schilder und Hausnummern saessen.
+
+       ZWEI KUNDENRUNDEN STECKEN IN DIESER DATEI
+       22.08.: „Es ist das gleiche Bild wie bei der anderen Section."
+       Zutreffend — bis dahin lag hier assets/img/fassade-vert.jpg,
+       dieselbe Datei wie in #vorteile als .vt__rand--links.
+       23.08.: „Ich will, dass es vom Stil her so ist wie das Bild der
+       Vermögensaufbau-Section. Es soll nur nicht genau das gleiche Haus
+       sein." Der erste Ersatz war ein Neubau in bedecktem Licht und traf
+       damit das Gegenteil: er grenzte sich in Epoche, Farbwelt und Licht
+       ab, obwohl genau die uebernommen werden sollten.
+       Jetzt gilt: STIL UEBERNOMMEN, GEBAEUDE GETAUSCHT. Aus
+       fassade-vert.jpg stammen Epoche (Gruenderzeit), Fassadenton
+       (kuehles Elfenbein), Blickwinkel (Gehweg, Augenhoehe, leichte
+       Aufsicht, Zweipunktperspektive), Licht (tiefstehende Sonne,
+       klare Schatten), Himmel (wolkenloses Tiefblau) und die leere
+       Strasse unten. Anders sind: abgeschraegte Hausecke mit eigener
+       Fensterachse statt rechtwinkliger Kante, Segment- und
+       Rundbogenfenster statt Dreiecksgiebeln, Balkone auf beiden
+       Fassaden und ueber Eck statt nur an der Langseite, hoeherer
+       Rustikasockel.
+
+       NICHT GESPIEGELT — und das ist gemessen, nicht geraten.
+       Der Kunde will, dass das Haus „in die Bildmitte schaut". Beide
+       Richtungen wurden im fertigen Einbau nebeneinander angesehen:
+       gespiegelt liegt die Hausecke an der ausblendenden Innenkante und
+       die Fassade flieht nach rechts aus der Seite heraus — das Haus
+       dreht sich weg. Ungespiegelt steht die Ecke am rechten
+       Seitenrand und die Fassade flieht nach LINKS in die Seite hinein,
+       auf das Zitat zu. Das ist die gewuenschte Richtung.
+       Dieselbe Ausrichtung traegt auch in #vorteile, obwohl das Bild
+       dort links steht: weil die Maske dort nach rechts ausblendet,
+       zeigt die Fassade auch von links zur Seitenmitte. Die
+       Bildrichtung muss also NICHT mit der Seite wechseln.
+
+       Getauscht ist ausschliesslich die Datei; Lage, Ausblassung,
+       Maske, Ueberstand, Stapelreihenfolge und alle Umbrueche sind
+       unveraendert.
+
+       KEINE AUSSAGE, NUR FLAECHE: aria-hidden und leeres alt. Es ist
+       derselbe Zierrand wie .vt__rand--links im Abschnitt „So entsteht
+       Vermögensaufbau", nur auf der anderen Seite und mit eigenem Motiv.
+       `pointer-events: none` steht im Stylesheet: das Bild liegt UEBER
+       dem oberen rechten Rand der Leistungen und wuerde dort sonst
+       Klicks abfangen.
+       ================================================================= -->
+  <span class="vtr__bild" aria-hidden="true">
+    <picture>
+      <source type="image/webp" srcset="assets/img/vertrauen-haus.webp">
+      <img src="assets/img/vertrauen-haus.jpg" alt=""
+           width="720" height="1080" loading="lazy" decoding="async">
+    </picture>
+  </span>
+
+  <div class="vtr__inner">
+    <blockquote class="vtr__zitat vtr__auf">
+      <p class="vtr__satz">
+        <span class="vtr__wort" data-vtr-wort>„Estera</span>
+        <span class="vtr__wort" data-vtr-wort>macht</span>
+        <span class="vtr__wort" data-vtr-wort>Immobilien</span>
+        <span class="vtr__wort" data-vtr-wort>nicht</span>
+        <span class="vtr__wort" data-vtr-wort>für</span>
+        <span class="vtr__wort" data-vtr-wort>jeden.</span>
+        <span class="vtr__wort" data-vtr-wort>Nicht</span>
+        <span class="vtr__wort" data-vtr-wort>jede</span>
+        <span class="vtr__wort" data-vtr-wort>Immobilie</span>
+        <span class="vtr__wort" data-vtr-wort>ist</span>
+        <span class="vtr__wort" data-vtr-wort>eine</span>
+        <span class="vtr__wort" data-vtr-wort>gute</span>
+        <span class="vtr__wort" data-vtr-wort>Kapitalanlage.</span>
+        <span class="vtr__wort" data-vtr-wort>Und</span>
+        <span class="vtr__wort" data-vtr-wort>nicht</span>
+        <span class="vtr__wort" data-vtr-wort>jede</span>
+        <span class="vtr__wort" data-vtr-wort>Kapitalanlage</span>
+        <span class="vtr__wort" data-vtr-wort>passt</span>
+        <span class="vtr__wort" data-vtr-wort>zu</span>
+        <span class="vtr__wort" data-vtr-wort>jedem</span>
+        <span class="vtr__wort" data-vtr-wort>Menschen.</span>
+        <span class="vtr__wort" data-vtr-wort>Nicht</span>
+        <span class="vtr__wort" data-vtr-wort>jeder</span>
+        <span class="vtr__wort" data-vtr-wort>schnelle</span>
+        <span class="vtr__wort" data-vtr-wort>Abschluss</span>
+        <span class="vtr__wort" data-vtr-wort>ist</span>
+        <span class="vtr__wort" data-vtr-wort>ein</span>
+        <span class="vtr__wort" data-vtr-wort>guter</span>
+        <span class="vtr__wort" data-vtr-wort>Abschluss."</span>
+      </p>
+    </blockquote>
   </div>
 </section>
 
@@ -1560,9 +1954,12 @@
        Bis ein Wortlaut geliefert wird, steht hier allein die Schaltflaeche,
        mittig zwischen den beiden Haarlinien. -->
   <div class="cta__inner" data-reveal>
-    <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
+    <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
   </div>
 </section>
+
+
+
 
 
 <!-- =====================================================================
@@ -2487,7 +2884,7 @@
            und persoenlicher Situation ab." stand hier doppelt: der Kunde hat
            sie durch die Schlusszeile am Abschnittsende ersetzt. Entfernt am
            17.08.2026, Wortlaut in der Versionsgeschichte. -->
-      <a class="btn vt__cta" href="erstgespraech.html">
+      <a class="btn vt__cta" href="kontakt.html">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 6.5h16V21H4z"/>
           <path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/>
@@ -3280,8 +3677,10 @@
      Navigationseintrag verwiesen. Das Symbol #wt-pfeil ist mit der Section
      gegangen und wurde nur von ihr benutzt.
 
-     karriere.html bleibt als eigene Seite bestehen und steht unveraendert
-     in der rechten Kopfnavigation — das ist eine Seite, kein Teaser.
+     karriere.html gibt es seit dem 22.08.2026 nicht mehr: die Karriere ist
+     Abschnitt 4 von ueber-estera.html. Der Eintrag bleibt in der rechten
+     Kopfnavigation stehen und zeigt jetzt auf ueber-estera.html#karriere —
+     das ist weiterhin ein eigenstaendiges Ziel, kein Teaser.
 
      Die FAQ-Section darueber ist damit der letzte Inhaltsabschnitt der
      Seite. Ihr unterer Abstand (1,959 Kastenhoehen, aus der Vorlage) traegt
@@ -3364,21 +3763,25 @@
   </div>
 
   <div class="menu__body">
+    <!-- Dasselbe Verzeichnis wie oben in der Kopfleiste, nur untereinander.
+         Beide Navigationen muessen dieselben Punkte fuehren — sonst sieht
+         der Besucher am schmalen Fenster etwas anderes als am breiten.
+         Neu durchnummeriert: die Zaehlung laeuft in jeder Gruppe wieder bei
+         01 los und ist nach dem Streichen luecken-frei.
+         „Kontakt" ist aus der oberen Gruppe herausgenommen und steht jetzt
+         unten bei den Seiten — dort gehoert es hin, es ist eine eigene
+         Seite und kein Abschnitt dieser Seite. -->
     <p class="menu__gruppe">Auf dieser Seite</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="#bewertungen"><span class="num">01</span> Bewertungen</a></li>
+      <li><a class="menu__link" href="#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
       <li><a class="menu__link" href="#leistungen"><span class="num">02</span> Leistungen</a></li>
-      <li><a class="menu__link" href="#vorteile"><span class="num">03</span> Vorteile</a></li>
-      <li><a class="menu__link" href="#referenzobjekte"><span class="num">04</span> Referenzobjekte</a></li>
-      <li><a class="menu__link" href="erstgespraech.html"><span class="num">05</span> Erstgespräch</a></li>
+      <li><a class="menu__link" href="#vorteile"><span class="num">03</span> Eigentumsaufbau</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="konzept.html"><span class="num">01</span> Konzept</a></li>
-      <li><a class="menu__link" href="qualitaet.html"><span class="num">02</span> Qualität</a></li>
-      <li><a class="menu__link" href="wissen.html"><span class="num">03</span> Wissen</a></li>
-      <li><a class="menu__link" href="ueber-estera.html"><span class="num">04</span> Über Estera</a></li>
-      <li><a class="menu__link" href="karriere.html"><span class="num">05</span> Karriere</a></li>
+      <li><a class="menu__link" href="ueber-estera.html"><span class="num">01</span> Über Estera</a></li>
+      <li><a class="menu__link" href="ueber-estera.html#karriere"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html"><span class="num">03</span> Kontakt</a></li>
     </ul>
 
     <aside class="menu__aside">
@@ -3387,7 +3790,7 @@
         <p>Ein Erstgespräch klärt zuerst, ob eine Kapitalanlageimmobilie überhaupt zu Ihrer
            Situation passt. Erst danach sprechen wir über Objekte.</p>
       </div>
-      <a class="btn" href="erstgespraech.html">Erstgespräch vereinbaren</a>
+      <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
       <div>
         <p class="kicker">Kontakt</p>
         <p><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></p>
@@ -3419,5 +3822,6 @@
 <script src="assets/js/banken.js"></script>
 <script src="assets/js/warum.js"></script>
 <script src="assets/js/faq.js"></script>
+<script src="assets/js/vertrauen.js"></script>
 </body>
 </html>

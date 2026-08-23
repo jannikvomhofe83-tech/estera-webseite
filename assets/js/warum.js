@@ -1,7 +1,31 @@
 /* ===========================================================================
    VORTEILE VON IMMOBILIEN — der Antrieb des Abschnitts
    Gehoert zu assets/css/warum.css und zur Section #warum-immobilien.
-   Neufassung vom 21.08.2026 (Build B-201).
+   Neufassung vom 21.08.2026 (Build B-201), Schaubilder ersetzt am
+   22.08.2026, Farbwechsel ergaenzt am 23.08.2026.
+
+   NACHTRAG 23.08.2026 — der Wechsel ist sichtbar gemacht
+   Der Kunde: „Der Switch (…) muss richtig krass dargestellt werden, sodass
+   man gleich sieht: okay, es hat sich etwas verändert." Dazu kommen zu den
+   bisherigen Aufgaben zwei hinzu, beide in setzen():
+
+     A  DIE RICHTUNG. Aus altem und neuem Index folgt, ob es vorwaerts oder
+        rueckwaerts geht. Das Ergebnis steht als --wi-dir an der Section,
+        und warum.css rechnet damit von allein spiegelbildlich — es gibt
+        deshalb keinen zweiten Regelsatz fuer „rueckwaerts".
+
+     B  DER STREIFEN. Ein einziger Streifen liegt ueber der Buehne
+        (.wimm__band). Beim Wechsel faehrt die neue Farbe als zweite Lage
+        in Wischrichtung durch ihn hindurch; danach wird sie festgeschrieben
+        und die Wischlage unsichtbar zurueckgesetzt.
+
+   WOHER DIE FARBEN KOMMEN: aus dem CSS, nicht von hier. Jeder Kasten
+   traegt data-ton, warum.css macht daraus --ton, und dieses Skript liest
+   den fertigen Wert mit getComputedStyle ab. Es steht also KEIN Farbwert
+   in dieser Datei — wer die Farben aendern will, aendert Abschnitt 3a in
+   warum.css und sonst nichts. Dasselbe gilt fuer die Wischdauer: sie wird
+   aus --wi-wisch gelesen, damit CSS und Zeitgeber nicht auseinanderlaufen
+   koennen.
 
    WAS DIESE DATEI TUT
 
@@ -12,9 +36,11 @@
         Symbol und Namen seines Vorteils. Es kann kein Zustand entstehen, in
         dem ein Inhalt unsichtbar haengen bleibt.
 
-     2  Sie misst die echte Laenge jeder zu zeichnenden Linie
-        (`getTotalLength()`) und legt sie als `--len` ab. Muster dafuer steht
-        in assets/js/site.js bei `[data-lines]`.
+     2  ENTFALLEN am 22.08.2026: das Ausmessen der Linienlaengen
+        (`getTotalLength()` nach `--len`). Es gehoerte zu den gezeichneten
+        Diagrammen. Die vier Schaubilder sind jetzt Bilder mit einer
+        Beschriftungslage darueber; bewegt werden nur noch Deckkraft und
+        eine sehr leichte Skalierung, beides rein in CSS.
 
      3  Sie fuehrt die Scroll-Animation: waehrend die rechte Buehne klebt,
         laufen unter ihr vier gleich hohe Spuren durch. Aus der Lage von
@@ -55,23 +81,16 @@
   var anzahl  = kaesten.length;
   if (!lauf || !klebe || !anzahl) return;
 
+  /* Die beiden Lagen des Farbstreifens. Fehlen sie — etwa weil jemand das
+     Band aus dem Dokument nimmt —, laeuft alles Uebrige unveraendert
+     weiter; der Wechsel ist dann bloss weniger auffaellig. */
+  var bandGrund = abschnitt.querySelector('.wimm__band-grund');
+  var bandWisch = abschnitt.querySelector('.wimm__band-wisch');
+  var buehne    = abschnitt.querySelector('.wimm__buehne');
+
   /* --- 1  Anmelden --------------------------------------------------------
      Ab hier gelten die Regeln in warum.css.                                */
   abschnitt.setAttribute('data-js', 'an');
-
-  /* --- 2  Echte Linienlaengen setzen -------------------------------------- */
-  Array.prototype.forEach.call(
-    abschnitt.querySelectorAll('[data-zeichnen]'),
-    function (linie) {
-      try {
-        linie.style.setProperty('--len', Math.ceil(linie.getTotalLength()));
-      } catch (e) {
-        /* Sollte ein Browser die Laenge nicht liefern, bleibt der Vorgabewert
-           aus warum.css stehen. Die Linie zeichnet sich dann etwas anders,
-           steht am Ende aber ebenfalls vollstaendig da. */
-      }
-    }
-  );
 
   var wenigBewegung = window.matchMedia('(prefers-reduced-motion: reduce)');
   var breit         = window.matchMedia('(min-width: 1024px)');
@@ -81,6 +100,107 @@
   var jetzt    = -1;      /* aktueller Vorteil, -1 = noch keiner gesetzt   */
   var imBild   = false;   /* Abschnitt ist ins Bild gekommen               */
   var klebtAn  = false;   /* laeuft die klebende Betriebsart gerade?       */
+  var wischUhr = 0;       /* laufender Zeitgeber des Streifens, 0 = keiner */
+  var ploppUhr = 0;       /* laufender Zeitgeber des Farbausschlags        */
+
+  /* Die Dauern stehen in warum.css. Sie hier noch einmal als Zahlen
+     hinzuschreiben, hiesse zwei Wahrheiten zu haben — beim naechsten
+     Feinjustieren wuerde eine davon vergessen. Der Zuschlag von 30 ms ist
+     Sicherheitsabstand: der Zeitgeber soll erst greifen, wenn der Uebergang
+     sicher durch ist. */
+  function dauer(name, ersatz) {
+    var s = parseFloat(window.getComputedStyle(abschnitt).getPropertyValue(name));
+    return (isNaN(s) ? ersatz : s) * 1000 + 30;
+  }
+
+  /* Der Ton eines Vorteils, gelesen aus dem CSS. --ton ist dort ueber
+     data-ton gesetzt; getComputedStyle liefert den bereits aufgeloesten
+     Wert, auch wenn dahinter wieder eine Variable steht (--navy-600). */
+  function tonVon(i) {
+    var k = kaesten[i];
+    if (!k) return '';
+    return window.getComputedStyle(k).getPropertyValue('--ton').trim();
+  }
+
+  /* --- Der Farbstreifen ---------------------------------------------------
+     `richtung`  1 = die neue Farbe faehrt von links ein, -1 von rechts.
+     `sofort`    beim ersten Setzen und ohne Bewegungswunsch: Farbe hart
+                 wechseln, nicht wischen.
+
+     ABLAUF EINES WISCHERS
+       1  Ein noch laufender Wischer wird festgeschrieben: seine Farbe wird
+          zur Grundfarbe. Sonst waere die halb durchgelaufene Farbe verloren
+          und der Streifen spraenge auf den vorletzten Ton zurueck.
+       2  Die Wischlage wird auf scaleX(0) zurueckgesetzt und bekommt die
+          neue Farbe. Der Ruhezustand hat in warum.css bewusst keinen
+          Uebergang — dieses Zuruecksetzen ist deshalb unsichtbar.
+       3  Ein erzwungenes Nachrechnen des Layouts (offsetWidth) trennt
+          Zuruecksetzen und Start voneinander. Ohne diese Zeile fasst der
+          Browser beides zu einem Schritt zusammen, findet keinen Weg
+          zwischen Anfang und Ende und zeigt gar keine Bewegung.
+       4  data-los startet den Uebergang; nach Ablauf wird die Farbe
+          festgeschrieben und die Wischlage wieder zusammengezogen.       */
+  function bandSetzen(i, richtung, sofort) {
+    /* DIE BUEHNE UEBERNIMMT DEN TON DES AKTIVEN VORTEILS. Ein einziges
+       Merkmal genuegt: data-ton greift dieselbe Tabelle in warum.css ab,
+       aus der auch Kasten und Listeneintrag leben, und liefert damit in
+       einem Zug --ton-rgb fuer Verlauf und Schatten und --ton-deck fuer die
+       Staerke des Verlaufs. Frueher hat diese Stelle --ton-rgb einzeln
+       gesetzt; das waere jetzt die zweite Stelle, an der Farbwissen
+       stuende. */
+    if (buehne && kaesten[i] && kaesten[i].getAttribute('data-ton')) {
+      buehne.setAttribute('data-ton', kaesten[i].getAttribute('data-ton'));
+    }
+
+    /* DAS AUFPLOPPEN. Der Kunde: „Wenn der Switch da ist, soll die Farbe
+       ganz stark aufploppen, und dann kommt erst der Inhalt des Kastens."
+       data-plopp treibt in warum.css beides zugleich: der Verlauf geht auf
+       doppelte Deckung, der Balken wird von 6 auf 11 px dicker. Nach
+       --wi-plopp faellt beides von allein zurueck, weil das Merkmal wieder
+       verschwindet — der Rueckweg braucht keine eigene Ansteuerung.
+       Nicht beim ersten Setzen (da hat sich nichts geaendert) und nicht,
+       wenn wenig Bewegung gewuenscht ist. */
+    if (buehne) {
+      if (ploppUhr) { window.clearTimeout(ploppUhr); ploppUhr = 0; }
+      if (sofort || wenigBewegung.matches) {
+        buehne.removeAttribute('data-plopp');
+      } else {
+        buehne.setAttribute('data-plopp', '');
+        ploppUhr = window.setTimeout(function () {
+          ploppUhr = 0;
+          buehne.removeAttribute('data-plopp');
+        }, dauer('--wi-plopp', 0.26));
+      }
+    }
+
+    if (!bandGrund || !bandWisch) return;
+    var farbe = tonVon(i);
+    if (!farbe) return;
+
+    if (wischUhr) {
+      window.clearTimeout(wischUhr);
+      wischUhr = 0;
+      if (bandWisch.style.background) bandGrund.style.background = bandWisch.style.background;
+    }
+
+    bandWisch.removeAttribute('data-los');
+    bandWisch.style.background = farbe;
+
+    if (sofort || wenigBewegung.matches) {
+      bandGrund.style.background = farbe;
+      return;
+    }
+
+    bandWisch.style.transformOrigin = richtung < 0 ? 'right center' : 'left center';
+    void bandWisch.offsetWidth;
+    bandWisch.setAttribute('data-los', '');
+
+    wischUhr = window.setTimeout(function () {
+      wischUhr = 0;
+      bandGrund.style.background = farbe;
+      bandWisch.removeAttribute('data-los');
+    }, dauer('--wi-wisch', 0.26));
+  }
 
   /* --- 3  Bewegung im Schaubild freigeben, genau einmal je Kasten -------- */
   function bildFrei(i) {
@@ -89,18 +209,44 @@
     if (k && !k.hasAttribute('data-bild')) k.setAttribute('data-bild', '');
   }
 
-  /* --- 4  Den Vorteil setzen: rechts der Kasten, links die Hervorhebung -- */
+  /* --- 4  Den Vorteil setzen: rechts der Kasten, links die Hervorhebung --
+     ALLES IN EINEM DURCHGANG. Richtung, Kastenzustaende, Liste und Streifen
+     werden nacheinander im selben Aufruf geschrieben; der Browser rechnet
+     sie in einem Schritt zusammen. Genau deshalb starten der Balken links
+     und der Streifen rechts im selben Augenblick — es gibt keinen zweiten
+     Zeitgeber, der sie auseinanderziehen koennte.
+
+     data-ab traegt genau EIN Kasten: der, der gerade abtritt. Alle uebrigen
+     werden ausdruecklich zurueckgesetzt, damit kein Kasten mit einem alten
+     Merkmal in der Austrittslage stehen bleibt.                          */
   function setzen(i) {
     if (i === jetzt) return;
+    var vorher   = jetzt;
+    var erstmals = vorher < 0;
+    /* Beim allerersten Setzen gibt es keine Richtung — 1 als Vorgabe. */
+    var richtung = (erstmals || i > vorher) ? 1 : -1;
     jetzt = i;
+
+    abschnitt.style.setProperty('--wi-dir', richtung);
+
     for (var n = 0; n < anzahl; n++) {
-      if (n === i) kaesten[n].setAttribute('data-an', '');
-      else         kaesten[n].removeAttribute('data-an');
+      if (n === i) {
+        kaesten[n].removeAttribute('data-ab');
+        kaesten[n].setAttribute('data-an', '');
+      } else if (n === vorher) {
+        kaesten[n].removeAttribute('data-an');
+        kaesten[n].setAttribute('data-ab', '');
+      } else {
+        kaesten[n].removeAttribute('data-an');
+        kaesten[n].removeAttribute('data-ab');
+      }
     }
     for (var m = 0; m < knoepfe.length; m++) {
       if (m === i) knoepfe[m].setAttribute('aria-current', 'true');
       else         knoepfe[m].removeAttribute('aria-current');
     }
+
+    bandSetzen(i, richtung, erstmals);
     bildFrei(i);
   }
 
@@ -177,8 +323,21 @@
     } else {
       klebtAn = false;
       jetzt = -1;
-      /* Zustaende zuruecknehmen — gestapelt stehen alle Kaesten gleichwertig da. */
-      for (var n = 0; n < anzahl; n++) kaesten[n].removeAttribute('data-an');
+      /* Zustaende zuruecknehmen — gestapelt stehen alle Kaesten gleichwertig
+         da, jeder mit seinem eigenen Farbstreifen. Auch der Zeitgeber des
+         Wischers wird abgeraeumt: sonst schriebe er gleich noch eine Farbe
+         in ein Band, das gar nicht mehr zu sehen ist. */
+      if (wischUhr) { window.clearTimeout(wischUhr); wischUhr = 0; }
+      if (ploppUhr) { window.clearTimeout(ploppUhr); ploppUhr = 0; }
+      abschnitt.style.setProperty('--wi-dir', 1);
+      if (buehne) {
+        buehne.removeAttribute('data-plopp');
+        buehne.removeAttribute('data-ton');
+      }
+      for (var n = 0; n < anzahl; n++) {
+        kaesten[n].removeAttribute('data-an');
+        kaesten[n].removeAttribute('data-ab');
+      }
       for (var m = 0; m < knoepfe.length; m++) knoepfe[m].removeAttribute('aria-current');
       bildBeobStarten();
     }

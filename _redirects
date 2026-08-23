@@ -10,3 +10,15 @@
 # Vor dem Launch wird variante-a.html zur echten index.html; dann faellt
 # diese Datei weg.
 /            /variante-a.html   200!
+
+# Karriere ist seit dem 22.08.2026 keine eigene Seite mehr, sondern
+# Abschnitt 4 von ueber-estera.html — Kundenwunsch: "eine Seite, die zwei
+# Unterpunkte bleiben". karriere.html ist geloescht.
+#
+# 301 statt 200: die Seite ist dauerhaft umgezogen, und die Adresse SOLL
+# sich mitaendern. Bei 200 bliebe /karriere.html in der Adresszeile stehen
+# und die Raute #karriere kaeme nie beim Browser an — er springt nur, wenn
+# er die Sprungmarke auch sieht.
+# Kein Ausrufezeichen noetig: die Datei gibt es nicht mehr, also greift die
+# Regel ohnehin.
+/karriere.html   /ueber-estera.html#karriere   301

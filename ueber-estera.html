@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Über Estera — Unternehmen, Ablauf, Geschäftsführung und Karriere</title>
+<meta name="description" content="Estera als Unternehmen: was Estera anders macht, wie der Ablauf vom Erstgespräch bis zum Notar aussieht, wer Estera führt — und welche Stelle offen ist.">
+<!-- Wie die Startseite: die Seite ist in Abstimmung und gehoert nicht in
+     eine Suchmaschine. Vor dem Livegang zu entfernen. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Dieselben zwei Schriftschnitte wie die Startseite. Sie liegen bereits im
+     Zwischenspeicher, wenn der Besucher von dort kommt — vorgeladen wird
+     trotzdem, weil man auch direkt hier landen kann. -->
+<link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- REIHENFOLGE IST ABSICHT
+     fonts.css und base.css tragen Token, Kopfleiste, Wortmarke, Menue und
+     Schaltflaechen — unveraendert von der Startseite uebernommen.
+     schluss.css steht hier ausschliesslich wegen der Fusszeile (.fuss__*).
+     Ihre uebrigen Regeln greifen auf dieser Seite ins Leere.
+     seiten.css traegt den gemeinsamen Bestand der Unterseiten (Seitenkopf,
+     Abschnittsrhythmus, sichtbare Luecken).
+     ueber.css kommt ZULETZT und gehoert allein dieser Seite: die Kastenform,
+     die Gegenueberstellung, die Kette, die Geschaeftsfuehrer, der Karriere-
+     teil und der Einlauf. Wo sich ueber.css und seiten.css ueberschneiden,
+     gewinnt bewusst die spaetere Datei — Begruendung steht dort.
+     Keine bestehende CSS-Datei wurde fuer diese Seite veraendert. -->
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/schluss.css">
+<link rel="stylesheet" href="assets/css/seiten.css">
+<link rel="stylesheet" href="assets/css/ueber.css">
+</head>
+<body>
+
+<!-- =====================================================================
+     KOPF — Zeichen fuer Zeichen wie auf der Startseite.
+
+     OHNE site-header--invert, und das ist eine Rueckname.
+     Zwischenzeitlich trug der Kopf diese Klasse: der Hero war damals ein
+     kraeftiges Bild mit dunklem Schleier, und die navyblaue Wortmarke war
+     darauf nicht zu lesen. Seit das Bild auf Kundenwunsch AUSGEBLASST ist
+     (weisse Lage von 0,54 darueber), ist es umgekehrt — helle Schrift steht
+     auf dem hellen Himmel bei rund 1,8:1 und verschwindet.
+     Der Kopf bleibt deshalb navy, wie auf allen uebrigen Unterseiten.
+     Wer den Schleier wieder zuruecknimmt, muss das hier mitpruefen.
+
+     EINE SEITE, ZWEI EINTRAEGE   (Kundenwunsch vom 22.08.2026)
+     „Ich will, dass Über Estera und Karriere eine Seite wird, die zwei
+     Unterpunkte bleiben." Beide Punkte stehen deshalb weiter in der
+     Kopfleiste, zeigen aber auf dieselbe Datei: „Über Estera" auf den
+     Seitenanfang, „Karriere" auf Abschnitt 4 dieser Seite.
+
+     Von HIER aus ist „Karriere" ein reiner Sprung innerhalb der Seite und
+     heisst deshalb schlicht `#karriere`. Von allen anderen Seiten heisst
+     er `ueber-estera.html#karriere`. Beides muss so bleiben: site.js
+     prueft bei einem Ziel mit Raute, ob der Abschnitt auf DIESER Seite
+     existiert — stuende hier der Dateiname davor, waere die Pruefung eine
+     andere und der Verweis liefe unnoetig ueber einen Seitenwechsel.
+
+     aria-current="page" traegt „Über Estera": es ist der Eintrag, der
+     diese Seite BEZEICHNET. „Karriere" ist ein Sprungziel in ihr und
+     bekommt es nicht — sonst waeren zwei Eintraege gleichzeitig „die
+     aktuelle Seite", und Screenreader melden das als Widerspruch.
+     ===================================================================== -->
+<header class="site-header" data-header>
+
+  <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
+    <ul>
+      <li><a href="variante-a.html#warum-immobilien">Vorteile</a></li>
+      <li><a href="variante-a.html#leistungen">Leistungen</a></li>
+      <li><a href="variante-a.html#vorteile">Eigentumsaufbau</a></li>
+    </ul>
+  </nav>
+
+  <a class="wordmark" href="./index.html" aria-label="Estera — Startseite">
+    <span class="wordmark__name">ESTERA</span>
+    <span class="wordmark__sub">Immobilien</span>
+  </a>
+
+  <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
+    <ul>
+      <li><a href="ueber-estera.html" aria-current="page">Über Estera</a></li>
+      <li><a href="#karriere">Karriere</a></li>
+      <li class="kopfnav__cta"><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <button class="burger" type="button" data-menu-open aria-expanded="false" aria-controls="hauptmenue">
+    <span class="burger__label">Menü</span>
+    <span class="burger__lines" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+</header>
+
+<main class="sp">
+
+<!-- =====================================================================
+     00 · HERO   (Kundenwunsch 23.08.2026)
+
+     „Ich will noch eine Section darüber auf der Seite als Hero-Section …
+     Dann will ich, dass da ‚Warum Estera' steht, auf zwei Zeilen
+     umgesetzt, also höher und ein bisschen links gehalten."
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DIE UEBERSCHRIFT STEHT JETZT HIER — UND NUR HIER
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Die Seite hat genau EINE Hauptueberschrift, und das ist ab sofort
+     diese. Der Abschnitt darunter trug bis heute dieselbe Zeile; zweimal
+     „Warum Estera" untereinander liest sich als Fehler.
+     Der obere Kasten der Verzweigung BLEIBT trotzdem stehen — von ihm
+     gehen die beiden Zweige aus, ohne ihn gibt es keine Verzweigung. Er
+     ist dort aber kein Ueberschriftenelement mehr, sondern der
+     Wurzelknoten eines Schaubildes: kleiner gesetzt und typografisch
+     deutlich hinter dieser Zeile. Begruendung bei .uvz__quelle in
+     assets/css/ueber.css.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     HERKUNFT DES BILDES — MASCHINELL ERZEUGT
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     assets/img/ueber-hero.jpg ist mit gpt-image-2 ueber kie.ai erzeugt und
+     zeigt KEIN REALES OBJEKT. Es ist Stimmungsbild und ausdruecklich NICHT
+     als Referenz- oder Beispielobjekt verwendbar. Es darf nirgends in die
+     Naehe einer Objektangabe, eines Preises oder einer Rendite geraten.
+     Dieselbe Kennzeichnung wie beim Bild der Trustleiste.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     DIE FARBE LAEUFT VON LINKS HEREIN. Zwei deckungsgleiche Lagen: unten
+     dasselbe Bild in Graustufe, darueber die Farblage, die per clip-path
+     aufgezogen wird. Die Schrift macht die Bewegung NICHT mit — sie steht
+     die ganze Zeit unveraendert da.
+     Ohne Javascript und bei prefers-reduced-motion steht das Bild sofort
+     farbig: der Anfangszustand haengt an `data-hero-bereit`, und das setzt
+     allein assets/js/ueber.js. Eine beschnitten haengengebliebene Farblage
+     kann es deshalb nicht geben.
+     ===================================================================== -->
+<section class="uhero" id="ueber-hero" data-hero aria-labelledby="ue-h-ueberuns">
+
+  <!-- DIE ZWEI LAGEN, deckungsgleich uebereinander: unten dasselbe Bild in
+       Graustufe, darueber die Farblage. Aufgezogen wird allein die obere.
+       Beide zeigen auf DIESELBE Datei — der Browser laedt sie einmal.
+       aria-hidden und leeres alt: das Bild traegt keine Information, es ist
+       Stimmung. Die echten Masse stehen am Element (1672 zu 941, das ist
+       das gelieferte 16:9), damit beim Laden nichts springt. -->
+  <div class="uhero__bild" aria-hidden="true">
+    <picture>
+      <source srcset="assets/img/ueber-hero.webp" type="image/webp">
+      <img class="uhero__grau" src="assets/img/ueber-hero.jpg" alt=""
+           width="1672" height="940" fetchpriority="high" decoding="async">
+    </picture>
+    <picture>
+      <source srcset="assets/img/ueber-hero.webp" type="image/webp">
+      <img class="uhero__farbe" src="assets/img/ueber-hero.jpg" alt=""
+           width="1672" height="940" fetchpriority="high" decoding="async"
+           data-hero-farbe>
+    </picture>
+  </div>
+
+  <!-- Der Schleier. Er ist NICHT dekorativ: ohne ihn steht die weisse
+       Schrift auf dem hellen Himmel bei gemessenen 1,4:1. Die Rechnung
+       steht bei .uhero__schleier in assets/css/ueber.css. -->
+  <span class="uhero__schleier" aria-hidden="true"></span>
+
+  <div class="uhero__inner">
+    <!-- ZWEIZEILIG UND VERSETZT (Kundenwunsch 23.08.2026): „Über" steht
+         weiter links, „uns" darunter weiter rechts. Der Versatz ist die
+         Gestaltung — zwei buendige Bloecke waeren nur ein Umbruch.
+         Kein <br>: die beiden <span> sind Bloecke und brechen verlaesslich
+         um, auch wenn die Schriftgroesse sich aendert. -->
+    <!-- EINZEILIG UND IM KASTEN (Kundenwunsch 23.08.2026): „Schreibe ‚Über
+         uns' doch in eine Zeile und gib ‚Über uns' auch einen Kasten in der
+         Form wie bei ‚Warum Estera'." — und am selben Tag wieder
+         zurueckgenommen: „Entnimm den Kasten wieder bei ‚Über uns'."
+         Die Schrift steht jetzt blank auf dem ausgeblassten Bild, mittig
+         und mit einem senkrechten Farbverlauf. Der versetzte Zweizeiler
+         ist entfallen; es bleibt eine Zeile. -->
+    <h1 class="uhero__h1" id="ue-h-ueberuns" aria-label="Über uns"><span class="uhero__b uhero__b--hoch">Ü</span><span class="uhero__b uhero__b--hoch">b</span><span class="uhero__b uhero__b--x">e</span><span class="uhero__b uhero__b--x">r</span><span class="uhero__luft"> </span><span class="uhero__b uhero__b--x">u</span><span class="uhero__b uhero__b--x">n</span><span class="uhero__b uhero__b--x">s</span></h1>
+  </div>
+</section>
+
+<!-- ENTFERNT am 22.08.2026 auf Kundenwunsch: der Seitenkopf mit
+     „Über Estera", der Zeile „Diskret in der Zusammenarbeit.
+     Strukturiert im Vorgehen. Langfristig in der Ausrichtung." und
+     dem Absatz darunter. Woertlich: „das muss raus."
+     Die Seite beginnt jetzt unmittelbar mit „Warum Estera"; diese
+     Ueberschrift ist dadurch die einzige Hauptueberschrift der Seite.
+     (Kein Tag-Name im Kommentar — er verfaelscht sonst jede Suche.) -->
+<!-- =====================================================================
+     01 · WARUM ESTERA — DIE VERZWEIGUNG
+
+     ENTFALLEN am 23.08.2026 auf Kundenwunsch: die Kleinzeile („01 · Der
+     Unterschied") und die Unterzeile darunter. Woertlich: „Der Unterschied
+     01 — das kannst du rausstreichen, es soll nur stehen ‚Warum Estera'.
+     Die Subline kannst du auch rausstreichen." Es bleibt allein die
+     Ueberschrift; sie ist zugleich die einzige Hauptueberschrift der Seite.
+
+     AUS DER TABELLE WIRD EINE VERZWEIGUNG. Die frueheren Zeilen stehen
+     WORTGLEICH weiter — nur die Darstellung ist eine andere: oben ein
+     Kasten mit der Ueberschrift, von ihm zwei Zweige nach unten, unten die
+     beiden Vergleichskaesten. Form und Linienfuehrung kommen aus
+     #leistungen der Startseite (.wnetz in assets/css/auswahl.css):
+     abgerundete rechte Winkel mit Radius 40, Haarlinie, Pfeilspitze als
+     marker-end. Keine Diagonalen, keine Bezierschwuenge.
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PRUEFVERMERK § 6 UWG — VERGLEICHENDE WERBUNG
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Die rechte Spalte nennt KEINEN Mitbewerber, weder namentlich noch
+     erkennbar. Sie beschreibt eine allgemeine Marktbeobachtung und ist
+     durchgehend als solche formuliert („haeufig", „vielfach", „oft",
+     „ueblicherweise"). Damit ist sie keine Herabsetzung im Sinne des
+     § 6 Abs. 2 Nr. 5 UWG und kein Vergleich mit einem bestimmten
+     Unternehmen.
+     Der sichtbare Hinweis unter der Verzweigung gehoert zu dieser
+     Einordnung und bleibt stehen. Er darf nicht entfernt werden, ohne die
+     Formulierungen der rechten Spalte neu zu pruefen.
+     Keine Haken, keine Kreuze, keine Ampelfarben: eine Wertung in Zeichen
+     waere genau die Zuspitzung, die aus der Beobachtung eine Herabsetzung
+     machen wuerde.
+
+     NACHTRAG 23.08.2026 — DIE LAGE HAT SICH VERSCHAERFT:
+     Der sichtbare Hinweis unter der Gegenueberstellung ist auf
+     Kundenwunsch ENTFALLEN. Er hatte ausdruecklich klargestellt, dass die
+     rechte Spalte eine allgemeine Marktbeobachtung ist. Diese Klarstellung
+     fehlt jetzt auf der Seite.
+     Damit tragen allein die Formulierungen der Stichpunkte. Jeder Punkt
+     der rechten Spalte MUSS sein relativierendes Wort behalten
+     („haeufig", „vielfach", „oft", „meist"); zusaetzlich steht die
+     Einordnung „wie am Markt haeufig anzutreffen" in der Kastenzeile.
+     Wer die Stichpunkte kuerzt oder zuspitzt, entfernt die letzte
+     Absicherung — und macht aus einer zulaessigen Marktbeobachtung eine
+     angreifbare Aussage ueber Mitbewerber.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ===================================================================== -->
+<section class="sp-band ue-band-luft ue-ziel uvz-band" id="warum-estera" aria-labelledby="ue-h-warum">
+
+  <div class="sp-band__inner ue-weit">
+
+    <!-- DIE VERZWEIGUNG.
+         Der Traeger ist die durchscheinende Ebene: eine sehr blass getoente
+         Platte, auf der die Milchglaskaesten liegen. Zwischen den Kaesten
+         sieht man sie — das ist die Durchsichtigkeit, die der Kunde meint.
+         Begruendung und Messwerte stehen bei .uvz in assets/css/ueber.css. -->
+    <div class="uvz" data-reveal>
+
+      <!-- DER WURZELKNOTEN — und zugleich die Ueberschrift des Abschnitts.
+           Kundenwunsch 23.08.2026: „Wo der Vergleich jetzt drinsteht, steht
+           ‚Warum Estera'." Beides faellt damit zusammen: die Zeile benennt
+           den Abschnitt UND ist der Punkt, von dem die beiden Zweige
+           ausgehen. Eine zweite Ueberschrift darueber waere eine Doppelung.
+           Sie ist die <h2> der Seite; die <h1> steht im Hero. -->
+      <div class="uvz__quelle">
+        <h2 class="uvz__wurzel" id="ue-h-warum">Warum Estera</h2>
+      </div>
+
+      <!-- DIE ZWEI ZWEIGE.
+           Ein einziges SVG ueber die volle Breite. Die Zielpunkte liegen bei
+           25 und 75 Prozent der viewBox (300 und 900 von 1200) und treffen
+           damit die Mitten der beiden Kaesten darunter in JEDER Fensterbreite
+           — das Verhaeltnis bleibt beim Skalieren erhalten.
+           data-lines: site.js misst die Pfadlaenge, setzt --len und --d und
+           haengt data-drawn an das Elternelement, sobald das SVG ins Bild
+           kommt. Genau ein Beobachter, danach abgemeldet. -->
+      <span class="uvz__zweige">
+        <svg data-lines viewBox="0 0 1200 124" width="1200" height="124"
+             fill="none" role="img"
+             aria-label="Von „Warum Estera“ zweigen zwei Wege ab: links zu Estera Immobilien, rechts zu anderen Immobilienanbietern.">
+          <defs>
+            <!-- Zwei Spitzen und nicht eine, obwohl sie gleich aussehen: jede
+                 gehoert zu ihrem Zweig und erscheint erst, wenn dieser
+                 angekommen ist. Ein gemeinsamer Marker muesste sich fuer eine
+                 der beiden Zeiten entscheiden. Machart wortgleich aus
+                 #leistungen: refX/refY zeigen auf die Spitze des Dreiecks,
+                 `overflow` sichtbar, sonst schneidet das Markerfenster sie an. -->
+            <marker id="uvz-spitze-l" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
+                    orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
+                    style="--uvz-spitze-ab:0.72s">
+              <path d="M0 2.5 14 7.5 0 12.5Z"/>
+            </marker>
+            <marker id="uvz-spitze-r" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
+                    orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
+                    style="--uvz-spitze-ab:0.84s">
+              <path d="M0 2.5 14 7.5 0 12.5Z"/>
+            </marker>
+          </defs>
+          <!-- Senkrecht aus dem oberen Kasten, gerundeter rechter Winkel,
+               waagerecht bis ueber die Kastenmitte, gerundeter rechter Winkel,
+               senkrecht auf den Kasten. Radius ueberall 40, echte Kreisboegen
+               (A) — quadratische Beziers haetten im Scheitel nur r/Wurzel 2. -->
+          <path class="uvz__zug" pathLength="1" marker-end="url(#uvz-spitze-l)"
+                d="M600 0 V20 A40 40 0 0 1 560 60 H340 A40 40 0 0 0 300 100 V112"/>
+          <path class="uvz__zug" pathLength="1" marker-end="url(#uvz-spitze-r)"
+                d="M600 0 V20 A40 40 0 0 0 640 60 H860 A40 40 0 0 1 900 100 V112"/>
+        </svg>
+      </span>
+
+      <!-- DIE BEIDEN VERGLEICHSKAESTEN.
+           EIN gemeinsames Raster ueber beide Kaesten, nicht zwei getrennte:
+           nur so stehen die sechs Themen zeilenweise auf GLEICHER Hoehe.
+           Zwei unabhaengige Kaesten haetten je nach Textlaenge auseinander-
+           laufende Zeilen, und die Gegenueberstellung — der ganze Sinn des
+           Abschnitts — waere dahin.
+           Die beiden Milchglasflaechen sind deshalb eigene Elemente, die ueber
+           `grid-row: 1 / -1` hinter ihrer Spalte liegen. Der Innenabstand
+           sitzt an den Zellen, damit der Text nicht an der Kante klebt.
+
+           DAS THEMA STEHT IN BEIDER SPALTE. Es ist bewusst keine Doppelung,
+           sondern der Anker der Zuordnung: nebeneinander liest es sich als
+           Gegenueberstellung, und sobald die Kaesten unter 900 px
+           untereinander stehen, bleibt die rechte Spalte ohne ihn ohne
+           Bezug. Dieselbe Ueberlegung wie frueher in der Tabelle, wo die
+           Beschriftung jeder Zelle unter 900 px sichtbar wurde. -->
+      <!-- DREI SPALTEN (Kundenwunsch 23.08.2026).
+           Links schmal die Kriterien, daneben Estera, daneben der Markt.
+           Woertlich: „ich will links noch einen schmaleren dritten Kasten
+           haben, wo einfach nur die Punkte stehen … damit sie nicht mehr in
+           den beiden Kaesten stehen muessen."
+           Die Kriterien sind damit aus den beiden Vergleichskaesten
+           verschwunden und stehen genau einmal da.
+
+           EIN gemeinsames Raster ueber alle drei Kaesten. Die Saeulen holen
+           sich die Zeilen des Elternrasters ueber `subgrid` — nur so liegen
+           Kriterium, Estera-Aussage und Marktaussage AUF EINER HOEHE. Drei
+           unabhaengige Kaesten haetten je nach Textlaenge auseinander-
+           laufende Zeilen, und der Vergleich waere nicht mehr lesbar. -->
+      <!-- ZWEI KAESTEN, FUENF STICHPUNKTE (Kundenwunsch 23.08.2026).
+           „Es sollen keine Sätze mehr geschrieben werden, sondern nur noch
+           Punkte … nur fünf Stichpunkte insgesamt. Dann sind die Kästen
+           nicht so hoch."
+           Der fruehere dritte Kasten „Kriterium" ist damit entfallen; die
+           Kriterien standen als eigene Spalte daneben und haben ohne die
+           ausformulierten Saetze keine Aufgabe mehr.
+
+           GESTRICHEN wurde die Zeile „Zeithorizont" (Qualitaet vor
+           Quantitaet gegen Ausrichtung auf die einzelne Transaktion). Sie
+           war von den sechs die schwaechste: inhaltlich ueberschnitt sie
+           sich mit „Eignung", und in Kurzform waere gerade sie am ehesten
+           als Vorwurf zu lesen gewesen.
+
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           KURZFORM IST HEIKLER ALS EIN GANZER SATZ — § 6 UWG
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           „Objekt zuerst, Pruefung danach" liest sich als Vorwurf; der
+           ausformulierte Satz mit „haeufig" tat das nicht. JEDER Stichpunkt
+           der rechten Spalte traegt deshalb weiterhin sein relativierendes
+           Wort — haeufig, vielfach, oft, meist. Ohne dieses Wort wird aus
+           einer Marktbeobachtung eine Behauptung ueber Mitbewerber, und
+           genau das darf sie nicht sein.
+           Wer hier kuerzt, muss diese Woerter stehen lassen.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+           Die Zeilen stehen paarweise auf gleicher Hoehe (subgrid), damit
+           man sie gegeneinander liest. -->
+      <div class="uvz__paar">
+        <section class="uvz__saeule uvz__saeule--estera">
+          <h2 class="uvz__titel">Estera Immobilien</h2>
+          <ul class="uvz__punkte">
+            <li class="uvz__zelle"><span class="uvz__text">Erst geprüft, dann vorgestellt</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Eignung wird vor dem Angebot geklärt</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Lage, Zustand und Zahlen im Vorfeld</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Finanzierung von Anfang an mitgedacht</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Ein Ansprechpartner bis zum Notar</span></li>
+          </ul>
+        </section>
+
+        <section class="uvz__saeule uvz__saeule--markt">
+          <h2 class="uvz__titel">Andere Immobilienanbieter
+            <span>wie am Markt häufig anzutreffen</span>
+          </h2>
+          <ul class="uvz__punkte">
+            <li class="uvz__zelle"><span class="uvz__text">Häufig zuerst das verfügbare Objekt</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Vielfach beginnt es beim Angebot</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Lagebewertung oft beim Käufer selbst</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Meist ein getrennter Schritt</span></li>
+            <li class="uvz__zelle"><span class="uvz__text">Zuständigkeiten wechseln häufig</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         HIER STAND EIN SICHTBARER RELATIVIERENDER HINWEIS. WORTLAUT:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           „Die rechte Spalte beschreibt eine allgemeine Marktbeobachtung.
+            Sie bezieht sich auf kein bestimmtes Unternehmen und enthält
+            keine Aussage über einzelne Anbieter."
+
+         Entfernt am 23.08.2026 auf ausdruecklichen Kundenwunsch: „Den Text
+         ‚Die rechte Spalte beschreibt eine allgemeine Marktbeobachtung…'
+         musst du entfernen."
+
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         DAMIT TRAGEN DIE FORMULIERUNGEN DER RECHTEN SPALTE ALLEIN.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         Der Hinweis war die zweite Absicherung neben den relativierenden
+         Woertern in den Stichpunkten. Sie ist weg — die erste muss deshalb
+         umso genauer sitzen. Wer an den fuenf Punkten der rechten Spalte
+         etwas aendert, muss „haeufig", „vielfach", „oft" beziehungsweise
+         „meist" darin stehen lassen. Ohne sie wird aus der Marktbeobachtung
+         eine Behauptung ueber Mitbewerber.
+         Dieselbe Handhabung wie bei der Bankenleiste der Startseite:
+         sichtbar entfernt, im Quelltext festgehalten.
+         Siehe auch den Pruefvermerk zu § 6 UWG am Kopf dieses Abschnitts.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     02 · UNSER ABLAUF   (Masterbriefing S.9 Schritte 1–6; S.6/S.7; S.4)
+
+     Der Abschnitt, der von Linien lebt: sechs Kaesten untereinander, jeder
+     mit dem naechsten durch eine Haarlinie mit Ring verbunden. Die
+     Verbindungen zeichnen sich beim Erscheinen ueber stroke-dashoffset —
+     dasselbe Muster, das site.js schon fuer die Startseite haelt
+     ([data-lines]). Ein SVG je Verbindung, fest vermasst; eine
+     durchgehende Linie ueber die ganze Kette muesste die Hoehe der
+     Textbloecke kennen und waere nach jedem Umbruch falsch.
+
+     ANORDNUNG: zweispaltig. Der Kopf steht links und bleibt beim Rollen
+     stehen, die Kette laeuft rechts durch. Das ist der Rhythmuswechsel
+     gegenueber Abschnitt 1 und fuellt zugleich die Flaeche, die auf einem
+     breiten Schirm sonst leer bliebe.
+
+     AENDERUNGEN VOM 23.08.2026 (Kundenwunsch)
+       · „02" und „Arbeitsweise" entfallen — es bleibt „Unser Ablauf".
+       · Der Grund ist klassisch WEISS. Die Klasse sp-band--cool ist
+         deshalb weg; der Rhythmus der Untergruende der Seite lautet jetzt
+         weiss, weiss, weiss, navy, weiss, kuehl.
+       · Die Unterzeile steht deutlich groesser und fuellt sich beim
+         Scrollen Wort fuer Wort — dasselbe Verfahren wie das Zitat der
+         Trustleiste auf der Startseite. Es ist NICHT neu geschrieben:
+         assets/js/ueber.js uebernimmt die Geometrie aus
+         assets/js/vertrauen.js. Jedes Wort steht in einem eigenen <span>.
+       · Die Schritt-fuer-Schritt-Animation bleibt unveraendert — der Kunde
+         nennt sie ausdruecklich „sehr, sehr schön".
+       · Jeder Schrittkasten traegt oben rechts ein Symbol und eine leichte
+         goldene Umrandung.
+       · Am Anfang des Abschnitts liegt ein blass ausgeblendetes
+         Immobilienbild, Machart aus assets/css/prinzip.css.
+     ===================================================================== -->
+<section class="sp-band ue-band-luft ue-ziel uab-band" id="ablauf" aria-labelledby="ue-h-ablauf" data-uab>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       DAS AUSGEBLENDETE BILD AM ABSCHNITTSANFANG
+       Machart wortgleich aus assets/css/prinzip.css, `.vt__rand--links img`:
+       Graustufe, aufgehellt, im Kontrast zurueckgenommen, entsaettigt, dazu
+       zwei Masken, die sich schneiden. Hier laeuft die Maske nach UNTEN aus
+       — das Bild soll verschwunden sein, sobald der Text des Ablaufs
+       darueberlaeuft.
+
+       DAS BILD IST VORHANDEN UND NICHT NEU ERZEUGT: assets/img/haus-quer.jpg,
+       eine Gruenderzeitfassade im Querformat. fassade-vert.jpg und
+       vertrauen-haus.jpg sind auf der Startseite belegt und bleiben es.
+
+       aria-hidden und leeres alt: das Bild traegt keine Information, die
+       nicht im Text steht. `loading=lazy` und feste Masse, damit beim
+       Nachladen nichts springt.
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <span class="uab__bild" aria-hidden="true">
+    <img src="assets/img/haus-quer.jpg" alt="" width="1712" height="1140"
+         loading="lazy" decoding="async">
+  </span>
+
+  <div class="sp-band__inner ue-weit ue-zwei">
+
+    <div class="ue-zwei__halt" data-reveal>
+      <div class="ue-kopf">
+        <h2 class="ue-kopf__h2" id="ue-h-ablauf">Unser Ablauf</h2>
+
+        <!-- DIE FUELLUNG.
+             Jedes Wort in einem eigenen <span data-uab-wort>. Der
+             Grundzustand ist VOLL gefuellt; die blasse Lage schaltet allein
+             assets/js/ueber.js ueber `data-uab-fuellen` ein. Ohne Javascript,
+             in alten Browsern und bei prefers-reduced-motion steht der Satz
+             also vollstaendig da — er kann nicht blass haengenbleiben.
+             Der ungefuellte Zustand ist ausdruecklich LESBAR (--ink-mute,
+             5,20:1 auf Weiss) und nicht bloss angedeutet. -->
+        <p class="ue-kopf__lead uab__lead">
+          <span class="uab__wort" data-uab-wort>Vom</span>
+          <span class="uab__wort" data-uab-wort>Ersttermin</span>
+          <span class="uab__wort" data-uab-wort>bis</span>
+          <span class="uab__wort" data-uab-wort>zum</span>
+          <span class="uab__wort" data-uab-wort>Notar</span>
+          <span class="uab__wort" data-uab-wort>folgt</span>
+          <span class="uab__wort" data-uab-wort>die</span>
+          <span class="uab__wort" data-uab-wort>Zusammenarbeit</span>
+          <span class="uab__wort" data-uab-wort>einem</span>
+          <span class="uab__wort" data-uab-wort>klaren</span>
+          <span class="uab__wort" data-uab-wort>Ablauf.</span>
+          <span class="uab__wort" data-uab-wort>Jeder</span>
+          <span class="uab__wort" data-uab-wort>Schritt</span>
+          <span class="uab__wort" data-uab-wort>setzt</span>
+          <span class="uab__wort" data-uab-wort>den</span>
+          <span class="uab__wort" data-uab-wort>vorherigen</span>
+          <span class="uab__wort" data-uab-wort>voraus</span>
+          <span class="uab__wort" data-uab-wort>–</span>
+          <span class="uab__wort" data-uab-wort>übersprungen</span>
+          <span class="uab__wort" data-uab-wort>wird</span>
+          <span class="uab__wort" data-uab-wort>keiner.</span>
+        </p>
+
+        <p class="sp-vorbehalt">
+          Kapitalanlageimmobilien sind langfristige Investitionen.
+          Wertentwicklung, Vermietbarkeit und steuerliche Wirkung hängen vom
+          Einzelfall ab und können nicht zugesichert werden.
+        </p>
+      </div>
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         DIE SECHS SYMBOLE DER SCHRITTE
+         Einmal abgelegt, per <use> geholt. Feine Navy-Konturzeichnung auf
+         24er-Raster, Strichstaerke 1.1, runde Enden und Ecken — dieselbe
+         Formensprache wie die Symbole in #leistungen der Startseite
+         (assets/css/auswahl.css, „Die Symbole"). Kein Kasten darum.
+
+         DREI SIND WOERTLICH UEBERNOMMEN und nicht neu gezeichnet: das
+         Sprechblasenpaar (Erstgespraech), die Lupe mit Haus (Objektsuche)
+         und das Bankgebaeude (Finanzierung) stehen so bereits im Sprite der
+         Leistungsgrafik. Sie waren abgenommen; es gibt keinen Grund, sie
+         ein zweites Mal zu erfinden.
+         DREI SIND NEU, weil es fuer diese Schritte dort keine Entsprechung
+         gab: Klemmbrett (Ersteinschaetzung), Blatt mit Kennzahlen
+         (Objektvorstellung) und Siegel (Notar). Sie halten Raster,
+         Strichstaerke und Rundungen der uebrigen ein.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <svg class="uab__sprite" aria-hidden="true" focusable="false" width="0" height="0">
+      <symbol id="uab-i-erst" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 6.4A1.8 1.8 0 0 1 4.6 4.6h9.6a1.8 1.8 0 0 1 1.8 1.8v4.8a1.8 1.8 0 0 1-1.8 1.8H8l-3.6 2.7v-2.7a1.8 1.8 0 0 1-1.6-1.8z"/><path d="M19 9.6a1.8 1.8 0 0 1 1.8 1.8v4.4a1.8 1.8 0 0 1-1.8 1.8v2.4l-3.2-2.4h-4.4"/></g>
+      </symbol>
+      <symbol id="uab-i-einschaetz" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 4.4H6.2a1.8 1.8 0 0 0-1.8 1.8v13a1.8 1.8 0 0 0 1.8 1.8h11.6a1.8 1.8 0 0 0 1.8-1.8v-13a1.8 1.8 0 0 0-1.8-1.8h-2.2"/><rect x="8.4" y="2.6" width="7.2" height="3.6" rx="1.2"/><path d="M8 11.4h8M8 14.6h8M8 17.8h5"/></g>
+      </symbol>
+      <symbol id="uab-i-suche" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.4" cy="10.4" r="6.6"/><path d="m15.3 15.3 5.4 5.4"/><path d="m7.4 11.1 3-2.6 3 2.6"/><path d="M8.4 10.4v3.4h4v-3.4"/></g>
+      </symbol>
+      <symbol id="uab-i-vorstell" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13.6 2.8H6.6a1.8 1.8 0 0 0-1.8 1.8v13.8a1.8 1.8 0 0 0 1.8 1.8h10.8a1.8 1.8 0 0 0 1.8-1.8V8z"/><path d="M13.6 2.8V8h5.6"/><path d="M8.2 13.6v3.4M11.4 11.4v5.6M14.6 14.8v2.2"/></g>
+      </symbol>
+      <symbol id="uab-i-finanz" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 9.6 12 4.4l9.2 5.2"/><path d="M4.8 10.2v8.2M9.2 10.2v8.2M14.8 10.2v8.2M19.2 10.2v8.2"/><path d="M2.6 20.6h18.8"/></g>
+      </symbol>
+      <symbol id="uab-i-notar" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.2"/><path d="m9.4 9.2 1.8 1.8 3.4-3.4"/><path d="M8.6 13.6 7.2 21l4.8-2.4 4.8 2.4-1.4-7.4"/></g>
+      </symbol>
+    </svg>
+
+    <ol class="ue-kette ue-staffel" data-reveal>
+
+      <li class="ue-glied" style="--d:0">
+        <article class="ue-kasten uab__kasten">
+          <span class="uab__sym" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><use href="#uab-i-erst"/></svg>
+          </span>
+          <p class="ue-kasten__nr">Schritt 01</p>
+          <h3 class="ue-kasten__h">Erstgespräch</h3>
+          <p class="ue-kasten__t">
+            Kennenlernen und gegenseitige Prüfung: Passt Estera zum Interessenten
+            – und passt der Interessent zum Ansatz von Estera? Welche Ziele,
+            Erwartungen und zeitlichen Vorstellungen bestehen?
+          </p>
+          <p class="ue-kasten__kern">
+            Hier fällt auch die Frage, ob eine Kapitalanlageimmobilie
+            grundsätzlich sinnvoll ist – oder ob aktuell ein anderer Schritt
+            vernünftiger wäre.
+          </p>
+        </article>
+        <!-- Die Verbindung zum naechsten Schritt. aria-hidden: sie traegt
+             keine Information, die nicht schon in der Reihenfolge der
+             Liste steht. -->
+        <span class="ue-band" aria-hidden="true">
+          <svg data-lines viewBox="0 0 24 72" width="24" height="72" fill="none" focusable="false">
+            <path d="M12 0 V31.5"/>
+            <path class="ue-band__ring" d="M16.5 36 A4.5 4.5 0 1 1 7.5 36 A4.5 4.5 0 1 1 16.5 36"/>
+            <path d="M12 40.5 V72"/>
+          </svg>
+        </span>
+      </li>
+
+      <li class="ue-glied" style="--d:130">
+        <article class="ue-kasten uab__kasten">
+          <span class="uab__sym" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><use href="#uab-i-einschaetz"/></svg>
+          </span>
+          <p class="ue-kasten__nr">Schritt 02</p>
+          <h3 class="ue-kasten__h">Ersteinschätzung</h3>
+          <p class="ue-kasten__t">
+            Wenn das Konzept sinnvoll wirkt, folgt eine erste strukturierte
+            Einordnung: finanzielle Ausgangssituation, mögliche Finanzierbarkeit,
+            Ziele, gewünschte Regionen oder Objekteigenschaften und die
+            persönlichen Präferenzen.
+          </p>
+        </article>
+        <span class="ue-band" aria-hidden="true">
+          <svg data-lines viewBox="0 0 24 72" width="24" height="72" fill="none" focusable="false">
+            <path d="M12 0 V31.5"/>
+            <path class="ue-band__ring" d="M16.5 36 A4.5 4.5 0 1 1 7.5 36 A4.5 4.5 0 1 1 16.5 36"/>
+            <path d="M12 40.5 V72"/>
+          </svg>
+        </span>
+      </li>
+
+      <li class="ue-glied" style="--d:260">
+        <article class="ue-kasten uab__kasten">
+          <span class="uab__sym" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><use href="#uab-i-suche"/></svg>
+          </span>
+          <p class="ue-kasten__nr">Schritt 03</p>
+          <h3 class="ue-kasten__h">Passende Objektsuche</h3>
+          <p class="ue-kasten__t">
+            Auf Basis der Ersteinschätzung sucht Estera nicht irgendein
+            verfügbares Objekt, sondern eine Kapitalanlageimmobilie, die zur
+            Situation, zur Finanzierung und zu den eingebrachten Präferenzen
+            passt.
+          </p>
+        </article>
+        <span class="ue-band" aria-hidden="true">
+          <svg data-lines viewBox="0 0 24 72" width="24" height="72" fill="none" focusable="false">
+            <path d="M12 0 V31.5"/>
+            <path class="ue-band__ring" d="M16.5 36 A4.5 4.5 0 1 1 7.5 36 A4.5 4.5 0 1 1 16.5 36"/>
+            <path d="M12 40.5 V72"/>
+          </svg>
+        </span>
+      </li>
+
+      <li class="ue-glied" style="--d:390">
+        <article class="ue-kasten uab__kasten">
+          <span class="uab__sym" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><use href="#uab-i-vorstell"/></svg>
+          </span>
+          <p class="ue-kasten__nr">Schritt 04</p>
+          <h3 class="ue-kasten__h">Objektvorstellung</h3>
+          <p class="ue-kasten__t">
+            Der Kunde erhält die konkreten Zahlen, Daten und Fakten: Lage,
+            Objekt, Kaufpreis, Miete, Kosten, Finanzierungsszenario und die
+            relevanten Unterlagen.
+          </p>
+          <p class="ue-kasten__kern">
+            Hier wird auch verständlich, aus welchen Bestandteilen sich der
+            eigene finanzielle Beitrag ergeben kann.
+          </p>
+        </article>
+        <span class="ue-band" aria-hidden="true">
+          <svg data-lines viewBox="0 0 24 72" width="24" height="72" fill="none" focusable="false">
+            <path d="M12 0 V31.5"/>
+            <path class="ue-band__ring" d="M16.5 36 A4.5 4.5 0 1 1 7.5 36 A4.5 4.5 0 1 1 16.5 36"/>
+            <path d="M12 40.5 V72"/>
+          </svg>
+        </span>
+      </li>
+
+      <li class="ue-glied" style="--d:520">
+        <article class="ue-kasten uab__kasten">
+          <span class="uab__sym" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><use href="#uab-i-finanz"/></svg>
+          </span>
+          <p class="ue-kasten__nr">Schritt 05</p>
+          <h3 class="ue-kasten__h">Finanzierung</h3>
+          <p class="ue-kasten__t">
+            Über ein spezialisiertes Netzwerk wird die Finanzierung im aktuellen
+            Marktumfeld geprüft und mit dem Ziel strukturiert, eine tragfähige
+            Gesamtlösung zu erreichen.
+          </p>
+          <p class="ue-kasten__kern">
+            Die endgültige Entscheidung und die Kondition liegen bei den
+            jeweiligen Finanzierungspartnern.
+          </p>
+        </article>
+        <span class="ue-band" aria-hidden="true">
+          <svg data-lines viewBox="0 0 24 72" width="24" height="72" fill="none" focusable="false">
+            <path d="M12 0 V31.5"/>
+            <path class="ue-band__ring" d="M16.5 36 A4.5 4.5 0 1 1 7.5 36 A4.5 4.5 0 1 1 16.5 36"/>
+            <path d="M12 40.5 V72"/>
+          </svg>
+        </span>
+      </li>
+
+      <!-- Letztes Glied: keine Verbindung. Die Kette endet beim Notar —
+           und alles, was danach kommt, steht im Kasten selbst. -->
+      <li class="ue-glied" style="--d:650">
+        <article class="ue-kasten uab__kasten">
+          <span class="uab__sym" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><use href="#uab-i-notar"/></svg>
+          </span>
+          <p class="ue-kasten__nr">Schritt 06</p>
+          <h3 class="ue-kasten__h">Notar und Begleitung</h3>
+          <p class="ue-kasten__t">
+            Nach erfolgreicher Finanzierung begleitet Estera die nächsten
+            Schritte bis zum Notartermin und hält den Ablauf für den Kunden
+            strukturiert.
+          </p>
+          <p class="ue-kasten__kern">
+            Welche Unterstützung nach dem Kauf konkret übernommen wird, ist Teil
+            der Absprache im Einzelfall.
+          </p>
+        </article>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     03 · UNSERE GESCHAEFTSFUEHRER   (Kundenwunsch; Namen und Funktion aus
+     der Versionsgeschichte, Commit 0d08ef6)
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ZITATE SIND VORSCHLAEGE UND NICHT FREIGEGEBEN
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Gesichert sind die beiden NAMEN und die FUNKTION: Sebastian Meilbeck
+     und Ioannis Orfanidis sind Geschaeftsfuehrer der Estera GmbH.
+     NICHT gesichert ist der Wortlaut der beiden Zitate. Er ist ein
+     Vorschlag von uns und war schon in der frueheren Fassung so
+     gekennzeichnet: „der Wortlaut ist noch nicht gesprochen und muss von
+     Estera freigegeben werden."
+     Der sichtbare Vermerk unter jedem Zitat bleibt stehen, bis Estera den
+     Wortlaut bestaetigt hat. Erst dann darf er entfernt werden — nicht
+     vorher, und nicht „weil es sonst unfertig aussieht".
+
+     OHNE BILDER — ausdruecklicher Kundenwunsch. Die frueheren Portraits
+     (assets/img/gf-*.jpg) bleiben draussen. Getragen wird der Abschnitt
+     von Typografie; als Zeichen steht ein Ring mit den Initialen. Er ist
+     eine Kontur, kein Fotoplatzhalter, und er ist aria-hidden, weil der
+     Name unmittelbar daneben steht.
+
+     ABWEICHUNG VOM MASTERBRIEFING: S.2, S.17 und S.19 untersagen
+     Gruenderportraits und Personenmarke. Dieser Abschnitt steht auf
+     ausdruecklichen Kundenwunsch und weicht davon bewusst ab. Er bleibt
+     dabei so knapp wie moeglich: zwei Namen, zwei Funktionen, zwei Saetze
+     — keine Lebenslaeufe, keine Werdegaenge, keine Bilder.
+     ===================================================================== -->
+<section class="sp-band ue-band-luft ue-ziel" id="geschaeftsfuehrer" aria-labelledby="ue-h-gf">
+  <div class="sp-band__inner ue-weit">
+
+    <!-- ENTFALLEN am 23.08.2026 auf Kundenwunsch: die Kleinzeile mit „03"
+         und „Geschäftsführung". Es bleibt allein die Ueberschrift. -->
+    <div class="ue-kopf ue-kopf--mitte" data-reveal>
+      <h2 class="ue-kopf__h2" id="ue-h-gf">Unsere Geschäftsführer</h2>
+      <p class="ue-kopf__lead">
+        Die Estera GmbH wird von zwei Geschäftsführern geführt.
+      </p>
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         OHNE KAESTEN (Kundenwunsch 23.08.2026)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         „Es sollen keine Kästen mehr vorhanden sein … Die Kasten-Optik soll
+         komplett weg sein." Keine Kontur, keine Fuellung, kein Schatten.
+         Der Abschnitt steht frei auf Weiss und wird allein von Typografie
+         und den beiden Portraits getragen.
+         Die Initialen SM und IO sind ersatzlos entfallen — sie waren der
+         Ersatz fuer die fehlenden Bilder, und den gibt es jetzt nicht mehr.
+
+         SPIEGELBILDLICH IN EINER REIHE:
+
+             [ Bild Meilbeck ] [ Text ]   [ Text ] [ Bild Orfanidis ]
+
+         Aussen die Bilder, innen die Texte. Die Reihenfolge im Quelltext
+         ist zugleich die Vorlesereihenfolge und stimmt mit der Darstellung
+         ueberein — es wird nichts per CSS umsortiert.
+
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         ZUORDNUNG NICHT BESTAETIGT. Welches Portrait zu welchem Namen
+         gehoert, hat Estera nie bestaetigt; die Reihenfolge ist aus einer
+         frueheren Sitzung uebernommen. VOR DER VEROEFFENTLICHUNG PRUEFEN —
+         eine falsch beschriftete Person ist kein Schoenheitsfehler.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+         DIE QUELLEN SIND QUADRATISCH (840 zu 840) und stehen in einem
+         HOCHFORMATIGEN Rahmen (4:5) mit `object-fit: cover`. Damit wird
+         ausschliesslich SEITLICH beschnitten. Ein querformatiger Rahmen
+         wuerde oben schneiden — die Koepfe sitzen dicht an der Oberkante,
+         und genau dieser Fehler ist schon zweimal beanstandet worden.
+         NICHT auf ein Querformat aendern.
+
+         DIE BREITE IST GEDECKELT. Die Vorlagen sind stark komprimiert und
+         auf 840 px hochgerechnet; oberhalb von rund 420 CSS-px werden
+         Artefakte sichtbar, besonders in den Locken von gf-2. Der Rahmen
+         geht deshalb nicht ueber 400 px hinaus, auch wenn die Spalte mehr
+         hergaebe. Lieber etwas Luft als ein unscharfes Portrait.
+
+         Die Zitate bleiben wortgleich und behalten ihren Freigabevermerk. -->
+    <div class="ugf ue-staffel" data-reveal>
+
+      <figure class="ugf__bild">
+        <picture>
+          <source srcset="assets/img/gf-1.webp" type="image/webp">
+          <img src="assets/img/gf-1.jpg" alt="" width="840" height="840"
+               loading="lazy" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="ugf__text">
+        <h3 class="ugf__name">Sebastian Meilbeck</h3>
+        <p class="ugf__rolle">Geschäftsführer der Estera GmbH</p>
+        <blockquote class="ugf__zitat">
+          <p>
+            „Eine Kapitalanlageimmobilie wird bei uns zuerst geprüft und dann
+            vorgestellt — nicht umgekehrt. Bis zum Termin beim Notar bleibt
+            derselbe Ansprechpartner zuständig.“
+          </p>
+        </blockquote>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             VORSCHLAG — DER WORTLAUT IST NOCH NICHT GESPROCHEN UND MUSS VON
+             ESTERA FREIGEGEBEN WERDEN.
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             Dieser Hinweis stand bis zum 23.08.2026 SICHTBAR unter dem
+             Zitat. Auf Kundenwunsch ist er von der Seite verschwunden —
+             der Vorbehalt selbst ist damit NICHT erledigt. Das Zitat
+             stammt aus einer frueheren Sitzung und ist bis heute nicht
+             bestaetigt. Es darf nicht als Aussage der Person behandelt
+             werden, solange Estera es nicht freigegeben hat.
+             Dieselbe Handhabung wie bei der Bankenleiste der Startseite:
+             sichtbar entfernt, im Quelltext festgehalten. -->
+      </div>
+
+      <div class="ugf__text">
+        <h3 class="ugf__name">Ioannis Orfanidis</h3>
+        <p class="ugf__rolle">Geschäftsführer der Estera GmbH</p>
+        <blockquote class="ugf__zitat">
+          <p>
+            „Off-Market-Objekte findet man nicht über eine Suchmaske, sondern
+            über Beziehungen, die über Jahre gewachsen sind. Damit daraus etwas
+            wird, muss die Finanzierung von Anfang an mitgedacht sein.“
+          </p>
+        </blockquote>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             VORSCHLAG — DER WORTLAUT IST NOCH NICHT GESPROCHEN UND MUSS VON
+             ESTERA FREIGEGEBEN WERDEN.
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             Dieser Hinweis stand bis zum 23.08.2026 SICHTBAR unter dem
+             Zitat. Auf Kundenwunsch ist er von der Seite verschwunden —
+             der Vorbehalt selbst ist damit NICHT erledigt. Das Zitat
+             stammt aus einer frueheren Sitzung und ist bis heute nicht
+             bestaetigt. Es darf nicht als Aussage der Person behandelt
+             werden, solange Estera es nicht freigegeben hat.
+             Dieselbe Handhabung wie bei der Bankenleiste der Startseite:
+             sichtbar entfernt, im Quelltext festgehalten. -->
+      </div>
+
+      <figure class="ugf__bild">
+        <picture>
+          <source srcset="assets/img/gf-2.webp" type="image/webp">
+          <img src="assets/img/gf-2.jpg" alt="" width="840" height="840"
+               loading="lazy" decoding="async">
+        </picture>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     04 · WERDEN SIE TEIL UNSERES TEAMS
+     (Masterbriefing S.19 „KARRIERE-AUSSAGE"; S.5; Kundenwunsch 22.08.2026)
+
+     HIER LANDET DER KOPFEINTRAG „KARRIERE". Deshalb traegt der Abschnitt
+     die Sprungmarke #karriere und — wie alle sechs — den Zuschlag
+     scroll-margin-top aus ueber.css. Ohne ihn verschwaende die Ueberschrift
+     unter der bis zu 104 px hohen Kopfleiste.
+
+     DER EINE DUNKLE MOMENT DER SEITE. Das Briefing erlaubt dunkle
+     Vollflaechen „nur als bewusste Spannungsmomente" (S.20). Dieser ist
+     begruendet: an genau dieser Stelle wechselt die Seite von „Über
+     Estera" zu „Karriere", und dieser Wechsel braucht eine sichtbare Naht.
+     Es bleibt bei EINEM dunklen Band — die Fusszeile ist ohnehin navy.
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ZUR BRIEFING-QUELLE: S.19 lautet wortgetreu „Die Karriereseite soll
+     zeigen, dass Estera langfristig waechst, ohne ein nicht vorhandenes
+     Team oder eine grosse Arbeitgeberwelt zu simulieren." Der im Auftrag
+     zitierte Wortlaut „Wir bauen Estera langfristig auf" steht so NICHT im
+     Masterbriefing. Uebernommen ist deshalb die belegte Fassung. Die
+     KARRIERE-AUSSAGE („Wir suchen Menschen, die Verantwortung
+     uebernehmen…") ist dagegen wortgleich uebernommen.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     WAS HIER NICHT STEHT, IST ABSICHT: kein Gehalt, keine Zahl offener
+     Stellen, keine Benefits, kein Firmenwagen, keine „flachen
+     Hierarchien". S.19 untersagt „lange Benefit-Liste, Mitarbeiterportraits
+     ohne reale Mitarbeiter und Start-up-Floskeln" ausdruecklich.
+     ===================================================================== -->
+<section class="sp-band ue-band-luft ue-ziel ukar-band" id="karriere" aria-labelledby="ue-h-karriere">
+  <div class="sp-band__inner ue-weit ue-team">
+
+    <div data-reveal>
+      <!-- ENTFALLEN am 23.08.2026 auf Kundenwunsch: die Kleinzeile mit „04"
+           und „Karriere" ueber der Ueberschrift. Es steht nur noch „Werden
+           Sie Teil unseres Teams." Der Grund des Abschnitts ist damit
+           zugleich von Navy auf Weiss gewechselt — der dunkle Moment der
+           Seite ist entfallen. -->
+      <div class="ue-kopf">
+        <h2 class="ue-kopf__h2" id="ue-h-karriere">
+          Werden Sie Teil unseres Teams.
+          <span class="accent">Entdecken Sie Ihren Arbeitsplatz.</span>
+        </h2>
+        <p class="ue-kopf__lead">
+          Estera wächst langfristig – als Unternehmen, nicht auf den nächsten
+          Abschluss hin. Wir suchen Menschen, die Verantwortung übernehmen,
+          hohe Ansprüche an ihre Arbeit stellen und gemeinsam mit uns eine
+          neue Generation der Immobilienberatung aufbauen möchten.
+        </p>
+      </div>
+
+      <ul class="ue-punkte">
+        <li>
+          Beratung heißt hier: einordnen, auswählen, prüfen, aufbereiten,
+          koordinieren, begleiten.
+        </li>
+        <li>
+          Jeder Schritt hat einen Namen dahinter – vom Ersttermin bis zum
+          Notar bleibt derselbe Ansprechpartner zuständig.
+        </li>
+        <li>
+          Qualität vor Quantität. Auch ein Nein gegenüber einem Interessenten
+          gehört zur Arbeit.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         BILD FEHLT — EINE ECHTE AUFNAHME IST ZU LIEFERN
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         Hier stand bis zum 23.08.2026 ein maschinell erzeugtes Bild
+         (assets/img/karriere-team.*): die echten Gesichter der beiden
+         Geschaeftsfuehrer, montiert in einen erzeugten Besprechungsraum.
+         Der Kunde hat es abgelehnt. Die Datei liegt weiter auf der Platte,
+         ist aber NICHT mehr eingebunden — sie darf ohne neue Freigabe auch
+         nicht wieder eingebunden werden.
+
+         VORGESEHEN IST EINE ECHTE AUFNAHME der beiden Geschaeftsfuehrer.
+         Bis sie vorliegt, steht hier ein sichtbarer Platzhalter statt eines
+         Behelfs — ein erzeugtes Bild, das echt aussehen soll, ist auf einer
+         Unternehmensseite das groessere Risiko als eine ehrliche Luecke.
+
+         DAS SEITENVERHAELTNIS STEHT SCHON JETZT FEST (aspect-ratio an
+         .ukar__flaeche in ueber.css): 3:2. Beim Austausch wird nur das
+         <img> eingesetzt — die Hoehe des Abschnitts aendert sich dadurch um
+         keinen Pixel. -->
+    <figure class="ue-platz ukar__bild" data-reveal style="--d:180">
+      <div class="ukar__flaeche ukar__flaeche--leer">
+        <span class="ue-platz__marke">Bild folgt von Estera</span>
+        <figcaption class="ue-platz__text">
+          Platzhalter für eine Aufnahme der beiden Geschäftsführer.
+        </figcaption>
+      </div>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     05 · OFFENE STELLEN
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     HIER FEHLT INHALT VON ESTERA
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Der Kunde hat GENAU EINEN Satz geliefert: „Es werden Berater gesucht."
+     Deshalb steht hier genau eine Position — ohne Zahl, ohne Gehalt, ohne
+     Standort, ohne Anstellungsart. All das ist nicht geliefert (Briefing
+     S.21 fuehrt „Aktuelle oder moegliche Rollen, Bewerbungsweg und
+     Empfaenger fuer Lebenslaeufe" unter den offenen Inhalten) und wird
+     hier auch nicht erfunden. Die fehlenden Angaben stehen als sichtbarer
+     Vermerk in der Eckdatenliste, nicht als leeres Feld.
+
+     WEITERE STELLEN OHNE UMBAU: .ue-stellen ist ein Raster, .ue-stelle die
+     Zeile darin. Eine zweite Stelle ist eine Kopie des <article> — mehr
+     nicht. Bei zwei und mehr Stellen kann in ueber.css eine zweite Spalte
+     ergaenzt werden; bei einer waere sie halb leer.
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     OFFEN: EMPFAENGER FUER BEWERBUNGEN
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Eine eigene Bewerbungsadresse steht nicht im Briefing und wurde bis
+     heute nicht geliefert. Erfunden wird hier keine — eine Adresse wie
+     „karriere@…", die niemand abruft, verliert Bewerbungen lautlos und
+     faellt niemandem auf. Der Knopf fuehrt deshalb auf die Kontaktseite,
+     und daneben steht sichtbar, dass die eigene Adresse noch fehlt.
+
+     KEIN FORMULAR. Das Briefing verlangt auf S.7 ausdruecklich „Kein
+     umfangreiches oeffentliches Qualifikationsformular".
+     ===================================================================== -->
+<section class="sp-band ue-band-luft ue-ziel" id="stellen" aria-labelledby="ue-h-stellen">
+  <div class="sp-band__inner ue-weit">
+
+    <div class="ue-kopf ue-kopf--mitte" data-reveal>
+      <p class="ue-kopf__zeile">
+        <span class="ue-kopf__nr">05</span>
+        <span class="ue-kopf__strich" aria-hidden="true"></span>
+        <span class="kicker">Positionen</span>
+      </p>
+      <h2 class="ue-kopf__h2" id="ue-h-stellen">Offene Stellen</h2>
+      <p class="ue-kopf__lead">
+        Estera schreibt nur aus, wonach tatsächlich gesucht wird.
+      </p>
+    </div>
+
+    <div class="ue-stellen ue-staffel" data-reveal>
+      <article class="ue-kasten ue-stelle" style="--d:0" aria-labelledby="ue-h-berater">
+        <div class="ue-stelle__kopf">
+          <h3 class="ue-stelle__name" id="ue-h-berater">Berater</h3>
+          <p class="ue-stelle__art">Aktuell gesucht</p>
+        </div>
+
+        <p class="ue-kasten__t">
+          Sie begleiten Interessenten vom Erstgespräch bis zum Notartermin:
+          Ausgangssituation einordnen, passende Kapitalanlageimmobilien
+          auswählen, Zahlen, Daten und Fakten aufbereiten, die Finanzierung
+          über das Netzwerk koordinieren und die Beteiligten zusammenführen.
+        </p>
+
+        <dl class="ue-daten">
+          <div>
+            <dt>Standort</dt>
+            <dd><span class="sp-offen">Angabe folgt</span></dd>
+          </div>
+          <div>
+            <dt>Anstellungsart</dt>
+            <dd><span class="sp-offen">Angabe folgt</span></dd>
+          </div>
+          <div>
+            <dt>Vergütung</dt>
+            <dd><span class="sp-offen">Angabe folgt</span></dd>
+          </div>
+          <div>
+            <dt>Eintritt</dt>
+            <dd><span class="sp-offen">Angabe folgt</span></dd>
+          </div>
+        </dl>
+
+        <div class="ue-stelle__weg">
+          <a class="btn" href="kontakt.html">Bewerbung senden</a>
+          <p class="ue-stelle__hinweis">
+            <span class="sp-offen">Bewerbungsadresse folgt</span>
+            <span class="ue-text">
+              Kurz und direkt: Lebenslauf und ein paar Sätze zur Motivation. Ein
+              Anschreiben über drei Seiten braucht es nicht. Eine eigene Adresse
+              für Bewerbungen ist noch nicht festgelegt – bis dahin führt der
+              Weg über die Kontaktseite.
+            </span>
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="sp-luecke" data-reveal>
+      <span class="sp-offen">Weitere Rollen folgen von Estera</span>
+      <p>
+        Genannt ist bisher ausschließlich die Rolle des Beraters. Welche
+        weiteren Bereiche tatsächlich gesucht werden, liegt noch nicht vor.
+        Bis dahin steht hier bewusst keine Liste mit Beispielrollen.
+      </p>
+      <p>
+        Eine Initiativbewerbung ist unabhängig davon jederzeit möglich.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     06 · WARUM MAN BEI ESTERA ARBEITEN SOLLTE
+     (Masterbriefing S.19 „Wenige Saetze zu Arbeitsweise, Verantwortung und
+     Qualitaetsverstaendnis"; S.4; S.7; S.9)
+
+     ALLES ABGELEITET, NICHTS ERFUNDEN. Jeder der vier Gruende steht so
+     oder sinngleich bereits auf dieser Website oder im Briefing. Es sind
+     bewusst KEINE Benefits: kein Firmenwagen, keine flachen Hierarchien,
+     kein Weiterbildungsbudget, keine Teamevents. Nichts davon ist
+     geliefert, und S.19 untersagt die Benefit-Liste ohnehin.
+
+     ANORDNUNG: versetzt. Die rechte Spalte sitzt tiefer als die linke.
+     Das ist der letzte Rhythmuswechsel der Seite und der Grund, warum der
+     Abschluss nicht wie eine Wiederholung von Abschnitt 3 aussieht.
+     ===================================================================== -->
+<section class="sp-band sp-band--cool ue-band-luft ue-ziel" id="warum-arbeiten" aria-labelledby="ue-h-warum-arbeiten">
+  <div class="sp-band__inner ue-weit">
+
+    <div class="ue-kopf" data-reveal>
+      <p class="ue-kopf__zeile">
+        <span class="ue-kopf__nr">06</span>
+        <span class="ue-kopf__strich" aria-hidden="true"></span>
+        <span class="kicker">Arbeiten bei Estera</span>
+      </p>
+      <h2 class="ue-kopf__h2" id="ue-h-warum-arbeiten">
+        Warum man bei Estera arbeiten sollte
+      </h2>
+      <p class="ue-kopf__lead">
+        Vier Gründe, die nicht auf einer Leistungsliste stehen, sondern
+        darauf, wie hier gearbeitet wird.
+      </p>
+    </div>
+
+    <div class="ue-gruende ue-staffel" data-reveal>
+
+      <article class="ue-kasten" style="--d:0">
+        <h3 class="ue-kasten__h">Ein Unternehmen, kein Vertriebskanal</h3>
+        <p class="ue-kasten__t">
+          Estera wird als Unternehmen aufgebaut – nicht auf den nächsten
+          Immobilienabschluss hin.
+        </p>
+        <p class="ue-kasten__kern">
+          Wer hier anfängt, arbeitet an einem Beratungsstandard und nicht an
+          einer Quartalszahl.
+        </p>
+      </article>
+
+      <article class="ue-kasten" style="--d:130">
+        <h3 class="ue-kasten__h">Verantwortung mit Namen</h3>
+        <p class="ue-kasten__t">
+          Jeder Schritt hat einen Menschen dahinter: einordnen, auswählen,
+          prüfen, aufbereiten, koordinieren, begleiten.
+        </p>
+        <p class="ue-kasten__kern">
+          Vom Ersttermin bis zum Notar bleibt derselbe Ansprechpartner
+          zuständig – und hält den Ablauf zusammen.
+        </p>
+      </article>
+
+      <article class="ue-kasten" style="--d:260">
+        <h3 class="ue-kasten__h">Qualität vor Quantität</h3>
+        <p class="ue-kasten__t">
+          Lieber weniger Empfehlungen – dafür Kapitalanlageimmobilien, die
+          den Auswahlprozess wirklich bestehen.
+        </p>
+        <p class="ue-kasten__kern">
+          Wenn Kunde, Finanzierung oder Objekt nicht zusammenpassen, wird kein
+          Abschluss erzwungen. Auch ein Nein gehört zur Arbeit.
+        </p>
+      </article>
+
+      <article class="ue-kasten" style="--d:390">
+        <h3 class="ue-kasten__h">Handwerk statt Verkaufsdruck</h3>
+        <p class="ue-kasten__t">
+          Lagebewertung, Marktanalyse, Zustandsprüfung, wirtschaftliche
+          Einordnung, Finanzierungsstruktur: hier wird gerechnet, bevor
+          gesprochen wird.
+        </p>
+        <p class="ue-kasten__kern">
+          Zahlen, Daten und Fakten werden sauber aufbereitet, bevor sie einem
+          Kunden vorgelegt werden.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     FUSS — unveraendert aus variante-a.html uebernommen.
+     Auch die noch fehlenden Ziele (impressum.html, datenschutz.html,
+     cookies.html, erstinformation.html, partner.html) stehen unveraendert
+     drin: die Fusszeile MUSS auf allen Seiten identisch sein, und diese
+     Seiten sind ohnehin zu bauen. In der Rueckmeldung sind sie aufgelistet.
+     ===================================================================== -->
+<footer class="fuss" id="kontakt">
+  <div class="fuss__inner">
+
+    <div class="fuss__marke">
+      <span class="wordmark">
+        <span class="wordmark__name">ESTERA</span>
+        <span class="wordmark__sub">Immobilien</span>
+      </span>
+      <p class="fuss__anker">Diskret. Strukturiert. Langfristig.</p>
+    </div>
+
+    <div>
+      <p class="fuss__titel">Kontakt</p>
+      <div class="fuss__liste">
+        <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
+        <span>Telefon — folgt</span>
+        <span>Anschrift — folgt</span>
+        <a href="partner.html">Für Partner</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="fuss__titel">Rechtliches</p>
+      <div class="fuss__liste">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="cookies.html">Cookie-Einstellungen</a>
+        <a href="erstinformation.html">Erstinformation</a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="fuss__risiko">
+    Kapitalanlageimmobilien sind langfristige Investitionen. Wertentwicklung,
+    Vermietbarkeit und steuerliche Wirkung hängen vom Einzelfall ab und können
+    nicht zugesichert werden. Diese Website ersetzt keine steuerliche,
+    rechtliche oder finanzielle Beratung.
+  </p>
+
+  <div class="fuss__unten">
+    <span>© 2026 Estera GmbH</span>
+    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     MENÜ-OVERLAY — dieselben Punkte wie in der Kopfleiste.
+     „Karriere" zeigt auch hier auf Abschnitt 4 dieser Seite.
+     ===================================================================== -->
+<nav class="menu" id="hauptmenue" data-menu data-open="false" aria-hidden="true" aria-label="Hauptmenü">
+
+  <div class="menu__bar">
+    <span class="wordmark">
+      <span class="wordmark__name">ESTERA</span>
+      <span class="wordmark__sub">Immobilien</span>
+    </span>
+    <button class="menu__close" type="button" data-menu-close>
+      Schließen
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <line x1="2" y1="2" x2="16" y2="16"></line>
+        <line x1="16" y1="2" x2="2" y2="16"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div class="menu__body">
+    <!-- „Auf dieser Seite" fuehrt hier zu den Abschnitten der STARTSEITE.
+         Die Punkte muessen auf allen Seiten dieselben sein — deshalb bleiben
+         sie stehen und bekommen die Startseite vorangestellt. -->
+    <p class="menu__gruppe">Auf der Startseite</p>
+    <ul class="menu__nav">
+      <li><a class="menu__link" href="variante-a.html#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
+      <li><a class="menu__link" href="variante-a.html#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <li><a class="menu__link" href="variante-a.html#vorteile"><span class="num">03</span> Eigentumsaufbau</a></li>
+    </ul>
+    <p class="menu__gruppe">Seiten</p>
+    <ul class="menu__nav">
+      <li><a class="menu__link" href="ueber-estera.html" aria-current="page"><span class="num">01</span> Über Estera</a></li>
+      <li><a class="menu__link" href="#karriere"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html"><span class="num">03</span> Kontakt</a></li>
+    </ul>
+
+    <aside class="menu__aside">
+      <div>
+        <p class="kicker">Nächster Schritt</p>
+        <p>Ein Erstgespräch klärt zuerst, ob eine Kapitalanlageimmobilie überhaupt zu Ihrer
+           Situation passt. Erst danach sprechen wir über Objekte.</p>
+      </div>
+      <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
+      <div>
+        <p class="kicker">Kontakt</p>
+        <p><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="menu__foot">
+    <span>Diskret. Strukturiert. Langfristig.</span>
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+      <li><a href="cookies.html">Cookie-Einstellungen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Der Varianten-Umschalter der Startseite gehoert hier nicht hin: er ist
+     ein Werkzeug der internen Abstimmung zwischen zwei Startseitenentwuerfen
+     und hat auf einer Unterseite keine Bedeutung. -->
+
+<script src="assets/js/site.js"></script>
+<!-- Muss NACH site.js laufen: die Datei haengt sich an die
+     Schliessen-Schaltflaeche des Menues, die site.js bedient. Begruendung,
+     warum es sie ueberhaupt gibt, steht in der Datei selbst. -->
+<!-- Die Wortfuellung der Unterzeile in Abschnitt 2. Eigene Datei, weil sie
+     allein zu dieser Seite gehoert; das Verfahren ist aus
+     assets/js/vertrauen.js uebernommen und nicht neu erfunden.
+     Reihenfolge ist gleichgueltig — die Datei haengt an nichts aus site.js. -->
+<script src="assets/js/ueber.js"></script>
+</body>
+</html>

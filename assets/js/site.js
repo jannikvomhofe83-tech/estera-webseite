@@ -20,7 +20,7 @@
       el.style.setProperty('--i', i);
     });
 
-    var setMenu = function (state) {
+    var setMenu = function (state, fokusZurueck) {
       menu.setAttribute('data-open', String(state));
       menu.setAttribute('aria-hidden', String(!state));
       document.body.classList.toggle('is-locked', state);
@@ -30,13 +30,33 @@
         lastFocus = document.activeElement;
         var first = menu.querySelector('a, button');
         if (first) setTimeout(function () { first.focus(); }, 420);
-      } else if (lastFocus) {
+      } else if (lastFocus && fokusZurueck !== false) {
         lastFocus.focus();
       }
     };
 
     if (open)  open.addEventListener('click', function () { setMenu(true); });
     if (close) close.addEventListener('click', function () { setMenu(false); });
+
+    /* --- Ein Verweis im Menue schliesst es ---------------------------------
+       ERGAENZT 22.08.2026. Vorher blieb das Overlay offen, wenn man darin
+       einen Verweis anklickte. Bei einem Wechsel auf eine andere Seite fiel
+       das nicht auf — die neue Seite laedt, das Overlay ist ohnehin weg.
+       Bei einer SPRUNGMARKE derselben Seite dagegen schon: der Besucher
+       landet an der richtigen Stelle, sieht aber weiter das Overlay davor.
+       Das betraf auf der Startseite „Vorteile", „Leistungen" und
+       „Eigentumsaufbau", und seit „Karriere" eine Sprungmarke von
+       ueber-estera.html ist, auch dort.
+
+       Der Fokus wandert dabei NICHT auf den Burger zurueck (dritter
+       Parameter `false`). Sonst wuerde der Browser das Menue-Ziel wieder
+       verlassen; der Sprung soll den Fokus dort lassen, wo der Besucher
+       hinwollte. */
+    menu.addEventListener('click', function (e) {
+      var ziel = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!ziel || !menu.contains(ziel)) return;
+      setMenu(false, false);
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menu.getAttribute('data-open') === 'true') setMenu(false);
@@ -321,14 +341,46 @@
      noch nicht. Statt ins Leere zu springen oder eine 404 zu erzeugen,
      werden diese Verweise gesperrt — und automatisch wieder frei, sobald
      das Ziel existiert. Nichts muss dafuer nachgepflegt werden.            */
-  var vorhandeneSeiten = ['index.html', 'variante-a.html'];
+  /* ERGAENZT 22.08.2026 — die drei Unterseiten sind gebaut und gehoeren
+     deshalb in die Liste. Solange sie fehlten, hat diese Sperre sie
+     stillgelegt; ein Agent hatte das uebergangsweise mit einer eigenen
+     Datei assets/js/seiten.js zurueckgenommen, weil er site.js nicht
+     anfassen durfte. Mit diesem Eintrag ist die Kruecke ueberfluessig und
+     wieder entfernt.
+
+     Die Liste bleibt bewusst von Hand gepflegt: sie ist der einzige Ort,
+     an dem steht, welche Seiten es wirklich gibt. Wer eine neue Seite
+     anlegt, traegt sie hier ein — vergisst er es, faellt es sofort auf,
+     weil der Verweis gesperrt bleibt. Das ist die gewollte Richtung des
+     Fehlers: lieber ein toter Knopf als eine 404. */
+  /* GEAENDERT 22.08.2026 — karriere.html ist geloescht. Die Karriere ist
+     jetzt Abschnitt 4 von ueber-estera.html (Kundenwunsch: „eine Seite,
+     die zwei Unterpunkte bleiben"). Stuende der Dateiname hier weiter
+     drin, waere ein Verweis auf eine geloeschte Datei freigeschaltet —
+     also eine 404 statt eines gesperrten Knopfes, und damit genau die
+     Richtung des Fehlers, die diese Liste verhindern soll.
+     Die Kopfeintraege „Karriere" zeigen ab sofort auf
+     `ueber-estera.html#karriere` beziehungsweise, auf der Seite selbst,
+     auf `#karriere`. Beide Formen bestehen die Pruefung unten. */
+  var vorhandeneSeiten = [
+    'index.html', 'variante-a.html',
+    'ueber-estera.html', 'kontakt.html'
+  ];
   Array.prototype.forEach.call(
     document.querySelectorAll('.kopfnav a, .menu__link'),
     function (verweis) {
       var ziel = verweis.getAttribute('href') || '';
+      /* Die Sprungmarke muss vor dem Vergleich weg. Von einer Unterseite aus
+         heissen die Verweise auf die Startseite naemlich
+         `variante-a.html#warum-immobilien` — mit Anhaengsel steht das in
+         keiner Liste, und die Sperre hat dort genau die drei
+         Abschnittsverweise stillgelegt, die funktionieren sollten.
+         Geprueft wird deshalb nur der Dateiname; ob die Sprungmarke auf der
+         Zielseite existiert, kann von hier aus ohnehin niemand wissen. */
+      var datei = ziel.replace('./', '').split('#')[0];
       var fehlt = ziel.charAt(0) === '#'
         ? !document.querySelector(ziel)
-        : vorhandeneSeiten.indexOf(ziel.replace('./', '')) === -1;
+        : vorhandeneSeiten.indexOf(datei) === -1;
       if (!fehlt) return;
       verweis.setAttribute('aria-disabled', 'true');
       verweis.addEventListener('click', function (e) { e.preventDefault(); });

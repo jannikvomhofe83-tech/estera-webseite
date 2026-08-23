@@ -310,7 +310,14 @@ ul, ol { list-style: none; }
 .kopfnav a {
   position: relative;
   display: block;
-  padding: 0.55rem 0;
+  /* 0.72rem statt 0.55rem, korrigiert am 22.08.2026. Die Verweise waren
+     gemessen 39 px hoch — die Zeilenhoehe der 13-px-Schrift plus zweimal
+     8,8 px Innenabstand. Damit lagen sie unter der Mindestgroesse fuer
+     Bedienelemente (44 px). Der Innenabstand traegt die fehlenden 5 px;
+     an Schriftgroesse und Sperrung aendert sich nichts, das Aussehen der
+     Leiste bleibt gleich. Die Kopfhoehe (--header-h, 72–104 px) hat dafuer
+     Platz. */
+  padding: 0.72rem 0;
   font-family: var(--font-display);
   font-size: clamp(0.78rem, 0.85vw, 0.83rem);
   font-weight: 500;
@@ -328,7 +335,10 @@ ul, ol { list-style: none; }
 .kopfnav a::after {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: 0.3rem;
+  /* 0.47rem statt 0.3rem: der Innenabstand ist oben um 0.17rem gewachsen,
+     die Haarlinie wandert denselben Betrag mit, damit ihr Abstand zur
+     Schrift unveraendert bleibt. */
+  left: 0; right: 0; bottom: 0.47rem;
   height: 1px;
   background: var(--line-gold);
   transform: scaleX(0);
