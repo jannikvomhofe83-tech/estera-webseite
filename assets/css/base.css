@@ -243,24 +243,38 @@ ul, ol { list-style: none; }
   border-color: rgba(16, 41, 73, 0.42);
   font-weight: 600;
 }
+/* Ueberfahren: kehrt sich um — Navy-Flaeche, weisse Schrift. 15.51:1. */
 .btn--weiss:hover {
-  background: #FFFFFF;
+  --btn-fg: #FFFFFF;
+  background: var(--navy-800);
   border-color: var(--navy-800);
 }
 
-/* Der Sandknopf — der zweite Knopf im Hero und der Abschluss-Knopf.
-   Navy auf Sand statt Weiß auf Sand: 9.08:1 gegen 1.94:1. Die Kante in
-   --gold, weil die Fläche selbst nur 1.94:1 gegen weißes Papier hält und
-   der Knopf sonst keinen erkennbaren Rand hätte. Herleitung im Farbblock
-   ganz oben. */
+/* Der Sandknopf — der Haupt-Knopf im Hero und der Abschluss-Knopf.
+
+   SCHRIFT IN WEISS, auf ausdrücklichen Kundenwunsch vom 24.08.2026 und
+   damit wie auf der Referenzseite. Der gemessene Wert dafür ist 1.94:1.
+   Die Anforderung liegt bei 4.5:1, für große Schrift bei 3:1 — beides ist
+   damit deutlich unterschritten, und zwar nicht knapp. Navy auf demselben
+   Sand hätte 9.08:1 ergeben; das stand hier bis heute.
+   Wer den Wert reparieren will, hat zwei Wege: Schrift zurück auf
+   var(--navy-900), oder die Fläche auf einen dunkleren Sand ziehen — bei
+   #8A6134 trüge Weiß 4.51:1, dann ist es aber sichtbar nicht mehr die
+   Farbe der Referenz.
+
+   Die Kante in --gold, weil die Fläche selbst nur 1.94:1 gegen weißes
+   Papier hält und der Knopf sonst keinen erkennbaren Rand hätte. */
 .btn--sand {
-  --btn-fg: var(--navy-900);
+  --btn-fg: #FFFFFF;
   --btn-bg: var(--sand);
   border-color: var(--gold);
   font-weight: 600;
 }
+/* Ueberfahren: kehrt sich um — weisse Flaeche, schwarze Schrift. 13.60:1,
+   der Knopf wird beim Anfahren also deutlich besser lesbar als in Ruhe. */
 .btn--sand:hover {
-  background: var(--sand-tief);
+  --btn-fg: var(--ink-black);
+  background: #FFFFFF;
   border-color: var(--gold);
 }
 

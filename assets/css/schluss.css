@@ -578,15 +578,19 @@
    Signalfarben entwerten einander: keine von beiden heisst dann noch
    „hier entlang". Der Knopf nimmt deshalb denselben Sandton.
    Die Gelb-Token sind entfallen; sie stehen in der Versionsgeschichte. */
+/* Nur noch die GROESSE. Farbe, Kante und das Verhalten beim Ueberfahren
+   holt sich der Knopf jetzt aus .btn--sand in base.css — dieselbe
+   Ausfuehrung wie der Haupt-Knopf im Hero.
+
+   VORHER WAR HIER EIN FEHLER, gefunden beim Nachmessen am 24.08.2026:
+   die Regel setzte beim Ueberfahren nur `--btn-bg` um. Die Grundregel
+   `.btn:hover` setzt aber `background` DIREKT, und eine direkte Angabe
+   schlaegt eine, die erst ueber eine Variable laeuft. Der Knopf wurde
+   dadurch beim Ueberfahren navy — mit navyfarbener Schrift darauf.
+   Gemessen 1.00:1, also schlicht unsichtbar. Das galt schon fuer die
+   gelbe Fassung davor und ist niemandem aufgefallen, weil man den Zustand
+   nur sieht, solange die Maus daraufsteht. */
 .cta .btn {
-  --btn-fg: var(--navy-900);
-  --btn-bg: var(--sand);
   min-height: 3.6rem;
   padding-inline: clamp(1.8rem, 4vw, 2.6rem);
-  border-color: var(--gold);
-  font-weight: 600;
-}
-.cta .btn:hover {
-  --btn-bg: var(--sand-tief);
-  border-color: var(--gold);
 }

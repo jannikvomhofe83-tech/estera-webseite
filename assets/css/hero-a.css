@@ -108,7 +108,12 @@
   margin: clamp(-150px, -14vh, -95px) auto 0;
   max-width: 1460px;
   width: calc(100% - var(--gutter) * 2);
-  background: none;
+  /* DECKENDES WEISS ALS UNTERLAGE. Der Kasten hatte hier bisher gar keine
+     eigene Farbe — er lebte ausschliesslich von der Marmorlage darueber.
+     Seit die auf 70 Prozent zurueckgenommen ist, braucht es diese Unterlage:
+     ohne sie schiene durch die abgeschwaechte Lage das Navy des Grundes
+     hindurch und der Kasten wuerde schmutzig. */
+  background: #FFFFFF;
   display: grid;
   /* Textspalte dominiert — der Satz soll in die Breite laufen, nicht stapeln */
   grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
@@ -148,6 +153,13 @@
      Multiply-Verdopplung: die hat die Fläche flächig angeschmutzt statt die
      Adern zu schärfen — das sah nach Schmutzspur aus, nicht nach Stein. */
   background: #FFFFFF url('../img/marble2.jpg') center / cover no-repeat;
+  /* AUF 70 PROZENT ZURUECKGENOMMEN am 24.08.2026. Kundenwortlaut: „Die
+     Marmoroptik muss um 30 % reduziert werden, sonst konkurriert die
+     Marmoroptik zu stark mit dem Text." Die Aederung bleibt sichtbar,
+     tritt aber hinter die Schrift zurueck. Ueber die Deckkraft der ganzen
+     Lage geloest und nicht ueber ein aufgehelltes Bild — so bleibt die
+     Datei unangetastet und der Wert ist an einer Stelle nachstellbar. */
+  opacity: 0.7;
 }
 
 /* Schicht 2: Verläufe darüber.
@@ -231,7 +243,20 @@
   grid-column: 1 / -1;
   position: relative;
   z-index: 2;
-  padding: var(--panel-pad) var(--panel-pad) 0;
+  /* DER KOPF FUEHRT DIESELBEN SPALTEN WIE DER KASTEN.
+     Nur so laesst sich der Eyebrow exakt ueber dem Bild ausrichten: er sitzt
+     in Spalte 2 und bekommt denselben rechten Innenabstand wie
+     .heroA__figure — sein Kasten deckt sich damit auf den Pixel mit dem
+     Bild, und `text-align: center` zentriert ihn wirklich UEBER DEM BILD
+     und nicht ueber der Rasterspalte, die rechts breiter ist als das Bild.
+
+     Seitlich deshalb ohne Polsterung: die tragen Eyebrow und Ueberschrift
+     jetzt selbst, sonst waeren die Spalten gegen die des Kastens
+     verschoben. */
+  display: grid;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  padding: var(--panel-pad) 0 0;
 }
 
 /* Der Eyebrow traegt seit dem 24.08.2026 den Sandton des Knopfes
@@ -263,22 +288,20 @@
      Luecke. Mit `start` haengt der Text unmittelbar unter der Ueberschrift.
      Gemessen bei 1440 px: 72 px Luecke vorher, 12 px jetzt. */
   align-content: start;
+  /* OBEN statt MITTIG IN DER RASTERZEILE. Der Kasten setzt
+     `align-items: center`; die Zeilenhoehe gibt das Bild vor, und weil der
+     Textblock niedriger ist, wurde er darin zentriert — daher die Luecke
+     ueber der Subline. `align-self: start` haengt ihn oben ein. */
+  align-self: start;
   /* Ohne Abstand nach oben. Seit die Wechselzeile entfallen ist, ruecken
      Subline und Knoepfe auf Kundenwunsch dorthin nach, wo sie stand.
 
-     LINKS: FLUCHT MIT DEM ERSTEN BUCHSTABEN DER UEBERSCHRIFT.
-     Kundenwunsch 24.08.2026: „Die Subline faengt links gebunden genau da an,
-     wo das A von ‚Aus Einkommen' anfaengt" — und ebenso die Knoepfe und die
-     Guetezeile.
-
-     Diese Kante laesst sich in CSS nicht ausdruecken. Die Ueberschrift steht
-     MITTIG ueber die volle Kastenbreite; ihre linke Kante haengt also an der
-     gerenderten Textbreite und wandert mit Fensterbreite, Schriftgrad und
-     Schriftladung. CSS kann Text nicht messen. `site.js` misst sie zur
-     Laufzeit und setzt --hero-textkante am Kasten; ohne Javascript, bei
-     umbrechender Ueberschrift und unterhalb von 980 px bleibt der normale
-     Seiteneinzug --panel-pad stehen. */
-  padding: 0 0 var(--panel-pad) var(--hero-textkante, var(--panel-pad));
+     LINKS: dieselbe Kante wie die Ueberschrift, naemlich --panel-pad.
+     Kurzzeitig stand hier eine zur Laufzeit gemessene Kante — solange die
+     Ueberschrift mittig stand, liess sich ihr erster Buchstabe nicht in CSS
+     ausdruecken. Seit sie linksbuendig an derselben Kante ansetzt, ergibt
+     sich die Flucht von selbst; die Messung in site.js ist damit entfallen. */
+  padding: 0 0 var(--panel-pad) var(--panel-pad);
 }
 
 /* ---------------------------------------------------------------------------
@@ -299,7 +322,16 @@
      in Cormorant wirklich traegt. Das hebt die Lesbarkeit spuerbar — den
      gemessenen Kontrast von 3.39:1 aendert es allerdings nicht, dafuer ist
      die Zeile mit rund 14 px zu klein. */
+  /* RECHTS, UEBER DEM BILD (Kundenwunsch 24.08.2026: „Ich will, dass
+     ‚Immobilien als Kapitalanlage' rechts ueber das Bild kommt.").
+     Der Kopf laeuft ueber beide Spalten; rechtsbuendig endet der Eyebrow
+     damit auf derselben Senkrechten wie die rechte Kante des Objektbilds —
+     beide sitzen am Innenabstand des Kastens. */
+  grid-column: 2;
   text-align: center;
+  /* Deckt sich mit dem rechten Innenabstand von .heroA__figure — dadurch
+     ist der Kasten des Eyebrows genau der Kasten des Bildes. */
+  padding-right: var(--panel-pad);
   font-weight: 600;
 }
 
@@ -329,10 +361,27 @@
      darueber weiterhin EINZEILIG — das ist die Grenze, die nicht fallen
      darf. */
   font-size: var(--h1-groesse);
-  /* Mittig, wie der Eyebrow darueber (Kundenwunsch 24.08.2026). Der Kopf
-     laeuft ueber die volle Kastenbreite, die Zeile steht damit mittig im
-     Kasten und nicht ueber der linken Textspalte. */
-  text-align: center;
+  /* ZWEIZEILIG, LINKSBUENDIG, ALS BLOCK MITTIG (Kundenwunsch 24.08.2026).
+
+     Beide Zeilen beginnen auf derselben Kante — dieselbe Kante, an der auch
+     Subline, Knoepfe und Guetezeile fluchten. Der Block als Ganzes steht
+     mittig im Kasten.
+
+     `width: max-content` macht den Block genau so breit wie seine laengste
+     Zeile; `margin-inline: auto` zentriert ihn. Mit `text-align: center`
+     waere jede Zeile fuer sich zentriert und die kuerzere zweite wuerde
+     eingerueckt stehen — dann gaebe es keine gemeinsame linke Kante mehr,
+     und die Flucht mit der Subline waere hin.
+
+     `max-width: 100%` ist die Reissleine: unterhalb von rund 980 px passt
+     die laengste Zeile nicht mehr, dort bricht der Satz normal um. */
+  text-align: left;
+  grid-column: 1 / -1;
+  /* Dieselbe Kante wie .heroA__text darunter: beide setzen bei
+     --panel-pad ab der linken Kastenkante an. Damit fluchten beide Zeilen
+     der Ueberschrift mit Subline, Knoepfen und Guetezeile — ohne Messung,
+     weil hier nichts mehr zentriert ist. */
+  padding-inline: var(--panel-pad);
   line-height: 1.1;
   font-weight: 300;
   max-width: 100%;
@@ -372,10 +421,14 @@
 }
 
 .heroA__lead {
-  /* Die 32 px standen hier, solange die Ueberschrift unmittelbar darueber in
-     derselben Spalte sass. Seit der Kopf eine eigene Rasterzeile hat, ist
-     dieser Abstand doppelt gemoppelt und schiebt die Subline nach unten. */
-  margin-top: 0;
+  /* Luft zwischen Ueberschrift und Subline (Kundenwunsch 24.08.2026:
+     „sodass zwischen Subline und Headline mehr Platz ist"). Sie stand
+     zwischenzeitlich auf 0 — damals lag die Ueberschrift in einer eigenen
+     Rasterzeile und der alte Wert wirkte doppelt. Jetzt traegt dieser
+     Abstand die Luecke allein.
+     Er geht nur nach unten und beruehrt das Bild nicht: das haengt in der
+     Nachbarspalte an seinem eigenen negativen Abstand. */
+  margin-top: clamp(1.5rem, 3.2vh, 2.4rem);
   max-width: 100%;
   /* Optischer Ausgleich der kleineren x-Höhe von Jost. Die Herleitung stand
      in hero-b.css; die Datei ist mit Variante B am 24.08.2026 entfallen. */
@@ -413,8 +466,18 @@
      24.08.2026 passiert, als die Ueberschrift um sieben Prozent zugelegt
      hat — das Bild steht danach unveraendert bei 209 / 191 / 173 / 151 px
      unter der Kastenoberkante. */
-  padding: calc(2 * var(--h1-zeile-fest) - var(--h1-zeile)) var(--panel-pad) var(--panel-pad) 0;
+  padding: 0 var(--panel-pad) var(--panel-pad) 0;
   align-self: start;
+  /* BILD DIREKT UNTER DEN EYEBROW (Kundenwunsch 24.08.2026).
+     Die Ueberschrift laeuft ueber beide Spalten, das Bild begann deshalb
+     erst unter ihr — rechts daneben stand eine leere Flaeche. Dieser
+     negative Abstand zieht das Bild um genau die Hoehe der Ueberschrift
+     nach oben, also um ihre zwei Zeilen: 2 x Zeilenhoehe 1.1 x Schriftgrad.
+     Kein geschaetzter Wert — er haengt an denselben Token wie die
+     Ueberschrift und wandert mit, wenn deren Groesse sich aendert.
+     Die Ueberschrift steht links und ist deutlich schmaler als ihre Spalte;
+     ihr Text kollidiert deshalb nicht mit dem Bild (nachgemessen). */
+  margin-top: calc(-2 * var(--h1-zeile));
 }
 .heroA__figure > div {
   position: relative;
