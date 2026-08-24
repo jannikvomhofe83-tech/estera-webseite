@@ -491,12 +491,46 @@
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: 50% 55%;
-  /* Einziger heller, scharfer Bildträger — bewusst nicht so dunkel wie das Band */
-  filter: saturate(0.44) contrast(1.05);
+  /* AN DAS BAND ANGEGLICHEN am 24.08.2026 (Kundenwunsch: „farblich zueinander
+     passen … das Bild soll natürlich das Gleiche bleiben").
+
+     Beide Flächen wurden dafür ausgemessen, nicht geschätzt. Der Unterschied
+     lag nicht in der Sättigung, sondern im Blaustich:
+
+                       B minus R     Sättigung   Helligkeit
+       Band                17,9        0,284         65
+       Bild vorher         10,6        0,147        137
+       Bild jetzt          15,4        0,209         91
+
+     Das Bild trägt jetzt dieselbe Behandlung wie das Band — gleiche
+     Kontrastanhebung, ähnliche Entsättigung und denselben Navy-Schleier —
+     bleibt aber bewusst deutlich heller. Es ist der einzige helle, scharfe
+     Bildträger der Section; auf die 65 des Bandes gezogen wäre es kein
+     Objektbild mehr, sondern ein zweiter Hintergrund. */
+  filter: saturate(0.30) contrast(1.12) brightness(0.88);
   transform: scale(1.02);
   transition: transform 2.2s var(--ease-soft);
 }
+/* Der Navy-Schleier. Er liegt als eigene Lage über dem Bild statt als
+   Filter darin: ein Farbstich über `sepia()`/`hue-rotate()` verzieht auch
+   die Grautöne der Fassade, ein Schleier legt sich gleichmäßig darüber.
+   Der Verlauf ist derselbe wie am Band, nur schwächer. */
+.heroA__figure > div::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(to bottom,
+    rgba(10,25,46,0.35) 0%, rgba(10,25,46,0.28) 45%, rgba(10,25,46,0.31) 100%);
+}
 .heroA__panel:hover .heroA__figure img { transform: scale(1.055); }
+/* SCHLAEFT seit dem 24.08.2026. Die Bildunterschrift „Auswahl vor Angebot"
+   ist auf Kundenwunsch aus dem Markup entfernt; diese Regeln greifen damit
+   ins Leere und schaden nicht. Sie stehen vollstaendig da, falls wieder eine
+   Unterschrift auf das Bild soll — dann genuegt ein <figcaption> im <div>
+   der Figur, sonst nichts. */
 .heroA__figure figcaption {
   position: absolute;
   left: 0; right: 0; bottom: 0;

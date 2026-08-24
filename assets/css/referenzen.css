@@ -54,14 +54,19 @@
    =========================================================================== */
 
 .ref {
-  --rez-karte:    #F6F2EC;   /* warmes Elfenbein der Karte                     */
-  --rez-schrift:  #1B2A3D;   /* Text auf der Karte, 13.2:1 auf Elfenbein       */
+  /* NAVY-KARTEN seit dem 24.08.2026 (Kundenwunsch). Es ist derselbe Ton wie
+     der Grund der Hero-Section — --navy-900, nicht ein nachgestellter Wert.
+     Vorher stand hier ein warmes Elfenbein (#F6F2EC).
+     Gemessen auf diesem Grund: Weiss 17.63:1, der Sandton der Sterne
+     9.08:1. */
+  --rez-karte:    var(--navy-900);
+  --rez-schrift:  #FFFFFF;   /* Text auf der Karte, 17.63:1 auf Navy          */
   --rez-breite:   clamp(304px, 25vw, 376px);
   --rez-luft:     clamp(22px, 1.9vw, 30px);   /* Innenrand der Karte           */
   --rez-abstand:  clamp(20px, 1.8vw, 28px);   /* Abstand zwischen den Karten   */
   --rez-portraet: clamp(78px, 6vw, 92px);     /* Durchmesser des Porträts      */
   --rez-kreis:    #EAE3D8;   /* Scheibe hinter den Initialen, warmer Sand      */
-  --rez-stern-leer: #D6CFC2; /* nicht vergebener Stern, siehe data-sterne      */
+  --rez-stern-leer: rgba(255, 255, 255, 0.22); /* nicht vergebener Stern      */
   --rez-zeilen:   6;         /* sichtbare Zeilen, bevor „Mehr" greift          */
 
   position: relative;
@@ -195,7 +200,10 @@
   padding: calc(var(--rez-portraet) / 2 + var(--rez-luft) * 0.72) var(--rez-luft) var(--rez-luft);
   border-radius: 30px;
   background: var(--rez-karte);
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.05), 0 18px 44px rgba(16, 41, 73, 0.08);
+  /* Kraeftiger als zuvor: die Karte ist jetzt dunkel und steht auf weissem
+     Papier — der zarte Schatten der hellen Karte war dort nicht mehr noetig,
+     ein etwas tieferer traegt die Hoehe besser. */
+  box-shadow: 0 2px 6px rgba(16, 41, 73, 0.12), 0 22px 50px rgba(16, 41, 73, 0.16);
   text-align: center;
 }
 
@@ -249,7 +257,11 @@
   gap: 7px;
   margin-bottom: clamp(13px, 1.5vh, 17px);
 }
-.rez__sterne svg { width: 20px; height: 20px; fill: var(--navy-800); }
+/* Die Sterne tragen den Sandton des Knopfes „Erstgespraech vereinbaren"
+   (Kundenwunsch) — derselbe Token --sand, kein nachgestellter Wert.
+   Auf dem Navy der Karte 9.08:1; fuer nichttextliche Elemente sind 3:1
+   gefordert, der Wert liegt also weit darueber. */
+.rez__sterne svg { width: 20px; height: 20px; fill: var(--sand); }
 .rez__sterne[data-sterne="4"] svg:nth-of-type(n + 5),
 .rez__sterne[data-sterne="3"] svg:nth-of-type(n + 4),
 .rez__sterne[data-sterne="2"] svg:nth-of-type(n + 3),
@@ -304,12 +316,12 @@
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--navy-600);          /* 9.1:1 auf dem Elfenbein der Karte */
+  color: rgba(255, 255, 255, 0.88);   /* 14.85:1 auf dem Navy der Karte */
   border-bottom: 1px solid var(--line-gold);
   cursor: pointer;
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
-.rez__mehr:hover { color: var(--navy-800); border-color: var(--gold); }
+.rez__mehr:hover { color: #FFFFFF; border-color: var(--sand); }
 /* Deutlicher Fokusring: der Knopf liegt auf farbiger Fläche, die 1px-Linie
    aus base.css wäre dort zu leise. */
 .rez__mehr:focus-visible {
@@ -347,7 +359,7 @@
   font-weight: 600;
   font-size: 1.7rem;
   line-height: 1;
-  color: var(--ink-black);         /* 12.2:1 auf dem Elfenbein der Karte */
+  color: #FFFFFF;                  /* 17.63:1 auf dem Navy der Karte */
 }
 
 /* --- Responsive ----------------------------------------------------------- */
