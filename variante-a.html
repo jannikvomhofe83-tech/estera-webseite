@@ -13,7 +13,8 @@
 <link rel="stylesheet" href="assets/css/base.css?v=b24a">
 <link rel="stylesheet" href="assets/css/hero-a.css?v=b24a">
 <link rel="stylesheet" href="assets/css/referenzen.css?v=b24a">
-<link rel="stylesheet" href="assets/css/problem.css?v=b24a">
+<!-- problem.css ausgehaengt: die Section ist am 24.08.2026 entfernt worden.
+     Die Datei bleibt liegen, damit ein Zurueck ein Einzeiler ist. -->
 <link rel="stylesheet" href="assets/css/leistungen.css?v=b24a">
 <link rel="stylesheet" href="assets/css/auswahl.css?v=b24a">
 <link rel="stylesheet" href="assets/css/prinzip.css?v=b24a">
@@ -616,261 +617,312 @@
   </div>
 </section>
 <!-- =====================================================================
-     DAS PROBLEM   (#problem)   —   gebaut am 24.08.2026
+     PROBLEM-SECTION  —  AM 24.08.2026 AUF KUNDENWUNSCH ENTFERNT
 
-     WOZU DIESER ABSCHNITT DA IST
-     Er steht als dritter Abschnitt zwischen den Kundenstimmen und
-     „Vorteile von Immobilien". Er benennt die Ausgangslage — gutes
-     Einkommen, das noch nicht arbeitet — und uebergibt mit dem letzten
-     Satz an den Abschnitt darunter, der den Mechanismus erklaert.
+     Kundenwortlaut: „Ich will, dass die Section ‚Gutes Einkommen ist noch
+     kein Vermögen’ komplett rauskommt."
 
-     DER WORTLAUT
-     Jeder Satz stammt Zeichen fuer Zeichen aus dem Wording-Master des
-     Kunden, Abschnitt 4. Hier ist nichts gekuerzt, geglaettet, umgestellt
-     oder ergaenzt worden. Wer den Text aendert, aendert ihn zuerst dort.
-     Die Kleinzeile steht in Versalien im Dokument selbst und wird NICHT
-     ueber `text-transform` erzeugt — im Master steht sie so, und nur so
-     ist gesichert, dass der angezeigte Text der freigegebene ist.
+     Sie war vollstaendig gebaut und geprueft; ihr Inhalt stammte woertlich
+     aus Abschnitt 4 des Wording-Masters, sie enthielt keine einzige Ziffer
+     und stand ohne Javascript vollstaendig lesbar da.
 
-     GRENZEN, eingehalten und Punkt fuer Punkt geprueft
-     Keine Zahl, kein Prozentsatz, kein Betrag, keine Skala, kein
-     erfundenes Rechenbeispiel. Keine Warnfarbe, kein Rot, keine Muenzen,
-     keine Pfeile in Signalfarbe. Der Abschnitt stellt fest, er
-     dramatisiert nicht. Es gibt kein Schaubild: die drei Aussagen sind
-     Sprache, und eine Zeichnung haette hier nur Zahlen erfinden koennen.
-     Getragen wird der Abschnitt allein von Typografie und Haarlinien.
-
-     KEIN EIGENES JAVASCRIPT
-     Der gestaffelte Einlauf laeuft ueber das siteweite [data-reveal] aus
-     site.js. Wie in referenzen.css und schluss.css ist der sichtbare
-     Zustand der Ausgangszustand; ausgeblendet wird erst, wenn site.js
-     `is-ready` gesetzt hat. Ohne Javascript steht der Abschnitt sofort
-     vollstaendig da — das globale Muster in leistungen.css waere sonst
-     unbedingt auf `opacity: 0` und der Abschnitt unsichtbar.
-
-     TECHNIK: assets/css/problem.css. Farbwahl, Kontrastwerte und die
-     Begruendung fuer den weissen Grund stehen im Kopf dieser Datei.
+     Markup und assets/css/problem.css liegen im Commit 45f1190 und sind
+     von dort in einem Zug zurueckholbar. Die CSS-Datei bleibt im Ordner
+     liegen, nur ihr <link> ist ausgehaengt.
      ===================================================================== -->
-<section class="prob" id="problem" aria-labelledby="prob-titel">
-  <div class="prob__inner">
-
-    <!-- Kopf und Fliesstext stehen nebeneinander: links die Anrede, rechts
-         die Erklaerung. Unter 1080 px laeuft beides untereinander. -->
-    <div class="prob__satz-oben">
-
-      <header class="prob__kopf" data-reveal>
-        <p class="prob__eyebrow">GUTES EINKOMMEN IST NOCH KEIN VERMÖGEN.</p>
-        <span class="prob__strich" aria-hidden="true"></span>
-        <h2 class="display prob__h2" id="prob-titel">Du verdienst gut. Doch ein großer Teil deines Einkommens arbeitet noch nicht für dich.</h2>
-      </header>
-
-      <div class="prob__text" data-reveal style="--i:1">
-        <p class="prob__absatz">Steuern, Lebenshaltung und laufende Ausgaben reduzieren jeden Monat das Kapital, das du tatsächlich für deinen Vermögensaufbau einsetzen kannst. Und klassische Geldanlagen finanzierst du normalerweise ausschließlich aus deinem bereits versteuerten Einkommen.</p>
-        <p class="prob__absatz">Du arbeitest für dein Einkommen. Eine Kapitalanlageimmobilie schafft die Möglichkeit, zusätzlich Bankkapital, Mieteinnahmen und steuerliche Effekte für deinen Vermögensaufbau einzusetzen.</p>
-      </div>
-
-    </div>
-
-    <!-- Die drei Aussagen. Der fette Teil ist die Marke, der Rest der Satz.
-         Getrennt werden die Spalten durch eine Haarlinie, nicht durch
-         Kaesten — ein Kasten je Aussage waere eine Betonung, die der Text
-         nicht verlangt. Ohne Nummerierung: auf dieser Seite steht in
-         diesem Abschnitt keine Zahl, auch keine Ordnungszahl. -->
-    <ul class="prob__liste">
-      <li class="prob__punkt" data-reveal style="--i:0">
-        <span class="prob__marke" aria-hidden="true"></span>
-        <p class="prob__satz"><strong>Hohe Steuerbelastung:</strong> Ein relevanter Teil deines Einkommens steht dir nicht für den Vermögensaufbau zur Verfügung.</p>
-      </li>
-      <li class="prob__punkt" data-reveal style="--i:1">
-        <span class="prob__marke" aria-hidden="true"></span>
-        <p class="prob__satz"><strong>Kapital bleibt ungenutzt:</strong> Gute Bonität wird nicht eingesetzt, um fremdes Kapital für dich arbeiten zu lassen.</p>
-      </li>
-      <li class="prob__punkt" data-reveal style="--i:2">
-        <span class="prob__marke" aria-hidden="true"></span>
-        <p class="prob__satz"><strong>Aufbau wird verschoben:</strong> Der Wunsch nach Eigentum bleibt bestehen, während weitere Jahre verstreichen.</p>
-      </li>
-    </ul>
-
-    <!-- Abschluss und Uebergabe. Die letzte Zeile gehoert bewusst noch in
-         diesen Abschnitt und zeigt auf den naechsten; die feine senkrechte
-         Linie darunter fuehrt das Auge dorthin. -->
-    <div class="prob__ende" data-reveal>
-      <span class="prob__trenner" aria-hidden="true"></span>
-      <p class="prob__schluss">Die Frage ist nicht nur, wie viel du verdienst. Sondern was du daraus aufbaust.</p>
-      <p class="prob__bruecke">Genau deshalb funktioniert Vermögensaufbau mit Immobilien anders.</p>
-      <span class="prob__faden" aria-hidden="true"></span>
-    </div>
-
-  </div>
-</section>
 <!-- =====================================================================
      WARUM IMMOBILIEN?   (#warum-immobilien)
-     Neu gesetzt am 24.08.2026 nach dem Wording-Master des Kunden,
-     Abschnitt 5. Ersetzt vollstaendig die Fassung vom 21./23.08.2026
-     (vier Vorteile, klebende Buehne, vier erzeugte Schaubilder). Deren
-     Aufbau und Begruendungen stehen in der Versionsgeschichte.
 
-     WAS SICH GEAENDERT HAT
-     Der alte Abschnitt hatte VIER Vorteile mit eigenen Ueberschriften,
-     die wir selbst formuliert hatten. Der Kunde hat inzwischen einen
-     Wording-Master geliefert; darin stehen FUENF Vorteile, ein eigener
-     Kopf, eine Zusammenfassung und ein Fachhinweis — alles woertlich
-     vorgegeben. Der Wortlaut ist von hier an bindend: Zeichen fuer
-     Zeichen uebernommen, nichts gekuerzt, geglaettet, umgestellt oder
-     ergaenzt. Auch die Sprungmarke bleibt `warum-immobilien`, weil die
-     Kopfnavigation und beide Unterseiten darauf zeigen.
+     Neu gebaut am 25.08.2026 nach einer BILDVORLAGE des Kunden
+     (WhatsApp-Bild vom 24.08.2026, 23.30 Uhr). Sie ersetzt die
+     Textstrecke mit fuenf Vorteilen vom 24.08.2026 vollstaendig; deren
+     Markup und CSS stehen in der Versionsgeschichte.
 
-     WOZU DIESER ABSCHNITT DA IST
-     Er steht weiterhin vor „Unsere Leistungen". Wer nicht verstanden
-     hat, warum eine fremdfinanzierte Wohnung ueberhaupt Vermoegen
-     aufbaut, den interessiert der Ablauf einer Beratung noch nicht.
-     Erst das Warum, dann das Wie.
+     Kundenwortlaut: „Ich will, dass du die Section inhaltlich und
+     optisch eins zu eins genauso darstellst wie auf dem Bild. Jede
+     Kleinigkeit muss eins zu eins gleich aussehen."
 
-     DER RHYTHMUS DER FUENF VORTEILE — und warum es kein Karussell ist
-     Direkt darueber stehen die Kundenstimmen als Reihe mit Pfeilen. Ein
-     zweites Blaettern gleich danach waere eintoenig, und es waere hier
-     auch falsch: die fuenf Vorteile bauen aufeinander auf (Hebel →
-     Entlastung → Steuer → Aufbau → Sachwert). Eine Folge, die man
-     durchscrollt, zeigt genau diese Reihenfolge; ein Karussell zerlegt
-     sie in gleichrangige Karten.
-     Damit die Folge auf ihrer Laenge nicht ermuedet, wechseln sich drei
-     Takte ab — die Begruendung im Einzelnen steht im Kopf von
-     assets/css/warum.css:
-       01, 04  Takt A — Block links, Marke aussen links
-       02, 05  Takt B — Block rechts, Marke aussen rechts
-       03      ZAESUR — volle Breite, Navy, mittig gesetzt
-       05      traegt zusaetzlich drei kurze Vorteile in einer Dreierreihe
-     Der dunkle Block liegt bewusst in der Mitte der Strecke: er ist die
-     Stelle, an der das Auge beim langen Scrollen einen Halt bekommt.
+     WAS DIE VORLAGE ZEIGT — und wie es hier gebaut ist
+       1  Kopf auf Cremegrund: Kleinzeile, zweizeilige Ueberschrift,
+          zweizeilige Unterzeile, alles mittig.
+       2  Ein Vergleichsband: links „Klassisch sparen" mit einer
+          einzelnen beigen Linie, in der Mitte ein „vs." im Kreis,
+          rechts „Mit Immobilie" mit vier farbigen Linien, die in einen
+          navyfarbenen Pfeil „Dein Vermoegen" zusammenlaufen.
+       3  Eine grosse, abgerundete Navyflaeche. Darin mittig die
+          Immobilie auf einem Grundbuchauszug, links davon Bankkapital
+          und Steuervorteile, rechts Miete und Zeit — jeder Punkt mit
+          Sinnbild, Titel, Beisatz und einer goldenen Ader zur Mitte.
+          Unter der Immobilie das Siegel „Dein Vermoegen waechst", ganz
+          unten vier Reiter 01 bis 04.
+       4  Darunter — im Bild abgeschnitten, deshalb im Hausstil gesetzt:
+          das Ergebnis, der Abschluss mit Knopf und der Fachhinweis.
+
+     DIE FUENF SINNBILDER
+     Sie sind keine Nachzeichnung, sondern die Bildpunkte der Vorlage
+     selbst: aus der Kundendatei ausgeschnitten, vom Navygrund
+     freigestellt und dreifach vergroessert abgelegt unter
+     assets/img/warum/. Damit steht wirklich das Haus bei Bankkapital,
+     das Blatt bei Steuervorteile, der Schluessel bei Miete, die Uhr bei
+     Zeit und die Immobilie in der Mitte — Strich fuer Strich wie im
+     Bild. Die vier goldenen Adern und die Ader zum Siegel sind dagegen
+     nachgebaut, weil sie mit der Breite mitwandern muessen.
+
+     DIE BEDIENUNG — vom Kunden vorgegeben
+     Ein Klick auf einen Punkt vergroessert ihn, schiebt ihn auf seine
+     Haelfte der Navyflaeche und faehrt von der Gegenseite ein
+     Textfenster herein. Die uebrigen Punkte und die Immobilie treten
+     zurueck. Zurueck geht es ueber denselben Punkt, ueber den Reiter,
+     ueber „Schliessen" oder mit der Esc-Taste.
+
+     KEIN TOTER KNOPF
+     Die Punkte und die Reiter sind LINKS auf die vier Textbloecke, die
+     unterhalb der Flaeche im Dokument stehen. Ohne Javascript springt
+     man dorthin und liest den Text; die Bloecke stehen dann offen da.
+     Erst warum.js holt die Liste in das Textfenster hinein. Bei
+     `prefers-reduced-motion: reduce` unterbleibt das ebenfalls — dann
+     steht der gesamte Inhalt untereinander lesbar da.
 
      GRENZEN — Punkt fuer Punkt geprueft
-     Keine Zahl, die nicht im Master steht: kein Prozentsatz, kein
-     Betrag, keine Rendite, kein Zinssatz, keine Jahreszahl, kein
-     Rechenbeispiel. Die einzigen Ziffern im Abschnitt sind die
-     Ordnungszahlen 01 bis 05, und die stehen so im Master.
-     Es steht nirgends „garantiert", „risikofrei", „krisensicher",
-     „sichere Rendite", „Steuern auf null", „exklusiv" oder „geprueft".
-     Bei Vorteil 03 steht insbesondere NICHT, die Steuerlast sinke auf
-     null, der Staat bezahle die Immobilie oder eine Erstattung sei
-     sicher — der Master untersagt das ausdruecklich, und der Text sagt
-     stattdessen „bei passenden Voraussetzungen".
-     Der Fachhinweis steht GENAU EINMAL, am Ende der Section.
+     Keine Zahl ausser den Ordnungszahlen 01 bis 04. Kein Prozentsatz,
+     kein Betrag, keine Rendite, kein Rechenbeispiel. Nirgends
+     „garantiert", „risikofrei", „krisensicher", „sichere Rendite",
+     „Steuern auf null", „exklusiv" oder „geprueft". Bei 02 steht
+     ausdruecklich nichts zu Zins, Tilgung, Restschuld oder nicht
+     umlagefaehigen Kosten. Der Fachhinweis steht genau einmal, am Ende.
+
+     ABWEICHUNG VON DER VORLAGE — bewusst, mit Grund
+     Die Kleinzeile „Warum Immobilien?" steht im Bild in Gold auf Creme.
+     Gemessen sind das 2.15:1; verlangt sind 4.5:1. Sie steht deshalb im
+     dunkleren Gold #86693A (4.80:1). Auf der Navyflaeche bleibt das
+     helle Gold der Vorlage, dort misst es 6.7:1.
 
      TECHNIK: assets/css/warum.css und assets/js/warum.js.
-     Das Skript tut genau eines: es deckt die Bloecke beim Scrollen auf.
-     Es gibt in diesem Abschnitt nichts zum Umschalten, also auch keinen
-     Knopf, der ohne Javascript tot waere. Ohne Javascript steht alles
-     sofort sichtbar; bei `prefers-reduced-motion: reduce` ebenso.
      ===================================================================== -->
 <section class="wimm" id="warum-immobilien" aria-labelledby="wimm-titel">
   <div class="wimm__inner">
 
-    <!-- ---------- KOPF ----------
-         Kleinzeile, Ueberschrift, Unterzeile und die vier
-         Orientierungsbegriffe. Letztere stehen im Master durch „·"
-         getrennt; hier sind sie eine echte Liste, und die Trennung
-         uebernehmen goldene Haarlinien zwischen den Zellen. Damit steht
-         kein Zeichen im Text, das nicht Wort ist. -->
+    <!-- ---------- KOPF ---------- -->
     <header class="wimm__kopf" data-wi-block>
-      <p class="kicker wimm__eyebrow">WARUM IMMOBILIEN?</p>
-      <h2 class="display wimm__h2" id="wimm-titel">Weil Bankkapital, Mieteinnahmen und Steuervorteile für deinen Vermögensaufbau arbeiten.</h2>
-      <p class="wimm__unter">Du nutzt das Kapital der Bank für den Kauf. Mieteinnahmen und steuerliche Entlastung tragen bei einem passend kalkulierten Objekt einen großen Teil der monatlichen Belastung. Und mit jeder Tilgung wächst dein eigenes Vermögen.</p>
-      <ul class="wimm__marken" role="list">
-        <li>Kapital der Bank nutzen</li>
-        <li>Die monatliche Belastung reduzieren</li>
-        <li>Mehr Netto vom Brutto behalten</li>
-        <li>Vermögen von zwei Seiten aufbauen</li>
-      </ul>
+      <p class="wimm__eyebrow">Warum Immobilien?</p>
+      <h2 class="display wimm__h2" id="wimm-titel">Du baust Vermögen nicht nur<span class="wimm__bruch"></span> mit deinem eigenen Geld auf.</h2>
+      <p class="wimm__unter">Bankkapital ermöglicht den Kauf. Miete und steuerliche Vorteile entlasten dich. Tilgung und Wertentwicklung vergrößern dein Vermögen.</p>
     </header>
 
-    <!-- ---------- DIE FUENF VORTEILE ----------
-         Eine echte <ol>: die Reihenfolge traegt Bedeutung, und die
-         Ordnungszahlen 01 bis 05 stehen ohnehin im vorgegebenen Text.
-         Die Kleinzeile ist deshalb nicht doppelt gesetzt — es gibt keine
-         zusaetzliche grosse Ziffer, die dasselbe noch einmal sagt. -->
-    <ol class="wimm__folge" role="list">
+    <!-- ---------- VERGLEICHSBAND ----------
+         Links die eine Linie, rechts die vier. Reine Schaugrafik: sie
+         traegt keine Aussage, die nicht schon in der Unterzeile steht,
+         deshalb ist sie fuer Vorlesewerkzeuge ausgeblendet und die
+         Begriffe stehen darunter noch einmal als Text. -->
+    <div class="wimm__band" data-wi-block>
 
-      <!-- 01 — Takt A -->
-      <li class="wimm__takt wimm__takt--a" data-wi-block>
-        <p class="kicker wimm__marke">01 · DEIN FINANZIELLER HEBEL</p>
-        <div class="wimm__koerper">
-          <h3 class="display wimm__h3">Die Bank finanziert den Einstieg. Du profitierst vom Sachwert.</h3>
-          <p class="wimm__text">Deine Bonität gibt dir Zugang zu Kapital, das vom ersten Tag an vollständig für dich arbeitet. Statt den Kaufpreis jahrelang selbst anzusparen, nutzt du das Kapital der Bank und erwirbst direkt eine vollständige Immobilie.</p>
-          <p class="wimm__kern">Deine Bonität wird zum echten Vermögensfaktor.</p>
-          <p class="wimm__zusatz">Je nach Bonität, Objekt und Finanzierung kann bereits ein geringer Eigenkapitaleinsatz ausreichen. Bei geeigneten Voraussetzungen ist auch eine Finanzierung ohne Eigenkapitaleinsatz möglich.</p>
+      <div class="wimm__band-halb wimm__band-halb--klassisch">
+        <p class="wimm__band-marke">Klassisch sparen</p>
+        <p class="wimm__band-zeile">
+          <span class="wimm__band-wort">Nur dein Netto arbeitet</span>
+          <span class="wimm__band-strich" aria-hidden="true"></span>
+        </p>
+      </div>
+
+      <p class="wimm__band-vs" aria-hidden="true"><span>vs.</span></p>
+
+      <div class="wimm__band-halb wimm__band-halb--immo">
+        <p class="wimm__band-marke">Mit Immobilie</p>
+        <div class="wimm__band-fluss">
+          <ul class="wimm__band-liste" role="list">
+            <li data-ton="navy"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Bankkapital</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
+            <li data-ton="gold"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Miete</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
+            <li data-ton="gruen"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Steuervorteile</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
+            <li data-ton="beige"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Zeit</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
+          </ul>
+          <svg class="wimm__band-kurven" viewBox="0 0 200 132" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0 16.5 H86 C138 16.5 148 66 200 66" />
+            <path d="M0 49.5 H104 C146 49.5 154 66 200 66" />
+            <path d="M0 82.5 H104 C146 82.5 154 66 200 66" />
+            <path d="M0 115.5 H86 C138 115.5 148 66 200 66" />
+          </svg>
+          <p class="wimm__band-ziel"><span>Dein Vermögen</span></p>
         </div>
+      </div>
+    </div>
+
+    <!-- ---------- DIE NAVYFLAECHE ---------- -->
+    <div class="wimm__buehne" data-wi-block>
+      <div class="wimm__buehne-kopf">
+        <p class="wimm__eyebrow wimm__eyebrow--hell">Die einfache Logik</p>
+        <h3 class="display wimm__h3">Vier Kräfte. Ein Sachwert.</h3>
+      </div>
+
+      <div class="wimm__feld" data-wi-feld>
+
+        <!-- 01  BANKKAPITAL — Haus, links oben -->
+        <a class="wimm__punkt wimm__punkt--01" href="#wi-text-01"
+           data-wi-punkt="01" data-wi-seite="links"
+           aria-controls="wi-text-01" aria-expanded="false">
+          <span class="wimm__ikon">
+            <picture>
+              <source type="image/webp" srcset="assets/img/warum/bank.webp">
+              <img src="assets/img/warum/bank.png" alt="" width="392" height="370" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="wimm__punkt-wort">
+            <span class="wimm__punkt-titel">Bankkapital</span>
+            <span class="wimm__punkt-sub">ermöglicht den Kauf</span>
+          </span>
+          <span class="wimm__ader" aria-hidden="true">
+            <span class="wimm__ader-kopf"></span>
+            <span class="wimm__ader-linie"></span>
+            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 1 C 12 1 20 25 32 25"/></svg>
+          </span>
+        </a>
+
+        <!-- 02  MIETE — Schluessel, rechts oben -->
+        <a class="wimm__punkt wimm__punkt--02" href="#wi-text-02"
+           data-wi-punkt="02" data-wi-seite="rechts"
+           aria-controls="wi-text-02" aria-expanded="false">
+          <span class="wimm__ikon">
+            <picture>
+              <source type="image/webp" srcset="assets/img/warum/miete.webp">
+              <img src="assets/img/warum/miete.png" alt="" width="398" height="413" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="wimm__punkt-wort">
+            <span class="wimm__punkt-titel">Miete</span>
+            <span class="wimm__punkt-sub">trägt jeden Monat mit</span>
+          </span>
+          <span class="wimm__ader" aria-hidden="true">
+            <span class="wimm__ader-kopf"></span>
+            <span class="wimm__ader-linie"></span>
+            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 1 C 12 1 20 25 32 25"/></svg>
+          </span>
+        </a>
+
+        <!-- 03  STEUERVORTEILE — Blaetter, links unten -->
+        <a class="wimm__punkt wimm__punkt--03" href="#wi-text-03"
+           data-wi-punkt="03" data-wi-seite="links"
+           aria-controls="wi-text-03" aria-expanded="false">
+          <span class="wimm__ikon">
+            <picture>
+              <source type="image/webp" srcset="assets/img/warum/steuer.webp">
+              <img src="assets/img/warum/steuer.png" alt="" width="395" height="414" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="wimm__punkt-wort">
+            <span class="wimm__punkt-titel">Steuervorteile</span>
+            <span class="wimm__punkt-sub">mehr Netto bleibt</span>
+          </span>
+          <span class="wimm__ader" aria-hidden="true">
+            <span class="wimm__ader-kopf"></span>
+            <span class="wimm__ader-linie"></span>
+            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 25 C 12 25 20 1 32 1"/></svg>
+          </span>
+        </a>
+
+        <!-- 04  ZEIT — Uhr, rechts unten -->
+        <a class="wimm__punkt wimm__punkt--04" href="#wi-text-04"
+           data-wi-punkt="04" data-wi-seite="rechts"
+           aria-controls="wi-text-04" aria-expanded="false">
+          <span class="wimm__ikon">
+            <picture>
+              <source type="image/webp" srcset="assets/img/warum/zeit.webp">
+              <img src="assets/img/warum/zeit.png" alt="" width="401" height="380" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="wimm__punkt-wort">
+            <span class="wimm__punkt-titel">Zeit</span>
+            <span class="wimm__punkt-sub">dein Anteil wächst</span>
+          </span>
+          <span class="wimm__ader" aria-hidden="true">
+            <span class="wimm__ader-kopf"></span>
+            <span class="wimm__ader-linie"></span>
+            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 25 C 12 25 20 1 32 1"/></svg>
+          </span>
+        </a>
+
+        <!-- DIE MITTE — Immobilie auf dem Grundbuchauszug -->
+        <div class="wimm__mitte">
+          <picture>
+            <source type="image/webp" srcset="assets/img/warum/haus.webp">
+            <img class="wimm__haus" src="assets/img/warum/haus.png" alt="Ein Mehrfamilienhaus steht auf einem Grundbuchauszug mit der Aufschrift „Deine Immobilie“." width="1018" height="734" loading="lazy" decoding="async">
+          </picture>
+          <!-- Das Siegel haengt in der Vorlage an der Immobilie, nicht am
+               Raster: es steht immer denselben kurzen Weg unter dem
+               Grundbuchauszug. Deshalb sitzt es hier in der Mitte-Zelle,
+               und die Zelle reicht ueber alle drei Zeilen. -->
+          <p class="wimm__siegel"><span>Dein Vermögen wächst</span></p>
+        </div>
+
+        <!-- DAS TEXTFENSTER — leer, bis warum.js die Liste hineinholt -->
+        <div class="wimm__fenster" data-wi-fenster>
+          <button class="wimm__zu" type="button" data-wi-zu hidden>
+            <span class="wimm__zu-kreuz" aria-hidden="true"></span>
+            <span class="wimm__zu-wort">Schließen</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- DIE REITER — im Bild ganz unten auf der Navyflaeche -->
+      <ul class="wimm__reiter" role="list">
+        <li><a href="#wi-text-01" data-wi-reiter="01" aria-controls="wi-text-01" aria-expanded="false"><span class="wimm__reiter-zahl">01</span> Bank</a></li>
+        <li><a href="#wi-text-02" data-wi-reiter="02" aria-controls="wi-text-02" aria-expanded="false"><span class="wimm__reiter-zahl">02</span> Miete</a></li>
+        <li><a href="#wi-text-03" data-wi-reiter="03" aria-controls="wi-text-03" aria-expanded="false"><span class="wimm__reiter-zahl">03</span> Steuern</a></li>
+        <li><a href="#wi-text-04" data-wi-reiter="04" aria-controls="wi-text-04" aria-expanded="false"><span class="wimm__reiter-zahl">04</span> Wachstum</a></li>
+      </ul>
+    </div>
+
+    <!-- ---------- DIE VIER TEXTE ----------
+         Stehen ohne Javascript hier offen im Dokument. warum.js holt
+         diese Liste in das Textfenster der Navyflaeche hinein. -->
+    <ol class="wimm__texte" data-wi-texte>
+
+      <li class="wimm__karte" id="wi-text-01" data-wi-text="01">
+        <p class="wimm__karte-zahl"><span>01</span> Bankkapital</p>
+        <h4 class="display wimm__karte-h">Die Bank ermöglicht deinen Einstieg.</h4>
+        <p class="wimm__karte-text">Du nutzt deine Bonität, statt den gesamten Kaufpreis jahrelang selbst anzusparen.</p>
+        <p class="wimm__karte-zusatz">Je nach Bonität und Objekt ist ein geringer Eigenkapitaleinsatz möglich. In geeigneten Fällen auch ohne klassischen Eigenkapitaleinsatz.</p>
       </li>
 
-      <!-- 02 — Takt B, gespiegelt -->
-      <li class="wimm__takt wimm__takt--b" data-wi-block>
-        <p class="kicker wimm__marke">02 · DEINE MONATLICHE ENTLASTUNG</p>
-        <div class="wimm__koerper">
-          <h3 class="display wimm__h3">Mieteinnahmen tragen mit, während dein Eigentum wächst.</h3>
-          <p class="wimm__text">Dein Mieter zahlt dir jeden Monat Miete. Bei einem passend kalkulierten Objekt decken diese Einnahmen bereits einen großen Teil deiner Rate und der laufenden Kosten. Steuerliche Entlastungen reduzieren deinen eigenen Beitrag zusätzlich.</p>
-          <p class="wimm__kern">Während dein Mieter mitträgt, wächst dein eigenes Vermögen.</p>
-          <p class="wimm__zusatz">Je nach Objekt, Finanzierung, Miete und steuerlicher Wirkung bleibt für dich nur ein geringer monatlicher Beitrag – oder die Immobilie trägt sich rechnerisch selbst.</p>
-        </div>
+      <li class="wimm__karte" id="wi-text-02" data-wi-text="02">
+        <p class="wimm__karte-zahl"><span>02</span> Miete</p>
+        <h4 class="display wimm__karte-h">Die Miete trägt jeden Monat einen großen Teil deiner Rate.</h4>
+        <p class="wimm__karte-text">Dein Mieter zahlt monatlich Miete. Dadurch reduziert sich der Anteil, den du selbst tragen musst.</p>
+        <p class="wimm__karte-kern">Während dein Mieter mitträgt, wächst dein Vermögen.</p>
       </li>
 
-      <!-- 03 — DIE ZAESUR
-           Volle Breite, Navy, mittig. Der einzige dunkle Block der
-           Section und damit der Halt in der Mitte der Strecke. Er traegt
-           den einzigen Vorteil mit Zwischenzeile und zwei Absaetzen —
-           der Inhalt rechtfertigt die Sonderform, nicht umgekehrt. -->
-      <li class="wimm__takt wimm__takt--zaesur" data-wi-block>
-        <div class="wimm__koerper">
-          <p class="kicker wimm__marke">03 · MEHR NETTO VOM BRUTTO</p>
-          <h3 class="display wimm__h3">Behalte mehr von deinem Einkommen.</h3>
-          <p class="wimm__zwischen">Fast wie eine Gehaltserhöhung – ohne deinen Chef zu fragen.</p>
-          <div class="wimm__doppel">
-            <p class="wimm__text">Vermietete Immobilien eröffnen steuerliche Vorteile, die viele klassische Geldanlagen nicht bieten. Abschreibung, Finanzierungszinsen und steuerlich anerkannte Aufwendungen mindern deine Einkünfte aus Vermietung.</p>
-            <p class="wimm__text">Dadurch sinkt dein steuerliches Ergebnis aus Vermietung. Bei passenden Voraussetzungen bleibt dir mehr Netto von deinem Brutto – und damit mehr Kapital für deinen Vermögensaufbau.</p>
-          </div>
-          <p class="wimm__kern">Weniger Steuerbelastung. Mehr verfügbares Einkommen. Mehr Kapital, das für dich arbeitet.</p>
-        </div>
+      <li class="wimm__karte" id="wi-text-03" data-wi-text="03">
+        <p class="wimm__karte-zahl"><span>03</span> Steuervorteile</p>
+        <h4 class="display wimm__karte-h">Behalte mehr Netto von deinem Brutto.</h4>
+        <p class="wimm__karte-text">Vermietete Immobilien eröffnen steuerliche Möglichkeiten, die viele klassische Geldanlagen nicht bieten.</p>
+        <p class="wimm__karte-kern">Mehr verfügbares Einkommen für deinen Vermögensaufbau.</p>
+        <p class="wimm__karte-zusatz">Die konkrete steuerliche Wirkung hängt von deiner persönlichen Situation und dem jeweiligen Objekt ab.</p>
       </li>
 
-      <!-- 04 — Takt A -->
-      <li class="wimm__takt wimm__takt--a" data-wi-block>
-        <p class="kicker wimm__marke">04 · DOPPELTER VERMÖGENSAUFBAU</p>
-        <div class="wimm__koerper">
-          <h3 class="display wimm__h3">Dein Vermögen wächst von zwei Seiten.</h3>
-          <p class="wimm__text">Mit jeder monatlichen Tilgung wird ein weiterer Teil der Immobilie zu deinem Eigentum. Gleichzeitig besitzt die Immobilie langfristiges Wertsteigerungspotenzial. So bauen Tilgung und Wertentwicklung parallel Vermögen für dich auf.</p>
-          <p class="wimm__kern">Deine Finanzierung wird kleiner. Dein Eigentum wird größer. Der Immobilienwert bietet einen zusätzlichen Wachstumshebel.</p>
-        </div>
-      </li>
-
-      <!-- 05 — Takt B, gespiegelt, mit der Dreierreihe darunter -->
-      <li class="wimm__takt wimm__takt--b wimm__takt--breit" data-wi-block>
-        <p class="kicker wimm__marke">05 · ECHTER SACHWERT</p>
-        <div class="wimm__koerper">
-          <h3 class="display wimm__h3">Du baust einen realen Sachwert und eine spätere Einkommensquelle auf.</h3>
-          <p class="wimm__text">Eine Immobilie ist reales, im Grundbuch gesichertes Eigentum. Sie bringt dir laufende Mieteinnahmen, kann langfristig zu einer zusätzlichen Einkommensquelle werden und innerhalb deiner Familie weitergegeben werden.</p>
-          <p class="wimm__text">Bei einem privaten Verkauf nach Ablauf der gesetzlichen Zehnjahresfrist ist ein Veräußerungsgewinn grundsätzlich nicht als privates Veräußerungsgeschäft steuerbar.</p>
-        </div>
-        <!-- Die drei kurzen Vorteile. Der fette Teil ist die Marke, der
-             Rest der Satz — genau wie im Master notiert. Sie laufen ueber
-             die volle Breite, damit die Folge zum Schluss aufmacht statt
-             ein fuenftes Mal dasselbe Mass zu wiederholen. -->
-        <ul class="wimm__drei" role="list">
-          <li><strong>Realer Sachwert:</strong> Eigentum an einem konkreten Grundstück und Gebäude.</li>
-          <li><strong>Möglicher Inflationsschutz:</strong> Sachwert, Mietentwicklung und eine nominale Finanzierung können langfristig stabilisierend wirken.</li>
-          <li><strong>Generationenwert:</strong> Die Immobilie kann verkauft, übertragen oder innerhalb der Familie weitergegeben werden.</li>
-        </ul>
+      <li class="wimm__karte" id="wi-text-04" data-wi-text="04">
+        <p class="wimm__karte-zahl"><span>04</span> Zeit</p>
+        <h4 class="display wimm__karte-h">Dein Vermögen wächst von zwei Seiten.</h4>
+        <p class="wimm__karte-text">Mit jeder Tilgung gehört dir ein größerer Teil der Immobilie. Gleichzeitig kann sich ihr Wert langfristig entwickeln.</p>
+        <p class="wimm__karte-kern">Jede Rate bringt dich näher an vollständiges Eigentum.</p>
       </li>
 
     </ol>
 
-    <!-- ---------- ZUSAMMENFASSUNG ----------
-         Der einzige Aufruf zum Handeln in dieser Section, und er steht
-         am Ende: erst der Mechanismus, dann die Frage. Cremegrund mit
-         goldener Haarlinie — hell, damit der dunkle Block der Zaesur der
-         einzige bleibt. -->
-    <footer class="wimm__logik" data-wi-block>
-      <p class="kicker wimm__marke">DIE EINFACHE LOGIK</p>
-      <h3 class="display wimm__logik-h">Du nutzt fremdes Kapital, lässt Miete und Steuerentlastung mittragen und baust damit dein eigenes Vermögen auf.</h3>
-      <p class="wimm__abschluss">Die Bank ermöglicht den Kauf. Dein Mieter beteiligt sich jeden Monat. Steuerliche Entlastung erhöht deine verfügbare Liquidität. Tilgung und Wertentwicklung bauen daraus langfristig Eigentum und Einkommen auf.</p>
+    <!-- ---------- DER ABSCHLUSS ----------
+         ENTFALLEN AM 25.08.2026 AUF KUNDENWUNSCH — nicht vergessen:
+         der Ergebnisblock „Aus Finanzierung wird Eigentum. Aus Eigentum
+         wird Vermoegen." samt den drei Punkten „Realer Sachwert",
+         „Spaeteres Einkommen" und „Bleibender Wert", dazu die
+         Abschluss-Ueberschrift „Wie stark diese vier Kraefte bei dir
+         wirken, laesst sich individuell berechnen." Beides stand hier
+         gebaut und geprueft; der Wortlaut steht in der Versionsgeschichte.
+
+         Ohne die Ueberschrift traegt den Uebergang jetzt allein der
+         Abstand: die Flaeche endet, es kommt eine ruhige Strecke, dann
+         der Knopf. Eine neue Ueberleitung ist NICHT erfunden worden —
+         der Kunde hat das ausdruecklich untersagt. -->
+    <footer class="wimm__abschluss" data-wi-block>
       <p class="wimm__knopf"><a class="btn" href="kontakt.html">Mein Immobilienpotenzial prüfen</a></p>
+      <p class="wimm__nachsatz">Persönliche Einschätzung auf Basis deiner Situation, Finanzierung und eines passenden Objekts.</p>
     </footer>
 
     <!-- Der Fachhinweis. GENAU EINMAL, ganz am Ende der Section. -->
