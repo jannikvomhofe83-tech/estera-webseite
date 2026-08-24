@@ -1,210 +1,266 @@
 /* ===========================================================================
-   GOOGLE-REZENSIONEN   (Briefing 02 Punkt 2, Briefing 03 A)
+   KUNDENSTIMMEN  (#bewertungen)
 
-   Aufbau: links Überschrift und Google-Siegel, senkrecht mittig; rechts die
-   Rezensionen als endlos laufende Reihe. Die Reihe läuft bis an den rechten
-   Fensterrand — deshalb hat der Umschlag rechts keinen Rand und die Karten
-   werden an der Kante weich ausgeblendet.
+   Neu gebaut am 24.08.2026 nach einer Vorlage des Kunden — Aufbau, Farbigkeit
+   und Bedienung sind daraus 1:1 uebernommen.
 
-   Die Karte folgt der Vorlage des Kunden (WhatsApp 14.08.2026): rundes
-   Porträt, das zur Hälfte über die Oberkante hinausragt, darunter fünf
-   gefüllte Sterne in Navy, der Text mittig in Anführungszeichen, unten die
-   Unterschrift in Handschrift. Warmes Elfenbein auf Weiß, weicher Schatten,
-   grosser Eckenradius, keine Kontur.
+   WAS SICH GEGENUEBER DEM STAND VON HEUTE FRUEH GEAENDERT HAT, und zwar auf
+   ausdrueckliche Ansage:
+     — Die Karten sind wieder HELL (Creme mit goldener Haarlinie) statt navy.
+     — Die Initialenkreise sind wieder NAVY statt bunt wie bei Google.
+     — Die Sterne stehen in Gold statt im Sandton.
+     — Die Reihe laeuft NICHT mehr von allein. Geblaettert wird ueber zwei
+       Pfeile und die Punkte darunter.
+   Wer das rueckgaengig machen will, findet beide Staende in der
+   Versionsgeschichte.
 
-   Gleiche Kartenhöhe: die Spur steht auf align-items: stretch, dadurch sind
-   alle Zellen einer Reihe exakt gleich hoch. Die Karte füllt ihre Zelle
-   (flex: 1), und die Unterschrift wird mit margin-top: auto nach unten
-   gedrückt — sie steht dadurch auch bei kurzen Rezensionen auf der
-   Unterkante und schwebt nicht in der Mitte.
+   ZUR TYPOGRAFIE DER KARTE, von oben nach unten:
+     Kreis mit Initialen — Sterne — Zitatzeile — Fliesstext —
+     „Vollständige Bewertung" — Name — Quellenzeile mit Google-G.
 
-   BILDFENSTER — Initialen jetzt, Foto später
-   Der Kunde hat am 24.08.2026 gesagt: „Wir haben noch keine Bilder der Kunden
-   der Rezensionen. Die fügen wir dann noch nachträglich ein, also schreiben
-   wir nur die Initialien aktuell in das Bildfenster."
-   Deshalb trägt .rez__bild die Grösse, die Form, die Position und den Schatten
-   — das Fenster steht also unabhängig davon, was darin liegt. Darin liegt
-   entweder ein <span class="rez__initialen"> oder ein <img>. Beide füllen
-   dasselbe Fenster; die Karte muss dafür nicht angefasst werden.
-
-   EIN FOTO SPÄTER EINSETZEN — genau ein Handgriff je Karte:
-       <figure class="rez__bild"><span class="rez__initialen" …>MB</span></figure>
-   wird zu
-       <figure class="rez__bild"><img src="assets/img/personen/mb.webp" alt=""
-            width="640" height="640" loading="lazy" decoding="async"></figure>
-   Sonst ändert sich nichts. alt bleibt leer: der Name steht als Unterschrift
-   in derselben Karte, ein zweites Mal vorgelesen wäre er Lärm. Am CSS ist
-   dafür nichts zu tun — .rez__bild img steht schon hier.
-
-   FARBE DER INITIALEN — gemessen, nicht geschätzt
-   Helle Fläche mit Navy, nicht umgekehrt: die Reihe läuft über weissem Papier,
-   acht dunkle Scheiben würden sie zerhacken. Der Kreis trägt denselben warmen
-   Sand wie die Referenzflächen der Seite (#EAE3D8), die Buchstaben Navy
-   (--navy-800, #102949). Gemessen 11.5:1 — weit über den geforderten 4.5:1.
-   Kein Zufallston je Person: die Seite ist Navy auf Weiss, Gold nur als
-   Haarlinie.
-
-   Die Bewegung und der Knopf „Mehr" liegen in assets/js/rezensionen.js.
-   Der Knopf steht NUR dort, wo der Text tatsächlich abgeschnitten ist — das
-   Skript misst dafür die tatsächliche gegen die sichtbare Höhe des Absatzes
-   (scrollHeight gegen clientHeight) und nicht etwa die Zeichenzahl, die bei
-   unterschiedlich breiten Karten schiefgeht. Die Beschneidung auf sechs
-   Zeilen hängt deshalb an [data-rez-js]: OHNE Javascript wird nichts
-   beschnitten, jeder Text steht vollständig da, und der Knopf bleibt hidden.
+   Die Zitatzeile ist ein WOERTLICHER AUSSCHNITT aus derselben Rezension, kein
+   zusammengefasster Satz. Die Vorlage zeigt dort sinngemaess umgeschriebene
+   Saetze; das waere eine erfundene Kundenaussage.
    =========================================================================== */
 
 .ref {
-  /* NAVY-KARTEN seit dem 24.08.2026 (Kundenwunsch). Es ist derselbe Ton wie
-     der Grund der Hero-Section — --navy-900, nicht ein nachgestellter Wert.
-     Vorher stand hier ein warmes Elfenbein (#F6F2EC).
-     Gemessen auf diesem Grund: Weiss 17.63:1, der Sandton der Sterne
-     9.08:1. */
-  --rez-karte:    var(--navy-900);
-  --rez-schrift:  #FFFFFF;   /* Text auf der Karte, 17.63:1 auf Navy          */
-  --rez-breite:   clamp(304px, 25vw, 376px);
-  --rez-luft:     clamp(22px, 1.9vw, 30px);   /* Innenrand der Karte           */
-  --rez-abstand:  clamp(20px, 1.8vw, 28px);   /* Abstand zwischen den Karten   */
-  --rez-portraet: clamp(78px, 6vw, 92px);     /* Durchmesser des Porträts      */
-  --rez-kreis:    #EAE3D8;   /* Scheibe hinter den Initialen, warmer Sand      */
-  --rez-stern-leer: rgba(255, 255, 255, 0.22); /* nicht vergebener Stern      */
-  --rez-zeilen:   6;         /* sichtbare Zeilen, bevor „Mehr" greift          */
+  /* ===== Farben =========================================================
+     Gemessen gegen den Cremegrund #F7F3EC:
+       Navy #102949 (Ueberschrift, Name)          14.02:1
+       --ink-mute #5F6E85 (Fliesstext)             4.89:1
+       --gold-text #86693A (Zitat, Link, Eyebrow)  4.53:1
+       --gold #A8874F (Sterne, Haarlinien)         3.16:1 — nichttextlich,
+                                                   dort gelten 3:1
+     ==================================================================== */
+  --rez-grund:    #F7F3EC;   /* Creme der Section und der Karten            */
+  --rez-linie:    rgba(168, 135, 79, 0.42);   /* Goldhaarlinie am Kartenrand */
+  --rez-portraet: clamp(50px, 4vw, 58px);     /* Durchmesser des Kreises     */
+  --rez-luft:     clamp(20px, 1.8vw, 30px);   /* Innenrand der Karte         */
+  --rez-abstand:  clamp(16px, 1.5vw, 24px);   /* Abstand zwischen den Karten */
+  --rez-zeilen:   4;         /* sichtbare Zeilen, bevor der Aufklapper greift */
+
+  /* Hoehe der Kurve. Sie MUSS kleiner bleiben als der untere Innenabstand
+     der Hero-Section (hero-a.css) — sonst legt sich die Kurve auf deren
+     weissen Marmorkasten statt auf das Navy und ist nicht mehr zu sehen. */
+  --ref-bogen-h: clamp(48px, 6vw, 92px);
 
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  padding: clamp(3.5rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
-  overflow: hidden;   /* die laufende Reihe darf die Seite nicht verbreitern */
+
+  /* KEINE eigene Flaeche am Element. Sie wuerde ueber die volle Hoehe
+     liegen und damit auch ueber den Bereich OBERHALB der Kurve — dort soll
+     aber das dunkle Bildband der Hero-Section durchscheinen. Die Flaeche
+     beginnt deshalb erst unter der Kurve, siehe .ref::after. */
+  background: none;
+
+  /* Die Section wird um die Hoehe der Kurve nach oben gezogen und legt sich
+     mit ihr ueber den Abschluss der Hero-Section. Der obere Innenabstand
+     holt das wieder auf, damit der Kopf nicht in die Kurve rutscht. */
+  margin-top: calc(-1 * var(--ref-bogen-h));
+  padding: calc(var(--ref-bogen-h) + clamp(2.4rem, 6vh, 4.5rem)) 0 clamp(3.5rem, 8vh, 6rem);
+  overflow: hidden;   /* die Reihe darf die Seite nicht verbreitern */
 }
 
-/* Zwei Spalten: links der feste Textblock, rechts die Reihe bis zum Rand. */
-/* KOPF UEBER DEN KARTEN, nicht daneben (Kundenwunsch 24.08.2026:
-   „Die Headline und das Google Badge stehen ueber den Rezensionskaesten").
-   Vorher lief hier ein zweispaltiges Raster: links Ueberschrift und Siegel,
-   rechts die laufende Reihe. Damit blieb der Reihe nur rund drei Viertel der
-   Breite. Jetzt steht der Kopf mittig darueber und die Reihe laeuft ueber
-   die volle Breite der Section.
-
-   Der Seiteneinzug ist deshalb hier weg und sitzt am Kopf: die Reihe soll
-   ihn ausdruecklich NICHT haben, sonst liefe sie nicht durch. */
+/* Die Flaeche UNTER der Kurve: Creme mit einem Hauch Marmor.
+   Der Marmor liegt als eigene, sehr blasse Lage darauf statt als
+   Hintergrundbild mit Deckkraft — `opacity` am Element wuerde den Text
+   mitnehmen. Ein Pixel Ueberlappung nach oben, sonst blitzt bei manchen
+   Bildschirmskalierungen eine Haarlinie zwischen Kurve und Flaeche durch. */
+.ref::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--ref-bogen-h) - 1px);
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(247, 243, 236, 0.88), rgba(247, 243, 236, 0.88)),
+    var(--rez-grund) url('../img/marble2.jpg') center / cover no-repeat;
+}
 .ref__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------------------------------------------------------------------------
+   Der geschwungene obere Rand.
+
+   Er liegt als SVG ganz oben in der Section und ist in der Cremefarbe
+   gefuellt; darunter schaut das dunkle Bildband der Hero-Section hervor.
+   `preserveAspectRatio="none"` laesst die Kurve mit der Fensterbreite
+   mitgehen — sonst wuerde sie an den Seiten beschnitten und der Schwung
+   waere bei jeder Breite ein anderer.
+
+   Ein Pixel Ueberstand nach oben und unten (`top: -1px`, Hoehe plus 2):
+   sonst blitzt bei manchen Bildschirmskalierungen eine Haarlinie zwischen
+   Kurve und Flaeche durch.
+--------------------------------------------------------------------------- */
+.ref__bogen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: var(--ref-bogen-h);
   display: block;
 }
+.ref__bogen path { fill: var(--rez-grund); }
 
-/* --- Linke Spalte --------------------------------------------------------- */
-/* Ohne Javascript bliebe diese Spalte leer: das siteweite Muster in
-   leistungen.css setzt [data-reveal] unbedingt auf opacity: 0, und
-   data-seen="true" vergibt erst site.js. Überschrift, Google-Siegel und der
-   Platzhalterhinweis wären damit ohne Skript unsichtbar. Deshalb hier dieselbe
-   Ausnahme, die schluss.css schon macht: sichtbar ist der AUSGANGSZUSTAND,
-   ausgeblendet wird erst, wenn site.js das Wurzelelement mit is-ready
-   markiert hat — dann läuft der Einlauf wie überall.
-   Die Reihenfolge der Spezifitäten ist Absicht: (0,2,0) schlägt das globale
-   opacity: 0, und (0,4,0) für den gesehenen Zustand schlägt wiederum die
-   eigene is-ready-Regel. */
-/* Mittig ueber der Reihe. `text-align: center` zentriert auch das Siegel,
-   weil es `inline-flex` ist — dafuer braucht es keinen eigenen Kniff. */
-.ref__seite {
+/* ---------------------------------------------------------------------------
+   1 — Kopf, mittig
+--------------------------------------------------------------------------- */
+.ref__kopf {
   max-width: 62rem;
-  margin: 0 auto clamp(2.4rem, 5vh, 3.6rem);
-  padding-inline: var(--gutter);
+  margin: 0 auto clamp(2.2rem, 4.5vh, 3.4rem);
   text-align: center;
 }
-
-.ref__seite[data-reveal] { opacity: 1; transform: none; }
-.is-ready .ref__seite[data-reveal] { opacity: 0; transform: translateY(16px); }
-.is-ready .ref__seite[data-reveal][data-seen='true'] { opacity: 1; transform: none; }
-
+.ref__eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.78rem, 0.85vw, 0.86rem);
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;   /* gleicht die Sperrung hinter dem letzten Zeichen aus */
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+/* Die kurze Goldlinie unter der Kleinzeile — dieselbe Sprache wie .rule-gold. */
+.ref__strich {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: clamp(0.6rem, 1.2vh, 0.9rem) auto 0;
+  background: var(--gold);
+  opacity: 0.8;
+}
 .ref__h2 {
-  font-size: clamp(1.9rem, 2.9vw, 2.9rem);
-  line-height: 1.1;
+  margin-top: clamp(0.9rem, 2vh, 1.5rem);
+  font-size: clamp(1.9rem, 3.3vw, 3.15rem);
+  line-height: 1.08;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+.ref__lead {
+  margin: clamp(0.7rem, 1.5vh, 1.1rem) auto 0;
+  max-width: 44rem;
+  font-family: var(--font-ui);
+  font-size: clamp(1rem, 1.08vw, 1.12rem);
+  line-height: 1.6;
+  color: var(--ink-mute);
 }
 
-/* Das Siegel trägt nur noch Sterne und Wert. Die Zeile „5 Bewertungen auf
-   Google" ist auf Kundenwunsch (14.08.2026) entfallen und kommt nicht
-   zurück — die Zahl der Bewertungen soll nicht ausgestellt werden. */
+/* --- Die Google-Zeile ----------------------------------------------------- */
 .ref__siegel {
   display: inline-flex;
   align-items: center;
-  gap: clamp(0.7rem, 1.2vw, 1rem);
-  margin-top: clamp(1.4rem, 3vh, 2rem);
-  padding: clamp(0.7rem, 1.4vh, 0.95rem) clamp(1rem, 1.6vw, 1.3rem);
-  border: 1px solid var(--line-gold);
-  border-radius: var(--radius-btn);
-  transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+  gap: clamp(0.6rem, 1vw, 0.9rem);
+  margin-top: clamp(1.2rem, 2.6vh, 1.9rem);
+  padding: 4px 2px;
+  transition: opacity 0.4s var(--ease);
 }
-.ref__siegel:hover { border-color: var(--gold); background: rgba(168, 135, 79, 0.05); }
-.ref__siegel-g { width: 26px; height: 26px; flex: 0 0 auto; }
-.ref__siegel-txt { display: grid; gap: 3px; }
-.ref__siegel-sterne { display: flex; gap: 2px; }
-.ref__siegel-sterne svg { width: 13px; height: 13px; fill: var(--gold); }
-.ref__siegel-wert {
+.ref__siegel:hover { opacity: 0.78; }
+.ref__siegel .rez__g { width: 26px; height: 26px; }
+.ref__siegel-sterne { display: flex; gap: 3px; }
+.ref__siegel-sterne svg { width: 17px; height: 17px; fill: var(--gold); }
+.ref__siegel-wert,
+.ref__siegel-zahl {
   font-family: var(--font-display);
-  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  font-size: clamp(0.98rem, 1.06vw, 1.08rem);
   font-weight: 500;
-  color: var(--ink-black);
+  color: var(--navy-800);
+}
+/* Der senkrechte Teiler zwischen Note und Anzahl, wie in der Vorlage. */
+.ref__siegel-teiler {
+  width: 1px;
+  height: 1.1em;
+  background: rgba(16, 41, 73, 0.28);
 }
 
-/* Der Platzhalterhinweis bleibt sichtbar stehen, solange Demo-Texte laufen.
-   Er verhindert, dass erfundene Bewertungen versehentlich live gehen. */
-.ref__hinweis {
-  margin-top: clamp(1.4rem, 3vh, 2rem);
-  max-width: 30rem;
-  font-size: 0.84rem;
-  line-height: 1.55;
-  color: var(--gold-text);
+/* Einlauf: sichtbar ist der Ausgangszustand, ausgeblendet wird erst, wenn
+   site.js `is-ready` gesetzt hat. Ohne Javascript steht der Kopf sofort da.
+   Dieselbe Umkehr wie in schluss.css. */
+.ref__kopf[data-reveal] { opacity: 1; transform: none; }
+.is-ready .ref__kopf[data-reveal] { opacity: 0; transform: translateY(16px); }
+.is-ready .ref__kopf[data-reveal][data-seen='true'] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s var(--ease-soft), transform 0.85s var(--ease-soft);
 }
 
-/* --- Die laufende Reihe --------------------------------------------------- */
-.rez__band {
-  position: relative;
-  overflow: hidden;
-  /* OHNE WEICHE KANTE seit dem 24.08.2026 (Kundenwunsch: „Den weissen
-     Schleier, der da erscheint, wenn die Rezensionskaesten kommen und gehen,
-     soll raus."). Hier lag eine Maske, die die Reihe an beiden Enden ins
-     Nichts ausblendete — auf hellen Karten las sie sich als weicher Uebergang,
-     auf den jetzt dunklen Karten als heller Schleier.
-     Die Karten laufen dafuer bis an den Rand der Section und werden dort von
-     `overflow: hidden` sauber beschnitten. */
-}
-/* Ohne Javascript bleibt die Reihe stehen und lässt sich seitlich schieben. */
-.rez__band:not([data-laeuft]) { overflow-x: auto; scrollbar-width: none; }
-.rez__band:not([data-laeuft])::-webkit-scrollbar { display: none; }
+/* ---------------------------------------------------------------------------
+   2 — Das Karussell
 
-.rez__lauf {
-  --dauer: 90s;
+   Aufbau: Pfeil, Fenster, Pfeil in einer Reihe. Das Fenster ist beschnitten,
+   die Spur darin wird verschoben. Wie weit, rechnet `rezensionen.js` — die
+   Kartenbreite ergibt sich aus dem Raster und ist in CSS nicht bekannt.
+--------------------------------------------------------------------------- */
+.rez__karussell {
   display: flex;
-  width: max-content;
+  align-items: center;
+  gap: clamp(0.5rem, 1.6vw, 1.6rem);
 }
-/* Läuft nach RECHTS: von -50 % (die geklonte zweite Spur steht dann im Bild)
-   auf 0. Weil beide Spuren identisch sind und der Weg exakt einer Spurbreite
-   entspricht, ist der Umschlagpunkt nicht zu sehen. */
-[data-laeuft] .rez__lauf {
-  animation: rez-lauf var(--dauer) linear infinite;
+
+.rez__pfeil {
+  flex: none;
+  width: clamp(34px, 3vw, 44px);
+  height: clamp(34px, 3vw, 44px);
+  display: grid;
+  place-items: center;
+  color: var(--navy-800);
+  border-radius: 50%;
+  transition: color 0.3s var(--ease), background 0.3s var(--ease), opacity 0.3s var(--ease);
 }
-@keyframes rez-lauf {
-  from { transform: translate3d(-50%, 0, 0); }
-  to   { transform: translate3d(0, 0, 0); }
+.rez__pfeil svg {
+  width: 60%;
+  height: 60%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-/* Angehalten, solange eine Karte offen ist oder der Fokus per Tastatur in
-   der Reihe steht. animation-play-state friert ein, ohne zu springen. */
-[data-pause] .rez__lauf,
-[data-fokus] .rez__lauf { animation-play-state: paused; }
+.rez__pfeil:hover { background: rgba(16, 41, 73, 0.07); }
+/* Am Anfang und am Ende: der Pfeil bleibt stehen, wird aber sichtbar
+   wirkungslos. `disabled` statt Ausblenden — sonst springt die Reihe. */
+.rez__pfeil[disabled] { opacity: 0.22; cursor: default; }
+.rez__pfeil[disabled]:hover { background: none; }
+
+.rez__fenster {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  /* Die Karten haben oben einen Kreis, der ueber die Kante ragt; ohne diesen
+     Rand wuerde er beschnitten. */
+  padding: calc(var(--rez-portraet) / 2 + 6px) 0 10px;
+  margin: calc(var(--rez-portraet) / -2 - 6px) 0 -10px;
+}
+/* Ohne Javascript bleibt das Fenster seitlich schiebbar — dann sind die
+   Pfeile wirkungslos, aber alle Rezensionen erreichbar. */
+.rez__fenster:not([data-rez-bereit]) { overflow-x: auto; scrollbar-width: none; }
+.rez__fenster:not([data-rez-bereit])::-webkit-scrollbar { display: none; }
 
 .rez__spur {
   display: flex;
-  align-items: stretch;          /* macht alle Karten einer Reihe gleich hoch */
+  align-items: stretch;   /* macht alle Karten einer Seite gleich hoch */
   gap: var(--rez-abstand);
-  /* Seitlich je die halbe Lücke: an der Nahtstelle zwischen Original und
-     Klon entsteht dadurch genau derselbe Abstand wie zwischen zwei Karten
-     innerhalb einer Spur. Sonst wäre der Umlauf an der Naht messbar. */
-  padding: calc(var(--rez-portraet) / 2 + 16px) calc(var(--rez-abstand) / 2) 26px;
   margin: 0;
+  padding: 0;
   list-style: none;
+  transition: transform 0.62s var(--ease-soft);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rez__spur { transition: none; }
 }
 .rez {
-  display: flex;                 /* damit die Karte die volle Zellhöhe füllt */
-  flex: 0 0 var(--rez-breite);
-  width: var(--rez-breite);
+  flex: none;
+  /* Wie viele nebeneinander stehen, setzt rezensionen.js als --rez-proseite.
+     Der Rueckfall 3 gilt, solange das Skript noch nicht gerechnet hat. */
+  width: calc((100% - (var(--rez-proseite, 3) - 1) * var(--rez-abstand)) / var(--rez-proseite, 3));
+  display: flex;
 }
 
 /* --- Die Karte ------------------------------------------------------------ */
@@ -214,19 +270,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: calc(var(--rez-portraet) / 2 + var(--rez-luft) * 0.72) var(--rez-luft) var(--rez-luft);
-  border-radius: 30px;
-  background: var(--rez-karte);
-  /* Kraeftiger als zuvor: die Karte ist jetzt dunkel und steht auf weissem
-     Papier — der zarte Schatten der hellen Karte war dort nicht mehr noetig,
-     ein etwas tieferer traegt die Hoehe besser. */
-  box-shadow: 0 2px 6px rgba(16, 41, 73, 0.12), 0 22px 50px rgba(16, 41, 73, 0.16);
+  padding: calc(var(--rez-portraet) / 2 + var(--rez-luft) * 0.8) var(--rez-luft) var(--rez-luft);
+  border: 1px solid var(--rez-linie);
+  border-radius: 12px;
+  background: var(--rez-grund);
   text-align: center;
 }
 
-/* Porträt ragt zur Hälfte über die Oberkante, wie in der Vorlage. Kein Ring:
-   in der Vorlage steht der Kreis frei, der Rand entsteht nur durch den
-   weichen Schatten. */
+/* Der Kreis ragt zur Haelfte ueber die Oberkante. */
 .rez__bild {
   position: absolute;
   top: 0;
@@ -236,124 +287,85 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
-  /* FARBIGER KREIS JE PERSON, wie Google es macht, wenn kein Profilfoto
-     hinterlegt ist (Kundenwunsch 24.08.2026: „da sind manche lila, manche
-     gruen und so weiter. Mache das ja auch so.").
-
-     Der Ton steht als --rez-kreis unmittelbar an der jeweiligen Karte im
-     Markup; hier steht nur der Rueckfall. Liegt spaeter ein echtes Foto vor,
-     deckt es den Kreis vollstaendig ab und die Farbe spielt keine Rolle mehr.
-
-     ABWEICHUNG VON GOOGLE, bewusst: Google nimmt die hellen Material-Toene
-     der 500er-Reihe und setzt Weiss darauf — mehrere davon liegen unter
-     3:1 und sind schlecht lesbar. Hier stehen dieselben Farbfamilien eine
-     Stufe tiefer (700er/800er), damit Weiss ueberall ueber 4.5:1 kommt.
-     Die Wirkung „bunte Kreise wie bei Google" bleibt, die Lesbarkeit auch. */
-  background: var(--rez-kreis);
-  box-shadow: 0 6px 16px rgba(16, 41, 73, 0.14);
+  background: var(--navy-800);
   display: grid;
   place-items: center;
 }
 .rez__bild img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
-
-/* Ersatz, solange kein Profilbild vorliegt: die Initialen im Kreis — dieselbe
-   Lösung, die Google selbst verwendet, wenn im Konto kein Bild hinterlegt ist.
-   Derzeit laufen ALLE acht Karten darüber; Fotos liegen nicht vor. Wie ein
-   Foto später eingesetzt wird, steht im Kopf dieser Datei.
-   Der Kreis bleibt hell und warm (#EAE3D8), damit die Reihe nicht von dunklen
-   Scheiben zerhackt wird; die Buchstaben stehen in Navy, gemessen 11.5:1.
-   Mittig sitzen sie durch place-items: center an .rez__bild — das gilt für
-   einen wie für zwei Buchstaben. Für Screenreader ist der Kreis aria-hidden:
-   der Name steht ohnehin als Unterschrift in derselben Karte. */
 .rez__initialen {
   font-family: var(--font-display);
-  font-size: calc(var(--rez-portraet) * 0.38);
+  font-size: calc(var(--rez-portraet) * 0.36);
   font-weight: 500;
   letter-spacing: 0.03em;
   line-height: 1;
-  color: #FFFFFF;
+  color: #FFFFFF;          /* 15.51:1 auf Navy */
   font-variant-numeric: lining-nums;
 }
 
-/* Fünf Sterne in Navy, Grösse und Abstand nach der Vorlage.
-   Im Markup stehen immer fünf; wie viele davon GEFÜLLT sind, sagt allein
-   data-sterne am <p>. Damit lässt sich die Sternzahl einer echten Rezension
-   durch Ändern einer einzigen Zahl eintragen, ohne SVG anzufassen — und ohne
-   Javascript, die Sterne stimmen also auch bei abgeschaltetem Skript.
-   WICHTIG: aria-label am selben <p> mitändern, sonst liest die
-   Vorlesesoftware etwas anderes vor, als zu sehen ist. */
+/* Fuenf Sterne in Gold. Im Markup stehen immer fuenf; wie viele GEFUELLT
+   sind, sagt allein data-sterne am <p> — ohne Javascript und ohne SVG-Arbeit.
+   WICHTIG: aria-label am selben <p> mitaendern. */
 .rez__sterne {
   display: flex;
-  gap: 7px;
-  margin-bottom: clamp(13px, 1.5vh, 17px);
+  gap: 5px;
+  margin-bottom: clamp(11px, 1.3vh, 15px);
 }
-/* Die Sterne tragen den Sandton des Knopfes „Erstgespraech vereinbaren"
-   (Kundenwunsch) — derselbe Token --sand, kein nachgestellter Wert.
-   Auf dem Navy der Karte 9.08:1; fuer nichttextliche Elemente sind 3:1
-   gefordert, der Wert liegt also weit darueber. */
-.rez__sterne svg { width: 20px; height: 20px; fill: var(--sand); }
+.rez__sterne svg { width: 17px; height: 17px; fill: var(--gold); }
 .rez__sterne[data-sterne="4"] svg:nth-of-type(n + 5),
 .rez__sterne[data-sterne="3"] svg:nth-of-type(n + 4),
 .rez__sterne[data-sterne="2"] svg:nth-of-type(n + 3),
-.rez__sterne[data-sterne="1"] svg:nth-of-type(n + 2) { fill: var(--rez-stern-leer); }
+.rez__sterne[data-sterne="1"] svg:nth-of-type(n + 2) { fill: rgba(16, 41, 73, 0.16); }
+
+/* Die Zitatzeile — woertlicher Ausschnitt aus der Rezension darunter. */
+.rez__zitat {
+  font-family: var(--font-display);
+  font-size: clamp(1.14rem, 1.28vw, 1.34rem);
+  font-weight: 400;
+  line-height: 1.28;
+  color: var(--navy-800);
+  text-wrap: balance;
+  margin-bottom: clamp(10px, 1.2vh, 14px);
+}
 
 /* --- Text ----------------------------------------------------------------- */
-/* Der Text steht in ORIGINALLÄNGE im Dokument — gekürzt wird nie, nur
-   verdeckt. Eingeklappt zeigt die Karte --rez-zeilen Zeilen; was darüber
-   hinausgeht, holt der Knopf „Mehr" hervor.
-
-   Die Beschneidung hängt an [data-rez-js], das assets/js/rezensionen.js an
-   die Reihe schreibt. Der Grund: der Knopf ist im Markup hidden, weil erst
-   eine Messung sagt, ob es überhaupt etwas aufzuklappen gibt. Ohne Javascript
-   gibt es diese Messung nicht — dann darf auch nichts verdeckt werden, sonst
-   stünde abgeschnittener Text ohne jede Möglichkeit da, ihn zu Ende zu lesen.
-   Ohne Javascript steht also jeder Text vollständig, und es gibt keinen
-   Knopf, der nichts tut. */
-.rez__text {
-  /* Zweites auto-Mass neben dem der Unterschrift: der freie Rest einer Karte
-     verteilt sich dadurch je zur Hälfte über und unter den Text. Kurze
-     Rezensionen sitzen so optisch in der Mitte, statt oben zu kleben und
-     unten ein Loch zu lassen. Die Unterschrift bleibt trotzdem auf der
-     Unterkante — sie ist das letzte Element im Kasten. */
-  margin-top: auto;
+/* Der Text steht in ORIGINALLAENGE im Dokument — gekuerzt wird nie, nur
+   verdeckt. Eingeklappt zeigt die Karte --rez-zeilen Zeilen; ob das reicht,
+   misst rezensionen.js je Karte und blendet den Knopf danach ein oder aus.
+   Die Beschneidung haengt an [data-rez-bereit]: ohne Javascript stehen alle
+   Texte vollstaendig da und es gibt keinen toten Knopf. */
+.rez__text p {
+  font-family: var(--font-ui);
+  font-size: clamp(0.9rem, 0.96vw, 0.97rem);
+  line-height: 1.62;
+  color: var(--ink-mute);
+  text-wrap: pretty;
 }
-[data-rez-js] .rez__text {
+.rez__text p + p { margin-top: 0.7em; }
+
+[data-rez-bereit] .rez__text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--rez-zeilen);
   line-clamp: var(--rez-zeilen);
   overflow: hidden;
 }
-/* Aufgeklappt: volle Höhe. Die Karte wächst dabei nach unten; weil die Spur
-   auf align-items: stretch steht, wachsen die Nachbarkarten derselben Reihe
-   mit und die Reihe bleibt eine gerade Linie — nichts rutscht übereinander. */
-[data-rez-js] .rez__karte[data-offen] .rez__text {
+[data-rez-bereit] .rez__karte[data-offen] .rez__text {
   display: block;
-  -webkit-line-clamp: none;
-  line-clamp: none;
   overflow: visible;
-}
-.rez__text p {
-  font-size: clamp(0.94rem, 1vw, 1rem);
-  line-height: 1.62;
-  color: var(--rez-schrift);
-  text-wrap: pretty;
 }
 
 .rez__mehr {
-  margin-top: 12px;
-  padding: 3px 2px;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
+  margin-top: clamp(10px, 1.2vh, 14px);
+  padding: 2px 1px;
+  font-family: var(--font-ui);
+  font-size: clamp(0.86rem, 0.92vw, 0.93rem);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.88);   /* 14.85:1 auf dem Navy der Karte */
-  border-bottom: 1px solid var(--line-gold);
+  color: var(--gold-text);          /* 4.53:1 auf dem Cremegrund */
+  border-bottom: 1px solid var(--rez-linie);
   cursor: pointer;
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
-.rez__mehr:hover { color: #FFFFFF; border-color: var(--sand); }
-/* Deutlicher Fokusring: der Knopf liegt auf farbiger Fläche, die 1px-Linie
-   aus base.css wäre dort zu leise. */
+.rez__mehr:hover { color: var(--navy-800); border-color: var(--gold); }
 .rez__mehr:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 4px;
@@ -361,56 +373,72 @@
 }
 .rez__mehr[hidden] { display: none; }
 
-/* Acht Knöpfe, die alle „Mehr" heissen, sind für Vorlesesoftware nicht zu
-   unterscheiden. Deshalb hängt assets/js/rezensionen.js an jeden Knopf einen
-   unsichtbaren Zusatz mit dem Namen der Rezension. Sichtbar ändert sich
-   nichts; die Bezeichnung wird aus <p class="rez__name"> gelesen, es ist beim
-   Eintragen der echten Rezensionen also nichts zusätzlich zu pflegen. */
-.rez__sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* --- Unterschrift --------------------------------------------------------- */
-/* margin-top: auto schiebt die Unterschrift auf die Unterkante der Karte.
-   Weil alle Karten gleich hoch sind, stehen alle Unterschriften auf einer
-   Linie — auch bei sehr kurzen Rezensionen. */
+/* margin-top: auto schiebt Name und Quellenzeile auf die Unterkante. Weil
+   alle Karten einer Seite gleich hoch sind, stehen sie damit auf einer Linie
+   — auch bei sehr kurzen Rezensionen. */
 .rez__name {
   margin-top: auto;
   padding-top: clamp(14px, 1.8vh, 20px);
-  font-family: 'Caveat', 'Segoe Script', cursive;
-  font-weight: 600;
-  font-size: 1.7rem;
-  line-height: 1;
-  color: #FFFFFF;                  /* 17.63:1 auf dem Navy der Karte */
+  font-family: var(--font-display);
+  font-size: clamp(1.06rem, 1.16vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--navy-800);          /* 14.02:1 auf dem Cremegrund */
 }
+.rez__quelle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin-top: clamp(10px, 1.2vh, 14px);
+  font-family: var(--font-ui);
+  font-size: clamp(0.84rem, 0.9vw, 0.9rem);
+  color: var(--ink-mute);
+}
+.rez__quelle .rez__g { width: 17px; height: 17px; }
+.rez__g { display: block; }
 
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 1100px) {
-  /* .ref__inner war bis zum 24.08.2026 ein zweispaltiges Raster und musste
-     hier einspaltig gestellt werden. Seit der Kopf ohnehin oben steht, ist
-     das gegenstandslos. */
-  .ref__seite { max-width: 46rem; }
-  /* Einspaltig läuft die Reihe über die ganze Fensterbreite — sonst bliebe
-     links ein weisser Streifen, an dem die Karten hart abgeschnitten wirken. */
-  /* Der negative Rand ist entfallen: seit der Kopf oben steht, hat
-     .ref__inner keinen Seiteneinzug mehr, den die Reihe ausgleichen muesste.
-     Die Maske ist ebenfalls entfallen — siehe oben. */
+/* ---------------------------------------------------------------------------
+   3 — Die Punkte
+   Anzahl und Zustand setzt rezensionen.js; ohne Javascript bleibt die Leiste
+   leer und faellt damit weg.
+--------------------------------------------------------------------------- */
+.rez__punkte {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin-top: clamp(1.6rem, 3.4vh, 2.4rem);
+  min-height: 6px;
 }
-@media (max-width: 640px) {
-  .ref { --rez-breite: min(300px, 82vw); }
-  /* Maske entfallen — siehe .rez__band weiter oben. */
+.rez__punkt {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(16, 41, 73, 0.2);
+  cursor: pointer;
+  transition: width 0.4s var(--ease), background 0.4s var(--ease);
 }
+/* Die aktive Seite ist ein Balken in Gold, nicht ein groesserer Punkt —
+   so in der Vorlage. */
+.rez__punkt[aria-selected='true'] {
+  width: 30px;
+  background: var(--gold);
+}
+.rez__punkt:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-/* Ohne Bewegung: die Reihe steht still und bleibt seitlich scrollbar. */
-@media (prefers-reduced-motion: reduce) {
-  .rez__lauf { animation: none !important; }
-  .rez__band { overflow-x: auto; }
+/* ---------------------------------------------------------------------------
+   Umbrueche. Wie viele Karten nebeneinander stehen, entscheidet
+   rezensionen.js anhand derselben Grenzen — sie stehen dort noch einmal.
+--------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .ref { --rez-zeilen: 5; }
+}
+/* 699 und nicht 700: rezensionen.js schaltet bei `innerWidth < 700` auf EINE
+   Karte je Seite. Stuende hier 700, waeren bei genau 700 px die Pfeile schon
+   weg, waehrend noch zwei Karten nebeneinander stehen — die beiden Grenzen
+   muessen auf demselben Pixel liegen. */
+@media (max-width: 699px) {
+  .rez__pfeil { display: none; }   /* auf dem Telefon wird gewischt */
+  .rez__karussell { gap: 0; }
 }

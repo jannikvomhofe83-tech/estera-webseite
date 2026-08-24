@@ -30,7 +30,20 @@
      dem Bildband traegt auf diesem Grund am staerksten: Weiss auf Navy sind
      17.63:1, auf Sand waren es 1.94:1. */
   background: var(--navy-900);
-  padding-bottom: clamp(2rem, 5vh, 4rem);
+  /* MEHR LUFT NACH UNTEN als frueher, und zwar deutlich.
+
+     Die Section darunter zieht sich mit ihrem geschwungenen Rand um bis zu
+     92 px hier herein. Dieser Abstand muss GROESSER sein als diese Kurve,
+     sonst legt sie sich auf den weissen Marmorkasten — und Creme auf Weiss
+     ist keine sichtbare Kante. Genau das war beim ersten Versuch der Fall:
+     nachgemessen blieben nur 15 px, die Kurve war ausschliesslich links und
+     rechts neben dem Kasten zu erkennen.
+
+     Mit 14vh bleiben ueber der Kurve rund 40 px Navy stehen — sie zeichnet
+     sich damit ueber die ganze Breite ab, so wie in der Vorlage des Kunden.
+     Faustregel beim Nachstellen: dieser Wert minus --ref-bogen-h aus
+     referenzen.css ist der sichtbare Navy-Streifen. */
+  padding-bottom: clamp(7rem, 14vh, 11rem);
 }
 
 /* --- Bildband ------------------------------------------------------------- */

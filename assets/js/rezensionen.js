@@ -1,216 +1,201 @@
-/* ---------------------------------------------------------------------------
-   ESTERA — Google-Rezensionen
+/* ===========================================================================
+   KUNDENSTIMMEN — Karussell und Aufklapper
 
-   Vier Aufgaben:
+   Neu geschrieben am 24.08.2026. Die Reihe lief bis dahin von allein durch;
+   auf Kundenwunsch wird jetzt ausschliesslich von Hand geblaettert — ueber
+   die beiden Pfeile, die Punkte darunter, die Pfeiltasten oder eine
+   Wischbewegung.
 
-   1. Sich als vorhanden melden. [data-rez-js] an der Reihe schaltet in
-      assets/css/referenzen.css die Beschneidung des Textes ein. Ohne
-      Javascript wird deshalb NICHTS beschnitten: jede Rezension steht in
-      voller Originallänge da, und der Knopf „Mehr" bleibt hidden — es gibt
-      also keinen Knopf, der nichts tut.
+   ZWEI DINGE, DIE DIESE DATEI TUT:
 
-   2. Den Knopf „Mehr" nur dort einblenden, wo der Text tatsächlich
-      abgeschnitten ist. Das wird GEMESSEN, nicht geschätzt: die tatsächliche
-      Höhe des Absatzes (scrollHeight) gegen die sichtbare (clientHeight). Eine
-      Zeichenzahl als Faustregel ginge schief, weil dieselbe Rezension in einer
-      376 px breiten Karte sechs und in einer 300 px breiten acht Zeilen
-      braucht. Gemessen wird nach document.fonts.ready — vorher rechnet der
-      Browser noch mit der Ersatzschrift und die Umbrüche stimmen nicht —,
-      nach load und bei jeder Grössenänderung der Reihe.
+   1  BLAETTERN. Wie viele Karten nebeneinander stehen, haengt an der
+      Fensterbreite. Daraus ergibt sich die Zahl der Seiten und damit die
+      Zahl der Punkte — beides ist erst zur Laufzeit bekannt und wird
+      deshalb hier gerechnet, nicht im Stylesheet.
 
-   3. Die Reihe endlos laufen lassen. Dafür wird die Spur einmal geklont; die
-      Kopie hängt direkt hinter dem Original. Die Bewegung läuft von
-      translateX(-50%) nach 0 — die Karten wandern also nach RECHTS und die
-      Kopie schiebt von links nach. Der Weg entspricht exakt einer Spurbreite,
-      am Umschlagpunkt sieht das Bild deshalb identisch aus: kein Sprung.
-      Bei prefers-reduced-motion: reduce entsteht die Kopie gar nicht erst —
-      wer nicht laufen lässt, soll die acht Karten einmal sehen und nicht
-      sechzehn.
+   2  AUFKLAPPEN. Ob eine Rezension laenger ist, als die Karte zeigt, wird
+      GEMESSEN (`scrollHeight` gegen `clientHeight`), nicht an der Zeichenzahl
+      geraten: bei gleicher Laenge braucht ein Text mit vielen langen Woertern
+      mehr Zeilen als einer mit kurzen. Gemessen wird nach
+      `document.fonts.ready` erneut — vorher rechnet der Browser mit der
+      Ersatzschrift, und Cormorant ist deutlich schmaler als die.
 
-   4. Beim Aufklappen die Bewegung anhalten, damit der Text nicht unter den
-      Fingern wegfährt, und beim Zuklappen wieder starten.
-
-   Ohne Javascript steht die Reihe still und ist seitlich scrollbar; kein
-   Inhalt geht verloren.
---------------------------------------------------------------------------- */
+   OHNE DIESE DATEI bleibt die Section vollstaendig benutzbar: alle Texte
+   stehen ungekuerzt da, das Fenster ist seitlich schiebbar, und es gibt
+   keinen Knopf, der ins Leere greift. Das Stylesheet haengt jede
+   Einschraenkung an `[data-rez-bereit]`, und dieses Merkmal setzt erst
+   dieses Skript.
+   =========================================================================== */
 (function () {
   'use strict';
 
-  var band = document.querySelector('[data-rez-band]');
-  if (!band) return;
+  var karussell = document.querySelector('[data-rez]');
+  if (!karussell) return;
 
-  var lauf = band.querySelector('[data-rez-lauf]');
-  var spur = band.querySelector('[data-rez-spur]');
-  if (!lauf || !spur) return;
+  var fenster = karussell.querySelector('[data-rez-fenster]');
+  var spur    = karussell.querySelector('[data-rez-spur]');
+  var zurueck = karussell.querySelector('[data-rez-zurueck]');
+  var vor     = karussell.querySelector('[data-rez-vor]');
+  var punkte  = document.querySelector('[data-rez-punkte]');
+  var karten  = [].slice.call(spur.querySelectorAll('.rez'));
+  if (!fenster || !spur || !karten.length) return;
 
-  var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var seite = 0;
+  var proSeite = 3;
+  var seiten = 1;
 
-  /* --- 1. Beschneidung freigeben ---------------------------------------- */
-  /* Muss VOR der ersten Messung geschehen, sonst misst Schritt 2 einen
-     unbeschnittenen Absatz und käme nie zu einem Knopf. */
-  band.setAttribute('data-rez-js', 'true');
+  /* --- Wie viele Karten passen nebeneinander ------------------------------
+     Dieselben Grenzen wie im Stylesheet. Sie stehen bewusst doppelt: eine
+     Rechnung ueber `matchMedia` waere hier zwar moeglich, aber dann laege die
+     Zahl an zwei Stellen in zwei verschiedenen Sprachen, und beim Verstellen
+     wuerde man die zweite vergessen. So steht sie einmal als Zahl da. */
+  function anzahlProSeite() {
+    var b = window.innerWidth;
+    if (b < 700) return 1;
+    if (b < 1100) return 2;
+    return 3;
+  }
 
-  /* --- Knöpfe unterscheidbar machen -------------------------------------- */
-  /* Acht Knöpfe, die alle „Mehr" heissen, sind beim Durchhören nicht
-     auseinanderzuhalten. Der Name der Rezension steht schon in der Karte;
-     er wird von dort geholt und unsichtbar an den Knopf gehängt. Beim
-     Eintragen der echten Rezensionen ist dafür nichts zu tun. */
-  Array.prototype.forEach.call(spur.querySelectorAll('.rez__karte'), function (karte) {
-    var knopf = karte.querySelector('[data-rez-mehr]');
-    var name  = karte.querySelector('.rez__name');
-    if (!knopf || !name || knopf.querySelector('.rez__sr')) return;
-    var zusatz = document.createElement('span');
-    zusatz.className = 'rez__sr';
-    zusatz.textContent = ' — Rezension von ' + name.textContent.trim();
-    knopf.appendChild(zusatz);
-  });
+  /* --- Blaettern ---------------------------------------------------------- */
+  function setzen(neu, weich) {
+    seite = Math.max(0, Math.min(neu, seiten - 1));
 
-  /* --- 3a. Zweite Spur für den nahtlosen Umlauf -------------------------- */
-  /* Die Kopie ist reine Optik: sie trägt dieselben Texte, würde also von
-     Screenreadern doppelt vorgelesen und wäre doppelt antippbar. Deshalb
-     aria-hidden, alle Bedienelemente aus der Tabulatorfolge, und alle IDs
-     heraus — eine ID darf im Dokument nur einmal vorkommen. */
-  var klon = null;
-  var kartenKlon = [];
-  var kartenOrig = spur.querySelectorAll('.rez__karte');
+    /* Die letzte Seite wird ANGESCHLAGEN, nicht angeschnitten: bei zehn
+       Karten und drei Plaetzen blieben sonst auf Seite vier zwei leere
+       Felder. Stattdessen endet die Spur buendig mit der letzten Karte und
+       zeigt die letzten drei. */
+    var erste = Math.min(seite * proSeite, Math.max(0, karten.length - proSeite));
 
-  var sorgeFuerKlon = function () {
-    if (klon) return;
-    klon = spur.cloneNode(true);
-    klon.removeAttribute('data-rez-spur');
-    klon.setAttribute('aria-hidden', 'true');
-    klon.setAttribute('data-rez-klon', '');
-    Array.prototype.forEach.call(klon.querySelectorAll('button, a'), function (el) {
-      el.setAttribute('tabindex', '-1');
-    });
-    Array.prototype.forEach.call(klon.querySelectorAll('[id]'), function (el) {
-      el.removeAttribute('id');
-    });
-    Array.prototype.forEach.call(klon.querySelectorAll('[aria-controls]'), function (el) {
-      el.removeAttribute('aria-controls');   // zeigt sonst ins Leere
-    });
-    lauf.appendChild(klon);
-    kartenKlon = klon.querySelectorAll('.rez__karte');
-    pruefeUeberlauf();
-  };
+    var schritt = 0;
+    if (karten[1]) schritt = karten[1].offsetLeft - karten[0].offsetLeft;
+    else schritt = karten[0].offsetWidth;
 
-  /* Original und Kopie stehen in gleicher Reihenfolge — darüber findet ein
-     Knopf seine Zwillingskarte in der jeweils anderen Spur. Ohne das würde
-     eine aufgeklappte Karte beim Umlauf plötzlich wieder zugeklappt
-     vorbeiziehen. */
-  var zwilling = function (karte) {
-    if (!klon) return null;
-    var i = Array.prototype.indexOf.call(kartenOrig, karte);
-    if (i > -1) return kartenKlon[i] || null;
-    i = Array.prototype.indexOf.call(kartenKlon, karte);
-    return i > -1 ? (kartenOrig[i] || null) : null;
-  };
-
-  /* --- 3b. Tempo ---------------------------------------------------------- */
-  /* Die Dauer richtet sich nach der tatsächlichen Breite, damit die Karten
-     überall gleich schnell wandern — sonst rast die Reihe auf schmalen
-     Fenstern und kriecht auf breiten. Rund 42 Pixel je Sekunde. */
-  var setzeDauer = function () {
-    var breite = spur.getBoundingClientRect().width;
-    if (!breite) return;
-    var s = Math.max(20, Math.round(breite / 42));
-    if (lauf.style.getPropertyValue('--dauer') === s + 's') return;   // kein Neustart ohne Not
-    lauf.style.setProperty('--dauer', s + 's');
-  };
-
-  var laufSchalten = function () {
-    if (ruhig.matches) {
-      band.removeAttribute('data-laeuft');
-    } else {
-      sorgeFuerKlon();
-      band.setAttribute('data-laeuft', 'true');
+    if (!weich) spur.style.transition = 'none';
+    spur.style.transform = 'translate3d(' + (-erste * schritt) + 'px, 0, 0)';
+    if (!weich) {
+      /* Ein erzwungener Durchgang, damit das Zuruecksetzen der Ueberblendung
+         nicht mit der Verschiebung zusammenfaellt. */
+      void spur.offsetWidth;
+      spur.style.transition = '';
     }
-  };
 
-  /* --- 2. „Mehr" nur bei tatsächlich abgeschnittenem Text ---------------- */
-  var pruefeUeberlauf = function () {
-    Array.prototype.forEach.call(lauf.querySelectorAll('.rez__karte'), function (karte) {
-      var text  = karte.querySelector('[data-rez-text]');
-      var knopf = karte.querySelector('[data-rez-mehr]');
-      if (!text || !knopf) return;
-      if (karte.hasAttribute('data-offen')) return;      // offen ist nie beschnitten
-      // 2 px Toleranz: Teilpixel bei gebrochenen Zeilenhöhen
+    if (zurueck) zurueck.disabled = seite === 0;
+    if (vor) vor.disabled = seite >= seiten - 1;
+
+    [].forEach.call(punkte ? punkte.children : [], function (p, i) {
+      p.setAttribute('aria-selected', i === seite ? 'true' : 'false');
+      p.setAttribute('tabindex', i === seite ? '0' : '-1');
+    });
+  }
+
+  function punkteBauen() {
+    if (!punkte) return;
+    punkte.textContent = '';
+    for (var i = 0; i < seiten; i++) {
+      (function (nr) {
+        var p = document.createElement('button');
+        p.type = 'button';
+        p.className = 'rez__punkt';
+        p.setAttribute('role', 'tab');
+        p.setAttribute('aria-label', 'Seite ' + (nr + 1) + ' von ' + seiten);
+        p.addEventListener('click', function () { setzen(nr, true); });
+        punkte.appendChild(p);
+      })(i);
+    }
+    /* Bei nur einer Seite waere die Leiste eine einzelne Marke ohne Funktion. */
+    punkte.hidden = seiten < 2;
+  }
+
+  function neuRechnen() {
+    var vorher = proSeite;
+    proSeite = anzahlProSeite();
+    karussell.style.setProperty('--rez-proseite', proSeite);
+    spur.style.setProperty('--rez-proseite', proSeite);
+    document.querySelector('.ref').style.setProperty('--rez-proseite', proSeite);
+
+    seiten = Math.max(1, Math.ceil(karten.length / proSeite));
+    if (proSeite !== vorher) seite = 0;
+    punkteBauen();
+    setzen(seite, false);
+  }
+
+  /* --- Aufklapper --------------------------------------------------------- */
+  function knoepfePruefen() {
+    karten.forEach(function (li) {
+      var karte = li.querySelector('.rez__karte');
+      var text  = li.querySelector('[data-rez-text]');
+      var knopf = li.querySelector('[data-rez-mehr]');
+      if (!karte || !text || !knopf) return;
+      if (karte.hasAttribute('data-offen')) return;   /* offen: immer sichtbar */
+      /* 2 px Spiel fuer Teilpixel — ohne das taucht der Knopf bei manchen
+         Bildschirmskalierungen an Texten auf, die genau hineinpassen. */
       knopf.hidden = text.scrollHeight <= text.clientHeight + 2;
     });
-  };
+  }
 
-  /* Bei schnellem Ziehen am Fensterrand fällt sonst je Pixel eine volle
-     Layoutmessung an. Ein rAF je Bild reicht. */
+  karten.forEach(function (li) {
+    var karte = li.querySelector('.rez__karte');
+    var knopf = li.querySelector('[data-rez-mehr]');
+    var wort  = knopf && knopf.querySelector('[data-rez-mehr-wort]');
+    if (!karte || !knopf) return;
+    knopf.addEventListener('click', function () {
+      var offen = karte.hasAttribute('data-offen');
+      if (offen) karte.removeAttribute('data-offen');
+      else karte.setAttribute('data-offen', '');
+      knopf.setAttribute('aria-expanded', offen ? 'false' : 'true');
+      if (wort) wort.textContent = offen ? 'Vollständige Bewertung' : 'Weniger anzeigen';
+      if (offen) knopfePruefenGleich();
+    });
+  });
+  function knopfePruefenGleich() {
+    /* Nach dem Zuklappen muss neu gemessen werden — die Karte ist wieder
+       beschnitten, und erst dann stimmt scrollHeight gegen clientHeight. */
+    requestAnimationFrame(knoepfePruefen);
+  }
+
+  /* --- Bedienung ---------------------------------------------------------- */
+  if (zurueck) zurueck.addEventListener('click', function () { setzen(seite - 1, true); });
+  if (vor)     vor.addEventListener('click',     function () { setzen(seite + 1, true); });
+
+  karussell.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { setzen(seite - 1, true); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { setzen(seite + 1, true); e.preventDefault(); }
+  });
+
+  /* Wischen. Nur waagerechte Bewegungen zaehlen — sonst bliebe die Seite beim
+     senkrechten Scrollen auf dem Telefon haengen. */
+  var startX = null, startY = null, waagerecht = false;
+  fenster.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY; waagerecht = false;
+  }, { passive: true });
+  fenster.addEventListener('touchmove', function (e) {
+    if (startX === null) return;
+    var dx = e.touches[0].clientX - startX, dy = e.touches[0].clientY - startY;
+    if (!waagerecht && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) waagerecht = true;
+  }, { passive: true });
+  fenster.addEventListener('touchend', function (e) {
+    if (startX === null || !waagerecht) { startX = null; return; }
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 45) setzen(seite + (dx < 0 ? 1 : -1), true);
+    startX = null;
+  }, { passive: true });
+
+  /* --- Start -------------------------------------------------------------- */
+  fenster.setAttribute('data-rez-bereit', '');
+  document.querySelector('.ref').setAttribute('data-rez-bereit', '');
+  neuRechnen();
+  knoepfePruefen();
+
+  /* Die verbindliche Messung: vorher rechnet der Browser mit der Ersatzschrift. */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { neuRechnen(); knoepfePruefen(); });
+  }
+  window.addEventListener('load', function () { neuRechnen(); knoepfePruefen(); });
+
   var wartet = false;
-  var spaeterPruefen = function () {
+  window.addEventListener('resize', function () {
     if (wartet) return;
     wartet = true;
-    window.requestAnimationFrame(function () {
-      wartet = false;
-      setzeDauer();
-      pruefeUeberlauf();
-    });
-  };
-
-  /* --- Reihenfolge beim Start -------------------------------------------- */
-  setzeDauer();
-  laufSchalten();
-  pruefeUeberlauf();                       /* erste, noch grobe Messung      */
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(pruefeUeberlauf);   /* die verbindliche Messung */
-  }
-  window.addEventListener('load', pruefeUeberlauf);
-  window.addEventListener('resize', spaeterPruefen);
-  if ('ResizeObserver' in window) new ResizeObserver(spaeterPruefen).observe(spur);
-  if (ruhig.addEventListener) ruhig.addEventListener('change', laufSchalten);
-
-  /* --- 4. Aufklappen hält die Reihe an ----------------------------------- */
-  var offene = 0;
-
-  /* Setzt eine einzelne Karte auf offen oder zu. Der Knopf der Kopie ist
-     aria-hidden, deshalb bekommt nur das Original die Zustandsattribute
-     für Screenreader — sichtbar geändert werden beide. */
-  var stelle = function (karte, auf) {
-    if (!karte) return;
-    var knopf = karte.querySelector('[data-rez-mehr]');
-    if (auf) karte.setAttribute('data-offen', 'true');
-    else     karte.removeAttribute('data-offen');
-    if (!knopf) return;
-    var wort = knopf.querySelector('[data-rez-mehr-wort]') || knopf;
-    wort.textContent = auf ? 'Weniger' : 'Mehr';
-    knopf.setAttribute('aria-expanded', String(auf));
-  };
-
-  var umschalten = function (knopf) {
-    var karte = knopf.closest('.rez__karte');
-    if (!karte) return;
-    var auf = !karte.hasAttribute('data-offen');
-
-    stelle(karte, auf);
-    stelle(zwilling(karte), auf);
-
-    offene = Math.max(0, offene + (auf ? 1 : -1));
-    band.toggleAttribute('data-pause', offene > 0);
-
-    /* Nach dem Zuklappen neu messen: die Karte kann inzwischen breiter
-       geworden sein (Fenster gezogen, während sie offen stand), dann ist
-       nichts mehr abgeschnitten und der Knopf hat sich erledigt. */
-    if (!auf) pruefeUeberlauf();
-  };
-
-  lauf.addEventListener('click', function (e) {
-    var knopf = e.target.closest('[data-rez-mehr]');
-    if (knopf) umschalten(knopf);
+    requestAnimationFrame(function () { wartet = false; neuRechnen(); knoepfePruefen(); });
   });
-
-  /* Wer sich mit der TASTATUR durch die Karten bewegt, soll den Text nicht
-     unter dem Finger wegfahren sehen — Fokus hält deshalb ebenfalls an.
-     Nur bei :focus-visible, sonst bliebe die Reihe nach einem Mausklick auf
-     „Weniger" stehen, obwohl niemand mehr etwas liest. */
-  lauf.addEventListener('focusin', function (e) {
-    var sichtbar = true;
-    try { sichtbar = e.target.matches(':focus-visible'); } catch (err) { /* alte Browser */ }
-    if (sichtbar) band.setAttribute('data-fokus', 'true');
-  });
-  lauf.addEventListener('focusout', function () { band.removeAttribute('data-fokus'); });
 })();
