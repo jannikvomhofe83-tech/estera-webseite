@@ -3,28 +3,28 @@
 Statisches Prototyping, kein Build-Schritt. Lokal starten:
 
 ```bash
-python3 -m http.server 4321
+python3 -m http.server 4399
 ```
 
-- Variante A (Briefing-Idee, aktiv weiterentwickelt) → http://127.0.0.1:4321/variante-a.html
-- Variante B (Geometrie 1:1 nach Imperia) → http://127.0.0.1:4321/index.html
+Startseite → http://127.0.0.1:4399/variante-a.html
 
-Unten mittig liegt ein Umschalter zwischen den Varianten. **Der ist nur für die
-interne Abstimmung** und fliegt vor dem Launch raus (`.variant-switch` in
-`base.css`, Markup am Ende beider HTML-Dateien).
+**Variante B ist am 24.08.2026 gelöscht** (`index.html`, `hero-b.css`), mit ihr
+der Umschalter unten mittig (`.variant-switch` in `base.css`). Gearbeitet wurde
+ohnehin durchgehend an Variante A. Alles liegt weiter in der
+Versionsgeschichte. Weil es damit keine `index.html` mehr gibt, ist die Regel
+`/ → /variante-a.html` in `_redirects` das Einzige, was auf Netlify die
+Startadresse beantwortet.
 
 ---
 
 ## Aufbau
 
 ```
-index.html          Variante B — Hero
-variante-a.html     Variante A — Hero, Kunden, Ablauf
+variante-a.html     Startseite
 assets/css/
   fonts.css         @font-face, self-hosted
   base.css          Tokens, Header, Menü-Overlay, Buttons, Rotator
   hero-a.css        Bildband + eingelegter Kasten
-  hero-b.css        Imperia-Geometrie
   referenzen.css    Kunden, die uns vertrauen
   leistungen.css    Section 3 — So funktioniert Estera
   auswahl.css       Section 4 — Warum Estera anders auswählt
@@ -405,7 +405,7 @@ Wording: nicht „ausgewählte Wohnimmobilien", sondern
   schriftliche Freigabe für Logo, Name und Zitat.
 - **Logo als SVG.** Aktuell ist die Wortmarke typografisch nachgebaut
   (Cormorant Garamond, Sperrsatz). Sobald das echte Logo da ist, ersetzt es
-  `.wordmark` in beiden HTML-Dateien.
+  `.wordmark` im Kopf aller Seiten.
 - **Bilder.** Aktuell Platzhalter unter `assets/img/`. Sie zeigen die
   Bildsprache, sind aber nicht final und zeigen keine echten Estera-Objekte.
 - **Kontaktdaten, Impressum, Datenschutz.** Navigationsziele sind vorbereitet,

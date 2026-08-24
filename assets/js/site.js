@@ -362,8 +362,11 @@
      Die Kopfeintraege „Karriere" zeigen ab sofort auf
      `ueber-estera.html#karriere` beziehungsweise, auf der Seite selbst,
      auf `#karriere`. Beide Formen bestehen die Pruefung unten. */
+  /* `index.html` (Variante B) ist am 24.08.2026 geloescht. Stuende der
+     Name hier weiter drin, waere ein Verweis darauf freigeschaltet — also
+     eine 404 statt eines gesperrten Knopfes. */
   var vorhandeneSeiten = [
-    'index.html', 'variante-a.html',
+    'variante-a.html',
     'ueber-estera.html', 'kontakt.html'
   ];
   Array.prototype.forEach.call(
