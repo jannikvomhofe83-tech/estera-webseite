@@ -1,0 +1,303 @@
+/* ===========================================================================
+   DAS PROBLEM  (#problem)   —   gebaut am 24.08.2026
+
+   Dritter Abschnitt der Startseite: zwischen den Kundenstimmen (#bewertungen,
+   Creme) und „Vorteile von Immobilien" (#warum-immobilien, Weiss).
+
+   ===== WARUM WEISS UND NICHT CREME =======================================
+   Der Abschnitt darueber endet in Creme (#F7F3EC). Stuende dieser hier auf
+   demselben Creme, gaebe es zwischen beiden keine Kante mehr — zwei gleiche
+   Flaechen hintereinander lesen sich als EIN Abschnitt, und die
+   Kundenstimmen wuerden optisch in den Problemtext hineinlaufen. Eine
+   Trennlinie zu ziehen waere die schlechtere Loesung: die Seite arbeitet
+   sonst nirgends mit waagerechten Kanten zwischen Abschnitten.
+
+   Weiss loest das ohne jedes zusaetzliche Bauteil. Der Wechsel Creme →
+   Weiss ist selbst die Zaesur, und er laeuft in dieselbe Richtung wie der
+   Inhalt: die Cremeflaeche ist die warme, erzaehlende (Stimmen von Kunden),
+   Weiss ist der nuechterne Grund, auf dem die Feststellung steht.
+
+   Nach unten fuehrt Weiss ohne Kante in #warum-immobilien weiter, das
+   ebenfalls auf Weiss steht. Das ist hier gewollt: die letzte Zeile
+   („Genau deshalb funktioniert Vermögensaufbau mit Immobilien anders.")
+   uebergibt ausdruecklich an den naechsten Abschnitt — dort soll gerade
+   KEINE Kante stehen. Damit daraus kein doppelter Abstand wird, ist der
+   untere Innenabstand dieses Abschnitts kurz gehalten (siehe --pb-ende):
+   der Luftraum vor der naechsten Ueberschrift kommt aus deren eigenem
+   oberen Innenabstand, nicht aus beiden zusammen.
+
+   ===== FARBE UND KONTRAST, gemessen gegen den weissen Grund #FFFFFF ======
+     --gold-text  #86693A   Kleinzeile                          5.12:1  ✓
+     --navy-800   #102949   Ueberschrift, Marken, Schlusszeile  16.71:1 ✓
+     --ink-black  #2B2E33   Fliesstext                          13.43:1 ✓
+     --ink-soft   #4A5F7A   Saetze der drei Aussagen             6.54:1 ✓
+     --ink-mute   #5F6E85   Uebergabezeile                       5.20:1 ✓
+     --gold       #A8874F   Haarlinien, nichttextlich            3.36:1 ✓
+   Der Sandton --sand (#D9B485) kommt hier nicht vor: er misst als Schrift
+   auf Weiss 1.94:1 und traegt dort auch als Flaeche keinen Rand. Wo Gold
+   als SCHRIFT steht, steht --gold-text; siehe Farbblock in base.css.
+
+   Keine Warnfarbe. Kein Rot, kein Ausrufezeichen, keine Signalpfeile —
+   der Abschnitt stellt fest, er dramatisiert nicht.
+
+   ===== KEIN SCHAUBILD ====================================================
+   Bewusst rein typografisch. Jede Grafik zu diesem Inhalt haette Groessen
+   gegeneinander stellen muessen — Steuerlast gegen verfuegbares Kapital —
+   und damit Zahlen behauptet, die es nicht gibt. Sichtbar gefuehrt wird
+   ueber Haarlinien: der Goldstrich unter der Kleinzeile, die kurze
+   Goldmarke ueber jeder Aussage, die Trennlinien zwischen den Spalten und
+   der senkrechte Faden am Schluss, der auf den naechsten Abschnitt zeigt.
+   Alle sind statisch — sie brauchen weder Javascript noch Bewegung.
+
+   ===== BEWEGUNG ==========================================================
+   Nur der siteweite Einlauf ueber [data-reveal] aus site.js. Er ist wie in
+   referenzen.css und schluss.css umgekehrt aufgehaengt: sichtbar ist der
+   Ausgangszustand, ausgeblendet wird erst unter `.is-ready`. Das globale
+   Muster in leistungen.css setzt `[data-reveal] { opacity: 0 }` unbedingt —
+   ohne Javascript bliebe der Abschnitt damit leer. Bei
+   `prefers-reduced-motion: reduce` steht ebenfalls alles sofort da.
+   =========================================================================== */
+
+.prob {
+  /* Oben viel Luft: der Wechsel von Creme auf Weiss soll als Zaesur wirken,
+     und dafuer braucht das Weiss Flaeche, bevor Schrift darauf steht.
+     Unten kurz — der Abstand zur naechsten Ueberschrift kommt aus deren
+     eigenem oberen Innenabstand (siehe Kopf dieser Datei). */
+  --pb-ende: clamp(1.6rem, 3vh, 2.6rem);
+
+  --prob-linie:      rgba(16, 41, 73, 0.10);   /* Trenner zwischen den Spalten */
+  --prob-linie-gold: rgba(168, 135, 79, 0.55); /* die kurze Marke ueber jeder Aussage */
+
+  position: relative;
+  background: var(--paper);
+  padding: clamp(3.6rem, 8.5vh, 6.5rem) 0 var(--pb-ende);
+  /* Der Seitenkopf liegt fest ueber der Seite. Ohne diesen Abzug rutschte
+     die Kleinzeile beim Sprung auf #problem darunter. Gleicher Wert wie in
+     leistungen.css und faq.css. */
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  /* Der Abschnitt darf die Seite nie verbreitern, auch nicht, wenn ein
+     langes Wort in einer schmalen Spalte steht. */
+  overflow: hidden;
+}
+
+.prob__inner {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------------------------------------------------------------------------
+   1 — Kopf links, Fliesstext rechts
+
+   Zweispaltig erst ab 1080 px. Darunter laeuft beides untereinander; die
+   Ueberschrift behaelt dann ihre linksbuendige Ausrichtung, damit die
+   Fluchtlinie zum Text darunter erhalten bleibt.
+
+   Das Verhaeltnis 5 zu 6 mit einer leeren Spalte dazwischen: die
+   Ueberschrift braucht die kuerzere Zeile (sie ist gross gesetzt), der
+   Fliesstext die laengere. Beide beginnen auf derselben Oberkante.
+--------------------------------------------------------------------------- */
+.prob__satz-oben {
+  display: grid;
+  gap: clamp(1.6rem, 3.4vh, 2.6rem);
+}
+
+@media (min-width: 1080px) {
+  .prob__satz-oben {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(2.5rem, 5vw, 6rem);
+    align-items: start;
+  }
+}
+
+.prob__kopf { max-width: 34rem; }
+
+/* Die Kleinzeile steht in Versalien im Dokument selbst — nicht ueber
+   `text-transform`. Der Wortlaut ist freigegeben und soll genau so
+   ausgeliefert werden, wie er im Wording-Master steht.
+   `text-indent` gleicht die Sperrung hinter dem letzten Zeichen aus,
+   damit die Zeile trotz Laufweite links buendig zur Ueberschrift steht. */
+.prob__eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.78rem, 0.85vw, 0.86rem);
+  letter-spacing: 0.28em;
+  line-height: 1.5;
+  color: var(--gold-text);
+}
+
+.prob__strich {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: clamp(0.7rem, 1.4vh, 1rem) 0 0;
+  background: var(--gold);
+  opacity: 0.8;
+}
+
+.prob__h2 {
+  margin-top: clamp(0.9rem, 2vh, 1.5rem);
+  font-size: clamp(1.75rem, 3vw, 2.9rem);
+  line-height: 1.12;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+
+/* Der Fliesstext sitzt eine Spur tiefer als die Oberkante der Ueberschrift:
+   optisch beginnen beide dadurch auf derselben Hoehe, weil die Kleinzeile
+   ueber der Ueberschrift eine kleinere Schriftgroesse hat. */
+.prob__text {
+  max-width: 40rem;
+  padding-top: clamp(0.2rem, 1.2vh, 0.9rem);
+}
+.prob__absatz {
+  font-family: var(--font-ui);
+  font-size: clamp(1.04rem, 1.14vw, 1.2rem);
+  line-height: 1.72;
+  color: var(--ink-black);
+}
+.prob__absatz + .prob__absatz { margin-top: clamp(0.9rem, 1.9vh, 1.4rem); }
+
+/* ---------------------------------------------------------------------------
+   2 — Die drei Aussagen
+
+   Drei Spalten ab 900 px, darunter untereinander. Getrennt wird durch eine
+   Haarlinie in der Fuge, nicht durch Kaesten: ein Kasten je Aussage waere
+   eine Betonung, die der nuechterne Ton nicht vertraegt.
+
+   Die Linie sitzt als `border-inline-start` am zweiten und dritten Eintrag,
+   nicht als eigenes Element — dadurch gibt es sie in der einspaltigen
+   Ansicht schlicht nicht, und es bleibt nichts uebrig, was dort quer laege.
+--------------------------------------------------------------------------- */
+.prob__liste {
+  display: grid;
+  gap: clamp(1.8rem, 3.4vh, 2.6rem);
+  margin-top: clamp(2.6rem, 6vh, 4.6rem);
+}
+
+@media (min-width: 900px) {
+  .prob__liste {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+  }
+  .prob__punkt {
+    padding-inline: clamp(1.4rem, 2.6vw, 2.8rem);
+  }
+  .prob__punkt:first-child { padding-inline-start: 0; }
+  .prob__punkt:last-child  { padding-inline-end: 0; }
+  .prob__punkt + .prob__punkt {
+    border-inline-start: 1px solid var(--prob-linie);
+  }
+}
+
+/* Die kurze Goldmarke ueber jeder Aussage. Sie ersetzt die Nummer: in
+   diesem Abschnitt steht keine Zahl, auch keine Ordnungszahl. */
+.prob__marke {
+  display: block;
+  width: 22px;
+  height: 1px;
+  margin-bottom: clamp(0.7rem, 1.4vh, 1rem);
+  background: var(--prob-linie-gold);
+}
+
+.prob__satz {
+  font-family: var(--font-ui);
+  font-size: clamp(1rem, 1.06vw, 1.1rem);
+  line-height: 1.68;
+  color: var(--ink-soft);
+  max-width: 24rem;
+}
+/* Die Marke der Aussage: Navy, gleiche Schriftgroesse, nur im Ton
+   abgesetzt. Kein fetter Schnitt — Cormorant traegt die Betonung ueber
+   die Farbe, ein fetter Schnitt wuerde in dieser Schrift plump wirken. */
+.prob__satz strong {
+  font-weight: 500;
+  color: var(--navy-800);
+}
+
+/* ---------------------------------------------------------------------------
+   3 — Abschluss und Uebergabe
+
+   Mittig, weil die Zeile fuer den ganzen Abschnitt spricht und nicht mehr
+   zu einer der drei Spalten gehoert. Darueber eine schmale Haarlinie als
+   Zaesur, darunter der senkrechte Faden, der auf den naechsten Abschnitt
+   zeigt — er ersetzt die Kante, die es zwischen zwei weissen Flaechen
+   nicht geben kann.
+--------------------------------------------------------------------------- */
+.prob__ende {
+  margin-top: clamp(2.8rem, 6.5vh, 5rem);
+  text-align: center;
+}
+.prob__trenner {
+  display: block;
+  width: min(120px, 22vw);
+  height: 1px;
+  margin: 0 auto clamp(1.5rem, 3vh, 2.4rem);
+  background: var(--prob-linie);
+}
+.prob__schluss {
+  max-width: 42rem;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
+  line-height: 1.28;
+  letter-spacing: -0.004em;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+.prob__bruecke {
+  max-width: 38rem;
+  margin: clamp(0.9rem, 1.8vh, 1.3rem) auto 0;
+  font-family: var(--font-ui);
+  font-size: clamp(0.98rem, 1.04vw, 1.08rem);
+  line-height: 1.6;
+  color: var(--ink-mute);
+  text-wrap: balance;
+}
+/* Der senkrechte Faden. Er laeuft nach unten ins Nichts aus und zeigt
+   damit auf den folgenden Abschnitt, ohne eine Kante zu ziehen. */
+.prob__faden {
+  display: block;
+  width: 1px;
+  height: clamp(28px, 5vh, 52px);
+  margin: clamp(1.4rem, 2.8vh, 2.2rem) auto 0;
+  background: linear-gradient(180deg, var(--prob-linie-gold), rgba(168, 135, 79, 0));
+}
+
+/* ---------------------------------------------------------------------------
+   4 — Einlauf beim Scrollen
+
+   Umgekehrt aufgehaengt: sichtbar ist der Ausgangszustand. Ausgeblendet
+   wird erst, wenn site.js `is-ready` gesetzt hat. Ohne Javascript steht
+   alles sofort da — das globale `[data-reveal] { opacity: 0 }` aus
+   leistungen.css wuerde den Abschnitt sonst leer lassen.
+   Die Ueberblendung haengt am Zustand `data-seen`, nicht am Element:
+   sonst liefe auch das anfaengliche Ausblenden als Bewegung.
+--------------------------------------------------------------------------- */
+.prob [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+.is-ready .prob [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: none;
+}
+.is-ready .prob [data-reveal][data-seen='true'] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.85s var(--ease-soft) calc(var(--i, 0) * 0.1s),
+    transform 0.85s var(--ease-soft) calc(var(--i, 0) * 0.1s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prob [data-reveal],
+  .is-ready .prob [data-reveal],
+  .is-ready .prob [data-reveal][data-seen='true'] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
