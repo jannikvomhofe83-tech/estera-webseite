@@ -271,12 +271,13 @@
    --gold-text (#86693A, 4.82:1) gehen; dann trifft er die Knopffarbe
    allerdings sichtbar nicht mehr. */
 .heroA__eyebrow {
-  /* Der Kasten ist wieder weiss, also wieder die vertiefte Fassung des
-     Sandtons: der reine Sand misst als Schrift auf Weiss 1.94:1 und traegt
-     dort keine Schrift. --sand-schrift steht bei 3.39:1 — derselbe Lesewert
-     wie das Gold, das der Eyebrow vorher trug (3.36:1), aber im Farbton des
-     Knopfes. */
-  color: var(--sand-schrift);
+  /* NAVY seit dem 24.08.2026 (Kundenwunsch). Damit ist die Zeile zum ersten
+     Mal richtig lesbar: 14.65:1 gegen den weissen Kasten. Vorher trug sie
+     erst Gold (3.36:1) und dann den vertieften Sandton (3.39:1) — beide
+     lagen unter den 4.5:1, die fuer eine Zeile dieser Groesse gelten. Das
+     Fetten auf 600 half dem Auge, am Messwert aber nicht. Der Wechsel auf
+     Navy loest das. */
+  color: var(--navy-800);
 }
 
 .heroA__text {
