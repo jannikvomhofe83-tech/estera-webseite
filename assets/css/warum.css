@@ -175,7 +175,8 @@
    stuende — welcher Vorteil steht, sagt immer das Wort. Damit haengt keine
    Information und keine Bedienung an der Farbe, und 1.4.11 greift nicht.
    Das Gelb ist ausserdem nicht frei gewaehlt, sondern der Wert, der als
-   --cta-gelb schon am Erstgespraechs-Knopf sitzt (schluss.css).
+   dasselbe Gelb bis zum 24.08.2026 am Erstgespraechs-Knopf sass
+   (schluss.css; der Knopf traegt seitdem Sand).
 
    BESCHRIFTUNGEN DER SCHAUBILDER, NACHGEMESSEN 23.08.2026
    Der Farbverlauf multipliziert sich ueber Schrift UND Grund. Gemessen ist
@@ -377,7 +378,7 @@
    andere Farbe, die dazu passt — vielleicht ein Hellblau."
      Bankkapital  --navy-600, unveraendert. Der Hausakzent.
      Steuer       #6FA97C, ein helles Laubgruen.
-     Miete        #F0CE45 — GENAU der Wert, der als --cta-gelb in
+     Miete        #F0CE45 — GENAU der Wert, der bis zum 24.08.2026 in
                   schluss.css am Erstgespraechs-Knopf sitzt. Bewusst nicht
                   neu gemischt: die Seite soll EINE Gelbfamilie haben, nicht
                   zwei aehnliche. Wer das Gelb dort aendert, muss es hier
@@ -410,7 +411,7 @@
   --ton-deck: 0.17;
 }
 .wimm [data-ton='miete'] {
-  --ton:      #F0CE45;           /*  1.54:1 — nur Flaeche; = --cta-gelb */
+  --ton:      #F0CE45;           /*  1.54:1 — nur Flaeche                */
   --ton-fein: #886F0B;           /*  4.85:1 — Symbol und Schrift */
   --ton-rgb:  240, 206, 69;
   --ton-deck: 0.28;              /* hellster Ton, braucht am meisten */

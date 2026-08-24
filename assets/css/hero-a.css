@@ -9,8 +9,27 @@
 
 .heroA {
   --panel-pad: clamp(1.8rem, 5vw, 5rem);
+
+  /* Der Schriftgrad der Ueberschrift und die Hoehe EINER ihrer Zeilen
+     (Zeilenabstand 1.1). Beides als Token, weil die Lage des Objektbildes
+     rechnerisch daran haengt — siehe .heroA__figure.
+     --h1-fest ist der Grad, bei dem die Bildlage vom Kunden abgenommen
+     wurde („Das Bild bleibt genau in derselben Position. Das ist sehr
+     gut."). Er ist der Bezugspunkt und darf nicht mitwandern, wenn die
+     Ueberschrift groesser gestellt wird. */
+  --h1-groesse: clamp(2rem, 2.95vw, 2.95rem);
+  --h1-fest:    clamp(1.9rem, 2.75vw, 2.75rem);
+  --h1-zeile:      calc(1.1 * var(--h1-groesse));
+  --h1-zeile-fest: calc(1.1 * var(--h1-fest));
   position: relative;
-  background: var(--paper-warm);
+  /* NAVY ALS GRUND, WEISSER MARMORKASTEN DARAUF.
+     Der Grund war zuerst weiss, dann Navy, kurz der Sandton des Knopfes und
+     seit dem 24.08.2026 wieder Navy — so vom Kunden festgelegt. Der
+     Marmorkasten steht damit frei auf dunklem Grund, statt wie urspruenglich
+     nach unten in weisses Seitenpapier auszulaufen. Die weisse Kante unter
+     dem Bildband traegt auf diesem Grund am staerksten: Weiss auf Navy sind
+     17.63:1, auf Sand waren es 1.94:1. */
+  background: var(--navy-900);
   padding-bottom: clamp(2rem, 5vh, 4rem);
 }
 
@@ -20,6 +39,21 @@
   height: clamp(340px, 48vh, 540px);
   overflow: hidden;
   background: var(--navy-800);
+  /* WEISSE KANTE UNTER DEM BAND (Kundenwunsch 24.08.2026, nachgeschaerft:
+     „deutlich dicker … mehr in das Navy Blue hinein").
+
+     Bewusst ein Schlagschatten ohne Weichzeichnung und ohne Streuung, nur
+     mit Versatz nach unten: das zeichnet einen sauberen weissen Streifen
+     genau in dieser Hoehe UNTERHALB des Bandes — also im Navy, nicht im
+     Film. Eine Umrandung ginge nicht: `box-sizing: border-box` aus dem
+     Reset wuerde sie nach INNEN legen und damit den Film beschneiden, und
+     `overflow: hidden` schneidet alles ab, was von innen herauswill.
+     Der eigene Schatten eines Elements wird davon nicht erfasst.
+
+     Der Streifen laeuft ueber die volle Breite, sichtbar ist er aber nur
+     LINKS UND RECHTS des Hero-Kastens — der liegt auf z-index 3 darueber
+     und deckt die Mitte ab. Genau das war gemeint. */
+  box-shadow: 0 clamp(6px, 0.7vh, 9px) 0 0 #FFFFFF;
 }
 /* Standbild und Film liegen deckungsgleich übereinander — gleicher Ausschnitt,
    gleiche Tonung. Beide sind absolut gesetzt; der Film steht im Quelltext
@@ -78,10 +112,16 @@
   display: grid;
   /* Textspalte dominiert — der Satz soll in die Breite laufen, nicht stapeln */
   grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
-  gap: clamp(1.5rem, 3vw, 3rem);
+  /* WAAGERECHT ja, SENKRECHT nein. Solange das Panel eine einzige Zeile
+     hatte, war `gap` nur der Abstand zwischen Text und Bild. Seit der Kopf
+     eine eigene Zeile bekommen hat, wirkt derselbe Wert auch nach unten und
+     hat Ueberschrift, Subline und Bild um 43 px auseinandergezogen. Genau
+     das war die Luecke, die der Kunde gesehen hat. */
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  row-gap: 0;
   align-items: center;
-  /* nur oben rund — unten läuft der Kasten in die Seite aus */
-  border-radius: var(--radius-img) var(--radius-img) 0 0;
+  /* Rundum rund: der Kasten laeuft nicht mehr aus, er steht. */
+  border-radius: var(--radius-img);
   isolation: isolate;
 }
 
@@ -116,6 +156,20 @@
    sonst überschreibt das deckende Weiß des waagerechten die Auflösung ins
    Seitenpapier auf der rechten Seite, und der Kasten bekommt unter dem Bild
    wieder eine sichtbare Kante. */
+/* Schicht 2: Verläufe darüber. Wieder der Aufbau von vorher — oben
+   deckendes Weiß, in der Mitte der Marmor, waagerecht zur Bildspalte hin
+   zurückgenommen.
+
+   EIN UNTERSCHIED zur alten Fassung: die letzten beiden Haltepunkte liefen
+   auf `--paper-warm` aus, damit sich der Kasten unten ins weiße Seitenpapier
+   auflöst. Das Papier ist jetzt navy — derselbe Verlauf würde den Kasten
+   also nicht mehr auflösen, sondern unten einen weißen Balken vor dunklem
+   Grund stehen lassen. Die beiden Stopps enden deshalb im Marmor statt im
+   Papier; der Kasten bleibt bis zur Unterkante Marmor und hört dort sauber
+   an seiner Rundung auf.
+
+   REIHENFOLGE IST WEITERHIN ENTSCHEIDEND: In der Kurzschreibweise liegt der
+   zuerst genannte Verlauf oben. */
 .heroA__panel::before {
   content: '';
   position: absolute;
@@ -124,16 +178,14 @@
   pointer-events: none;
   border-radius: inherit;
   background:
-    /* senkrecht — oben deckendes Weiß, unten Seitenpapier, über die VOLLE Breite */
     linear-gradient(to bottom,
       #FFFFFF 0%,
       #FFFFFF 11%,
       rgba(255,255,255,0.42) 28%,
       rgba(255,255,255,0.42) 56%,
-      rgba(252,250,247,0.72) 76%,
-      var(--paper-warm) 91%,
-      var(--paper-warm) 100%),
-    /* waagerecht darunter — nimmt den Marmor zur Bildspalte hin zurück */
+      rgba(255,255,255,0.34) 76%,
+      rgba(255,255,255,0.30) 91%,
+      rgba(255,255,255,0.30) 100%),
     linear-gradient(100deg,
       rgba(255,255,255,0) 34%,
       rgba(255,255,255,0.78) 62%,
@@ -148,25 +200,122 @@
   inset: 0;
   z-index: 3;
   pointer-events: none;
+  /* Rundum, ohne Maske: der Kasten laeuft nicht mehr ins Papier aus,
+     sondern steht als Flaeche auf Navy. Eine unten offene Linie waere
+     dort ein Fehler. */
   border: 1px solid rgba(16, 41, 73, 0.22);
-  /* Unten KEINE Linie: dort soll der Kasten einfach weiterlaufen. */
-  border-bottom: 0;
   border-radius: inherit;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, rgba(0,0,0,0.35) 76%, transparent 92%);
-          mask-image: linear-gradient(to bottom, #000 0%, #000 52%, rgba(0,0,0,0.35) 76%, transparent 92%);
 }
 
 .heroA__text, .heroA__figure { position: relative; z-index: 2; }
 
+/* ---------------------------------------------------------------------------
+   DER KOPF LIEGT UEBER BEIDEN SPALTEN.
+
+   Kundenwunsch 24.08.2026: „Aus Einkommen wird Eigentum. Aus Eigentum wird
+   Vermögen." gehoert in EINE Zeile — „dann geht quasi die Zeile ueber das
+   Bild hin weiter." In der 58fr-Textspalte war der Satz dafuer zu lang und
+   brach in zwei Zeilen.
+
+   Der Kopf bekommt deshalb eine eigene Rasterzeile ueber die volle Breite
+   (`grid-column: 1 / -1`). Darunter laeuft die alte Aufteilung weiter: Text
+   links, Bild rechts. Weil der Kopf ueber dem Bild sitzt und nicht auf ihm,
+   steht die Zeile weiter auf weissem Grund — kein Text auf Foto, kein
+   Kontrastproblem.
+
+   Nachgemessen bei 1440 px: der Satz braucht 931 px, die Panelbreite bietet
+   rund 1300 px. Ab 980 px stapelt das Panel ohnehin einspaltig, dort darf
+   und muss die Zeile brechen.
+--------------------------------------------------------------------------- */
+.heroA__kopf {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 2;
+  padding: var(--panel-pad) var(--panel-pad) 0;
+}
+
+/* Der Eyebrow traegt seit dem 24.08.2026 den Sandton des Knopfes
+   „Vorteile entdecken" (Kundenwunsch). Es ist die vertiefte Fassung
+   --sand-schrift; der reine Sand misst als Schrift auf Weiss 1.94:1.
+
+   OFFEN UND BEWUSST SO: gemessen sind 3.39:1. Fuer kleine Schrift verlangt
+   die Regel 4.5:1. Der Ton, den der Eyebrow vorher trug (--gold, #A8874F),
+   lag mit 3.36:1 aber praktisch gleich — es ist also kein Rueckschritt,
+   sondern derselbe Lesewert im passenden Farbton. Wer das sauber
+   aufloesen will, muss entweder den Eyebrow groesser setzen oder auf
+   --gold-text (#86693A, 4.82:1) gehen; dann trifft er die Knopffarbe
+   allerdings sichtbar nicht mehr. */
+.heroA__eyebrow {
+  /* Der Kasten ist wieder weiss, also wieder die vertiefte Fassung des
+     Sandtons: der reine Sand misst als Schrift auf Weiss 1.94:1 und traegt
+     dort keine Schrift. --sand-schrift steht bei 3.39:1 — derselbe Lesewert
+     wie das Gold, das der Eyebrow vorher trug (3.36:1), aber im Farbton des
+     Knopfes. */
+  color: var(--sand-schrift);
+}
+
 .heroA__text {
   display: grid;
-  align-content: center;
-  padding: var(--panel-pad) 0 var(--panel-pad) var(--panel-pad);
+  /* OBEN statt MITTIG (Kundenwunsch 24.08.2026: „setze die Subline auch
+     weiter nach oben"). Vorher stand hier `center`: der Textblock wurde
+     gegen das hohe Bild in der Nachbarspalte zentriert, und weil das Bild
+     hoeher ist als Subline plus Knoepfe, entstand darueber eine grosse
+     Luecke. Mit `start` haengt der Text unmittelbar unter der Ueberschrift.
+     Gemessen bei 1440 px: 72 px Luecke vorher, 12 px jetzt. */
+  align-content: start;
+  /* Ohne Abstand nach oben. Seit die Wechselzeile entfallen ist, ruecken
+     Subline und Knoepfe auf Kundenwunsch dorthin nach, wo sie stand. */
+  padding: 0 0 var(--panel-pad) var(--panel-pad);
+}
+
+/* ---------------------------------------------------------------------------
+   Die drei Bausteine, die der Wording-Master neu vorgibt: Eyebrow über der
+   Überschrift, Hinweis unter den Knöpfen, Gütezeile am Fuß.
+
+   Sie sind ergänzt, nicht gestaltet. Der Eyebrow ist die vorhandene
+   .kicker-Klasse; Hinweis und Gütezeile nehmen Schriftgrad und Farbe aus dem
+   Satzbild, das im Panel ohnehin gilt. Kein neuer Ton, keine neue Größe,
+   keine Umrandung — die Hero-Geometrie bleibt, wie sie war.
+--------------------------------------------------------------------------- */
+.heroA__eyebrow {
+  margin-bottom: 14px;
+  /* Mittig ueber die volle Kastenbreite und kraeftiger gesetzt
+     (Kundenwunsch 24.08.2026: „muss mittig in den Kasten … und soll ein
+     bisschen dicker geschrieben werden, damit man es besser lesen kann").
+     .kicker steht auf 400; 600 ist der Sprung, der bei gesperrten Versalien
+     in Cormorant wirklich traegt. Das hebt die Lesbarkeit spuerbar — den
+     gemessenen Kontrast von 3.39:1 aendert es allerdings nicht, dafuer ist
+     die Zeile mit rund 14 px zu klein. */
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Der Hinweis „Persönlich. Unverbindlich. Individuell auf deine Situation
+   abgestimmt." stand hier bis zum 24.08.2026 und ist auf Kundenwunsch
+   entfernt. Er steht weiterhin so im Wording-Master, Abschnitt 2 — wer ihn
+   zurueckholt, findet die Regel in der Versionsgeschichte. */
+
+/* Die Gütezeile schließt das Panel ab. Eine goldene Haarlinie davor setzt sie
+   vom Hinweis ab, ohne einen zweiten Absatz aufzumachen — dieselbe Sprache
+   wie die .rule-gold im übrigen Projekt. */
+.heroA__guete {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-gold);
+  font-size: clamp(0.86rem, 0.96vw, 0.96rem);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
 }
 
 .heroA__h1 {
-  /* Zwei Zeilen — Größe so gebunden, dass Zeile 1 nicht umbricht */
-  font-size: clamp(1.9rem, 2.75vw, 2.75rem);
+  /* Zwei Saetze, die miteinander umbrechen duerfen — `text-wrap: balance`
+     aus .display verteilt sie.
+     Am 24.08.2026 einen Tick groesser gestellt (Kundenwunsch): von
+     clamp(1.9rem, 2.75vw, 2.75rem) auf clamp(2rem, 2.95vw, 2.95rem), also
+     rund 7 Prozent. Nachgemessen bleibt der Satz damit bei 1024 px und
+     darueber weiterhin EINZEILIG — das ist die Grenze, die nicht fallen
+     darf. */
+  font-size: var(--h1-groesse);
   line-height: 1.1;
   font-weight: 300;
   max-width: 100%;
@@ -176,8 +325,40 @@
   color: var(--accent);
 }
 
+/* „Eigentum" (das erste) und „Vermögen" stehen fett statt farbig
+   (Kundenwunsch 24.08.2026). Farbe waere auf dem wieder weissen Kasten das
+   falsche Mittel — der Satz traegt schon eine farbige Zeile darunter.
+   .display setzt 300; 600 ist bei Cormorant der erste Schnitt, der neben
+   300 wirklich als „dick" liest — 500 verschwimmt.
+   Kein <strong>, sondern <b>: hervorgehoben wird hier optisch, nicht in der
+   Bedeutung; <strong> wuerde von Vorlesesoftware betont vorgetragen. */
+.heroA__h1 b {
+  font-weight: 600;
+}
+
+/* Die wechselnde Nutzenzeile trägt seit dem 24.08.2026 den Sandton des
+   Knopfes „Vorteile entdecken" statt des Blaus — Kundenwunsch, damit sich
+   die Farbe durch die Seite zieht. Es ist die vertiefte Fassung: der reine
+   Sand misst als Schrift auf Weiß 1.94:1 und wäre selbst in dieser Größe
+   nicht lesbar. Herleitung im Farbblock von base.css.
+   Nur hier gesetzt, nicht an .rotator — die Klasse liegt global. */
+.heroA__h1 .rotator {
+  color: var(--sand-schrift);
+}
+
+/* „wirtschaftsstarken Standorten" steht fett — dieselbe Sprache wie
+   „Eigentum" und „Vermögen" in der Überschrift (Kundenwunsch 24.08.2026).
+   Der Fließtext liegt bei 400, die Hervorhebung deshalb bei 600: derselbe
+   Sprung wie oben (300 → 600) wäre hier zu laut, ein kleinerer zu leise. */
+.heroA__lead b {
+  font-weight: 600;
+}
+
 .heroA__lead {
-  margin-top: 32px;
+  /* Die 32 px standen hier, solange die Ueberschrift unmittelbar darueber in
+     derselben Spalte sass. Seit der Kopf eine eigene Rasterzeile hat, ist
+     dieser Abstand doppelt gemoppelt und schiebt die Subline nach unten. */
+  margin-top: 0;
   max-width: 100%;
   /* Optischer Ausgleich der kleineren x-Höhe von Jost. Die Herleitung stand
      in hero-b.css; die Datei ist mit Variante B am 24.08.2026 entfallen. */
@@ -199,7 +380,24 @@
 /* --- Objektbild rechts, Querformat --------------------------------------- */
 .heroA__figure {
   position: relative;
-  padding: var(--panel-pad) var(--panel-pad) var(--panel-pad) 0;
+  /* DAS BILD BLEIBT, WO ES IST — ausdruecklich: „Das Bild bleibt genau in
+     derselben Position. Das ist sehr gut."
+
+     Mit dem Wegfall der Wechselzeile ist der Kopf um genau eine Zeile
+     kuerzer geworden, und alles darunter waere um diese Zeile nach oben
+     gerutscht. Der Abstand hier haelt das Bild an seinem Platz und ist
+     deshalb nicht geschaetzt, sondern GENAU diese eine Zeile:
+     Zeilenhoehe 1.1 (aus .heroA__h1) mal dessen Schriftgrad. Gemessen war
+     die Zeile 48 px bei 1920, 44 bei 1440, 39 bei 1280 und 33 bei 1024.
+
+     Die Rechnung `2 x fest - aktuell` haelt das Bild AUCH DANN an seinem
+     Platz, wenn die Ueberschrift groesser gestellt wird: waechst ihre Zeile
+     um x, schrumpft dieser Abstand um dasselbe x. Genau das ist am
+     24.08.2026 passiert, als die Ueberschrift um sieben Prozent zugelegt
+     hat — das Bild steht danach unveraendert bei 209 / 191 / 173 / 151 px
+     unter der Kastenoberkante. */
+  padding: calc(2 * var(--h1-zeile-fest) - var(--h1-zeile)) var(--panel-pad) var(--panel-pad) 0;
+  align-self: start;
 }
 .heroA__figure > div {
   position: relative;

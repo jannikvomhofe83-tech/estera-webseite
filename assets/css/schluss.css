@@ -571,19 +571,22 @@
    Also Saettigung und Helligkeit je eine Stufe zurueckgenommen und einen
    Hauch waermer gestellt — es bleibt eindeutig Gelb, verliert aber das
    Grelle. Navy darauf misst weiterhin 11.45:1. */
-.cta {
-  --cta-gelb:       #F0CE45;
-  --cta-gelb-tief:  #E4C038;   /* Navy darauf 10.00:1 */
-}
+/* AUF SAND GEZOGEN am 24.08.2026. Bis dahin trug dieser Knopf ein eigenes
+   Gelb (#F0CE45). Seit der Kunde den Sandton der Referenzseite als
+   durchgehende Signalfarbe gesetzt hat, gaebe es zwei konkurrierende warme
+   Toene auf derselben Seite — Gelb im Abschluss, Sand im Hero. Zwei
+   Signalfarben entwerten einander: keine von beiden heisst dann noch
+   „hier entlang". Der Knopf nimmt deshalb denselben Sandton.
+   Die Gelb-Token sind entfallen; sie stehen in der Versionsgeschichte. */
 .cta .btn {
   --btn-fg: var(--navy-900);
-  --btn-bg: var(--cta-gelb);
+  --btn-bg: var(--sand);
   min-height: 3.6rem;
   padding-inline: clamp(1.8rem, 4vw, 2.6rem);
-  border-color: var(--cta-gelb);
+  border-color: var(--gold);
   font-weight: 600;
 }
 .cta .btn:hover {
-  --btn-bg: var(--cta-gelb-tief);
-  border-color: var(--cta-gelb-tief);
+  --btn-bg: var(--sand-tief);
+  border-color: var(--gold);
 }

@@ -191,30 +191,65 @@
 
   <div class="heroA__panel" data-anim style="--d:260">
     <span class="heroA__rahmen" aria-hidden="true"></span>
-    <div class="heroA__text">
-      <h1 class="display heroA__h1">
-        Kapitalanlageimmobilien in Bayern
-        <span class="rotator" data-rotator>
-          <span class="rotator__item" data-active="true">Diskret ausgewählt.</span>
-          <span class="rotator__item">Strukturiert begleitet.</span>
-          <span class="rotator__item">Langfristig gedacht.</span>
-        </span>
-      </h1>
+    <!-- =================================================================
+         WORTLAUT AUS DEM WORDING-MASTER, ABSCHNITT 2
+         („Hero-Section — neue finale Richtung", die HAUPTvariante; die drei
+         Alternativen darunter sind ausdruecklich nicht gewaehlt.)
 
+         Uebernommen ist jeder Satz, jedes Wort und jedes Satzzeichen.
+         Sechs Bausteine gibt der Master vor, in dieser Reihenfolge:
+         Eyebrow, Hauptueberschrift, wechselnde Nutzenzeile, Unterueberschrift,
+         die beiden Knoepfe, der Hinweis darunter und die Guetezeile.
+
+         Drei davon gab es hier bisher nicht — Eyebrow, Hinweis und
+         Guetezeile. Sie sind neu ergaenzt, aber NICHT neu gestaltet: der
+         Eyebrow ist die vorhandene .kicker-Klasse, Hinweis und Guetezeile
+         nehmen Schriftgrad und Farbe aus dem bestehenden Satzbild.
+
+         DIE DREI ZEILEN DES ROTATORS HABEN GEWECHSELT. „Diskret ausgewaehlt."
+         und die zwei anderen liefen bisher hier durch; im Master sind sie die
+         stehende Guetezeile am Fuss und der Rotator traegt den Nutzen.
+         Wer das zurueckdreht, faellt hinter den Master zurueck.
+         ================================================================= -->
+    <!-- Kopf ueber BEIDE Spalten. Auf Kundenwunsch vom 24.08.2026 steht
+         „Aus Einkommen wird Eigentum. Aus Eigentum wird Vermögen." in EINER
+         Zeile: „die Zeile wird laenger … dann geht quasi die Zeile ueber das
+         Bild hin weiter." In der linken Textspalte war dafuer kein Platz —
+         der Satz brach dort in zwei Zeilen. Deshalb liegt der Kopf jetzt in
+         einer eigenen Rasterzeile ueber der vollen Panelbreite; darunter
+         stehen Text links und Bild rechts wie bisher. Ueber dem Bild ist an
+         dieser Hoehe weisse Flaeche, die Zeile laeuft also NICHT auf das
+         Foto. -->
+    <div class="heroA__kopf">
+      <p class="kicker heroA__eyebrow">IMMOBILIEN ALS KAPITALANLAGE</p>
+
+      <h1 class="display heroA__h1">
+        Aus Einkommen wird <b>Eigentum</b>. Aus Eigentum wird <b>Vermögen</b>.
+        <!-- Die wechselnde Nutzenzeile („Vermögen aufbauen." / „Steuerpotenziale
+             nutzen." / „Zusätzliches Einkommen schaffen.") stand hier bis zum
+             24.08.2026 und ist auf Kundenwunsch entfernt. Sie steht weiterhin so
+             im Wording-Master, Abschnitt 2. Der Rotator in site.js steigt ohne
+             `[data-rotator]` von allein aus — es bleibt kein toter Code laufen. -->
+      </h1>
+    </div>
+
+    <div class="heroA__text">
       <p class="heroA__lead">
-        Estera ordnet Ihre Situation ein, wählt passende
-        <span class="hl nb">Off-Market-Objekte</span> aus, koordiniert die
-        <span class="hl">Finanzierung</span> und begleitet Sie strukturiert
-        <span class="hl">bis zum Notar</span>.
+        Investiere in ausgewählte Immobilien an <b>wirtschaftsstarken Standorten</b>
+        Deutschlands. Von der Auswahl über die Finanzierung bis zur Verwaltung –
+        alles aus einer Hand.
       </p>
 
       <div class="heroA__actions">
-        <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
-        <!-- Zielt jetzt auf die Leistungen: der Ablauf, auf den dieser Knopf
-             frueher sprang, ist entfallen. RUECKFRAGE: soll die Beschriftung
-             mitwandern? Sie wurde bisher nicht geaendert. -->
-        <a class="btn btn--ghost" href="#leistungen">So funktioniert Estera</a>
+        <!-- GETAUSCHT am 24.08.2026: der Sandton sitzt jetzt auf dem
+             Haupt-Knopf, das Navy auf dem zweiten. Das ist auch die richtige
+             Rangfolge — die auffaelligere Farbe gehoert an die Handlung, die
+             der Kunde wirklich will. -->
+        <a class="btn btn--sand" href="kontakt.html">Erstgespräch vereinbaren</a>
+        <a class="btn btn--weiss" href="#warum-immobilien">Vorteile entdecken</a>
       </div>
+
+      <p class="heroA__guete">Diskret ausgewählt. Strukturiert geprüft. Langfristig begleitet.</p>
     </div>
 
     <figure class="heroA__figure">
@@ -232,21 +267,42 @@
 
 <!-- =====================================================================
      GOOGLE-BEWERTUNGEN   (Briefing 02 Punkt 2, Briefing 03 A)
-     Hiess bisher „Kunden, die uns vertrauen" und stand als Section 2.
-     Position stimmt jetzt; der INHALT ist noch der alte.
 
-     NOCH UMZUBAUEN, laut Briefing 03 A:
-       — echte Google-Rezensionen statt der vier Beispielfirmen
+     ERLEDIGT — Briefing 03 A ist damit abgearbeitet:
        — je Rezension eine eigene Karte
-       — die Karten laufen selbstaendig von links nach rechts durch
-       — Klick faehrt die Karte aus und gibt den vollstaendigen Text frei
+       — die Karten laufen selbstaendig durch
+       — „Mehr“ gibt den vollstaendigen Text frei, ein zweiter Klick klappt
+         wieder zu; die Reihe haelt an, solange irgendeine Karte offen ist
        — angezeigt wird nur der NAME der Person, ausdruecklich KEINE Firma
-       — Profilbild, sofern vorhanden
-     Damit entfallen die vier Firmenlogos; sie widersprechen „keine Firma".
+       — die vier Firmenlogos sind entfallen
+       — Bildfenster: solange kein Foto vorliegt, stehen die INITIALEN darin
+         (Kunde 24.08.2026: „Wir haben noch keine Bilder der Kunden … also
+         schreiben wir nur die Initialien aktuell in das Bildfenster.")
+         Ein Foto tritt spaeter an genau dieselbe Stelle, ohne dass die Karte
+         umgebaut werden muss — wie, steht im Kopf von referenzen.css.
 
-     Offen (Briefing 05): Rezensionen live ueber die Google-Schnittstelle
-     oder manuell gepflegt? Liegen fuer alle Rezensenten Profilbilder vor,
-     und was ist der Ersatz, wenn nicht?
+     NOCH OFFEN — hier wird eingetragen:
+       1  DIE ACHT REZENSIONEN SIND PLATZHALTER. Jede Karte traegt
+          data-platzhalter="01" … "08". Je Karte sind VIER Dinge zu
+          ersetzen, alle in dieser Datei, alle in derselben <li>:
+            a) der Absatz in <div class="rez__text">  — ORIGINALLAENGE,
+               ungekuerzt. Wie lang er ist, ist gleichgueltig; ob „Mehr“
+               erscheint, misst assets/js/rezensionen.js selbst.
+            b) der Name in <p class="rez__name">      — Vor- und Nachname
+               der Person, KEINE Firma
+            c) die Initialen in <span class="rez__initialen"> — ein oder
+               zwei Buchstaben, passend zum Namen darunter
+            d) die Sternzahl: data-sterne="1"…"5" UND das aria-label am
+               selben <p class="rez__sterne"> (beide, sonst luegt die
+               Vorlesesoftware)
+          Danach den Platzhalterhinweis .ref__hinweis loeschen und
+          data-platzhalter entfernen.
+       2  Profilbilder liegen nicht vor (Kunde 24.08.2026). Kommen welche,
+          tritt je Karte ein <img> an die Stelle der Initialen.
+       3  TODO: href des Siegels durch die exakte URL des
+          Google-Unternehmensprofils ersetzen, Sternwert am Profil pruefen.
+       4  Offen (Briefing 05): Rezensionen live ueber die
+          Google-Schnittstelle oder von Hand gepflegt?
      ===================================================================== -->
 <section class="ref" id="bewertungen">
   <div class="ref__inner">
@@ -261,9 +317,9 @@
            TODO: href durch die exakte URL des Google-Unternehmensprofils
            ersetzen und den Sternwert am Profil pruefen. -->
       <a class="ref__siegel"
-         href="https://www.google.com/maps/search/?api=1&amp;query=Estera%20GmbH"
+         href="https://www.google.com/maps?cid=12343503815779969148"
          target="_blank" rel="noopener noreferrer"
-         aria-label="5,0 von 5 Sternen auf Google — Profil in neuem Tab öffnen">
+         aria-label="5,0 von 5 Sternen aus 8 Google-Bewertungen — Profil in neuem Tab öffnen">
 
         <svg class="ref__siegel-g" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -274,11 +330,13 @@
 
         <span class="ref__siegel-txt">
           <span class="ref__siegel-sterne" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span>
-          <span class="ref__siegel-wert">5,0 von 5 Sternen</span>
+          <span class="ref__siegel-wert">5,0 von 5 Sternen · 8 Bewertungen</span>
         </span>
       </a>
 
-      <p class="ref__hinweis">Platzhalter — zehn Demo-Rezensionen zur Ansicht. Vor der Freischaltung werden sie durch die echten Google-Rezensionen ersetzt.</p>
+      <!-- Der Platzhalterhinweis stand hier, solange Blindtexte in den Karten
+           lagen. Seit dem 24.08.2026 stehen dort die acht echten Rezensionen
+           des Google-Profils. -->
     </div>
 
     <!-- RECHTS: die Rezensionen als endlose Reihe. Aufbau der Karte nach der
@@ -289,114 +347,139 @@
     <div class="rez__band" data-rez-band>
       <div class="rez__lauf" data-rez-lauf>
         <ul class="rez__spur" data-rez-spur>
+        <!-- Platzhalter 01 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><img src="assets/img/personen/p1.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Wir haben über Estera unsere erste Kapitalanlageimmobilie erworben und sind mit dem gesamten Ablauf sehr zufrieden. Besonders hervorzuheben ist die Transparenz: Es wurde von Anfang an klar gesagt, was geht und was nicht geht. Fragen wurden ruhig und verständlich beantwortet, auch die, die man sich als Laie kaum zu stellen traut. Die Finanzierung wurde vollständig koordiniert, bis zum Notartermin lief alles reibungslos.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">IS</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-01" data-rez-text>
+              <p>Sehr professionelles und zuverlässiges Team. Die Kommunikation ist schnell, direkt und auf Augenhöhe. Bei Fragen bekommt man klare Antworten und weiß jederzeit, wo man gerade steht. Was mir besonders auffiel, dass man sich nicht wie einer von vielen Kunden fühlt, sondern wirklich persönlich betreut wird und man merkt, dass bei Estera eine langfristige Zusammenarbeit im Vordergrund steht. Kann nur weiterempfehlen. 👏🏻</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Michael R.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-01" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Ioannis Savvidis</p>
           </article>
         </li>
+        <!-- Platzhalter 02 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">SK</span></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Sehr angenehme Zusammenarbeit. Ich hatte vorher keinerlei Berührung mit Immobilien und wurde Schritt für Schritt durch den gesamten Prozess geführt. Nichts wurde beschönigt, nichts überstürzt.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">TG</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-02" data-rez-text>
+              <p>Die gesamte Zusammenarbeit verlief äußerst angenehm und professionell. Von der ersten Kontaktaufnahme bis zur Umsetzung war alles bestens organisiert, transparent und unkompliziert. Gleichzeitig wurde viel Wert auf eine persönliche und vertrauensvolle Betreuung gelegt, sodass ich mich jederzeit gut beraten und aufgehoben gefühlt habe.</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Sandra K.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-02" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Tobias Grathwohl</p>
           </article>
         </li>
+        <!-- Platzhalter 03 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><img src="assets/img/personen/p2.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Was mich überzeugt hat: Es wurde mir ein Objekt ausdrücklich abgeraten, obwohl daran verdient worden wäre. Genau diese Ehrlichkeit hat mein Vertrauen gewonnen. Beim zweiten Objekt hat dann alles gepasst — Lage, Zustand, Zahlen. Die Unterlagen waren vollständig aufbereitet, ich musste nichts hinterherlaufen. Vom ersten Gespräch bis zum Notar vergingen wenige Wochen, ohne dass es hektisch wurde.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">GD</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-03" data-rez-text>
+              <p>Ich komme selbst aus der Finanzbranche und kann die Beratung daher gut einordnen. Fachlich sehr stark, klare Kommunikation und einfach ein sympathisches Team.</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Thomas B.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-03" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Georgi Dimitrov</p>
           </article>
         </li>
+        <!-- Platzhalter 04 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">JW</span></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Klare Kommunikation, verlässliche Termine, keine Verkaufsmasche. Kann ich uneingeschränkt weiterempfehlen.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">AL</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-04" data-rez-text>
+              <p>Die Zusammenarbeit mit Estera lief von Anfang an unkompliziert und zuverlässig. Kann ich guten Gewissens weiterempfehlen.👍🏼 …</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Julia W.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-04" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Ante Leko</p>
           </article>
         </li>
+        <!-- Platzhalter 05 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><img src="assets/img/personen/p3.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Ich hatte im Vorfeld mit mehreren Anbietern gesprochen und war ehrlich gesagt skeptisch geworden. Bei Estera lief das Erstgespräch komplett anders: Zuerst wurde meine Situation eingeordnet, erst danach kam überhaupt ein Objekt zur Sprache. Diese Reihenfolge macht einen Unterschied. Die Zusammenarbeit war durchgehend professionell und auch nach dem Kauf steht man mir bei Fragen zur Verfügung.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">YK</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-05" data-rez-text>
+              <p>Ich kenne Sebastian schon seit längerer Zeit persönlich und habe ihn immer als äußerst zuverlässigen und vertrauenswürdigen Menschen erlebt. Als ich mich beraten lassen wollte, war für mich deshalb sofort klar, dass ich mich an ihn wende.</p>
+              <p>Er hat sich viel Zeit genommen, mir alles verständlich und in Ruhe erklärt, da ich mich vorher selbst kaum mit dem Thema beschäftigt hatte. Bei Fragen konnte ich mich jederzeit melden und habe immer schnell eine kompetente und verständliche Antwort erhalten.</p>
+              <p>Auch nach der Beratung ist das Estera-Team jederzeit gut erreichbar und reagiert schnell, wenn man Unterstützung braucht. Mit der Betreuung bin ich rundum zufrieden und würde mich jederzeit wieder dafür entscheiden.</p>
+              <p>Ich kann Sebastian und das gesamte Estera-Team jedem uneingeschränkt weiterempfehlen. Die persönliche Betreuung, die Erreichbarkeit und der Service sind wirklich hervorragend.</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Andreas M.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-05" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Younes Karali</p>
           </article>
         </li>
+        <!-- Platzhalter 06 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">KS</span></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Die Objektvorstellung war sehr gründlich aufbereitet — Zahlen, Unterlagen, offene Punkte, alles nachvollziehbar auf dem Tisch. So habe ich mir eine Beratung vorgestellt.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">SH</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-06" data-rez-text>
+              <p>Ich bin mit Janni und dem gesamten Estera-Team wirklich mehr als zufrieden. Janni hat direkt verstanden, worauf es mir ankommt, und ist sehr individuell auf meine Situation eingegangen. Es wurde nichts unnötig kompliziert gemacht und ich hatte bei meiner Entscheidung von Anfang an ein sehr gutes Gefühl.</p>
+              <p>Auch die gesamte Abwicklung über Estera war professionell und sauber organisiert. Für mich hat einfach alles gepasst. Würde ich jederzeit wieder so machen, klare Empfehlung!</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Katrin S.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-06" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Sandro Horn</p>
           </article>
         </li>
+        <!-- Platzhalter 07 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">DH</span></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Kompetent, ruhig und ohne Druck. Genau richtig für jemanden, der sich zum ersten Mal mit dem Thema beschäftigt.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">JS</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-07" data-rez-text>
+              <p>Ich habe bereits ein eigenes Immobilienportfolio und wollte mich mit einer weiteren Kapitalanlage beschäftigen. Dementsprechend waren meine Erwartungen an die Beratung und an die vorgestellten Objekte ziemlich hoch.</p>
+              <p>Bei Estera wurde sich meine bisherige Situation erst einmal angeschaut. Anschließend wurden mir verschiedene Möglichkeiten, Kalkulationen und Finanzierungskonzepte ausführlich und verständlich erklärt.</p>
+              <p>Wenn man selbst schon Erfahrungen gesammelt hat, merkt man relativ schnell, ob jemandem einfach nur etwas verkauft werden soll oder ob wirklich geprüft wird, was zur eigenen Situation passt. Genau dieser Unterschied war für mich bei Estera spürbar.</p>
+              <p>Eine wirklich fundierte und strukturierte Beratung – genau so hatte ich mir das vorgestellt 👍🏼</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Daniel H.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-07" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">Johannes Strasser</p>
           </article>
         </li>
+        <!-- Platzhalter 08 — ersetzt werden: Text, Name, Initialen, data-sterne + aria-label. -->
         <li class="rez">
           <article class="rez__karte">
-            <figure class="rez__bild"><img src="assets/img/personen/p4.jpg" alt="" width="640" height="640" loading="lazy" decoding="async"></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Nach einer schlechten Erfahrung mit einem anderen Vermittler war ich vorsichtig. Hier wurde mir zuerst erklärt, welche Fragen eine Website und ein Erstgespräch überhaupt nicht beantworten können — und was erst bei der konkreten Objektvorstellung geklärt wird. Diese Zurückhaltung hat mich mehr überzeugt als jedes Versprechen. Der Kaufprozess lief anschließend strukturiert und ohne böse Überraschungen ab.“</p>
+            <!-- Bildfenster. Solange kein Foto vorliegt, stehen hier die Initialen.
+                 Foto spaeter: den <span> durch
+                 <img src="assets/img/personen/…" alt="" width="640" height="640"
+                      loading="lazy" decoding="async"> ersetzen — sonst nichts. -->
+            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">E</span></figure>
+            <p class="rez__sterne" data-sterne="5" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
+            <div class="rez__text" id="rez-text-08" data-rez-text>
+              <p>Da der Sport einen großen Teil meines Alltags einnimmt, hatte ich mich mit vielen wichtigen Themen vorher nicht besonders intensiv beschäftigt. Sebastian hat sich viel Zeit genommen, mir alles verständlich zu erklären und auf meine persönliche Situation einzugehen. Die Möglichkeiten, die mir gezeigt wurden, waren wirklich stark und haben mich direkt überzeugt. Trotzdem wurde bewusst realistisch und eher konservativ gerechnet, wodurch ich meine Entscheidungen mit einem sehr guten Gefühl treffen konnte. Mit der Zusammenarbeit und der Unterstützung durch Estera bin ich sehr zufrieden.</p>
             </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Petra L.</p>
-          </article>
-        </li>
-        <li class="rez">
-          <article class="rez__karte">
-            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">SG</span></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Die Finanzierung wurde über das Netzwerk koordiniert, ich musste mich um kaum etwas selbst kümmern. Termine wurden eingehalten, Rückfragen kamen noch am selben Tag zurück.“</p>
-            </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Stefan G.</p>
-          </article>
-        </li>
-        <li class="rez">
-          <article class="rez__karte">
-            <figure class="rez__bild"><span class="rez__initialen" aria-hidden="true">NF</span></figure>
-            <p class="rez__sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></p>
-            <div class="rez__text" data-rez-text>
-              <p>„Ich schätze vor allem, dass nichts versprochen wurde, was sich nicht halten lässt. Es wurde offen gesagt, welche Punkte von meiner persönlichen Situation abhängen und deshalb nicht pauschal beantwortet werden können. Am Ende habe ich eine Wohnung erworben, die zu meinen Zielen passt, und wurde bis zum Notartermin durchgehend begleitet.“</p>
-            </div>
-            <button class="rez__mehr" type="button" data-rez-mehr aria-expanded="false" hidden>Mehr</button>
-            <p class="rez__name">Nicole F.</p>
+            <button class="rez__mehr" type="button" data-rez-mehr aria-controls="rez-text-08" aria-expanded="false" hidden><span data-rez-mehr-wort>Mehr</span></button>
+            <p class="rez__name">eight1six</p>
           </article>
         </li>
         </ul>
@@ -448,7 +531,7 @@
              andere Farbe, die dazu passt — vielleicht ein Hellblau."
              Also Navy #1E4270, Hellgruen #6FA97C, Gelb #F0CE45 und
              Hellblau #6E93BD. Das Gelb ist nicht neu gemischt, sondern
-             derselbe Wert, der als --cta-gelb am Erstgespraechs-Knopf
+             derselbe Wert, der bis zum 24.08.2026 am Erstgespraechs-Knopf
              sitzt — die Seite soll EINE Gelbfamilie haben.
              Wo ein Ton als Schrift oder Symbol auftaucht, tritt eine
              abgedunkelte Zweitfassung mit mindestens 4.5:1 an seine

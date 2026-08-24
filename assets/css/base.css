@@ -25,6 +25,40 @@
   --gold-text: #86693A;   /* Gold als Schrift: 4.82:1 auf warmem Papier     */
   --gold-soft: #C9B08A;
 
+  /* --- Sand: der warme Signalton -----------------------------------------
+     Wert 1:1 aus dem Stylesheet der Referenzseite freundeskreis-gruppe.de
+     gelesen, nicht geschätzt: dort steht
+       .elementor-button { background-color: #D9B485; border-radius: 9px }
+     Auf Kundenwunsch zieht sich dieser Ton als Signalfarbe durch die Seite.
+
+     WO ER TRAGEN DARF — und wo nicht. Gemessen, nicht geschätzt:
+
+       Sand als FLÄCHE, Navy darauf   9.08:1   ✓ Knöpfe, Marken, Plaketten
+       Sand auf Navy-Grund            7.55:1   ✓ Linien und Zeichen auf dunkel
+       Sand als FLÄCHE auf Weiß       1.94:1   — trägt keinen Rand
+       Sand als SCHRIFT auf Weiß      1.94:1   ✗ niemals
+
+     Daraus folgt zweierlei. Erstens steht auf Sand immer Navy, nie Weiß —
+     die Referenz setzt dort Weiß, das sind 1.94:1 und damit unlesbar.
+     Zweitens braucht eine Sandfläche auf weißem Papier eine Kante, sonst
+     franst der Knopf aus; dafür steht --gold (#A8874F, 3.36:1 auf Weiß).
+
+     Für Sand als Schrift gibt es keinen Ersatz in dieser Familie —
+     dort bleibt --gold-text (#86693A, 4.82:1). */
+  --sand:      #D9B485;
+  --sand-tief: #CBA26F;   /* Überfahren; Navy darauf 7.50:1               */
+
+  /* Sand als SCHRIFT auf Weiß gibt es nur in dieser vertieften Fassung.
+     Der reine Sandton misst dort 1.94:1 und ist damit auch als große
+     Schrift nicht lesbar — die Anforderung liegt bei 3:1. Farbton und
+     Sättigung sind unverändert, nur die Helligkeit ist gesenkt, bis
+     3.39:1 stand. Nebeneinander lesen sich beide als derselbe Ton in
+     zwei Tiefen.
+     Einsatz: die wechselnde Nutzenzeile im Hero (Kundenwunsch 24.08.2026,
+     „in der gleichen Farbe wie der CTA-Button"). Für kleine Schrift
+     reicht auch dieser Wert nicht — dort bleibt --gold-text (4.82:1). */
+  --sand-schrift: #B0834A;
+
   --line:      rgba(16, 41, 73, 0.16);
   --line-soft: rgba(16, 41, 73, 0.09);
   --line-gold: rgba(168, 135, 79, 0.42);
@@ -197,6 +231,37 @@ ul, ol { list-style: none; }
 .btn--ghost:hover {
   background: transparent;
   border-color: var(--navy-800);
+}
+
+/* Der weisse Knopf. Auf hellem Grund traegt eine weisse Flaeche keinen Rand
+   (Weiss auf Marmor ist praktisch kontrastlos), deshalb bekommt er eine
+   Navy-Haarlinie — sie ist es, die den Knopf ueberhaupt als Knopf lesbar
+   macht, nicht die Fuellung. Navy als Schrift darauf misst 15.51:1. */
+.btn--weiss {
+  --btn-fg: var(--navy-800);
+  --btn-bg: #FFFFFF;
+  border-color: rgba(16, 41, 73, 0.42);
+  font-weight: 600;
+}
+.btn--weiss:hover {
+  background: #FFFFFF;
+  border-color: var(--navy-800);
+}
+
+/* Der Sandknopf — der zweite Knopf im Hero und der Abschluss-Knopf.
+   Navy auf Sand statt Weiß auf Sand: 9.08:1 gegen 1.94:1. Die Kante in
+   --gold, weil die Fläche selbst nur 1.94:1 gegen weißes Papier hält und
+   der Knopf sonst keinen erkennbaren Rand hätte. Herleitung im Farbblock
+   ganz oben. */
+.btn--sand {
+  --btn-fg: var(--navy-900);
+  --btn-bg: var(--sand);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.btn--sand:hover {
+  background: var(--sand-tief);
+  border-color: var(--gold);
 }
 
 /* Textlink mit unterlaufender Haarlinie */

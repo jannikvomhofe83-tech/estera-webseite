@@ -18,7 +18,39 @@
    gedrückt — sie steht dadurch auch bei kurzen Rezensionen auf der
    Unterkante und schwebt nicht in der Mitte.
 
+   BILDFENSTER — Initialen jetzt, Foto später
+   Der Kunde hat am 24.08.2026 gesagt: „Wir haben noch keine Bilder der Kunden
+   der Rezensionen. Die fügen wir dann noch nachträglich ein, also schreiben
+   wir nur die Initialien aktuell in das Bildfenster."
+   Deshalb trägt .rez__bild die Grösse, die Form, die Position und den Schatten
+   — das Fenster steht also unabhängig davon, was darin liegt. Darin liegt
+   entweder ein <span class="rez__initialen"> oder ein <img>. Beide füllen
+   dasselbe Fenster; die Karte muss dafür nicht angefasst werden.
+
+   EIN FOTO SPÄTER EINSETZEN — genau ein Handgriff je Karte:
+       <figure class="rez__bild"><span class="rez__initialen" …>MB</span></figure>
+   wird zu
+       <figure class="rez__bild"><img src="assets/img/personen/mb.webp" alt=""
+            width="640" height="640" loading="lazy" decoding="async"></figure>
+   Sonst ändert sich nichts. alt bleibt leer: der Name steht als Unterschrift
+   in derselben Karte, ein zweites Mal vorgelesen wäre er Lärm. Am CSS ist
+   dafür nichts zu tun — .rez__bild img steht schon hier.
+
+   FARBE DER INITIALEN — gemessen, nicht geschätzt
+   Helle Fläche mit Navy, nicht umgekehrt: die Reihe läuft über weissem Papier,
+   acht dunkle Scheiben würden sie zerhacken. Der Kreis trägt denselben warmen
+   Sand wie die Referenzflächen der Seite (#EAE3D8), die Buchstaben Navy
+   (--navy-800, #102949). Gemessen 11.5:1 — weit über den geforderten 4.5:1.
+   Kein Zufallston je Person: die Seite ist Navy auf Weiss, Gold nur als
+   Haarlinie.
+
    Die Bewegung und der Knopf „Mehr" liegen in assets/js/rezensionen.js.
+   Der Knopf steht NUR dort, wo der Text tatsächlich abgeschnitten ist — das
+   Skript misst dafür die tatsächliche gegen die sichtbare Höhe des Absatzes
+   (scrollHeight gegen clientHeight) und nicht etwa die Zeichenzahl, die bei
+   unterschiedlich breiten Karten schiefgeht. Die Beschneidung auf sechs
+   Zeilen hängt deshalb an [data-rez-js]: OHNE Javascript wird nichts
+   beschnitten, jeder Text steht vollständig da, und der Knopf bleibt hidden.
    =========================================================================== */
 
 .ref {
@@ -29,6 +61,8 @@
   --rez-abstand:  clamp(20px, 1.8vw, 28px);   /* Abstand zwischen den Karten   */
   --rez-portraet: clamp(78px, 6vw, 92px);     /* Durchmesser des Porträts      */
   --rez-kreis:    #EAE3D8;   /* Scheibe hinter den Initialen, warmer Sand      */
+  --rez-stern-leer: #D6CFC2; /* nicht vergebener Stern, siehe data-sterne      */
+  --rez-zeilen:   6;         /* sichtbare Zeilen, bevor „Mehr" greift          */
 
   position: relative;
   z-index: 1;
@@ -47,6 +81,20 @@
 }
 
 /* --- Linke Spalte --------------------------------------------------------- */
+/* Ohne Javascript bliebe diese Spalte leer: das siteweite Muster in
+   leistungen.css setzt [data-reveal] unbedingt auf opacity: 0, und
+   data-seen="true" vergibt erst site.js. Überschrift, Google-Siegel und der
+   Platzhalterhinweis wären damit ohne Skript unsichtbar. Deshalb hier dieselbe
+   Ausnahme, die schluss.css schon macht: sichtbar ist der AUSGANGSZUSTAND,
+   ausgeblendet wird erst, wenn site.js das Wurzelelement mit is-ready
+   markiert hat — dann läuft der Einlauf wie überall.
+   Die Reihenfolge der Spezifitäten ist Absicht: (0,2,0) schlägt das globale
+   opacity: 0, und (0,4,0) für den gesehenen Zustand schlägt wiederum die
+   eigene is-ready-Regel. */
+.ref__seite[data-reveal] { opacity: 1; transform: none; }
+.is-ready .ref__seite[data-reveal] { opacity: 0; transform: translateY(16px); }
+.is-ready .ref__seite[data-reveal][data-seen='true'] { opacity: 1; transform: none; }
+
 .ref__h2 {
   font-size: clamp(1.9rem, 2.9vw, 2.9rem);
   line-height: 1.1;
@@ -170,12 +218,15 @@
 }
 .rez__bild img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 
-/* Ersatz, wenn kein Profilbild vorliegt: die Initialen im Kreis — dieselbe
-   Lösung, die Google selbst verwendet, wenn im Konto kein Bild hinterlegt
-   ist. Sechs der zehn Demo-Rezensionen laufen darüber. Der Kreis bleibt
-   hell und warm (#EAE3D8), damit die Reihe nicht von dunklen Scheiben
-   zerhackt wird; die Buchstaben stehen in Navy, 11.5:1. Für Screenreader ist der Kreis
-   aria-hidden — der Name steht ohnehin als Unterschrift in der Karte. */
+/* Ersatz, solange kein Profilbild vorliegt: die Initialen im Kreis — dieselbe
+   Lösung, die Google selbst verwendet, wenn im Konto kein Bild hinterlegt ist.
+   Derzeit laufen ALLE acht Karten darüber; Fotos liegen nicht vor. Wie ein
+   Foto später eingesetzt wird, steht im Kopf dieser Datei.
+   Der Kreis bleibt hell und warm (#EAE3D8), damit die Reihe nicht von dunklen
+   Scheiben zerhackt wird; die Buchstaben stehen in Navy, gemessen 11.5:1.
+   Mittig sitzen sie durch place-items: center an .rez__bild — das gilt für
+   einen wie für zwei Buchstaben. Für Screenreader ist der Kreis aria-hidden:
+   der Name steht ohnehin als Unterschrift in derselben Karte. */
 .rez__initialen {
   font-family: var(--font-display);
   font-size: calc(var(--rez-portraet) * 0.38);
@@ -186,18 +237,36 @@
   font-variant-numeric: lining-nums;
 }
 
-/* Fünf gefüllte Sterne in Navy, Grösse und Abstand nach der Vorlage. */
+/* Fünf Sterne in Navy, Grösse und Abstand nach der Vorlage.
+   Im Markup stehen immer fünf; wie viele davon GEFÜLLT sind, sagt allein
+   data-sterne am <p>. Damit lässt sich die Sternzahl einer echten Rezension
+   durch Ändern einer einzigen Zahl eintragen, ohne SVG anzufassen — und ohne
+   Javascript, die Sterne stimmen also auch bei abgeschaltetem Skript.
+   WICHTIG: aria-label am selben <p> mitändern, sonst liest die
+   Vorlesesoftware etwas anderes vor, als zu sehen ist. */
 .rez__sterne {
   display: flex;
   gap: 7px;
   margin-bottom: clamp(13px, 1.5vh, 17px);
 }
 .rez__sterne svg { width: 20px; height: 20px; fill: var(--navy-800); }
+.rez__sterne[data-sterne="4"] svg:nth-of-type(n + 5),
+.rez__sterne[data-sterne="3"] svg:nth-of-type(n + 4),
+.rez__sterne[data-sterne="2"] svg:nth-of-type(n + 3),
+.rez__sterne[data-sterne="1"] svg:nth-of-type(n + 2) { fill: var(--rez-stern-leer); }
 
 /* --- Text ----------------------------------------------------------------- */
-/* Eingeklappt auf sechs Zeilen. Was darüber hinausgeht, holt der Knopf
-   „Mehr" hervor; assets/js/rezensionen.js blendet ihn nur dort ein, wo
-   tatsächlich etwas abgeschnitten ist. */
+/* Der Text steht in ORIGINALLÄNGE im Dokument — gekürzt wird nie, nur
+   verdeckt. Eingeklappt zeigt die Karte --rez-zeilen Zeilen; was darüber
+   hinausgeht, holt der Knopf „Mehr" hervor.
+
+   Die Beschneidung hängt an [data-rez-js], das assets/js/rezensionen.js an
+   die Reihe schreibt. Der Grund: der Knopf ist im Markup hidden, weil erst
+   eine Messung sagt, ob es überhaupt etwas aufzuklappen gibt. Ohne Javascript
+   gibt es diese Messung nicht — dann darf auch nichts verdeckt werden, sonst
+   stünde abgeschnittener Text ohne jede Möglichkeit da, ihn zu Ende zu lesen.
+   Ohne Javascript steht also jeder Text vollständig, und es gibt keinen
+   Knopf, der nichts tut. */
 .rez__text {
   /* Zweites auto-Mass neben dem der Unterschrift: der freie Rest einer Karte
      verteilt sich dadurch je zur Hälfte über und unter den Text. Kurze
@@ -205,13 +274,18 @@
      unten ein Loch zu lassen. Die Unterschrift bleibt trotzdem auf der
      Unterkante — sie ist das letzte Element im Kasten. */
   margin-top: auto;
+}
+[data-rez-js] .rez__text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  line-clamp: 6;
+  -webkit-line-clamp: var(--rez-zeilen);
+  line-clamp: var(--rez-zeilen);
   overflow: hidden;
 }
-.rez__karte[data-offen] .rez__text {
+/* Aufgeklappt: volle Höhe. Die Karte wächst dabei nach unten; weil die Spur
+   auf align-items: stretch steht, wachsen die Nachbarkarten derselben Reihe
+   mit und die Reihe bleibt eine gerade Linie — nichts rutscht übereinander. */
+[data-rez-js] .rez__karte[data-offen] .rez__text {
   display: block;
   -webkit-line-clamp: none;
   line-clamp: none;
@@ -244,6 +318,23 @@
   border-radius: 3px;
 }
 .rez__mehr[hidden] { display: none; }
+
+/* Acht Knöpfe, die alle „Mehr" heissen, sind für Vorlesesoftware nicht zu
+   unterscheiden. Deshalb hängt assets/js/rezensionen.js an jeden Knopf einen
+   unsichtbaren Zusatz mit dem Namen der Rezension. Sichtbar ändert sich
+   nichts; die Bezeichnung wird aus <p class="rez__name"> gelesen, es ist beim
+   Eintragen der echten Rezensionen also nichts zusätzlich zu pflegen. */
+.rez__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 /* --- Unterschrift --------------------------------------------------------- */
 /* margin-top: auto schiebt die Unterschrift auf die Unterkante der Karte.
