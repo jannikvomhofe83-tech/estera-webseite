@@ -77,12 +77,17 @@
 }
 
 /* Zwei Spalten: links der feste Textblock, rechts die Reihe bis zum Rand. */
+/* KOPF UEBER DEN KARTEN, nicht daneben (Kundenwunsch 24.08.2026:
+   „Die Headline und das Google Badge stehen ueber den Rezensionskaesten").
+   Vorher lief hier ein zweispaltiges Raster: links Ueberschrift und Siegel,
+   rechts die laufende Reihe. Damit blieb der Reihe nur rund drei Viertel der
+   Breite. Jetzt steht der Kopf mittig darueber und die Reihe laeuft ueber
+   die volle Breite der Section.
+
+   Der Seiteneinzug ist deshalb hier weg und sitzt am Kopf: die Reihe soll
+   ihn ausdruecklich NICHT haben, sonst liefe sie nicht durch. */
 .ref__inner {
-  display: grid;
-  grid-template-columns: minmax(280px, 25vw) minmax(0, 1fr);
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: center;
-  padding-left: var(--gutter);
+  display: block;
 }
 
 /* --- Linke Spalte --------------------------------------------------------- */
@@ -96,6 +101,15 @@
    Die Reihenfolge der Spezifitäten ist Absicht: (0,2,0) schlägt das globale
    opacity: 0, und (0,4,0) für den gesehenen Zustand schlägt wiederum die
    eigene is-ready-Regel. */
+/* Mittig ueber der Reihe. `text-align: center` zentriert auch das Siegel,
+   weil es `inline-flex` ist — dafuer braucht es keinen eigenen Kniff. */
+.ref__seite {
+  max-width: 62rem;
+  margin: 0 auto clamp(2.4rem, 5vh, 3.6rem);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
 .ref__seite[data-reveal] { opacity: 1; transform: none; }
 .is-ready .ref__seite[data-reveal] { opacity: 0; transform: translateY(16px); }
 .is-ready .ref__seite[data-reveal][data-seen='true'] { opacity: 1; transform: none; }
@@ -144,10 +158,13 @@
 .rez__band {
   position: relative;
   overflow: hidden;
-  /* Weiche Kante links und rechts, damit die Karten nicht abgeschnitten
-     wirken, sondern in die Fläche hineinlaufen. */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 72px, #000 calc(100% - 96px), transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 72px, #000 calc(100% - 96px), transparent 100%);
+  /* OHNE WEICHE KANTE seit dem 24.08.2026 (Kundenwunsch: „Den weissen
+     Schleier, der da erscheint, wenn die Rezensionskaesten kommen und gehen,
+     soll raus."). Hier lag eine Maske, die die Reihe an beiden Enden ins
+     Nichts ausblendete — auf hellen Karten las sie sich als weicher Uebergang,
+     auf den jetzt dunklen Karten als heller Schleier.
+     Die Karten laufen dafuer bis an den Rand der Section und werden dort von
+     `overflow: hidden` sauber beschnitten. */
 }
 /* Ohne Javascript bleibt die Reihe stehen und lässt sich seitlich schieben. */
 .rez__band:not([data-laeuft]) { overflow-x: auto; scrollbar-width: none; }
@@ -219,6 +236,19 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
+  /* FARBIGER KREIS JE PERSON, wie Google es macht, wenn kein Profilfoto
+     hinterlegt ist (Kundenwunsch 24.08.2026: „da sind manche lila, manche
+     gruen und so weiter. Mache das ja auch so.").
+
+     Der Ton steht als --rez-kreis unmittelbar an der jeweiligen Karte im
+     Markup; hier steht nur der Rueckfall. Liegt spaeter ein echtes Foto vor,
+     deckt es den Kreis vollstaendig ab und die Farbe spielt keine Rolle mehr.
+
+     ABWEICHUNG VON GOOGLE, bewusst: Google nimmt die hellen Material-Toene
+     der 500er-Reihe und setzt Weiss darauf — mehrere davon liegen unter
+     3:1 und sind schlecht lesbar. Hier stehen dieselben Farbfamilien eine
+     Stufe tiefer (700er/800er), damit Weiss ueberall ueber 4.5:1 kommt.
+     Die Wirkung „bunte Kreise wie bei Google" bleibt, die Lesbarkeit auch. */
   background: var(--rez-kreis);
   box-shadow: 0 6px 16px rgba(16, 41, 73, 0.14);
   display: grid;
@@ -241,7 +271,7 @@
   font-weight: 500;
   letter-spacing: 0.03em;
   line-height: 1;
-  color: var(--navy-800);
+  color: #FFFFFF;
   font-variant-numeric: lining-nums;
 }
 
@@ -364,27 +394,19 @@
 
 /* --- Responsive ----------------------------------------------------------- */
 @media (max-width: 1100px) {
-  /* Untereinander: die Reihe braucht sonst mehr Breite, als übrig bleibt. */
-  .ref__inner {
-    grid-template-columns: 1fr;
-    gap: clamp(2rem, 5vh, 3rem);
-    padding-right: 0;
-  }
+  /* .ref__inner war bis zum 24.08.2026 ein zweispaltiges Raster und musste
+     hier einspaltig gestellt werden. Seit der Kopf ohnehin oben steht, ist
+     das gegenstandslos. */
   .ref__seite { max-width: 46rem; }
   /* Einspaltig läuft die Reihe über die ganze Fensterbreite — sonst bliebe
      links ein weisser Streifen, an dem die Karten hart abgeschnitten wirken. */
-  .rez__band {
-    margin-left: calc(var(--gutter) * -1);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 44px, #000 calc(100% - 56px), transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0, #000 44px, #000 calc(100% - 56px), transparent 100%);
-  }
+  /* Der negative Rand ist entfallen: seit der Kopf oben steht, hat
+     .ref__inner keinen Seiteneinzug mehr, den die Reihe ausgleichen muesste.
+     Die Maske ist ebenfalls entfallen — siehe oben. */
 }
 @media (max-width: 640px) {
   .ref { --rez-breite: min(300px, 82vw); }
-  .rez__band {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 36px), transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 36px), transparent 100%);
-  }
+  /* Maske entfallen — siehe .rez__band weiter oben. */
 }
 
 /* Ohne Bewegung: die Reihe steht still und bleibt seitlich scrollbar. */
