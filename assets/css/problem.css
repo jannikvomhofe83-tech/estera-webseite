@@ -1,0 +1,401 @@
+/* ===========================================================================
+   ESTERA — PROBLEM-SECTION  (#problem)
+
+   Steht zwischen der Bankenleiste (#banken) und „Vorteile von Immobilien"
+   (#warum-immobilien). Beide Nachbarn stehen auf Weiss — .wimm setzt
+   ausdruecklich `background: var(--paper)`, die Bankenleiste erbt den
+   Seitengrund. Diese Section steht deshalb ebenfalls auf Weiss; an beiden
+   Nahtstellen entsteht keine Kante, die abgestimmt werden muesste, und es
+   braucht keine trennende Haarlinie.
+
+   Der Kundentext ist WOERTLICH uebernommen — Eyebrow, Ueberschrift, Absatz,
+   die drei Problemzeilen und die Aufloesung. Auch die Anrede „Du" ist so
+   gewollt und weicht bewusst vom „Sie" der uebrigen Seite ab. Wer hier
+   glaettet, aendert eine Kundenvorgabe.
+
+   ---------------------------------------------------------------------
+   1  WARUM KEINE KARTEN
+   ---------------------------------------------------------------------
+   Kundenwortlaut: „Grafisch keine Problemkarten. Stattdessen drei
+   vertikale Abflüsse aus einer Linie ‚Dein Einkommen'."
+   Die drei Problemzeilen stehen deshalb als ruhige Liste untereinander,
+   NICHT nebeneinander in drei Spalten. Das ist Absicht: nebeneinander
+   haette der Leser sie eins zu eins den drei Abfluessen zugeordnet, und
+   diese Zuordnung gibt es nicht. Die dritte Zeile („Immobilien wirken
+   aufwendig …") hat mit keinem der drei Abfluesse etwas zu tun.
+
+   ---------------------------------------------------------------------
+   2  WARUM DIE BESCHRIFTUNGEN NICHT IM SVG STEHEN
+   ---------------------------------------------------------------------
+   Das Schaubild traegt eine viewBox von 1200 Einheiten Breite. Bei 390 px
+   Fensterbreite bleiben davon rund 342 px uebrig — Faktor 0.285. Ein
+   `<text>` mit 18 Einheiten Schriftgroesse waere dort 5 px gross gewesen.
+   Beschriftungen im SVG scheiden damit aus.
+   Sie stehen als HTML darunter, in einem Raster aus drei gleichen Spalten.
+   Die Abflussachsen liegen bei x = 200, 600 und 1000 von 1200, also bei
+   1/6, 3/6 und 5/6 der Breite — genau in den Mitten dieser drei Spalten.
+   Beschriftung und Abfluss stehen dadurch auf jeder Breite senkrecht
+   uebereinander, ohne dass irgendwo eine Zahl doppelt gepflegt wird.
+   Voraussetzung dafuer ist, dass Schaubild und Beschriftungszeile
+   dieselbe Breite haben: beide bekommen `max-width: var(--pr-band)`.
+
+   `preserveAspectRatio="none"` haengt daran. Nur so laesst sich die Hoehe
+   des Schaubilds in CSS unabhaengig von der Breite fuehren (auf schmalen
+   Geraeten waere es sonst 113 px flach). Verzerren kann dabei nichts:
+   im SVG stehen ausschliesslich achsparallele Rechtecke und Linien, und
+   alle Striche tragen `vector-effect="non-scaling-stroke"`, bleiben also
+   auf jeder Breite exakt 1 px.
+
+   ---------------------------------------------------------------------
+   3  KONTRASTE — gegen reines Weiss beziehungsweise gegen den Goldschleier
+   ---------------------------------------------------------------------
+   NACHGEMESSEN am gerenderten Abschnitt (1440 px), Schrift, Schwelle 4.5:1:
+     Eyebrow        --gold-text  #86693A auf #FFFFFF        5.13:1  ✓
+     Ueberschrift   --ink-black  #2B2E33 auf #FFFFFF       13.62:1  ✓
+     Absatz         --ink-black  #2B2E33 auf #FFFFFF       13.62:1  ✓
+     Problemzeilen  --ink-black  #2B2E33 auf #FFFFFF       13.62:1  ✓
+     „Dein Einkommen" --navy-800 #102949 auf #FFFFFF       14.63:1  ✓
+     Beschriftung   --navy-800   #102949 auf #FCFBF9       14.15:1  ✓
+     Aufloesung     --ink-black  #2B2E33 auf #FCFBF9       13.17:1  ✓
+   Die letzten beiden stehen im Goldschleier. Massgeblich ist dort der
+   UNGUENSTIGSTE Fall, also volle Deckung des Verlaufs (ohne Skript oder am
+   Ende des Scrollwegs): Beschriftung auf #F7F5F0 noch 13.43:1, Aufloesung
+   auf #F8F6F2 noch 12.62:1. Beide bleiben weit ueber der Schwelle — der
+   Schleier ist ein Hauch, kein Grund.
+
+   --gold (#A8874F) misst auf Weiss nur 3.36:1 und ist deshalb NIRGENDS
+   Schrift. Fuer die Eyebrow steht --gold-text bereit; das ist die einzige
+   goldene Schrift im Abschnitt.
+
+   Grafik gegen Weiss (Schwelle 3:1 nach WCAG 1.4.11):
+     Einkommenslinie    --navy-800 voll   -> #102949       14.63:1  ✓
+     Abflusskante oben  Navy    0.72      -> #53657C        5.97:1  ✓
+     Abflusskante Mitte Navy    0.62      -> #6B7A8E        4.38:1  ✓
+     Abflusskante unten Goldton 0.86      -> #977E56        3.86:1  ✓
+     Zierstrich vor den Problemzeilen und ueber der Aufloesung
+                        --gold            -> #A8874F        3.36:1  ✓
+   Fuer das Gold der Kante steht ausdruecklich --gold-text (#86693A) und
+   nicht --gold: letzteres kaeme bei derselben Deckung von 0.86 nur auf
+   2.75:1 und damit unter die Schwelle.
+   Die letzten acht Prozent der Kanten laufen auf Deckkraft 0 aus. Das ist
+   die Aufloesung selbst und traegt keine Information mehr — was die Grafik
+   zeigt, ist die BREITE des Abflusses, und die ist an der kontraststarken
+   oberen Haelfte ablesbar.
+   Die Fuellflaeche der Abfluesse (oben Navy 0.085 -> #EBEDF0, 1.17:1;
+   unten Gold 0.17 -> #F0EBE1, 1.19:1) faellt bewusst darunter. Sie ist
+   Flaeche, keine Information; die Kanten tragen die Form. Ohne die
+   Fuellung waere die Grafik dieselbe, nur haerter.
+
+   ---------------------------------------------------------------------
+   4  KEINE ZAHLEN
+   ---------------------------------------------------------------------
+   Im Schaubild steht kein Prozentsatz, kein Betrag, keine Skala. Die drei
+   Breiten (192, 144 und 100 von 1200 Einheiten) zeigen ein Verhaeltnis
+   zueinander und sonst nichts. Rot, Warnfarben, Pfeile, Muenzen und
+   Waehrungszeichen kommen nicht vor — der Abschnitt beschreibt eine Lage,
+   er macht keine Angst.
+   =========================================================================== */
+
+.problem {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink-black);
+
+  /* Unten KEIN Aussenabstand: den setzt .problem__uebergang, weil der
+     goldene Verlauf bis an die Naht zur naechsten Section laufen muss. */
+  padding: clamp(4rem, 8vh, 7rem) 0 0;
+
+  /* Breite des Schaubilds UND der Beschriftungszeile. Eine Zahl fuer
+     beide — sie muessen deckungsgleich sein, siehe Kopf, Punkt 2. */
+  --pr-band: 1120px;
+
+  /* Wie schmal die drei Abfluesse am Ende des Scrollwegs werden.
+     Leicht unterschiedlich, damit die Bewegung nicht mechanisch wirkt;
+     die Werte stehen am jeweiligen Abfluss im Markup (--pr-ende). */
+
+  --pr-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.problem__inner {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 4.2rem);
+}
+
+/* ---------------------------------------------------------------------------
+   1  AUFTAKT
+--------------------------------------------------------------------------- */
+.problem__auftakt {
+  max-width: 54rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Die Eyebrow steht im Kundentext bereits in Grossbuchstaben. Sie wird
+   deshalb NICHT ueber `text-transform` gemacht, sondern so gesetzt, wie
+   sie geliefert wurde — der Wortlaut bleibt damit auch beim Kopieren aus
+   der Seite unveraendert. */
+.problem__oben {
+  margin: 0 0 clamp(1rem, 1.8vw, 1.5rem);
+  font-family: var(--font-ui);
+  font-size: clamp(0.83rem, 0.86vw, 0.89rem);
+  letter-spacing: var(--track-wide);
+  color: var(--gold-text);
+}
+
+.problem__h2 {
+  margin: 0;
+  /* Kleiner als die 3.7rem der Vorteile-Ueberschrift: dieser Satz ist mit
+     63 Zeichen mehr als dreimal so lang und braeuchte sonst vier Zeilen. */
+  font-size: clamp(1.85rem, 3.4vw, 3.05rem);
+  line-height: 1.1;
+  color: var(--ink-black);
+  max-width: 14em;
+  margin-inline: auto;
+}
+
+.problem__text {
+  margin: clamp(1.3rem, 2.4vw, 1.9rem) auto 0;
+  max-width: 44em;
+  font-size: clamp(1.06rem, 1.1vw, 1.18rem);
+  line-height: 1.72;
+  color: var(--ink-black);
+}
+
+/* ---------------------------------------------------------------------------
+   2  DIE DREI PROBLEMZEILEN
+   Untereinander, nicht nebeneinander — Begruendung im Kopf, Punkt 1.
+   Kein Punkt, kein Haken, kein Symbol: ein goldener Strich von 18 px, der
+   auf der Grundlinie der ersten Zeile sitzt. Er ist reine Zier und traegt
+   keine Bedeutung; die Zeilen lesen sich ohne ihn genauso.
+--------------------------------------------------------------------------- */
+.problem__zeilen {
+  max-width: 40em;
+  margin: clamp(2.6rem, 4.5vw, 3.8rem) auto 0;
+  display: grid;
+  gap: clamp(0.9rem, 1.6vw, 1.3rem);
+}
+
+.problem__zeile {
+  position: relative;
+  padding-left: 2.4rem;
+  font-size: clamp(1rem, 1.02vw, 1.09rem);
+  line-height: 1.62;
+  color: var(--ink-black);
+}
+
+.problem__zeile::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  /* Halbe Zeilenhoehe der ersten Zeile — der Strich sitzt damit auf
+     Mitte Versalhoehe und nicht am oberen Rand des Kastens. */
+  top: 0.81em;
+  width: 18px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ---------------------------------------------------------------------------
+   3  DAS SCHAUBILD
+--------------------------------------------------------------------------- */
+.problem__figur {
+  max-width: var(--pr-band);
+  margin: clamp(3.2rem, 6vw, 5rem) auto 0;
+}
+
+/* „Dein Einkommen" — die Beschriftung der waagerechten Linie. Sie steht
+   ueber der Linie und links, nicht mittig: die Linie ist eine Quelle,
+   kein Titel. */
+.problem__quelle {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-ui);
+  font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.16em;
+  color: var(--navy-800);
+}
+
+.problem__grafik {
+  display: block;
+  width: 100%;
+  /* Hoehe in CSS statt ueber das Seitenverhaeltnis der viewBox — siehe
+     Kopf, Punkt 2. Sie steht von Anfang an fest, es gibt also keinen
+     Layoutsprung, wenn das Skript spaeter anspringt. */
+  height: clamp(230px, 24vw, 330px);
+  overflow: visible;
+}
+
+.problem__quer {
+  stroke: var(--navy-800);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.problem__strom { fill: url(#prb-strom); }
+
+.problem__kante {
+  stroke: url(#prb-kante);
+  stroke-width: 1;
+  /* Ohne das hier waere die Kante bei --pr-ende 0.28 nur noch 0.28 px
+     breit und praktisch verschwunden — die Abfluesse wuerden beim
+     Schmalerwerden zusaetzlich blasser. Genau das soll nicht passieren:
+     schmaler ja, schwaecher nein. */
+  vector-effect: non-scaling-stroke;
+}
+
+/* --- Die Breite der Abfluesse ---------------------------------------------
+   GRUNDZUSTAND IST DER ENDZUSTAND. Das ist der Kern der Absicherung:
+   ohne Javascript, mit abgeschaltetem Javascript und bei
+   `prefers-reduced-motion: reduce` stehen die Abfluesse schmal da, so wie
+   am Ende des Scrollwegs. Es gibt keinen Zustand, in dem der Abschnitt
+   auf ein Skript wartet.
+
+   Skaliert wird um die eigene Achse des Abflusses. `transform-box:
+   view-box` legt das Bezugssystem auf die viewBox; `transform-origin`
+   nennt dann die Achse in viewBox-Einheiten (1 px = 1 Einheit). Der Wert
+   steht am Element im Markup, weil er zur Geometrie gehoert und nicht
+   zur Gestaltung.
+   Ohne diese beiden Zeilen naehme der Browser `transform-origin: 50% 50%`
+   der viewBox, also x = 600 — die beiden aeusseren Abfluesse waeren dann
+   beim Schmalerwerden zur Mitte gewandert.                              */
+.problem__abfluss {
+  transform-box: view-box;
+  transform-origin: var(--pr-achse) 0;
+  transform: scaleX(var(--pr-ende));
+}
+
+/* Erst wenn problem.js `data-pr-js` gesetzt hat, haengt die Breite am
+   Scrollfortschritt --pr-p (0 = voll, 1 = Endzustand). Das Skript setzt
+   Merkmal und Fortschritt im selben Durchlauf, es gibt also kein Bild, in
+   dem das eine ohne das andere gilt.
+   Der Uebergang von 140 ms glaettet nur die Stufen des in 0.5-Prozent-
+   Schritten gerundeten Fortschritts. Laenger darf er nicht werden, sonst
+   laeuft die Grafik dem Finger hinterher. */
+.problem[data-pr-js='an'] .problem__abfluss {
+  transform: scaleX(calc(1 + (var(--pr-ende) - 1) * var(--pr-p, 0)));
+  transition: transform 140ms linear;
+}
+
+/* ---------------------------------------------------------------------------
+   4  DER GOLDENE UEBERGANG
+   Kundenwortlaut: „Beim Scrollen werden die Abflüsse kleiner und führen in
+   einen goldenen Übergang zur nächsten Section."
+
+   Der Verlauf beginnt und endet bei Deckkraft 0. Oben entsteht dadurch
+   keine Kante gegen das Weiss ueber ihm, unten keine gegen das Weiss von
+   #warum-immobilien. Der Schleier steigt an, steht kurz und verschwindet
+   wieder — es ist ein Uebergang, kein Band.
+
+   Die Beschriftungen der Abfluesse stehen in dieser Zone. Das ist Absicht:
+   die Abfluesse loesen sich am unteren Rand des Schaubilds auf, und was
+   von ihnen bleibt, ist ihr Name — im Gold.
+--------------------------------------------------------------------------- */
+.problem__uebergang {
+  position: relative;
+  margin-top: clamp(0.9rem, 1.6vw, 1.4rem);
+  padding: clamp(1.6rem, 3vw, 2.6rem) 0 clamp(4rem, 8vh, 7rem);
+}
+
+.problem__uebergang::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(168, 135, 79, 0)    0%,
+    rgba(168, 135, 79, 0.13) 30%,
+    rgba(168, 135, 79, 0.06) 68%,
+    rgba(168, 135, 79, 0)   100%);
+}
+
+/* Ohne Skript steht das Gold voll da — passend dazu, dass die Abfluesse
+   dann ebenfalls in ihrem Endzustand stehen. Laeuft das Skript, waechst es
+   mit dem Fortschritt: bei --pr-p = 0 sind es 42 Prozent Deckung, bei 1
+   die volle. Was die Abfluesse verlieren, sammelt sich also sichtbar hier. */
+.problem[data-pr-js='an'] .problem__uebergang::before {
+  opacity: calc(0.42 + 0.58 * var(--pr-p, 0));
+  transition: opacity 140ms linear;
+}
+
+.problem__uebergang > .problem__inner {
+  position: relative;   /* ueber dem Verlauf */
+}
+
+/* --- Beschriftungen der drei Abfluesse ---
+   Dieselbe Breite wie das Schaubild und drei gleiche Spalten — die Mitten
+   liegen damit auf den Achsen 200, 600 und 1000 der viewBox. */
+.problem__marken {
+  max-width: var(--pr-band);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.problem__marke {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: clamp(0.88rem, 0.95vw, 1rem);
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  color: var(--navy-800);
+  /* Der Kunde schreibt zwei der drei Namen klein („laufende Ausgaben",
+     „ungenutztes Potenzial"). Kein `text-transform` — der Wortlaut bleibt
+     so stehen, wie er geliefert wurde. */
+}
+
+/* --- Die Aufloesung --- */
+.problem__aufloesung {
+  max-width: 34em;
+  margin: clamp(2.4rem, 4.5vw, 3.6rem) auto 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.32rem, 2vw, 1.85rem);
+  line-height: 1.32;
+  letter-spacing: -0.004em;
+  color: var(--ink-black);
+  text-wrap: balance;
+}
+
+/* Ein goldener Strich ueber der Aufloesung, 34 px wie .rule-gold in
+   base.css. Er markiert die Wende vom Problem zur Antwort. */
+.problem__aufloesung::before {
+  content: '';
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: 0 auto clamp(1.2rem, 2vw, 1.7rem);
+  background: var(--gold);
+}
+
+/* ---------------------------------------------------------------------------
+   5  SCHMALE GERAETE
+--------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .problem { --pr-band: 100%; }
+
+  /* Bei 390 px muessen drei Beschriftungen nebeneinander passen. Sie
+     duerfen dafuer bis an den Rand des Innenrands laufen und brechen
+     zweizeilig um — „ungenutztes Potenzial" ist der laengste Fall. */
+  .problem__marken { gap: 0.35rem; }
+  .problem__marke  { font-size: 0.85rem; letter-spacing: 0.03em; }
+
+  .problem__zeile { padding-left: 1.9rem; }
+  .problem__zeile::before { width: 13px; }
+}
+
+/* ---------------------------------------------------------------------------
+   6  OHNE BEWEGUNG
+   problem.js entfernt bei `reduce` das Merkmal data-pr-js und damit die
+   gesamte Scrollkopplung; die Abfluesse stehen dann im Endzustand. Die
+   folgende Regel ist die Absicherung fuer den Fall, dass das Merkmal aus
+   irgendeinem Grund doch gesetzt ist: dann wird die Breite zwar noch
+   gerechnet, aber nicht mehr weich nachgezogen.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .problem[data-pr-js='an'] .problem__abfluss,
+  .problem[data-pr-js='an'] .problem__uebergang::before {
+    transition: none;
+  }
+}
