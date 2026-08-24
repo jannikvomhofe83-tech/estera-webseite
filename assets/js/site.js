@@ -390,6 +390,74 @@
     }
   );
 
+  /* --- Textkante im Hero --------------------------------------------------
+     Subline, Knoepfe und Guetezeile sollen genau dort beginnen, wo der erste
+     Buchstabe der Ueberschrift beginnt (Kundenwunsch 24.08.2026).
+
+     Warum das hier steht und nicht im Stylesheet: die Ueberschrift ist
+     MITTIG ueber die volle Kastenbreite gesetzt. Ihre linke Kante ergibt sich
+     damit aus der gerenderten Textbreite und veraendert sich mit
+     Fensterbreite, Schriftgrad und dem Moment, in dem die Schrift geladen
+     ist. CSS kann Text nicht messen — deshalb wird hier gemessen und das
+     Ergebnis als --hero-textkante an den Kasten gehaengt. Das Stylesheet
+     benutzt sie mit Rueckfall: `var(--hero-textkante, var(--panel-pad))`.
+     Ohne dieses Skript steht also der normale Seiteneinzug, nichts bricht.
+
+     Gemessen wird ueber einen Range um den INHALT der Ueberschrift, nicht
+     ueber ihr Element: das Element ist die volle Kastenbreite breit, der
+     Range umschliesst nur die Buchstaben. Aus seinen Rechtecken kommt die
+     linke Kante.
+
+     Nur bei EINZEILIGER Ueberschrift. Bricht sie um — schmale Fenster,
+     grosse Schrift —, gibt es keine eindeutige Kante mehr; dann wird die
+     Variable wieder entfernt und der Seiteneinzug uebernimmt. */
+  (function () {
+    var kasten = document.querySelector('.heroA__panel');
+    var titel  = document.querySelector('.heroA__h1');
+    if (!kasten || !titel) return;
+
+    function messen() {
+      /* Erst zuruecksetzen: sonst misst die zweite Messung gegen das
+         Ergebnis der ersten und die Kante wandert bei jedem Umbau weiter. */
+      kasten.style.removeProperty('--hero-textkante');
+
+      var bereich = document.createRange();
+      bereich.selectNodeContents(titel);
+      var alle = bereich.getClientRects();
+      var kisten = [];
+      for (var i = 0; i < alle.length; i++) {
+        if (alle[i].height > 4 && alle[i].width > 2) kisten.push(alle[i]);
+      }
+      if (!kisten.length) return;
+
+      var oben = kisten[0].top;
+      for (var j = 1; j < kisten.length; j++) {
+        /* 2 px Spiel fuer Teilpixel; darueber ist es eine zweite Zeile. */
+        if (Math.abs(kisten[j].top - oben) > 2) return;
+      }
+
+      var links = kisten[0].left;
+      for (var k = 1; k < kisten.length; k++) {
+        if (kisten[k].left < links) links = kisten[k].left;
+      }
+      var kante = links - kasten.getBoundingClientRect().left;
+      if (kante > 0) kasten.style.setProperty('--hero-textkante', Math.round(kante) + 'px');
+    }
+
+    messen();
+    /* Die verbindliche Messung: vorher rechnet der Browser mit der
+       Ersatzschrift, und Cormorant ist deutlich schmaler als die. */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(messen);
+    window.addEventListener('load', messen);
+
+    var wartet = false;
+    window.addEventListener('resize', function () {
+      if (wartet) return;
+      wartet = true;
+      requestAnimationFrame(function () { wartet = false; messen(); });
+    });
+  })();
+
   /* --- Referenzen-Akkordeon ----------------------------------------------
      Eine Spalte faehrt auf, die anderen schrumpfen. Bewusst ueber Attribute
      statt reinem :hover geloest: so greift dieselbe Logik fuer Maus,

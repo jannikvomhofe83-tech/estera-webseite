@@ -264,8 +264,21 @@
      Gemessen bei 1440 px: 72 px Luecke vorher, 12 px jetzt. */
   align-content: start;
   /* Ohne Abstand nach oben. Seit die Wechselzeile entfallen ist, ruecken
-     Subline und Knoepfe auf Kundenwunsch dorthin nach, wo sie stand. */
-  padding: 0 0 var(--panel-pad) var(--panel-pad);
+     Subline und Knoepfe auf Kundenwunsch dorthin nach, wo sie stand.
+
+     LINKS: FLUCHT MIT DEM ERSTEN BUCHSTABEN DER UEBERSCHRIFT.
+     Kundenwunsch 24.08.2026: „Die Subline faengt links gebunden genau da an,
+     wo das A von ‚Aus Einkommen' anfaengt" — und ebenso die Knoepfe und die
+     Guetezeile.
+
+     Diese Kante laesst sich in CSS nicht ausdruecken. Die Ueberschrift steht
+     MITTIG ueber die volle Kastenbreite; ihre linke Kante haengt also an der
+     gerenderten Textbreite und wandert mit Fensterbreite, Schriftgrad und
+     Schriftladung. CSS kann Text nicht messen. `site.js` misst sie zur
+     Laufzeit und setzt --hero-textkante am Kasten; ohne Javascript, bei
+     umbrechender Ueberschrift und unterhalb von 980 px bleibt der normale
+     Seiteneinzug --panel-pad stehen. */
+  padding: 0 0 var(--panel-pad) var(--hero-textkante, var(--panel-pad));
 }
 
 /* ---------------------------------------------------------------------------
@@ -316,6 +329,10 @@
      darueber weiterhin EINZEILIG — das ist die Grenze, die nicht fallen
      darf. */
   font-size: var(--h1-groesse);
+  /* Mittig, wie der Eyebrow darueber (Kundenwunsch 24.08.2026). Der Kopf
+     laeuft ueber die volle Kastenbreite, die Zeile steht damit mittig im
+     Kasten und nicht ueber der linken Textspalte. */
+  text-align: center;
   line-height: 1.1;
   font-weight: 300;
   max-width: 100%;
