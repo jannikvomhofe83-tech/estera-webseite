@@ -1,0 +1,619 @@
+/* ===========================================================================
+   UNSER ABLAUF — NACHBAU DER KUNDENVORLAGE
+   Vorlage: Bilder/referenz-neu-B.png, 1558 x 1010 px.
+   Angelegt 25.08.2026. Gehoert ausschliesslich zur Section #ablauf.
+
+   ---------------------------------------------------------------------------
+   DER MASSSTAB
+   Alle Groessen und Abstaende sind an der Vorlage AUSGEMESSEN und auf deren
+   Bildbreite 1558 px bezogen. Umrechnung: Messwert / 1558 * 100 = vw.
+   Sie stehen als clamp(), damit der Abschnitt bei 1558 px Fensterbreite exakt
+   im Massstab der Vorlage steht und darunter wie darueber ruhig mitwaechst.
+
+   Ausgemessene Werte (Bildpunkte der Vorlage):
+
+     KOPF, mittig auf der Bildbreite
+       Eyebrow „UNSER ABLAUF"   Versalhoehe 13   -> 19,7 px Schriftgrad
+       Goldstrich darunter      y 81..84, ca. 60 px breit
+       H2                       Versalhoehe 40   -> 60,6 px Schriftgrad
+       Unterzeile               x-Hoehe wie 26 px Cormorant
+
+     LINKE SPALTE
+       Nummer 01..05            x 147..167, Ziffernhoehe 16 -> 24 px
+       Name                     x ab 214, Versalhoehe 17 -> 25,8 px
+       Zeilenrhythmus           107 px von Eintrag zu Eintrag
+       Linie unter dem Eintrag  x 147..437, 15..18 px unter der Textkante
+       Punkt am Aktivende       Durchmesser 13 px, Mitte x 434
+
+     SENKRECHTE HAARLINIE      x 483..485
+
+     RECHTE SPALTE (Einzelheiten)
+       Textkante                x 540
+       Kicker „SCHRITT 01"      Versalhoehe 11 -> 16,7 px
+       H3                       Versalhoehe 44 -> 66,7 px
+       Beschreibungssatz        Zeilenabstand 32 px
+       goldene Haarlinie        y 528, x 540..898
+       Punkte mit Haken         Abstand 46 px, Haken x 546, Text x 584
+       „Naechster Schritt"      Versalhoehe 16 -> 24,2 px
+
+     BILDSEITE
+       Goldstrich               y 813, x 1226..1278
+       zwei Zeilen              y 843..900, Mitte x 1253
+
+   ---------------------------------------------------------------------------
+   FARBEN — am Bildpunkt der Vorlage abgenommen, Kontrast gerechnet gegen den
+   tatsaechlichen Grund dieser Section (#F7F5F2 unter dem blassen Marmor).
+   Sie ALLE erfuellen 4.5:1; die Werte stehen dabei:
+
+     Grund der Section        #F7F5F2   (Vorlage #F6F4F1)
+     Navy fuer H2/H3/Fuehrung #102949   13.44:1   (Projekt --navy-800)
+     Bronze fuer Nummern      #8A5A20    5.41:1
+     Bronze fuer Haken        #8A5F2B    5.14:1
+     Name inaktiv             #3A4F73    7.58:1
+     Fliesstext / Unterzeile  #5A6879    5.23:1
+     goldene Haarlinien       #A8874F    3.09:1   — reine Zeichnung, kein Text
+     graue Ruhelinie          #E2E1E1              — reine Zeichnung
+
+   Der Sandton #D9B485 kommt hier NICHT vor. base.css haelt fest: Sand als
+   Schrift auf hellem Grund misst 1.94:1 und traegt dort nichts; als Flaeche
+   braeuchte er eine Kante. Die Vorlage setzt an diesen Stellen ohnehin einen
+   tieferen Bronzeton, und genau der steht hier.
+
+   ---------------------------------------------------------------------------
+   OHNE JAVASCRIPT
+   Die Grundregeln zeigen ALLE fuenf Beschreibungen untereinander, und die
+   Buehne klebt nicht. Erst ablauf.js setzt [data-abl-bereit] auf die Section;
+   ab dann greifen die Regeln fuer den festen Infokasten und die Laufstrecke.
+   Faellt das Skript aus, bleibt eine vollstaendig lesbare Liste stehen.
+   =========================================================================== */
+
+.abl {
+  /* --- Farben dieses Abschnitts ---------------------------------------- */
+  --abl-grund:      #F7F5F2;
+  --abl-navy:       #102949;
+  --abl-bronze:     #8A5A20;
+  --abl-bronze-ic:  #8A5F2B;
+  --abl-name:       #3A4F73;
+  --abl-text:       #5A6879;
+  --abl-gold:       #A8874F;
+  --abl-linie:      #E2E1E1;
+  --abl-linie-warm: rgba(168, 135, 79, 0.30);
+
+  /* Die Fassadenzeichnung. Sehr hell gehalten wie auf der Vorlage — sie ist
+     Grund, nicht Bild. Wer sie kraeftiger will, aendert nur diese fuenf.
+     ZWISCHENSTAND: siehe Vermerk bei .abl__fassade. */
+  --abl-fas-wand:   #FCFBF9;
+  --abl-fas-hell:   #F3F1ED;
+  --abl-fas-linie:  #D8D2CA;
+  --abl-fas-rahmen: #B9B4AC;
+  --abl-fas-glas:   #CFD6E0;
+
+  /* --- Schriftgrade: Messwert / 1558 * 100 ------------------------------ */
+  --abl-fs-eyebrow: clamp(0.90rem, 1.26vw, 1.16rem);
+  --abl-fs-h2:      clamp(2.05rem, 3.89vw, 3.55rem);
+  --abl-fs-sub:     clamp(1.06rem, 1.60vw, 1.46rem);
+  --abl-fs-name:    clamp(1.10rem, 1.66vw, 1.52rem);
+  --abl-fs-nr:      clamp(1.02rem, 1.54vw, 1.42rem);
+  --abl-fs-kicker:  clamp(0.80rem, 1.07vw, 0.98rem);
+  --abl-fs-h3:      clamp(1.90rem, 4.15vw, 3.75rem);
+  --abl-fs-satz:    clamp(1.02rem, 1.50vw, 1.38rem);
+  --abl-fs-punkt:   clamp(1.00rem, 1.46vw, 1.34rem);
+  --abl-fs-weiter:  clamp(1.04rem, 1.55vw, 1.42rem);
+  --abl-fs-haus:    clamp(1.14rem, 1.73vw, 1.58rem);
+
+  /* Zeilenrhythmus der linken Liste: 107 px auf 1558 = 6,87vw */
+  --abl-rhythmus:   clamp(3.6rem, 6.87vw, 6.2rem);
+
+  /* Klebehoehe der Buehne: Kopfleiste plus Abstand — dieselbe Rechnung wie
+     bei .ue-zwei__halt in ueber.css. */
+  --abl-klebe:      calc(var(--header-h) + clamp(1rem, 3vh, 2.5rem));
+
+  position: relative;
+  isolation: isolate;
+  /* Oben knapp, weil die Section darueber bereits mit reichlich Luft endet —
+     sonst steht hier der doppelte Abstand. Unten etwas mehr, dafuer beginnt
+     die FAQ mit ihrem eigenen Vorlauf. */
+  padding: clamp(1.4rem, 3.2vh, 2.8rem) 0 clamp(2.2rem, 5vh, 4.2rem);
+
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     KEIN `overflow` HIER. Weder `hidden` noch `clip`.
+     `position: sticky` an der Buehne wirkt nicht mehr, sobald IRGENDEIN
+     Vorfahre `overflow` auf etwas anderes als `visible` setzt. Genau daran
+     ist die Klebemechanik in ueber.css schon einmal gescheitert (Vermerk
+     dort bei `.uab-band`). Was nicht ueberlaufen darf, wird an Ort und
+     Stelle beschnitten — siehe .abl__spalte--haus.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+}
+
+/* --- DER GRUND -------------------------------------------------------------
+   Zwei Lagen, beide UNTER dem Inhalt und beide mit pointer-events: none.
+   Machart wortgleich aus referenzen.css, `.ref::after`: der Marmor liegt als
+   eigenes Bild und wird von einem fast deckenden Farbverlauf herunter-
+   gedaempft. NIEMALS `opacity` am Element selbst — das naehme den Text mit.
+
+   ::before  traegt den warmen Ton der Vorlage und blendet oben und unten in
+             reines Weiss aus, damit zu den weissen Abschnitten darueber und
+             darunter keine harte Kante entsteht.
+   ::after   traegt den Marmor. Er steht nur im mittleren Band, laeuft an
+             beiden Enden mit derselben Weichzeichnung aus und ist mit 0.90
+             Deckung so blass gehalten, wie ihn die Vorlage zeigt: eine
+             Aederung, die man ahnt, nicht sieht.
+-------------------------------------------------------------------------- */
+.abl::before,
+.abl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.abl::before {
+  z-index: -2;
+  background:
+    linear-gradient(180deg,
+      #FFFFFF 0,
+      var(--abl-grund) 110px,
+      var(--abl-grund) calc(100% - 110px),
+      #FFFFFF 100%);
+}
+.abl::after {
+  z-index: -1;
+  background:
+    linear-gradient(rgba(247, 245, 242, 0.90), rgba(247, 245, 242, 0.90)),
+    url('../img/marble2.jpg') center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 110px, #000 calc(100% - 110px), transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 110px, #000 calc(100% - 110px), transparent 100%);
+}
+
+.abl__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* --- Kopf ----------------------------------------------------------------- */
+.abl__kopf {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.abl__eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--abl-fs-eyebrow);
+  line-height: 1;
+  /* Auf der Vorlage stehen zwischen den Versalien rund 0,3 em. Die letzte
+     Sperrung haengt rechts als Leerraum an; sie wird ausgeglichen, damit die
+     Zeile wirklich mittig steht und nicht um ein halbes Zeichen nach links
+     versetzt wirkt. */
+  letter-spacing: 0.30em;
+  text-indent: 0.30em;
+  text-transform: uppercase;
+  color: var(--abl-bronze);
+}
+
+.abl__kopfstrich {
+  width: clamp(42px, 3.85vw, 60px);
+  height: 1px;
+  margin-top: clamp(0.85rem, 1.22vw, 1.2rem);
+  color: var(--abl-gold);
+}
+
+.abl__titel {
+  margin-top: clamp(1.05rem, 1.8vw, 1.75rem);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--abl-fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.004em;
+  color: var(--abl-navy);
+  text-wrap: balance;
+}
+
+.abl__sub {
+  margin-top: clamp(0.7rem, 1.6vw, 1.5rem);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--abl-fs-sub);
+  line-height: 1.45;
+  color: var(--abl-text);
+  text-wrap: balance;
+}
+
+/* --- Laufstrecke und Klebebuehne -------------------------------------------
+   Ohne Skript sind beide wirkungslos: .abl__lauf hat keine Hoehe, .abl__halt
+   klebt nicht. Die Hoehe der Strecke setzt ablauf.js als --abl-strecke,
+   weil sie die gemessene Buehnenhoehe braucht.
+-------------------------------------------------------------------------- */
+.abl__lauf { position: relative; }
+
+.abl[data-abl-bereit='true'] .abl__lauf {
+  height: var(--abl-strecke, auto);
+}
+.abl[data-abl-bereit='true'] .abl__halt {
+  position: sticky;
+  top: var(--abl-klebe);
+}
+
+/* --- Die dreiteilige Buehne ------------------------------------------------
+   Spaltenanteile 1:1 aus der Vorlage. Bezogen auf deren Inhaltsbreite
+   (x 147 bis 1411 = 1264 px):
+     Liste 290 px, Haarlinie 1 px, Einzelheiten 358 px, Bildseite 331 px + Rest.
+   Als fr-Anteile: 0.90 / 1px / 1.12 / 1.30.
+-------------------------------------------------------------------------- */
+.abl__buehne {
+  display: grid;
+  grid-template-columns:
+      minmax(0, 0.90fr)
+      1px
+      minmax(0, 1.12fr)
+      minmax(0, 1.30fr);
+  column-gap: clamp(1.4rem, 3.0vw, 3.4rem);
+  align-items: stretch;
+  margin-top: clamp(2.2rem, 6.4vw, 5.6rem);
+}
+
+.abl__spalte { min-width: 0; }
+
+/* Die senkrechte Haarlinie zwischen Liste und Einzelheiten. */
+.abl__trenner {
+  width: 1px;
+  background: var(--abl-linie-warm);
+}
+
+/* --- Spalte 1: die fuenf Schritte ---------------------------------------- */
+.abl__liste { display: grid; }
+
+.abl__eintrag {
+  position: relative;
+  /* Der Rhythmus der Vorlage: 107 px von Eintrag zu Eintrag. Die letzte
+     Zeile traegt ihn nicht mehr mit, sonst steht unten ein Loch. */
+  padding-bottom: calc(var(--abl-rhythmus) - clamp(1.9rem, 2.6vw, 2.4rem));
+}
+.abl__eintrag:last-child { padding-bottom: 0; }
+
+.abl__schritt {
+  display: grid;
+  grid-template-columns: clamp(3.6rem, 4.3vw, 4.3rem) minmax(0, 1fr);
+  align-items: baseline;
+  width: 100%;
+  text-align: left;
+  padding: 0.15em 0 0.28em;
+  color: inherit;
+  transition: color 0.34s var(--ease);
+}
+
+.abl__schritt-nr {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-nr);
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--abl-bronze);
+}
+
+.abl__schritt-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-name);
+  line-height: 1.15;
+  color: var(--abl-name);
+  transition: color 0.34s var(--ease);
+}
+
+/* Der gewaehlte Eintrag steht in Navy — auf der Vorlage der einzige
+   Unterschied in der Schrift; alles Weitere macht die Linie darunter. */
+.abl__schritt[aria-expanded='true'] .abl__schritt-name { color: var(--abl-navy); }
+
+.abl__schritt:hover .abl__schritt-name { color: var(--abl-navy); }
+.abl__schritt:focus-visible { outline: 1px solid var(--abl-gold); outline-offset: 6px; }
+
+/* Die Linie unter dem Eintrag: 15..18 px unter der Textkante, Laenge bis
+   x 437 der Vorlage — also volle Spaltenbreite. */
+.abl__linie {
+  display: block;
+  width: 100%;
+  height: 14px;
+  margin-top: clamp(0.5rem, 0.96vw, 0.9rem);
+  overflow: visible;
+}
+.abl__linie-ruhe {
+  stroke: var(--abl-linie);
+  transition: stroke 0.34s var(--ease);
+}
+.abl__linie-aktiv {
+  stroke: var(--abl-navy);
+  opacity: 0;
+  transition: opacity 0.34s var(--ease);
+}
+.abl__schritt[aria-expanded='true'] + .abl__linie .abl__linie-aktiv { opacity: 1; }
+
+/* Der gefuellte goldene Punkt am rechten Ende der Aktivlinie. Er sitzt auf
+   der Linienmitte, deshalb dieselbe Rechnung wie oben plus halbe Linienhoehe. */
+.abl__punkt-aktiv {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--abl-rhythmus) - clamp(1.9rem, 2.6vw, 2.4rem) + 0.5px);
+  width: 13px; height: 13px;
+  transform: translate(0, 6.5px);
+  fill: var(--abl-gold);
+  opacity: 0;
+  transition: opacity 0.34s var(--ease);
+  pointer-events: none;
+}
+.abl__eintrag:last-child .abl__punkt-aktiv { bottom: 0.5px; }
+.abl__eintrag:has(.abl__schritt[aria-expanded='true']) .abl__punkt-aktiv { opacity: 1; }
+
+/* --- Spalte 3: Einzelheiten ------------------------------------------------
+   OHNE SKRIPT stehen die fuenf Beschreibungen untereinander.
+   MIT SKRIPT liegen sie alle in DERSELBEN Rasterzelle (1 / 1). Daraus folgt
+   genau das, was der Kunde verlangt hat:
+     — die Oberkante des Infoblocks liegt bei JEDEM Schritt auf demselben
+       Bildpunkt, weil alle fuenf an derselben Zellenkante beginnen;
+     — die Hoehe des Kastens ist konstant, weil das Raster sich nach der
+       hoechsten Beschreibung richtet und die anderen nicht kleiner machen;
+     — beim Wechsel wird nur der Inhalt getauscht, der Kasten bleibt stehen.
+   Das Ausgeblendete steht auf visibility: hidden — nicht auf display: none.
+   Nur so bleibt es fuer die Hoehenrechnung des Rasters erhalten.
+-------------------------------------------------------------------------- */
+.abl__spalte--detail { display: grid; align-content: start; }
+
+.abl__panel + .abl__panel { margin-top: clamp(2.4rem, 5vw, 4rem); }
+
+.abl__kicker {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--abl-fs-kicker);
+  line-height: 1;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  text-transform: uppercase;
+  /* Auf der Vorlage stehen hier VERSALZIFFERN. Cormorant setzt von Haus aus
+     Mediaevalziffern; ohne diese Zeile stuende die „01" einen Kopf kleiner
+     als die Versalien daneben. */
+  font-variant-numeric: lining-nums;
+  color: var(--abl-bronze);
+}
+
+.abl__panel-titel {
+  margin-top: clamp(1.1rem, 1.8vw, 1.8rem);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--abl-fs-h3);
+  line-height: 1.02;
+  letter-spacing: -0.006em;
+  color: var(--abl-navy);
+  text-wrap: balance;
+}
+
+.abl__panel-text {
+  margin-top: clamp(1.0rem, 1.7vw, 1.7rem);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--abl-fs-satz);
+  line-height: 1.5;
+  color: var(--abl-text);
+  max-width: 30ch;
+}
+
+.abl__panel-strich {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: clamp(1.3rem, 2.4vw, 2.4rem);
+  color: var(--abl-gold);
+}
+
+.abl__punkte {
+  display: grid;
+  /* 46 px Abstand auf 1558 = 2,95vw */
+  row-gap: clamp(0.72rem, 1.55vw, 1.42rem);
+  margin-top: clamp(1.5rem, 2.8vw, 2.75rem);
+}
+
+.abl__punkte li {
+  display: grid;
+  /* Haken bei x 546, Text bei x 584 — 38 px Spalte auf 1558 = 2,44vw */
+  grid-template-columns: clamp(1.9rem, 2.44vw, 2.4rem) minmax(0, 1fr);
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-punkt);
+  line-height: 1.3;
+  color: var(--abl-name);
+}
+
+.abl__haken {
+  width: clamp(13px, 1.1vw, 17px);
+  height: auto;
+  align-self: center;
+  transform: translateY(0.06em);
+  color: var(--abl-bronze-ic);
+}
+
+.abl__weiter {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.9rem, 1.7vw, 1.6rem);
+  justify-self: start;
+  margin-top: clamp(1.8rem, 4.2vw, 3.9rem);
+  padding: 0.3em 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-weiter);
+  line-height: 1.2;
+  color: var(--abl-navy);
+}
+.abl__pfeil {
+  width: clamp(26px, 2.2vw, 34px);
+  height: auto;
+  transition: transform 0.34s var(--ease);
+}
+.abl__weiter:hover .abl__pfeil { transform: translateX(5px); }
+.abl__weiter:focus-visible { outline: 1px solid var(--abl-gold); outline-offset: 6px; }
+
+/* --- Spalte 4: Bildseite und die zwei Zeilen ------------------------------ */
+.abl__spalte--haus {
+  position: relative;
+  display: grid;
+  align-content: end;
+  /* Die Bildseite reicht auf der Vorlage bis an den Fensterrand. Der Steg der
+     Inhaltsspalte wird deshalb nach rechts zurueckgenommen. Das Beschneiden
+     passiert HIER und nicht an der Section — dort wuerde `overflow` die
+     Klebemechanik zerstoeren. */
+  margin-right: calc(var(--gutter) * -1);
+  padding-right: var(--gutter);
+  min-height: clamp(20rem, 44vw, 46rem);
+  overflow: clip;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ZWISCHENSTAND — 25.08.2026
+   Hier steht derzeit eine Inline-SVG-Zeichnung einer Gruenderzeit-Fassade.
+   Sie ist ein PLATZHALTER. Vorgesehen ist an dieser Stelle ein erzeugtes
+   Bild, das die Vorlage 1:1 trifft; der englische Bildprompt samt
+   Seitenverhaeltnis und Anzeigebreiten liegt beim Auftraggeber.
+
+   Wenn das Bild kommt, ersetzt <picture> das <svg> an derselben Stelle im
+   Markup. Alles Uebrige — Maske, Deckkraft, Lage, die zwei Zeilen darunter —
+   bleibt unveraendert; die Regeln unten gelten fuer beides.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.abl__fassade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Sie blendet nach links und nach unten aus, damit sie Grund bleibt und
+     nicht als Bildkasten mit Kante steht — wie auf der Vorlage. */
+  -webkit-mask-image:
+      linear-gradient(90deg, transparent 0, #000 30%, #000 100%),
+      linear-gradient(180deg, #000 0, #000 62%, transparent 97%);
+  mask-image:
+      linear-gradient(90deg, transparent 0, #000 30%, #000 100%),
+      linear-gradient(180deg, #000 0, #000 62%, transparent 97%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  opacity: 0.78;
+}
+
+.abl__hausworte {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  padding-bottom: clamp(0.6rem, 2vw, 1.8rem);
+}
+.abl__hausstrich {
+  width: clamp(38px, 3.34vw, 52px);
+  height: 1px;
+  margin-bottom: clamp(1.1rem, 1.92vw, 1.85rem);
+  color: var(--abl-gold);
+}
+.abl__hauszeile {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-haus);
+  line-height: 1.34;
+  color: var(--abl-navy);
+  text-wrap: balance;
+}
+
+/* ===========================================================================
+   MIT JAVASCRIPT
+   ablauf.js setzt [data-abl-bereit='true']. Erst ab dann wird gestapelt.
+   Ohne Skript greift nichts hiervon.
+   =========================================================================== */
+.abl[data-abl-bereit='true'] .abl__panel {
+  grid-area: 1 / 1;
+  margin-top: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.32s var(--ease-soft);
+}
+.abl[data-abl-bereit='true'] .abl__panel[data-abl-offen='true'] {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ===========================================================================
+   BREITEN
+   =========================================================================== */
+
+/* Ab hier passt die Bildseite nicht mehr sinnvoll neben zwei Textspalten.
+   Sie wandert unter den Abschnitt und wird zur ruhigen Grundlage; die
+   beiden Zeilen ruecken darunter. */
+@media (max-width: 1080px) {
+  .abl__buehne {
+    grid-template-columns: minmax(0, 0.92fr) 1px minmax(0, 1.28fr);
+    column-gap: clamp(1.2rem, 3.4vw, 2.8rem);
+  }
+  .abl__spalte--haus {
+    grid-column: 1 / -1;
+    margin: clamp(2.2rem, 5vw, 3.4rem) calc(var(--gutter) * -1) 0;
+    padding: 0 var(--gutter);
+    min-height: clamp(15rem, 30vw, 21rem);
+    align-content: end;
+  }
+  .abl__fassade {
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 95%);
+    mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 95%);
+    opacity: 0.6;
+  }
+}
+
+/* Einspaltig. Die Schrittliste steht oben, darunter die Einzelheiten —
+   die Reihenfolge der Vorlage bleibt damit erhalten.
+   HIER KEINE KLEBEMECHANIK: auf dem Telefon steht alles untereinander und
+   wird normal gerollt. */
+@media (max-width: 760px) {
+  .abl { padding-bottom: clamp(2rem, 6vh, 3.4rem); }
+
+  .abl[data-abl-bereit='true'] .abl__lauf { height: auto; }
+  .abl[data-abl-bereit='true'] .abl__halt { position: static; }
+
+  .abl__buehne {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(1.8rem, 6vw, 2.6rem);
+    margin-top: clamp(1.8rem, 7vw, 3rem);
+  }
+  .abl__trenner { display: none; }
+
+  .abl {
+    --abl-rhythmus: clamp(2.9rem, 12vw, 3.9rem);
+    --abl-fs-h3: clamp(1.85rem, 9.4vw, 2.9rem);
+    --abl-fs-h2: clamp(1.72rem, 8.4vw, 2.6rem);
+    --abl-fs-name: clamp(1.06rem, 4.6vw, 1.34rem);
+    --abl-fs-nr: clamp(1.0rem, 4.3vw, 1.26rem);
+    --abl-fs-sub: clamp(1.0rem, 4.1vw, 1.2rem);
+    --abl-fs-satz: clamp(1.0rem, 4.1vw, 1.2rem);
+    --abl-fs-punkt: clamp(1.0rem, 4.1vw, 1.2rem);
+    --abl-fs-weiter: clamp(1.04rem, 4.3vw, 1.24rem);
+    --abl-fs-haus: clamp(1.1rem, 4.7vw, 1.36rem);
+    --abl-fs-eyebrow: clamp(0.82rem, 3.4vw, 0.96rem);
+    --abl-fs-kicker: clamp(0.76rem, 3.1vw, 0.9rem);
+  }
+
+  .abl__schritt { grid-template-columns: 2.9rem minmax(0, 1fr); }
+  .abl__panel-text { max-width: none; }
+  .abl__punkte li { grid-template-columns: 1.7rem minmax(0, 1fr); }
+
+  .abl__spalte--haus { min-height: 13rem; }
+}
+
+/* ===========================================================================
+   BEWEGUNG ZURUECKGENOMMEN
+   Alles bleibt sichtbar und bedienbar, nur ohne Weg. Die Klebemechanik ist
+   davon NICHT betroffen — sie ist Layout, keine Bewegung: der Leser rollt
+   selbst, nichts laeuft von allein.
+   =========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .abl *,
+  .abl *::before,
+  .abl *::after {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+}

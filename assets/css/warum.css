@@ -253,7 +253,10 @@
   width: 100%;
   max-width: 1240px;
   margin: clamp(0.4rem, 1vh, 0.9rem) auto 0;
-  aspect-ratio: 1240 / 385;
+  /* Seitenverhaeltnis aus der Vorlage: das Rechteck, das die vier Karten
+     dort gerade umschliesst, misst 1172 x 305 Bildpunkte. Umgerechnet auf
+     die Feldbreite 1240 sind das 323 Einheiten Hoehe. */
+  aspect-ratio: 1240 / 323;
   container-type: inline-size;
 }
 
@@ -310,9 +313,26 @@
 
      Waagrecht auf die Ringmitte 620, gerechnet mit der Mitte des SICHTBAREN
      Inhalts bei 50,3 % der Dateibreite. Senkrecht: 289 - 0,9426 x 322. */
-  left: 36.94%;                 /* (620 - 162) / 1240 */
-  width: 26%;                   /* 322 / 1240         */
-  top: -3.77%;                  /* -14,5 / 385        */
+  /* HAUS, aus der Vorlage gerechnet.
+
+       Vorlage: sichtbares Motiv x 586..900, y 446..698 Bildpunkte, also
+       314 breit und 252 hoch; Sockelunterkante bei y 698. Umgerechnet auf
+       dieses Feld: 332 breit, 267 hoch, Unterkante bei 269.
+
+       Unsere Abbildung ist proportional schmaler und hoeher als die der
+       Vorlage (Inhalt 1181 x 1093 = 1,08 gegen 314 x 252 = 1,25). Beides
+       zugleich geht daher nicht. Massgebend ist die HOEHE — so bleibt das
+       Haus vollstaendig im Feld und sitzt mit der Sockelunterkante genau
+       auf 269, wie in der Vorlage. Es faellt dadurch etwas schmaler aus:
+       288 statt 332, also 0,65 der Ellipsenbreite statt 0,75.
+
+       Datei 1254 x 1254, sichtbarer Inhalt x 40..1221, y 89..1182.
+       Anzeigebreite 305,9 -> Inhalt 288 breit, 288 hoch.
+       Waagrecht auf die Ellipsenmitte 603 zentriert, gerechnet mit der
+       Mitte des SICHTBAREN Inhalts bei 50,3 Prozent der Dateibreite. */
+  left: 36.23%;                 /* (603 - 154) / 1240 */
+  width: 24.67%;                /* 305,9 / 1240       */
+  top: -6.1%;                   /* -19,7 / 323        */
   z-index: 2;
 }
 /* Das Haus ist seit dem 25.08.2026 eine erzeugte Abbildung statt einer
@@ -356,9 +376,12 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 84.16%;                  /* 324 / 385  */
-  width: 24.6%;                 /* 305 / 1240 */
-  height: 11.17%;               /* 43 / 385   */
+  /* Pille aus der Vorlage: x 618..904, y 706..749 Bildpunkte — mal 1,058
+     sind das 463..766 waagrecht und 277..323 senkrecht. Sie schliesst
+     also buendig mit der Unterkante des Feldes ab. */
+  top: 85.76%;                  /* 277 / 323  */
+  width: 24.4%;                 /* 302,6 / 1240 */
+  height: 14.09%;               /* 45,5 / 323 */
   z-index: 4;
   display: grid;
   place-items: center;
@@ -387,7 +410,9 @@
      „Wertentwicklung" lief der Text weiterhin aus der Karte. Die
      Ansatzpunkte der Verbindungslinien im Adern-SVG wandern mit
      (x 308 -> 349 und 932 -> 891), sonst treffen sie die Karte nicht. */
-  width: 27.5%;                 /* 341 / 1240 */
+  /* Kartenmass aus der Vorlage: 275 x 140 Bildpunkte, mal 1,058 sind
+     291 x 148 Feldeinheiten. */
+  width: 23.47%;                /* 291 / 1240 */
   /* Am 25.08.2026 von 40 auf 46 Prozent erhoeht: bei „Wertentwicklung“ lief
      der Text aus der Karte. 46 Prozent von 385 sind 177 statt 154
      Feldeinheiten. Die BREITE bleibt unangetastet — sie haengt an den
@@ -397,7 +422,7 @@
      52 Prozent — dadurch stiessen die Karten aneinander und der Abstand
      zwischen ihnen war weg. Zu breit war der Text, nicht zu hoch: gebraucht
      wurde nur Platz fuer das lange Wort „Wertentwicklung". */
-  height: 40%;                  /* 154 / 385 */
+  height: 45.8%;                /* 148 / 323 */
   display: flex;
   align-items: center;
   gap: 2.1cqw;                  /* 26px bei 1240 */
@@ -411,10 +436,13 @@
 /* Oberkanten nachgezogen, damit die Kartenmitte weiterhin dort liegt, wo die
    Verbindungslinie ansetzt (y 83 oben, y 289 unten). Sonst liefe die Linie
    durch die groessere Karte hindurch statt an ihre Kante. */
-.wi__karte--01 { left: 0;     top: 1.56%; }   /* 6 / 385   */
-.wi__karte--02 { left: 72.5%; top: 1.56%; }
-.wi__karte--03 { left: 0;     top: 55.06%; }  /* 212 / 385 */
-.wi__karte--04 { left: 72.5%; top: 55.06%; }
+/* Lagen aus der Vorlage, bezogen auf deren Kartenrechteck (x 180, y 444):
+   oben links 0/0, oben rechts 897/3, unten links 1/166, unten rechts 895/166
+   Bildpunkte — mal 1,058 und in Prozent des Feldes. */
+.wi__karte--01 { left: 0;      top: 0; }
+.wi__karte--02 { left: 76.53%; top: 0.99%; }
+.wi__karte--03 { left: 0;      top: 54.36%; }
+.wi__karte--04 { left: 76.37%; top: 54.36%; }
 
 /* Der Navyrahmen markiert den angetippten Punkt — so wie auf der aktiven
    Vorlage. Er ersetzt die Haarlinie, deshalb ein negativer Ausgleich am

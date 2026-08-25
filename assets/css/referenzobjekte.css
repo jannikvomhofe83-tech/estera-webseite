@@ -1,923 +1,576 @@
 /* ===========================================================================
-   SECTION 6b — REFERENZOBJEKTE NACH OBJEKTART
-   Steht direkt hinter „Viele Bausteine. Ein strukturierter Weg." (#bausteine).
+   MUSTERWOHNUNG — Abschnitt #referenzobjekte
 
-   ###########################################################################
-   UMBAU 21.08.2026 — NUR NOCH DAS VIDEO
-   ###########################################################################
+   STAND 25.08.2026. Vollstaendig neu gesetzt nach der Bildvorlage
+   Bilder/referenz-neu-A.png (1536 x 1024). Alle Masse und Farben unten sind
+   aus dem Bildpunkt gelesen, nicht geschaetzt; in Klammern steht jeweils der
+   Wert aus der Vorlage in ihren eigenen 1536 Pixeln. Umgerechnet ist auf eine
+   Bezugsbreite von 1440 px, Faktor 0,9375.
 
-   Der Kunde am 21.08. woertlich: „Du musst keine Rand- und Eckdaten zu den
-   Wohnungen nennen, also alle Daten können raus. Es soll nur das Video erst
-   mal zu sehen sein."
+   AUFBAU DER VORLAGE, von oben nach unten:
+     · Kicker MUSTERWOHNUNG, gesperrt, goldbraun, mittig      (Grund y 55-73)
+     · goldene Haarlinie darunter, 64 breit                           (y 93)
+     · Ueberschrift „Ein Eindruck, der bleibt." in Navy       (Cap-Hoehe 47)
+     · Unterzeile in Blaugrau
+     · Buehne: Video im Goldrahmen (x 208-1328, y 295-835), dahinter rechts
+       oben ein versetzter Deko-Rahmen (x ab 865, y 279 bis 655, rechts 1351),
+       links unten die ueberlappende Karte „01 Raumgefuehl" (x 134-550,
+       y 676-836), links und rechts je ein Pfeil (Mitte y 565)
+     · Objektzeile MUENCHEN | ALTBAU | 3 ZIMMER, Serif, Navy      (y 878-898)
+     · Verweis „Rundgang ansehen" mit langem Pfeil, gold          (y 932-955)
+     · drei Punkte, der erste als goldene Pille                   (y 978-988)
 
-   Damit faellt alles weg, was unter dem Video stand: die Infokarte, die seit
-   dem 18.08. halb ueber der Videokante hing, die Zeilen ECKDATEN und
-   BESCHREIBUNG daneben und das Cremeband mit dem Bildhinweis. Der Abschnitt
-   besteht jetzt aus Kopf, Umschalter und Video — sonst nichts.
+   FARBEN — am Bildpunkt gemessen, Kontrast gegen den Grund #F9F6F1:
+     Grund             #F9F6F1
+     Kicker/Verweis    #7F5923   5,81:1   (genau der Wert der Vorlage)
+     Ueberschrift      #102949  13,57:1
+     Unterzeile        #3B4F6B   7,74:1
+     Haarlinien        #A8874F   Linie, nie Schrift
+     Karte, Flaeche    #FAF7F3
+   Der Sandton #D9B485 kommt hier nicht vor: er haelt als Schrift 1,8:1 und
+   als Flaeche auf hellem Papier keinen Rand — so steht es im Farbblock von
+   base.css. Gold als Schrift laeuft deshalb ueber #85632A.
 
-   WARUM DIE REGELN TROTZDEM STEHEN BLEIBEN
-   Geloescht ist hier nichts. Alle Regeln fuer Infokarte, Zeilenliste,
-   Cremeband, Vorschaubild und Zwischenansicht bleiben unveraendert liegen und
-   sind unten als SCHLAEFT gekennzeichnet. Der Grund ist der gleiche wie im
-   HTML, wo die Bloecke auskommentiert stehen: die Angaben waren nie von
-   Estera freigegeben, sie kommen zurueck, sobald echte Objektdaten vorliegen.
-   Wer sie zurueckholt, macht im HTML die Kommentarzeichen weg — am CSS ist
-   dann nichts zu tun. Loeschten wir die Regeln, muesste die halbe Datei neu
-   geschrieben werden, und die muehsam austarierte Ueberlappung der Karte
-   waere ein zweites Mal zu finden.
+   SCHRIFT — die Vorlage setzt Unterzeile und Kartentext in einer Grotesk.
+   Die Seite hat die Schriftfrage anders geregelt: base.css fuehrt Cormorant
+   Garamond auch als Bedienschrift, Jost nur fuer den Zusatz in der Wortmarke.
+   Dieser Abschnitt folgt der Seite, nicht dem Entwurfsbild — sonst stuende
+   hier als einziger Stelle eine fremde Schrift. Weil Cormorant die kleinere
+   x-Hoehe hat, sind die Grade um rund ein Fuenftel angehoben, damit die
+   optische Groesse der Vorlage erhalten bleibt.
 
-   WAS SICH DADURCH AN DEN MASSEN AENDERT
-   Die Hoehenreserve --robj-reserve wird kleiner. Sie rechnete bisher die
-   ueber die Videokante ragende Kartenhaelfte mit ein (92 bis 121 px); die
-   gibt es nicht mehr. Was uebrig bleibt, ist der fixierte Seitenkopf, der
-   Umschalter und der Abstand zum Video. Weniger Reserve heisst: das Video
-   darf breiter stehen — genau das, was der Kunde mit „nur das Video" meint.
-
-   DAS VIDEO SELBST — assets/video/referenz-wohnung.mp4 / .webm
-   Es ist aus zwei Aufnahmen des Kunden zusammengesetzt (Drohnenanflug und
-   Rundgang durch die Musterwohnung, verbunden ueber die weisse Stelle, an der
-   beide sich treffen). Der Flug laeuft in 62,5 % Geschwindigkeit. Es laeuft
-   stumm, in der Schleife und ausschliesslich auf Druck des Knopfes — die
-   Steuerung dafuer steht in referenzobjekte.js.
-   Der Eckenradius ist ab jetzt --radius-img aus base.css, also derselbe wie
-   bei jedem anderen Bild der Seite; der frueher hier eigens gesetzte
-   --robj-radius bleibt fuer die schlafenden Karten stehen.
-
-   ZWEITER DURCHGANG AM SELBEN TAG — KOPF UND UMSCHALTER
-   Der Kunde, woertlich: „Die Headline soll einfach nur lauten: ‚Eindruck
-   einer Musterwohnung'. Das ‚WG-, Konzept- und Bestandswohnungen' kann raus.
-   Das ist unnötig." Damit sind auch die Goldzeile und der Umschalter
-   zwischen den Objektarten entfallen. Uebrig bleiben genau zwei Dinge: die
-   Ueberschrift und darunter das Video. Die Regeln fuer den Umschalter stehen
-   unten als SCHLAEFT — Umschalter.
-
-   DAS WACHSEN BEIM SCROLLEN
-   „Man scrollt runter und mit dem Scrollen wird der Kasten ein bisschen
-   größer." Umgesetzt ueber --robj-wachs, ausschliesslich als transform, von
-   0,90 auf 1,00 — nur verkleinern, nie darueber hinaus. Das Warum steht bei
-   .robj__video.
-
-   DER START DES VIDEOS — GAR NICHT VON ALLEIN
-   „Man braucht bei dem Video zur Musterwohnung immer einen Abspielbutton. Man
-   muss zuerst auf den Abspielbutton drücken, erst dann beginnt das Video."
-   Es gibt also kein autoplay und keine Sichtbarkeitsschwelle mehr, ab der
-   etwas losliefe. Zwischenzeitlich galt „startet, sobald der Kasten
-   vollstaendig im Fenster steht" — das ist zurueckgenommen. Der
-   Sichtbarkeits-Beobachter in referenzobjekte.js darf seither nur noch
-   ANHALTEN, wenn das Video das Bild verlaesst, und laeuft danach nicht von
-   selbst wieder an.
-
-   DER ABSPIELKNOPF
-   Zwischenzeitlich eine Kachel nach dem Vorbild von YouTube, seit der
-   Ruecknahme des Kunden wieder der runde Navy-Knopf mit Goldring — woertlich
-   die Fassung von davor. Siehe „Die Abspielflaeche" weiter unten.
-
-   OFFEN: Es liegt bisher nur EIN Video vor. Fuer die zweite Objektart fehlt
-   eine eigene Aufnahme; erfunden oder nachgestellt wird dafuer nichts.
-   ###########################################################################
-
-   Aufbau (Kundenwunsch 18.08.):
-     Kopf         — knapp: Goldzeile, Ueberschrift, eine Unterzeile
-     Umschalter   — unmittelbar darunter, Pille mit goldener Aussenlinie
-     Video        — unmittelbar darunter, exakt 16:9, frei stehend
-     Infokarte    — unten links, haelftig ueber dem Video, haelftig darunter
-     Restzeilen   — ECKDATEN und BESCHREIBUNG rechts neben der Karte
-     Band         — cremefarbenes Band mit Goldkreis, Satz und Haeuserzeile
-
-   WAS DER KUNDE AM 18.08. GEAENDERT HABEN WOLLTE
-   1. „Das muss alles auf einmal zu sehen sein." Der Kopf ist deshalb stark
-      zusammengezogen (der Goldstrich zwischen Ueberschrift und Unterzeile
-      ist entfallen, die Abstaende sind halbiert), und die Buehne bekommt
-      eine HOEHENGRENZE: sie wird nie breiter, als es die Fensterhoehe
-      zulaesst — siehe --robj-reserve. Auf flachen Fenstern wird das Video
-      also schmaler statt aus dem Bild zu laufen. Ziel ist, dass Umschalter
-      und Video gemeinsam ohne Scrollen sichtbar sind.
-   2. „Der Kasten um das Referenzvideo ist weg." Das Passepartout — die
-      helle gerahmte Flaeche mit breitem Rand — ist ersatzlos entfallen.
-      Das Video steht frei, mit grossem Eckenradius, einer Goldhaarlinie
-      als Kante und zwei Schattenlagen.
-   3. „Da muss quasi so ein kleiner Kasten eingefuegt werden. Unten links
-      vom Video ragt er halb ueber das Video und halb unter dem Video raus."
-      Das ist .robj__info. Die Ueberlappung ist genau die halbe Kartenhoehe;
-      gesetzt wird sie als --robj-ueber. Der Wert steht hier als tragfaehiger
-      Naeherungswert und wird von referenzobjekte.js auf die exakte halbe
-      Hoehe der jeweiligen Karte nachgezogen (ResizeObserver). Ohne
-      Javascript bleibt der Naeherungswert stehen — die Karte ueberlappt
-      also auch dann.
-
-   FORMENSPRACHE — dieselbe wie „So entsteht Vermoegensaufbau" (prinzip.css)
-   und „Unsere Leistungen" (auswahl.css), damit der Abschnitt erkennbar zur
-   selben Seite gehoert: weisse Karten mit einem Hauch Verlauf, ZWEI
-   Schattenlagen statt einer Kontur (enger Kontaktschatten macht die Kante,
-   weiter schwacher Umgebungsschatten macht die Hoehe), grosser Eckenradius,
-   goldene Haarlinien, Kleinversalien in Gold als Auszeichnung, Navy fuer
-   die Ueberschriften, ruhige Abstaende, gestaffelter Einlauf beim Scrollen.
-   Bewusst NICHT verwendet: Verlaeufe ueber dem Bild, Glanzkanten, dicke
-   Raender, Schlagschatten.
-
-   INHALT: Ausser den beiden Bezeichnungen liegt NICHTS vor — keine Objekt-
-   daten, keine Lage, keine Groesse, keine Preise, Mieten oder Renditen und
-   kein eigenes Bildmaterial. Das Masterbriefing untersagt erfundene Zahlen,
-   Objekte und Versprechen; eine erfundene Referenzwohnung waere gegenueber
-   Kaufinteressenten eine falsche Tatsachenbehauptung. Die drei Zeilen sagen
-   deshalb nur, WAS dort spaeter zu sehen sein wird — sie behaupten nichts
-   ueber die Wohnung. In der Infokarte steht davon die Zeile VIDEO, weil die
-   Karte auf dem Video liegt; ECKDATEN und BESCHREIBUNG stehen im gleichen
-   Wortlaut rechts daneben. Es ist kein Wort entfallen. Der Hinweis, dass das
-   Foto ein Beispielbild ist, steht sichtbar im Cremeband unter dem Bild.
-
-   BILDNACHWEIS — beide Beispielbilder sind gemeinfrei (CC0 1.0, Public
-   Domain Dedication) und stammen aus Wikimedia Commons (Spiegelung der
-   frueheren CC0-Bestaende von Unsplash). CC0 erlaubt jede Nutzung, auch
-   kommerziell, ohne Namensnennung; die Urheber sind der Vollstaendigkeit
-   halber genannt.
-
-   assets/img/referenz/wg-konzept-beispiel.jpg
-     Urheber : Justin Schüler (Unsplash: blacktakeover)
-     Lizenz  : CC0 1.0 (Public Domain Dedication)
-     Quelle  : https://commons.wikimedia.org/wiki/File:Budapest_Apartment_(Unsplash).jpg
-     Original: https://unsplash.com/photos/dAAk8Aqd_-I
-     Bearbeitung: mittig auf 16:9 beschnitten, auf 1600 × 900 verkleinert.
-
-   assets/img/referenz/bestandswohnung-beispiel.jpg
-     Urheber : Naomi Hébert (Unsplash: naomish)
-     Lizenz  : CC0 1.0 (Public Domain Dedication)
-     Quelle  : https://commons.wikimedia.org/wiki/File:At_Home_(Unsplash).jpg
-     Original: https://unsplash.com/photos/2dcYhvbHV-M
-     Bearbeitung: mittig auf 16:9 beschnitten, auf 1600 × 900 verkleinert.
-
-   Beide Bilder zeigen NICHT Objekte von Estera.
-
-   SPAETERER TAUSCH: Am CSS ist dafuer NICHTS zu aendern. Gefuellt wird allein
-   das Attribut data-film="" an <div class="robj__video"> im HTML — je Objekt-
-   art eine Zeile. referenzobjekte.js haengt daraufhin ein <video class=
-   "robj__film"> in denselben 16:9-Rahmen; die Regeln dafuer stehen bereit.
+   ZEICHENHAFTES IST SVG. Haarlinie, Pfeile, Abspielknopf, Deko-Rahmen,
+   Trenner und Punkte stehen als Inline-SVG im HTML. Nichts davon ist ein
+   Rasterbild, nichts kann unscharf werden. Der Rahmen um das Video und die
+   Kante der Karte sind CSS-Raender — auch die sind aufloesungsunabhaengig.
    =========================================================================== */
 
 .robj {
-  /* 380 ms — innerhalb des geforderten Fensters 320–420 ms, weich. */
-  --robj-wechsel: 0.38s var(--ease-soft);
+  --r-grund:   #F9F6F1;
+  --r-navy:    #102949;
+  --r-blau:    #3B4F6B;
+  --r-gold-t:  #7F5923;
+  --r-gold-l:  #A8874F;
+  --r-karte:   #FAF7F3;
+  --r-linie-w: rgba(168, 135, 79, 0.62);
 
-  --robj-cream:     #FBF7F0;             /* Band unter dem Bild                 */
-  --robj-gold-ic:   #96763F;             /* Gold fuer Symbole: 3,6:1 auf Weiss  */
-  --robj-haar:      rgba(168, 135, 79, 0.42);   /* goldene Haarlinie            */
-  --robj-kante:     rgba(168, 135, 79, 0.30);   /* Goldkante am Video           */
+  /* Halt ohne Strich: ein enger Kontaktschatten fuer die Kante, ein weiter,
+     sehr schwacher fuer die Hoehe. Dieselbe Sprache wie in schluss.css. */
+  --r-schatten:
+      0 1px 2px rgba(16, 41, 73, 0.10),
+      0 3px 8px -2px rgba(16, 41, 73, 0.11),
+      0 34px 66px -28px rgba(16, 41, 73, 0.30);
+  --r-schatten-karte:
+      0 1px 2px rgba(16, 41, 73, 0.09),
+      0 20px 44px -20px rgba(16, 41, 73, 0.26);
 
-  /* ===== Karten — Machart wie prinzip.css und auswahl.css =================
-     Keine Kontur. Halt aus zwei Schattenlagen: ein enger Kontaktschatten
-     macht die Kante, ein weiter, sehr schwacher Umgebungsschatten macht die
-     Hoehe. Wenn die Karte auf dem weissen Grund verschwimmt: zuerst den
-     ENGEN verstaerken. */
-  --robj-radius:    clamp(11px, 1.1vw, 18px);
-  --robj-flaeche:   linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 58%, #FBFCFE 100%);
-  --robj-schatten:
-      0 2px 5px rgba(16, 41, 73, 0.10),
-      0 18px 40px -12px rgba(16, 41, 73, 0.17);
-  /* Das Video traegt denselben Aufbau, nur eine Stufe tiefer gestreut —
-     es ist die groesste Flaeche des Abschnitts. */
-  --robj-bild-schatten:
-      0 0 0 1px var(--robj-kante),
-      0 3px 8px rgba(16, 41, 73, 0.10),
-      0 34px 64px -26px rgba(16, 41, 73, 0.30);
-
-  /* Einzug der Infokarte von der linken Videokante. */
-  --robj-einzug: clamp(0.85rem, 2.6vw, 2.6rem);
-  /* Ueberlappung der Infokarte ueber die untere Videokante. Naeherungswert;
-     referenzobjekte.js setzt daraus die exakte halbe Kartenhoehe. */
-  --robj-ueber: clamp(2.6rem, 5.5vw, 5.4rem);
-
-  /* Was oberhalb und unterhalb des Videos an Hoehe gebraucht wird: der
-     fixierte Kopf der Seite und die Abstaende. Aus dieser Reserve rechnet die
-     Buehne ihre Hoechstbreite.
-
-     DAS IST JETZT MEHR ALS EINE SCHOENHEITSFRAGE. Das Video startet erst,
-     wenn der Kasten VOLLSTAENDIG im Fenster steht (siehe referenzobjekte.js).
-     Waere der Kasten hoeher als das Fenster, koennte diese Bedingung nie
-     eintreten. Die Reserve garantiert das Gegenteil: die Videohoehe ist immer
-     hoechstens Fensterhoehe minus Reserve, passt also mit Luft hinein. Wer
-     die Reserve verkleinert, muss den Ausweichweg im Javascript pruefen —
-     dort ist der Fall zwar abgefangen, aber er soll gar nicht erst eintreten.
-
-     Verlauf der Werte: bis zum 18.08. rund 180 bis 210 px (darin die ueber
-     die Videokante ragende Haelfte der Infokarte), am 21.08. auf rund 90 px
-     (Infokarte weg, Umschalter noch da), jetzt auf rund 56 bis 80 px — auch
-     der Umschalter ist entfallen. Was bleibt, ist der Abstand zum Kopf der
-     Seite und Luft nach unten. */
-  --robj-reserve: calc(var(--header-h) + clamp(3.5rem, 6vh, 5rem));
-
-  /* Der scrollgekoppelte Wachstumsfaktor. 1 heisst: volle Layoutgroesse.
-     referenzobjekte.js schreibt hier Werte zwischen 0,90 und 1,00 hinein.
-     Die 1 als Voreinstellung ist wichtig: ohne Javascript — und in der
-     Zehntelsekunde, bevor es laeuft — steht das Video in voller Groesse da,
-     nie verkleinert und nie halbfertig. */
-  --robj-wachs: 1;
+  /* Breite des Videorahmens. Die Vorlage gibt 1120 von 1536 = 72,9 % der
+     Fensterbreite — als vw gesetzt, damit das Verhaeltnis bei jeder Breite
+     dasselbe bleibt (bei 1440 sind das genau die 1050 px der Vorlage).
+     Nach oben gedeckelt bei 1240: darueber bliebe links und rechts kein
+     Platz mehr fuer die beiden Pfeile — sie lagen bei 1920 auf dem Video und
+     hielten dort gemessene 1,07:1. Mit dem Deckel bleiben 100 px Rand. */
+  --r-buehne-max: min(72.9vw, 1240px);
 
   position: relative;
-  z-index: 1;
-  overflow-x: clip;
-  background: var(--paper);
-  /* Kundenwunsch 21.08.: „Die Überschrift ‚Eindruck einer Musterwohnung' muss
-     einen Ticken weiter nach oben." Der obere Innenabstand ist deshalb um
-     rund ein Drittel gekuerzt — 3 auf 2 rem, 7 auf 4,7 vh, 5,5 auf 3,7 rem.
-     „Einen Ticken", nicht drastisch: der Abschnitt soll ruhig bleiben und
-     nicht gedraengt wirken.
+  background: var(--r-grund);
+  /* Cormorant setzt Ziffern von Haus aus als Mediaevalziffern — „01" und
+     „3 ZIMMER" haengen dann unter die Grundlinie. Die Vorlage zeigt beide
+     auf Versalhoehe. */
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
+  padding-block: clamp(4rem, 7.5vw, 7.5rem);
+  overflow: hidden;                 /* haelt Deko-Rahmen und Karte im Rahmen */
+}
 
-     Alle drei Werte sind mitgekuerzt, nicht nur einer. Nur so waechst der
-     Abstand weiter mit der Fensterhoehe mit: auf 390 px klebt die
-     Ueberschrift dadurch nicht am Abschnitt darueber, auf 1920 px faellt
-     sie nicht davon ab. Wer hier nachjustiert, muss alle drei anfassen.
-     Der untere Abstand bleibt unveraendert — er trennt zum naechsten
-     Abschnitt und hat mit der Ueberschrift nichts zu tun. */
-  padding: clamp(2rem, 4.7vh, 3.7rem) 0 clamp(3.4rem, 8vh, 6.5rem);
-  scroll-margin-top: calc(var(--header-h) + 1rem);
+/* DER MARMORGRUND — zwei Lagen.
+
+   Wie in referenzen.css und hero-a.css liegt der Stein als EIGENE Lage unter
+   dem Inhalt, nie als `opacity` am Abschnitt selbst; das naehme die Schrift
+   mit. Darueber ein deckender Verlauf, der die Aederung zuruecknimmt.
+
+   LAGE 1 — der Stein, gleichmaessig ueber die ganze Flaeche. Die Abdeckung
+   steht auf 0,72. Sie lag am 25.08. zuerst bei 0,885; der Kunde hat den
+   Marmor zweimal deutlicher gefordert, gesenkt wurde daraufhin EINMAL und
+   absolut, um rund ein Fuenftel — nicht in zwei Schritten hintereinander.
+
+   LAGE 2 — eine zweite, weiche Abdeckung NUR oben und unten, also genau
+   dort, wo Schrift steht. In der Mitte, links und rechts neben dem Video,
+   bleibt der Stein unangetastet und traegt den Abschnitt. So steht die
+   Aederung kraeftig, ohne je unter einer Zeile zu liegen: unter der Schrift
+   kommt sie effektiv nur zu einem knappen Zehntel durch. Gemessen wurde
+   danach an der duenkelsten Ader unter jeder Zeile, nicht am Mittelton —
+   der schwaechste Wert liegt bei 4,96:1 (Kicker, kleinster Grad). */
+.robj::before,
+.robj::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.robj::before {
+  background:
+    linear-gradient(rgba(249, 246, 241, 0.72), rgba(249, 246, 241, 0.72)),
+    var(--r-grund) url('../img/marble2.jpg') center / cover no-repeat;
+}
+.robj::after {
+  background: linear-gradient(180deg,
+    rgba(249, 246, 241, 0.70) 0%,
+    rgba(249, 246, 241, 0.70) 21%,
+    rgba(249, 246, 241, 0)    31%,
+    rgba(249, 246, 241, 0)    58%,
+    rgba(249, 246, 241, 0.70) 67%,
+    rgba(249, 246, 241, 0.70) 100%);
 }
 
 .robj__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 1;
+  max-width: calc(var(--measure) + 2 * 5rem);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-/* Gestaffelter Einlauf: die vier Baender laufen nacheinander ein. Die
-   Grundregeln dafuer stehen in leistungen.css ([data-reveal]); hier wird nur
-   die Reihenfolge gesetzt. */
-.robj__head     { --i: 0; }
-.robj__schalter { --i: 1; }
-.robj__karte    { --i: 2; }
-.robj__band     { --i: 3; }
+/* --- Kopf ----------------------------------------------------------------- */
 
-/* Symbolvorrat. Liegt einmal im Abschnitt, wird ueber <use> geholt —
-   dadurch stehen dieselben Symbole in beiden Fassungen ohne Dopplung. */
-.robj__sprite {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
+.robj__head { text-align: center; }
+
+/* Vorlage: Versalhoehe 11 px, weit gesperrt. Cormorant, nicht Grotesk. */
+.robj__kicker {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.78rem, 0.92vw, 0.9rem);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;               /* Sperrung hinter dem letzten Zeichen */
+  text-transform: uppercase;
+  color: var(--r-gold-t);
+  line-height: 1.2;
 }
 
-/* Grundeinstellung aller Symbole: feine Kontur in der Textfarbe. */
-.robj__ic {
-  width: 100%;
-  height: auto;
+/* Haarlinie unter dem Kicker — Vorlage: 64 breit, 1 hoch, y 93. */
+.robj__regel {
+  width: clamp(44px, 4.2vw, 60px);
+  height: 1px;
+  margin: clamp(0.7rem, 1.1vw, 1rem) auto 0;
   fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke: var(--r-gold-l);
+  stroke-width: 1;
 }
-.robj__ic--fill {                      /* Abspieldreieck: gefuellt, ohne Kontur */
-  fill: currentColor;
+
+/* Vorlage: Versalhoehe 47 px, das sind rund 68 px Schriftgrad; auf 1440
+   umgerechnet 64 px. */
+.robj__h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 4.05vw, 3.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--r-navy);
+  margin-top: clamp(1.5rem, 2.6vw, 2.4rem);
+  text-wrap: balance;
+}
+
+.robj__sub {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(1.08rem, 1.66vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--r-blau);
+  margin-top: clamp(0.5rem, 0.9vw, 0.85rem);
+  text-wrap: balance;
+}
+
+/* --- Buehne --------------------------------------------------------------- */
+
+.robj__buehne {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 4.4vw, 3.9rem);   /* Vorlage: 63 px */
+}
+
+.robj__mitte {
+  position: relative;
+  width: min(var(--r-buehne-max), 100%);
+}
+
+/* Das versetzte Blatt hinter dem Video — FLAECHE, kein Strich.
+   Vorlage: 486 x 376, rechte Kante 23 px ueber den Videorahmen hinaus, obere
+   Kante 16 px darueber; dort als goldene Haarlinie. Die ist am 25.08. auf
+   Kundenwunsch entfallen, siehe Vermerk am Videorahmen. Uebrig bleibt die
+   Form: ein warmer, sehr heller Ton, der links unter dem weissen
+   Passepartout verschwindet und oben und rechts als schmaler Streifen
+   hervorschaut. Das feste Seitenverhaeltnis haelt die Rundungen rund. */
+.robj__deko {
+  position: absolute;
+  z-index: 0;
+  right: -2%;
+  top: -15px;
+  width: 43.4%;
+  height: auto;
+  aspect-ratio: 486 / 376;
+  fill: rgba(168, 135, 79, 0.12);
   stroke: none;
 }
 
-/* --- Kopf -----------------------------------------------------------------
-   Bewusst knapp. Der Kunde will Umschalter und Video zusammen im Bild
-   haben; jede Zeile hier geht davon ab. Der frueher hier stehende
-   Goldstrich ist entfallen — er steht jetzt als Haarlinie in der
-   Infokarte, wo er zugleich etwas trennt. -------------------------------- */
-.robj__head {
-  max-width: 52rem;
-  margin: 0 auto;
-  text-align: center;
-}
-.robj__kicker { color: var(--gold-text); }   /* 4,82:1 auf Weiss */
-.robj__h2 {
-  margin-top: clamp(0.5rem, 1vh, 0.75rem);
-  font-size: clamp(1.8rem, 2.9vw, 2.9rem);
-  line-height: 1.1;
-  color: var(--navy-800);
-}
-.robj__lead {
-  margin: clamp(0.55rem, 1.2vh, 0.9rem) auto 0;
-  max-width: 40rem;
-  font-size: clamp(0.98rem, 1.12vw, 1.12rem);
-  line-height: 1.55;
-  color: var(--ink-soft);              /* 6,54:1 auf Weiss */
-  text-wrap: pretty;
-}
+/* PASSEPARTOUT STATT STRICH — geaendert am 25.08.2026.
 
-/* ===== SCHLAEFT — Umschalter =============================================
-   21.08. auf Kundenwunsch entfernt — kommt zurueck, sobald Estera je
-   Objektart ein eigenes Video liefert. „Das ‚WG-, Konzept- und
-   Bestandswohnungen' kann raus. Das ist unnötig."
+   Vorher stand hier eine goldene Haarlinie, wie sie die Vorlage zeigt. Der
+   Kunde hat sie beanstandet: „weil es nicht gleichmaessig ist." Das war kein
+   Gefuehl, sondern nachmessbar — ein 1-px-Rand mit Radius wird an den vier
+   Rundungen auf zwei Geraetepixel verteilt und liest sich dort duenner und
+   blasser als auf den Geraden. Bei jeder anderen Fensterbreite sitzt die
+   Linie zudem auf einem anderen Bruchteil eines Bildpunkts.
 
-   Er hatte seine Berechtigung ohnehin verloren: es liegt nur EINE Aufnahme
-   vor, beide Schaltflaechen haetten dasselbe Video gezeigt. Im HTML steht der
-   Block auskommentiert, die Logik in referenzobjekte.js ebenfalls. Die Regeln
-   bleiben unveraendert liegen — mit der zweiten Aufnahme kommt der Umschalter
-   samt seiner Pille genau so zurueck, wie er war.
-
-   Betroffen sind alle .robj__schalter-, .robj__schieber- und .robj__knopf-
-   Regeln bis zum naechsten Abschnitt, dazu ihre Anpassungen ganz unten im
-   Abschnitt „Responsive".
-
-   --- Der Umschalter -------------------------------------------------------
-   Pille mit goldener Aussenlinie; dahinter ein wandernder Navy-Schieber. Der
-   Schieber liegt als eigenes Element hinter den Beschriftungen und wird per
-   transform bewegt — dadurch laeuft er weich, ohne das Raster zu verschieben.
-   ======================================================================== */
-.robj__schalter {
-  position: relative;
-  width: max-content;
-  max-width: 100%;
-  margin: clamp(1rem, 2.2vh, 1.6rem) auto 0;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  padding: 5px;
-  border: 1px solid var(--line-gold);
-  border-radius: 999px;
-  background: var(--paper);
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03);
-}
-.robj__schieber {
-  position: absolute;
-  z-index: 0;
-  top: 5px;
-  bottom: 5px;
-  left: 5px;
-  width: calc(50% - 5px);
-  border-radius: 999px;
-  background: var(--navy-800);
-  transition: transform 0.42s var(--ease-soft), width 0.42s var(--ease-soft);
-}
-.robj[data-art='bestand'] .robj__schieber { transform: translateX(100%); }
-
-.robj__knopf {
+   Die Kante entsteht jetzt aus der FLAECHE: das Video sitzt mit 8 px Luft in
+   einem weissen Feld, das sich vom Cremegrund abhebt, dazu die beiden
+   Schattenlagen. Eine Flaeche kann nicht ungleichmaessig dick sein — die
+   Kante ist an jeder Stelle und bei jeder Breite dieselbe.
+   Vorlage zum Vergleich: Rahmen 208-1328, Video 215-1321, also 7 px Luft. */
+.robj__rahmen {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.5rem, 0.9vw, 0.75rem);
-  padding: clamp(0.62rem, 1.3vh, 0.85rem) clamp(1.1rem, 2.4vw, 2rem);
-  border: 0;
-  background: none;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: clamp(0.78rem, 0.88vw, 0.9rem);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-indent: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-soft);              /* 6,54:1 auf Weiss */
-  transition: color var(--robj-wechsel);
-}
-.robj__knopf-ic {
-  flex: 0 0 auto;
-  width: clamp(1.05rem, 1.4vw, 1.3rem);
-  aspect-ratio: 1;
-  color: var(--robj-gold-ic);
-  transition: color var(--robj-wechsel);
-}
-.robj__knopf[aria-pressed='true'] { color: #fff; }
-.robj__knopf[aria-pressed='true'] .robj__knopf-ic { color: #fff; }
-.robj__knopf:focus-visible { outline: 2px solid var(--navy-600); outline-offset: 4px; }
-
-/* --- Die Buehne -----------------------------------------------------------
-   HOEHENGRENZE: Die Buehne ist hoechstens so breit, wie es die Fensterhoehe
-   erlaubt. 16 : 9 heisst, dass die Hoehe an der Breite haengt — also wird die
-   BREITE begrenzt: (Fensterhoehe minus Reserve) × 16/9. Auf hohen Fenstern
-   greift die Grenze nicht, dort steht das Video in voller Rasterbreite; auf
-   flachen wird es schmaler, statt aus dem Bild zu laufen.
-   svh statt vh, weil auf Mobilgeraeten die Leisten mitzaehlen. -------------- */
-.robj__karte { margin-top: clamp(0.9rem, 2.2vh, 1.5rem); }
-
-.robj__buehne {
-  display: grid;
-  width: 100%;
-  max-width: calc((100vh - var(--robj-reserve)) * 16 / 9);
-  max-width: calc((100svh - var(--robj-reserve)) * 16 / 9);
-  margin-inline: auto;
-}
-
-/* Beide Fassungen sitzen in DERSELBEN Rasterzelle. Dadurch ist die Buehne
-   immer so hoch wie die hoehere von beiden — beim Umschalten springt die
-   Hoehe um 0 px. Die inaktive Fassung bleibt im Fluss (sie traegt die Hoehe
-   mit), wird aber ueber visibility aus Vorlese- und Tabreihenfolge genommen. */
-.robj__fassung {
-  grid-area: 1 / 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity var(--robj-wechsel), visibility 0s linear 0.38s;
-}
-.robj[data-art='wg'] .robj__fassung--wg,
-.robj[data-art='bestand'] .robj__fassung--bestand {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transition: opacity var(--robj-wechsel), visibility 0s linear 0s;
-}
-
-/* --- Der Videoplatz -------------------------------------------------------
-   Kein Kasten mehr: .robj__rahmen ist nur noch die Klammer, ohne Rand, ohne
-   Flaeche. .robj__video ist die verbindliche 16:9-Flaeche, und das Video
-   darin ist ebenfalls exakt 16:9 (1920 x 1080) — es wird also weder
-   beschnitten noch verzerrt.
-
-   KEIN LAYOUTSPRUNG: Die Hoehe steht fest, bevor irgendetwas geladen ist.
-   Sie kommt aus aspect-ratio hier UND aus width/height am <video> im HTML;
-   beide sagen dasselbe. Was das Video ersetzt, ersetzt es an Ort und Stelle —
-   erst das Poster, dann das laufende Bild, beide absolut im selben Rahmen.
-
-   container-type macht die Flaeche zur Bezugsgroesse fuer cqw weiter unten:
-   die Abspielflaeche richtet sich nach dem VIDEO, nicht nach dem Fenster, und
-   bleibt dadurch in jeder Breite stimmig. ---------------------------------- */
-.robj__rahmen {
   margin: 0;
+  padding: 8px;
+  border: 0;
+  border-radius: 18px;
+  background: #FFFFFF;
+  box-shadow: var(--r-schatten);
+}
+
+.robj__medium {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #E8E6E2;
+  /* Seitenverhaeltnis der Vorlage: 1106 : 524 */
+  aspect-ratio: 1106 / 524;
+}
+
+/* Das Video ist 1920 x 1080 (16:9) und fuellt die flachere Flaeche der
+   Vorlage ueber cover. Die Datei bleibt unangetastet. */
+.robj__film {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  border-radius: inherit;
+}
+
+/* --- Abspielknopf --------------------------------------------------------- */
+
+/* Vorlage: Navy-Scheibe d 78 mit weissem Dreieck, dahinter ein goldener Ring
+   d 114, nach links oben versetzt. Beides in einem SVG, damit der Versatz
+   bleibt, wie er ist. */
+.robj__play {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-53%, -50%);
+  display: grid;
+  place-items: center;
   padding: 0;
   border: 0;
   background: none;
+  cursor: pointer;
+  line-height: 0;
+}
+.robj__play[hidden] { display: none; }
+
+.robj__playsvg {
+  width: clamp(68px, 7vw, 101px);
+  height: auto;
 }
 
-.robj__video {
-  position: relative;
-  container-type: inline-size;
-  aspect-ratio: 16 / 9;          /* verbindliches Seitenverhaeltnis */
-  overflow: hidden;
-  /* 21.08.: der Eckenradius der Seite (base.css, 12 px) statt des eigenen
-     --robj-radius. Das Video ist jetzt das einzige Bildelement des
-     Abschnitts und soll dieselbe Kante haben wie jedes andere Bild der
-     Seite. --robj-radius bleibt fuer die schlafenden Karten in Kraft. */
-  border-radius: var(--radius-img);
-  /* Ruhige helle Flaeche, solange das Poster noch nicht da ist. Frueher
-     stand hier Navy (#04101F): das war richtig, als ein dunkles
-     Vorschaubild folgte, gaebe jetzt aber beim Laden einen schwarzen Kasten
-     auf weissem Grund. Das Poster deckt die Flaeche ohnehin sofort ab. */
-  background: #EEF2F7;
-  box-shadow: var(--robj-bild-schatten);
-
-  /* ===== DAS WACHSEN BEIM SCROLLEN ======================================
-     Kundenwunsch 21.08.: „Man scrollt runter und mit dem Scrollen wird der
-     Kasten ein bisschen größer." Der Faktor kommt aus der Scrollposition und
-     wird von referenzobjekte.js gesetzt; hier steht nur, WIE er wirkt.
-
-     AUSSCHLIESSLICH transform. Kein width, kein height, kein margin — die
-     wuerden bei jedem Bild das Layout neu rechnen lassen und die ganze Seite
-     unter dem Abschnitt mitrucken. transform bewegt nur die fertig
-     gezeichnete Flaeche und laeuft auf dem Compositor; will-change sagt dem
-     Browser vorab Bescheid, damit er die Ebene schon bereitgelegt hat und
-     nicht erst beim ersten Scrollruck.
-
-     NUR VERKLEINERN, NIE UEBER 1. Der Platz im Layout ist immer die
-     Endgroesse; die Bewegung findet ausschliesslich darunter statt. Wuechse
-     der Kasten ueber seine Layoutgroesse hinaus, ragte er seitlich aus dem
-     Raster und erzeugte eine waagerechte Rollflaeche — dieser Fehler hat
-     heute schon einmal die ganze Seite verrutschen lassen. Deshalb liegt der
-     Startwert UNTER 1 (0,90) und das Ziel GENAU auf 1.
-
-     Ein transition ist bewusst NICHT gesetzt: der Wert wird bei jedem
-     Scrollbild neu geschrieben. Eine Uebergangszeit darauf liefe der
-     Scrollbewegung hinterher und fuehlte sich gummiartig an. Die weiche
-     Kurve steckt stattdessen in der Rechnung — siehe referenzobjekte.js. */
-  transform: scale(var(--robj-wachs, 1));
-  transform-origin: center;
-  will-change: transform;
+.robj__ring {
+  fill: none;
+  stroke: #A8874F;
+  stroke-width: 1;
+  transition: stroke 0.3s var(--ease), transform 0.4s var(--ease);
+  transform-origin: 57.5px 57px;
 }
-
-/* Das Video fuellt den Rahmen vollstaendig aus. object-fit: cover ist hier
-   die Rueckversicherung, nicht der Regelfall: Rahmen und Video sind beide
-   16:9, es gibt also nichts zu beschneiden. Sollte spaeter ein Video mit
-   anderem Seitenverhaeltnis eingehaengt werden, fuellt cover den Rahmen
-   randlos, statt schwarze Balken stehen zu lassen. */
-.robj__film {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 0;
-  background: #EEF2F7;
+.robj__scheibe {
+  fill: var(--r-navy);
+  transition: fill 0.3s var(--ease);
 }
+.robj__dreieck { fill: #FFFFFF; }        /* 14,63:1 auf der Navy-Scheibe */
 
-/* ===== SCHLAEFT — Vorschaubild ============================================
-   Gehoert zum Beispielbild, das bis zum 21.08. im Rahmen stand. Seit das
-   echte Video da ist, uebernimmt dessen poster-Attribut diese Rolle. Die
-   Regeln bleiben stehen, damit das Zurueckholen im HTML genuegt.
-   ======================================================================== */
-.robj__bild {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity var(--robj-wechsel);
-}
-.robj__video[data-zustand='film'] .robj__bild,
-.robj__video[data-zustand='folgt'] .robj__bild { opacity: 0; }
+.robj__play:hover .robj__scheibe,
+.robj__play:focus-visible .robj__scheibe { fill: #0A192E; }
+.robj__play:hover .robj__ring { stroke: var(--r-gold-l); transform: scale(1.04); }
 
-/* ===== SCHLAEFT — Zwischenansicht „Video folgt" ===========================
-   Sie sprang ein, solange kein Video hinterlegt war. Seit dem 21.08. liegt
-   das Video vor, die Zwischenansicht steht im HTML auskommentiert und wird
-   nie mehr eingeblendet. Die Regeln bleiben unveraendert liegen — faellt ein
-   Video spaeter einmal aus oder kommt eine dritte Objektart ohne Aufnahme
-   dazu, ist der ruhige Ersatz sofort wieder da.
+/* --- Karte links unten ---------------------------------------------------- */
 
-   Zwischenansicht, solange kein Video hinterlegt ist: dieselbe Flaeche, ruhig
-   gefuellt. Kein Fehler, kein leeres Feld, kein Sprung im Layout.
-   ======================================================================== */
-.robj__ersatz {
+/* Vorlage: 416 x 160 bei 1536, linke Kante 74 px links neben dem Rahmen,
+   Unterkante buendig mit dem Rahmen. */
+.robj__karten {
   position: absolute;
   z-index: 3;
-  inset: 0;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: clamp(0.42rem, 2.4cqw, 0.95rem);
-  padding: 6% 9%;
-  text-align: center;
-  background: radial-gradient(118% 96% at 50% 4%,
-              #143459 0%, #0A1D33 58%, #050F1C 100%);
+  left: -6.6%;
+  bottom: 0;
+  width: 41%;
+  min-width: 300px;
 }
-/* .robj__ersatz und .robj__play tragen display-Angaben; ohne diese beiden
-   Zeilen wuerde das hidden-Attribut davon ueberschrieben. */
-.robj__ersatz[hidden] { display: none; }
-.robj__ersatz-kreis {
-  display: grid;
-  place-items: center;
-  width: clamp(1.7rem, 8.6cqw, 2.9rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid rgba(201, 176, 138, 0.55);
-  background: rgba(201, 176, 138, 0.12);
-  color: #E0CCA6;
+
+/* Auch hier kein Strich mehr, aus demselben Grund wie am Videorahmen. Die
+   Karte traegt sich ueber ihre eigene, hellere Flaeche und die Schattenlagen;
+   auf dem Video steht sie damit klar, auf dem Cremegrund ebenso. */
+.robj__karte {
+  display: block;
+  background: var(--r-karte);
+  border: 0;
+  border-radius: 16px;
+  padding: clamp(1.1rem, 1.7vw, 1.6rem) clamp(1.2rem, 1.9vw, 1.75rem);
+  box-shadow: var(--r-schatten-karte);
 }
-.robj__ersatz-kreis .robj__ic { width: 46%; height: auto; }
-.robj__ersatz-text {
-  max-width: 26em;
-  /* Der untere Anschlag ist bewusst nicht kleiner: auf einem 286 px breiten
-     Bild kaeme 3,1 cqw sonst bei 9 px heraus und waere unlesbar. */
-  font-size: clamp(0.76rem, 3.1cqw, 0.95rem);
-  line-height: 1.5;
-  color: #EAF1F9;                /* 14,9:1 auf dem Grund der Zwischenansicht */
-  text-wrap: pretty;
+.robj__karte[hidden] { display: none; }
+
+.robj__nr {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  letter-spacing: 0.06em;
+  color: var(--r-gold-t);            /* 5,88:1 auf #FAF7F3 */
+  line-height: 1;
 }
-.robj__zurueck {
-  margin-top: 0.1rem;
-  padding: clamp(0.3rem, 1.5cqw, 0.5rem) clamp(0.65rem, 3cqw, 1.1rem);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  color: #FFFFFF;                /* 16,6:1 auf dem Grund der Zwischenansicht */
+
+.robj__kt {
+  display: block;
   font-family: var(--font-display);
-  font-size: clamp(0.63rem, 2.6cqw, 0.78rem);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-indent: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background var(--robj-wechsel), border-color var(--robj-wechsel);
-}
-.robj__zurueck:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.8);
-}
-.robj__zurueck:focus-visible {
-  outline: 2px solid #FFFFFF;
-  outline-offset: 3px;
+  font-weight: 400;
+  font-size: clamp(1.55rem, 2.3vw, 2.05rem);
+  line-height: 1.15;
+  color: var(--r-navy);
+  margin-top: clamp(0.55rem, 0.9vw, 0.85rem);
 }
 
-/* Auf einem schmalen Bild — nicht in einem schmalen Fenster, deshalb eine
-   Container-Abfrage an .robj__video — bleibt nur das Noetige stehen.
-   Der Kreis ist rein schmueckend und weicht als Erstes. */
-@container (max-width: 380px) {
-  .robj__ersatz { gap: 0.55rem; padding: 5% 7%; }
-  .robj__ersatz-kreis { display: none; }
+.robj__kb {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: clamp(0.95rem, 1.16vw, 1.08rem);
+  line-height: 1.4;
+  color: var(--r-blau);              /* 7,74:1 */
+  margin-top: clamp(0.3rem, 0.5vw, 0.5rem);
 }
 
-/* --- Die Abspielflaeche ---------------------------------------------------
-   Gefuellter Navy-Kreis, darum eine Goldhaarlinie in Abstand — dasselbe Motiv
-   wie die Kante des Videos, nur klein. Er sitzt in der Mitte der Videoflaeche.
+/* --- Pfeile links und rechts ---------------------------------------------- */
 
-   ZURUECKGENOMMEN AM 21.08.: Zwischenzeitlich stand hier eine liegende
-   Kachel nach dem Vorbild von YouTube, in Navy statt Rot. Der Kunde hat sie
-   wieder abbestellt — „Der Play-Button gefällt mir doch nicht. Mache ihn so,
-   wie er davor war." Diese Fassung ist deshalb woertlich die alte: derselbe
-   Kreis, dieselbe Groesse, dieselben Farben, derselbe Schatten, dasselbe
-   Verhalten beim Ueberfahren.
-
-   SEINE AUFGABE IST DAFUER GEWACHSEN. Er ist seit dem 21.08. der EINZIGE Weg,
-   das Video zu starten — „Man muss zuerst auf den Abspielbutton drücken, erst
-   dann beginnt das Video." Er steht also nicht mehr nur fuer den Sonderfall
-   „weniger Bewegung" da, sondern von Anfang an fuer jeden. Nach dem ersten
-   Druck verschwindet er und die Bedienleiste des Browsers uebernimmt.
-
-   TREFFERFLAECHE: Der untere Anschlag ist 2,9 rem = 46,4 px und liegt ueber
-   den geforderten 44 px. Dazu kommt der Goldring aus ::after, der noch einmal
-   rund 10 px nach jeder Seite hinausreicht und mit angeklickt werden kann —
-   die tatsaechlich treffbare Flaeche ist also deutlich groesser als der
-   sichtbare Kreis. Das ist hier wichtig, weil der Kasten beim Hereinscrollen
-   bis auf 0,90 verkleinert steht und der Knopf optisch mitgeht.
-
-   Die Container-Abfrage weiter oben verkleinert diesen Knopf AUSDRUECKLICH
-   nicht; er darf auf schmalen Bildern nicht mitschrumpfen.
-   ------------------------------------------------------------------------ */
-.robj__play {
+.robj__nav {
   position: absolute;
   z-index: 4;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   display: grid;
   place-items: center;
-  /* NACHGEBESSERT 21.08.2026 — Untergrenze von 2.9rem auf 3.2rem.
-     Der Knopf war bei 390 px mit 46,4 px angelegt und haette die Schwelle
-     von 44 px gehalten. Gemessen kam er aber auf 42 px: der Videokasten
-     steht beim Hereinscrollen auf `scale(0.90)`, und diese Skalierung
-     verkleinert die Trefferflaeche mit — 46,4 × 0,90 = 41,8.
-     Die Container-Abfrage schuetzt nur vor dem Schrumpfen durch die
-     Kastenbreite, nicht vor der Skalierung des Elternteils.
-     3.2rem = 51,2 px ergeben auch bei 0,90 noch 46,1 px. */
-  width: clamp(3.2rem, 10cqw, 4.4rem);
-  aspect-ratio: 1;
+  width: 44px;
+  height: 56px;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background: var(--navy-800);
-  color: #fff;
+  background: none;
   cursor: pointer;
-  box-shadow: 0 10px 30px -8px rgba(7, 24, 43, 0.5);
-  transition: background var(--robj-wechsel), transform var(--robj-wechsel);
+  color: var(--r-navy);
 }
-.robj__play[hidden] { display: none; }
-.robj__play::after {
-  content: '';
-  position: absolute;
-  inset: clamp(-0.85rem, -2.6cqw, -0.6rem);
-  border-radius: 50%;
-  border: 1px solid rgba(226, 205, 168, 0.85);
-}
-.robj__play:hover {
-  background: var(--navy-900);
-  transform: translate(-50%, -50%) scale(1.04);
-}
-.robj__play:focus-visible {
-  outline: 2px solid #FFFFFF;
-  outline-offset: 3px;
-  box-shadow: 0 10px 30px -8px rgba(7, 24, 43, 0.5),
-              0 0 0 5px rgba(7, 24, 43, 0.62);
-}
-.robj__play .robj__ic {
-  width: 30%;
-  height: auto;
-  margin-left: 8%;               /* Dreieck optisch mittig im Kreis */
-}
+.robj__nav[hidden] { display: none; }
+.robj__nav--zurueck { left: 0; }
+.robj__nav--vor     { right: 0; }
 
-/* ===== SCHLAEFT — alles unter dem Video ===================================
-   21.08. auf Kundenwunsch entfernt: „alle Daten können raus. Es soll nur das
-   Video erst mal zu sehen sein." Betroffen sind die Infokarte (.robj__unter,
-   .robj__info und alles darin) und das Cremeband (.robj__band) weiter unten.
-   Im HTML stehen beide Bloecke auskommentiert; hier bleiben die Regeln
-   unveraendert liegen, damit das Zurueckholen ein Handgriff bleibt.
-
-   Sie kommen zurueck, sobald Estera echte Objektdaten liefert — freigegeben
-   war nie eine Zahl. Bis dahin gilt unveraendert: keine Lage, keine Groesse,
-   kein Preis, keine Miete, keine Rendite. Was hier steht, ist Handwerk auf
-   Vorrat, keine Behauptung ueber eine Wohnung.
-   ========================================================================
-
-   --- Unter dem Video: Infokarte und Restzeilen ----------------------------
-   Zwei Spalten. Links die Infokarte, die ueber die Videokante nach oben
-   ragt; rechts die beiden uebrigen Zeilen, die unter dem Video anfangen.
-
-   WARUM NEGATIVER AUSSENABSTAND STATT transform: Ein transform verschiebt
-   nur das Bild und laesst den Platz im Fluss stehen — unter der Karte bliebe
-   ein Loch von halber Kartenhoehe. Der negative Aussenabstand zieht die
-   Karte samt ihrem Platzbedarf hoch; die Zeile darunter ist danach genau um
-   die Ueberlappung kuerzer. Kein Loch, keine Rechnung mit festen Hoehen. */
-.robj__unter {
-  display: grid;
-  grid-template-columns: minmax(0, clamp(17rem, 30vw, 25rem)) minmax(0, 1fr);
-  column-gap: clamp(1.4rem, 3vw, 3.2rem);
-  row-gap: clamp(1rem, 2.2vh, 1.6rem);
-  align-items: start;
-}
-
-/* DIE INFOKARTE — Kundenwunsch 18.08.
-   Weisse Flaeche, zwei Schattenlagen, grosser Eckenradius: dieselbe Machart
-   wie die Karten in „So entsteht Vermoegensaufbau" und „Unsere Leistungen".
-   Sie ist DECKEND — der Text darin steht auf Weiss, nicht auf dem Bild;
-   dadurch haelt er seinen Kontrast auch ueber der hellsten Stelle des
-   Videos. Ein durchscheinender Kasten waere dort durchgefallen. */
-.robj__info {
-  position: relative;
-  z-index: 6;                    /* ueber Bild, Video und Abspielknopf */
-  margin-top: calc(-1 * var(--robj-ueber));
-  margin-left: var(--robj-einzug);
-  padding: clamp(0.95rem, 1.5vw, 1.45rem) clamp(1.05rem, 1.7vw, 1.65rem)
-           clamp(1rem, 1.6vw, 1.5rem);
-  border-radius: var(--robj-radius);
-  background: var(--robj-flaeche);
-  box-shadow: var(--robj-schatten);
-  text-align: left;
-}
-.robj__art {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--gold-text);       /* 4,82:1 auf Weiss */
-}
-.robj__art-ic {
-  flex: 0 0 auto;
-  width: clamp(1.05rem, 1.35vw, 1.3rem);
-  aspect-ratio: 1;
-  color: var(--robj-gold-ic);
-}
-.robj__h3 {
-  margin-top: clamp(0.28rem, 0.7vh, 0.5rem);
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.35rem, 1.7vw, 1.75rem);
-  line-height: 1.14;
-  color: var(--ink-black);
-}
-/* Die goldene Haarlinie — sie stand frueher unter der Ueberschrift des
-   Abschnitts und trennt jetzt in der Karte den Kopf von der Zeile. */
-.robj__haar {
-  display: block;
-  width: 100%;
-  height: 1px;
-  margin: clamp(0.6rem, 1.4vh, 0.95rem) 0 clamp(0.65rem, 1.5vh, 1rem);
-  background: var(--robj-haar);
-}
-
-/* Eine Zeile: Symbol und Kleinversalie nebeneinander, der Satz darunter
-   ueber die volle Breite. */
-.robj__zeile {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: clamp(0.55rem, 0.85vw, 0.8rem);
-  row-gap: 0.3rem;
-  align-items: center;
-  align-content: start;
-  margin: 0;
-}
-.robj__zeile-ic {
-  grid-column: 1;
-  flex: 0 0 auto;
-  width: clamp(0.95rem, 1.15vw, 1.1rem);
-  aspect-ratio: 1;
-  color: var(--robj-gold-ic);
-}
-.robj__label {
-  grid-column: 2;
-  font-family: var(--font-display);
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.17em;
-  text-indent: 0.17em;
-  text-transform: uppercase;
-  color: var(--gold-text);       /* 5,13:1 auf Weiss */
-}
-.robj__wert {
-  grid-column: 1 / -1;
-  font-size: clamp(0.88rem, 0.98vw, 0.98rem);
-  line-height: 1.6;
-  color: var(--ink-soft);        /* 6,54:1 auf Weiss */
-  text-wrap: pretty;
-}
-
-/* Die beiden uebrigen Zeilen rechts neben der Karte. Sie stehen unter dem
-   Video und beginnen auf der Hoehe der Videounterkante. */
-.robj__liste {
-  margin: 0;
-  padding: clamp(0.9rem, 2vh, 1.5rem) 0 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: clamp(0.9rem, 2vh, 1.4rem);
-  max-width: 46rem;
-}
-
-/* --- Das Cremeband (SCHLAEFT, siehe Vermerk oben) --------------------------
-   Es trug den Satz, das Bild im Rahmen sei ein lizenziertes Beispielbild. Der
-   Satz war ab dem 21.08. schlicht nicht mehr wahr — im Rahmen laeuft jetzt
-   das Material von Estera. Ein falsch gewordener Hinweis ist schlimmer als
-   gar keiner, und der Kunde wollte ohnehin nur das Video sehen. Also raus,
-   nicht umformuliert: einen neuen Satz haetten wir uns ausdenken muessen.
-   -------------------------------------------------------------------------- */
-.robj__band {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: clamp(0.9rem, 2vw, 1.6rem);
-  margin-top: clamp(1.4rem, 3.2vh, 2.2rem);
-  padding: clamp(0.9rem, 2.2vh, 1.4rem) clamp(1.1rem, 2.4vw, 1.9rem);
-  border-radius: var(--robj-radius);
-  border: 1px solid rgba(168, 135, 79, 0.20);
-  background: var(--robj-cream);
-}
-.robj__band-kreis {
-  display: grid;
-  place-items: center;
-  width: clamp(2.6rem, 3.6vw, 3.3rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid var(--line-gold);
-  background: rgba(168, 135, 79, 0.08);
-  color: var(--robj-gold-ic);
-}
-.robj__band-kreis .robj__ic { width: 46%; height: auto; }
-.robj__band-text {
-  font-size: clamp(0.9rem, 1.02vw, 1.02rem);
-  line-height: 1.6;
-  color: var(--ink-soft);        /* 6,1:1 auf dem Cremeton */
-  text-wrap: pretty;
-}
-/* Dekorative Haeuserzeile in feiner Goldkontur. */
-.robj__band-deko {
-  width: clamp(190px, 26vw, 400px);
-  height: auto;
-  color: var(--gold);
-  opacity: 0.62;
+.robj__chev {
+  width: 17px;
+  height: 31px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.4;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: transform 0.3s var(--ease);
+}
+.robj__nav:hover .robj__chev { color: var(--r-gold-t); }
+.robj__nav--zurueck:hover .robj__chev { transform: translateX(-3px); }
+.robj__nav--vor:hover     .robj__chev { transform: translateX(3px); }
+
+/* --- Objektzeile ---------------------------------------------------------- */
+
+/* Vorlage: Serif in Versalien, 16 px bei 1536, weit gesperrt, Navy;
+   dazwischen zwei goldene Haarlinien von 26 px Hoehe. */
+.robj__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.1rem, 2.3vw, 2.1rem);
+  margin-top: clamp(1.8rem, 3vw, 2.6rem);
+  text-align: center;
 }
 
-/* --- Responsive ----------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .robj__band-deko { width: clamp(150px, 22vw, 240px); }
+.robj__mw {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  letter-spacing: 0.15em;
+  text-indent: 0.15em;
+  text-transform: uppercase;
+  color: var(--r-navy);              /* 13,57:1 */
+  line-height: 1.2;
 }
 
-@media (max-width: 940px) {
-  /* Zwei Spalten sind hier zu schmal: die Karte braucht Mass, und die beiden
-     Zeilen daneben stuenden auf zwei Woertern Breite. Also untereinander —
-     die Karte ueberlappt das Video weiterhin. */
-  .robj__unter { grid-template-columns: minmax(0, 1fr); }
-  .robj__info { margin-right: var(--robj-einzug); }
-  .robj__liste { padding-top: 0; }
-  .robj__band { grid-template-columns: auto minmax(0, 1fr); }
-  .robj__band-deko { display: none; }
+.robj__trenner {
+  flex: none;
+  width: 1px;
+  height: 26px;
+  fill: none;
+  stroke: var(--r-linie-w);
+  stroke-width: 1;
 }
 
-@media (max-width: 680px) {
-  .robj { --robj-einzug: clamp(0.6rem, 2.6vw, 1.1rem); }
-  .robj__h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
-  .robj__schalter { width: 100%; }
-  .robj__knopf {
-    gap: 0.45rem;
-    padding-inline: 0.55rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-    text-indent: 0.06em;
+/* --- Verweis -------------------------------------------------------------- */
+
+.robj__linkzeile {
+  text-align: center;
+  margin-top: clamp(1.3rem, 2.2vw, 2rem);
+}
+
+.robj__link {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.7rem, 1vw, 0.95rem);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  color: var(--r-gold-t);            /* 5,81:1 */
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+  border-radius: 6px;
+}
+
+.robj__pfeil {
+  width: clamp(34px, 3.2vw, 46px);
+  height: 14px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s var(--ease);
+}
+.robj__link:hover { color: #6E501F; }
+.robj__link:hover .robj__pfeil { transform: translateX(5px); }
+
+/* --- Punkte --------------------------------------------------------------- */
+
+/* Vorlage: erster Punkt eine goldene Pille 20 x 9, die beiden anderen graue
+   Kreise d 10, Abstand 11. Das Grau ist gegenueber der Vorlage etwas
+   vertieft, damit die beiden nicht gewaehlten Punkte auf dem hellen Grund
+   ueberhaupt als Bedienelement zu erkennen sind (3,02:1 statt 1,71:1). */
+.robj__punkte {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  margin-top: clamp(1.1rem, 1.8vw, 1.6rem);
+}
+.robj__punkte[hidden] { display: none; }
+
+.robj__punkt {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 13px;
+}
+.robj__punkt svg { width: 20px; height: 10px; overflow: visible; }
+
+.robj__p-aus { fill: #9BA1A8; transition: fill 0.3s var(--ease); }
+.robj__p-an  { fill: var(--r-gold-l); display: none; }
+
+.robj__punkt.is-an .robj__p-aus { display: none; }
+.robj__punkt.is-an .robj__p-an  { display: block; }
+
+.robj__punkt:hover .robj__p-aus { fill: var(--r-gold-t); }
+
+.robj__punkt-txt {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ===========================================================================
+   SCHMALERE FENSTER
+   =========================================================================== */
+
+/* Ab hier bleibt links und rechts vom Rahmen kein Platz mehr fuer die Pfeile.
+   Sie ruecken in das Bild und bekommen eine cremefarbene Scheibe mit
+   Goldkante, damit das Navy darauf 12,9:1 haelt statt auf dem Video zu
+   verschwinden. */
+@media (max-width: 900px) {
+  .robj__nav {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(249, 246, 241, 0.94);
+    box-shadow: 0 1px 2px rgba(16, 41, 73, 0.12), 0 10px 24px -14px rgba(16, 41, 73, 0.5);
   }
-  .robj__knopf-ic { width: 0.95rem; }
-  .robj__band {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: start;
-    gap: 0.8rem;
+  .robj__nav--zurueck { left: 14px; }
+  .robj__nav--vor     { right: 14px; }
+  .robj__chev { width: 14px; height: 26px; }
+}
+
+/* Die ueberlappende Karte braucht Breite. Darunter steht sie unter dem
+   Video statt darauf. */
+@media (max-width: 900px) {
+  .robj__deko { display: none; }
+  .robj__karten {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    margin-top: clamp(0.9rem, 2vw, 1.3rem);
   }
+  .robj__buehne { display: block; }
+  .robj__mitte { width: 100%; }
+  .robj__nav { top: auto; transform: none; }
+  .robj__nav--zurueck,
+  .robj__nav--vor { top: calc(50% - 4rem); transform: translateY(-50%); }
 }
 
-@media (max-width: 380px) {
-  .robj__knopf { font-size: 0.64rem; letter-spacing: 0.03em; text-indent: 0.03em; }
+@media (max-width: 620px) {
+  .robj__medium { aspect-ratio: 16 / 10; }
+  .robj__rahmen { padding: 5px; border-radius: 13px; }
+  .robj__medium { border-radius: 9px; }
+  .robj__meta { gap: 0.9rem; }
+  .robj__trenner { height: 18px; }
+  .robj__nav { width: 40px; height: 40px; }
+  .robj__nav--zurueck { left: 8px; }
+  .robj__nav--vor     { right: 8px; }
+  .robj__chev { width: 12px; height: 22px; }
 }
 
-/* --- Weniger Bewegung -----------------------------------------------------
-   Hier stehen die Uebergaenge und das Wachsen. Am Video selbst aendert sich
-   fuer diese Gruppe nichts mehr: es startet seit dem 21.08. bei NIEMANDEM von
-   allein, sondern erst auf Druck der Abspielflaeche. Was hier wegfaellt, ist
-   also nur das Wachsen des Kastens beim Scrollen — und das ist der einzige
-   Punkt, an dem sich der Abschnitt ohne Zutun noch bewegt hat.
-   ------------------------------------------------------------------------ */
+@media (max-width: 420px) {
+  .robj__medium { aspect-ratio: 4 / 3; }
+  .robj__mw { font-size: 0.82rem; letter-spacing: 0.12em; }
+}
+
+/* ===========================================================================
+   WENIGER BEWEGUNG
+   Wer „prefers-reduced-motion" gesetzt hat, bekommt keine Uebergaenge. Das
+   Video laeuft ohnehin erst auf Klick — es startet nirgends von selbst.
+   =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .robj__schieber,
-  .robj__knopf,
-  .robj__knopf-ic,
-  .robj__fassung,
-  .robj__bild,
-  .robj__play,
-  .robj__zurueck {
-    transition: none;
-  }
-  .robj__play:hover { transform: translate(-50%, -50%); }
-
-  /* Kein Wachsen beim Scrollen. Das Javascript setzt den Faktor hier ohnehin
-     nicht mehr an; diese Zeile ist die Rueckversicherung fuer den Fall, dass
-     jemand die Angabe waehrend des Besuchs umstellt und ein zuletzt
-     geschriebener Wert am Element haengt.
-
-     Sie hat einen zweiten Nutzen: der Kasten steht dann garantiert auf voller
-     Groesse, und damit steht auch die Abspielflaeche .robj__play auf ihrem
-     vollen Mass von 72 x 50,8 px statt auf 64,8 x 45,7 px. Gebraucht wird sie
-     hier genauso wie ueberall sonst — sie ist der einzige Weg, das Video zu
-     starten.
-
-     Der Selektor muss .robj__video treffen, nicht den Abschnitt: das
-     Javascript schreibt den Faktor als Inline-Angabe an genau dieses
-     Element, und eine geerbte Angabe vom Vorfahren kaeme dagegen nicht an.
-     Mit !important am Element selbst schon — wichtige Angaben aus dem
-     Stilbogen stehen ueber gewoehnlichen Inline-Angaben. */
-  .robj__video { --robj-wachs: 1 !important; }
+  .robj__chev,
+  .robj__pfeil,
+  .robj__ring,
+  .robj__scheibe,
+  .robj__p-aus { transition: none; }
+  .robj__nav:hover .robj__chev,
+  .robj__link:hover .robj__pfeil,
+  .robj__play:hover .robj__ring { transform: none; }
 }
