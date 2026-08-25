@@ -841,3 +841,29 @@
   text-wrap: pretty;
   color: var(--ink-mute);
 }
+
+/* ---------------------------------------------------------------------------
+   DER VORDERE HALBBOGEN DES RINGS
+
+   Der Ring lag bis zum 25.08.2026 vollstaendig im Adern-SVG und damit
+   VOLLSTAENDIG HINTER dem Haus. Dessen Sockelplatte verdeckte dadurch den
+   vorderen Bogen, und der Ring hoerte optisch links und rechts am Gebaeude
+   auf — er lief nie um das Haus herum.
+
+   Jetzt ist er geteilt: der obere Bogen bleibt hinten und verschwindet
+   hinter dem Gebaeude, dieser untere liegt davor. Erst dadurch entsteht die
+   Rundung um das Haus.
+
+   Beide tragen dieselben Werte (Mitte 603/241, rx 222, ry 66) und dieselbe
+   Strichstaerke; jede Abweichung waere genau an den beiden Ansatzpunkten
+   links und rechts zu sehen.
+--------------------------------------------------------------------------- */
+.wi__ring-vorn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Ueber dem Haus (z-index 2), aber unter den Karten (3) und der Pille (4). */
+  z-index: 2;
+  pointer-events: none;
+}

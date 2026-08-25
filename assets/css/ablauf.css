@@ -126,18 +126,25 @@
 }
 
 /* --- DER GRUND -------------------------------------------------------------
-   Zwei Lagen, beide UNTER dem Inhalt und beide mit pointer-events: none.
-   Machart wortgleich aus referenzen.css, `.ref::after`: der Marmor liegt als
-   eigenes Bild und wird von einem fast deckenden Farbverlauf herunter-
-   gedaempft. NIEMALS `opacity` am Element selbst — das naehme den Text mit.
+   DREI Lagen, alle UNTER dem Inhalt und alle mit pointer-events: none.
+   Machart wortgleich aus referenzen.css (`.ref::after`) und
+   referenzobjekte.css (`.robj::before`): der Stein liegt als EIGENES Bild und
+   wird von einem deckenden Farbverlauf heruntergedaempft. NIEMALS `opacity`
+   am Element selbst — das naehme die Schrift mit.
 
-   ::before  traegt den warmen Ton der Vorlage und blendet oben und unten in
-             reines Weiss aus, damit zu den weissen Abschnitten darueber und
-             darunter keine harte Kante entsteht.
-   ::after   traegt den Marmor. Er steht nur im mittleren Band, laeuft an
-             beiden Enden mit derselben Weichzeichnung aus und ist mit 0.90
-             Deckung so blass gehalten, wie ihn die Vorlage zeigt: eine
-             Aederung, die man ahnt, nicht sieht.
+     ::before      z-index 0 — der warme Grundton der Vorlage, volle Flaeche.
+     .abl__stein   z-index 1 — der Marmor. STEHT STILL, siehe unten.
+     ::after       z-index 2 — blendet oben und unten in reines Weiss aus,
+                   damit zu den weissen Abschnitten darueber und darunter
+                   keine harte Kante entsteht. Diese Lage MUSS ueber dem
+                   Stein liegen, sonst franst er an den Abschnittskanten aus.
+     Inhalt        z-index 3
+
+   DIE STAERKE DES STEINS: rgba(...) mit 0.72 Deckung. Das ist NICHT
+   geschaetzt, sondern derselbe Wert, den der Nachbarabschnitt
+   „Musterwohnung" traegt (assets/css/referenzobjekte.css, `.robj::before`).
+   Kundenwunsch vom 25.08.2026: beide Abschnitte sollen den Marmor gleich
+   deutlich zeigen. Wer hier dreht, dreht dort mit.
 -------------------------------------------------------------------------- */
 .abl::before,
 .abl::after {
@@ -147,30 +154,44 @@
   pointer-events: none;
 }
 .abl::before {
-  z-index: -2;
-  background:
-    linear-gradient(180deg,
-      #FFFFFF 0,
-      var(--abl-grund) 110px,
-      var(--abl-grund) calc(100% - 110px),
-      #FFFFFF 100%);
+  z-index: 0;
+  background: var(--abl-grund);
 }
 .abl::after {
-  z-index: -1;
+  z-index: 2;
+  background: linear-gradient(180deg,
+    #FFFFFF 0,
+    rgba(255, 255, 255, 0) 110px,
+    rgba(255, 255, 255, 0) calc(100% - 110px),
+    #FFFFFF 100%);
+}
+
+/* DER STEIN, der beim Rollen stehenbleibt.
+   `position: sticky` mit voller Fensterhoehe, der negative Aussenabstand
+   nimmt ihm den Platz im Fluss wieder weg. Dadurch liegt die Aederung fest
+   am Fenster, waehrend der Abschnitt darunter durchlaeuft — die Buehne
+   klebt, und der Stein klebt mit ihr. Ohne das wandert der Marmor unter dem
+   stehenden Text hindurch. */
+.abl__stein {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin-bottom: -100vh;
+  z-index: 1;
+  pointer-events: none;
   background:
-    linear-gradient(rgba(247, 245, 242, 0.90), rgba(247, 245, 242, 0.90)),
-    url('../img/marble2.jpg') center / cover no-repeat;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 110px, #000 calc(100% - 110px), transparent 100%);
-          mask-image: linear-gradient(180deg, transparent 0, #000 110px, #000 calc(100% - 110px), transparent 100%);
+    linear-gradient(rgba(247, 245, 242, 0.72), rgba(247, 245, 242, 0.72)),
+    var(--abl-grund) url('../img/marble2.jpg') center / cover no-repeat;
 }
 
 .abl__inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 1520px;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
+.abl__lauf { position: relative; z-index: 3; }
 
 /* --- Kopf ----------------------------------------------------------------- */
 .abl__kopf {
@@ -227,8 +248,6 @@
    klebt nicht. Die Hoehe der Strecke setzt ablauf.js als --abl-strecke,
    weil sie die gemessene Buehnenhoehe braucht.
 -------------------------------------------------------------------------- */
-.abl__lauf { position: relative; }
-
 .abl[data-abl-bereit='true'] .abl__lauf {
   height: var(--abl-strecke, auto);
 }

@@ -891,7 +891,13 @@
         <g stroke="#0F2E52" stroke-width="2.4" stroke-linecap="round" fill="none">
           <path d="M303 58 H400 C450 58 468 92 476 126"/>
           <path d="M933 58 H836 C786 58 762 88 737 112"/>
-          <path d="M825 241 A222 66 0 1 1 381 241 A222 66 0 1 1 825 241"/>
+          <!-- NUR DER OBERE BOGEN. Der untere liegt in einem eigenen SVG
+               VOR dem Haus — siehe .wi__ring-vorn weiter unten. Nur so
+               laeuft der Ring wirklich UM das Haus herum: hinten dahinter,
+               vorne davor. Lag er wie zuvor vollstaendig hinter dem Haus,
+               verdeckte dessen Sockelplatte den vorderen Bogen, und der
+               Ring endete optisch links und rechts am Gebaeude. -->
+          <path d="M381 241 A222 66 0 0 1 825 241"/>
           <path d="M303 241 H381"/>
           <path d="M825 241 H933"/>
         </g>
@@ -907,6 +913,17 @@
       <div class="wi__haus">
         <picture><source srcset="assets/img/warum/haus.webp?v=b24a" type="image/webp"><img src="assets/img/warum/haus.png?v=b24a" alt="Ein Mehrfamilienhaus auf einem begrünten Grundstück" width="1254" height="1254" loading="lazy" decoding="async"></picture>
       </div>
+
+      <!-- Der VORDERE Halbbogen des Rings. Er liegt ueber dem Haus und
+           schliesst damit den Kreis: der hintere Bogen verschwindet hinter
+           dem Gebaeude, dieser laeuft vor der Sockelplatte durch.
+           Dieselben Werte wie hinten (Mitte 603/241, rx 222, ry 66) und
+           dieselbe Strichstaerke — sonst saehe man den Ansatz. -->
+      <svg class="wi__ring-vorn" viewBox="0 0 1240 323" fill="none" aria-hidden="true" focusable="false"
+           shape-rendering="geometricPrecision">
+        <path d="M825 241 A222 66 0 0 1 381 241"
+              stroke="#0F2E52" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      </svg>
 
       <!-- ---- Die Sprechblase am Haus (nur im Ruhezustand) ---- -->
       <!-- Die Sprechblase steht seit dem 25.08.2026 nicht mehr hier — auf Kundenwunsch entfernt. -->
@@ -2462,6 +2479,21 @@
      links/rechts und Pos1/Ende springen darin.
      ===================================================================== -->
 <section class="abl" id="ablauf" data-abl aria-labelledby="abl-titel">
+
+  <!-- DER MARMOR. Eine eigene Lage, die AM FENSTER STEHENBLEIBT, solange man
+       durch den Abschnitt rollt (position: sticky, volle Fensterhoehe, per
+       negativem Aussenabstand ohne eigenen Platzbedarf).
+
+       Warum nicht einfach ein Hintergrund an der Section: der waere ueber die
+       ganze Abschnittshoehe von mehreren Fensterhoehen gespannt und wuerde
+       beim Rollen unter der stehenden Buehne durchwandern. Genau das hat der
+       Kunde am 25.08.2026 beanstandet. So steht die Aederung still, waehrend
+       die Schritte wechseln.
+
+       Kein `transform`, kein `filter`, kein `will-change` an dieser Lage oder
+       einem ihrer Vorfahren — das wuerde das Kleben aufheben. -->
+  <div class="abl__stein" aria-hidden="true"></div>
+
   <div class="abl__inner">
 
     <!-- ---------- Kopf ------------------------------------------------- -->

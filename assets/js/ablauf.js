@@ -147,15 +147,57 @@
     return isNaN(px) ? 0 : px;
   }
 
+  /* WANN SETZT DAS KLEBEN EIN.
+     Kundenwunsch vom 25.08.2026: „Lasse die Animation einen Tick frueher
+     starten, ganz kurz nachdem die Ueberschrift verschwindet." Vorher blieb
+     die Buehne erst stehen, wenn sie selbst an der Kopfleiste anstiess — da
+     war die Ueberschrift laengst weg.
+
+     Die Rechnung dafuer ist eindeutig. Die Buehne bleibt genau dann stehen,
+     wenn ihre Oberkante den Wert `top` erreicht. Soll das in dem Augenblick
+     geschehen, in dem die Ueberschrift unter der Kopfleiste verschwindet,
+     dann ist
+         top = (Abstand Ueberschrift-Unterkante bis Buehnen-Oberkante)
+               + Hoehe der Kopfleiste
+     Die 26 px Abzug sind das „ganz kurz nachdem": so viel Rollweg liegt
+     zwischen dem Verschwinden der Zeile und dem Stehenbleiben.
+
+     Zwei Grenzen halten das im Rahmen:
+       — Die Buehne muss unter dem Klebepunkt noch VOLLSTAENDIG ins Fenster
+         passen, sonst waere ihr Fuss abgeschnitten. Deshalb der Deckel.
+       — Unter die Kopfleiste darf sie nie rutschen, deshalb der Boden.
+     Auf flachen Fenstern gewinnt der Deckel; dort klebt es dann eben spaeter,
+     aber nichts wird unlesbar. */
+  function klebePunkt() {
+    var titel = abschnitt.querySelector('.abl__titel');
+    var kopfleiste = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue('--header-h')
+    ) || 96;
+    if (!titel || !lauf) { return kopfleiste + 24; }
+
+    var abstand = lauf.getBoundingClientRect().top - titel.getBoundingClientRect().bottom;
+    var wunsch = abstand + kopfleiste - 26;
+
+    var deckel = window.innerHeight - halt.offsetHeight - 12;
+    var boden = kopfleiste + 8;
+    if (wunsch > deckel) { wunsch = deckel; }
+    if (wunsch < boden) { wunsch = boden; }
+    return Math.round(wunsch);
+  }
+
   function vermessen() {
     if (!lauf || !halt) return;
     if (telefon()) {
       klebt = false;
       lauf.style.removeProperty('height');
       abschnitt.style.removeProperty('--abl-strecke');
+      abschnitt.style.removeProperty('--abl-klebe');
       return;
     }
     klebt = true;
+    /* Erst den Klebepunkt setzen, dann die Hoehen lesen — der Punkt haengt an
+       der Buehnenhoehe, die Strecke nicht. */
+    abschnitt.style.setProperty('--abl-klebe', klebePunkt() + 'px');
     var buehne = halt.offsetHeight;
     strecke = Math.round((panels.length - 1) * STUFE * window.innerHeight);
     abschnitt.style.setProperty('--abl-strecke', (buehne + strecke) + 'px');
