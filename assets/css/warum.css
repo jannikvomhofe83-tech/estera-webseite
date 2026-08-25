@@ -295,9 +295,24 @@
      SICHTBAREN Inhalts (50,3 % der Dateibreite), nicht die Dateimitte.
      Senkrecht so, dass die Unterkante der Sockelplatte auf der Mittellinie
      der Ellipse aufsetzt: 289 - 0,9426 x 378 = -67,4 Feldeinheiten. */
-  left: 34.68%;                 /* (620 - 190) / 1240 */
-  width: 30.48%;                /* 378 / 1240         */
-  top: -17.5%;                  /* -67,4 / 385        */
+  /* VERKLEINERT statt nach oben geschoben. Solange das Haus mit der
+     Sockelunterkante auf der Ringmitte aufsetzt, schiebt jede zusaetzliche
+     Breite es zwangslaeufig weiter nach oben — bei 378 Feldeinheiten ragte
+     es in die Unterzeile. Also andersherum: kleiner, dafuer sitzt es tiefer
+     und liegt ganz im Ring.
+
+       Datei              1254 x 1254
+       sichtbarer Inhalt  x 40..1221, y 89..1182  =  1181 x 1093
+       Anzeigebreite      26 % von 1240 = 322 Feldeinheiten
+       Gebaeude damit     303 breit, 281 hoch
+       Ring nach der Vergroesserung 580 breit — das Haus fuellt ihn zu gut
+       der Haelfte, wie in der Vorlage
+
+     Waagrecht auf die Ringmitte 620, gerechnet mit der Mitte des SICHTBAREN
+     Inhalts bei 50,3 % der Dateibreite. Senkrecht: 289 - 0,9426 x 322. */
+  left: 36.94%;                 /* (620 - 162) / 1240 */
+  width: 26%;                   /* 322 / 1240         */
+  top: -3.77%;                  /* -14,5 / 385        */
   z-index: 2;
 }
 /* Das Haus ist seit dem 25.08.2026 eine erzeugte Abbildung statt einer
@@ -378,7 +393,11 @@
      Feldeinheiten. Die BREITE bleibt unangetastet — sie haengt an den
      Ansatzpunkten der Verbindungslinien im Adern-SVG (x 308 und 932), die
      sonst mitwandern muessten. */
-  height: 52%;                  /* 200 / 385 */
+  /* HOEHE UNVERAENDERT bei 40 Prozent. Am 25.08.2026 war sie kurzzeitig auf
+     52 Prozent — dadurch stiessen die Karten aneinander und der Abstand
+     zwischen ihnen war weg. Zu breit war der Text, nicht zu hoch: gebraucht
+     wurde nur Platz fuer das lange Wort „Wertentwicklung". */
+  height: 40%;                  /* 154 / 385 */
   display: flex;
   align-items: center;
   gap: 2.1cqw;                  /* 26px bei 1240 */
@@ -392,10 +411,10 @@
 /* Oberkanten nachgezogen, damit die Kartenmitte weiterhin dort liegt, wo die
    Verbindungslinie ansetzt (y 83 oben, y 289 unten). Sonst liefe die Linie
    durch die groessere Karte hindurch statt an ihre Kante. */
-.wi__karte--01 { left: 0;     top: -1.56%; }   /* Mitte bei 94  */
-.wi__karte--02 { left: 72.5%; top: -1.56%; }
-.wi__karte--03 { left: 0;     top: 49.87%; }   /* Mitte bei 292 */
-.wi__karte--04 { left: 72.5%; top: 49.87%; }
+.wi__karte--01 { left: 0;     top: 1.56%; }   /* 6 / 385   */
+.wi__karte--02 { left: 72.5%; top: 1.56%; }
+.wi__karte--03 { left: 0;     top: 55.06%; }  /* 212 / 385 */
+.wi__karte--04 { left: 72.5%; top: 55.06%; }
 
 /* Der Navyrahmen markiert den angetippten Punkt — so wie auf der aktiven
    Vorlage. Er ersetzt die Haarlinie, deshalb ein negativer Ausgleich am
@@ -773,4 +792,24 @@
 --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .wi__knopf, .wi__karte { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Der Fachhinweis am Fuss der Section.
+
+   Er steht auf keiner der beiden Bildvorlagen, ist aber vom Wording-Master
+   ausdruecklich verlangt: „Einziger zentraler Fachhinweis am Ende der
+   gesamten Section". Bewusst klein und ruhig gesetzt — er soll die Section
+   nicht dominieren, aber lesbar sein: --ink-mute misst auf dem Cremegrund
+   4,89:1 und liegt damit ueber der Anforderung.
+--------------------------------------------------------------------------- */
+.wi__hinweis {
+  max-width: 68rem;
+  margin: clamp(1.6rem, 3.4vh, 2.6rem) auto 0;
+  font-family: var(--wi-sans, var(--font-ui));
+  font-size: clamp(0.78rem, 0.86vw, 0.86rem);
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--ink-mute);
 }
