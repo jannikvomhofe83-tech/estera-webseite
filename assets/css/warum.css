@@ -2,887 +2,775 @@
    WARUM IMMOBILIEN?   (#warum-immobilien)
 
    Neu geschrieben am 25.08.2026. Gehoert zu
-   <section class="wimm" id="warum-immobilien"> und assets/js/warum.js.
+   <section class="wi" id="warum-immobilien"> und assets/js/warum.js.
 
-   Die Vorgabe ist eine Bildvorlage des Kunden, kein Textbriefing. Alles
-   hier — Anordnung, Groessenverhaeltnisse, Farben, Rundungen, Abstaende —
-   ist an diesem Bild gemessen. Die Masse stehen jeweils als Bruchteil der
-   Navyflaeche daneben, damit spaetere Aenderungen nachvollziehbar bleiben.
-   Die Vorlage ist 1280 Bildpunkte breit, die Navyflaeche darin 1244.
+   Vorgabe ist die Bildvorlage Bilder/referenz-warum-immobilien.jpeg
+   (1536 x 1024). Sie wird als 1536 Bildpunkte breite Ansicht gelesen.
+   Jedes Mass unten steht mit dem an der Vorlage gemessenen Wert daneben,
+   damit spaetere Aenderungen nachvollziehbar bleiben.
 
    AUFBAU DER DATEI
-     1  Marken und Grundmasse
-     2  Kopf  (Kleinzeile, Ueberschrift, Unterzeile)
-     3  Vergleichsband  (klassisch sparen vs. mit Immobilie)
-     4  Die Navyflaeche: Rahmen und Kopf
-     5  Das Feld: Uebersicht — vier Punkte um die Immobilie
-     6  Die Adern  (goldene Verbindungen zur Mitte)
-     7  Die Mitte  (Immobilie und Siegel)
-     8  Das Feld: Einzelansicht — Punkt zur Seite, Textfenster herein
-     9  Die Reiter  (01 bis 04)
-    10  Die vier Texte ohne Javascript
-    11  Abschluss und Fachhinweis
-    12  Schmale Fenster
-    13  Aufdecken beim Scrollen
+     1  Grundmasse und Farben
+     2  Kopf   (Kleinzeile, Ueberschrift, Unterzeile)
+     3  Vergleichsband
+     4  Zwischenkopf
+     5  Das Feld: Adern, Haus, Sprechblase, Schild
+     6  Die vier Karten
+     7  Fuss: Reiter und Knopf
+     8  Schmale Fenster
+     9  Bewegung aus
 
-   FARBEN UND LESBARKEIT — gemessen, nicht geschaetzt
-     Gold #C7A36A auf Navy #011E3C .................. 7.3:1
-     Beige #D9C5A3 auf Navy ....................... 10.2:1
-     Creme #F4F0E8 auf Navy ....................... 15.5:1
-     Navy #0B2343 auf Gold #C7A36A (Reiter aktiv) ... 6.7:1
-     Dunkelgold #86693A auf Creme #FAF7F2 ........... 4.8:1
-   Das helle Gold der Vorlage traegt auf Creme nur 2.15:1 und steht
-   deshalb im Kopf als #86693A. Auf der Navyflaeche bleibt es unveraendert.
+   FARBEN — am Bildpunkt gemessen, nicht geschaetzt
+     Grund der Section              #F7F3F0  (Vorlage)
+     Navy Schrift  #102949 auf #F7F3F0 ......... 13.3:1
+     Grau  #5F6E85 auf #F7F3F0 ..................  4.9:1
+     Grau  #5F6E85 auf Karte #FBFAF8 ............  5.0:1
+     Weiss auf Navy #0B2C57 (Schild, Knopf) ..... 13.0:1
+     Gold  #86693A auf #F7F3F0 ..................  4.7:1
 
-   ENTFALLEN AM 25.08.2026 AUF KUNDENWUNSCH — kein Versehen
-   Der Ergebnisblock unter der Immobilie (.wimm__ergebnis mit
-   .wimm__ergebnis-h und der Dreierreihe .wimm__drei) und die
-   Abschluss-Ueberschrift (.wimm__abschluss-h) sind auf ausdruecklichen
-   Wunsch des Kunden gestrichen. Ihre Regeln sind mit entfernt; Markup und
-   Wortlaut stehen in der Versionsgeschichte. Der Abschnitt endet jetzt
-   mit der Navyflaeche, danach kommen nur noch Knopf, Nachsatz und
-   Fachhinweis. Den Uebergang traegt allein der Abstand — eine neue
-   Ueberleitung durfte nicht erfunden werden.
+   ABWEICHUNG VON DER VORLAGE — bewusst, mit Grund
+   Die Kleinzeile „WARUM IMMOBILIEN?" und die Ordnungszahlen 01 bis 04
+   stehen in der Vorlage im hellen Gold #A8874F. Gemessen sind das 3.2:1;
+   verlangt sind 4.5:1. Beide stehen deshalb im dunkleren #86693A. Farbton
+   und Saettigung sind unveraendert, nur die Helligkeit ist gesenkt.
+
+   SCHAERFE
+   Alle Grafiken sind Inline-SVG im Markup. Hier in der CSS kommt kein
+   Rasterbild vor, und es gibt keinen `filter` — der wuerde die SVG beim
+   Zeichnen rastern. Weiche Schatten liegen als `box-shadow` an den
+   HTML-Kaesten, nicht in den Grafiken.
    =========================================================================== */
 
 /* ---------------------------------------------------------------------------
-   1  MARKEN UND GRUNDMASSE
+   1  GRUNDMASSE UND FARBEN
 --------------------------------------------------------------------------- */
-.wimm {
-  /* Die Vorlage zeigt einen warmen Cremegrund, kein Weiss. */
-  background: #FAF7F2;
+.wi {
+  --wi-grund:    #F7F3F0;   /* Grund der Section, Vorlage gemessen        */
+  --wi-karte:    #FBFAF8;   /* Kartenflaeche, Vorlage gemessen            */
+  --wi-navy:     #102949;   /* Ueberschriften und Kartentitel             */
+  --wi-navy-tief:#08294D;   /* Schild und Knopf — Wert des Kunden, 14.6:1 */
+  --wi-grau:     #5F6E85;   /* Fliesstext                                 */
+  --wi-gold:     #86693A;   /* Kleinzeile und Ordnungszahlen (4.7:1)      */
+  --wi-punkt:    #C0985C;   /* Anschlusspunkte der Adern — Wert des Kunden */
+  --wi-linie:    #0F2E52;   /* die Adern                                  */
+  --wi-haar:     #DCD5CC;   /* Haarlinien: Trenner, Reiterlinie           */
 
-  /* Die Kopfnavigation springt hierher; der feste Seitenkopf darf die
-     Kleinzeile nicht verdecken. Dasselbe Mass wie bei #leistungen. */
+  /* Bedienschrift der Vorlage ist eine geometrische Grotesk. Im Projekt
+     liegt Jost lokal vor — dieselbe Bauart, gleiche Anmutung. */
+  --wi-sans: 'Jost', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+
+  background: var(--wi-grund);
   scroll-margin-top: calc(var(--header-h) + 1.5rem);
-  padding: clamp(3.4rem, 7.5vh, 6rem) 0 clamp(3.4rem, 7.5vh, 6rem);
-
-  --wi-navy:        #011E3C;   /* Grundton der Flaeche, am Bild gemessen  */
-  --wi-navy-hell:   #082A4E;
-  --wi-navy-tief:   #01152B;
-  --wi-gold:        #C7A36A;   /* Adern, Rahmen, Kleinzeile auf Navy      */
-  --wi-gold-licht:  #EFD3A0;   /* Glanzpunkte der Adern                   */
-  --wi-gold-dunkel: #86693A;   /* Gold als Schrift auf Creme              */
-  --wi-beige:       #D9C5A3;   /* Beisatz unter den Punkttiteln           */
-  --wi-creme:       #F4F0E8;   /* Schrift auf Navy                        */
-  --wi-gruen:       #8EA17A;
-
-  /* Wie weit die Ader in das Hausbild hineinragt. In der Vorlage endet
-     sie nicht an der Aussenkante des Bildes, sondern an der Kante des
-     Grundbuchauszugs — das sind 3 % der Flaechenbreite. */
-  --wi-ueber: clamp(8px, 2.9vw, 42px);
-  --wi-fuge:  clamp(1.6rem, 3.4vw, 3rem);
-  --wi-luft:  clamp(2.6rem, 5.4vh, 4.6rem);
+  padding: clamp(3rem, 6.5vh, 5rem) 0 clamp(3rem, 6.5vh, 5rem);
+  overflow: clip;   /* nichts darf die Seite verbreitern */
 }
-.wimm__inner {
-  max-width: 1520px;
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+
+/* Inhaltsbreite. Vorlage: das Vergleichsband liegt bei 1536 Breite von
+   x=104 bis x=1432, also 1328 breit. */
+.wi__inner {
+  width: min(1328px, 100% - 2 * clamp(20px, 4vw, 64px));
+  margin-inline: auto;
 }
-.wimm p,
-.wimm li { font-family: var(--font-ui); }
+
+/* Das Zeichenblatt: es traegt die fuenf <symbol> und wird nie gezeigt. */
+.wi__sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.wi__nur-vorlesen {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 /* ---------------------------------------------------------------------------
    2  KOPF
-   Im Bild: Kleinzeile, zweizeilige Ueberschrift, zweizeilige Unterzeile,
-   alles mittig, die Unterzeile schmaler als die Ueberschrift.
 --------------------------------------------------------------------------- */
-.wimm__kopf { text-align: center; }
-
-.wimm__eyebrow {
-  font-size: clamp(0.72rem, 0.66vw, 0.8rem);
+/* Vorlage: mittig, Grundlinie y=40, Versalien, weite Sperrung, Serif. */
+.wi__eyebrow {
+  font-family: var(--font-ui);
   font-weight: 500;
-  letter-spacing: 0.26em;
+  font-size: clamp(0.74rem, 0.98vw, 0.94rem);   /* 15px bei 1536 */
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--wi-gold-dunkel);
+  text-align: center;
+  color: var(--wi-gold);
+  margin: 0 0 clamp(0.5rem, 1vh, 0.9rem);
 }
-.wimm__eyebrow--hell { color: var(--wi-gold); }
 
-.wimm__h2 {
-  margin-top: clamp(0.7rem, 1.4vh, 1.1rem);
-  font-size: clamp(2rem, 4.1vw, 3.4rem);
-  line-height: 1.03;
-  color: var(--navy-800);
-  max-width: min(100%, 46em);
-  margin-inline: auto;
+/* Vorlage: eine Zeile, mittig, Serif hell, Versalhoehe 41px → 62px Grad. */
+.wi__h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  /* Die Vorlage setzt die Zeile EINZEILIG ueber 1180 von 1536 Punkten,
+     Versalhoehe 38. Cormorant baut bei dieser Versalhoehe rund 12 Prozent
+     breiter; auf 62px bliebe die Zeile nicht in einer Zeile. Grad und
+     Laufweite sind deshalb so gesetzt, dass die gemessene Zeilenbreite
+     der Vorlage steht — die Einzeiligkeit wiegt hier schwerer als die
+     letzten drei Punkte Versalhoehe. */
+  font-size: clamp(1.75rem, 3.52vw, 3.4rem);    /* 54px bei 1536 */
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  text-align: center;
+  color: var(--wi-navy);
+  text-wrap: balance;
+  margin: 0;
 }
-/* Der Zeilenfall der Vorlage: „… nicht nur" / „mit deinem eigenen Geld auf." */
-.wimm__bruch { display: none; }
-@media (min-width: 900px) {
-  .wimm__bruch { display: block; height: 0; }
-}
-.wimm__unter {
-  margin-top: clamp(0.8rem, 1.6vh, 1.25rem);
-  margin-inline: auto;
-  max-width: 62ch;
-  font-size: clamp(0.98rem, 1.02vw, 1.14rem);
-  line-height: 1.62;
-  color: var(--ink-soft);
+
+/* Vorlage: mittig, Grotesk, grau, Grundlinie y=137. */
+.wi__sub {
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: clamp(0.98rem, 1.24vw, 1.19rem);   /* 19px bei 1536 */
+  line-height: 1.6;
+  text-align: center;
+  color: var(--wi-grau);
+  margin: clamp(0.6rem, 1.3vh, 1.05rem) auto 0;
+  max-width: 46em;
 }
 
 /* ---------------------------------------------------------------------------
    3  VERGLEICHSBAND
-   Links eine einzelne beige Linie, in der Mitte ein „vs." im Kreis, rechts
-   vier farbige Faeden, die in einen navyfarbenen Pfeil zusammenlaufen.
-   Im Bild sitzt das Band bei 225 bis 370 von 880, also knapp unter dem Kopf.
+   Vorlage: Kasten x 104..1432, y 168..380 — also 1328 x 212, Radius 20,
+   Flaeche einen Hauch heller als der Grund, Haarlinie, sehr weicher Schatten.
 --------------------------------------------------------------------------- */
-.wimm__band {
-  display: grid;
-  grid-template-columns: 1fr auto 1.34fr;
-  align-items: stretch;
-  gap: clamp(1rem, 2.2vw, 2.4rem);
-  margin-top: clamp(1.6rem, 3vh, 2.5rem);
-}
-.wimm__band-halb {
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
-.wimm__band-halb > :last-child { align-self: center; }
-.wimm__band-marke {
-  font-size: clamp(0.68rem, 0.62vw, 0.76rem);
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--navy-800);
-  text-align: center;
-  margin-bottom: clamp(1.4rem, 2.6vh, 2.2rem);
-}
-.wimm__band-halb--immo .wimm__band-marke { padding-right: 40%; }
-
-.wimm__band-zeile {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-.wimm__band-wort {
-  font-size: clamp(0.9rem, 0.95vw, 1.06rem);
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-/* Die eine Linie: sie endet in einer kleinen Spitze — mehr passiert nicht. */
-.wimm__band-strich {
-  position: relative;
-  flex: 1 1 auto;
-  min-width: 40px;
-  height: 1.5px;
-  background: #D6C4B0;
-}
-.wimm__band-strich::after {
-  content: '';
-  position: absolute;
-  right: 0; top: 50%;
-  width: 9px; height: 9px;
-  border-top: 1.5px solid #D6C4B0;
-  border-right: 1.5px solid #D6C4B0;
-  transform: translate(1px, -50%) rotate(45deg);
-}
-
-/* Der Trenner. Haarlinie mit einem Kreis darauf. */
-.wimm__band-vs {
-  position: relative;
-  align-self: stretch;
-  width: 1px;
-  background: var(--line-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 128px;
-}
-.wimm__band-vs span {
-  flex: none;
-  background: #FAF7F2;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-}
-
-.wimm__band-fluss {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.wimm__band-liste {
-  flex: 0 0 44%;
-  display: grid;
-  grid-template-rows: repeat(4, 1fr);
-  height: 132px;
-  list-style: none;
-}
-.wimm__band-liste li {
-  display: flex;
-  align-items: center;
-  gap: 0.62em;
-  font-size: clamp(0.86rem, 0.9vw, 1rem);
-  color: var(--navy-800);
-  line-height: 1;
-}
-.wimm__band-punkt {
-  flex: none;
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: var(--ton);
-}
-.wimm__band-faden {
-  flex: 1 1 auto;
-  min-width: 10px;
-  height: 2px;
-  background: var(--ton);
-}
-.wimm__band-liste li[data-ton='navy']  { --ton: #112347; }
-.wimm__band-liste li[data-ton='gold']  { --ton: #B68F54; }
-.wimm__band-liste li[data-ton='gruen'] { --ton: #82947C; }
-.wimm__band-liste li[data-ton='beige'] { --ton: #D4BE97; }
-
-/* Die vier Faeden laufen zusammen. Ohne gleichmaessige Streckung, damit
-   die Strichstaerke gleich bleibt: vector-effect. */
-.wimm__band-kurven {
-  flex: 1 1 auto;
-  min-width: 40px;
-  height: 132px;
-  margin-left: -2px;
-}
-.wimm__band-kurven path {
-  fill: none;
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-  stroke-linecap: round;
-}
-.wimm__band-kurven path:nth-child(1) { stroke: #112347; }
-.wimm__band-kurven path:nth-child(2) { stroke: #B68F54; }
-.wimm__band-kurven path:nth-child(3) { stroke: #82947C; }
-.wimm__band-kurven path:nth-child(4) { stroke: #D4BE97; }
-
-/* Der Pfeil. Die Spitze steckt in der clip-path, damit sie mitwaechst. */
-.wimm__band-ziel {
-  flex: 0 0 34%;
-  min-width: 150px;
-  height: 76px;
-  margin-left: -1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: 42px;
-  background: linear-gradient(90deg, #0B2343 0%, #102949 40%, #102949 100%);
-  clip-path: polygon(0 19.7%, calc(100% - 44px) 19.7%, calc(100% - 44px) 0,
-                     100% 50%, calc(100% - 44px) 100%, calc(100% - 44px) 80.3%, 0 80.3%);
-}
-.wimm__band-ziel span {
-  font-size: clamp(1rem, 1.62vw, 1.4rem);
-  color: #FFFFFF;
-  white-space: nowrap;
-}
-
-/* ---------------------------------------------------------------------------
-   4  DIE NAVYFLAECHE — RAHMEN UND KOPF
-   Im Bild 1244 breit bei 1280 Seitenbreite, also fast randlos. Sie wird
-   deshalb ueber die Satzspalte hinausgezogen. Rundung 26 von 1244 = 2.1 %.
---------------------------------------------------------------------------- */
-.wimm__buehne {
-  position: relative;
-  margin-top: clamp(1rem, 2vh, 1.5rem);
-  margin-inline: calc(var(--gutter) * -0.62);
-  border-radius: clamp(18px, 2.1vw, 30px);
-  padding: clamp(1rem, 1.55vw, 1.5rem) clamp(0.8rem, 1.6vw, 1.8rem)
-           clamp(1.1rem, 1.8vw, 1.7rem);
-  overflow: hidden;
-  background:
-    radial-gradient(74% 58% at 50% 44%, rgba(30, 74, 128, 0.30) 0%, rgba(30, 74, 128, 0) 72%),
-    linear-gradient(180deg, var(--wi-navy) 0%, #02203F 52%, var(--wi-navy-tief) 100%);
-}
-/* Die feinen Rissspuren im Grund der Vorlage — Bauzeichnung, sehr leise. */
-.wimm__buehne::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(150, 190, 240, 0.028) 0 1px, transparent 1px 116px),
-    repeating-linear-gradient(0deg,  rgba(150, 190, 240, 0.028) 0 1px, transparent 1px 116px);
-  -webkit-mask-image: radial-gradient(66% 60% at 50% 50%, transparent 26%, #000 100%);
-          mask-image: radial-gradient(66% 60% at 50% 50%, transparent 26%, #000 100%);
-}
-.wimm__buehne > * { position: relative; }
-
-.wimm__buehne-kopf { text-align: center; }
-.wimm__h3 {
-  margin-top: 0.32rem;
-  font-size: clamp(1.6rem, 2.75vw, 2.3rem);
-  line-height: 1.14;
-  color: #FFFFFF;
-}
-
-/* ---------------------------------------------------------------------------
-   5  DAS FELD — UEBERSICHT
-   Drei Spalten: links zwei Punkte, in der Mitte die Immobilie, rechts zwei.
-   Im Bild sitzt die Mitte auf 390 von 1244 = 31 % der Flaechenbreite.
---------------------------------------------------------------------------- */
-.wimm__feld {
+.wi__band {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(230px, 30.7%) minmax(0, 1fr);
-  grid-template-rows: auto auto auto;
-  align-items: center;
-  column-gap: 0;
-  /* Die Vorlage setzt die beiden Punktzeilen weiter auseinander, als es
-     die Hoehe der Immobilie verlangt — Teilung 148 von 1244. */
-  row-gap: clamp(8px, 2.1vw, 28px);
-  margin-top: 0;
-}
-.wimm__punkt--01 { grid-area: 1 / 1; }
-.wimm__punkt--02 { grid-area: 1 / 3; }
-.wimm__punkt--03 { grid-area: 2 / 1; }
-.wimm__punkt--04 { grid-area: 2 / 3; }
-.wimm__mitte     { grid-area: 1 / 2 / 4 / auto; align-self: start; }
-
-/* Ein Punkt: Sinnbild, Titel, Beisatz, Ader. Rechts spiegelbildlich. */
-.wimm__punkt {
-  --wi-ikon:  clamp(64px, 9.7vw, 132px);
-  --wi-titel: clamp(1rem, 1.72vw, 1.52rem);
-  --wi-sub:   clamp(0.76rem, 1.13vw, 1rem);
-
-  display: flex;
-  align-items: center;
-  gap: clamp(0.25rem, 0.62vw, 0.75rem);
-  text-decoration: none;
-  color: inherit;
-  border-radius: 14px;
-  transition: opacity 0.42s var(--ease), transform 0.52s var(--ease);
-}
-.wimm__punkt[data-wi-seite='rechts'] { flex-direction: row-reverse; }
-/* In der Vorlage steht das Sinnbild nicht an der Kante der Flaeche,
-   sondern bei 10.5 % ihrer Breite. */
-.wimm__punkt--01, .wimm__punkt--03 { padding-left:  clamp(2px, 8.5vw, 118px); }
-.wimm__punkt--02, .wimm__punkt--04 { padding-right: clamp(2px, 8.5vw, 118px); }
-
-.wimm__ikon {
-  flex: none;
-  width: var(--wi-ikon);
-  transition: width 0.5s var(--ease);
-}
-.wimm__ikon img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.wimm__punkt-wort {
-  flex: 0 0 auto;
-  display: grid;
-  gap: 0.22em;
-  text-align: center;
-}
-.wimm__punkt-titel {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: var(--wi-titel);
-  line-height: 1.1;
-  color: #FFFFFF;
-}
-.wimm__punkt-sub {
-  font-size: var(--wi-sub);
-  line-height: 1.3;
-  color: var(--wi-beige);
-}
-/* In der Vorlage steht jeder Beisatz auf einer Zeile. */
-@media (min-width: 900px) {
-  .wimm__punkt-titel,
-  .wimm__punkt-sub { white-space: nowrap; }
-}
-/* Anfassen: der Punkt hebt sich leicht, mehr nicht. */
-.wimm__punkt:hover .wimm__punkt-titel,
-.wimm__punkt:focus-visible .wimm__punkt-titel { color: var(--wi-gold-licht); }
-.wimm__punkt:focus-visible {
-  outline: 2px solid var(--wi-gold-licht);
-  outline-offset: 7px;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  margin-top: clamp(1.4rem, 2.9vh, 2.3rem);     /* 30px bei 1024 Hoehe */
+  padding: clamp(1.5rem, 2.6vw, 2.5rem) clamp(1rem, 2vw, 2rem) clamp(1.6rem, 2.9vw, 2.75rem);
+  border-radius: 20px;
+  background: #FBF8F5;
+  border: 1px solid rgba(16, 41, 73, 0.06);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03), 0 10px 26px rgba(16, 41, 73, 0.035);
 }
 
-/* ---------------------------------------------------------------------------
-   6  DIE ADERN
-   Im Bild: ein leuchtender Kopf am Wort, eine waagrechte Linie, dann ein
-   Knick zur Immobilie hin — oben nach unten, unten nach oben.
---------------------------------------------------------------------------- */
-.wimm__ader {
-  position: relative;
-  flex: 0 0 auto;
-  width: clamp(32px, 6.1vw, 88px);
-  height: 26px;
-  align-self: center;
-  z-index: 1;
-  transition: opacity 0.3s var(--ease);
-}
-.wimm__punkt--01 .wimm__ader,
-.wimm__punkt--03 .wimm__ader {
-  margin-left: clamp(4px, 1.1vw, 16px);
-  margin-right: calc(var(--wi-ueber) * -1);
-}
-.wimm__punkt--02 .wimm__ader,
-.wimm__punkt--04 .wimm__ader {
-  margin-right: clamp(4px, 1.1vw, 16px);
-  margin-left: calc(var(--wi-ueber) * -1);
-}
-.wimm__punkt[data-wi-seite='rechts'] .wimm__ader { transform: scaleX(-1); }
-/* Oben liegt die Linie an der Oberkante der Ader und knickt nach unten,
-   unten liegt sie an der Unterkante und knickt nach oben. Der Versatz
-   setzt den Leuchtpunkt auf die Grundlinie des Beisatzes — so steht er
-   in der Vorlage. */
-.wimm__punkt--01 .wimm__ader,
-.wimm__punkt--02 .wimm__ader { --wi-ader-y: 0%; margin-top: clamp(16px, 2.6vw, 34px); }
-.wimm__punkt--03 .wimm__ader,
-.wimm__punkt--04 .wimm__ader { --wi-ader-y: 100%; margin-top: clamp(2px, 0.6vw, 8px); }
+.wi__band-halb { text-align: center; }
 
-.wimm__ader-kopf {
-  position: absolute;
-  left: 0; top: var(--wi-ader-y);
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #FBEBC8;
-  box-shadow: 0 0 9px 2px rgba(239, 211, 160, 0.55);
-  transform: translate(-40%, -50%);
-}
-.wimm__ader-linie {
-  position: absolute;
-  left: 5px; right: 30px; top: var(--wi-ader-y);
-  height: 1.8px;
-  background: linear-gradient(90deg, #F5E1B4, #D9B47A);
-  box-shadow: 0 0 6px rgba(239, 211, 160, 0.35);
-  transform: translateY(-50%);
-}
-.wimm__ader-knick {
-  position: absolute;
-  right: 0; top: 0;
-  width: 32px; height: 26px;
-  overflow: visible;
-}
-.wimm__ader-knick path {
-  fill: none;
-  stroke: #D9B47A;
-  stroke-width: 1.8;
-  vector-effect: non-scaling-stroke;
-}
-.wimm__ader-knick { filter: drop-shadow(0 0 3px rgba(239, 211, 160, 0.35)); }
-
-/* ---------------------------------------------------------------------------
-   7  DIE MITTE
-   Die Immobilie auf dem Grundbuchauszug, darunter — ueber eine kurze Ader
-   verbunden — das Siegel. Im Bild ist das Siegel so breit wie der Auszug.
---------------------------------------------------------------------------- */
-.wimm__mitte {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
-}
-.wimm__haus {
-  display: block;
-  width: 100%;
-  max-width: 430px;
-  height: auto;
-}
-.wimm__siegel {
-  --wi-siegel-ader: clamp(11px, 1.6vw, 22px);
-  position: relative;
-  width: 100%;
-  max-width: 392px;
-  margin-top: var(--wi-siegel-ader);
-  padding: 0.54em 1.2em;
-  border: 1.5px solid var(--wi-gold);
-  border-radius: 999px;
-  text-align: center;
-}
-.wimm__siegel span {
-  font-size: clamp(0.8rem, 1.28vw, 1.14rem);
-  font-weight: 500;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--wi-gold);
-}
-.wimm__siegel::before {
-  content: '';
-  position: absolute;
-  left: 50%; bottom: 100%;
-  width: 1.5px;
-  height: var(--wi-siegel-ader);
-  background: linear-gradient(180deg, rgba(199, 163, 106, 0), #F0D8A8);
-  transform: translateX(-50%);
-}
-.wimm__siegel::after {
-  content: '';
-  position: absolute;
-  left: 50%; top: -7px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #FBEBC8;
-  box-shadow: 0 0 10px 3px rgba(239, 211, 160, 0.5);
-  transform: translate(-50%, -50%);
-}
-
-/* ---------------------------------------------------------------------------
-   8  DAS FELD — EINZELANSICHT
-   Der angeklickte Punkt waechst und rueckt auf seine Haelfte; von der
-   Gegenseite faehrt das Textfenster herein. Alles andere tritt zurueck,
-   behaelt aber seinen Platz — dadurch springt die Flaeche nicht.
---------------------------------------------------------------------------- */
-.wimm__fenster {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.wimm__feld[data-wi-aktiv] {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: auto;
-  column-gap: clamp(1rem, 3vw, 3.4rem);
-}
-.wimm__feld[data-wi-aktiv] > * {
-  grid-area: 1 / 1 / 2 / 3;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.wimm__feld[data-wi-aktiv] .wimm__punkt[data-wi-an] {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  justify-self: center;
-  /* In der Einzelansicht steht der Punkt mittig auf seiner Haelfte —
-     der Einzug der Uebersicht gilt dort nicht mehr. */
-  padding: 0;
-  --wi-ikon:  clamp(116px, 14.5vw, 200px);
-  --wi-titel: clamp(1.4rem, 2.3vw, 2.2rem);
-  --wi-sub:   clamp(0.86rem, 1.05vw, 1.06rem);
-}
-.wimm__feld[data-wi-aktiv] .wimm__punkt[data-wi-an] .wimm__ader { display: none; }
-.wimm__feld[data-wi-seite='links']  .wimm__punkt[data-wi-an] { grid-area: 1 / 1; }
-.wimm__feld[data-wi-seite='rechts'] .wimm__punkt[data-wi-an] { grid-area: 1 / 2; }
-
-.wimm__feld[data-wi-aktiv] .wimm__fenster {
-  position: static;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: none;
-}
-.wimm__feld[data-wi-seite='links']  .wimm__fenster { grid-area: 1 / 2; --wi-von:  34px; }
-.wimm__feld[data-wi-seite='rechts'] .wimm__fenster { grid-area: 1 / 1; --wi-von: -34px; }
-
-/* Der Zustand direkt vor dem Einfahren — warum.js setzt data-wi-ein. */
-.wimm__feld[data-wi-aktiv] .wimm__fenster[data-wi-ein] {
-  opacity: 0;
-  transform: translateX(var(--wi-von, 34px));
-}
-.wimm__fenster {
-  align-self: center;
-  transition: opacity 0.44s var(--ease), transform 0.56s var(--ease);
-}
-
-/* Das Fenster selbst */
-.wimm__feld[data-wi-aktiv] .wimm__fenster {
-  max-width: 640px;
-  border: 1px solid rgba(199, 163, 106, 0.42);
-  border-radius: 16px;
-  padding: clamp(1.2rem, 2.4vw, 2.2rem);
-  background: rgba(255, 255, 255, 0.035);
-}
-.wimm__feld[data-wi-seite='links']  .wimm__fenster { justify-self: start; }
-.wimm__feld[data-wi-seite='rechts'] .wimm__fenster { justify-self: end; }
-.wimm__zu {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
-  margin-bottom: 0.9rem;
-  padding: 0.3em 0.2em;
-  background: none;
-  border: 0;
-  cursor: pointer;
+/* Vorlage: Versalien, Serif, gesperrt, Navy, Versalhoehe 13px → 20px Grad. */
+.wi__band-marke {
   font-family: var(--font-ui);
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--wi-beige);
-}
-.wimm__zu[hidden] { display: none; }
-.wimm__zu:hover { color: #FFFFFF; }
-.wimm__zu:focus-visible { outline: 2px solid var(--wi-gold-licht); outline-offset: 3px; }
-.wimm__zu-kreuz {
-  position: relative;
-  width: 13px; height: 13px;
-  flex: none;
-}
-.wimm__zu-kreuz::before,
-.wimm__zu-kreuz::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 50%;
-  width: 100%; height: 1.5px;
-  background: currentColor;
-}
-.wimm__zu-kreuz::before { transform: rotate(45deg); }
-.wimm__zu-kreuz::after  { transform: rotate(-45deg); }
-
-/* ---------------------------------------------------------------------------
-   9  DIE REITER
---------------------------------------------------------------------------- */
-.wimm__reiter {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(0.5rem, 1.6vw, 1.9rem);
-  margin-top: clamp(0.7rem, 1.6vw, 1.4rem);
-  list-style: none;
-}
-.wimm__reiter a {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.55em;
-  padding: 0.5em 3.2em;
-  border: 1px solid rgba(199, 163, 106, 0.5);
-  border-radius: 999px;
-  text-decoration: none;
-  font-variant-numeric: lining-nums;
-  font-feature-settings: 'lnum' 1;
-  font-size: clamp(0.72rem, 1.02vw, 0.92rem);
   font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--wi-creme);
-  transition: background 0.36s var(--ease), color 0.36s var(--ease),
-              border-color 0.36s var(--ease);
-}
-.wimm__reiter a:hover {
-  border-color: var(--wi-gold);
-  color: #FFFFFF;
-}
-.wimm__reiter a[aria-expanded='true'] {
-  background: var(--wi-gold);
-  border-color: var(--wi-gold);
-  color: #0B2343;
-}
-.wimm__reiter a:focus-visible { outline: 2px solid var(--wi-gold-licht); outline-offset: 3px; }
-.wimm__reiter-zahl { letter-spacing: 0.12em; }
-.wimm__siegel span,
-.wimm__karte-zahl,
-.wimm__band-ziel span { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }
-
-/* ---------------------------------------------------------------------------
-   10  DIE VIER TEXTE
-   Ohne Javascript stehen sie hier offen unter der Flaeche. warum.js holt
-   die Liste in das Fenster; dort erbt sie den Navygrund.
---------------------------------------------------------------------------- */
-.wimm__texte {
-  display: grid;
-  gap: clamp(1.4rem, 3vw, 2.4rem);
-  margin-top: var(--wi-luft);
-  list-style: none;
-  counter-reset: none;
-}
-.wimm__karte { scroll-margin-top: calc(var(--header-h) + 2rem); }
-.wimm__karte-zahl {
-  font-size: clamp(0.7rem, 0.72vw, 0.79rem);
-  font-weight: 500;
+  font-size: clamp(0.85rem, 1.3vw, 1.25rem);    /* 20px bei 1536 */
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--wi-gold-dunkel);
+  color: var(--wi-navy);
+  margin: 0 0 clamp(1.1rem, 2.1vw, 1.95rem);
 }
-.wimm__karte-zahl span { margin-right: 0.5em; }
-.wimm__karte-h {
-  margin-top: 0.5rem;
-  font-size: clamp(1.35rem, 2.1vw, 1.95rem);
-  line-height: 1.16;
-  color: var(--navy-800);
+
+/* Vorlage: mittig, Grotesk 19px, Zeilenabstand 31px, grau; die
+   hervorgehobenen Stellen in Navy und halbfett. */
+.wi__band-text {
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: clamp(0.94rem, 1.24vw, 1.19rem);   /* 19px bei 1536 */
+  line-height: 1.65;
+  color: var(--wi-grau);
+  margin: 0 auto;
 }
-.wimm__karte-text {
-  margin-top: 0.75rem;
-  max-width: 58ch;
-  font-size: clamp(0.98rem, 1.02vw, 1.1rem);
-  line-height: 1.66;
-  color: var(--ink-black);
+/* Die Umbrueche stehen so auf der Vorlage: links bricht die erste Zeile
+   nach „Steuern, Abgaben und", rechts steht der erste Satz einzeilig.
+   Deshalb tragen beide Haelften ein eigenes Zeilenmass. */
+.wi__band-halb:first-child  .wi__band-text { max-width: 22.4em; }
+.wi__band-halb:last-child   .wi__band-text { max-width: 26em; }
+.wi__band-text + .wi__band-text { margin-top: 0.42em; }
+.wi__band-text b {
+  font-weight: 500;
+  color: var(--wi-navy);
 }
-.wimm__karte-kern {
-  margin-top: 0.7rem;
-  max-width: 52ch;
+
+/* Trenner: senkrechte Haarlinie mit dem Kreis darauf.
+   Vorlage: Linie x=768 von y=205 bis y=345, Kreis Mittelpunkt y=281, r=36. */
+.wi__band-trenn {
+  position: relative;
+  align-self: stretch;
+  width: clamp(56px, 8.6vw, 132px);
+  display: grid;
+  place-items: center;
+}
+.wi__band-linie {
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 2px; height: 100%;
+}
+.wi__band-vs {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width:  clamp(48px, 4.7vw, 72px);             /* 72px bei 1536 */
+  height: clamp(48px, 4.7vw, 72px);
+  border-radius: 50%;
+  border: 1px solid var(--wi-haar);
+  background: #FBF8F5;
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.3vw, 1.28rem);
-  line-height: 1.4;
-  color: var(--accent);
-}
-.wimm__karte-zusatz {
-  margin-top: 0.7rem;
-  max-width: 60ch;
-  font-size: clamp(0.86rem, 0.9vw, 0.95rem);
-  line-height: 1.6;
-  color: var(--ink-mute);
-}
-
-/* Im Fenster: derselbe Text, heller Satz auf Navy. */
-.wimm__fenster .wimm__texte {
-  margin-top: 0;
-  gap: 0;
-}
-.wimm__fenster .wimm__karte-zahl  { color: var(--wi-gold); }
-.wimm__fenster .wimm__karte-h     { color: #FFFFFF; }
-.wimm__fenster .wimm__karte-text  { color: var(--wi-creme); }
-.wimm__fenster .wimm__karte-kern  { color: var(--wi-gold-licht); }
-.wimm__fenster .wimm__karte-zusatz{ color: var(--wi-beige); }
-.wimm__fenster .wimm__karte[hidden] { display: none; }
-
-/* ---------------------------------------------------------------------------
-   11  ERGEBNIS, ABSCHLUSS, FACHHINWEIS
---------------------------------------------------------------------------- */
-/* Ohne Abschluss-Ueberschrift traegt den Uebergang allein die Luft:
-   eine deutlich laengere ruhige Strecke als zwischen den uebrigen
-   Bloecken, damit der Knopf nicht an der Navyflaeche klebt. */
-.wimm__abschluss {
-  margin-top: clamp(3.4rem, 7.6vh, 6.4rem);
-  text-align: center;
-}
-.wimm__knopf { margin-top: 0; }
-.wimm__nachsatz {
-  margin-top: clamp(0.8rem, 1.8vh, 1.2rem);
-  margin-inline: auto;
-  max-width: 56ch;
-  font-size: clamp(0.86rem, 0.9vw, 0.95rem);
-  line-height: 1.6;
-  color: var(--ink-soft);
-}
-.wimm__hinweis {
-  margin-top: clamp(1.6rem, 3.4vh, 2.6rem);
-  margin-inline: auto;
-  max-width: 78ch;
-  padding-top: clamp(1rem, 2vh, 1.6rem);
-  border-top: 1px solid var(--line-soft);
-  font-size: clamp(0.79rem, 0.82vw, 0.86rem);
-  line-height: 1.66;
-  color: var(--ink-mute);
-  text-align: center;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.82vw, 1.75rem);   /* 28px bei 1536 */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--wi-navy);
+  margin: 0;
 }
 
 /* ---------------------------------------------------------------------------
-   12  SCHMALE FENSTER
+   4  ZWISCHENKOPF
+   Vorlage: „Vier Kräfte…" Grundlinie y=482, Versalhoehe 30px → 45px Grad.
 --------------------------------------------------------------------------- */
-@media (max-width: 1180px) {
-  .wimm__punkt { --wi-ikon: clamp(58px, 8vw, 100px); }
-  .wimm__band-ziel { flex-basis: 30%; min-width: 132px; height: 66px; }
+.wi__h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.93vw, 2.82rem);    /* 45px bei 1536 */
+  line-height: 1.15;
+  text-align: center;
+  color: var(--wi-navy);
+  text-wrap: balance;
+  margin: clamp(2.6rem, 6.4vh, 4.6rem) 0 0;     /* Vorlage: 380 → 452 */
+}
+.wi__h3sub {
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: clamp(0.94rem, 1.24vw, 1.19rem);
+  line-height: 1.6;
+  text-align: center;
+  color: var(--wi-grau);
+  margin: 0.4rem 0 0;
 }
 
-/* Unter 900: das Vergleichsband stapelt sich. */
-@media (max-width: 900px) {
-  .wimm__band {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(1.4rem, 3vh, 2.2rem);
-  }
-  .wimm__band-vs {
-    width: auto; height: 1px;
-    min-height: 0;
-    align-self: center;
-    justify-self: center;
-    max-width: 220px;
-    width: 100%;
-  }
-  .wimm__band-halb--immo .wimm__band-marke { padding-right: 0; }
-  .wimm__band-marke { margin-bottom: clamp(0.9rem, 2vh, 1.4rem); }
-  .wimm__band-zeile { justify-content: center; }
-  .wimm__band-fluss { flex-direction: column; align-items: stretch; gap: clamp(1rem, 3vh, 1.6rem); }
-  .wimm__band-liste {
-    flex: none;
-    height: auto;
-    grid-template-rows: none;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px 1.4rem;
-  }
-  .wimm__band-kurven { display: none; }
-  .wimm__band-ziel {
-    flex: none;
-    width: 100%;
-    min-width: 0;
-    height: 58px;
-    margin-left: 0;
-    padding-right: 36px;
-    clip-path: polygon(0 19.7%, calc(100% - 36px) 19.7%, calc(100% - 36px) 0,
-                       100% 50%, calc(100% - 36px) 100%, calc(100% - 36px) 80.3%, 0 80.3%);
-  }
+/* ---------------------------------------------------------------------------
+   5  DAS FELD
+   Ruhende Vorlage: das Feld liegt bei x 145..1382, y 500..852. Auf der
+   aktiven Vorlage tragen die Karten zusaetzlich die Zeile „Mehr erfahren";
+   dadurch waechst ihre Hoehe von 132 auf 154. Das Feld traegt deshalb das
+   Seitenverhaeltnis 1240:385. Die Karten liegen in Prozent darin, die
+   Adern in einem SVG mit genau diesem viewBox — dadurch treffen Aderende
+   und Kartenrand bei jeder Breite auf den Bildpunkt genau aufeinander.
+--------------------------------------------------------------------------- */
+.wi__feld {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: clamp(0.4rem, 1vh, 0.9rem) auto 0;
+  aspect-ratio: 1240 / 385;
+  container-type: inline-size;
 }
 
-/* Unter 780: die Flaeche stapelt sich — Immobilie zuerst, dann die Punkte. */
-@media (max-width: 780px) {
-  .wimm__buehne { margin-inline: calc(var(--gutter) * -0.35); }
-  .wimm__feld {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-    row-gap: clamp(0.9rem, 3vw, 1.6rem);
-  }
-  .wimm__punkt--01, .wimm__punkt--02,
-  .wimm__punkt--03, .wimm__punkt--04,
-  .wimm__mitte { grid-area: auto; }
-  .wimm__mitte { order: -1; margin-bottom: 0.6rem; }
-  .wimm__punkt,
-  .wimm__punkt[data-wi-seite='rechts'] {
-    --wi-ikon: clamp(62px, 17vw, 92px);
-    --wi-titel: clamp(1.05rem, 4.6vw, 1.3rem);
-    --wi-sub: clamp(0.78rem, 3.3vw, 0.88rem);
-    flex-direction: row;
-    gap: 0.9rem;
-    justify-content: flex-start;
-    border: 1px solid rgba(199, 163, 106, 0.28);
-    border-radius: 14px;
-    padding: 0.5rem 0.9rem;
-  }
-  .wimm__punkt-wort { text-align: left; }
-  .wimm__ader { display: none; }
-
-  .wimm__feld[data-wi-aktiv] { grid-template-columns: minmax(0, 1fr); }
-  .wimm__feld[data-wi-aktiv] > * { grid-area: auto; }
-  .wimm__feld[data-wi-aktiv] > *:not([data-wi-an]):not([data-wi-fenster]) { display: none; }
-  .wimm__feld[data-wi-aktiv] .wimm__punkt[data-wi-an],
-  .wimm__feld[data-wi-seite='links']  .wimm__punkt[data-wi-an],
-  .wimm__feld[data-wi-seite='rechts'] .wimm__punkt[data-wi-an] {
-    grid-area: auto;
-    justify-self: stretch;
-    --wi-ikon: clamp(76px, 22vw, 118px);
-    --wi-titel: clamp(1.25rem, 5.6vw, 1.6rem);
-    --wi-sub: clamp(0.82rem, 3.5vw, 0.94rem);
-  }
-  .wimm__feld[data-wi-seite='links'] .wimm__fenster,
-  .wimm__feld[data-wi-seite='rechts'] .wimm__fenster {
-    grid-area: auto;
-    --wi-von: 0px;
-  }
-  .wimm__feld[data-wi-aktiv] .wimm__fenster[data-wi-ein] { transform: translateY(18px); }
-
+.wi__adern {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
 }
 
-@media (max-width: 520px) {
-  .wimm__reiter {
+/* Das Haus. Die Vorlage misst die Grundstuecksplatte 356 von 1237
+   Feldbreite; der Ring darum ist 1,31 mal so breit. Damit dieses
+   Verhaeltnis stimmt, ist die Zeichenflaeche 451 Feldeinheiten breit —
+   die Platte fuellt davon 79 Prozent. Senkrecht so gesetzt, dass die
+   vordere Ecke der Platte auf der Mittelhoehe des Rings liegt, wie in
+   der Vorlage. */
+.wi__haus {
+  position: absolute;
+  /* Die erzeugte Abbildung ist QUADRATISCH (1024 x 1024) und zeigt ein
+     hoeheres Haus auf einer kleineren Platte als die Zeichnung davor.
+     Damit die Platte weiterhin mittig im Ring sitzt und das Dach nicht in
+     die Zeile darueber ragt, ist nur die BILDFLAECHE neu vermessen —
+     Karten, Adern, Ring und Schild sind unberuehrt geblieben:
+       sichtbarer Inhalt der Datei  x 31..1005, y 77..959 von 1024
+       Anzeigebreite 339 Feldeinheiten, Inhalt damit 322 breit, 292 hoch
+       waagrecht auf die Feldmitte 620 zentriert
+       senkrecht so, dass die Platte auf der Ringmitte endet */
+  /* NEU VERMESSEN am 25.08.2026 fuer die freigestellte Abbildung. Die
+     vorige war gar nicht freigestellt — sie steckte in einem deckenden
+     Rechteck, deshalb stand das Haus nie im Ring.
+
+       Datei              1254 x 1254
+       sichtbarer Inhalt  x 40..1221, y 89..1182  =  1181 x 1093
+       Anzeigebreite      30,48 % von 1240 = 378 Feldeinheiten
+       Gebaeude damit     356 breit, 329 hoch
+       Ring (Ellipse)     Mitte 620 / 289, rx 234, ry 69, also 468 breit
+
+     Waagrecht auf die Ringmitte 620 zentriert — dabei zaehlt die Mitte des
+     SICHTBAREN Inhalts (50,3 % der Dateibreite), nicht die Dateimitte.
+     Senkrecht so, dass die Unterkante der Sockelplatte auf der Mittellinie
+     der Ellipse aufsetzt: 289 - 0,9426 x 378 = -67,4 Feldeinheiten. */
+  left: 34.68%;                 /* (620 - 190) / 1240 */
+  width: 30.48%;                /* 378 / 1240         */
+  top: -17.5%;                  /* -67,4 / 385        */
+  z-index: 2;
+}
+/* Das Haus ist seit dem 25.08.2026 eine erzeugte Abbildung statt einer
+   Zeichnung — der Kunde wollte die Motive der Vorlage, nicht nachgezeichnete.
+   Die Datei ist 1024 px breit und steht damit bis 512 CSS-Pixel scharf; sie
+   ist freigestellt und liegt direkt auf dem Navy. `object-fit: contain` haelt
+   sie im Rahmen, ohne dass die Lage des Rahmens angetastet werden muesste. */
+.wi__haus picture { display: block; width: 100%; }
+.wi__haus img { width: 100%; height: auto; }
+.wi__haus img { width: 100%; height: auto; object-fit: contain; }
+
+/* Sprechblase. Ruhende Vorlage: rechts am Haus, Zipfel nach unten links.
+   Sie gehoert zum Ruhezustand; sobald ein Punkt angetippt ist, ist sie
+   auf der aktiven Vorlage nicht mehr da. */
+/* SCHLAEFT seit dem 25.08.2026 — die Sprechblase ist auf Kundenwunsch aus
+   dem Markup entfernt. Die Regeln bleiben als Rueckweg stehen. */
+.wi__blase {
+  position: absolute;
+  left: 60.40%;                 /* 749 / 1240 */
+  width: 9.27%;                 /* 115 / 1240 */
+  top: 39.74%;                  /* 153 / 385  */
+  z-index: 3;
+  border-radius: 8px;
+  background: #EFECE7;
+  padding: 0.75cqw 0.8cqw 0.85cqw;
+}
+.wi__blase p { margin: 0; font-family: var(--wi-sans); line-height: 1.34; }
+.wi__blase-t { font-weight: 500; font-size: 1.21cqw; color: #23282F; }
+.wi__blase-s { font-weight: 400; font-size: 1.21cqw; color: #4A5260; }
+.wi__blase-zipfel {
+  position: absolute;
+  left: 5%;
+  top: 100%;
+  width: 1.45cqw;
+  height: auto;
+  margin-top: -1px;
+}
+
+/* Das Schild. Feldeinheiten: 305 x 43, mittig, y 324..367. */
+.wi__schild {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 84.16%;                  /* 324 / 385  */
+  width: 24.6%;                 /* 305 / 1240 */
+  height: 11.17%;               /* 43 / 385   */
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--wi-navy-tief);
+  color: #FFFFFF;
+  font-family: var(--wi-sans);
+  font-weight: 500;
+  font-size: 1.29cqw;           /* 16px bei 1240 */
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   6  DIE VIER KARTEN
+   Feldeinheiten: je 300 x 154, Radius 18. Links x 0..300, rechts
+   x 940..1240. Oben y 6..160, unten y 212..366. Das Sinnbild sitzt 24 vom
+   linken Rand, ist 90 x 90 gross und steht senkrecht mittig.
+--------------------------------------------------------------------------- */
+.wi__karte {
+  position: absolute;
+  z-index: 3;
+  /* Am 25.08.2026 von 24,19 auf 27,5 Prozent verbreitert — bei
+     „Wertentwicklung" lief der Text weiterhin aus der Karte. Die
+     Ansatzpunkte der Verbindungslinien im Adern-SVG wandern mit
+     (x 308 -> 349 und 932 -> 891), sonst treffen sie die Karte nicht. */
+  width: 27.5%;                 /* 341 / 1240 */
+  /* Am 25.08.2026 von 40 auf 46 Prozent erhoeht: bei „Wertentwicklung“ lief
+     der Text aus der Karte. 46 Prozent von 385 sind 177 statt 154
+     Feldeinheiten. Die BREITE bleibt unangetastet — sie haengt an den
+     Ansatzpunkten der Verbindungslinien im Adern-SVG (x 308 und 932), die
+     sonst mitwandern muessten. */
+  height: 52%;                  /* 200 / 385 */
+  display: flex;
+  align-items: center;
+  gap: 2.1cqw;                  /* 26px bei 1240 */
+  padding: 0 0.97cqw 0 1.94cqw; /* 24px links, 12px rechts */
+  border-radius: 18px;
+  background: var(--wi-karte);
+  border: 1px solid rgba(16, 41, 73, 0.05);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.035), 0 10px 24px rgba(16, 41, 73, 0.045);
+  transition: border-color 0.16s var(--ease);
+}
+/* Oberkanten nachgezogen, damit die Kartenmitte weiterhin dort liegt, wo die
+   Verbindungslinie ansetzt (y 83 oben, y 289 unten). Sonst liefe die Linie
+   durch die groessere Karte hindurch statt an ihre Kante. */
+.wi__karte--01 { left: 0;     top: -1.56%; }   /* Mitte bei 94  */
+.wi__karte--02 { left: 72.5%; top: -1.56%; }
+.wi__karte--03 { left: 0;     top: 49.87%; }   /* Mitte bei 292 */
+.wi__karte--04 { left: 72.5%; top: 49.87%; }
+
+/* Der Navyrahmen markiert den angetippten Punkt — so wie auf der aktiven
+   Vorlage. Er ersetzt die Haarlinie, deshalb ein negativer Ausgleich am
+   Innenrand, damit der Inhalt nicht springt. */
+.wi__karte[aria-expanded='true'],
+.wi__karte:hover,
+.wi__karte:focus-visible {
+  border: 2px solid #10305C;
+  padding: 0 calc(0.97cqw - 1px) 0 calc(1.94cqw - 1px);
+  box-shadow: none;
+  background: #FCFBF9;
+}
+.wi__karte:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.wi__ikon {
+  flex: 0 0 auto;
+  width: 7.26cqw;               /* 90 / 1240 */
+}
+/* Die vier Kartensymbole ebenso — erzeugte Abbildungen statt Zeichnungen.
+   `aspect-ratio: 1` haelt das Feld quadratisch, obwohl die Dateien
+   unterschiedliche Seitenverhaeltnisse haben (Schluessel und Dokument stehen
+   hoch, das Diagramm quer). Damit bleibt die Kartengeometrie unveraendert —
+   angepasst wird die Bildflaeche, nicht das Layout. */
+.wi__ikon picture { display: block; width: 100%; aspect-ratio: 1; }
+.wi__ikon img { width: 100%; height: 100%; object-fit: contain; }
+/* Die Zeichnungen im <symbol>-Vorrat oben im Markup bleiben liegen: sie
+   kosten nichts und sind der Rueckweg, falls die Abbildungen doch nicht
+   gefallen. */
+.wi__ikon svg { width: 100%; height: auto; }
+
+.wi__karte-wort { display: block; min-width: 0; }
+
+/* Versalien, Grotesk halbfett, Navy. */
+.wi__karte-t {
+  display: block;
+  font-family: var(--wi-sans);
+  font-weight: 500;
+  font-size: 1.21cqw;           /* 15px bei 1240 */
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--wi-navy);
+  line-height: 1.2;
+}
+.wi__karte-s {
+  display: block;
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: 1.37cqw;           /* 17px bei 1240 */
+  line-height: 1.32;
+  color: var(--wi-grau);
+  margin-top: 0.45cqw;
+}
+/* Nur auf der aktiven Vorlage zu sehen; hier steht sie in beiden
+   Zustaenden, weil man der Karte sonst nicht ansieht, dass sie sich
+   antippen laesst. */
+.wi__karte-mehr {
+  display: flex;
+  align-items: center;
+  gap: 1.05cqw;
+  margin-top: 1.05cqw;
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: 1.29cqw;           /* 16px bei 1240 */
+  line-height: 1.2;
+  color: var(--wi-navy);
+  white-space: nowrap;
+}
+.wi__karte-mehr svg { width: 2.1cqw; height: auto; flex: 0 0 auto; }
+
+/* ---------------------------------------------------------------------------
+   7  DIE VIER ERKLAERTEXTE
+   Aktive Vorlage: ein Kasten unter dem Feld, so breit wie das Feld.
+   Links das Sinnbild, in der Mitte Kleinzeile, Ueberschrift und Text,
+   rechts der salbeigruene Merksatz.
+   Gemessen (auf 1240 Feldeinheiten umgerechnet): Kasten 1240 x 164,
+   Sinnbild 114 breit ab x 52, Textspalte ab x 221, gruener Kasten
+   371 breit, 39 vom rechten Rand.
+--------------------------------------------------------------------------- */
+.wi__texte {
+  width: 100%;
+  max-width: 1240px;
+  margin: clamp(0.9rem, 1.9vh, 1.5rem) auto 0;
+  container-type: inline-size;
+}
+.wi__texte li + li { margin-top: clamp(0.7rem, 1.4vh, 1.1rem); }
+
+.wi__panel {
+  display: grid;
+  /* Die Vorlage misst den Kasten 164 Feldeinheiten hoch, der Kunde gibt
+     hoechstens 180 Punkte vor. Alle vier Texte sind so gesetzt, dass sie
+     in dieses Fenster passen — deshalb steht hier eine Mindesthoehe und
+     KEINE Hoechsthoehe: eine Hoechsthoehe wuerde schneiden statt fuehren. */
+  min-height: 180px;
+  grid-template-columns: 13.7cqw minmax(0, 1fr) 29.9cqw;
+  align-items: center;
+  column-gap: 1.4cqw;
+  padding: 1.4cqw 3.15cqw 1.4cqw 4.2cqw;
+  border-radius: 16px;
+  background: #FCF9F6;
+  border: 1px solid rgba(16, 41, 73, 0.05);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03), 0 10px 24px rgba(16, 41, 73, 0.04);
+}
+.wi__panel-ikon { display: block; width: 9.19cqw; }   /* 114 / 1240 */
+.wi__panel-ikon picture { display: block; width: 100%; aspect-ratio: 1; }
+.wi__panel-ikon img { width: 100%; height: 100%; object-fit: contain; }
+.wi__panel-ikon svg { width: 100%; height: auto; }
+
+.wi__panel-nr {
+  font-family: var(--wi-sans);
+  font-weight: 500;
+  font-size: 1.25cqw;           /* 15.5px bei 1240 */
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wi-gold);
+  margin: 0;
+}
+.wi__panel-h {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2.18cqw;           /* 27px bei 1240 */
+  line-height: 1.16;
+  color: var(--wi-navy);
+  margin: 0.3cqw 0 0;
+}
+.wi__panel-text {
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: 1.37cqw;           /* 17px bei 1240 */
+  line-height: 1.56;
+  color: var(--wi-grau);
+  margin: 0.35cqw 0 0;
+  max-width: 46em;
+}
+/* Der Merksatz. Salbeigruen, mittig, gemessener Grund #E9E9DF;
+   Navy darauf misst 12.5:1. */
+.wi__panel-kern {
+  display: grid;
+  place-items: center;
+  min-height: 8.06cqw;          /* 100 / 1240 */
+  padding: 1.3cqw 1.8cqw;
+  border-radius: 10px;
+  background: #E9E9DF;
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: 1.45cqw;           /* 18px bei 1240 */
+  line-height: 1.5;
+  text-align: center;
+  color: #1B2B3C;
+  margin: 0;
+  /* Der Umbruch steht so auf der aktiven Vorlage: „Du startest direkt mit /
+     einer vollständigen Immobilie." Dafuer braucht der Satz ein Zeilenmass. */
+  text-wrap: balance;
+}
+.wi__panel-kern > span { display: block; max-width: 20.2cqw; }
+
+/* Mit Javascript steht im Ruhezustand keiner der vier Texte offen — so
+   wie auf der ruhenden Vorlage. */
+.wi[data-js='an'] .wi__panel[hidden] { display: none; }
+
+/* ---------------------------------------------------------------------------
+   8  FUSS: REITER UND KNOPF
+   Vorlage: Haarlinie ueber der Reiterzeile; Reiter links, Knopf rechts
+   (350 x 62, Radius 10).
+--------------------------------------------------------------------------- */
+.wi__fuss {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3.2rem);
+  margin-top: clamp(1.6rem, 3.6vh, 2.6rem);
+}
+
+.wi__reiter { min-width: 0; }
+.wi__reiter ol {
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid var(--wi-haar);
+  padding-top: clamp(0.9rem, 1.9vw, 1.8rem);
+}
+.wi__reiter li {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+}
+.wi__reiter li + li { border-left: 1px solid var(--wi-haar); }
+
+.wi__reiter a {
+  display: inline-block;
+  padding: 0 0.7em 0.42em;
+  font-family: var(--wi-sans);
+  font-weight: 500;
+  font-size: clamp(0.78rem, 0.98vw, 0.94rem);   /* 15px bei 1536 */
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wi-navy);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+.wi__reiter-nr {
+  color: var(--wi-gold);
+  margin-right: 0.55em;
+  letter-spacing: 0.1em;
+}
+.wi__reiter a[aria-current='true'] { border-bottom-color: #A8874F; }
+.wi__reiter a:hover { color: #0B2C57; }
+
+/* Vorlage: Navyknopf, weisse Grotesk 19px, Pfeil rechts. */
+.wi__knopf-zeile { margin: 0; }
+.wi__knopf {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.9rem, 1.7vw, 1.65rem);
+  min-height: clamp(50px, 4.04vw, 62px);        /* 62px bei 1536 */
+  padding: 0 clamp(1.2rem, 1.63vw, 1.56rem);
+  border-radius: 10px;
+  background: var(--wi-navy-tief);
+  color: #FFFFFF;
+  font-family: var(--wi-sans);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.24vw, 1.19rem);      /* 19px bei 1536 */
+  line-height: 1.2;
+  box-shadow: 0 1px 2px rgba(11, 44, 87, 0.16), 0 10px 22px rgba(11, 44, 87, 0.16);
+  transition: background-color 0.18s var(--ease);
+}
+.wi__knopf svg { width: clamp(20px, 1.69vw, 26px); height: auto; flex: 0 0 auto; }
+.wi__knopf:hover { background: #0E3768; }
+
+/* Zwischen 1001 und 1240 Punkten ist das Feld schmaler als seine Vollbreite.
+   Weil alle Masse darin in cqw stehen, schrumpft dort auch die Schrift mit.
+   Unter 13 Punkten wird sie unangenehm; deshalb bekommt die Karte in diesem
+   Bereich groessere Anteile und ein kleineres Sinnbild. */
+@media (min-width: 1001px) and (max-width: 1240px) {
+  .wi__ikon       { width: 6.2cqw; }
+  .wi__karte      { gap: 1.7cqw; }
+  .wi__karte-t    { font-size: max(11.5px, 1.35cqw); letter-spacing: 0.04em; }
+  .wi__karte-s    { font-size: max(13px, 1.55cqw); }
+  .wi__karte-mehr { font-size: max(12px, 1.42cqw); gap: 0.8cqw; }
+  .wi__karte-mehr svg { width: 1.7cqw; }
+  .wi__schild     { font-size: max(11.5px, 1.45cqw); }
+  .wi__blase-t, .wi__blase-s { font-size: max(11px, 1.35cqw); }
+  .wi__panel-nr   { font-size: max(11.5px, 1.4cqw); }
+  .wi__panel-h    { font-size: max(19px, 2.6cqw); }
+  .wi__panel-text { font-size: max(14px, 1.7cqw); }
+  .wi__panel-kern { font-size: max(14px, 1.7cqw); }
+  .wi__panel-kern > span { max-width: 22cqw; }
+}
+
+/* ---------------------------------------------------------------------------
+   9  SCHMALE FENSTER
+   Unter 1000px traegt das Feld die vier Karten nicht mehr nebeneinander.
+   Es loest sich dann auf: Haus, Schild, danach die Karten untereinander.
+   Die Adern entfallen — sie verbinden nichts mehr.
+--------------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .wi__feld {
+    aspect-ratio: auto;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
+    gap: clamp(0.8rem, 2.2vw, 1.3rem);
+    margin-top: clamp(1.2rem, 3vh, 2rem);
   }
-  .wimm__reiter a { justify-content: center; padding: 0.62em 0.6em; letter-spacing: 0.1em; }
-  .wimm__siegel span { letter-spacing: 0.1em; }
+  .wi__adern { display: none; }
+
+  .wi__haus {
+    position: static;
+    width: min(340px, 72%);
+    margin: 0 auto;
+  }
+  .wi__blase {
+    position: static;
+    width: max-content;
+    max-width: 100%;
+    margin: -0.4rem auto 0;
+    padding: 0.55rem 0.85rem 0.6rem;
+    text-align: center;
+  }
+  .wi__blase-t, .wi__blase-s { font-size: clamp(0.85rem, 2.4vw, 0.95rem); }
+  .wi__blase-zipfel { display: none; }
+
+  .wi__schild {
+    position: static;
+    transform: none;
+    width: max-content;
+    max-width: 100%;
+    height: auto;
+    margin: 0.2rem auto 0.7rem;
+    padding: 0.75rem 1.4rem;
+    font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+    white-space: normal;
+    text-align: center;
+  }
+
+  .wi__karte {
+    position: static;
+    width: 100%;
+    height: auto;
+    gap: clamp(0.9rem, 3vw, 1.4rem);
+    padding: clamp(0.9rem, 3vw, 1.3rem) clamp(1rem, 3.4vw, 1.5rem);
+  }
+  .wi__karte[aria-expanded='true'],
+  .wi__karte:hover,
+  .wi__karte:focus-visible {
+    padding: calc(clamp(0.9rem, 3vw, 1.3rem) - 1px) calc(clamp(1rem, 3.4vw, 1.5rem) - 1px);
+  }
+  .wi__ikon { width: clamp(56px, 15vw, 78px); }
+  .wi__karte-t { font-size: clamp(0.82rem, 2.6vw, 0.94rem); }
+  .wi__karte-s { font-size: clamp(0.94rem, 3.2vw, 1.06rem); margin-top: 0.22rem; }
+  .wi__karte-s br { display: none; }
+  .wi__karte-mehr {
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    gap: 0.6rem;
+    margin-top: 0.55rem;
+  }
+  .wi__karte-mehr svg { width: 20px; }
+
+  .wi__panel {
+    grid-template-columns: clamp(56px, 15vw, 84px) minmax(0, 1fr);
+    align-items: start;
+    column-gap: clamp(0.9rem, 3vw, 1.4rem);
+    row-gap: clamp(0.8rem, 2.6vw, 1.2rem);
+    padding: clamp(1.1rem, 3.6vw, 1.6rem);
+  }
+  .wi__panel-ikon { width: 100%; }
+  .wi__panel-nr  { font-size: clamp(0.76rem, 2.4vw, 0.88rem); }
+  .wi__panel-h   { font-size: clamp(1.25rem, 4.4vw, 1.6rem); margin-top: 0.3rem; }
+  .wi__panel-text{ font-size: clamp(0.94rem, 3.2vw, 1.06rem); margin-top: 0.4rem; }
+  .wi__panel { min-height: 0; }
+  .wi__panel-kern > span { max-width: none; }
+  .wi__panel-kern{
+    grid-column: 1 / -1;
+    min-height: 0;
+    padding: clamp(0.8rem, 3vw, 1.1rem);
+    font-size: clamp(0.94rem, 3.2vw, 1.06rem);
+  }
+
+  .wi__fuss {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    gap: clamp(1.2rem, 3vh, 1.8rem);
+  }
+  .wi__knopf-zeile { text-align: center; }
+  .wi__knopf { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 760px) {
+  .wi__band {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: clamp(1.4rem, 5vw, 2rem) clamp(1rem, 4vw, 1.6rem);
+  }
+  .wi__band-trenn {
+    width: 100%;
+    height: auto;
+    padding: clamp(1rem, 4vw, 1.5rem) 0;
+  }
+  .wi__band-linie { display: none; }
+  .wi__band-marke { margin-bottom: clamp(0.8rem, 3vw, 1.2rem); }
+  .wi__band-vs { width: 54px; height: 54px; font-size: 1.15rem; }
+
+  .wi__reiter ol { flex-wrap: wrap; gap: 0.2rem 0; padding-top: 0.9rem; }
+  .wi__reiter li { flex: 1 1 46%; justify-content: flex-start; padding: 0.35rem 0; }
+  .wi__reiter li + li { border-left: 0; }
+  .wi__reiter a { padding-left: 0; padding-right: 0.6em; }
+}
+
+@media (max-width: 460px) {
+  .wi__reiter li { flex: 1 1 100%; }
 }
 
 /* ---------------------------------------------------------------------------
-   13  AUFDECKEN BEIM SCROLLEN
-   Alle Startzustaende haengen an data-js. Setzt warum.js das Attribut
-   nicht — kein Javascript, kein IntersectionObserver oder
-   `prefers-reduced-motion: reduce` — greift keine einzige Regel und der
-   Abschnitt steht von Anfang an vollstaendig da.
+   10  BEWEGUNG AUS
+   Ausser dem Farbwechsel am Knopf und der Rahmenfarbe der Karte gibt es
+   in diesem Abschnitt keine Bewegung. Beides wird hier abgeschaltet.
+   Ausserdem laesst warum.js die vier Erklaertexte dann offen stehen —
+   siehe dort.
 --------------------------------------------------------------------------- */
-.wimm[data-js='an'] [data-wi-block] {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.72s var(--ease-soft), transform 0.72s var(--ease-soft);
-}
-.wimm[data-js='an'] [data-wi-block][data-sicht='an'] {
-  opacity: 1;
-  transform: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .wimm *,
-  .wimm *::before,
-  .wimm *::after { transition: none !important; }
+  .wi__knopf, .wi__karte { transition: none; }
 }

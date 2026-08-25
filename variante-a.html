@@ -633,300 +633,426 @@
 <!-- =====================================================================
      WARUM IMMOBILIEN?   (#warum-immobilien)
 
-     Neu gebaut am 25.08.2026 nach einer BILDVORLAGE des Kunden
-     (WhatsApp-Bild vom 24.08.2026, 23.30 Uhr). Sie ersetzt die
-     Textstrecke mit fuenf Vorteilen vom 24.08.2026 vollstaendig; deren
-     Markup und CSS stehen in der Versionsgeschichte.
+     Neu gebaut am 25.08.2026, 1:1 nach ZWEI Bildvorlagen des Kunden:
+       Bilder/referenz-warum-immobilien.jpeg        Ruhezustand
+       Bilder/referenz-warum-immobilien-aktiv.jpeg  ein Punkt ist angetippt
+     Beide sind 1536 x 1024 und werden als 1536 Bildpunkte breite Ansicht
+     gelesen. Aufbau, Wortlaut, Farben, Groessenverhaeltnisse und Abstaende
+     sind daran gemessen, nicht geschaetzt; die Masse stehen in warum.css
+     jeweils daneben.
 
-     Kundenwortlaut: „Ich will, dass du die Section inhaltlich und
-     optisch eins zu eins genauso darstellst wie auf dem Bild. Jede
-     Kleinigkeit muss eins zu eins gleich aussehen."
+     SCHAERFE — der Punkt, an dem der vorige Versuch gescheitert ist:
+     JEDE Grafik in diesem Abschnitt ist Inline-SVG. Kein einziges
+     Rasterbild. Die Dateien unter assets/img/warum/ (bank, haus, miete,
+     steuer, zeit) stammen aus dem verworfenen Versuch und werden hier
+     bewusst NICHT mehr benutzt. Beim Zeichnen gilt: keine Filter — die
+     rastern das SVG beim Zeichnen; Haarlinien auf halbe Koordinaten bei
+     ungerader Strichstaerke; shape-rendering an den Kurven; und alle
+     Schrift steht als HTML neben dem SVG, nie darin, weil HTML-Text vom
+     Betriebssystem gehintet und damit schaerfer ist.
 
-     WAS DIE VORLAGE ZEIGT — und wie es hier gebaut ist
-       1  Kopf auf Cremegrund: Kleinzeile, zweizeilige Ueberschrift,
-          zweizeilige Unterzeile, alles mittig.
-       2  Ein Vergleichsband: links „Klassisch sparen" mit einer
-          einzelnen beigen Linie, in der Mitte ein „vs." im Kreis,
-          rechts „Mit Immobilie" mit vier farbigen Linien, die in einen
-          navyfarbenen Pfeil „Dein Vermoegen" zusammenlaufen.
-       3  Eine grosse, abgerundete Navyflaeche. Darin mittig die
-          Immobilie auf einem Grundbuchauszug, links davon Bankkapital
-          und Steuervorteile, rechts Miete und Zeit — jeder Punkt mit
-          Sinnbild, Titel, Beisatz und einer goldenen Ader zur Mitte.
-          Unter der Immobilie das Siegel „Dein Vermoegen waechst", ganz
-          unten vier Reiter 01 bis 04.
-       4  Darunter — im Bild abgeschnitten, deshalb im Hausstil gesetzt:
-          das Ergebnis, der Abschluss mit Knopf und der Fachhinweis.
+     WO DIE BEIDEN VORLAGEN SICH WIDERSPRECHEN — und wie entschieden wurde
+       — „Mehr erfahren" steht nur auf der aktiven Vorlage. Es steht hier
+         in BEIDEN Zustaenden: ohne diese Zeile sieht man der Karte nicht
+         an, dass sie sich antippen laesst.
+       — Der Navyrahmen liegt auf der ruhenden Vorlage um „MIETE", auf der
+         aktiven um den angetippten Punkt. Er markiert hier den
+         ANGETIPPTEN Punkt; im Ruhezustand traegt ihn keine Karte.
+       — Der Reiter heisst ruhend „BANK", aktiv „BANKKAPITAL". Ein Reiter
+         kann seinen Namen nicht wechseln; es gilt „BANKKAPITAL".
 
-     DIE FUENF SINNBILDER
-     Sie sind keine Nachzeichnung, sondern die Bildpunkte der Vorlage
-     selbst: aus der Kundendatei ausgeschnitten, vom Navygrund
-     freigestellt und dreifach vergroessert abgelegt unter
-     assets/img/warum/. Damit steht wirklich das Haus bei Bankkapital,
-     das Blatt bei Steuervorteile, der Schluessel bei Miete, die Uhr bei
-     Zeit und die Immobilie in der Mitte — Strich fuer Strich wie im
-     Bild. Die vier goldenen Adern und die Ader zum Siegel sind dagegen
-     nachgebaut, weil sie mit der Breite mitwandern muessen.
+     TEXTE: 01 steht Zeichen fuer Zeichen auf der aktiven Vorlage. 02 bis
+     04 sind auf keiner Vorlage lesbar; sie stehen woertlich im
+     Kundenbriefing Briefing/interaktion-vier-kraefte.md vom 25.08.2026,
+     Abschnitt „Wording — final". Nichts davon ist formuliert worden.
 
-     DIE BEDIENUNG — vom Kunden vorgegeben
-     Ein Klick auf einen Punkt vergroessert ihn, schiebt ihn auf seine
-     Haelfte der Navyflaeche und faehrt von der Gegenseite ein
-     Textfenster herein. Die uebrigen Punkte und die Immobilie treten
-     zurueck. Zurueck geht es ueber denselben Punkt, ueber den Reiter,
-     ueber „Schliessen" oder mit der Esc-Taste.
-
-     KEIN TOTER KNOPF
-     Die Punkte und die Reiter sind LINKS auf die vier Textbloecke, die
-     unterhalb der Flaeche im Dokument stehen. Ohne Javascript springt
-     man dorthin und liest den Text; die Bloecke stehen dann offen da.
-     Erst warum.js holt die Liste in das Textfenster hinein. Bei
-     `prefers-reduced-motion: reduce` unterbleibt das ebenfalls — dann
-     steht der gesamte Inhalt untereinander lesbar da.
-
-     GRENZEN — Punkt fuer Punkt geprueft
-     Keine Zahl ausser den Ordnungszahlen 01 bis 04. Kein Prozentsatz,
-     kein Betrag, keine Rendite, kein Rechenbeispiel. Nirgends
-     „garantiert", „risikofrei", „krisensicher", „sichere Rendite",
-     „Steuern auf null", „exklusiv" oder „geprueft". Bei 02 steht
-     ausdruecklich nichts zu Zins, Tilgung, Restschuld oder nicht
-     umlagefaehigen Kosten. Der Fachhinweis steht genau einmal, am Ende.
-
-     ABWEICHUNG VON DER VORLAGE — bewusst, mit Grund
-     Die Kleinzeile „Warum Immobilien?" steht im Bild in Gold auf Creme.
-     Gemessen sind das 2.15:1; verlangt sind 4.5:1. Sie steht deshalb im
-     dunkleren Gold #86693A (4.80:1). Auf der Navyflaeche bleibt das
-     helle Gold der Vorlage, dort misst es 6.7:1.
+     BEIM LADEN IST „01 BANKKAPITAL" AKTIV — so steht es in demselben
+     Briefing. Das Erklaerfeld ist auf dem Desktop immer sichtbar, wird
+     nie auf- oder zugeklappt und tauscht nur seinen Inhalt.
 
      TECHNIK: assets/css/warum.css und assets/js/warum.js.
      ===================================================================== -->
-<section class="wimm" id="warum-immobilien" aria-labelledby="wimm-titel">
-  <div class="wimm__inner">
+<section class="wi" id="warum-immobilien" aria-labelledby="wi-titel">
+  <div class="wi__inner">
 
-    <!-- ---------- KOPF ---------- -->
-    <header class="wimm__kopf" data-wi-block>
-      <p class="wimm__eyebrow">Warum Immobilien?</p>
-      <h2 class="display wimm__h2" id="wimm-titel">Du baust Vermögen nicht nur<span class="wimm__bruch"></span> mit deinem eigenen Geld auf.</h2>
-      <p class="wimm__unter">Bankkapital ermöglicht den Kauf. Miete und steuerliche Vorteile entlasten dich. Tilgung und Wertentwicklung vergrößern dein Vermögen.</p>
-    </header>
+    <!-- ---------- 0  DIE FUENF ZEICHNUNGEN ----------
+         Alle fuenf Sinnbilder liegen hier EINMAL als <symbol> und werden
+         unten ueber <use> geholt. Das haelt die Datei kurz und stellt
+         sicher, dass Karte und Erklaerkasten dieselbe Zeichnung zeigen.
 
-    <!-- ---------- VERGLEICHSBAND ----------
-         Links die eine Linie, rechts die vier. Reine Schaugrafik: sie
-         traegt keine Aussage, die nicht schon in der Unterzeile steht,
-         deshalb ist sie fuer Vorlesewerkzeuge ausgeblendet und die
-         Begriffe stehen darunter noch einmal als Text. -->
-    <div class="wimm__band" data-wi-block>
+         Jede Zeichnung ist nach einem stark vergroesserten Ausschnitt der
+         Vorlage gebaut; Farben sind aus dem Bildpunkt gelesen. Die
+         Plastizitaet (Licht von oben links, Schattenseite rechts unten)
+         steckt in Verlaeufen und in mehreren Flaechen unterschiedlicher
+         Helligkeit — nicht in Filtern: ein Filter wuerde die SVG beim
+         Zeichnen rastern und genau die Schaerfe kosten, um die es hier
+         geht. -->
+    <svg class="wi__sprite" aria-hidden="true" focusable="false" width="0" height="0">
+      <defs>
+        <!-- Bank: heller Verlauf fuer Saeulen und Gebaelk -->
+        <linearGradient id="wiSaeule" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"    stop-color="#FBF8F2"/>
+          <stop offset="0.45" stop-color="#EFE9DE"/>
+          <stop offset="1"    stop-color="#D2CABC"/>
+        </linearGradient>
+        <linearGradient id="wiNavy" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5E6A7A"/><stop offset="1" stop-color="#3B4755"/>
+        </linearGradient>
+        <linearGradient id="wiMessing" x1="0.1" y1="0" x2="0.9" y2="1">
+          <stop offset="0"   stop-color="#EBDAC0"/>
+          <stop offset="0.4" stop-color="#D8C4AB"/>
+          <stop offset="1"   stop-color="#BFA57F"/>
+        </linearGradient>
+        <linearGradient id="wiSalbei" x1="0.15" y1="0" x2="0.9" y2="1">
+          <stop offset="0" stop-color="#8E9C82"/><stop offset="1" stop-color="#5F7057"/>
+        </linearGradient>
+        <linearGradient id="wiSalbeiSenkrecht" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#93A187"/><stop offset="1" stop-color="#5C6E54"/>
+        </linearGradient>
+        <linearGradient id="wiBlatt" x1="0.1" y1="0" x2="0.9" y2="1">
+          <stop offset="0" stop-color="#F7F4EE"/><stop offset="1" stop-color="#E4DED4"/>
+        </linearGradient>
+        <linearGradient id="wiSand" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"   stop-color="#E6D5BC"/>
+          <stop offset="0.5" stop-color="#D8C0A0"/>
+          <stop offset="1"   stop-color="#BFA787"/>
+        </linearGradient>
+      </defs>
 
-      <div class="wimm__band-halb wimm__band-halb--klassisch">
-        <p class="wimm__band-marke">Klassisch sparen</p>
-        <p class="wimm__band-zeile">
-          <span class="wimm__band-wort">Nur dein Netto arbeitet</span>
-          <span class="wimm__band-strich" aria-hidden="true"></span>
-        </p>
+      <!-- ===== 1  BANK — dreisaeuliger Tempel auf zwei Sockeln ===== -->
+      <symbol id="wi-ik-bank" viewBox="0 0 96 96">
+        <!-- Masse aus dem 7,3fach vergroesserten Ausschnitt der Vorlage:
+             Giebel x 11..91 / y 2..27, Gebaelk y 27..35, Saeulen y 35..68,
+             Navysockel y 65..78, Bodenplatte y 76..90. -->
+        <path d="M10 76 H86 L94 82 H2 Z" fill="#F2ECE2"/>
+        <path d="M2 82 H94 V88 a2 2 0 0 1 -2 2 H4 a2 2 0 0 1 -2 -2 Z" fill="#DBD3C6"/>
+        <path d="M15 65 H81 L88 69 H8 Z" fill="#667384"/>
+        <rect x="8" y="69" width="80" height="9" fill="url(#wiNavy)"/>
+        <rect x="26" y="35" width="57" height="31" fill="#26303C"/>
+        <g>
+          <rect x="77" y="36" width="13" height="27" fill="#C4BCAE"/>
+          <rect x="75" y="32" width="18" height="4.5" fill="#DCD5C8"/>
+          <rect x="75" y="63" width="18" height="5"  fill="#DCD5C8"/>
+        </g>
+        <g>
+          <rect x="15.5" y="36" width="13" height="27" fill="url(#wiSaeule)"/>
+          <rect x="13.5" y="32" width="17" height="4.5" fill="#F4EFE5"/>
+          <rect x="13.5" y="63" width="17" height="5"  fill="#EFE9DE"/>
+
+          <rect x="37.5" y="36" width="13" height="27" fill="url(#wiSaeule)"/>
+          <rect x="35.5" y="32" width="17" height="4.5" fill="#F4EFE5"/>
+          <rect x="35.5" y="63" width="17" height="5"  fill="#EFE9DE"/>
+
+          <rect x="59.5" y="36" width="13" height="27" fill="url(#wiSaeule)"/>
+          <rect x="57.5" y="32" width="17" height="4.5" fill="#F4EFE5"/>
+          <rect x="57.5" y="63" width="17" height="5"  fill="#EFE9DE"/>
+        </g>
+        <path d="M13 23 H87 L92 27 H8 Z" fill="#F7F2E9"/>
+        <rect x="8" y="27" width="84" height="8" fill="#E9E3D7"/>
+        <path d="M49.6 2 L91 27 H8 Z" fill="#38424F"/>
+        <path d="M49.6 8.5 L82 26 H17 Z" fill="#525E70"/>
+      </symbol>
+
+      <!-- ===== 2  SCHLUESSEL mit gruenem Anhaenger ===== -->
+      <symbol id="wi-ik-miete" viewBox="0 0 96 96">
+        <!-- Schaft mit drei Kerben, Bahn in Python gerechnet -->
+        <path d="M 42.3 33.8 L 9.6 63.3 L 16.0 70.5 L 23.7 65.6 L 20.9 62.5 L 24.6 59.1 L 27.5 62.2 L 28.9 60.9 L 26.1 57.8 L 29.8 54.4 L 32.7 57.6 L 34.1 56.2 L 31.3 53.1 L 35.0 49.7 L 37.9 52.9 L 49.7 42.2 Z"
+              fill="url(#wiMessing)"/>
+        <!-- Reide -->
+        <circle cx="52" cy="26" r="19" fill="url(#wiMessing)"/>
+        <circle cx="52" cy="26" r="19" fill="none" stroke="#BFA57F" stroke-width="0.8"/>
+        <circle cx="55" cy="25" r="7.5" fill="#F8F5EF"/>
+        <circle cx="55" cy="25" r="7.5" fill="none" stroke="#C3AC8B" stroke-width="1"/>
+        <!-- Draht zum Anhaenger -->
+        <path d="M56 32 Q61 42 66 51" fill="none" stroke="#BDB09A" stroke-width="1.6"/>
+        <!-- gruener Anhaenger -->
+        <circle cx="70" cy="69" r="23" fill="url(#wiSalbei)"/>
+        <circle cx="70" cy="69" r="23" fill="none" stroke="#556546" stroke-width="0.8" opacity="0.5"/>
+        <circle cx="68.5" cy="52.5" r="3.2" fill="#4A5940"/>
+        <!-- Kreislaufzeichen -->
+        <g fill="none" stroke="#F7F5EE" stroke-width="3.4" stroke-linecap="butt">
+          <path d="M59.2 68.1 A11 11 0 0 1 80.8 68.1"/>
+          <path d="M80.8 71.9 A11 11 0 0 1 59.2 71.9"/>
+        </g>
+        <g fill="#F7F5EE">
+          <path d="M85.6 65.6 L76.4 68.4 L81.6 75.4 Z"/>
+          <path d="M54.4 74.4 L63.6 71.6 L58.4 64.6 Z"/>
+        </g>
+      </symbol>
+
+      <!-- ===== 3  BLATT mit gruenem Abwaertspfeil ===== -->
+      <symbol id="wi-ik-steuer" viewBox="0 0 96 96">
+        <!-- Masse aus dem vergroesserten Ausschnitt: Blatt 64 breit, 83 hoch,
+             vier Zeilen, gruener Pfeil rechts unten, Spitze unter dem Blatt. -->
+        <path d="M15 5 H60 L79 24 V85 a3 3 0 0 1 -3 3 H18 a3 3 0 0 1 -3 -3 Z" fill="url(#wiBlatt)"/>
+        <path d="M15 5 H60 L79 24 V85 a3 3 0 0 1 -3 3 H18 a3 3 0 0 1 -3 -3 Z" fill="none"
+              stroke="#D6CEC0" stroke-width="1"/>
+        <path d="M60 5 L79 24 H63 a3 3 0 0 1 -3 -3 Z" fill="#DFD8CA"/>
+        <g fill="#A3A292">
+          <rect x="24" y="31" width="25" height="4.4" rx="2.2"/>
+          <rect x="24" y="43" width="41" height="4.4" rx="2.2"/>
+          <rect x="24" y="55" width="41" height="4.4" rx="2.2"/>
+          <rect x="24" y="67" width="23" height="4.4" rx="2.2"/>
+        </g>
+        <g fill="#F1EDE6">
+          <rect x="24" y="35.4" width="25" height="1.3" rx="0.65"/>
+          <rect x="24" y="47.4" width="41" height="1.3" rx="0.65"/>
+          <rect x="24" y="59.4" width="41" height="1.3" rx="0.65"/>
+          <rect x="24" y="71.4" width="23" height="1.3" rx="0.65"/>
+        </g>
+        <path d="M53 54 h15 a2 2 0 0 1 2 2 v17 h6 L60.5 93 L44.5 73 h6.5 V56 a2 2 0 0 1 2 -2 Z"
+              fill="url(#wiSalbeiSenkrecht)"/>
+        <path d="M53 54 h5 v19 h-7 V56 a2 2 0 0 1 2 -2 Z" fill="#9FAE93" opacity="0.5"/>
+      </symbol>
+
+      <!-- ===== 4  SAEULENDIAGRAMM mit gruenem Zickzackpfeil ===== -->
+      <symbol id="wi-ik-wert" viewBox="0 0 96 96">
+        <g>
+          <rect x="3"    y="66"   width="16" height="20"   rx="2.5" fill="url(#wiSand)"/>
+          <rect x="21.5" y="57.5" width="16" height="28.5" rx="2.5" fill="url(#wiSand)"/>
+          <rect x="40"   y="51"   width="16" height="35"   rx="2.5" fill="url(#wiSand)"/>
+          <rect x="58.5" y="36.5" width="17" height="49.5" rx="2.5" fill="url(#wiSalbeiSenkrecht)"/>
+        </g>
+        <g fill="#000" opacity="0.09">
+          <rect x="15"   y="66"   width="4" height="20"   rx="2"/>
+          <rect x="33.5" y="57.5" width="4" height="28.5" rx="2"/>
+          <rect x="52"   y="51"   width="4" height="35"   rx="2"/>
+          <rect x="71.5" y="36.5" width="4" height="49.5" rx="2"/>
+        </g>
+        <path d="M4 55 L26 32 L38 49 L67 18" fill="none" stroke="#7E9375"
+              stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 55 L26 32 L38 49 L67 18" fill="none" stroke="#96A88C"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        <path d="M77 8 L73.6 28.4 L56.4 12.8 Z" fill="#7E9375"/>
+      </symbol>
+    </svg>
+
+    <!-- ---------- 1  KOPF ---------- -->
+    <p class="wi__eyebrow">Warum Immobilien?</p>
+    <h2 class="wi__h2" id="wi-titel">Du baust Vermögen nicht nur mit deinem eigenen Geld auf.</h2>
+    <p class="wi__sub">Der Unterschied: Wie viel Kapital vom ersten Tag an für dich arbeitet.</p>
+
+    <!-- ---------- 2  VERGLEICHSBAND ---------- -->
+    <div class="wi__band">
+      <div class="wi__band-halb">
+        <p class="wi__band-marke">Klassisch investieren</p>
+        <p class="wi__band-text">Von deinem Brutto gehen <b>Steuern, Abgaben und laufende Ausgaben</b> ab.</p>
+        <p class="wi__band-text">Investiert wird nur, <b>was am Ende übrig bleibt.</b></p>
       </div>
 
-      <p class="wimm__band-vs" aria-hidden="true"><span>vs.</span></p>
+      <div class="wi__band-trenn">
+        <svg class="wi__band-linie" viewBox="0 0 2 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M1 0 V140" stroke="#D6CEC4" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <p class="wi__band-vs"><span aria-hidden="true">vs</span><span class="wi__nur-vorlesen">im Vergleich zu</span></p>
+      </div>
 
-      <div class="wimm__band-halb wimm__band-halb--immo">
-        <p class="wimm__band-marke">Mit Immobilie</p>
-        <div class="wimm__band-fluss">
-          <ul class="wimm__band-liste" role="list">
-            <li data-ton="navy"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Bankkapital</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
-            <li data-ton="gold"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Miete</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
-            <li data-ton="gruen"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Steuervorteile</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
-            <li data-ton="beige"><span class="wimm__band-punkt" aria-hidden="true"></span><span class="wimm__band-name">Zeit</span><span class="wimm__band-faden" aria-hidden="true"></span></li>
-          </ul>
-          <svg class="wimm__band-kurven" viewBox="0 0 200 132" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0 16.5 H86 C138 16.5 148 66 200 66" />
-            <path d="M0 49.5 H104 C146 49.5 154 66 200 66" />
-            <path d="M0 82.5 H104 C146 82.5 154 66 200 66" />
-            <path d="M0 115.5 H86 C138 115.5 148 66 200 66" />
-          </svg>
-          <p class="wimm__band-ziel"><span>Dein Vermögen</span></p>
-        </div>
+      <div class="wi__band-halb">
+        <p class="wi__band-marke">Mit Immobilie</p>
+        <p class="wi__band-text">Deine Bonität eröffnet dir den Zugang zu <b>Bankkapital.</b></p>
+        <p class="wi__band-text">So arbeitet von Beginn an <b>deutlich mehr Kapital</b> für dich.</p>
       </div>
     </div>
 
-    <!-- ---------- DIE NAVYFLAECHE ---------- -->
-    <div class="wimm__buehne" data-wi-block>
-      <div class="wimm__buehne-kopf">
-        <p class="wimm__eyebrow wimm__eyebrow--hell">Die einfache Logik</p>
-        <h3 class="display wimm__h3">Vier Kräfte. Ein Sachwert.</h3>
+    <!-- ---------- 3  ZWISCHENKOPF ---------- -->
+    <h3 class="wi__h3">Vier Kräfte. Ein Ergebnis: dein Vermögen.</h3>
+    <p class="wi__h3sub">Alles greift ineinander.</p>
+
+    <!-- ---------- 4  DAS FELD ----------
+         Vier Karten um die Immobilie. Das Feld traegt das feste
+         Seitenverhaeltnis 1240:385; die Karten liegen in Prozent darin,
+         die Adern in einem SVG mit genau diesem viewBox. Dadurch treffen
+         Aderende und Kartenrand bei jeder Breite auf den Bildpunkt genau
+         aufeinander. -->
+    <div class="wi__feld">
+
+      <!-- Die Adern. Reine Schaugrafik, deshalb aria-hidden; die
+           Zuordnung steht im Text der Karten. -->
+      <svg class="wi__adern" viewBox="0 0 1240 385" fill="none" aria-hidden="true" focusable="false"
+           shape-rendering="geometricPrecision">
+        <g stroke="#0F2E52" stroke-width="2.4" stroke-linecap="round" fill="none">
+          <path d="M349 83 H386 C444 83 478 120 528 158"/>
+          <path d="M891 83 H854 C796 83 762 120 712 158"/>
+          <path d="M854 289 A234 69 0 1 1 386 289 A234 69 0 1 1 854 289"/>
+          <path d="M349 289 H386"/>
+          <path d="M854 289 H891"/>
+        </g>
+        <g fill="#C0985C">
+          <circle cx="349" cy="83" r="5"/>
+          <circle cx="891" cy="83" r="5"/>
+          <circle cx="349" cy="289" r="5"/>
+          <circle cx="891" cy="289" r="5"/>
+        </g>
+      </svg>
+
+      <!-- ---- Die Immobilie in der Mitte ---- -->
+      <div class="wi__haus">
+        <picture><source srcset="assets/img/warum/haus.webp?v=b24a" type="image/webp"><img src="assets/img/warum/haus.png?v=b24a" alt="Ein Mehrfamilienhaus auf einem begrünten Grundstück" width="1254" height="1254" loading="lazy" decoding="async"></picture>
       </div>
 
-      <div class="wimm__feld" data-wi-feld>
+      <!-- ---- Die Sprechblase am Haus (nur im Ruhezustand) ---- -->
+      <!-- Die Sprechblase steht seit dem 25.08.2026 nicht mehr hier — auf Kundenwunsch entfernt. -->
 
-        <!-- 01  BANKKAPITAL — Haus, links oben -->
-        <a class="wimm__punkt wimm__punkt--01" href="#wi-text-01"
-           data-wi-punkt="01" data-wi-seite="links"
-           aria-controls="wi-text-01" aria-expanded="false">
-          <span class="wimm__ikon">
-            <picture>
-              <source type="image/webp" srcset="assets/img/warum/bank.webp">
-              <img src="assets/img/warum/bank.png" alt="" width="392" height="370" loading="lazy" decoding="async">
-            </picture>
-          </span>
-          <span class="wimm__punkt-wort">
-            <span class="wimm__punkt-titel">Bankkapital</span>
-            <span class="wimm__punkt-sub">ermöglicht den Kauf</span>
-          </span>
-          <span class="wimm__ader" aria-hidden="true">
-            <span class="wimm__ader-kopf"></span>
-            <span class="wimm__ader-linie"></span>
-            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 1 C 12 1 20 25 32 25"/></svg>
-          </span>
-        </a>
+      <!-- ---- Das Schild unter dem Haus ---- -->
+      <p class="wi__schild">Dein Eigentum wächst</p>
 
-        <!-- 02  MIETE — Schluessel, rechts oben -->
-        <a class="wimm__punkt wimm__punkt--02" href="#wi-text-02"
-           data-wi-punkt="02" data-wi-seite="rechts"
-           aria-controls="wi-text-02" aria-expanded="false">
-          <span class="wimm__ikon">
-            <picture>
-              <source type="image/webp" srcset="assets/img/warum/miete.webp">
-              <img src="assets/img/warum/miete.png" alt="" width="398" height="413" loading="lazy" decoding="async">
-            </picture>
+      <!-- ---- Die vier Karten ---- -->
+      <a class="wi__karte wi__karte--01" href="#wi-text-01" data-wi-punkt="01"
+         aria-controls="wi-text-01" aria-expanded="true">
+        <span class="wi__ikon">
+          <picture><source srcset="assets/img/warum/bank.webp?v=b24a" type="image/webp"><img src="assets/img/warum/bank.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async"></picture>
+        </span>
+        <span class="wi__karte-wort">
+          <span class="wi__karte-t">Bankkapital</span>
+          <span class="wi__karte-s">ermöglicht<br> den Kauf</span>
+          <span class="wi__karte-mehr">Mehr erfahren
+            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                    vector-effect="non-scaling-stroke"/>
+            </svg>
           </span>
-          <span class="wimm__punkt-wort">
-            <span class="wimm__punkt-titel">Miete</span>
-            <span class="wimm__punkt-sub">trägt jeden Monat mit</span>
-          </span>
-          <span class="wimm__ader" aria-hidden="true">
-            <span class="wimm__ader-kopf"></span>
-            <span class="wimm__ader-linie"></span>
-            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 1 C 12 1 20 25 32 25"/></svg>
-          </span>
-        </a>
+        </span>
+      </a>
 
-        <!-- 03  STEUERVORTEILE — Blaetter, links unten -->
-        <a class="wimm__punkt wimm__punkt--03" href="#wi-text-03"
-           data-wi-punkt="03" data-wi-seite="links"
-           aria-controls="wi-text-03" aria-expanded="false">
-          <span class="wimm__ikon">
-            <picture>
-              <source type="image/webp" srcset="assets/img/warum/steuer.webp">
-              <img src="assets/img/warum/steuer.png" alt="" width="395" height="414" loading="lazy" decoding="async">
-            </picture>
+      <a class="wi__karte wi__karte--02" href="#wi-text-02" data-wi-punkt="02"
+         aria-controls="wi-text-02" aria-expanded="false">
+        <span class="wi__ikon">
+          <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+        </span>
+        <span class="wi__karte-wort">
+          <span class="wi__karte-t">Miete</span>
+          <span class="wi__karte-s">trägt monatlich mit</span>
+          <span class="wi__karte-mehr">Mehr erfahren
+            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                    vector-effect="non-scaling-stroke"/>
+            </svg>
           </span>
-          <span class="wimm__punkt-wort">
-            <span class="wimm__punkt-titel">Steuervorteile</span>
-            <span class="wimm__punkt-sub">mehr Netto bleibt</span>
-          </span>
-          <span class="wimm__ader" aria-hidden="true">
-            <span class="wimm__ader-kopf"></span>
-            <span class="wimm__ader-linie"></span>
-            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 25 C 12 25 20 1 32 1"/></svg>
-          </span>
-        </a>
+        </span>
+      </a>
 
-        <!-- 04  ZEIT — Uhr, rechts unten -->
-        <a class="wimm__punkt wimm__punkt--04" href="#wi-text-04"
-           data-wi-punkt="04" data-wi-seite="rechts"
-           aria-controls="wi-text-04" aria-expanded="false">
-          <span class="wimm__ikon">
-            <picture>
-              <source type="image/webp" srcset="assets/img/warum/zeit.webp">
-              <img src="assets/img/warum/zeit.png" alt="" width="401" height="380" loading="lazy" decoding="async">
-            </picture>
+      <a class="wi__karte wi__karte--03" href="#wi-text-03" data-wi-punkt="03"
+         aria-controls="wi-text-03" aria-expanded="false">
+        <span class="wi__ikon">
+          <picture><source srcset="assets/img/warum/steuer.webp?v=b24a" type="image/webp"><img src="assets/img/warum/steuer.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+        </span>
+        <span class="wi__karte-wort">
+          <span class="wi__karte-t">Steuervorteile</span>
+          <span class="wi__karte-s">können dich<br> entlasten</span>
+          <span class="wi__karte-mehr">Mehr erfahren
+            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                    vector-effect="non-scaling-stroke"/>
+            </svg>
           </span>
-          <span class="wimm__punkt-wort">
-            <span class="wimm__punkt-titel">Zeit</span>
-            <span class="wimm__punkt-sub">dein Anteil wächst</span>
+        </span>
+      </a>
+
+      <a class="wi__karte wi__karte--04" href="#wi-text-04" data-wi-punkt="04"
+         aria-controls="wi-text-04" aria-expanded="false">
+        <span class="wi__ikon">
+          <picture><source srcset="assets/img/warum/zeit.webp?v=b24a" type="image/webp"><img src="assets/img/warum/zeit.png?v=b24a" alt="" width="1536" height="1024" loading="lazy" decoding="async"></picture>
+        </span>
+        <span class="wi__karte-wort">
+          <span class="wi__karte-t">Wertentwicklung</span>
+          <span class="wi__karte-s">kann den Sachwert<br> steigern</span>
+          <span class="wi__karte-mehr">Mehr erfahren
+            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                    vector-effect="non-scaling-stroke"/>
+            </svg>
           </span>
-          <span class="wimm__ader" aria-hidden="true">
-            <span class="wimm__ader-kopf"></span>
-            <span class="wimm__ader-linie"></span>
-            <svg class="wimm__ader-knick" viewBox="0 0 32 26" aria-hidden="true" focusable="false"><path d="M0 25 C 12 25 20 1 32 1"/></svg>
-          </span>
-        </a>
+        </span>
+      </a>
 
-        <!-- DIE MITTE — Immobilie auf dem Grundbuchauszug -->
-        <div class="wimm__mitte">
-          <picture>
-            <source type="image/webp" srcset="assets/img/warum/haus.webp">
-            <img class="wimm__haus" src="assets/img/warum/haus.png" alt="Ein Mehrfamilienhaus steht auf einem Grundbuchauszug mit der Aufschrift „Deine Immobilie“." width="1018" height="734" loading="lazy" decoding="async">
-          </picture>
-          <!-- Das Siegel haengt in der Vorlage an der Immobilie, nicht am
-               Raster: es steht immer denselben kurzen Weg unter dem
-               Grundbuchauszug. Deshalb sitzt es hier in der Mitte-Zelle,
-               und die Zelle reicht ueber alle drei Zeilen. -->
-          <p class="wimm__siegel"><span>Dein Vermögen wächst</span></p>
-        </div>
-
-        <!-- DAS TEXTFENSTER — leer, bis warum.js die Liste hineinholt -->
-        <div class="wimm__fenster" data-wi-fenster>
-          <button class="wimm__zu" type="button" data-wi-zu hidden>
-            <span class="wimm__zu-kreuz" aria-hidden="true"></span>
-            <span class="wimm__zu-wort">Schließen</span>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- DIE REITER — im Bild ganz unten auf der Navyflaeche -->
-      <ul class="wimm__reiter" role="list">
-        <li><a href="#wi-text-01" data-wi-reiter="01" aria-controls="wi-text-01" aria-expanded="false"><span class="wimm__reiter-zahl">01</span> Bank</a></li>
-        <li><a href="#wi-text-02" data-wi-reiter="02" aria-controls="wi-text-02" aria-expanded="false"><span class="wimm__reiter-zahl">02</span> Miete</a></li>
-        <li><a href="#wi-text-03" data-wi-reiter="03" aria-controls="wi-text-03" aria-expanded="false"><span class="wimm__reiter-zahl">03</span> Steuern</a></li>
-        <li><a href="#wi-text-04" data-wi-reiter="04" aria-controls="wi-text-04" aria-expanded="false"><span class="wimm__reiter-zahl">04</span> Wachstum</a></li>
-      </ul>
     </div>
 
-    <!-- ---------- DIE VIER TEXTE ----------
-         Stehen ohne Javascript hier offen im Dokument. warum.js holt
-         diese Liste in das Textfenster der Navyflaeche hinein. -->
-    <ol class="wimm__texte" data-wi-texte>
+    <!-- ---------- 5  DIE VIER ERKLAERTEXTE ----------
+         Ohne Javascript stehen alle vier offen untereinander. warum.js
+         blendet sie aus und zeigt beim Antippen genau einen — so wie auf
+         der aktiven Vorlage. Bei `prefers-reduced-motion: reduce` bleibt
+         es beim offenen Zustand.
+         01 steht Zeichen fuer Zeichen auf der aktiven Vorlage; 02 bis 04
+         stammen aus dem Konzepttext der bisherigen Fassung. -->
+    <ol class="wi__texte" data-wi-texte>
 
-      <li class="wimm__karte" id="wi-text-01" data-wi-text="01">
-        <p class="wimm__karte-zahl"><span>01</span> Bankkapital</p>
-        <h4 class="display wimm__karte-h">Die Bank ermöglicht deinen Einstieg.</h4>
-        <p class="wimm__karte-text">Du nutzt deine Bonität, statt den gesamten Kaufpreis jahrelang selbst anzusparen.</p>
-        <p class="wimm__karte-zusatz">Je nach Bonität und Objekt ist ein geringer Eigenkapitaleinsatz möglich. In geeigneten Fällen auch ohne klassischen Eigenkapitaleinsatz.</p>
+      <li class="wi__panel" id="wi-text-01" data-wi-text="01">
+        <span class="wi__panel-ikon" aria-hidden="true">
+          <picture><source srcset="assets/img/warum/bank.webp?v=b24a" type="image/webp"><img src="assets/img/warum/bank.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async"></picture>
+        </span>
+        <div class="wi__panel-wort">
+          <p class="wi__panel-nr"><span>01</span> · Bankkapital</p>
+          <h4 class="wi__panel-h">Deine Bonität macht den Kauf möglich.</h4>
+          <p class="wi__panel-text">Deine Bonität eröffnet dir den Zugang zu Bankkapital. So kannst du heute in einen vollständigen Sachwert investieren, statt den Kaufpreis erst jahrelang anzusparen.</p>
+        </div>
+        <p class="wi__panel-kern"><span>Du startest direkt mit einer vollständigen Immobilie.</span></p>
       </li>
 
-      <li class="wimm__karte" id="wi-text-02" data-wi-text="02">
-        <p class="wimm__karte-zahl"><span>02</span> Miete</p>
-        <h4 class="display wimm__karte-h">Die Miete trägt jeden Monat einen großen Teil deiner Rate.</h4>
-        <p class="wimm__karte-text">Dein Mieter zahlt monatlich Miete. Dadurch reduziert sich der Anteil, den du selbst tragen musst.</p>
-        <p class="wimm__karte-kern">Während dein Mieter mitträgt, wächst dein Vermögen.</p>
+      <li class="wi__panel" id="wi-text-02" data-wi-text="02">
+        <span class="wi__panel-ikon" aria-hidden="true">
+          <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+        </span>
+        <div class="wi__panel-wort">
+          <p class="wi__panel-nr"><span>02</span> · Miete</p>
+          <h4 class="wi__panel-h">Dein Mieter trägt jeden Monat mit.</h4>
+          <p class="wi__panel-text">Die Mieteinnahmen decken einen wesentlichen Teil der laufenden Finanzierung.</p>
+        </div>
+        <p class="wi__panel-kern"><span>Monat für Monat fließt Geld in deinen Vermögensaufbau.</span></p>
       </li>
 
-      <li class="wimm__karte" id="wi-text-03" data-wi-text="03">
-        <p class="wimm__karte-zahl"><span>03</span> Steuervorteile</p>
-        <h4 class="display wimm__karte-h">Behalte mehr Netto von deinem Brutto.</h4>
-        <p class="wimm__karte-text">Vermietete Immobilien eröffnen steuerliche Möglichkeiten, die viele klassische Geldanlagen nicht bieten.</p>
-        <p class="wimm__karte-kern">Mehr verfügbares Einkommen für deinen Vermögensaufbau.</p>
-        <p class="wimm__karte-zusatz">Die konkrete steuerliche Wirkung hängt von deiner persönlichen Situation und dem jeweiligen Objekt ab.</p>
+      <li class="wi__panel" id="wi-text-03" data-wi-text="03">
+        <span class="wi__panel-ikon" aria-hidden="true">
+          <picture><source srcset="assets/img/warum/steuer.webp?v=b24a" type="image/webp"><img src="assets/img/warum/steuer.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+        </span>
+        <div class="wi__panel-wort">
+          <p class="wi__panel-nr"><span>03</span> · Steuervorteile</p>
+          <h4 class="wi__panel-h">Deine Immobilie kann deine Steuerlast reduzieren.</h4>
+          <p class="wi__panel-text">Abschreibung, Finanzierungszinsen und bestimmte Aufwendungen können steuerlich berücksichtigt werden.</p>
+        </div>
+        <p class="wi__panel-kern"><span>So kann dir mehr Netto vom Brutto bleiben.</span></p>
       </li>
 
-      <li class="wimm__karte" id="wi-text-04" data-wi-text="04">
-        <p class="wimm__karte-zahl"><span>04</span> Zeit</p>
-        <h4 class="display wimm__karte-h">Dein Vermögen wächst von zwei Seiten.</h4>
-        <p class="wimm__karte-text">Mit jeder Tilgung gehört dir ein größerer Teil der Immobilie. Gleichzeitig kann sich ihr Wert langfristig entwickeln.</p>
-        <p class="wimm__karte-kern">Jede Rate bringt dich näher an vollständiges Eigentum.</p>
+      <li class="wi__panel" id="wi-text-04" data-wi-text="04">
+        <span class="wi__panel-ikon" aria-hidden="true">
+          <picture><source srcset="assets/img/warum/zeit.webp?v=b24a" type="image/webp"><img src="assets/img/warum/zeit.png?v=b24a" alt="" width="1536" height="1024" loading="lazy" decoding="async"></picture>
+        </span>
+        <div class="wi__panel-wort">
+          <p class="wi__panel-nr"><span>04</span> · Wertentwicklung</p>
+          <h4 class="wi__panel-h">Tilgung und Wertentwicklung bauen Vermögen auf.</h4>
+          <p class="wi__panel-text">Mit jeder Tilgung sinkt die Restschuld und dein Eigentumsanteil wächst. Die langfristige Wertentwicklung des Sachwerts verstärkt diesen Vermögensaufbau zusätzlich.</p>
+        </div>
+        <p class="wi__panel-kern"><span>Dein Eigentum wächst – Jahr für Jahr.</span></p>
       </li>
 
     </ol>
 
-    <!-- ---------- DER ABSCHLUSS ----------
-         ENTFALLEN AM 25.08.2026 AUF KUNDENWUNSCH — nicht vergessen:
-         der Ergebnisblock „Aus Finanzierung wird Eigentum. Aus Eigentum
-         wird Vermoegen." samt den drei Punkten „Realer Sachwert",
-         „Spaeteres Einkommen" und „Bleibender Wert", dazu die
-         Abschluss-Ueberschrift „Wie stark diese vier Kraefte bei dir
-         wirken, laesst sich individuell berechnen." Beides stand hier
-         gebaut und geprueft; der Wortlaut steht in der Versionsgeschichte.
+    <!-- ---------- 6  FUSS: REITER UND KNOPF ----------
+         Die vier Reiter sind echte Links auf die vier Erklaertexte —
+         ohne Javascript springt man dorthin und liest. -->
+    <div class="wi__fuss">
+      <nav class="wi__reiter" aria-label="Die vier Kräfte">
+        <ol>
+          <li><a href="#wi-text-01" data-wi-punkt="01" aria-controls="wi-text-01" aria-expanded="true" aria-current="true"><span class="wi__reiter-nr">01</span> Bankkapital</a></li>
+          <li><a href="#wi-text-02" data-wi-punkt="02" aria-controls="wi-text-02" aria-expanded="false"><span class="wi__reiter-nr">02</span> Miete</a></li>
+          <li><a href="#wi-text-03" data-wi-punkt="03" aria-controls="wi-text-03" aria-expanded="false"><span class="wi__reiter-nr">03</span> Steuern</a></li>
+          <li><a href="#wi-text-04" data-wi-punkt="04" aria-controls="wi-text-04" aria-expanded="false"><span class="wi__reiter-nr">04</span> Wertentwicklung</a></li>
+        </ol>
+      </nav>
 
-         Ohne die Ueberschrift traegt den Uebergang jetzt allein der
-         Abstand: die Flaeche endet, es kommt eine ruhige Strecke, dann
-         der Knopf. Eine neue Ueberleitung ist NICHT erfunden worden —
-         der Kunde hat das ausdruecklich untersagt. -->
-    <footer class="wimm__abschluss" data-wi-block>
-      <p class="wimm__knopf"><a class="btn" href="kontakt.html">Mein Immobilienpotenzial prüfen</a></p>
-      <p class="wimm__nachsatz">Persönliche Einschätzung auf Basis deiner Situation, Finanzierung und eines passenden Objekts.</p>
-    </footer>
-
-    <!-- Der Fachhinweis. GENAU EINMAL, ganz am Ende der Section. -->
-    <p class="wimm__hinweis">Finanzierung, monatliche Belastung, steuerliche Wirkung und Wertentwicklung hängen von deiner persönlichen Situation und dem konkreten Objekt ab. Die steuerliche Einordnung erfolgt durch qualifizierte Fachberatung.</p>
+      <p class="wi__knopf-zeile">
+        <a class="wi__knopf" href="kontakt.html">Mein Immobilienpotenzial prüfen
+          <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+            <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
+                  stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                  vector-effect="non-scaling-stroke"/>
+          </svg>
+        </a>
+      </p>
+    </div>
 
   </div>
 </section>
