@@ -1,0 +1,790 @@
+/* ===========================================================================
+   KARRIERE  (karriere.html)
+
+   Eigene Seite seit dem 26.08.2026. Aufbau und Gestaltung entstehen nach
+   einem Referenzvideo des Kunden, mit ausdruecklichem Abstand zum Vorbild:
+   dieselbe Struktur, aber Estera-Farben, Cormorant und eigene
+   Formulierungen — die beiden Firmen kennen einander.
+
+   WAS AUS DER VORLAGE KOMMT — und es sind nur Bauprinzipien, keine Farbe
+   und kein Wort:
+     - einspaltig gedachte Anordnung, Knoepfe ueber die volle Spaltenbreite
+     - zweifarbige Ueberschriften: eine Zeile ruhig, die Schluesselzeile
+       im Akzent (.kar-akzent)
+     - Etiketten in gesperrten Versalien mit einer kleinen Marke davor
+       (.kar-kicker + .kar-kicker__marke)
+     - grosszuegige Eckenradien
+     - Karten mit weichem Schatten auf hellem Grund
+   Die Vorlage ist Cyan auf Schwarz in einer Grotesk. Hier ist es Navy,
+   Creme, Gold und Sand in Cormorant — alles aus den Token in base.css,
+   kein einziger neuer Farbwert.
+
+   WAS BEWUSST NICHT UEBERNOMMEN IST
+   Die Vorlage ist eine reine Telefonaufnahme. Einspaltig ueber 1440 px
+   waere eine Bandwurmseite; deshalb wird die Breite hier genutzt —
+   dreispaltige Raster fuer die Sechser-Listen, die Geschaeftsfuehrer
+   nebeneinander, Bild und Text nebeneinander. Auf dem Telefon faellt
+   alles davon auf eine Spalte zurueck.
+
+   REIHENFOLGE
+   Diese Datei laeuft NACH base.css, seiten.css und faq.css. Wo sie deren
+   Regeln ueberschreibt, steht der Grund daneben. Keine dieser Dateien
+   wurde fuer diese Seite veraendert.
+
+   FARBREGELN AUS base.css, DIE HIER GELTEN
+     --gold (#A8874F) ist Linien- und Flaechenfarbe, NIE Schrift.
+     Als Schrift auf hellem Grund gilt --gold-text (#86693A): 5,13:1 auf
+     Weiss, 4,69:1 auf --paper-cool.
+     --sand (#D9B485) ist als Schrift auf Weiss unlesbar (1,94:1) und
+     steht deshalb ausschliesslich auf Navy — dort misst er 9,08:1.
+     .btn--sand wird auf dieser Seite NICHT benutzt: er setzt weisse
+     Schrift auf Sand (1,94:1, in base.css als Kundenwunsch dokumentiert).
+     Fuer diese Seite gilt 4,5:1 am Bildpunkt, also faellt er aus.
+   =========================================================================== */
+
+.kar {
+  /* Ein Radius fuer die ganze Seite. „Grosszuegig" heisst hier 18 px —
+     das ist die Stufe zwischen --radius-img (12 px) und den 20 px, die
+     warum.css auf der Startseite fuer ihre Karten benutzt. Damit bleibt
+     die Seite innerhalb der Formensprache des Projekts und wirkt trotzdem
+     weicher als die uebrigen Unterseiten, wie die Vorlage es vorgibt. */
+  --kar-radius: 18px;
+  --kar-radius-klein: 12px;
+
+  /* Der weiche Schatten. Zwei Lagen, beide sehr flach: die erste setzt die
+     Karte ueberhaupt erst vom Grund ab, die zweite gibt ihr Tiefe, ohne
+     dass ein Rand entsteht. Werte 1:1 aus warum.css (.wi__band) — das ist
+     die einzige Schattenkarte, die das Projekt bereits kennt, und zwei
+     verschiedene Schattenrezepte auf einer Website fallen sofort auf. */
+  --kar-schatten: 0 1px 2px rgba(16, 41, 73, 0.03),
+                  0 10px 26px rgba(16, 41, 73, 0.035);
+  --kar-kante: 1px solid rgba(16, 41, 73, 0.07);
+}
+
+/* Sprungziele: die Kopfleiste liegt ueber dem Inhalt, ohne diesen Abstand
+   verschwindet die Ueberschrift beim Sprung darunter. */
+.kar-ziel { scroll-margin-top: calc(var(--header-h) + 1.2rem); }
+
+
+/* ---------------------------------------------------------------------------
+   ZWEIFARBIGE UEBERSCHRIFT
+   Das Kennzeichen der Vorlage: Zeile eins ruhig, Zeile zwei im Akzent.
+   Der Satz bleibt dabei EIN Satz — das <span> traegt keine Bedeutung und
+   keine eigene Semantik, es faerbt nur.
+--------------------------------------------------------------------------- */
+.kar-akzent { color: var(--gold-text); }
+/* Auf Navy traegt Gold zu wenig (Gold-Text misst dort 2,6:1). Dort steht
+   Sand: 9,08:1 gegen --navy-900, 7,54:1 gegen --navy-800. */
+.sp-band--navy .kar-akzent,
+.kar-hero .kar-akzent { color: var(--sand); }
+
+
+/* ---------------------------------------------------------------------------
+   ETIKETT MIT MARKE
+   Gesperrte Versalien mit einem kleinen gedrehten Quadrat davor. Die
+   Marke ist rein dekorativ (aria-hidden im Markup) und darf deshalb
+   reines --gold tragen — sie ist Flaeche, keine Schrift.
+--------------------------------------------------------------------------- */
+.kar-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  color: var(--gold-text);
+}
+.kar-kicker__marke {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: var(--gold);
+}
+.sp-band--navy .kar-kicker__marke,
+.kar-hero .kar-kicker__marke { background: var(--sand); }
+/* seiten.css faerbt .kicker auf Navy bereits auf rgba(200,172,122,.9)
+   (6,76:1). Das bleibt so — hier nur die Marke. */
+
+
+/* ---------------------------------------------------------------------------
+   ABSCHNITTSKOPF
+--------------------------------------------------------------------------- */
+/* ACHTUNG, HIER LAG EIN FEHLER: `max-width` in `ch` rechnet gegen die
+   Schriftgroesse DES ELEMENTS, nicht gegen die der Ueberschrift darin.
+   Auf .kar-kopf (16 px) waren 30ch rund 240 px — die Ueberschrift brach
+   danach in fuenf Stummelzeilen um, obwohl ihre eigene Breitenangabe
+   grosszuegig war. Der Deckel gehoert deshalb an die Ueberschrift selbst,
+   wo `ch` gegen ihre 44 px rechnet; der Kopf bleibt so breit wie in
+   seiten.css. */
+.kar-kopf { max-width: 68ch; }
+.kar-kopf .sp-kopf__lead { max-width: 58ch; }
+.kar-h2 { max-width: 26ch; }
+.kar-kopf--mitte {
+  max-width: 62ch;
+  margin-inline: auto;
+  text-align: center;
+}
+.kar-kopf--mitte .kar-h2 { max-width: none; margin-inline: auto; }
+.kar-kopf--mitte .kar-kicker { justify-content: center; }
+
+
+/* ---------------------------------------------------------------------------
+   01 · SEITENKOPF — dunkel mit Foto, wie die Vorlage
+
+   seiten.css setzt .sp-hero auf --paper-warm (weiss). Das wird hier
+   vollstaendig ersetzt: Bild in der Flaeche, Navy-Schleier darueber,
+   helle Schrift.
+
+   DER SCHLEIER IST DIE LESBARKEIT, NICHT DIE STIMMUNG.
+   Das Bild traegt links ein helles Fenster mit Blick ueber Muenchen. Ohne
+   Schleier stuende die Schrift dort bei rund 1,3:1. Zwei Lagen sorgen
+   dafuer, dass das nicht passieren kann:
+     1. ein Filter auf dem Bild selbst (brightness/saturate) — er senkt
+        auch die hellsten Stellen,
+     2. ein Verlauf aus --navy-900, links dichter als rechts, weil die
+        Schrift links steht.
+   Gemessen am hellsten Bildpunkt hinter dem Textblock stehen damit
+   Ueberschrift und Fliesstext ueber 9:1.
+--------------------------------------------------------------------------- */
+.kar-hero {
+  position: relative;
+  isolation: isolate;
+  background: var(--navy-900);
+  padding-bottom: clamp(3rem, 8vh, 5.5rem);
+  /* Hoehe wie ein Seitenkopf, nicht wie ein Vollbild-Hero: die Startseite
+     bleibt der lauteste Moment der Website. */
+  min-height: min(86vh, 800px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.kar-hero__bild {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.kar-hero__bild img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Der Schreibtisch sitzt im unteren Bilddrittel; 62 % holt ihn in den
+     sichtbaren Ausschnitt, ohne den Blick aus dem Fenster zu verlieren. */
+  object-position: 50% 62%;
+  filter: brightness(0.62) saturate(0.78);
+}
+.kar-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(100deg,
+      rgba(10, 25, 46, 0.92) 0%,
+      rgba(10, 25, 46, 0.85) 44%,
+      rgba(10, 25, 46, 0.52) 100%),
+    linear-gradient(to top, rgba(10, 25, 46, 0.55) 0%, rgba(10, 25, 46, 0) 45%);
+}
+.kar-hero__inner { width: 100%; }
+
+/* Schriftfarben im dunklen Seitenkopf. base.css setzt .display und .lead
+   fest auf --ink-black, seiten.css .sp-hero__kicker auf --gold-text —
+   alle drei waeren hier unlesbar. */
+.kar-hero .kar-kicker { color: var(--gold-soft); }        /* 8,9:1 */
+.kar-hero .display    { color: #fff; }                     /* 15,9:1 */
+.kar-hero__h1 { max-width: 17ch; }
+.kar-hero .lead { color: rgba(255, 255, 255, 0.88); }      /* 12,6:1 */
+.kar-hero__lead { max-width: 56ch; }
+
+/* --- Die eine ausgeschriebene Stelle ------------------------------------- */
+.kar-stelle {
+  margin-top: clamp(1.5rem, 3.4vh, 2.2rem);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 0.9rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid rgba(216, 180, 133, 0.42);
+  border-radius: var(--kar-radius-klein);
+  background: rgba(216, 180, 133, 0.09);
+}
+.kar-stelle__label {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sand);                                      /* 9,1:1 */
+}
+.kar-stelle__wert {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.35vw, 1.28rem);
+  line-height: 1.4;
+  color: #fff;
+}
+
+/* --- Knoepfe ueber die volle Spaltenbreite -------------------------------- */
+.kar-knoepfe {
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.1rem);
+  /* Ohne Deckel liefen die beiden Knoepfe auf 1920 px ueber 1180 px
+     Breite auseinander und laesen sich nicht mehr als Paar. */
+  max-width: 42rem;
+}
+.kar-knoepfe--eins { grid-template-columns: minmax(0, 1fr); max-width: 26rem; }
+.kar-kopf--mitte + .kar-knoepfe,
+.kar-abschluss .kar-knoepfe { margin-inline: auto; }
+
+/* base.css gibt .btn `white-space: nowrap` und keinen senkrechten
+   Innenabstand — beides ist fuer einen Knopf gedacht, der sich nach
+   seinem Text richtet. Hier ist es umgekehrt: die Breite steht fest, der
+   Text muss umbrechen duerfen. Bei 390 px braucht „Das Partnermodell
+   kennenlernen" zwei Zeilen, und ohne Innenabstand klebte die zweite am
+   Rand. */
+.kar-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.85rem 1.3rem;
+  min-height: 56px;
+  white-space: normal;
+  text-align: center;
+  text-wrap: balance;
+}
+/* Der zweite Knopf im dunklen Seitenkopf. Keine Flaeche, nur eine helle
+   Kante — sonst konkurrieren zwei gefuellte Knoepfe miteinander und
+   keiner fuehrt. Weiss auf dem Schleier misst hier 12,9:1. */
+.kar-btn--klar {
+  --btn-fg: #fff;
+  --btn-bg: transparent;
+  border-color: rgba(255, 255, 255, 0.52);
+}
+.kar-btn--klar:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: #fff;
+}
+
+
+/* ---------------------------------------------------------------------------
+   KARTE — die Grundform dieser Seite
+   Weicher Schatten auf hellem Grund, wie die Vorlage. Der Rand ist eine
+   Haarlinie und kein Rahmen: auf --paper-cool traegt der Schatten allein
+   zu wenig, auf Weiss der Rand allein.
+--------------------------------------------------------------------------- */
+.kar-karte {
+  border-radius: var(--kar-radius);
+  border: var(--kar-kante);
+  background: var(--paper);
+  box-shadow: var(--kar-schatten);
+  padding: clamp(1.3rem, 2.2vw, 2rem);
+}
+
+
+/* ---------------------------------------------------------------------------
+   ZWEISPALTER MIT BILD
+   .sp-zwei aus seiten.css waere zu eng gefasst (1,15fr / 1fr, fester
+   Umbruch bei 900 px). Hier braucht es beide Richtungen und einen
+   frueheren Umbruch, weil im Bildzweig ein Hochformat steht.
+--------------------------------------------------------------------------- */
+.kar-zwei {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 4.5vw, 4rem);
+  align-items: center;
+}
+.kar-zwei > * { min-width: 0; }
+/* align-items:start statt center: das Bild in dieser Fassung ist klebrig
+   und soll oben anfangen. Mittig gesetzt begann es auf halber Hoehe des
+   Textes und liess darueber eine leere Ecke stehen. */
+.kar-zwei--bildlinks {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+}
+.kar-zwei__text { min-width: 0; }
+
+.kar-bild {
+  margin: 0;
+  border-radius: var(--kar-radius);
+  overflow: hidden;
+  background: var(--paper-cool);
+  box-shadow: var(--kar-schatten);
+}
+.kar-bild img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 1:1, weil die Aufnahme selbst quadratisch ist. Mit 4/5 stand neben dem
+   kurzen Textblock links eine leere Spalte von rund 200 px Hoehe. */
+.kar-bild--hoch { aspect-ratio: 1 / 1; }
+/* Bleibt beim Scrollen neben der Schrittfolge stehen, solange Platz ist.
+   sticky braucht einen Anschlag nach oben, sonst verschwindet das Bild
+   unter der Kopfleiste. */
+.kar-bild--klebrig {
+  position: sticky;
+  top: calc(var(--header-h) + 1.5rem);
+  aspect-ratio: 5 / 4;
+}
+
+
+/* ---------------------------------------------------------------------------
+   02 · FUER WEN ESTERA PASST
+   Zwei Listen nebeneinander. Der Unterschied haengt NICHT an der Farbe:
+   jede Liste traegt eine Ueberschrift im Klartext und ein eigenes
+   Zeichen. Wer Farben nicht unterscheiden kann, liest denselben Inhalt.
+--------------------------------------------------------------------------- */
+.kar-passt {
+  margin-top: clamp(2.2rem, 5vh, 3.4rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.4vw, 1.8rem);
+  align-items: start;
+}
+.kar-passt__titel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 1.6vw, 1.44rem);
+  color: var(--ink-black);
+  padding-bottom: clamp(0.8rem, 1.6vh, 1.1rem);
+  border-bottom: 1px solid var(--line-gold);
+}
+.kar-passt__seite--nein .kar-passt__titel { border-bottom-color: var(--line); }
+
+.kar-liste {
+  margin-top: clamp(1rem, 2.2vh, 1.4rem);
+  display: grid;
+  gap: clamp(0.75rem, 1.7vh, 1.05rem);
+}
+.kar-liste li {
+  position: relative;
+  padding-left: 2rem;
+  font-size: clamp(1rem, 1.05vw, 1.09rem);
+  line-height: 1.65;
+  color: var(--ink-black);
+}
+/* „Geeignet": der Goldstrich, den das Projekt schon fuehrt (.sp-punkte). */
+.kar-liste--ja li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.82em;
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.9;
+}
+/* „Nicht passend": ein Kreuz aus zwei Haarlinien. Andere FORM, nicht nur
+   andere Farbe. */
+.kar-liste--nein li::before,
+.kar-liste--nein li::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.78em;
+  width: 13px;
+  height: 1px;
+  background: var(--ink-mute);
+}
+.kar-liste--nein li::before { transform: rotate(45deg); }
+.kar-liste--nein li::after  { transform: rotate(-45deg); }
+.kar-liste--nein li { color: var(--ink-soft); }
+
+
+/* ---------------------------------------------------------------------------
+   03 · RASTER FUER DIE SECHSER-LISTEN
+   In der Vorlage eine einspaltige Liste mit kleinen Quadraten. Das
+   Quadrat bleibt, die Einspaltigkeit nicht — auf 1440 px stuenden sechs
+   Punkte untereinander und die Seite waere ein Band.
+--------------------------------------------------------------------------- */
+.kar-raster {
+  margin-top: clamp(2.2rem, 5vh, 3.4rem);
+  display: grid;
+  gap: clamp(1.1rem, 2.2vw, 1.7rem);
+}
+.kar-raster--drei { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.kar-punkt { display: block; }
+.kar-punkt__marke {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--sand);
+  border: 1px solid var(--gold);
+  margin-bottom: clamp(0.9rem, 2vh, 1.25rem);
+}
+.kar-punkt__titel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.16rem, 1.5vw, 1.34rem);
+  line-height: 1.28;
+  color: var(--ink-black);
+  text-wrap: balance;
+}
+.kar-punkt__text {
+  margin-top: clamp(0.6rem, 1.4vh, 0.85rem);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+
+/* ---------------------------------------------------------------------------
+   04 · GESCHAEFTSFUEHRER
+   Namensschild ueber dem unteren Bildrand, wie in der Vorlage — dort
+   eine Person, hier zwei.
+--------------------------------------------------------------------------- */
+.kar-gf {
+  margin-top: clamp(2.2rem, 5vh, 3.4rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.6vw, 2rem);
+  /* Zwei Portraets auf 1920 px ueber die ganze Satzbreite waeren
+     lebensgross. Der Deckel haelt sie auf einer glaubwuerdigen Groesse. */
+  max-width: 62rem;
+}
+.kar-gf__karte {
+  position: relative;
+  margin: 0;
+  border-radius: var(--kar-radius);
+  overflow: hidden;
+  box-shadow: var(--kar-schatten);
+  background: var(--paper-cool);
+}
+.kar-gf__bild { aspect-ratio: 4 / 5; }
+.kar-gf__bild img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  /* Beide Aufnahmen sind quadratisch (1100 x 1100) und zeigen die Person
+     klein in der Mitte einer grossen Studioflaeche. In einem 4:5-Kasten
+     beschneidet `cover` nur die Seiten — senkrecht bleibt alles stehen,
+     und `object-position` kann daran nichts aendern, weil die volle Hoehe
+     gebraucht wird. Der Zuschnitt muss deshalb ueber transform kommen:
+     16 % groesser, Ursprung im oberen Drittel, damit oben mehr wegfaellt
+     als unten und Kopf und Schultern den Kasten fuellen.
+     Hochskaliert wird dabei nichts — 1100 px landen auch so auf rund
+     430 px Anzeigebreite. */
+  transform: scale(1.16);
+  transform-origin: 50% 26%;
+}
+/* Das Schild. Der Grund ist eine dichte Navy-Lage, keine halbe
+   Transparenz: darunter liegt ein Foto, dessen Helligkeit man nicht
+   kennt. Bei 0,88 misst weisse Schrift selbst ueber einer voellig
+   weissen Stelle noch 11,7:1. */
+.kar-gf__schild {
+  position: absolute;
+  left: clamp(0.7rem, 1.4vw, 1rem);
+  right: clamp(0.7rem, 1.4vw, 1rem);
+  bottom: clamp(0.7rem, 1.4vw, 1rem);
+  display: grid;
+  gap: 0.3rem;
+  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.9rem, 1.8vw, 1.2rem);
+  border-radius: var(--kar-radius-klein);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 25, 46, 0.88);
+}
+.kar-gf__name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.14rem, 1.5vw, 1.34rem);
+  line-height: 1.2;
+  color: #fff;
+}
+.kar-gf__rolle {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--gold-soft);                                 /* 8,0:1 */
+}
+
+
+/* ---------------------------------------------------------------------------
+   05 · ABLAUF
+   Die Schrittfolge selbst ist .sp-schritte/.sp-schritt aus seiten.css und
+   bleibt unveraendert. Hier nur die Abschlusszeile.
+--------------------------------------------------------------------------- */
+.kar-schritte { margin-top: clamp(1.6rem, 3.6vh, 2.4rem); max-width: none; }
+.kar-schluss {
+  margin-top: clamp(1.6rem, 3.4vh, 2.2rem);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.28rem, 1.9vw, 1.66rem);
+  line-height: 1.42;
+  color: var(--ink-black);
+  text-wrap: balance;
+  max-width: 34ch;
+}
+/* Die Schluesselzeile faengt hier eine eigene Zeile an. Im Fluss brach sie
+   nach „Leistung," um und liess das Wort allein am Zeilenende stehen. */
+.kar-schluss .kar-akzent { display: block; }
+
+
+/* ---------------------------------------------------------------------------
+   06 · WAS ESTERA ERWARTET — Symbolkarten auf Navy
+
+   Die Karten liegen hier auf dunklem Grund, also greift das Rezept von
+   oben nicht: ein Schatten ist auf Navy unsichtbar. Stattdessen eine
+   minimal aufgehellte Flaeche mit heller Haarlinie — dieselbe Wirkung
+   (die Karte hebt sich ab), umgekehrtes Mittel.
+--------------------------------------------------------------------------- */
+.kar-raster--symbol { align-items: stretch; }
+.kar-symbolkarte {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.2vh, 1.4rem);
+  padding: clamp(1.3rem, 2.2vw, 1.9rem);
+  border-radius: var(--kar-radius);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.045);
+}
+.kar-symbol {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  border: 1px solid rgba(216, 180, 133, 0.32);
+  background: rgba(216, 180, 133, 0.13);
+  color: var(--sand);
+}
+.kar-symbol svg { width: 25px; height: 25px; }
+.kar-symbolkarte__titel {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.14rem, 1.45vw, 1.3rem);
+  line-height: 1.34;
+  /* Reines Weiss, nicht die 0,78 aus .sp-band--navy: das hier ist eine
+     Ueberschrift, kein Fliesstext. 15,9:1. */
+  color: #fff;
+  text-wrap: balance;
+}
+
+
+/* ---------------------------------------------------------------------------
+   07 · STANDORT
+   Keine Google-Maps-Einbettung, ein gewoehnlicher Verweis. Begruendung
+   steht im Markup.
+--------------------------------------------------------------------------- */
+.kar-adresse { margin-top: clamp(1.6rem, 3.4vh, 2.2rem); max-width: 34rem; }
+.kar-adresse__label {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+.kar-adresse__wert {
+  margin-top: clamp(0.6rem, 1.4vh, 0.9rem);
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(1.34rem, 2vw, 1.72rem);
+  line-height: 1.36;
+  color: var(--ink-black);
+}
+.kar-adresse__link {
+  margin-top: clamp(1.1rem, 2.4vh, 1.5rem);
+  /* inline-flex mit min-height 48: der Verweis ist die einzige Handlung in
+     dieser Karte und muss auf dem Telefon sicher zu treffen sein. */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 48px;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line-gold);
+  font-family: var(--font-ui);
+  font-size: 1.06rem;
+  color: var(--navy-800);                                  /* 14,6:1 */
+  transition: border-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+.kar-adresse__link:hover { border-bottom-color: var(--gold); color: var(--navy-900); }
+.kar-adresse__pfeil { width: 18px; height: 18px; flex: none; }
+/* Der Zusatz „oeffnet in einem neuen Tab" gehoert in den Verweistext,
+   nicht nur in ein title-Attribut — sonst erfaehrt es niemand, der die
+   Seite hoert. Sichtbar braucht ihn niemand. */
+.kar-adresse__fenster {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.kar-adresse__hinweis {
+  margin-top: clamp(0.9rem, 2vh, 1.2rem);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-mute);                                  /* 5,0:1 */
+}
+
+
+/* ---------------------------------------------------------------------------
+   08 · FAQ
+   faq.css und faq.js sind unveraendert uebernommen. Der Kasten ist dort
+   ein dunkles Blaugrau (#1E222D → #2E3643) und wird hier ueber die
+   dafuer vorgesehenen Variablen auf Navy gestellt — kein Eingriff in die
+   fremde Datei.
+
+   Gemessen mit den Schriftfarben, die faq.css mitbringt:
+   --faq-schrift (#EDF1F8) auf #102949 = 12,9:1,
+   --faq-schrift-leise (#C7CEDA) am hellsten Ende des Verlaufs = 6,4:1.
+--------------------------------------------------------------------------- */
+.kar-faq {
+  --faq-kasten-links:  #102949;
+  --faq-kasten-rechts: #1E4270;
+}
+/* faq.css setzt .faq__inner auf 1520 px; hier traegt .sp-band__inner den
+   Rahmen und die Liste sitzt darin. Der Abstand nach dem Abschnittskopf
+   muss deshalb hier kommen. */
+.kar-faq .faq__liste { margin-top: clamp(2.2rem, 5vh, 3.4rem); }
+
+
+/* ---------------------------------------------------------------------------
+   09 · ABSCHLUSS
+--------------------------------------------------------------------------- */
+.kar-abschluss__inner {
+  /* 44rem statt 62ch: `ch` rechnet hier gegen 16 px und ergaebe rund
+     500 px — die Ueberschrift stand darin dreizeilig mit einem
+     abgerissenen „nächsten" am Zeilenende. */
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.kar-abschluss__inner .kar-kicker { justify-content: center; }
+.kar-abschluss__h2 {
+  margin-top: clamp(0.9rem, 2vh, 1.3rem);
+  font-size: clamp(1.86rem, 3.3vw, 2.72rem);
+  text-wrap: balance;
+}
+.kar-abschluss__lead { margin-top: clamp(1.1rem, 2.4vh, 1.6rem); }
+.kar-abschluss__vorbehalt {
+  margin-inline: auto;
+  /* Der Vorbehalt ist links gesetzt, obwohl der Abschnitt mittig steht:
+     .sp-vorbehalt traegt eine Goldkante links, und eine Kante an
+     zentriertem Text sieht aus wie ein Fehler. */
+  text-align: left;
+  max-width: 52ch;
+}
+
+/* base.css setzt .lead hart auf --ink-black. Auf Navy ist das 1,6:1.
+   Gilt fuer den Seitenkopf und den Abschluss gleichermassen. */
+.sp-band--navy .lead { color: rgba(255, 255, 255, 0.86); }
+
+
+/* ---------------------------------------------------------------------------
+   SCHMALE FENSTER
+   Die Reihenfolge der Haltepunkte folgt dem, was zuerst bricht:
+   1400 — die Sechser-Raster von drei auf zwei Spalten,
+   1000 — Bild und Text uebereinander,
+    700 — alles einspaltig, wie die Vorlage auf dem Telefon.
+--------------------------------------------------------------------------- */
+@media (max-width: 1400px) {
+  .kar-h2 { max-width: 24ch; }
+}
+@media (max-width: 1100px) {
+  .kar-raster--drei { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1000px) {
+  .kar-zwei,
+  .kar-zwei--bildlinks { grid-template-columns: minmax(0, 1fr); }
+  /* Das Bild steht auf schmalen Fenstern IMMER unter dem Text — sonst
+     muesste man an einem Stimmungsbild vorbeiscrollen, um zur
+     Ueberschrift zu kommen. */
+  .kar-zwei--bildlinks .kar-bild { order: 2; }
+  .kar-zwei--bildlinks .kar-zwei__text { order: 1; }
+  .kar-bild--klebrig { position: static; }
+  .kar-bild--hoch { aspect-ratio: 16 / 10; }
+  /* 32ch statt 28: „Mit wem du zusammenarbeitest" hat genau 28 Zeichen und
+     brach deshalb nach „Mit wem" um. */
+  .kar-h2 { max-width: 32ch; }
+  .kar-gf { max-width: none; }
+}
+@media (max-width: 760px) {
+  .kar-passt { grid-template-columns: minmax(0, 1fr); }
+  .kar-raster--drei { grid-template-columns: minmax(0, 1fr); }
+  .kar-gf { grid-template-columns: minmax(0, 1fr); max-width: 26rem; margin-inline: auto; }
+}
+@media (max-width: 620px) {
+  .kar-hero { min-height: 0; padding-bottom: clamp(2.6rem, 7vh, 4rem); }
+  .kar-hero__h1 { max-width: none; }
+  .kar-knoepfe { grid-template-columns: minmax(0, 1fr); max-width: none; }
+  .kar-knoepfe--eins { max-width: none; }
+  .kar-stelle { display: flex; }
+  .kar-h2 { max-width: none; }
+  .kar-schluss { max-width: none; }
+  /* Die Goldkante des Vorbehalts wird auf dem Telefon zur Oberkante:
+     links kostet sie Zeilenbreite, die dort nicht da ist. */
+  .kar-abschluss__vorbehalt {
+    padding-left: 0;
+    padding-top: 1rem;
+    border-left: 0;
+    border-top: 1px solid var(--line-gold);
+  }
+  .sp-band--navy .kar-abschluss__vorbehalt { border-top-color: rgba(200, 172, 122, 0.55); }
+}
+
+
+/* ---------------------------------------------------------------------------
+   EINLAUF — und was ohne Javascript passiert
+
+   ZWEI FALLSTRICKE AUS DEM BESTAND, BEIDE HIER ENTSCHAERFT:
+
+   1. base.css setzt `[data-anim] { opacity: 0 }` und macht es erst mit
+      `.is-ready` sichtbar. `.is-ready` kommt aus site.js. Ohne
+      Javascript bleibt der ganze Seitenkopf unsichtbar.
+   2. seiten.css setzt `.sp [data-reveal] { opacity: 0 }` mit demselben
+      Ergebnis fuer alles darunter.
+
+   Die Loesung ist die, die referenzen.css im Projekt schon fuehrt: der
+   SICHTBARE Zustand ist der Ausgangszustand, und `.is-ready` ist das Tor,
+   das die Bewegung ueberhaupt erst einschaltet. Kommt kein Javascript,
+   oeffnet sich das Tor nie und die Seite steht einfach da.
+--------------------------------------------------------------------------- */
+html:not(.is-ready) [data-anim] { opacity: 1; transform: none; }
+
+.kar [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.is-ready .kar [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+.is-ready .kar [data-reveal][data-seen='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* --- Ruhige Darstellung ---------------------------------------------------
+   base.css hat einen globalen Block, jede Modul-CSS im Projekt trotzdem
+   ihren eigenen — der globale kuerzt nur die Dauern und faengt
+   `[data-anim]` ab, nicht `[data-reveal]`. Hier steht deshalb beides
+   ausdruecklich, plus das klebrige Bild: eine Flaeche, die beim Scrollen
+   stehenbleibt, ist fuer manche Menschen genau die Bewegung, die sie
+   abgeschaltet haben.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .kar [data-reveal],
+  .is-ready .kar [data-reveal],
+  .is-ready .kar [data-reveal][data-seen='true'] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .kar [data-anim],
+  .is-ready .kar [data-anim] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .kar-bild--klebrig { position: static; }
+}

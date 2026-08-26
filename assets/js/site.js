@@ -367,7 +367,7 @@
      eine 404 statt eines gesperrten Knopfes. */
   var vorhandeneSeiten = [
     'variante-a.html',
-    'ueber-estera.html', 'kontakt.html'
+    'ueber-estera.html', 'karriere.html', 'kontakt.html'
   ];
   Array.prototype.forEach.call(
     document.querySelectorAll('.kopfnav a, .menu__link'),

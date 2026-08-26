@@ -83,7 +83,7 @@
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
     <ul>
       <li><a href="ueber-estera.html" aria-current="page">Über Estera</a></li>
-      <li><a href="#karriere">Karriere</a></li>
+      <li><a href="karriere.html">Karriere</a></li>
       <li class="kopfnav__cta"><a href="kontakt.html">Kontakt</a></li>
     </ul>
   </nav>
@@ -856,301 +856,20 @@
 
 
 <!-- =====================================================================
-     04 · WERDEN SIE TEIL UNSERES TEAMS
-     (Masterbriefing S.19 „KARRIERE-AUSSAGE"; S.5; Kundenwunsch 22.08.2026)
+     KARRIERE — AM 26.08.2026 AUF EIGENE SEITE GEZOGEN
 
-     HIER LANDET DER KOPFEINTRAG „KARRIERE". Deshalb traegt der Abschnitt
-     die Sprungmarke #karriere und — wie alle sechs — den Zuschlag
-     scroll-margin-top aus ueber.css. Ohne ihn verschwaende die Ueberschrift
-     unter der bis zu 104 px hohen Kopfleiste.
+     Hier standen drei Abschnitte: der Karriere-Auftakt, „Offene Stellen"
+     und „Warum bei Estera arbeiten". Sie leben jetzt vollstaendig auf
+     `karriere.html` — Kundenwunsch: „Gib der Karriere einen eigenen
+     Unterpunkt." Bewusst OHNE Anreisser hier, damit nichts doppelt
+     gepflegt werden muss.
 
-     DER EINE DUNKLE MOMENT DER SEITE. Das Briefing erlaubt dunkle
-     Vollflaechen „nur als bewusste Spannungsmomente" (S.20). Dieser ist
-     begruendet: an genau dieser Stelle wechselt die Seite von „Über
-     Estera" zu „Karriere", und dieser Wechsel braucht eine sichtbare Naht.
-     Es bleibt bei EINEM dunklen Band — die Fusszeile ist ohnehin navy.
+     ACHTUNG: In `_redirects` stand bis heute die Regel
+     `/karriere.html -> /ueber-estera.html#karriere`. Sie ist entfernt —
+     stuende sie noch, wuerde sie die neue Seite ueberdecken.
 
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     ZUR BRIEFING-QUELLE: S.19 lautet wortgetreu „Die Karriereseite soll
-     zeigen, dass Estera langfristig waechst, ohne ein nicht vorhandenes
-     Team oder eine grosse Arbeitgeberwelt zu simulieren." Der im Auftrag
-     zitierte Wortlaut „Wir bauen Estera langfristig auf" steht so NICHT im
-     Masterbriefing. Uebernommen ist deshalb die belegte Fassung. Die
-     KARRIERE-AUSSAGE („Wir suchen Menschen, die Verantwortung
-     uebernehmen…") ist dagegen wortgleich uebernommen.
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-     WAS HIER NICHT STEHT, IST ABSICHT: kein Gehalt, keine Zahl offener
-     Stellen, keine Benefits, kein Firmenwagen, keine „flachen
-     Hierarchien". S.19 untersagt „lange Benefit-Liste, Mitarbeiterportraits
-     ohne reale Mitarbeiter und Start-up-Floskeln" ausdruecklich.
+     Der alte Stand liegt in der Versionsgeschichte.
      ===================================================================== -->
-<section class="sp-band ue-band-luft ue-ziel ukar-band" id="karriere" aria-labelledby="ue-h-karriere">
-  <div class="sp-band__inner ue-weit ue-team">
-
-    <div data-reveal>
-      <!-- ENTFALLEN am 23.08.2026 auf Kundenwunsch: die Kleinzeile mit „04"
-           und „Karriere" ueber der Ueberschrift. Es steht nur noch „Werden
-           Sie Teil unseres Teams." Der Grund des Abschnitts ist damit
-           zugleich von Navy auf Weiss gewechselt — der dunkle Moment der
-           Seite ist entfallen. -->
-      <div class="ue-kopf">
-        <h2 class="ue-kopf__h2" id="ue-h-karriere">
-          Werden Sie Teil unseres Teams.
-          <span class="accent">Entdecken Sie Ihren Arbeitsplatz.</span>
-        </h2>
-        <p class="ue-kopf__lead">
-          Estera wächst langfristig – als Unternehmen, nicht auf den nächsten
-          Abschluss hin. Wir suchen Menschen, die Verantwortung übernehmen,
-          hohe Ansprüche an ihre Arbeit stellen und gemeinsam mit uns eine
-          neue Generation der Immobilienberatung aufbauen möchten.
-        </p>
-      </div>
-
-      <ul class="ue-punkte">
-        <li>
-          Beratung heißt hier: einordnen, auswählen, prüfen, aufbereiten,
-          koordinieren, begleiten.
-        </li>
-        <li>
-          Jeder Schritt hat einen Namen dahinter – vom Ersttermin bis zum
-          Notar bleibt derselbe Ansprechpartner zuständig.
-        </li>
-        <li>
-          Qualität vor Quantität. Auch ein Nein gegenüber einem Interessenten
-          gehört zur Arbeit.
-        </li>
-      </ul>
-    </div>
-
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         BILD FEHLT — EINE ECHTE AUFNAHME IST ZU LIEFERN
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         Hier stand bis zum 23.08.2026 ein maschinell erzeugtes Bild
-         (assets/img/karriere-team.*): die echten Gesichter der beiden
-         Geschaeftsfuehrer, montiert in einen erzeugten Besprechungsraum.
-         Der Kunde hat es abgelehnt. Die Datei liegt weiter auf der Platte,
-         ist aber NICHT mehr eingebunden — sie darf ohne neue Freigabe auch
-         nicht wieder eingebunden werden.
-
-         VORGESEHEN IST EINE ECHTE AUFNAHME der beiden Geschaeftsfuehrer.
-         Bis sie vorliegt, steht hier ein sichtbarer Platzhalter statt eines
-         Behelfs — ein erzeugtes Bild, das echt aussehen soll, ist auf einer
-         Unternehmensseite das groessere Risiko als eine ehrliche Luecke.
-
-         DAS SEITENVERHAELTNIS STEHT SCHON JETZT FEST (aspect-ratio an
-         .ukar__flaeche in ueber.css): 3:2. Beim Austausch wird nur das
-         <img> eingesetzt — die Hoehe des Abschnitts aendert sich dadurch um
-         keinen Pixel. -->
-    <figure class="ue-platz ukar__bild" data-reveal style="--d:180">
-      <div class="ukar__flaeche ukar__flaeche--leer">
-        <span class="ue-platz__marke">Bild folgt von Estera</span>
-        <figcaption class="ue-platz__text">
-          Platzhalter für eine Aufnahme der beiden Geschäftsführer.
-        </figcaption>
-      </div>
-    </figure>
-
-  </div>
-</section>
-
-
-<!-- =====================================================================
-     05 · OFFENE STELLEN
-
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     HIER FEHLT INHALT VON ESTERA
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Der Kunde hat GENAU EINEN Satz geliefert: „Es werden Berater gesucht."
-     Deshalb steht hier genau eine Position — ohne Zahl, ohne Gehalt, ohne
-     Standort, ohne Anstellungsart. All das ist nicht geliefert (Briefing
-     S.21 fuehrt „Aktuelle oder moegliche Rollen, Bewerbungsweg und
-     Empfaenger fuer Lebenslaeufe" unter den offenen Inhalten) und wird
-     hier auch nicht erfunden. Die fehlenden Angaben stehen als sichtbarer
-     Vermerk in der Eckdatenliste, nicht als leeres Feld.
-
-     WEITERE STELLEN OHNE UMBAU: .ue-stellen ist ein Raster, .ue-stelle die
-     Zeile darin. Eine zweite Stelle ist eine Kopie des <article> — mehr
-     nicht. Bei zwei und mehr Stellen kann in ueber.css eine zweite Spalte
-     ergaenzt werden; bei einer waere sie halb leer.
-
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     OFFEN: EMPFAENGER FUER BEWERBUNGEN
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Eine eigene Bewerbungsadresse steht nicht im Briefing und wurde bis
-     heute nicht geliefert. Erfunden wird hier keine — eine Adresse wie
-     „karriere@…", die niemand abruft, verliert Bewerbungen lautlos und
-     faellt niemandem auf. Der Knopf fuehrt deshalb auf die Kontaktseite,
-     und daneben steht sichtbar, dass die eigene Adresse noch fehlt.
-
-     KEIN FORMULAR. Das Briefing verlangt auf S.7 ausdruecklich „Kein
-     umfangreiches oeffentliches Qualifikationsformular".
-     ===================================================================== -->
-<section class="sp-band ue-band-luft ue-ziel" id="stellen" aria-labelledby="ue-h-stellen">
-  <div class="sp-band__inner ue-weit">
-
-    <div class="ue-kopf ue-kopf--mitte" data-reveal>
-      <p class="ue-kopf__zeile">
-        <span class="ue-kopf__nr">05</span>
-        <span class="ue-kopf__strich" aria-hidden="true"></span>
-        <span class="kicker">Positionen</span>
-      </p>
-      <h2 class="ue-kopf__h2" id="ue-h-stellen">Offene Stellen</h2>
-      <p class="ue-kopf__lead">
-        Estera schreibt nur aus, wonach tatsächlich gesucht wird.
-      </p>
-    </div>
-
-    <div class="ue-stellen ue-staffel" data-reveal>
-      <article class="ue-kasten ue-stelle" style="--d:0" aria-labelledby="ue-h-berater">
-        <div class="ue-stelle__kopf">
-          <h3 class="ue-stelle__name" id="ue-h-berater">Berater</h3>
-          <p class="ue-stelle__art">Aktuell gesucht</p>
-        </div>
-
-        <p class="ue-kasten__t">
-          Sie begleiten Interessenten vom Erstgespräch bis zum Notartermin:
-          Ausgangssituation einordnen, passende Kapitalanlageimmobilien
-          auswählen, Zahlen, Daten und Fakten aufbereiten, die Finanzierung
-          über das Netzwerk koordinieren und die Beteiligten zusammenführen.
-        </p>
-
-        <dl class="ue-daten">
-          <div>
-            <dt>Standort</dt>
-            <dd><span class="sp-offen">Angabe folgt</span></dd>
-          </div>
-          <div>
-            <dt>Anstellungsart</dt>
-            <dd><span class="sp-offen">Angabe folgt</span></dd>
-          </div>
-          <div>
-            <dt>Vergütung</dt>
-            <dd><span class="sp-offen">Angabe folgt</span></dd>
-          </div>
-          <div>
-            <dt>Eintritt</dt>
-            <dd><span class="sp-offen">Angabe folgt</span></dd>
-          </div>
-        </dl>
-
-        <div class="ue-stelle__weg">
-          <a class="btn" href="kontakt.html">Bewerbung senden</a>
-          <p class="ue-stelle__hinweis">
-            <span class="sp-offen">Bewerbungsadresse folgt</span>
-            <span class="ue-text">
-              Kurz und direkt: Lebenslauf und ein paar Sätze zur Motivation. Ein
-              Anschreiben über drei Seiten braucht es nicht. Eine eigene Adresse
-              für Bewerbungen ist noch nicht festgelegt – bis dahin führt der
-              Weg über die Kontaktseite.
-            </span>
-          </p>
-        </div>
-      </article>
-    </div>
-
-    <div class="sp-luecke" data-reveal>
-      <span class="sp-offen">Weitere Rollen folgen von Estera</span>
-      <p>
-        Genannt ist bisher ausschließlich die Rolle des Beraters. Welche
-        weiteren Bereiche tatsächlich gesucht werden, liegt noch nicht vor.
-        Bis dahin steht hier bewusst keine Liste mit Beispielrollen.
-      </p>
-      <p>
-        Eine Initiativbewerbung ist unabhängig davon jederzeit möglich.
-      </p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================================
-     06 · WARUM MAN BEI ESTERA ARBEITEN SOLLTE
-     (Masterbriefing S.19 „Wenige Saetze zu Arbeitsweise, Verantwortung und
-     Qualitaetsverstaendnis"; S.4; S.7; S.9)
-
-     ALLES ABGELEITET, NICHTS ERFUNDEN. Jeder der vier Gruende steht so
-     oder sinngleich bereits auf dieser Website oder im Briefing. Es sind
-     bewusst KEINE Benefits: kein Firmenwagen, keine flachen Hierarchien,
-     kein Weiterbildungsbudget, keine Teamevents. Nichts davon ist
-     geliefert, und S.19 untersagt die Benefit-Liste ohnehin.
-
-     ANORDNUNG: versetzt. Die rechte Spalte sitzt tiefer als die linke.
-     Das ist der letzte Rhythmuswechsel der Seite und der Grund, warum der
-     Abschluss nicht wie eine Wiederholung von Abschnitt 3 aussieht.
-     ===================================================================== -->
-<section class="sp-band sp-band--cool ue-band-luft ue-ziel" id="warum-arbeiten" aria-labelledby="ue-h-warum-arbeiten">
-  <div class="sp-band__inner ue-weit">
-
-    <div class="ue-kopf" data-reveal>
-      <p class="ue-kopf__zeile">
-        <span class="ue-kopf__nr">06</span>
-        <span class="ue-kopf__strich" aria-hidden="true"></span>
-        <span class="kicker">Arbeiten bei Estera</span>
-      </p>
-      <h2 class="ue-kopf__h2" id="ue-h-warum-arbeiten">
-        Warum man bei Estera arbeiten sollte
-      </h2>
-      <p class="ue-kopf__lead">
-        Vier Gründe, die nicht auf einer Leistungsliste stehen, sondern
-        darauf, wie hier gearbeitet wird.
-      </p>
-    </div>
-
-    <div class="ue-gruende ue-staffel" data-reveal>
-
-      <article class="ue-kasten" style="--d:0">
-        <h3 class="ue-kasten__h">Ein Unternehmen, kein Vertriebskanal</h3>
-        <p class="ue-kasten__t">
-          Estera wird als Unternehmen aufgebaut – nicht auf den nächsten
-          Immobilienabschluss hin.
-        </p>
-        <p class="ue-kasten__kern">
-          Wer hier anfängt, arbeitet an einem Beratungsstandard und nicht an
-          einer Quartalszahl.
-        </p>
-      </article>
-
-      <article class="ue-kasten" style="--d:130">
-        <h3 class="ue-kasten__h">Verantwortung mit Namen</h3>
-        <p class="ue-kasten__t">
-          Jeder Schritt hat einen Menschen dahinter: einordnen, auswählen,
-          prüfen, aufbereiten, koordinieren, begleiten.
-        </p>
-        <p class="ue-kasten__kern">
-          Vom Ersttermin bis zum Notar bleibt derselbe Ansprechpartner
-          zuständig – und hält den Ablauf zusammen.
-        </p>
-      </article>
-
-      <article class="ue-kasten" style="--d:260">
-        <h3 class="ue-kasten__h">Qualität vor Quantität</h3>
-        <p class="ue-kasten__t">
-          Lieber weniger Empfehlungen – dafür Kapitalanlageimmobilien, die
-          den Auswahlprozess wirklich bestehen.
-        </p>
-        <p class="ue-kasten__kern">
-          Wenn Kunde, Finanzierung oder Objekt nicht zusammenpassen, wird kein
-          Abschluss erzwungen. Auch ein Nein gehört zur Arbeit.
-        </p>
-      </article>
-
-      <article class="ue-kasten" style="--d:390">
-        <h3 class="ue-kasten__h">Handwerk statt Verkaufsdruck</h3>
-        <p class="ue-kasten__t">
-          Lagebewertung, Marktanalyse, Zustandsprüfung, wirtschaftliche
-          Einordnung, Finanzierungsstruktur: hier wird gerechnet, bevor
-          gesprochen wird.
-        </p>
-        <p class="ue-kasten__kern">
-          Zahlen, Daten und Fakten werden sauber aufbereitet, bevor sie einem
-          Kunden vorgelegt werden.
-        </p>
-      </article>
-
-    </div>
-  </div>
-</section>
 
 </main>
 
@@ -1240,7 +959,7 @@
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
       <li><a class="menu__link" href="ueber-estera.html" aria-current="page"><span class="num">01</span> Über Estera</a></li>
-      <li><a class="menu__link" href="#karriere"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="karriere.html"><span class="num">02</span> Karriere</a></li>
       <li><a class="menu__link" href="kontakt.html"><span class="num">03</span> Kontakt</a></li>
     </ul>
 

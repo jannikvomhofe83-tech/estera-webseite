@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karriere bei Estera — Immobilienberater im Vertrieb Kapitalanlagen</title>
+<meta name="description" content="Estera sucht Immobilienberater für den Vertrieb von Kapitalanlagen. Ausgewählte Objekte, koordinierte Finanzierung, ein klarer Prozess und ein Ansprechpartner, der dich begleitet.">
+<!-- Wie die Startseite: die Seite ist in Abstimmung und gehoert nicht in
+     eine Suchmaschine. Vor dem Livegang zu entfernen. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Dieselben zwei Schriftschnitte wie die Startseite. Sie liegen bereits im
+     Zwischenspeicher, wenn der Besucher von dort kommt — vorgeladen wird
+     trotzdem, weil man auch direkt hier landen kann. -->
+<link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Das Kopfbild traegt den ersten Bildschirm und wird deshalb vorgeladen.
+     `type` und `imagesrcset` sorgen dafuer, dass nur die WebP-Fassung
+     geholt wird — sonst laedt der Browser zusaetzlich das PNG. -->
+<link rel="preload" as="image" href="assets/img/karriere/kar-hero.webp" type="image/webp" fetchpriority="high">
+
+<!-- REIHENFOLGE IST ABSICHT
+     fonts.css und base.css tragen Token, Kopfleiste, Wortmarke, Menue und
+     Schaltflaechen — unveraendert von der Startseite uebernommen.
+     schluss.css steht hier ausschliesslich wegen der Fusszeile (.fuss__*).
+     Ihre uebrigen Regeln greifen auf dieser Seite ins Leere.
+     seiten.css traegt den gemeinsamen Bestand der Unterseiten (Seitenkopf,
+     Abschnittsrhythmus, Wertekarten, Schrittfolge, sichtbare Luecken).
+     faq.css traegt den Aufklapper. Er ist im Projekt bereits gebaut und
+     wird hier NICHT nachgebaut, sondern benutzt; die Farbgebung des
+     Kastens wird in karriere.css ueber die vorgesehenen Variablen auf
+     Navy gestellt, ohne faq.css anzufassen.
+     karriere.css kommt ZULETZT und gehoert allein dieser Seite. Wo sie
+     sich mit seiten.css ueberschneidet, gewinnt bewusst die spaetere
+     Datei — Begruendung steht jeweils dort.
+     Keine bestehende CSS-Datei wurde fuer diese Seite veraendert. -->
+<link rel="stylesheet" href="assets/css/fonts.css?v=b24a">
+<link rel="stylesheet" href="assets/css/base.css?v=b24a">
+<link rel="stylesheet" href="assets/css/schluss.css?v=b24a">
+<link rel="stylesheet" href="assets/css/seiten.css?v=b24a">
+<link rel="stylesheet" href="assets/css/faq.css?v=b24a">
+<link rel="stylesheet" href="assets/css/karriere.css?v=b24a">
+</head>
+<body>
+
+<!-- =====================================================================
+     KOPF — Zeichen fuer Zeichen wie auf der Startseite.
+
+     MIT site-header--invert, und das ist die Rueckkehr zu einem Zustand,
+     der zwischenzeitlich aufgehoben war. Die Begruendung von damals lautete:
+     der Hero sei auf Kundenwunsch AUSGEBLASST (weisse Lage darueber), helle
+     Kopfschrift stehe darauf bei rund 1,8:1. Das galt fuer den alten,
+     hellen Seitenkopf dieser Seite.
+
+     Seit dem 26.08.2026 traegt der Seitenkopf hier ein DUNKLES Bild mit
+     Navy-Schleier — die Vorlage macht es genauso. Damit ist die Lage
+     umgekehrt: navyblaue Kopfschrift auf dunklem Grund waere unlesbar,
+     helle ist es nicht. Gemessen am Bildpunkt gegen den HELLSTEN Punkt im
+     Kopfbereich (das Fenster links im Bild) stehen die Menuepunkte bei
+     ueber 7:1.
+
+     Wer den Schleier zurueckdreht oder das Bild austauscht, muss diese
+     Klasse mitpruefen. Sie wirkt ausschliesslich am Seitenanfang: jede
+     Invertierungsregel in base.css ist :not(.site-header--sticky)
+     qualifiziert, und site.js setzt --sticky ab 24 px Scroll. Ohne
+     Javascript bleibt die Leiste absolut positioniert und scrollt mit dem
+     Hero aus dem Bild — sie steht dann nie ueber hellem Grund.
+
+     EINE SEITE, ZWEI EINTRAEGE   (Kundenwunsch vom 22.08.2026)
+     „Ich will, dass Über Estera und Karriere eine Seite wird, die zwei
+     Unterpunkte bleiben." Beide Punkte stehen deshalb weiter in der
+     Kopfleiste.
+
+     ACHTUNG, BEKANNTE ABWEICHUNG: aria-current="page" haengt unten an
+     „Über Estera". Das stammt aus der Zeit, als diese Inhalte Abschnitt 4
+     von ueber-estera.html waren. Auf DIESER Datei muesste es an
+     „Karriere" haengen. Die Navigation war fuer diesen Auftrag
+     ausdruecklich unberuehrt zu lassen, deshalb steht es unveraendert —
+     der Punkt ist in der Rueckmeldung vermerkt.
+     ===================================================================== -->
+<header class="site-header site-header--invert" data-header>
+
+  <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
+    <ul>
+      <li><a href="variante-a.html#warum-immobilien">Vorteile</a></li>
+      <li><a href="variante-a.html#leistungen">Leistungen</a></li>
+      <li><a href="variante-a.html#vorteile">Eigentumsaufbau</a></li>
+    </ul>
+  </nav>
+
+  <a class="wordmark" href="./variante-a.html" aria-label="Estera — Startseite">
+    <span class="wordmark__name">ESTERA</span>
+    <span class="wordmark__sub">Immobilien</span>
+  </a>
+
+  <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
+    <ul>
+      <li><a href="ueber-estera.html" aria-current="page">Über Estera</a></li>
+      <li><a href="karriere.html">Karriere</a></li>
+      <li class="kopfnav__cta"><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <button class="burger" type="button" data-menu-open aria-expanded="false" aria-controls="hauptmenue">
+    <span class="burger__label">Menü</span>
+    <span class="burger__lines" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+</header>
+
+<main class="sp kar">
+
+<!-- =====================================================================
+     KARRIERE  —  eigene Seite seit dem 26.08.2026
+
+     Bis dahin waren die Inhalte Abschnitt 4 von `ueber-estera.html`. Der
+     Kunde: „Gib der Karriere einen eigenen Unterpunkt." Dort steht jetzt
+     bewusst KEIN Anreisser mehr, damit nichts doppelt gepflegt wird.
+
+     WICHTIG FUER NETLIFY: In `_redirects` stand eine Regel
+     `/karriere.html -> /ueber-estera.html#karriere`. Sie ist entfernt und
+     darf nicht zurueckkehren — sie wuerde diese Seite ueberdecken, und
+     zwar nur im Netz, nicht beim oertlichen Ausprobieren.
+
+     AUFBAU NACH EINEM REFERENZVIDEO DES KUNDEN
+     (`Bilder/WhatsApp Video 2026-08-25 at 20.25.54.mp4`). Der Kunde:
+     „so nah wie moeglich, aber trotzdem eigenstaendig, damit es nicht so
+     aussieht, als haetten wir sie kopiert." Uebernommen sind deshalb nur
+     die BAUPRINZIPIEN — Abschnittsfolge, Argumentationskette, einspaltig
+     gedachte Anordnung, Knoepfe ueber die volle Spaltenbreite,
+     zweifarbige Ueberschriften, Etiketten in gesperrten Versalien mit
+     Marke davor, grosszuegige Eckenradien.
+     NICHT uebernommen: Farbwelt (dort Cyan auf Schwarz), Schrift (dort
+     Grotesk), und kein einziger Satz im Wortlaut. Der Firmenname der
+     Vorlage und deren Personennamen kommen auf dieser Seite nicht vor.
+
+     WAS ES BEI ESTERA NICHT GIBT, KOMMT NICHT AUF DIE SEITE
+     Die Vorlage traegt sechs Abschnitte, fuer die hier keine Grundlage
+     besteht. Sie entfallen ersatzlos, nichts davon ist erfunden. An der
+     jeweils passenden Stelle unten steht ein Vermerk, falls spaeter doch
+     Material kommt:
+       - Teamevents (Sportwagen, Hubschrauber, Monaco, Dubai)
+       - Erfolgsgeschichte eines Mitarbeiters mit Einkommensangabe
+       - Auszeichnung / Arbeitgebersiegel
+       - Mitarbeitervideos und Mitarbeiterzitate
+       - Kundenlogos als Vertrauensbeweis
+       - Alltags-Film („Day in the life")
+
+     AUSGESCHRIEBEN IST GENAU EINE STELLE: Immobilienberater, Vertrieb
+     Kapitalanlagen. Keine weitere erfinden.
+
+     KEINE ZAHL AUF DIESER SEITE. Kein Gehalt, keine Provision, keine
+     Quote, keine Mitarbeiterzahl, kein Jahr. Der Wording-Master haelt
+     dazu fest: konkrete Provisionen und Einkommensbeispiele nur, wenn sie
+     vollstaendig belegbar und mit den vertraglichen Regelungen identisch
+     sind. Es gibt derzeit keine.
+     ===================================================================== -->
+
+<!-- ---------------------------------------------------------------------
+     01 · SEITENKOPF
+     Die Vorlage setzt hier dunkel mit Foto im Hintergrund. Das ist
+     uebernommen, aber in Estera-Farben: Navy-Schleier statt Schwarz,
+     Cormorant statt Grotesk.
+
+     Das Bild zeigt einen Schreibtisch mit Blick ueber Muenchen und
+     bewusst KEINE Gesichter (Kundenwunsch: „Man soll keine Gesichter
+     sehen auf den anderen Bildern, weil das sonst so generiert
+     aussieht."). Es ist rein stimmungstragend, deshalb alt="" und der
+     Traeger aria-hidden.
+     --------------------------------------------------------------------- -->
+<section class="sp-hero kar-hero" aria-labelledby="kar-h1">
+
+  <div class="kar-hero__bild" aria-hidden="true">
+    <picture>
+      <source srcset="assets/img/karriere/kar-hero.webp" type="image/webp">
+      <img src="assets/img/karriere/kar-hero.png" alt=""
+           width="1536" height="1024" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+
+  <div class="sp-hero__inner kar-hero__inner">
+    <p class="kicker sp-hero__kicker kar-kicker" data-anim>
+      <span class="kar-kicker__marke" aria-hidden="true"></span>Karriere bei Estera
+    </p>
+
+    <!-- Zweifarbige Ueberschrift wie in der Vorlage: eine Zeile ruhig, die
+         Schluesselzeile im Akzent. Der Satz ist der aus dem Wording-Master
+         und wird NICHT umgestellt — nur die Zeilenteilung ist gestalterisch.
+         Das <span> traegt keine eigene Bedeutung, der Satz bleibt einer. -->
+    <h1 class="display sp-hero__h1 kar-hero__h1" id="kar-h1" data-anim style="--d:120">
+      Vertrieb aufbauen,<br>
+      <span class="kar-akzent">ohne Vertrauen zu verspielen.</span>
+    </h1>
+
+    <p class="lead sp-hero__lead kar-hero__lead" data-anim style="--d:240">
+      Du willst Menschen beim Aufbau von Eigentum begleiten und gleichzeitig eine
+      langfristige Vertriebsperspektive entwickeln? Bei Estera erhältst du klare
+      Prozesse, ausgewählte Immobilien und persönliche Unterstützung.
+    </p>
+
+    <!-- Die eine ausgeschriebene Stelle. Sie steht hier, weil die Vorlage den
+         Stellentitel in den Seitenkopf setzt und ein Besucher sonst bis zum
+         Ende scrollen muesste, um zu erfahren, worum es geht.
+         (m/w/d) ist die uebliche Kennzeichnung nach dem AGG, keine
+         inhaltliche Zutat. -->
+    <p class="kar-stelle" data-anim style="--d:320">
+      <span class="kar-stelle__label">Offene Position</span>
+      <span class="kar-stelle__wert">Immobilienberater (m/w/d) — Vertrieb Kapitalanlagen</span>
+    </p>
+
+    <!-- Knoepfe ueber die volle Spaltenbreite, wie in der Vorlage. Auf dem
+         Schreibtisch stehen sie nebeneinander in einer begrenzten Spalte,
+         auf dem Telefon untereinander ueber die ganze Breite. -->
+    <div class="kar-knoepfe" data-anim style="--d:400">
+      <a class="btn btn--weiss kar-btn" href="kontakt.html">Als Vertriebspartner bewerben</a>
+      <a class="btn kar-btn kar-btn--klar" href="#partnermodell">Das Partnermodell kennenlernen</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     02 · FUER WEN ESTERA PASST
+
+     An dieser Stelle fuehrt die Vorlage einen Streifen mit Kundenlogos als
+     Vertrauensbeweis. Der entfaellt: Estera hat dafuer keine Freigaben,
+     und fremde Logos ohne Freigabe sind auf einer Karriereseite kein
+     Vertrauensbeweis, sondern ein Rechtsrisiko.
+
+     Ersatz ist die ehrlichere Gegenueberstellung: wofuer die Zusammenarbeit
+     gedacht ist — und wofuer nicht. Die rechte Liste ist bewusst nicht
+     weichgespuelt; sie erspart beiden Seiten das falsche Gespraech.
+
+     Die zweite Liste ist NICHT allein ueber Farbe von der ersten
+     unterschieden (Rot/Gruen waere hier die uebliche und falsche Loesung):
+     beide tragen eine Ueberschrift im Klartext und ein eigenes Zeichen —
+     Strich fuer „geeignet", Kreuz fuer „nicht passend".
+     --------------------------------------------------------------------- -->
+<section class="sp-band kar-ziel" id="fuer-wen" aria-labelledby="kar-h-fuerwen">
+  <div class="sp-band__inner">
+
+    <div class="kar-zwei kar-zwei--bild">
+      <div class="kar-zwei__text">
+        <div class="sp-kopf kar-kopf" data-reveal>
+          <p class="kicker kar-kicker">
+            <span class="kar-kicker__marke" aria-hidden="true"></span>Für wen Estera passt
+          </p>
+          <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-fuerwen">
+            Für Menschen, die beraten wollen –
+            <span class="kar-akzent">nicht nur verkaufen.</span>
+          </h2>
+          <p class="sp-kopf__lead">
+            Estera sucht Vertriebspartner, die langfristige Kundenbeziehungen
+            aufbauen, verständlich kommunizieren und Verantwortung für eine
+            saubere Begleitung übernehmen.
+          </p>
+        </div>
+      </div>
+
+      <figure class="kar-bild kar-bild--hoch" data-reveal>
+        <picture>
+          <source srcset="assets/img/karriere/kar-zusammenarbeit.webp" type="image/webp">
+          <img src="assets/img/karriere/kar-zusammenarbeit.png" alt=""
+               width="1254" height="1254" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+    </div>
+
+    <div class="kar-passt" data-reveal>
+
+      <div class="kar-karte kar-passt__seite">
+        <h3 class="kar-passt__titel">Geeignet für</h3>
+        <ul class="kar-liste kar-liste--ja">
+          <li>Finanzberater und Versicherungsmakler</li>
+          <li>Finanzdienstleister mit bestehendem Kundenstamm</li>
+          <li>Vertriebsprofis mit hoher Beratungsqualität</li>
+          <li>Selbstständige und Unternehmer mit relevantem Netzwerk</li>
+          <li>Ambitionierte Quereinsteiger mit Lernbereitschaft und Disziplin</li>
+        </ul>
+      </div>
+
+      <div class="kar-karte kar-passt__seite kar-passt__seite--nein">
+        <h3 class="kar-passt__titel">Nicht passend für</h3>
+        <ul class="kar-liste kar-liste--nein">
+          <li>Kurzfristigen Abschlussdruck</li>
+          <li>Unrealistische Rendite- oder Steuerversprechen</li>
+          <li>Unstrukturierte Einzelaktionen</li>
+          <li>Vertrieb ohne verbindliche Kundenbetreuung</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     03 · WARUM VERTRIEBSPARTNER MIT ESTERA ARBEITEN
+
+     Sprungziel des zweiten Knopfes im Seitenkopf.
+
+     In der Vorlage eine schlichte Liste mit kleinen Quadraten. Das kleine
+     Quadrat ist als Marke uebernommen, die Liste wird auf dem Schreibtisch
+     aber zu einem dreispaltigen Raster — einspaltig waere das ueber
+     1440 px eine Bandwurmseite.
+
+     Punkt 6 heisst „Attraktive Verdienstperspektive" und bleibt bewusst
+     ohne Zahl. Siehe der Vermerk im Kopf dieser Datei.
+     --------------------------------------------------------------------- -->
+<section class="sp-band sp-band--cool kar-ziel" id="partnermodell" aria-labelledby="kar-h-warum">
+  <div class="sp-band__inner">
+
+    <div class="sp-kopf kar-kopf" data-reveal>
+      <p class="kicker kar-kicker">
+        <span class="kar-kicker__marke" aria-hidden="true"></span>Das Partnermodell
+      </p>
+      <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-warum">
+        Warum Vertriebspartner
+        <span class="kar-akzent">mit Estera arbeiten</span>
+      </h2>
+    </div>
+
+    <ul class="kar-raster kar-raster--drei" data-reveal>
+
+      <li class="kar-karte kar-punkt">
+        <span class="kar-punkt__marke" aria-hidden="true"></span>
+        <h3 class="kar-punkt__titel">Ausgewählte Immobilien</h3>
+        <p class="kar-punkt__text">
+          Du erhältst Zugang zu Kapitalanlageimmobilien, die vor der
+          Kundenpräsentation strukturiert aufbereitet werden.
+        </p>
+      </li>
+
+      <li class="kar-karte kar-punkt">
+        <span class="kar-punkt__marke" aria-hidden="true"></span>
+        <h3 class="kar-punkt__titel">Finanzierung als Teil des Prozesses</h3>
+        <p class="kar-punkt__text">
+          Finanzierung wird nicht dem Zufall überlassen, sondern mit
+          spezialisierten Ansprechpartnern koordiniert.
+        </p>
+      </li>
+
+      <li class="kar-karte kar-punkt">
+        <span class="kar-punkt__marke" aria-hidden="true"></span>
+        <h3 class="kar-punkt__titel">Klare Vertriebsunterlagen</h3>
+        <p class="kar-punkt__text">
+          Du arbeitest mit nachvollziehbaren Informationen und einem
+          strukturierten Ablauf statt mit losem Material.
+        </p>
+      </li>
+
+      <li class="kar-karte kar-punkt">
+        <span class="kar-punkt__marke" aria-hidden="true"></span>
+        <h3 class="kar-punkt__titel">Persönliche Begleitung</h3>
+        <p class="kar-punkt__text">
+          Du hast Ansprechpartner für Rückfragen, Fälle und nächste Schritte.
+        </p>
+      </li>
+
+      <li class="kar-karte kar-punkt">
+        <span class="kar-punkt__marke" aria-hidden="true"></span>
+        <h3 class="kar-punkt__titel">Langfristige Kundenbeziehung</h3>
+        <p class="kar-punkt__text">
+          Die Zusammenarbeit endet nicht beim Notar. Aus einer einzelnen
+          Immobilie kann eine langfristige Kundenbeziehung entstehen.
+        </p>
+      </li>
+
+      <li class="kar-karte kar-punkt">
+        <span class="kar-punkt__marke" aria-hidden="true"></span>
+        <h3 class="kar-punkt__titel">Attraktive Verdienstperspektive</h3>
+        <p class="kar-punkt__text">
+          Du erhältst eine nachvollziehbare Vergütungsstruktur und kannst dir
+          mit Leistung eine langfristige Vertriebsperspektive aufbauen.
+        </p>
+      </li>
+
+    </ul>
+
+    <!-- HIER KAEME SPAETER: die Auszeichnung / das Arbeitgebersiegel, das
+         die Vorlage an dieser Stelle fuehrt („Top Company", fuenf Sterne,
+         „beliebteste Arbeitgeber D/A/CH"). Estera hat kein solches Siegel.
+         Nichts erfinden — der Abschnitt bleibt leer, bis eines vorliegt. -->
+
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     04 · DIE BEIDEN GESCHAEFTSFUEHRER
+
+     Die Vorlage zeigt an dieser Stelle EINE Person mit Namensschild ueber
+     dem unteren Bildrand. Hier sind es zwei — Estera wird von zwei
+     Geschaeftsfuehrern gefuehrt.
+
+     Namen und Funktion sind aus der Versionsgeschichte von
+     ueber-estera.html uebernommen und nicht erfunden. Die Zuordnung
+     Bild-zu-Name folgt der dort bestehenden Reihenfolge (gf-1 =
+     Sebastian Meilbeck, gf-2 = Ioannis Orfanidis). In ueber-estera.html
+     ist zu dieser Zuordnung ein Vorbehalt vermerkt („unbestaetigt") — er
+     gilt hier gleichermassen und ist vor dem Livegang zu klaeren.
+
+     Die Bilder tragen alt="", weil der Name unmittelbar daneben im Text
+     steht; eine Wiederholung im alt-Text ergaebe fuer Screenreader nur
+     Doppelung.
+     --------------------------------------------------------------------- -->
+<section class="sp-band kar-ziel" id="geschaeftsfuehrer" aria-labelledby="kar-h-gf">
+  <div class="sp-band__inner">
+
+    <div class="sp-kopf kar-kopf" data-reveal>
+      <p class="kicker kar-kicker">
+        <span class="kar-kicker__marke" aria-hidden="true"></span>Geschäftsführung
+      </p>
+      <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-gf">
+        Mit wem du
+        <span class="kar-akzent">zusammenarbeitest</span>
+      </h2>
+      <p class="sp-kopf__lead">
+        Die Estera GmbH wird von zwei Geschäftsführern geführt.
+      </p>
+    </div>
+
+    <div class="kar-gf" data-reveal>
+
+      <figure class="kar-gf__karte">
+        <div class="kar-gf__bild">
+          <picture>
+            <source srcset="assets/img/gf-1.webp" type="image/webp">
+            <img src="assets/img/gf-1.jpg" alt=""
+                 width="1100" height="1100" loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <figcaption class="kar-gf__schild">
+          <span class="kar-gf__name">Sebastian Meilbeck</span>
+          <span class="kar-gf__rolle">Geschäftsführer der Estera GmbH</span>
+        </figcaption>
+      </figure>
+
+      <figure class="kar-gf__karte">
+        <div class="kar-gf__bild">
+          <picture>
+            <source srcset="assets/img/gf-2.webp" type="image/webp">
+            <img src="assets/img/gf-2.jpg" alt=""
+                 width="1100" height="1100" loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <figcaption class="kar-gf__schild">
+          <span class="kar-gf__name">Ioannis Orfanidis</span>
+          <span class="kar-gf__rolle">Geschäftsführer der Estera GmbH</span>
+        </figcaption>
+      </figure>
+
+    </div>
+
+    <!-- HIER KAEMEN SPAETER: die Mitarbeitervideos und Mitarbeiterzitate,
+         die die Vorlage an dieser Stelle fuehrt. Es gibt bei Estera weder
+         das eine noch das andere. Ein erfundenes Zitat mit erfundenem
+         Namen und fuenf Sternen waere der schlimmere Fehler. -->
+
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     05 · SO LAEUFT DIE PARTNERSCHAFT AB — fuenf Schritte
+
+     Die Schrittfolge benutzt .sp-schritte/.sp-schritt aus seiten.css
+     unveraendert; hier kommt nur das Bild daneben dazu. Auf dem Telefon
+     faellt beides untereinander.
+
+     Das Bild zeigt Unterlagen auf einem Schreibtisch, keine Gesichter.
+     --------------------------------------------------------------------- -->
+<section class="sp-band kar-ziel" id="ablauf" aria-labelledby="kar-h-ablauf">
+  <div class="sp-band__inner">
+
+    <div class="kar-zwei kar-zwei--bildlinks">
+
+      <figure class="kar-bild kar-bild--klebrig" data-reveal>
+        <picture>
+          <source srcset="assets/img/karriere/kar-unterlagen.webp" type="image/webp">
+          <img src="assets/img/karriere/kar-unterlagen.png" alt=""
+               width="1402" height="1122" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="kar-zwei__text">
+        <div class="sp-kopf kar-kopf" data-reveal>
+          <p class="kicker kar-kicker">
+            <span class="kar-kicker__marke" aria-hidden="true"></span>Der Ablauf
+          </p>
+          <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-ablauf">
+            So läuft die
+            <span class="kar-akzent">Partnerschaft ab</span>
+          </h2>
+        </div>
+
+        <ol class="sp-schritte kar-schritte" data-reveal>
+          <li class="sp-schritt">
+            <span class="sp-schritt__nr" aria-hidden="true">01</span>
+            <div>
+              <h3 class="sp-schritt__titel">Kennenlernen</h3>
+              <p class="sp-schritt__text">
+                Wir sprechen über deinen Hintergrund, deine Ziele und deine
+                bisherige Erfahrung.
+              </p>
+            </div>
+          </li>
+          <li class="sp-schritt">
+            <span class="sp-schritt__nr" aria-hidden="true">02</span>
+            <div>
+              <h3 class="sp-schritt__titel">Eignung prüfen</h3>
+              <p class="sp-schritt__text">
+                Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch und
+                Zielgruppe zusammenpassen.
+              </p>
+            </div>
+          </li>
+          <li class="sp-schritt">
+            <span class="sp-schritt__nr" aria-hidden="true">03</span>
+            <div>
+              <h3 class="sp-schritt__titel">Onboarding</h3>
+              <p class="sp-schritt__text">
+                Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung und
+                rechtliche Kommunikationsgrenzen kennen.
+              </p>
+            </div>
+          </li>
+          <li class="sp-schritt">
+            <span class="sp-schritt__nr" aria-hidden="true">04</span>
+            <div>
+              <h3 class="sp-schritt__titel">Erste Kundenfälle</h3>
+              <p class="sp-schritt__text">
+                Bei den ersten Fällen wirst du eng begleitet und erhältst
+                Unterstützung bei Einordnung, Objekt und Prozess.
+              </p>
+            </div>
+          </li>
+          <li class="sp-schritt">
+            <span class="sp-schritt__nr" aria-hidden="true">05</span>
+            <div>
+              <h3 class="sp-schritt__titel">Eigenständiger Aufbau</h3>
+              <p class="sp-schritt__text">
+                Mit zunehmender Erfahrung übernimmst du mehr Verantwortung und
+                entwickelst deinen eigenen Kundenbestand.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="kar-schluss" data-reveal>
+          Klare Prozesse. Persönliche Unterstützung.
+          <span class="kar-akzent">Leistung, die sich entwickeln kann.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     06 · WAS ESTERA ERWARTET
+
+     In der Vorlage Karten mit Symbol auf dunklem Grund. Beides ist
+     uebernommen — die dunkle Flaeche ist hier der bewusste
+     Spannungsmoment, den das Briefing erlaubt (S.20: „Dunkle Vollflaechen
+     nur als bewusste Spannungsmomente").
+
+     Die Symbole sind INLINE-SVG, kein Bild: sie erben die Textfarbe, sind
+     bei jeder Zoomstufe scharf, kosten keine zusaetzliche Anfrage und
+     tragen keine eigene Datei, die man mitpflegen muesste.
+     Strichstaerke 1,3 auf 24 px — dieselbe Feinheit wie der Winkel im
+     FAQ-Aufklapper (faq.css) und die Goldlinien im ganzen Projekt.
+     Alle sechs sind aria-hidden: die Aussage steht vollstaendig im Text
+     daneben, das Symbol wiederholt sie nur.
+     --------------------------------------------------------------------- -->
+<section class="sp-band sp-band--navy kar-ziel kar-erwartung" id="erwartungen" aria-labelledby="kar-h-erwartung">
+  <div class="sp-band__inner">
+
+    <div class="sp-kopf kar-kopf kar-kopf--mitte" data-reveal>
+      <p class="kicker kar-kicker">
+        <span class="kar-kicker__marke" aria-hidden="true"></span>Was Estera erwartet
+      </p>
+      <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-erwartung">
+        Vertrauen entsteht
+        <span class="kar-akzent">durch Haltung.</span>
+      </h2>
+    </div>
+
+    <ul class="kar-raster kar-raster--drei kar-raster--symbol" data-reveal>
+
+      <li class="kar-symbolkarte">
+        <span class="kar-symbol" aria-hidden="true">
+          <!-- Sprechblase: Kommunikation -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+               stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M20.5 12.4c0 3.9-3.8 7-8.5 7-1 0-2-.14-2.9-.4l-4.6 1.5 1.5-3.8A6.6 6.6 0 0 1 3.5 12.4c0-3.87 3.8-7 8.5-7s8.5 3.13 8.5 7Z"/>
+            <path d="M8.6 10.7h6.8M8.6 14h4.2"/>
+          </svg>
+        </span>
+        <h3 class="kar-symbolkarte__titel">Verbindliche und klare Kommunikation</h3>
+      </li>
+
+      <li class="kar-symbolkarte">
+        <span class="kar-symbol" aria-hidden="true">
+          <!-- Schild mit Schloss: Umgang mit Kundendaten -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+               stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M12 3.2 4.8 6v5.4c0 4.3 3 8.2 7.2 9.4 4.2-1.2 7.2-5.1 7.2-9.4V6L12 3.2Z"/>
+            <rect x="9.5" y="11.4" width="5" height="4.2" rx="0.8"/>
+            <path d="M10.6 11.4v-1.3a1.4 1.4 0 0 1 2.8 0v1.3"/>
+          </svg>
+        </span>
+        <h3 class="kar-symbolkarte__titel">Verantwortungsbewusster Umgang mit Kundendaten</h3>
+      </li>
+
+      <li class="kar-symbolkarte">
+        <span class="kar-symbol" aria-hidden="true">
+          <!-- Waage: keine pauschalen Versprechen, sondern Abwaegung -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+               stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M12 4.6v15.1M8.2 19.7h7.6M4.6 7.4h14.8M6.7 7.4 4.2 13h5L6.7 7.4ZM17.3 7.4 14.8 13h5l-2.5-5.6Z"/>
+            <path d="M4.2 13a2.5 2.5 0 0 0 5 0M14.8 13a2.5 2.5 0 0 0 5 0"/>
+          </svg>
+        </span>
+        <h3 class="kar-symbolkarte__titel">Keine pauschalen Steuer-, Finanzierungs- oder Renditeversprechen</h3>
+      </li>
+
+      <li class="kar-symbolkarte">
+        <span class="kar-symbol" aria-hidden="true">
+          <!-- Klemmbrett mit Haken: Nachhalten und Dokumentation -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+               stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M9 4.8H7a1.6 1.6 0 0 0-1.6 1.6v12.2A1.6 1.6 0 0 0 7 20.2h10a1.6 1.6 0 0 0 1.6-1.6V6.4A1.6 1.6 0 0 0 17 4.8h-2"/>
+            <rect x="9" y="3.2" width="6" height="3.2" rx="1"/>
+            <path d="m9.2 12.6 1.9 1.9 3.7-3.9"/>
+          </svg>
+        </span>
+        <h3 class="kar-symbolkarte__titel">Konsequentes Nachhalten und saubere Dokumentation</h3>
+      </li>
+
+      <li class="kar-symbolkarte">
+        <span class="kar-symbol" aria-hidden="true">
+          <!-- Aufgeschlagenes Buch: Bereitschaft zu lernen -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+               stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M12 7.3v12M12 7.3C10.6 6.1 8.7 5.5 6.2 5.5H3.4v11.9h2.8c2.5 0 4.4.6 5.8 1.9"/>
+            <path d="M12 7.3c1.4-1.2 3.3-1.8 5.8-1.8h2.8v11.9h-2.8c-2.5 0-4.4.6-5.8 1.9"/>
+          </svg>
+        </span>
+        <h3 class="kar-symbolkarte__titel">Bereitschaft, Prozesse und fachliche Grundlagen zu lernen</h3>
+      </li>
+
+      <li class="kar-symbolkarte">
+        <span class="kar-symbol" aria-hidden="true">
+          <!-- Sanduhr: langfristiges Denken -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+               stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="M6.6 3.6h10.8M6.6 20.4h10.8"/>
+            <path d="M7.9 3.6v3.1c0 1.5.8 2.9 2.1 3.7l1.2.7c.5.3.5 1 0 1.3l-1.2.7a4.3 4.3 0 0 0-2.1 3.7v3.6"/>
+            <path d="M16.1 3.6v3.1c0 1.5-.8 2.9-2.1 3.7l-1.2.7c-.5.3-.5 1 0 1.3l1.2.7a4.3 4.3 0 0 1 2.1 3.7v3.6"/>
+          </svg>
+        </span>
+        <h3 class="kar-symbolkarte__titel">Langfristiges Denken statt kurzfristiger Abschlussorientierung</h3>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     07 · STANDORT
+
+     Anschrift aus dem Google-Profil, vom Kunden bestaetigt:
+     Leopoldstrasse 156, 80804 Muenchen.
+
+     KEINE GOOGLE-MAPS-EINBETTUNG. Ein eingebetteter iframe laedt beim
+     Seitenaufruf Google-Server, setzt Kennungen und uebertraegt die
+     IP-Adresse des Besuchers — dafuer braucht es eine Einwilligung, und
+     die gibt es hier nicht (es existiert noch nicht einmal eine
+     Datenschutzerklaerung). Stattdessen ein gewoehnlicher Verweis: er
+     laedt nichts, bis jemand ihn selbst anklickt.
+     Die cid im Ziel ist der Eintrag des Google-Unternehmensprofils.
+
+     ACHTUNG, VOR DEM LIVEGANG ZU KLAEREN: kar-buero.webp ist ein
+     ERZEUGTES Bild und zeigt NICHT das Gebaeude in der Leopoldstrasse.
+     Es steht hier als Stimmungsbild und traegt deshalb alt="" und keine
+     Bildunterschrift, die es zum Haus erklaeren wuerde. Sobald eine echte
+     Aufnahme vorliegt, gehoert sie an diese Stelle.
+     --------------------------------------------------------------------- -->
+<section class="sp-band sp-band--cool kar-ziel" id="standort" aria-labelledby="kar-h-standort">
+  <div class="sp-band__inner">
+
+    <div class="kar-zwei kar-zwei--bildlinks">
+
+      <figure class="kar-bild" data-reveal>
+        <picture>
+          <source srcset="assets/img/karriere/kar-buero.webp" type="image/webp">
+          <img src="assets/img/karriere/kar-buero.png" alt=""
+               width="1536" height="1024" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="kar-zwei__text">
+        <div class="sp-kopf kar-kopf" data-reveal>
+          <p class="kicker kar-kicker">
+            <span class="kar-kicker__marke" aria-hidden="true"></span>Standort
+          </p>
+          <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-standort">
+            Du findest uns
+            <span class="kar-akzent">in München.</span>
+          </h2>
+        </div>
+
+        <div class="kar-karte kar-adresse" data-reveal>
+          <p class="kar-adresse__label">Estera GmbH</p>
+          <address class="kar-adresse__wert">
+            Leopoldstraße 156<br>
+            80804 München
+          </address>
+          <a class="kar-adresse__link" href="https://www.google.com/maps?cid=12343503815779969148"
+             target="_blank" rel="noopener noreferrer">
+            In Google Maps öffnen
+            <svg class="kar-adresse__pfeil" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" focusable="false">
+              <path d="M7 17 17 7M9.4 7H17v7.6"/>
+            </svg>
+            <span class="kar-adresse__fenster"> (öffnet in einem neuen Tab)</span>
+          </a>
+          <p class="kar-adresse__hinweis">
+            Der Verweis führt zu Google Maps. Es wird nichts geladen, bevor du
+            ihn anklickst.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     08 · FAQ
+
+     Baustein aus dem Projekt, unveraendert benutzt: faq.css traegt die
+     Form, faq.js das Auf- und Zuklappen. Beide Dateien sind fuer diese
+     Seite NICHT angefasst worden; die Farbgebung des Kastens wird in
+     karriere.css ueber die dafuer vorgesehenen Variablen
+     (--faq-kasten-links/-rechts) auf Navy gestellt.
+
+     OHNE JAVASCRIPT: alle sechs Faecher stehen offen. Im Markup steht
+     aria-expanded="true" und data-offen="true", kein hidden, kein
+     display:none. Saemtliche Zuklapp-Regeln in faq.css haengen an
+     .faq[data-js='an'] — das Attribut setzt erst faq.js. Faellt das
+     Skript aus, bleibt eine lesbare Liste stehen.
+     --------------------------------------------------------------------- -->
+<section class="sp-band kar-ziel faq kar-faq" id="faq" data-faq aria-labelledby="kar-h-faq">
+  <div class="sp-band__inner">
+
+    <div class="sp-kopf kar-kopf kar-kopf--mitte" data-reveal>
+      <p class="kicker kar-kicker">
+        <span class="kar-kicker__marke" aria-hidden="true"></span>Häufige Fragen
+      </p>
+      <h2 class="display sp-kopf__h2 kar-h2" id="kar-h-faq">
+        Was Bewerber am
+        <span class="kar-akzent">häufigsten fragen</span>
+      </h2>
+    </div>
+
+    <!-- Der Winkel steht einmal als Sprite und wird sechsmal geholt. -->
+    <svg class="faq__sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+      <symbol id="faq-winkel" viewBox="0 0 24 24">
+        <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor"
+              stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    </svg>
+
+    <div class="faq__liste" data-reveal>
+
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="kar-faq-k1" data-faq-knopf
+                  aria-expanded="true" aria-controls="kar-faq-a1">
+            <span class="faq__fragetext">Brauche ich Erfahrung im Immobilienvertrieb?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="kar-faq-a1" data-offen="true" role="region" aria-labelledby="kar-faq-k1">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>
+                Erfahrung ist hilfreich, aber nicht in jedem Fall zwingend. Wichtiger
+                sind Vertriebsstärke, Lernbereitschaft, Verbindlichkeit und ein
+                verantwortungsvoller Umgang mit Kunden.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="kar-faq-k2" data-faq-knopf
+                  aria-expanded="true" aria-controls="kar-faq-a2">
+            <span class="faq__fragetext">Kann ich nebenberuflich starten?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="kar-faq-a2" data-offen="true" role="region" aria-labelledby="kar-faq-k2">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>
+                Ob ein nebenberuflicher Einstieg möglich ist, hängt von deiner
+                Ausgangslage, der verfügbaren Zeit und der konkreten Ausgestaltung
+                der Zusammenarbeit ab.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="kar-faq-k3" data-faq-knopf
+                  aria-expanded="true" aria-controls="kar-faq-a3">
+            <span class="faq__fragetext">Erhalte ich Leads?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="kar-faq-a3" data-offen="true" role="region" aria-labelledby="kar-faq-k3">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>
+                Die konkrete Lead- und Terminstruktur wird im persönlichen Gespräch
+                erläutert. Entscheidend ist, dass du auch eigene Kundenbeziehungen
+                langfristig entwickeln kannst.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="kar-faq-k4" data-faq-knopf
+                  aria-expanded="true" aria-controls="kar-faq-a4">
+            <span class="faq__fragetext">Wie werde ich vergütet?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="kar-faq-a4" data-offen="true" role="region" aria-labelledby="kar-faq-k4">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>
+                Die Vergütung ist leistungsabhängig und wird transparent im
+                persönlichen Gespräch sowie in der Vertriebsvereinbarung dargestellt.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="kar-faq-k5" data-faq-knopf
+                  aria-expanded="true" aria-controls="kar-faq-a5">
+            <span class="faq__fragetext">Gibt es ein Onboarding?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="kar-faq-a5" data-offen="true" role="region" aria-labelledby="kar-faq-k5">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>
+                Ja. Du wirst in Angebot, Prozesse, Zielgruppe, Gesprächsführung und
+                die Zusammenarbeit mit den internen Ansprechpartnern eingearbeitet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__punkt">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="kar-faq-k6" data-faq-knopf
+                  aria-expanded="true" aria-controls="kar-faq-a6">
+            <span class="faq__fragetext">Welche Erlaubnisse benötige ich?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="kar-faq-a6" data-offen="true" role="region" aria-labelledby="kar-faq-k6">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>
+                Das hängt von deiner konkreten Tätigkeit und Rolle ab. Vor Beginn der
+                Zusammenarbeit wird geklärt, welche gewerbe- und aufsichtsrechtlichen
+                Voraussetzungen erfüllt sein müssen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ---------------------------------------------------------------------
+     09 · ABSCHLUSS
+
+     Der Knopf zeigt auf kontakt.html — dieselbe Beschriftung wie im
+     Seitenkopf, weil es dieselbe Handlung ist. Zwei verschiedene Woerter
+     fuer denselben Weg lesen sich als zwei verschiedene Wege.
+
+     Der Hinweis darunter ist kein Kleingedrucktes zum Wegschauen: er
+     steht in .sp-vorbehalt, also 16 px, mit Goldkante, und ist gemessen
+     ueber 4,5:1. Ein Hinweis, den man nicht lesen kann, ist kein Hinweis.
+     --------------------------------------------------------------------- -->
+<section class="sp-band sp-band--navy kar-ziel kar-abschluss" id="bewerben" aria-labelledby="kar-h-abschluss">
+  <div class="sp-band__inner">
+    <div class="kar-abschluss__inner" data-reveal>
+
+      <p class="kicker kar-kicker">
+        <span class="kar-kicker__marke" aria-hidden="true"></span>Nächster Schritt
+      </p>
+
+      <h2 class="display kar-abschluss__h2" id="kar-h-abschluss">
+        Prüfe, ob Estera zu deinem
+        <span class="kar-akzent">nächsten beruflichen Schritt passt.</span>
+      </h2>
+
+      <p class="lead kar-abschluss__lead">
+        Bewirb dich für ein unverbindliches Kennenlernen. Wir sprechen offen über
+        Erwartungen, Voraussetzungen, Zusammenarbeit und deine
+        Entwicklungsmöglichkeiten.
+      </p>
+
+      <div class="kar-knoepfe kar-knoepfe--eins">
+        <a class="btn btn--weiss kar-btn" href="kontakt.html">Als Vertriebspartner bewerben</a>
+      </div>
+
+      <p class="sp-vorbehalt kar-abschluss__vorbehalt">
+        Keine Einkommensgarantie. Die tatsächliche Entwicklung hängt insbesondere
+        von Erfahrung, Einsatz, Qualifikation und Vertriebserfolg ab.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     FUSS — unveraendert aus variante-a.html uebernommen.
+     Auch die noch fehlenden Ziele (impressum.html, datenschutz.html,
+     cookies.html, erstinformation.html, partner.html) stehen unveraendert
+     drin: die Fusszeile MUSS auf allen Seiten identisch sein, und diese
+     Seiten sind ohnehin zu bauen. In der Rueckmeldung sind sie aufgelistet.
+     ===================================================================== -->
+<footer class="fuss" id="kontakt">
+  <div class="fuss__inner">
+
+    <div class="fuss__marke">
+      <span class="wordmark">
+        <span class="wordmark__name">ESTERA</span>
+        <span class="wordmark__sub">Immobilien</span>
+      </span>
+      <p class="fuss__anker">Diskret. Strukturiert. Langfristig.</p>
+    </div>
+
+    <div>
+      <p class="fuss__titel">Kontakt</p>
+      <div class="fuss__liste">
+        <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
+        <span>Telefon — folgt</span>
+        <span>Anschrift — folgt</span>
+        <a href="partner.html">Für Partner</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="fuss__titel">Rechtliches</p>
+      <div class="fuss__liste">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="cookies.html">Cookie-Einstellungen</a>
+        <a href="erstinformation.html">Erstinformation</a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="fuss__risiko">
+    Kapitalanlageimmobilien sind langfristige Investitionen. Wertentwicklung,
+    Vermietbarkeit und steuerliche Wirkung hängen vom Einzelfall ab und können
+    nicht zugesichert werden. Diese Website ersetzt keine steuerliche,
+    rechtliche oder finanzielle Beratung.
+  </p>
+
+  <div class="fuss__unten">
+    <span>© 2026 Estera GmbH</span>
+    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     MENÜ-OVERLAY — dieselben Punkte wie in der Kopfleiste.
+     ===================================================================== -->
+<nav class="menu" id="hauptmenue" data-menu data-open="false" aria-hidden="true" aria-label="Hauptmenü">
+
+  <div class="menu__bar">
+    <span class="wordmark">
+      <span class="wordmark__name">ESTERA</span>
+      <span class="wordmark__sub">Immobilien</span>
+    </span>
+    <button class="menu__close" type="button" data-menu-close>
+      Schließen
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <line x1="2" y1="2" x2="16" y2="16"></line>
+        <line x1="16" y1="2" x2="2" y2="16"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div class="menu__body">
+    <!-- „Auf dieser Seite" fuehrt hier zu den Abschnitten der STARTSEITE.
+         Die Punkte muessen auf allen Seiten dieselben sein — deshalb bleiben
+         sie stehen und bekommen die Startseite vorangestellt. -->
+    <p class="menu__gruppe">Auf der Startseite</p>
+    <ul class="menu__nav">
+      <li><a class="menu__link" href="variante-a.html#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
+      <li><a class="menu__link" href="variante-a.html#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <li><a class="menu__link" href="variante-a.html#vorteile"><span class="num">03</span> Eigentumsaufbau</a></li>
+    </ul>
+    <p class="menu__gruppe">Seiten</p>
+    <ul class="menu__nav">
+      <li><a class="menu__link" href="ueber-estera.html" aria-current="page"><span class="num">01</span> Über Estera</a></li>
+      <li><a class="menu__link" href="karriere.html"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html"><span class="num">03</span> Kontakt</a></li>
+    </ul>
+
+    <aside class="menu__aside">
+      <div>
+        <p class="kicker">Nächster Schritt</p>
+        <p>Ein Erstgespräch klärt zuerst, ob eine Kapitalanlageimmobilie überhaupt zu Ihrer
+           Situation passt. Erst danach sprechen wir über Objekte.</p>
+      </div>
+      <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
+      <div>
+        <p class="kicker">Kontakt</p>
+        <p><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="menu__foot">
+    <span>Diskret. Strukturiert. Langfristig.</span>
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+      <li><a href="cookies.html">Cookie-Einstellungen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Der Varianten-Umschalter der Startseite gehoert hier nicht hin: er ist
+     ein Werkzeug der internen Abstimmung zwischen zwei Startseitenentwuerfen
+     und hat auf einer Unterseite keine Bedeutung. -->
+
+<script src="assets/js/site.js?v=b24a"></script>
+<!-- Der Aufklapper. Unveraendert aus dem Projekt; die Datei sucht sich ihre
+     Wurzel ueber [data-faq] und die Knoepfe ueber [data-faq-knopf].
+     Reihenfolge zu site.js ist gleichgueltig — sie haengt an nichts daraus.
+     ueber.js ist hier bewusst NICHT mehr eingebunden: es suchte die
+     Wortfuellung aus Abschnitt 2 von ueber-estera.html und lief auf dieser
+     Seite ohnehin ins Leere. -->
+<script src="assets/js/faq.js?v=b24a"></script>
+</body>
+</html>
