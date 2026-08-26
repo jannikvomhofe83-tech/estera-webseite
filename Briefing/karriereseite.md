@@ -45,8 +45,22 @@ Alles Folgende steht wörtlich im Master. Nichts kürzen, glätten oder
 ergänzen. Anrede Du.
 
 ### Kopfbereich
+
+> **Nachtrag 26.08.2026 — geht der Zeile aus dem Master vor.** Der Kunde hat
+> die Überschrift ausdrücklich festgelegt: **„Werde Teil des Teams bei
+> Estera"**, in Aufbau und Anordnung wie der Kopfbereich von
+> estateanfrage-karriere.de. Die Master-Zeile darunter bleibt als
+> Rückfallmöglichkeit stehen, wird aber nicht gesetzt.
+>
+> Das ist kein Bruch der Regel „kein einziger Satz im Wortlaut": „Werde Teil
+> des Teams bei …" ist eine im Stellenmarkt allgemein übliche Wendung, keine
+> eigenschöpferische Formulierung der Vorlage. Die Regel gilt unverändert für
+> deren **eigene** Texte — Fließtext, Nutzenversprechen,
+> Aufgabenbeschreibungen, Zitate. Die Unterzeile wird selbst geschrieben.
+
 - Kleinzeile: KARRIERE BEI ESTERA
-- Überschrift: **Vertrieb aufbauen, ohne Vertrauen zu verspielen.**
+- Überschrift: **Werde Teil des Teams bei Estera**
+- Überschrift laut Master (nicht gesetzt): *Vertrieb aufbauen, ohne Vertrauen zu verspielen.*
 - Unterzeile: **Du willst Menschen beim Aufbau von Eigentum begleiten und gleichzeitig eine langfristige Vertriebsperspektive entwickeln? Bei Estera erhältst du klare Prozesse, ausgewählte Immobilien und persönliche Unterstützung.**
 - Knopf 1: **Als Vertriebspartner bewerben** → `kontakt.html`
 - Knopf 2: **Das Partnermodell kennenlernen** → Sprung in die Seite
