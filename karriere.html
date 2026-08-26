@@ -228,8 +228,27 @@
          Figuren, damit die Figuren selbst ihre eigene Maske behalten. -->
     <div class="kar-kopf__auslauf" aria-hidden="true"></div>
 
+    <!-- DIE BEIDEN GESCHAEFTSFUEHRER, freigestellt.
+
+         Kundenwunsch vom 26.08.2026, woertlich und scheinbar
+         widerspruechlich: „Du musst die zwei Geschaeftsfuehrer
+         durchsichtig machen. Die muessen durchsichtig sein, also nicht
+         transparent." Gemeint ist: sauber freigestellt, sodass der
+         Hintergrund um sie herum durchscheint — aber nicht
+         halbdurchsichtig. Durch die Personen selbst sieht man nichts
+         hindurch. Es liegt deshalb KEIN `opacity` auf ihnen, und der
+         Auslauf ihrer Maske beginnt erst unterhalb der Schultern; die
+         gemessenen Werte stehen in assets/css/karriere.css bei
+         .kar-kopf__figur--a / --b.
+
+         `data-anim` staffelt ihren Einlauf VOR der Ueberschrift — die
+         Figuren stehen zuerst, dann kommt der Text dazu. Ohne
+         Javascript stehen sie sofort da. Die Verschiebung laeuft bei
+         ihnen ueber `translate` statt ueber `transform`, weil
+         `transform` ihre Mittigkeit traegt; Begruendung ebenfalls im
+         Stylesheet. -->
     <div class="kar-kopf__leute">
-      <figure class="kar-kopf__figur kar-kopf__figur--a">
+      <figure class="kar-kopf__figur kar-kopf__figur--a" data-anim style="--d:60">
         <picture>
           <source srcset="assets/img/karriere/gf-1-frei.webp?v=b24a" type="image/webp">
           <img src="assets/img/karriere/gf-1-frei.png?v=b24a"
@@ -237,7 +256,7 @@
                width="836" height="920" fetchpriority="high" decoding="async">
         </picture>
       </figure>
-      <figure class="kar-kopf__figur kar-kopf__figur--b">
+      <figure class="kar-kopf__figur kar-kopf__figur--b" data-anim style="--d:170">
         <picture>
           <source srcset="assets/img/karriere/gf-2-frei.webp?v=b24a" type="image/webp">
           <img src="assets/img/karriere/gf-2-frei.png?v=b24a"
@@ -257,11 +276,18 @@
          haette H1, Unterzeile und Knopf um rund 35 px nach unten
          geschoben und damit genau die Groessenverhaeltnisse verschoben,
          auf die es hier ankommt. -->
-    <h1 class="kar-kopf__h1" id="kar-h1" data-anim>
+    <!-- DIE RUHIGE STAFFELUNG IM KOPFBEREICH. Die Zahl in `--d` sind
+         Millisekunden Verzoegerung; die Ueberblendung selbst dauert
+         1,15 s (base.css). Reihenfolge: erst die beiden Figuren
+         (60 / 170), dann Ueberschrift, Unterzeile, Knopf, Verweis. Der
+         Abstand von rund 130 ms je Zeile ist derselbe, den die
+         Startseite benutzt — schneller wirkt es hektisch, langsamer
+         wartet man darauf. -->
+    <h1 class="kar-kopf__h1" id="kar-h1" data-anim style="--d:300">
       Werde Teil des Teams bei Estera
     </h1>
 
-    <p class="kar-kopf__lead" data-anim style="--d:240">
+    <p class="kar-kopf__lead" data-anim style="--d:430">
       Du willst Menschen beim Aufbau von Eigentum begleiten und gleichzeitig eine
       langfristige Vertriebsperspektive entwickeln? Bei Estera erhältst du klare
       Prozesse, ausgewählte Immobilien und persönliche Unterstützung.
@@ -271,10 +297,10 @@
          zweite Weg aus dem Wording-Master („Das Partnermodell
          kennenlernen") steht deshalb als ruhiger Verweis darunter und
          nicht als zweiter Knopf — sonst kippt der Rhythmus. -->
-    <p class="kar-kopf__knopf" data-anim style="--d:360">
+    <p class="kar-kopf__knopf" data-anim style="--d:560">
       <a class="kar-btn kar-btn--sand" href="kontakt.html">Als Vertriebspartner bewerben</a>
     </p>
-    <p class="kar-kopf__weiter" data-anim style="--d:440">
+    <p class="kar-kopf__weiter" data-anim style="--d:660">
       <a href="#stellen">Die offene Stelle ansehen</a>
     </p>
   </div>
@@ -507,18 +533,25 @@
      bemaengelt wurde. Er kommt ohne Karten und ohne Symbole aus und
      laesst den Text die Arbeit machen.
 
-     WAS HIER ANDERS IST
-     Der Abschnitt steht auf Navy statt auf Weiss. Grund ist der
-     Rhythmus: davor und danach steht Weiss, und die Seite braucht
-     zwischen Stellenanzeige und Ablauf eine dunkle Flaeche, sonst
-     laeuft die untere Haelfte in einem Ton durch.
+     FARBE — Kundenwunsch vom 26.08.2026, woertlich: „Da musst du einen
+     weissen Hintergrund machen auf die Section." Der Abschnitt stand
+     zwischenzeitlich auf Navy und steht jetzt hell — wie in der
+     Vorlage. Die beiden Klassen fuer helle Schrift (--hell) sind
+     deshalb weg; alle Farben sind gegen Weiss neu gemessen. Sand als
+     Schrift kommt auf Weiss nicht in Frage (1,94:1), das
+     hervorgehobene Wort steht in --accent (10,07:1).
+
+     Die Ziffern 01 bis 06 vor den sechs Punkten stehen NICHT im
+     Markup: sie kommen aus einem CSS-Zaehler auf dieser <ol>. Es ist
+     also kein neues Wort und keine erfundene Zahl dazugekommen — nur
+     die laufende Nummer einer Liste, die ohnehin nummeriert ist.
      --------------------------------------------------------------------- -->
 <section class="kar-gruende" id="partnermodell" aria-labelledby="kar-h-gruende">
   <div class="kar-gruende__inner">
 
-    <h2 class="kar-h2 kar-h2--mitte kar-h2--hell" id="kar-h-gruende" data-reveal>
+    <h2 class="kar-h2 kar-h2--gross kar-h2--mitte" id="kar-h-gruende" data-reveal>
       Warum Vertriebspartner<br>
-      <span class="kar-akzent-hell">mit Estera arbeiten</span>
+      <span class="kar-akzent">mit Estera arbeiten</span>
     </h2>
 
     <ol class="kar-gruende__liste" data-reveal>

@@ -21,11 +21,71 @@
    spaltenweise). Jede uebernommene Zahl steht als Kommentar an ihrer
    Regel. Wer sie aendert, sieht, wovon er abweicht.
 
-   ALLE FARBEN KOMMEN AUS DEN TOKEN in base.css. Neu erfunden ist genau
-   ein Wert: --kar-nacht, das Schwarz des Kopfbereichs. Es ist aus dem
-   erzeugten Hintergrundbild gemessen (dessen unterer Auslauf misst
-   #08080a bis #0a0a0e) und muss mit ihm zusammenfallen, sonst entsteht
-   an der Bildkante eine sichtbare Stufe.
+   ALLE FARBEN KOMMEN AUS DEN TOKEN in base.css. Kein selbst gemischter
+   Ton mehr.
+
+   NACHTRAG 26.08.2026 — KEIN SCHWARZ MEHR
+   Bis zu diesem Stand trug der Kopfbereich ein eigens gemischtes, fast
+   reines Schwarz (--kar-nacht), das aus dem unteren Auslauf des
+   Hintergrundbildes abgelesen war. Der Kunde hat das ausdruecklich
+   verworfen:
+     „Anstatt Schwarz auf der Hero-Section soll ein Navy Blue sein."
+     „Bei ‚Warum Vertriebspartner mit Estera arbeiten' auch mit einem
+      Navy-Blue-Hintergrund, kein Schwarz."
+   ZWEITE RUECKMELDUNG, NOCH AM 26.08.2026 — „DAS NAVY MUSS MAN SEHEN"
+   Der erste Anlauf setzte --navy-900 (#0A192E) unter den Bildstreifen.
+   Der Kunde: „Du hast jetzt die komplette Farbe aus dem Bild genommen.
+   Das sieht aktuell aus wie Schwarz." Zwei getrennte Punkte, beide
+   berechtigt:
+
+   a) #0A192E hat einen Blauanteil von 46 gegen 10 Rot — rechnerisch
+      blau, auf dem Schirm liest es als Anthrazit. Die Flaeche, die
+      Ueberschrift, Unterzeile und Knopf traegt, steht deshalb jetzt auf
+      --navy-800 (#102949): 73 Blau gegen 16 Rot. Das ist die Leitfarbe
+      des Projekts und liest unverwechselbar als Blau.
+   b) Ueber dem Hintergrundbild lag ein `filter: saturate(0.52)
+      brightness(0.86)` und ein ganzflaechiger Navy-Schleier. Beides
+      zusammen hat dem Bild genau die Farbe genommen, die der Kunde
+      daran gut findet — die blaue Stunde, den Creme-Sand-Verlauf im
+      Himmel, das warme Licht in den Fenstern. BEIDES IST WEG. Geblieben
+      ist ein Schleier, der ausschliesslich hinter der Kopfleiste liegt
+      und nach 22 % der Streifenhoehe auf null ist; er haelt dort die
+      weisse Menueschrift lesbar und ruehrt den Himmel darunter nicht
+      an. Wer hier wieder einen Filter einbaut, macht den Fehler neu.
+
+   Die Naht bleibt nahtlos — aber jetzt nahtlos in Navy: der Auslauf am
+   unteren Bildrand laeuft auf genau den Ton, den die Flaeche darunter
+   traegt, und das Bild wird dabei nicht entfaerbt, sondern nur
+   ueberblendet.
+
+     --navy-800 (#102949)  Kopfbereich: Auslauf und Textflaeche.
+     --navy-900 (#0A192E)  Abschluss. Derselbe Ton traegt die Fusszeile
+                           (schluss.css, .fuss), der Uebergang vom
+                           Abschluss in den Fuss ist dadurch nahtlos.
+
+   DRITTE RUECKMELDUNG — „WARUM VERTRIEBSPARTNER" WIRD HELL
+   Wortlaut: „Da musst du einen weissen Hintergrund machen auf die
+   Section." Der Abschnitt stand auf Navy und steht jetzt auf Weiss.
+   Alle Schriftfarben dort sind gegen den neuen Grund neu gemessen; die
+   Werte stehen an ihrer Regel. Damit bleiben genau zwei dunkle Baender
+   auf der Seite: der Kopfbereich und der Abschluss. Der Rhythmus
+   dazwischen laeuft ueber den Wechsel Weiss / Hellgrau, jeweils mit
+   einer Haarlinie an der Kante — zwei helle Abschnitte hintereinander
+   ohne Kante wuerden zu einem verschmelzen:
+
+     01 Kopfbereich   navy-800     dunkel
+     02 Fuer wen      paper        hell
+     03 Stellen       paper-cool   hellgrau, Haarlinie oben und unten
+     04 Warum         paper        hell
+     05 Ablauf        paper-cool   hellgrau, Haarlinie oben und unten
+     06 Fragen        paper        hell
+     07 Abschluss     navy-900     dunkel
+
+   In dieser Datei steht KEIN SCHWARZWERT MEHR — weder als Kurzform,
+   weder als der frueher hier gemischte Ton des Kopfbereichs, noch die
+   beiden aus dem Bild gelesenen Toene. Auch nicht in den Masken, wo
+   Schwarz nie sichtbar war: dort steht jetzt Weiss, was rechnerisch
+   dasselbe tut (Begruendung bei .kar-kopf__figur).
 
    DIESE DATEI KOMMT ZULETZT und gehoert allein dieser Seite. Wo sie sich
    mit seiten.css ueberschneidet, gewinnt bewusst die spaetere Datei.
@@ -59,8 +119,21 @@
   --kar-breite: 1250px;
   --kar-breite-eng: 1100px;
 
-  /* Das Schwarz des Kopfbereichs. Aus dem Hintergrundbild gemessen. */
-  --kar-nacht: #050810;
+  /* Der Ton des Kopfbereichs. FRUEHER ein eigenes, fast reines Schwarz,
+     dann kurz --navy-900 — beides hat der Kunde als Schwarz gelesen.
+     Jetzt --navy-800, die Leitfarbe des Projekts: 73 Blau gegen 16 Rot.
+     Herleitung im Kopf dieser Datei.
+
+     WARUM ZUSAETZLICH DIE KANAELE EINZELN: der Auslauf im Kopfbereich
+     braucht denselben Ton mit wechselnder Deckung, also rgba(). Ein
+     zweites Mal „#102949" hinzuschreiben waere eine stille Kopie, die
+     beim naechsten Farbwechsel auseinanderlaeuft. So steht der Wert
+     genau einmal, und die Naht zwischen Bildstreifen und Textflaeche
+     kann gar nicht mehr auseinandergehen.
+       --navy-800 = #102949   ->   10 = 16 · 29 = 41 · 49 = 73
+     Wer --navy-800 in base.css aendert, zieht diese Zeile mit. */
+  --kar-tief-rgb: 16, 41, 73;
+  --kar-tief: rgb(var(--kar-tief-rgb));
 
   /* Hoehe des Bildstreifens im Kopfbereich. In der Vorlage ist sie mit
      613 px FEST, unabhaengig von der Fensterbreite — das ist der Grund,
@@ -93,19 +166,32 @@
   line-height: 1.14;
   color: var(--navy-800);
   text-wrap: balance;
-  /* 57 px bei 1920, 44 px bei 1440, 36 px bei 1024 */
-  font-size: clamp(1.95rem, 1.32rem + 1.55vw, 3.55rem);
+  /* EINE STUFE GROESSER SEIT 26.08.2026. Der Kunde: „vom Design her
+     nicht schlecht, aber es fehlt noch sehr viel." Alle drei Vorlagen
+     setzen ihre Ueberschriften deutlich groesser als der erste Entwurf.
+     Nicht der Hoechstwert ist angehoben — der wurde bei 1920 ohnehin
+     nie erreicht — sondern der breitenabhaengige Anteil:
+       1920  51 px -> 57 px      1024  36 px -> 41 px
+       1440  44 px -> 48 px       390  31 px -> 34 px */
+  font-size: clamp(2.1rem, 1.35rem + 1.85vw, 4rem);
 }
 .kar-h2--gross {
   /* Die zentrierte Ueberschrift des Ablaufs steht in der Vorlage eine
-     Stufe groesser als die uebrigen (64 statt 48 px). */
-  font-size: clamp(2.15rem, 1.42rem + 1.95vw, 4.15rem);
+     Stufe groesser als die uebrigen (64 statt 48 px).
+       1920  68 px   1440  57 px   1024  47 px   390  37 px */
+  font-size: clamp(2.3rem, 1.45rem + 2.35vw, 4.8rem);
 }
 .kar-h2--mitte { text-align: center; margin-inline: auto; }
 .kar-h2--hell  { color: #fff; }
 
-.kar-akzent      { color: var(--accent); }      /* 10,07:1 auf Weiss */
-.kar-akzent-hell { color: var(--sand); }        /*  9,03:1 auf Navy  */
+/* Das hervorgehobene Wort in einer Ueberschrift. Es gab hier bis zum
+   26.08.2026 eine zweite Fassung (.kar-akzent-hell, in Sand) fuer den
+   Abschnitt „Warum Vertriebspartner". Der steht auf Kundenwunsch jetzt
+   hell, und Sand als Schrift misst auf Weiss 1,94:1 — die Klasse ist
+   deshalb ersatzlos weg statt unbenutzt stehen zu bleiben. Braucht ein
+   dunkler Abschnitt spaeter wieder ein hervorgehobenes Wort, ist --sand
+   dort mit 7,55:1 der richtige Ton. */
+.kar-akzent { color: var(--accent); }           /* 10,07:1 auf Weiss */
 
 .kar-kicker {
   font-family: var(--font-ui);
@@ -118,6 +204,28 @@
   color: var(--gold-text);
 }
 .kar-kicker--hell { color: var(--sand); }       /* 9,03:1 auf Navy */
+
+/* Die Haarlinie vor dem Etikett. Dieselbe Geste wie .rule-gold auf der
+   Startseite und wie der Strich der Aufzaehlungen weiter unten — sie
+   bindet die Etiketten dieser Seite an die Handschrift des Projekts und
+   war der Grund, weshalb die Etiketten vorher etwas verloren dastanden.
+   Rein dekorativ, deshalb ueber ::before und nicht im Text. */
+.kar-kicker::before,
+.kar-kicker--hell::after {
+  content: '';
+  display: inline-block;
+  width: clamp(1.6rem, 2.4vw, 2.4rem);
+  height: 1px;
+  vertical-align: 0.34em;
+  background: var(--gold);
+}
+.kar-kicker::before { margin-right: 0.85rem; }
+/* Das helle Etikett steht zentriert (Abschluss). Ein Strich nur links
+   haette die Zeile aus der Mitte gezogen — deshalb dort auf beiden
+   Seiten, und in Sand statt Gold, damit er auf Navy ueberhaupt steht. */
+.kar-kicker--hell::after  { margin-left: 0.85rem; }
+.kar-kicker--hell::before,
+.kar-kicker--hell::after  { background: var(--sand); }
 
 .kar-fliess {
   font-family: var(--font-ui);
@@ -152,9 +260,21 @@
   font-size: clamp(1.06rem, 1vw, 1.24rem);
   line-height: 1.25;
   text-align: center;
+  /* WARUM `translate` UND NICHT `transform`: der Einlauf beim Scrollen
+     benutzt ebenfalls eine Verschiebung. Auf derselben Eigenschaft
+     wuerde der Knopf beim Ueberfahren die Verzoegerung des Einlaufs
+     erben. `translate` ist eine eigenstaendige Eigenschaft und wird
+     sauber davor verrechnet — dasselbe Vorgehen wie in schluss.css. */
+  translate: none;
   transition: background 0.45s var(--ease), color 0.45s var(--ease),
-              border-color 0.45s var(--ease);
+              border-color 0.45s var(--ease),
+              translate 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
+/* Die feine Reaktion beim Ueberfahren: zwei Bildpunkte Hub, mehr nicht.
+   Der Schatten steht in Navy und nicht in Schwarz — auf hellem Grund
+   traegt er, auf den dunklen Flaechen verschwindet er von selbst. */
+.kar-btn:hover  { translate: 0 -2px; box-shadow: 0 8px 22px rgba(16, 41, 73, 0.18); }
+.kar-btn:active { translate: 0 0;    box-shadow: none; }
 .kar-btn--sand {
   background: var(--sand);
   border-color: var(--gold);
@@ -266,13 +386,13 @@
       Bildwechsel erhalten.
    =========================================================================== */
 
-.kar-kopf { background: var(--kar-nacht); }
+.kar-kopf { background: var(--kar-tief); }
 
 .kar-kopf__buehne {
   position: relative;
   height: var(--kar-streifen);
   overflow: hidden;
-  background: var(--kar-nacht);
+  background: var(--kar-tief);
   /* Die Kopfleiste liegt absolut darueber (base.css) und schiebt nichts
      nach unten — genau wie in der Vorlage. */
 }
@@ -282,6 +402,21 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* HIER STEHT ABSICHTLICH KEIN `filter`.
+     Am 26.08.2026 lag hier kurz `saturate(0.52) brightness(0.86)`, um
+     den warmen Himmel an das Navy anzugleichen. Der Kunde hat das
+     zurueckgewiesen: „Du hast jetzt die komplette Farbe aus dem Bild
+     genommen." Das Bild BEHAELT seine Farbe — die blaue Stunde, den
+     Creme-Sand-Verlauf im Himmel, das warme Licht in den Fenstern.
+     Wer hier wieder `grayscale`, `saturate` unter 1 oder `brightness`
+     einbaut, macht denselben Fehler noch einmal.
+     Gemessen im gerenderten Ausschnitt, ohne jede Lage darueber:
+       15–40 % der Streifenhoehe  rgb(128,112,93) bis rgb(200,161,114)
+                                  Saettigung 0,27 bis 0,43 — das ist der
+                                  Himmelverlauf, um den es geht
+       ab 45 %                    rund rgb(80,66,53), Helligkeit 68
+     Das Bild wird nach unten also nicht von selbst schwarz; der
+     Uebergang in die Textflaeche macht allein der Auslauf. */
   /* NICHT 50 % wie in der Vorlage. Die erzeugte Datei ist 4:3 statt der
      gewuenschten 5:3 (das Werkzeug liefert kein 5:3), der Ausschnitt ist
      dadurch hoeher und ein mittiger Schnitt haette den Himmel gekappt.
@@ -292,40 +427,92 @@
 }
 
 /* Der Auslauf. Liegt UEBER dem Bild und UNTER den Figuren, damit die
-   Figuren ihre eigene, weichere Maske behalten. */
+   Figuren ihre eigene, weichere Maske behalten.
+
+   ZWEI LAGEN, beide in --navy-800 und in keinem anderen Ton:
+
+   1 · DER SCHLEIER HINTER DER KOPFLEISTE — und NUR dort. Die Leiste
+       steht mit weisser Schrift (site-header--invert) ueber dem Bild;
+       an dieser Stelle misst das Bild rgb(69,71,72) bis rgb(128,112,93),
+       weisse Schrift kaeme darauf knapp an 4,5:1 heran. Der Schleier
+       sichert diesen Streifen und ist bei 22 % der Streifenhoehe auf
+       null — der Himmelverlauf darunter bleibt unangetastet.
+       Eine ganzflaechige Lage stand hier kurzzeitig und ist auf
+       Kundenwunsch wieder weg: sie hat dem Bild die Farbe genommen.
+
+   2 · DER AUSLAUF nach unten. Die Stufen sind nachgemessen und nicht
+       geraten: bei 34 % begann er so frueh, dass von der Fassade nur
+       noch die Dachkante uebrig blieb. Er setzt bei 50 % an — knapp
+       unter der Dachkante, dort wo das Bild ohnehin auf rund
+       rgb(80,66,53) abfaellt. Von da an uebernimmt er allein und ist
+       bei 96 % voll deckend; ab dort steht reines --navy-800, also
+       genau der Ton, den .kar-kopf__text darunter traegt. Die Naht ist
+       damit rechnerisch und am Bildpunkt gleich — nachgemessen bei
+       1920, 1440, 1024 und 390. */
 .kar-kopf__auslauf {
   position: absolute;
   inset: 0;
-  /* Die Stufen sind nachgemessen und nicht geraten: bei 34 % begann der
-     Schleier so frueh, dass von der Fassade nur noch die Dachkante
-     uebrig blieb. Jetzt setzt er bei 48 % an — das ist die Hoehe, auf
-     der in der Vorlage die Baumreihe vor dem Turm steht. Bis 97 % ist
-     er voll deckend, damit die Kante zur Textflaeche darunter auf den
-     Bildpunkt genau trifft. */
   background:
     linear-gradient(to bottom,
-      rgba(5, 8, 16, 0)     0%,
-      rgba(5, 8, 16, 0)    48%,
-      rgba(5, 8, 16, 0.32) 66%,
-      rgba(5, 8, 16, 0.78) 82%,
-      rgba(5, 8, 16, 0.97) 92%,
-      var(--kar-nacht)     97%);
+      rgba(var(--kar-tief-rgb), 0.18)  0%,
+      rgba(var(--kar-tief-rgb), 0.10) 12%,
+      rgba(var(--kar-tief-rgb), 0)    20%),
+    linear-gradient(to bottom,
+      rgba(var(--kar-tief-rgb), 0)     0%,
+      rgba(var(--kar-tief-rgb), 0)    50%,
+      rgba(var(--kar-tief-rgb), 0.26) 65%,
+      rgba(var(--kar-tief-rgb), 0.70) 80%,
+      rgba(var(--kar-tief-rgb), 0.94) 90%,
+      var(--kar-tief)                 96%);
 }
 
 .kar-kopf__leute { position: absolute; inset: 0; }
 
+/* --- Die beiden Geschaeftsfuehrer ----------------------------------------
+   KUNDENWUNSCH, woertlich und scheinbar widerspruechlich: „Du musst die
+   zwei Geschaeftsfuehrer durchsichtig machen. Die muessen durchsichtig
+   sein, also nicht transparent."
+
+   So ist es umgesetzt: die Figuren sind SAUBER FREIGESTELLT — um sie
+   herum scheint der Hintergrund durch, es steht kein Kasten und kein
+   Rest des Studiogrunds um sie. Sie sind aber NICHT halbdurchsichtig:
+   durch die Personen selbst sieht man nichts hindurch.
+
+   NACHGEMESSEN AM ALPHAKANAL der beiden Dateien:
+     kein einziger teildeckender Randbildpunkt ist grau-neutral —
+     vom grauen Studiogrund ist nichts uebrig, es gibt keinen Saum.
+     Die Deckung im Kopfbereich liegt bei 251 bis 254 von 255; das
+     Freistellwerkzeug erreicht nie ganz 255, sichtbar ist der
+     Unterschied nicht (99,6 % Deckung).
+
+   ES LIEGT KEIN `opacity` AUF DEN FIGUREN. Wer eines einbaut, nimmt
+   genau die Wirkung zurueck, die der Kunde beanstandet hat.
+
+   DER AUSLAUF NACH UNTEN gehoert allein an den unteren Teil, ab
+   Brusthoehe. Bis dahin ist die Maske voll deckend.
+--------------------------------------------------------------------------- */
 .kar-kopf__figur {
   position: absolute;
-  /* Die Kopfoberkante liegt in den freigestellten Aufnahmen bei 0,9 % der
+  /* Die Kopfoberkante liegt in den freigestellten Aufnahmen bei 0,7 % der
      Bildhoehe — der Wert hier ist also praktisch die Kopfoberkante. */
   top: 15%;
   transform: translateX(-50%);
   margin: 0;
-  /* Der Auslauf ab Brusthoehe. In der Vorlage steckt er im Bild; hier ist
-     es eine Maske, weil die freigestellten Aufnahmen einen harten Rand
-     haben und ohne Maske als aufgeklebt lesbar waeren. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, rgba(0, 0, 0, 0) 92%);
-          mask-image: linear-gradient(to bottom, #000 55%, rgba(0, 0, 0, 0) 92%);
+  /* WARUM DIE MASKE IN WEISS STEHT UND NICHT IN SCHWARZ: eine
+     `mask-image` wertet den ALPHAKANAL aus, nicht die Farbe — Weiss und
+     Schwarz wirken darin identisch. Der Kunde will auf dieser Seite kein
+     Schwarz mehr sehen, auch nicht dort, wo es nie sichtbar war; deshalb
+     steht hier #fff. Wer das umdreht, aendert nichts an der Darstellung,
+     bringt aber das Wort „schwarz" in eine Datei zurueck, in der es
+     nicht mehr vorkommen soll.
+
+     --fig-halt / --fig-weg werden je Figur gesetzt, weil die beiden
+     Aufnahmen unterschiedlich angeschnitten sind — der gemeinsame Wert
+     von 55 %, der hier bis zum 26.08.2026 stand, liess bei BEIDEN
+     Figuren bereits die Schultern verblassen. Die Herleitung steht bei
+     --a und --b. */
+  -webkit-mask-image: linear-gradient(to bottom, #fff var(--fig-halt), transparent var(--fig-weg));
+          mask-image: linear-gradient(to bottom, #fff var(--fig-halt), transparent var(--fig-weg));
 }
 .kar-kopf__figur img { width: 100%; height: 100%; }
 
@@ -343,12 +530,42 @@
    beide Koepfe gleich gross erscheinen — Kopfhoehe rund 36 % der
    Streifenhoehe. Das ist eine Stufe groesser als die 25 % der Vorlage,
    weil dort SIEBEN Figuren den Streifen fuellen und hier zwei. */
-.kar-kopf__figur--a { left: 41%; height: 82%; aspect-ratio: 836 / 920; }
-.kar-kopf__figur--b { left: 59%; height: 70%; aspect-ratio: 886 / 991; }
+/* WO DER AUSLAUF ANSETZEN DARF — spaltenweise am Alphakanal gemessen.
+   Angegeben ist die Breite der deckenden Flaeche je Bildhoehe; daran
+   liest man Kopf, Hals und Schulter ab:
+
+   gf-1-frei.png (836 x 920)
+     16 %: 274   Kopf, breiteste Stelle
+     40 %: 191   Hals, engste Stelle
+     48 %: 358   Schulter setzt an
+     64 %: 712   Schulter steht voll (93 % der Endbreite)
+   gf-2-frei.png (886 x 991)
+     16 %: 353   Kopf
+     44 %: 223   Hals
+     52 %: 317   Schulter setzt an
+     68 %: 767   Schulter steht voll (91 % der Endbreite)
+
+   Der alte gemeinsame Wert 55 % lag bei Figur a mitten im
+   Schulteraufbau und bei Figur b noch darunter — genau der Grund, aus
+   dem die beiden „durchsichtig" wirkten. Der Auslauf beginnt jetzt je
+   Figur erst, wenn die Schulter steht: 68 % bzw. 72 %. Darueber ist die
+   Maske voll deckend, Koepfe und Schultern stehen also mit 1. */
+.kar-kopf__figur--a {
+  left: 41%; height: 82%; aspect-ratio: 836 / 920;
+  --fig-halt: 68%;
+  --fig-weg:  96%;
+}
+.kar-kopf__figur--b {
+  left: 59%; height: 70%; aspect-ratio: 886 / 991;
+  --fig-halt: 72%;
+  --fig-weg:  98%;
+}
 
 /* --- Die Textflaeche ------------------------------------------------------ */
 .kar-kopf__text {
-  background: var(--kar-nacht);
+  /* DERSELBE TON WIE DER AUSLAUF DARUEBER. Beide holen ihn aus
+     --kar-tief; die Naht kann deshalb nicht auseinandergehen. */
+  background: var(--kar-tief);
   text-align: center;
   padding: 0.5rem var(--gutter) clamp(3.4rem, 9.6vw, 11.5rem);
 }
@@ -359,10 +576,15 @@
   font-weight: 300;
   letter-spacing: -0.004em;
   line-height: 1.14;             /* Vorlage 80,5 / 64 = 1,26 bei Grotesk */
-  color: #fff;                   /* 19,0:1 auf --kar-nacht */
+  color: #fff;                   /* 13,34:1 auf --navy-800 */
   text-wrap: balance;
-  /* 76 px bei 1920, 65 px bei 1440, 57 px bei 1024 */
-  font-size: clamp(2.5rem, 2.2rem + 2.1vw, 4.75rem);
+  /* Eine Stufe groesser als der uebernommene Wert — dieselbe
+     Begruendung wie bei .kar-h2.
+       1920  83 px   1440  71 px   1024  61 px   390  42 px
+     Nachgerechnet: „Werde Teil des Teams bei Estera" misst bei 83 px in
+     Cormorant rund 1050 px und bleibt damit innerhalb der Spalte von
+     1250 px einzeilig — wie in der Vorlage. */
+  font-size: clamp(2.6rem, 2.25rem + 2.45vw, 5.3rem);
 }
 .kar-kopf__lead {
   max-width: 1070px;             /* Spaltenbreite der Vorlage */
@@ -370,7 +592,7 @@
   font-family: var(--font-ui);
   font-size: clamp(1.05rem, 0.98rem + 0.28vw, 1.22rem);
   line-height: 1.66;
-  color: #E4E8EE;                /* 15,2:1 auf --kar-nacht */
+  color: #E4E8EE;                /* 11,8:1 auf --navy-800 */
 }
 .kar-kopf__knopf {
   margin-top: clamp(1.5rem, 1.8vw, 2.15rem);        /* Vorlage: 34 px */
@@ -380,7 +602,7 @@
   font-size: clamp(0.98rem, 0.95rem + 0.14vw, 1.1rem);
 }
 .kar-kopf__weiter a {
-  color: var(--sand);            /* 10,26:1 auf --kar-nacht */
+  color: var(--sand);            /*  7,55:1 auf --navy-800 */
   border-bottom: 1px solid rgba(217, 180, 133, 0.4);
   padding-bottom: 2px;
   transition: border-color 0.35s var(--ease);
@@ -410,11 +632,65 @@
   column-gap: 9.5%;
   align-items: start;
 }
+/* AB 1100 px BEKOMMT DAS BILD MEHR GEWICHT — aber NICHT auf Kosten der
+   Textspalte. Erster Versuch war 420 : 830; damit fiel die Textspalte
+   von 444 auf 391 px und die Ueberschrift brach in vier kurze Zeilen.
+   Geholt wird die Breite jetzt aus der LUECKE: 9,5 % waren in der
+   Vorlage noetig, weil dort ein Abspielknopf auf dem Bild sass. Den
+   gibt es hier nicht.
+     Vorlage      444 : 119 : 688   Text 444 px, Bild 688 px
+     hier ab 1100 444 :  75 : 745   Text 444 px, Bild 745 px
+   Die Textspalte bleibt also auf ihrem gemessenen Mass, das Bild
+   waechst um 57 px. */
+@media (min-width: 1100px) {
+  .kar-split__inner { grid-template-columns: minmax(0, 444fr) minmax(0, 745fr); column-gap: 6%; }
+}
 .kar-split__text .kar-h2 { margin-top: clamp(0.7rem, 1.4vw, 1.1rem); }
 .kar-split__text .kar-fliess { margin-top: clamp(1.1rem, 2vw, 1.6rem); }
 .kar-split__knopf { margin-top: clamp(1.6rem, 2.8vw, 2.4rem); }
 
-.kar-split__bild { margin: 0; }
+.kar-split__bild { margin: 0; position: relative; }
+
+/* DER VERSETZTE WINKEL HINTER DEM BILD.
+   Die Vorlagen setzen an dieser Stelle einen Abspielknopf auf das Bild —
+   dort steckt ein Mitarbeitervideo dahinter, das es bei Estera nicht gibt
+   und ausdruecklich nicht geben soll. Das Bild stand dadurch als
+   nacktes Rechteck da. Statt eines erfundenen Bedienelements steht hier
+   die Geste des Projekts: eine goldene Haarlinie, hier als versetzter
+   Winkel unten links. Sie bricht das Raster, ohne etwas zu behaupten.
+
+   ES IST EIN ::before UND KEIN ::after, und das ist der ganze Trick:
+   ::before wird VOR dem Bild gezeichnet, das Bild deckt den innen
+   liegenden Teil des Winkels also selbst ab. Sichtbar bleibt genau das
+   L, das ueber die Bildkante hinausragt — ohne z-index-Kunststuecke,
+   die auf den Abschnittshintergrund durchschlagen wuerden.
+
+   NUR AB 900 px. Darunter fuellt das Bild die ganze Spalte, und die
+   18 px nach links waeren waagerechter Ueberlauf. */
+@media (min-width: 900px) {
+  .kar-split__bild::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    bottom: -18px;
+    width: 58%;
+    height: 62%;
+    border-left: 1px solid var(--line-gold);
+    border-bottom: 1px solid var(--line-gold);
+    border-bottom-left-radius: var(--radius-img);
+    pointer-events: none;
+  }
+}
+
+/* Der Beschnitt sitzt am <picture>, nicht an der <figure>: der versetzte
+   Winkel liegt AUSSERHALB des Bildes und wuerde von einem
+   `overflow: hidden` an der figure mit abgeschnitten. */
+.kar-split__bild picture {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-img);
+}
+
 .kar-split__bild img {
   width: 100%;
   /* `height: auto` ist hier NICHT wegzulassen. Die Breiten- und
@@ -456,7 +732,12 @@
    Schatten auf einem leicht abgesetzten Grund.
    =========================================================================== */
 
-.kar-stellen { padding: var(--kar-luft) var(--gutter); background: var(--paper-cool); }
+/* HAARLINIE OBEN UND UNTEN. --paper-cool (#F3F5F8) liegt nah an Weiss;
+   ohne Kante verschmelzen die hellen Abschnitte zu einer Flaeche. Die
+   Linie ist die billigste und ruhigste Art, die Kante zu setzen —
+   dieselbe Geste wie ueberall sonst auf dieser Seite. */
+.kar-stellen { padding: var(--kar-luft) var(--gutter); background: var(--paper-cool);
+  border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
 .kar-stellen__inner { max-width: var(--kar-breite); margin: 0 auto; }
 .kar-stellen__liste {
   max-width: var(--kar-breite-eng);          /* Vorlage: 1100 px */
@@ -466,12 +747,43 @@
 }
 
 .kar-stelle {
+  position: relative;
   background: var(--paper);
   border-radius: 12px;                       /* Vorlage: 12 px */
   border: 1px solid var(--line-soft);
   box-shadow: 0 1px 2px rgba(16, 41, 73, 0.05),
               0 10px 28px rgba(16, 41, 73, 0.07);
   overflow: hidden;
+  /* Platz fuer den Sandstreifen unten. Er liegt als ::before darueber
+     und nicht als `border-top`, weil er sich beim Hereinscrollen von
+     links nach rechts ziehen soll — die Breite eines Rahmens laesst
+     sich nicht richtungsweise bewegen, eine Flaeche schon. */
+  padding-top: 3px;
+  translate: none;
+  transition: box-shadow 0.5s var(--ease), translate 0.5s var(--ease);
+}
+/* Die OBERKANTE in Sand — derselbe Ton wie der Bewerbungsknopf im
+   Kopfbereich. Die Vorlage traegt hier nur einen Schatten; auf dem
+   hellen Grund dieses Abschnitts las die Karte damit als blasses
+   Rechteck. Der Streifen gibt ihr eine Kante und bindet sie an den Weg,
+   auf den sie fuehrt. 3 px, nicht mehr — er soll die Karte
+   abschliessen, nicht anstreichen. Die runden Ecken schneidet
+   `overflow: hidden` der Karte von selbst zurecht. */
+.kar-stelle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sand);
+  transform-origin: 0 50%;
+}
+/* Feine Reaktion beim Ueberfahren — dieselbe Hoehe wie beim Knopf. */
+.kar-stelle:hover {
+  translate: 0 -2px;
+  box-shadow: 0 2px 4px rgba(16, 41, 73, 0.06),
+              0 18px 44px rgba(16, 41, 73, 0.13);
 }
 .kar-stelle__kopf { margin: 0; font: inherit; }
 .kar-stelle__knopf {
@@ -503,13 +815,17 @@
 }
 .kar-stelle__punkt { margin: 0 8px; }        /* Vorlage: mx-2 = 8 px */
 
+.kar-stelle__titel { transition: color 0.35s var(--ease); }
+.kar-stelle__knopf:hover .kar-stelle__titel { color: var(--navy-600); } /* 8,00:1 */
+
 .kar-stelle__winkel {
   flex: 0 0 auto;
   width: 22px;
   height: 22px;
   color: var(--navy-600);
-  transition: transform 0.45s var(--ease);
+  transition: transform 0.45s var(--ease), color 0.35s var(--ease);
 }
+.kar-stelle__knopf:hover .kar-stelle__winkel { color: var(--gold-text); }
 .kar-stelle__winkel svg { width: 100%; height: 100%; }
 
 .kar-stelle__inhalt { padding: 0 25px 25px; } /* Vorlage: 0 / 25 / 25 px */
@@ -630,42 +946,100 @@
    Dieser Aufbau ist das genaue Gegenteil dessen, was am ersten Entwurf
    bemaengelt wurde. Er kommt ohne Karten und ohne Symbole aus.
 
-   ABWEICHUNG: steht auf Navy statt auf Weiss. Grund ist der Rhythmus —
-   davor und danach steht Weiss, und die Seite braucht zwischen
-   Stellenanzeige und Ablauf eine dunkle Flaeche, sonst laeuft die untere
-   Haelfte in einem Ton durch.
+   FARBE — DREI ANLAEUFE, der dritte ist der des Kunden.
+   Der Abschnitt stand zuerst auf --navy-900, dann auf --navy-800. Beides
+   ist ueberholt. Wortlaut vom 26.08.2026: „Da musst du einen weissen
+   Hintergrund machen auf die Section." Er steht jetzt auf --paper.
+   Damit bleiben auf der Seite genau zwei dunkle Baender — Kopfbereich
+   und Abschluss — und die Vorlage stimmt wieder: Wiesedental fuehrt
+   diesen Abschnitt ebenfalls hell.
+   ALLE SCHRIFTFARBEN SIND NEU GEMESSEN. Was auf Navy stand, faellt auf
+   Weiss durch: Sand misst als Schrift auf Weiss 1,94:1 und ist dort
+   unbrauchbar. An seine Stelle tritt --gold-text (#86693A, 5,31:1) fuer
+   die Ziffern und --navy-800 (13,34:1) fuer die Titel.
+
+   DIE ZAHLEN, 26.08.2026 — alle drei Vorlagen arbeiten in ihren
+   Aufzaehlungen mit grossen Ziffern, und genau das fehlte hier. Die
+   Nummern kommen aus einem CSS-Zaehler auf der bereits vorhandenen
+   <ol>, es steht also KEIN neues Wort und KEINE erfundene Zahl im
+   Markup — nur die laufende Nummer einer Liste, die ohnehin
+   nummeriert ist.
    =========================================================================== */
 
 .kar-gruende {
   padding: var(--kar-luft) var(--gutter);
-  background: var(--navy-900);
+  background: var(--paper);
 }
 .kar-gruende__inner { max-width: var(--kar-breite); margin: 0 auto; }
 
 .kar-gruende__liste {
   /* Vorlage 869 von 1600 = 54 %. Auf die Spalte von 1250 gerechnet:
-     rund 870 px. Uebernommen. */
-  max-width: 870px;
+     rund 870 px. Uebernommen — die Ziffernspalte kommt LINKS dazu und
+     schiebt die Textspalte nicht zusammen, sondern die ganze Liste
+     entsprechend breiter. */
+  max-width: 990px;
   margin: clamp(2.2rem, 4vw, 3.4rem) auto 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid var(--line-soft);
+  counter-reset: kar-grund;
 }
 .kar-grund {
+  position: relative;
   padding: clamp(1.5rem, 2.6vw, 2.1rem) 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  counter-increment: kar-grund;
+  display: grid;
+  /* Ziffer, Text. Die Ziffernspalte ist so breit wie „06" bei der
+     groessten Stufe plus Luft. */
+  grid-template-columns: clamp(2.9rem, 4.4vw, 4.2rem) minmax(0, 870px);
+  column-gap: clamp(1.1rem, 2.2vw, 1.9rem);
+  align-items: start;
+}
+/* DIE TRENNLINIE ALS ::after UND NICHT ALS border-bottom, damit sie sich
+   beim Hereinscrollen von links nach rechts ziehen kann (Abschnitt 9).
+   `position: absolute` nimmt sie aus dem Raster — sonst waere sie eine
+   dritte Rasterzelle und wuerde die Ziffernspalte verschieben. */
+.kar-grund::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--line-soft);
+  transform-origin: 0 50%;
+}
+.kar-grund::before {
+  content: counter(kar-grund, decimal-leading-zero);
+  grid-row: 1 / span 2;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 1.05rem + 1.35vw, 2.9rem);
+  line-height: 1;
+  /* --gold-text (#86693A) — 5,31:1 auf Weiss. NICHT --sand und NICHT
+     --gold: Sand misst hier 1,94:1, reines Gold 3,42:1. Beides steht
+     unter der Anforderung von 4,5:1, die auf dieser Seite fuer JEDE
+     Schrift gilt, auch fuer grosse. */
+  color: var(--gold-text);
+  /* Auf die Grundlinie der Ueberschrift daneben gesetzt, nicht auf
+     deren Oberkante — sonst haengt die Ziffer optisch zu hoch. */
+  padding-top: 0.04em;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 .kar-grund__titel {
   font-family: var(--font-display);
   font-weight: 400;
-  /* Vorlage 18 px Grotesk -> 21 px Cormorant */
-  font-size: clamp(1.2rem, 1.1rem + 0.28vw, 1.45rem);
+  /* Vorlage 18 px Grotesk -> 21 px Cormorant. Eine Stufe groesser als
+     der uebernommene Wert, weil der Abschnitt jetzt hell ist und die
+     Zeile sonst neben der Ziffer verschwindet. */
+  font-size: clamp(1.3rem, 1.14rem + 0.4vw, 1.72rem);
   line-height: 1.3;
-  color: var(--sand);                        /* 9,03:1 auf Navy */
+  color: var(--navy-800);                    /* 13,34:1 auf Weiss */
 }
 .kar-grund__text {
+  grid-column: 2;
   margin-top: 0.45rem;
   font-size: clamp(1rem, 0.97rem + 0.16vw, 1.13rem);
   line-height: 1.68;
-  color: #DEE3EA;                            /* 13,5:1 auf Navy */
+  color: var(--ink-black);                   /* 12,63:1 auf Weiss */
 }
 
 
@@ -695,7 +1069,12 @@
    bleibt wie in der Vorlage.
    =========================================================================== */
 
-.kar-ablauf { padding: var(--kar-luft) var(--gutter); background: var(--paper); }
+/* Hellgrau mit Haarlinie — dieselbe Begruendung wie bei „Offene
+   Stellen". Der Abschnitt davor („Warum Vertriebspartner") ist auf
+   Kundenwunsch hell geworden; ohne diesen Wechsel liefen drei helle
+   Abschnitte am Stueck durch. */
+.kar-ablauf { padding: var(--kar-luft) var(--gutter); background: var(--paper-cool);
+  border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
 .kar-ablauf__inner { max-width: var(--kar-breite); margin: 0 auto; }
 
 .kar-ablauf__raster {
@@ -724,6 +1103,11 @@
   bottom: 20px;
   width: 2px;
   background: var(--line-soft);
+  /* Die Linie zeichnet sich beim Hereinscrollen von oben nach unten.
+     Der Ausgangszustand ist die FERTIGE Linie — ohne Javascript und bei
+     ruhiger Darstellung steht sie also sofort ganz da. Gezogen wird sie
+     nur im Zweig weiter unten (Abschnitt 9). */
+  transform-origin: 50% 0;
 }
 .kar-schritt {
   position: relative;
@@ -768,6 +1152,12 @@
 }
 
 .kar-ablauf__bild { margin: 0; height: 100%; }
+.kar-ablauf__bild picture {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-img);
+}
 .kar-ablauf__bild img {
   width: 100%;
   height: 100%;
@@ -797,6 +1187,9 @@
    Rahmen und Abstand.
    =========================================================================== */
 
+/* Hell — der Ablauf davor ist hellgrau, der Abschluss danach dunkel.
+   Der Wechsel der Grundtoene ueber die ganze Seite steht im Kopf dieser
+   Datei. */
 .kar-faq { padding: var(--kar-luft) var(--gutter); background: var(--paper); }
 .kar-faq__inner { max-width: var(--kar-breite-eng); margin: 0 auto; }
 .kar-faq .faq__liste { margin-top: clamp(2rem, 3.6vw, 3.2rem); }
@@ -849,7 +1242,7 @@
   margin: clamp(1.1rem, 2vw, 1.6rem) auto 0;
   font-size: clamp(1.05rem, 0.98rem + 0.28vw, 1.22rem);
   line-height: 1.7;
-  color: #DEE3EA;                            /* 13,5:1 auf Navy */
+  color: #DEE3EA;                            /* 13,5:1 auf --navy-900 */
 }
 .kar-schluss__knopf { margin-top: clamp(1.7rem, 3vw, 2.6rem); }
 .kar-schluss__ort {
@@ -922,6 +1315,13 @@
   .kar-schritt { grid-template-columns: 34px minmax(0, 1fr); column-gap: 20px; }
   .kar-schritt__nr { width: 34px; height: 34px; font-size: 1rem; }
   .kar-ablauf__schritte::before { left: 16px; top: 17px; bottom: 17px; }
+
+  /* Die Ziffernspalte der sechs Gruende geht zurueck, damit dem Text auf
+     dem Telefon genug Breite bleibt: 37 + 14 px statt 46 + 18 px.
+     Gestapelt wird sie NICHT — dann stuende die Ziffer als eigene Zeile
+     ueber dem Titel und die Liste waere doppelt so hoch. */
+  .kar-grund { grid-template-columns: 2.3rem minmax(0, 1fr); column-gap: 0.9rem; }
+  .kar-grund::before { font-size: 1.35rem; }
 }
 
 @media (max-width: 420px) {
@@ -934,35 +1334,339 @@
 /* ===========================================================================
    9 · BEWEGUNG UND BEDIENBARKEIT OHNE JAVASCRIPT
 
+   Kundenwunsch 26.08.2026: „Du musst die Webseite einfach noch ein
+   bisschen schoener designen und Animationen reinpacken."
+
+   DIE REGELN, NACH DENEN HIER BEWEGT WIRD
+   · Kein Zappeln, kein Zoomen, keine Endlosschleife. Jede Bewegung
+     laeuft genau einmal und hoert dann auf.
+   · SICHTBAR IST DER AUSGANGSZUSTAND. Ausgeblendet wird erst, wenn
+     site.js die Wurzel mit `is-ready` markiert hat — ohne Javascript
+     steht damit alles sofort und vollstaendig da.
+   · site.js setzt `data-seen="true"`, sobald ein Element ins Bild
+     kommt, und meldet es danach vom Beobachter ab. Beim Zurueckscrollen
+     startet nichts neu.
+   · Bei `prefers-reduced-motion: reduce` laeuft nichts.
+
    ZWEI FALLEN, BEIDE HIER ENTSCHAERFT
    1. base.css setzt `[data-anim] { opacity: 0 }` und macht es erst mit
-      `.is-ready` sichtbar — die Klasse setzt site.js.
-   2. seiten.css setzt `.sp [data-reveal] { opacity: 0 }` und macht es
-      erst mit `data-seen` sichtbar — das setzt ebenfalls site.js.
-   Ohne Javascript bliebe die Seite in beiden Faellen LEER. Die folgenden
-   zwei Regeln drehen das um: sichtbar ist der Grundzustand, unsichtbar
-   nur, wenn ein Skript nachweislich laeuft.
+      `.is-ready` sichtbar.
+   2. seiten.css setzt `.sp [data-reveal] { opacity: 0 }` UND haengt die
+      Ueberblendung an diesen Grundzustand.
+   Punkt 1 dreht die erste Regel unten um. Punkt 2 ist heimtueckischer:
+   steht die Ueberblendung am Grundzustand, laeuft nicht nur das
+   Einblenden als Bewegung, sondern auch das AUSBLENDEN durch
+   `is-ready` — die ganze Seite blendete beim Laden erst sichtbar weg
+   und dann wieder ein. Der Browser liest die Ueberblendung aus dem
+   Zustand NACH der Aenderung; deshalb steht sie beim Ausblenden auf
+   `none` und ausschliesslich am Zustand `data-seen`. Dasselbe Vorgehen
+   wie in schluss.css.
+
+   WARUM `translate` UND NICHT `transform`: der Hub beim Ueberfahren von
+   Knopf und Karte laeuft ueber `translate`; die Linie der Schrittfolge
+   ueber `transform`. Waeren Einlauf und Hub auf derselben Eigenschaft,
+   muesste eine Zeitangabe beide bedienen. `translate` ist eine
+   eigenstaendige Eigenschaft und wird sauber davor verrechnet.
+
+   DIE STAFFELUNG haengt an `--i`. `--i` zaehlt die SPALTE innerhalb der
+   Reihe, nicht die laufende Nummer: eine Reihe kommt gemeinsam ins Bild
+   und laeuft dann von links nach rechts ein. Die Schrittfolge des
+   Ablaufs ist die eine begruendete Ausnahme — dort ist die Reihenfolge
+   der Inhalt, und die Schritte laufen ausdruecklich nacheinander.
    =========================================================================== */
 
-html:not(.is-ready) [data-anim]  { opacity: 1; transform: none; }
+/* --- 9.1 Grundzustand ohne Javascript ------------------------------------ */
+html:not(.is-ready) [data-anim] { opacity: 1; transform: none; translate: none; }
 
-.kar [data-reveal] { opacity: 1; transform: none; }
+/* --- 9.2 Der Einlauf beim Scrollen --------------------------------------- */
+/* Gleiche Spezifitaet wie `.sp [data-reveal]` in seiten.css — diese Datei
+   kommt spaeter und gewinnt deshalb. `transform: none` nimmt die
+   Verschiebung von dort ausdruecklich zurueck, sonst laege ueber dem
+   Einlauf noch eine zweite, nie zurueckgesetzte Verschiebung. */
+.kar [data-reveal] {
+  opacity: 1;
+  translate: none;
+  transform: none;
+  transition: none;
+}
 .is-ready .kar [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+  translate: 0 18px;
+  transition: none;
 }
-.is-ready .kar [data-reveal][data-seen='true'] { opacity: 1; transform: none; }
+.is-ready .kar [data-reveal][data-seen='true'] {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity   0.85s var(--ease-soft) calc(var(--i, 0) * 0.09s),
+    translate 0.85s var(--ease-soft) calc(var(--i, 0) * 0.09s);
+}
 
-/* --- prefers-reduced-motion ----------------------------------------------
+/* Spalte innerhalb der Reihe. „Fuer wen Estera passt" ist zweispaltig:
+   links der Textstapel, rechts das Bild. Der Textstapel laeuft von oben
+   nach unten durch, das Bild kommt mit der Ueberschrift. */
+.kar-split__text > :nth-child(1) { --i: 0; }
+.kar-split__text > :nth-child(2) { --i: 1; }
+.kar-split__text > :nth-child(3) { --i: 2; }
+.kar-split__text > :nth-child(4) { --i: 3; }
+.kar-split__bild                 { --i: 1; }
+
+/* --- 9.2b Das Bild setzt sich ------------------------------------------
+   „Bilder leicht groesser starten und sich beim Hereinscrollen setzen
+   (sehr sparsam)." 4,5 % ist die ganze Bewegung — genug, dass man
+   merkt, dass sich etwas beruhigt, zu wenig, um als Zoom zu lesen. Sie
+   laeuft langsamer als der Einlauf (1,5 s gegen 0,85 s), damit sie
+   NACH dem Erscheinen noch nachwirkt und nicht mit ihm konkurriert.
+
+   `scale` ist eine eigenstaendige Eigenschaft — sie kollidiert weder
+   mit `translate` (Einlauf) noch mit `transform`. Beschnitten wird am
+   <picture>, sonst waeren die Bildkanten waehrend der Bewegung
+   sichtbar breiter als der Rahmen.
+--------------------------------------------------------------------------- */
+.kar-split__bild img,
+.kar-ablauf__bild img { scale: none; }
+.is-ready .kar-split__bild[data-reveal] img,
+.is-ready .kar-ablauf__bild[data-reveal] img { scale: 1.045; }
+.is-ready .kar-split__bild[data-reveal][data-seen='true'] img,
+.is-ready .kar-ablauf__bild[data-reveal][data-seen='true'] img {
+  scale: 1;
+  transition: scale 1.5s var(--ease-soft);
+}
+
+/* Der versetzte Winkel hinter dem Bild zieht sich auf, nachdem das Bild
+   steht. Bewegt werden Breite und Hoehe eines absolut gesetzten
+   Kaestchens — das loest kein Neuzeichnen der Umgebung aus, weil es aus
+   dem Fluss genommen ist. */
+@media (min-width: 900px) {
+  .is-ready .kar-split__bild[data-reveal]::before { width: 0; height: 0; opacity: 0; }
+  .is-ready .kar-split__bild[data-reveal][data-seen='true']::before {
+    width: 58%;
+    height: 62%;
+    opacity: 1;
+    transition:
+      width   1s   var(--ease-soft) 0.35s,
+      height  1s   var(--ease-soft) 0.35s,
+      opacity 0.4s linear           0.35s;
+  }
+}
+
+/* --- 9.3 Kopfbereich: Ueberschrift, Unterzeile, Knopf nacheinander -------
+   Die drei Zeilen und der Verweis haengen an `[data-anim]` aus base.css
+   und tragen ihre Verzoegerung im Markup (`--d`, in Millisekunden). Die
+   beiden Figuren laufen davor an — sie sind das erste, was steht.
+
+   WARUM DIE FIGUREN EINE EIGENE REGEL BRAUCHEN: base.css verschiebt
+   `[data-anim]` ueber `transform: translateY(18px)`. Die Figuren tragen
+   ihre Mittigkeit selbst in `transform: translateX(-50%)` — die Regel
+   aus base.css wuerde sie also um ihre halbe Breite nach rechts
+   springen lassen. Deshalb wird die Verschiebung hier auf die
+   eigenstaendige Eigenschaft `translate` umgelegt und `transform` auf
+   der Mittigkeit festgehalten.
+--------------------------------------------------------------------------- */
+.kar-kopf__figur[data-anim] {
+  transform: translateX(-50%);
+  translate: 0 26px;
+}
+html:not(.is-ready) .kar-kopf__figur[data-anim] {
+  transform: translateX(-50%);
+  translate: none;
+}
+.is-ready .kar-kopf__figur[data-anim] {
+  transform: translateX(-50%);
+  translate: none;
+  transition:
+    opacity   1.2s var(--ease-soft) calc(var(--d, 0) * 1ms),
+    translate 1.2s var(--ease-soft) calc(var(--d, 0) * 1ms);
+}
+
+/* --- 9.3b Die Stellenkarte ------------------------------------------------
+   Die Karte kommt wie alles andere von unten; ihr Sandstreifen zieht
+   sich danach von links nach rechts auf. Zwei getrennte Bewegungen mit
+   verschiedener Richtung — das unterscheidet diesen Abschnitt vom
+   blossen Einblenden der uebrigen.
+--------------------------------------------------------------------------- */
+.kar-stelle::before { transform: none; }
+.is-ready .kar-stellen__liste[data-reveal] .kar-stelle::before { transform: scaleX(0); }
+.is-ready .kar-stellen__liste[data-reveal][data-seen='true'] .kar-stelle::before {
+  transform: none;
+  transition: transform 1.1s var(--ease-soft) 0.3s;
+}
+
+/* --- 9.4 Die Schrittfolge des Ablaufs ------------------------------------
+   Die <ol> traegt `data-reveal` und damit den Beobachter; sichtbar wird
+   aber nicht sie, sondern ihre Schritte — einer nach dem anderen. Ohne
+   die erste Regel liefe beides uebereinander, die Liste als Ganzes UND
+   jeder Schritt einzeln.
+--------------------------------------------------------------------------- */
+.is-ready .kar .kar-ablauf__schritte[data-reveal] { opacity: 1; translate: none; }
+
+.kar-schritt { opacity: 1; translate: none; }
+.is-ready .kar-ablauf__schritte[data-reveal] .kar-schritt {
+  opacity: 0;
+  translate: 0 14px;
+  transition: none;
+}
+.is-ready .kar-ablauf__schritte[data-reveal][data-seen='true'] .kar-schritt {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity   0.7s var(--ease-soft) calc(0.16s + var(--i, 0) * 0.13s),
+    translate 0.7s var(--ease-soft) calc(0.16s + var(--i, 0) * 0.13s);
+}
+.kar-ablauf__schritte > :nth-child(1) { --i: 0; }
+.kar-ablauf__schritte > :nth-child(2) { --i: 1; }
+.kar-ablauf__schritte > :nth-child(3) { --i: 2; }
+.kar-ablauf__schritte > :nth-child(4) { --i: 3; }
+.kar-ablauf__schritte > :nth-child(5) { --i: 4; }
+
+/* Die senkrechte Verbindungslinie zieht sich mit — von oben nach unten,
+   knapp vor dem ersten Schritt los und mit dem letzten fertig.
+
+   WARUM `scaleY` UND NICHT `stroke-dashoffset`: die Linie ist keine
+   SVG-Kontur, sondern ein 2 px breites Kaestchen (::before). Ein SVG
+   allein fuer eine gerade Senkrechte waere zusaetzliches Markup ohne
+   Gewinn — `scaleY` von 0 auf 1 mit `transform-origin` oben ergibt
+   Bildpunkt fuer Bildpunkt dasselbe Bild. Die Zeit ist so gewaehlt,
+   dass die Linie den Schritten voraus ist und nicht hinterherlaeuft. */
+.is-ready .kar-ablauf__schritte[data-reveal]::before { transform: scaleY(0); }
+.is-ready .kar-ablauf__schritte[data-reveal][data-seen='true']::before {
+  transform: scaleY(1);
+  transition: transform 1.05s var(--ease-soft) 0.1s;
+}
+
+/* Die Ziffernkaestchen setzen sich nacheinander — jedes kurz nachdem
+   sein Schritt steht. Sie starten drei Viertel gross und wachsen auf
+   ihr Mass; kein Ueberschwingen, kein Federn. */
+.kar-schritt__nr { scale: none; }
+.is-ready .kar-ablauf__schritte[data-reveal] .kar-schritt__nr { scale: 0.74; }
+.is-ready .kar-ablauf__schritte[data-reveal][data-seen='true'] .kar-schritt__nr {
+  scale: 1;
+  transition: scale 0.6s var(--ease-soft) calc(0.24s + var(--i, 0) * 0.13s);
+}
+
+/* --- 9.5 Die sechs Gruende ------------------------------------------------
+   Derselbe Aufbau wie bei der Schrittfolge: die <ol> traegt den
+   Beobachter, sichtbar werden die Zeilen. Hier steht die Reihenfolge
+   NICHT fuer einen Ablauf, deshalb ist die Staffelung knapper — sie
+   soll die Liste zusammenhalten, nicht sie vorlesen.
+--------------------------------------------------------------------------- */
+.is-ready .kar .kar-gruende__liste[data-reveal] { opacity: 1; translate: none; }
+
+.kar-grund { opacity: 1; translate: none; }
+.is-ready .kar-gruende__liste[data-reveal] .kar-grund {
+  opacity: 0;
+  translate: 0 12px;
+  transition: none;
+}
+.is-ready .kar-gruende__liste[data-reveal][data-seen='true'] .kar-grund {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity   0.75s var(--ease-soft) calc(var(--i, 0) * 0.08s),
+    translate 0.75s var(--ease-soft) calc(var(--i, 0) * 0.08s);
+}
+.kar-gruende__liste > :nth-child(1) { --i: 0; }
+.kar-gruende__liste > :nth-child(2) { --i: 1; }
+.kar-gruende__liste > :nth-child(3) { --i: 2; }
+.kar-gruende__liste > :nth-child(4) { --i: 3; }
+.kar-gruende__liste > :nth-child(5) { --i: 4; }
+.kar-gruende__liste > :nth-child(6) { --i: 5; }
+
+/* Die Trennlinie jeder Zeile zieht sich von links nach rechts — dieselbe
+   Richtung wie der Sandstreifen der Stellenkarte, dieselbe Geste, ein
+   anderer Ort. Sie laeuft der Zeile hinterher, nicht voraus. */
+.kar-grund::after { transform: none; }
+.is-ready .kar-gruende__liste[data-reveal] .kar-grund::after { transform: scaleX(0); }
+.is-ready .kar-gruende__liste[data-reveal][data-seen='true'] .kar-grund::after {
+  transform: none;
+  transition: transform 0.95s var(--ease-soft) calc(0.2s + var(--i, 0) * 0.08s);
+}
+
+/* Die Ziffer kommt zuletzt und aus einer anderen Richtung als die Zeile:
+   die Zeile steigt, die Ziffer faellt. Beides ist klein, zusammen ergibt
+   es die Bewegung, die die Vorlagen an dieser Stelle haben. */
+.kar-grund::before { opacity: 1; translate: none; }
+.is-ready .kar-gruende__liste[data-reveal] .kar-grund::before { opacity: 0; translate: 0 -10px; }
+.is-ready .kar-gruende__liste[data-reveal][data-seen='true'] .kar-grund::before {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity   0.7s var(--ease-soft) calc(0.18s + var(--i, 0) * 0.08s),
+    translate 0.7s var(--ease-soft) calc(0.18s + var(--i, 0) * 0.08s);
+}
+
+/* --- 9.5b Die haeufigen Fragen -------------------------------------------
+   Sechs Zeilen, gestaffelt. Der Aufklapper selbst gehoert faq.css und
+   faq.js und bleibt unberuehrt — hier faellt nur der Einlauf.
+--------------------------------------------------------------------------- */
+.is-ready .kar .kar-faq .faq__liste[data-reveal] { opacity: 1; translate: none; }
+
+.kar-faq .faq__punkt { opacity: 1; translate: none; }
+.is-ready .kar-faq .faq__liste[data-reveal] .faq__punkt {
+  opacity: 0;
+  translate: 0 12px;
+  transition: none;
+}
+.is-ready .kar-faq .faq__liste[data-reveal][data-seen='true'] .faq__punkt {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity   0.7s var(--ease-soft) calc(var(--i, 0) * 0.07s),
+    translate 0.7s var(--ease-soft) calc(var(--i, 0) * 0.07s);
+}
+.kar-faq .faq__liste > :nth-child(1) { --i: 0; }
+.kar-faq .faq__liste > :nth-child(2) { --i: 1; }
+.kar-faq .faq__liste > :nth-child(3) { --i: 2; }
+.kar-faq .faq__liste > :nth-child(4) { --i: 3; }
+.kar-faq .faq__liste > :nth-child(5) { --i: 4; }
+.kar-faq .faq__liste > :nth-child(6) { --i: 5; }
+
+/* Feine Reaktion beim Ueberfahren einer Frage. faq.css setzt die Farbe
+   ueber --faq-schrift; diese Regel ist spezifischer und gewinnt, ohne
+   dass faq.css angefasst werden muss. */
+.kar-faq .faq__knopf { transition: color 0.35s var(--ease); }
+.kar-faq .faq__knopf:hover { color: var(--navy-600); }   /* 8,00:1 auf Weiss */
+
+/* --- 9.5c Der Abschluss ---------------------------------------------------
+   Die beiden Haarlinien neben dem Etikett ziehen sich nach aussen auf,
+   danach kommen Ueberschrift, Text und Knopf. Das ist die einzige
+   Bewegung der Seite, die aus der Mitte heraus laeuft — sie markiert,
+   dass hier Schluss ist.
+--------------------------------------------------------------------------- */
+.is-ready .kar-schluss .kar-kicker[data-reveal]::before,
+.is-ready .kar-schluss .kar-kicker[data-reveal]::after { width: 0; }
+.is-ready .kar-schluss .kar-kicker[data-reveal][data-seen='true']::before,
+.is-ready .kar-schluss .kar-kicker[data-reveal][data-seen='true']::after {
+  width: clamp(1.6rem, 2.4vw, 2.4rem);
+  transition: width 0.9s var(--ease-soft) 0.2s;
+}
+
+/* --- 9.6 prefers-reduced-motion -------------------------------------------
    Alles steht sofort und vollstaendig. Der Aufklapper springt statt zu
-   laufen, bleibt aber bedienbar.
+   laufen, bleibt aber bedienbar. `!important` ist hier die richtige
+   Wahl und keine Faulheit: die Regel muss JEDEN der Zweige oben
+   erreichen, auch die mit hoeherer Spezifitaet, und sie ist die letzte
+   Aussage der Datei.
 --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+  /* Jeder Zustand, den ein Zweig oben ausblendet oder verschiebt,
+     kommt hier zurueck — die Aufzaehlung ist absichtlich vollstaendig
+     und nicht abgekuerzt. Wer oben eine Bewegung ergaenzt, ergaenzt
+     sie hier. */
   .kar [data-reveal],
   .is-ready .kar [data-reveal],
-  .is-ready .kar [data-reveal][data-seen='true'] {
+  .is-ready .kar [data-reveal][data-seen='true'],
+  .kar-schritt,
+  .is-ready .kar-ablauf__schritte[data-reveal] .kar-schritt,
+  .is-ready .kar-ablauf__schritte[data-reveal][data-seen='true'] .kar-schritt,
+  .kar-grund,
+  .is-ready .kar-gruende__liste[data-reveal] .kar-grund,
+  .is-ready .kar-gruende__liste[data-reveal][data-seen='true'] .kar-grund,
+  .kar-faq .faq__punkt,
+  .is-ready .kar-faq .faq__liste[data-reveal] .faq__punkt,
+  .is-ready .kar-faq .faq__liste[data-reveal][data-seen='true'] .faq__punkt {
     opacity: 1 !important;
+    translate: none !important;
     transform: none !important;
     transition: none !important;
   }
@@ -970,10 +1674,71 @@ html:not(.is-ready) [data-anim]  { opacity: 1; transform: none; }
   .is-ready .kar [data-anim] {
     opacity: 1 !important;
     transform: none !important;
+    translate: none !important;
+    transition: none !important;
+  }
+  /* Die Figuren behalten ihre Mittigkeit — `transform: none` waere hier
+     falsch, es wuerde sie um ihre halbe Breite nach rechts setzen. */
+  .kar-kopf__figur[data-anim],
+  html:not(.is-ready) .kar-kopf__figur[data-anim],
+  .is-ready .kar-kopf__figur[data-anim] {
+    opacity: 1 !important;
+    transform: translateX(-50%) !important;
+    translate: none !important;
+    transition: none !important;
+  }
+  /* Linien, Streifen und Ziffern stehen sofort ganz da. */
+  .is-ready .kar-ablauf__schritte[data-reveal]::before,
+  .is-ready .kar-ablauf__schritte[data-reveal][data-seen='true']::before,
+  .is-ready .kar-stellen__liste[data-reveal] .kar-stelle::before,
+  .is-ready .kar-stellen__liste[data-reveal][data-seen='true'] .kar-stelle::before,
+  .is-ready .kar-gruende__liste[data-reveal] .kar-grund::after,
+  .is-ready .kar-gruende__liste[data-reveal][data-seen='true'] .kar-grund::after {
+    transform: none !important;
+    transition: none !important;
+  }
+  .is-ready .kar-gruende__liste[data-reveal] .kar-grund::before,
+  .is-ready .kar-gruende__liste[data-reveal][data-seen='true'] .kar-grund::before {
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
+  }
+  /* Die Bilder stehen auf ihrem Mass, sie setzen sich nicht. */
+  .kar-split__bild img,
+  .kar-ablauf__bild img,
+  .is-ready .kar-split__bild[data-reveal] img,
+  .is-ready .kar-ablauf__bild[data-reveal] img,
+  .is-ready .kar-split__bild[data-reveal][data-seen='true'] img,
+  .is-ready .kar-ablauf__bild[data-reveal][data-seen='true'] img,
+  .kar-schritt__nr,
+  .is-ready .kar-ablauf__schritte[data-reveal] .kar-schritt__nr,
+  .is-ready .kar-ablauf__schritte[data-reveal][data-seen='true'] .kar-schritt__nr {
+    scale: none !important;
+    transition: none !important;
+  }
+  /* Die Haarlinien neben dem Etikett stehen auf voller Laenge. */
+  .is-ready .kar-schluss .kar-kicker[data-reveal]::before,
+  .is-ready .kar-schluss .kar-kicker[data-reveal]::after,
+  .is-ready .kar-schluss .kar-kicker[data-reveal][data-seen='true']::before,
+  .is-ready .kar-schluss .kar-kicker[data-reveal][data-seen='true']::after {
+    width: clamp(1.6rem, 2.4vw, 2.4rem) !important;
+    transition: none !important;
+  }
+  /* Der versetzte Winkel hinter dem Bild steht auf seinem Mass. */
+  .is-ready .kar-split__bild[data-reveal]::before,
+  .is-ready .kar-split__bild[data-reveal][data-seen='true']::before {
+    width: 58% !important;
+    height: 62% !important;
+    opacity: 1 !important;
     transition: none !important;
   }
   .kar-stellen[data-js='an'] .kar-stelle__fach,
+  .kar-stelle,
   .kar-stelle__winkel,
+  .kar-stelle__titel,
+  .kar-faq .faq__knopf,
   .kar-btn,
   .kar-textlink { transition: none !important; }
+  /* Kein Hub beim Ueberfahren. */
+  .kar-btn:hover, .kar-stelle:hover { translate: none !important; }
 }

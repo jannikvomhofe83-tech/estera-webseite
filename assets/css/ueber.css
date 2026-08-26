@@ -1,12 +1,12 @@
 /* ===========================================================================
-   ESTERA — Über Estera (mit Karriere)
+   ESTERA — Über Estera
    Markenkern: Diskret. Strukturiert. Langfristig.
 
    WOZU DIESE DATEI
-   ueber-estera.html traegt seit dem 22.08.2026 zwei Kopfeintraege: „Über
-   Estera" landet oben, „Karriere" auf Abschnitt 4 derselben Seite. Aus zwei
-   duennen Unterseiten ist eine Seite mit SECHS Abschnitten geworden, und die
-   braucht mehr als den Textrhythmus, fuer den seiten.css gebaut wurde.
+   Kopfleiste, Menue, Wortmarke, Schaltflaechen und Fusszeile stehen
+   vollstaendig in base.css und schluss.css, der gemeinsame Bestand der
+   Unterseiten in seiten.css. Hier steht ausschliesslich, was allein zu
+   dieser Seite gehoert.
 
    WARUM EINE EIGENE DATEI UND NICHT seiten.css
    seiten.css wird von kontakt.html mitbenutzt. Alles, was dort ergaenzt
@@ -16,58 +16,66 @@
    CSS-Datei wurde angefasst.
 
    REIHENFOLGE: Sie kommt NACH seiten.css. Wo beide dasselbe regeln
-   (Abschnittskopf, Einlauf), gewinnt bewusst diese Datei.
+   (Einlauf), gewinnt bewusst diese Datei.
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   STAND 26.08.2026 — DIE SEITE IST NEU GEBAUT
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Bis heute trug sie sechs Abschnitte, zuletzt vier: Hero, „Warum Estera",
+   „Unser Ablauf" und „Unsere Geschaeftsfuehrer". Kundenwunsch, woertlich:
+   „dass unser Ablauf rauskommt, weil es jetzt auf der Landing Page bei
+   ‚Warum Estera' auch drinsteht, und unsere Geschäftsführer auch raus."
+   Der Ablauf steht jetzt auf der Startseite, die beiden Geschaeftsfuehrer
+   im Kopfbereich von karriere.html.
+
+   Damit blieben Hero und Gegenueberstellung — zu wenig fuer eine eigene
+   Seite. An die Stelle der beiden entfallenen Abschnitte tritt Abschnitt 9
+   des Wording-Masters („## 9. Über Estera"), der bislang NIRGENDS auf der
+   Website stand. Sein Wortlaut ist Zeichen fuer Zeichen uebernommen.
+
+   Mit den Abschnitten sind ihre Regeln entfallen: .ue-kopf*, .ue-kette,
+   .ue-glied, .ue-band, .ue-kasten*, .ue-raster, .ue-zwei*, .ue-team,
+   .ue-punkte, .ue-platz*, .ue-stelle*, .ue-daten, .ue-gruende,
+   .ue-freigabe, .ue-verg__fuss, .ue-unter, .uab-*, .ugf*, .ukar-*,
+   .ukant, .uvz-titel und .uvz__fuss. Der alte Stand liegt vollstaendig in
+   der Versionsgeschichte (f0e1e71).
 
    DER RHYTHMUS IST DAS EIGENTLICHE GESTALTUNGSMITTEL
-   Erste Fassung dieser Seite: sechs Abschnitte, sechsmal linksbuendiger
-   Kopf, sechsmal dieselbe Kastenreihe darunter, alles auf einer Spaltenkante
-   von 1180 px. Auf einem 1920er Schirm war die rechte Haelfte leer und beim
-   Rollen passierte nichts. Genau das war der Einwand des Kunden.
+   Der Einwand des Kunden an der ersten Fassung war, dass beim Rollen nichts
+   passiert: gleicher Kopf, gleiche Kastenreihe, gleiche Kante. Der Aufbau
+   wechselt deshalb von Abschnitt zu Abschnitt Anordnung UND Untergrund:
 
-   Jetzt wechselt jeder Abschnitt seine Anordnung:
-     1  Kopf MITTIG, darunter eine Gegenueberstellung ueber die volle Breite
-     2  ZWEISPALTIG — Kopf steht links und bleibt stehen, die Kette laeuft
-        rechts durch
-     3  Kopf MITTIG, zwei grosse Karten nebeneinander
-     4  ZWEISPALTIG auf dunklem Grund — Text links, Bild rechts
-     5  Kopf MITTIG, eine einzelne breite Karte
-     6  VERSETZT — zwei Spalten, die rechte tiefer angesetzt
-   Dazu wechseln die Untergruende: weiss, kuehl, weiss, navy, weiss, kuehl.
-   Der eine dunkle Moment liegt genau auf der Naht zwischen den beiden
-   Kopfeintraegen — dort, wo „Karriere" landet.
+     00  Hero            Bild ueber die volle Breite, Schrift darauf
+     01  Warum Estera    weiss   — aus der Mitte heraus: Knoten, zwei
+                                   Zweige, zwei Vergleichskaesten
+     02  Über Estera     creme   — Kopf mittig, darunter zweispaltig:
+                                   Bild links, Fliesstext rechts
+     03  Werte           navy    — drei Spalten, geschwungener oberer Rand
+     04  Versprechen     weiss   — eine Aussage, mittig, darunter der Knopf
+         Fusszeile       navy
+
+   Der eine dunkle Moment liegt in der Mitte der Seite und ist durch den
+   hellen Abschluss von der ebenfalls dunklen Fusszeile getrennt.
 
    ALLE Farben, Schriften und Kurven kommen aus den Token in base.css. Es
-   wird kein neuer Farbwert erfunden.
+   wird kein neuer Farbwert erfunden; die Cremeflaeche ist der Ton der
+   Kundenstimmen (referenzen.css, #F7F3EC). Kein Schwarz.
    =========================================================================== */
 
 :root {
-  /* --- Die eine Kastenform dieser Seite ---------------------------------
-     GEWAEHLT: die Machart aus #warum-immobilien der Startseite — weisse
-     Flaeche, 2 px Kontur in --ink-black, 22 px Radius, kein Schatten.
-
-     Die Alternative waere die quadratische Form mit 45-Grad-Schnitt aus
-     #leistungen gewesen. Gegen sie sprechen zwei Dinge: sie ist dort in SVG
-     gezeichnet und an ein festes Quadrat von 280 zu 280 gebunden
-     (auswahl.css, „DIE GROESSE IST GERECHNET, NICHT GEWAEHLT") — Texte
-     wechselnder Laenge sprengen sie sofort; und sie lebt von zwei
-     Schattenlagen, die das Briefing auf einer hellen Textseite gerade nicht
-     will (S.20: „hell, ruhig, praezise").
-
-     Die weisse Kontur-Form dagegen ist die juengste ausdrueckliche
-     Kundenentscheidung (22.08.2026: „weißer Hintergrund und dann eine
-     schwarze Umrandung, die Umrandung darf ruhig etwas dicker sein"), sie
-     traegt beliebig langen Text und steht auf Weiss wie auf dem kuehlen
-     Grau gleich gut.
-
-     ES BLEIBT BEI DIESER EINEN FORM. Die Gegenueberstellung in Abschnitt 1
-     ist KEINE zweite Kastenform, sondern eine Tabelle aus Haarlinien — sie
-     hat gar keinen Rahmen. Der Bildplatzhalter benutzt denselben Radius,
-     aber eine gestrichelte Kontur; das ist die Kennzeichnung „noch nicht
-     final", dieselbe Sprache wie .sp-offen in seiten.css.
-  --------------------------------------------------------------------- */
-  --ue-rund:    22px;
-  --ue-kontur:  2px;
-
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     HIER STANDEN --ue-rund UND --ue-kontur — DIE KASTENFORM DER SEITE.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     22 px Radius, 2 px Kontur — die Machart aus #warum-immobilien der
+     Startseite. Sie trug die Ablaufschritte, die Geschaeftsfuehrerkarten,
+     die Stellenanzeige und die Gruende. Alle vier Abschnitte sind am
+     26.08.2026 entfallen; kein Element der Seite ist mehr ein Kasten
+     dieser Art.
+     Die Kaesten der Verzweigung sind KEIN Rueckfall darauf: sie tragen
+     den Eckschnitt mit Navy-Kontur (siehe .uvz__quelle / .uvz__saeule)
+     und haben ihre Masse dort stehen.
+     Wer die Form wieder braucht, findet sie in der Versionsgeschichte.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   /* Bewegung. Die Kurve ist vorgegeben; sie laeuft schnell an und kommt
      lange aus. Eigener Name, damit klar bleibt, dass sie zu dieser Seite
      gehoert und nicht versehentlich global geaendert wird. */
@@ -76,9 +84,9 @@
   --ue-weg:     12px;    /* mehr Versatz wirkt auf Textbloecken unruhig  */
 
   /* Die Seite darf breiter atmen als die reinen Textseiten: die
-     Gegenueberstellung und die Kette brauchen die Flaeche. seiten.css
-     bleibt bei 1180 px (Flucht mit der Fusszeile) — dieser Wert gilt nur
-     fuer die Bausteine dieser Datei. */
+     Gegenueberstellung, die Cremeflaeche und das Werteband brauchen die
+     Flaeche. seiten.css bleibt bei 1180 px (Flucht mit der Fusszeile) —
+     dieser Wert gilt nur fuer die Bausteine dieser Datei. */
   --ue-breit:   1320px;
 }
 
@@ -92,461 +100,11 @@
 --------------------------------------------------------------------------- */
 .ue-ziel { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
 
-/* Etwas mehr Luft als auf den reinen Textseiten. Sechs Abschnitte
-   hintereinander vertragen keinen engen Takt. */
+/* Etwas mehr Luft als auf den reinen Textseiten. Seit dem 26.08.2026 traegt
+   nur noch „Warum Estera" diese Klasse; die neuen Abschnitte bringen
+   denselben Takt in ihren eigenen Regeln mit. */
 .sp-band.ue-band-luft { padding-block: clamp(4rem, 10vh, 7.6rem); }
 .sp-band .ue-weit { max-width: var(--ue-breit); margin: 0 auto; }
-
-/* ---------------------------------------------------------------------------
-   ABSCHNITTSKOPF
-   Zaehlung, Haarlinie, Kicker — darunter die Ueberschrift und ein Vorspann.
-   Zwei Varianten: linksbuendig (Standard) und mittig (--mitte). Der Wechsel
-   zwischen beiden ist der halbe Rhythmus der Seite.
---------------------------------------------------------------------------- */
-.ue-kopf { max-width: 62ch; }
-.ue-kopf--mitte {
-  max-width: 56ch;
-  margin-inline: auto;
-  text-align: center;
-}
-.ue-kopf__zeile {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.45rem 0.9rem;
-}
-.ue-kopf--mitte .ue-kopf__zeile { justify-content: center; }
-.ue-kopf__nr {
-  font-family: var(--font-ui);
-  font-size: clamp(0.83rem, 0.86vw, 0.89rem);
-  font-weight: 500;
-  letter-spacing: var(--track-wide);
-  text-transform: uppercase;
-  /* --gold-text (4,82:1), nicht --gold: reines Gold erreicht als Schrift auf
-     Weiss nur rund 3,1:1. */
-  color: var(--gold-text);
-}
-/* Haarlinie zwischen Zaehlung und Kicker — dieselbe Geste wie .rule-gold. */
-.ue-kopf__strich {
-  width: 26px;
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.85;
-}
-.ue-kopf__h2 {
-  margin-top: clamp(0.9rem, 2vh, 1.4rem);
-  font-family: var(--font-display);
-  font-weight: 300;
-  /* Eine Stufe groesser als in seiten.css. Die Seite ist jetzt lang und
-     braucht Ankerpunkte, an denen das Auge haengen bleibt. */
-  font-size: clamp(2rem, 3.7vw, 3.05rem);
-  line-height: 1.1;
-  letter-spacing: -0.006em;
-  color: var(--ink-black);
-  text-wrap: balance;
-}
-.ue-kopf__h2 .accent { color: var(--accent); }
-.ue-kopf__lead {
-  margin-top: clamp(1rem, 2.4vh, 1.5rem);
-  font-size: clamp(1.06rem, 1.15vw, 1.19rem);
-  line-height: 1.75;
-  color: var(--ink-black);
-}
-/* Auf dunklem Grund kehren sich die Textfarben um. */
-.sp-band--navy .ue-kopf__h2   { color: #fff; }
-.sp-band--navy .ue-kopf__lead { color: rgba(255, 255, 255, 0.82); }
-.sp-band--navy .ue-kopf__nr   { color: var(--gold-soft); }
-.sp-band--navy .kicker        { color: rgba(255, 255, 255, 0.6); }
-.sp-band--navy .ue-kopf__strich { background: var(--gold-soft); }
-/* .accent ist in base.css das Blau --accent (#1E4270). Auf Navy sind das
-   gemessene 1,74:1 — die zweite Ueberschriftenzeile war praktisch nicht zu
-   lesen. Auf dunklem Grund uebernimmt --gold-soft die Rolle des Akzents:
-   8,45:1 und dieselbe Farbe, die im Menue-Overlay schon die Ziffern traegt. */
-.sp-band--navy .ue-kopf__h2 .accent { color: var(--gold-soft); }
-
-/* --- Untertitel innerhalb eines Abschnitts -------------------------------- */
-.ue-unter {
-  margin-top: clamp(2.4rem, 5vh, 3.6rem);
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.3rem, 1.8vw, 1.72rem);
-  line-height: 1.24;
-  color: var(--ink-black);
-}
-
-/* ===========================================================================
-/* ===========================================================================
-   01 · GEGENUEBERSTELLUNG — DIE TABELLE IST ENTFALLEN
-
-   Bis zum 23.08.2026 stand hier eine <table> mit drei Spalten. Auf
-   Kundenwunsch ist daraus eine Verzweigung geworden; ihre Regeln stehen
-   weiter unten unter „01 · DIE VERZWEIGUNG". Die Tabellenregeln
-   (.ue-verg, .ue-verg__titel, .ue-verg__zelle, .ue-verg__thema,
-   .ue-verg__mini, .ue-nur-sr) sind mit ihr ersatzlos entfernt — sie
-   trafen nichts mehr. Die Versionsgeschichte haelt sie fest.
-
-   GEBLIEBEN ist allein .ue-verg__fuss: der Hinweis unter der
-   Gegenueberstellung steht wortgleich weiter und traegt dieselbe Form.
-   Sein Name bleibt, damit die Aenderung in der Versionsgeschichte
-   nachvollziehbar ist.
-   =========================================================================== */
-
-/* Der Vermerk unter der Tabelle. Er ist Teil der Aussage, nicht Zierat. */
-.ue-verg__fuss {
-  margin-top: clamp(1.4rem, 3vh, 2rem);
-  max-width: 74ch;
-  padding-left: clamp(0.9rem, 1.6vw, 1.3rem);
-  border-left: 1px solid var(--line-gold);
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--ink-mute);
-}
-
-/* ===========================================================================
-   02 · DIE KETTE
-   Sechs Kaesten untereinander, dazwischen eine Haarlinie mit einem kleinen
-   Ring: das Bild einer Kette. Jede Verbindung ist ein eigenes, fest
-   vermasstes SVG (24 zu 72 Einheiten bei 24 zu 72 Pixeln, also 1:1) — eine
-   durchgehende Linie ueber die ganze Kette muesste die Hoehe eines
-   Textblocks kennen und waere bei jedem Umbruch falsch.
-
-   site.js kennt das Muster bereits: [data-lines] misst jeden Pfad, setzt
-   --len und --d und haengt data-drawn an das Elternelement, sobald das SVG
-   ins Bild kommt. Genau ein Beobachter je Verbindung, danach abgemeldet.
-   =========================================================================== */
-.ue-zwei {
-  display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
-}
-/* Der Kopf bleibt beim Rollen stehen, solange die Kette laeuft. Das ist
-   keine Bewegung, die man abschalten muesste — es ist Layout. Sie fuellt
-   die linke Spalte, die sonst nach dem dritten Schritt leer ist. */
-.ue-zwei__halt {
-  position: sticky;
-  top: calc(var(--header-h) + 2.5rem);
-}
-.ue-kette {
-  display: grid;
-  justify-items: stretch;
-}
-.ue-glied { display: grid; }
-/* Die Verbindung sitzt UNTER dem Kasten, deshalb steht sie im selben
-   Listenpunkt. Das letzte Glied hat keine — dort endet die Kette. */
-.ue-band {
-  justify-self: start;
-  margin-left: clamp(1.6rem, 3vw, 2.8rem);
-  line-height: 0;
-}
-.ue-band svg { width: 24px; height: 72px; overflow: visible; }
-.ue-band path {
-  fill: none;
-  /* --navy-400 auf Weiss: 5,54:1, auf --paper-cool 5,07:1. Weit ueber den
-     geforderten 3:1 fuer Linien. */
-  stroke: var(--navy-400);
-  stroke-width: 1;
-  stroke-linecap: round;
-}
-/* Der Ring in der Mitte in Gold: 3,08:1 auf dem kuehlen Grund, ueber 3:1. */
-.ue-band path.ue-band__ring { stroke: var(--gold); }
-
-/* ---------------------------------------------------------------------------
-   DER KASTEN
-   Eine Form fuer alles, was auf dieser Seite ein Kasten ist: Ablaufschritte,
-   Geschaeftsfuehrer, die offene Stelle, die Gruende in Abschnitt 6.
---------------------------------------------------------------------------- */
-.ue-kasten {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: clamp(1.35rem, 2.3vw, 2.1rem);
-  border: var(--ue-kontur) solid var(--ink-black);
-  border-radius: var(--ue-rund);
-  background: var(--paper);
-  min-width: 0;
-}
-/* `margin: 0` ist KEIN Doppel zur Grundeinstellung: base.css setzt den Reset
-   nur fuer h1, h2, h3, p, figure, ul und ol. In Abschnitt 6 steht der Kasten
-   eine Gliederungsebene tiefer und traegt eine h4 — und die behielt ohne
-   diese Zeile den Vorgabe-Abstand des Browsers von 1,33em. */
-.ue-kasten__h {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.24rem, 1.5vw, 1.55rem);
-  line-height: 1.22;
-  letter-spacing: -0.003em;
-  color: var(--ink-black);
-  text-wrap: balance;
-}
-.ue-kasten__t {
-  font-size: clamp(1rem, 1.05vw, 1.08rem);
-  line-height: 1.68;
-  color: var(--ink-black);
-}
-/* Die zweite Ebene im Kasten: woran der Besucher das Prinzip erkennt.
-   Goldhaarlinie darueber, ruhiger Ton — dieselbe Trennung wie .wimm__kern
-   auf der Startseite.
-
-   `margin-top: auto` statt eines festen Werts: stehen mehrere Kaesten
-   nebeneinander, sind sie durch das Raster gleich hoch, ihre Texte aber
-   unterschiedlich lang. Ohne diese Zeile sitzt die Goldlinie in jedem
-   Kasten auf einer anderen Hoehe und die Reihe wirkt ausgefranst. In der
-   Kette (untereinander) hat sie keine Wirkung. */
-.ue-kasten__kern {
-  margin-top: auto;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--line-gold);
-  font-size: 1rem;
-  line-height: 1.62;
-  /* --ink-mute: 5,20:1 auf Weiss. Nie kleiner als 16 px. */
-  color: var(--ink-mute);
-}
-/* Zaehlung im Kasten (Ablaufschritte). */
-.ue-kasten__nr {
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold-text);
-}
-
-/* --- Raster fuer Kaesten nebeneinander ------------------------------------ */
-.ue-raster {
-  margin-top: clamp(2.4rem, 5vh, 3.4rem);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.4rem, 2.6vw, 2.4rem);
-  align-items: stretch;
-}
-
-/* ===========================================================================
-   03 · GESCHAEFTSFUEHRER — DIE KARTEN SIND ENTFALLEN
-
-   Bis zum 23.08.2026 standen hier zwei Kaesten mit einem Ring aus den
-   Initialen als Bildersatz. Beides ist auf Kundenwunsch weg: „Es sollen
-   keine Kästen mehr vorhanden sein … SM und IO soll raus." Die Regeln
-   (.ue-gf__karte, .ue-gf__name, .ue-gf__rolle, .ue-gf__zitat, .ue-sigel)
-   sind mit ihnen ersatzlos entfernt — sie trafen nichts mehr.
-   Der Abschnitt steht jetzt unter „03 · GESCHAEFTSFUEHRER — OHNE KAESTEN"
-   weiter unten in dieser Datei.
-   =========================================================================== */
-
-/* ---------------------------------------------------------------------------
-   FREIGABEVERMERK
-   Steht unter beiden Zitaten und ist NICHT dekorativ: der Wortlaut ist ein
-   Vorschlag, nicht ein gesprochener Satz. Er wird entfernt, wenn — und nur
-   wenn — Estera den Wortlaut bestaetigt hat. Bewusst in derselben
-   gestrichelten Machart wie .sp-offen in seiten.css, damit auf allen
-   Unterseiten dasselbe Zeichen fuer „noch nicht freigegeben" steht.
-   `margin-top: auto` wie beim Kasten-Kern: beide Karten sind gleich hoch,
-   die Zitate unterschiedlich lang.
---------------------------------------------------------------------------- */
-.ue-freigabe {
-  margin-top: auto;
-  padding: 0.6rem 0.85rem;
-  border: 1px dashed rgba(134, 105, 58, 0.5);
-  border-radius: 4px;
-  background: rgba(168, 135, 79, 0.06);
-  font-size: 1rem;
-  line-height: 1.55;
-  /* --gold-text auf dem blassen Goldgrund: 4,83:1. */
-  color: var(--gold-text);
-}
-
-/* ===========================================================================
-   04 · WERDEN SIE TEIL UNSERES TEAMS
-   Der eine dunkle Moment der Seite. Das Briefing erlaubt dunkle
-   Vollflaechen „nur als bewusste Spannungsmomente" (S.20) — dieser hier ist
-   begruendet: an genau dieser Stelle landet der Kopfeintrag „Karriere", und
-   der Wechsel von „Über Estera" zu „Karriere" braucht eine sichtbare Naht.
-   =========================================================================== */
-.ue-team {
-  display: grid;
-  /* Text bekommt mehr Anteil als das Bild. Bei 1,05 zu 0,95 stand der
-     Platzhalter im Hochformat 4:5 auf 741 px Hoehe, waehrend der Textblock
-     nur rund 600 px brauchte — die Spalten waren gleich breit, sahen aber
-     ungleich schwer aus. */
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  /* start, nicht center. Zentriert schob die Ueberschrift nach unten, weil
-     die Bildspalte hoeher ist als der Text — nach dem Sprung auf #karriere
-     standen gemessene 247 px leeres Navy ueber der Zeile. Oben buendig sind
-     es 124 px, und der Besucher landet auf der Ueberschrift statt davor. */
-  align-items: start;
-}
-/* Im Zweispalter gibt die Spalte das Mass vor, nicht die Zeilenlaenge:
-   sonst steht der Kopf schmaler als die Aufzaehlung darunter (gemessen
-   473 gegen 655 px) und die linke Kante wirkt gebrochen. */
-.ue-team .ue-kopf { max-width: none; }
-.sp-band--navy .ue-punkte { margin-top: clamp(1.8rem, 4vh, 2.6rem); display: grid; gap: 1rem; }
-.sp-band--navy .ue-punkte li {
-  position: relative;
-  padding-left: 2.4rem;
-  font-size: clamp(1rem, 1.05vw, 1.08rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.82);
-}
-.sp-band--navy .ue-punkte li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.85em;
-  width: 22px;
-  height: 1px;
-  background: var(--gold-soft);
-}
-
-/* ---------------------------------------------------------------------------
-   BILDPLATZHALTER
-   Das Bild gibt es noch nicht. Der Platz steht trotzdem — mit FESTEM
-   Seitenverhaeltnis, damit das spaetere Bild nichts verschiebt (kein
-   Nachrutschen des Textes beim Austausch). Gestrichelte Kontur und
-   Beschriftung machen unmissverstaendlich, dass hier nichts Fertiges steht.
---------------------------------------------------------------------------- */
-.ue-platz { margin: 0; }
-.ue-platz__flaeche {
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: 0.9rem;
-  /* 4:5 — Hochformat. Es steht neben einem Textblock und soll ihn nicht
-     ueberragen; ein Querformat liesse rechts unten eine Luecke. */
-  aspect-ratio: 4 / 5;
-  padding: clamp(1.2rem, 2.4vw, 2rem);
-  border: 1px dashed rgba(201, 176, 138, 0.65);
-  border-radius: var(--ue-rund);
-  background: rgba(255, 255, 255, 0.035);
-  text-align: center;
-}
-.ue-platz__marke {
-  padding: 0.28em 0.8em;
-  border: 1px dashed rgba(201, 176, 138, 0.7);
-  border-radius: 3px;
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold-soft);
-}
-.ue-platz__text {
-  max-width: 34ch;
-  font-size: 1rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-/* ===========================================================================
-   05 · OFFENE STELLEN
-   Genau eine Position — mehr hat der Kunde nicht genannt. Die Form ist so
-   gebaut, dass weitere Stellen ohne Umbau dazukommen: .ue-stellen ist ein
-   Raster, .ue-stelle die Zeile darin. Bei einer Stelle steht sie ueber die
-   volle Breite, ab zweien laufen sie zweispaltig.
-   =========================================================================== */
-.ue-stellen {
-  margin-top: clamp(2.4rem, 5vh, 3.4rem);
-  display: grid;
-  gap: clamp(1.4rem, 2.6vw, 2.4rem);
-}
-.ue-stelle { gap: 1.1rem; padding: clamp(1.6rem, 3vw, 2.8rem); }
-/* Der Vermerk zu den noch fehlenden Rollen steht unter der Stellenkarte.
-   Er ist auf 68ch gedeckelt (seiten.css) und saesse ohne diese Zeile links
-   unter einer Karte, die die volle Breite hat — das liest sich wie ein
-   vergessener Rest. Mittig gehoert er sichtbar zum Abschnitt. */
-.ue-stellen + .sp-luecke { margin-inline: auto; }
-.ue-stelle__kopf {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.6rem 1.4rem;
-}
-.ue-stelle__name {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  line-height: 1.14;
-  color: var(--ink-black);
-}
-.ue-stelle__art {
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold-text);
-}
-/* Die Eckdaten. Sie sind fast alle noch offen — deshalb eine Liste aus
-   Begriff und Wert, in der der Vermerk „folgt" seinen festen Platz hat und
-   nicht wie ein vergessenes Feld aussieht. */
-.ue-daten {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  gap: clamp(0.9rem, 2vh, 1.3rem) clamp(1.4rem, 2.6vw, 2.4rem);
-  padding-top: clamp(1rem, 2.2vh, 1.4rem);
-  border-top: 1px solid var(--line-soft);
-}
-.ue-daten dt {
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-}
-.ue-daten dd {
-  margin: 0.35rem 0 0;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--ink-black);
-}
-.ue-stelle__weg {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: clamp(1rem, 2.4vw, 1.8rem);
-  padding-top: clamp(1.1rem, 2.4vh, 1.6rem);
-  border-top: 1px solid var(--line-soft);
-}
-.ue-stelle__hinweis {
-  flex: 1 1 20rem;
-  max-width: 40rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--ink-mute);
-}
-.ue-stelle__hinweis .sp-offen { margin-bottom: 0.6rem; }
-.ue-stelle__hinweis span.ue-text { display: block; }
-
-/* ===========================================================================
-   06 · WARUM MAN BEI ESTERA ARBEITEN SOLLTE
-   Versetzt: zwei Spalten, die rechte tiefer angesetzt. Das ist der letzte
-   Rhythmuswechsel der Seite und der Grund, warum der Abschluss nicht wie
-   eine Wiederholung von Abschnitt 3 aussieht.
-   =========================================================================== */
-.ue-gruende {
-  margin-top: clamp(2.4rem, 5vh, 3.4rem);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.4rem, 2.6vw, 2.4rem);
-  align-items: start;
-}
-.ue-gruende > :nth-child(even) { margin-top: clamp(1.6rem, 4vw, 3.6rem); }
-
-/* ---------------------------------------------------------------------------
-   SICHTBARE LUECKE AUF DEM KUEHLEN GRUND
-   .sp-luecke und .sp-offen kommen unveraendert aus seiten.css. Beide legen
-   je einen blassen Goldschleier ueber ihren Untergrund. Auf Weiss geht das
-   auf; auf --paper-cool stapeln sich drei Lagen: Grau, 5 % Gold, 7 % Gold.
-   Gemessen kam der Vermerk dort nur noch auf 4,20:1 und verfehlte die
-   Lesbarkeitsgrenze. Der Kasten bekommt deshalb auf dem kuehlen Grund
-   weisses Papier — die gestrichelte Goldkontur traegt die Kennzeichnung
-   ohnehin allein. Gemessen danach: 4,78:1.
---------------------------------------------------------------------------- */
-.sp-band--cool .sp-luecke { background: var(--paper); }
 
 /* ===========================================================================
    EINLAUF
@@ -645,36 +203,6 @@ html:not(.is-ready) .sp [data-lines] path {
 .sp [data-drawn='true'] path {
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 900ms var(--ue-ease) calc(var(--d, 0) * 1ms);
-}
-
-/* ===========================================================================
-   SCHMALE FENSTER
-   Geprueft bei 1920, 1280 und 390 px: keine waagerechte Rollflaeche, kein
-   Fliesstext unter 16 px, jede Trefferflaeche ueber 44 px.
-   =========================================================================== */
-@media (max-width: 1100px) {
-  /* Der stehende Kopf hat keinen Sinn mehr, sobald er ueber der Kette
-     steht statt neben ihr. */
-  .ue-zwei,
-  .ue-team { grid-template-columns: minmax(0, 1fr); }
-  .ue-zwei__halt { position: static; }
-  .ue-kette { margin-top: clamp(2rem, 4vh, 2.8rem); }
-  .ue-platz__flaeche { aspect-ratio: 3 / 2; }
-}
-@media (max-width: 760px) {
-  .ue-raster,
-  .ue-gruende { grid-template-columns: minmax(0, 1fr); }
-  .ue-gruende > :nth-child(even) { margin-top: 0; }
-}
-@media (max-width: 620px) {
-  /* Die Kette rutscht an den linken Rand — bei 390 px ist der Einzug Platz,
-     den der Text im Kasten besser gebrauchen kann. */
-  .ue-band { margin-left: clamp(1rem, 5vw, 1.6rem); }
-  .ue-band svg { height: 56px; }
-  .ue-kasten { padding: 1.25rem 1.15rem; }
-  .ue-stelle { padding: 1.35rem 1.15rem; }
-  .ue-kopf--mitte { text-align: left; margin-inline: 0; }
-  .ue-kopf--mitte .ue-kopf__zeile { justify-content: flex-start; }
 }
 
 /* ===========================================================================
@@ -835,47 +363,17 @@ html:not(.is-ready) .sp [data-lines] path {
    Kasten waere schlimmer als gar kein Ueberstand.
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-/* --- DIE UEBERSCHRIFT, DIE IN DIE HERO RAGT -------------------------------
-   Sie steht im Abschnitt, nicht im Hero, und wird mit einem negativen
-   Aussenabstand nach oben ueber die Kante gezogen. Andersherum — im Hero
-   und nach unten ragend — waere sie vom `overflow: hidden` des Heros
-   abgeschnitten worden.
-
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   ZWEI UNTERGRUENDE, EINE SCHRIFTFARBE
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Der obere Teil der Zeile steht auf dem Foto, der untere auf Weiss. Eine
-   Schrift, die auf beidem haelt, gibt es nicht — dunkel auf dem unbehandelten
-   Foto zu dunkel, hell auf Weiss unlesbar.
-   Geloest ueber den UNTERGRUND statt ueber die Schrift: die Bildunterkante
-   blendet ins Weisse aus (.uhero::after). Damit steht die Zeile oben wie
-   unten auf hellem Grund und bleibt durchgehend --ink-black. Der Effekt
-   bleibt: das Foto ist hinter dem oberen Teil der Schrift noch da, nur eben
-   aufgehellt. Eine zweifarbige Schrift waere die Alternative gewesen und
-   haette an der Kante gebrochen.
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-.uvz-titel {
-  position: relative;
-  z-index: 2;
-  max-width: var(--ue-breit);
-  margin-inline: auto;
-  padding: 0 var(--gutter);
-  /* Rund die halbe Zeilenhoehe nach oben — so liegt sie zur Haelfte im Bild
-     und zur Haelfte darunter. Der Wert haengt an der Schriftgroesse und
-     bleibt deshalb in jeder Fensterbreite dieselbe halbe Zeile.
-     Damit er wirken kann, steht `#warum-estera { padding-top: 0 }` am Ende
-     dieser Datei — die fruehere Reserve fuer den Seitenanfang hat die Zeile
-     sonst nach unten gedrueckt. */
-  margin-top: -0.58em;
-  margin-bottom: 0;
-  font-family: var(--font-display);
-  font-weight: 300;
-  /* „Deutlich groesser", damit das Hineinragen ueberhaupt wirkt. */
-  font-size: clamp(2.6rem, 6vw, 5.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.01em;
-  color: var(--ink-black);
-}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   HIER STAND .uvz-titel — DIE ZEILE, DIE IN DIE HERO RAGTE.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Sie war ein Zwischenstand: eine grosse Ueberschrift „Warum Estera", die
+   mit einem negativen Aussenabstand halb ins Bild der Hero gezogen wurde.
+   Seit dem 23.08.2026 tut das der KASTEN .uvz__quelle, und die Zeile war
+   im Markup schon damals nicht mehr vorhanden. Am 26.08.2026 sind ihre
+   Regeln entfernt.
+   `#warum-estera { padding-top: 0 }` am Ende dieser Datei bleibt stehen —
+   es gehoert jetzt zum Ueberstand des Kastens.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 /* --- Der Behaelter: UNSICHTBAR -----------------------------------------
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1029,26 +527,18 @@ html:not(.is-ready) .sp [data-lines] path {
 @supports not (grid-template-rows: subgrid) {
   .uvz__saeule { display: flex; flex-direction: column; }
 }
-/* Die Rueckfallebene fuer die Fuellung gilt auch fuer .ukant. */
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .ukant::after { background: var(--paper); }
-}
-
 /* --- DIE KASTENFORM: Eckschnitt und Navy-Kontur ---------------------------
    Zwei Lagen, weil `border` einem clip-path nicht folgt. Beide sind absolut
    positioniert und damit keine Rasterfelder. Erklaerung im Kopf des Blocks. */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   .ukant IST DIE FORM — hier steht sie einmal, benutzt wird sie mehrfach.
+   DIE FORM STAND EINMAL DA UND WURDE ZWEIMAL BENUTZT.
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Ausser der Verzweigung tragen seit dem 23.08.2026 auch die Kaesten der
-   Geschaeftsfuehrer diese Form („Die Kästen sollen auch die Struktur und den
-   Stil haben wie bei ‚Warum Estera' — die Kästen also so abgekantet an den
-   Ecken."). Statt die zwei Lagen dort zu wiederholen, steht die Form hier
-   einmal und wird ueber die Klasse geholt. Wer sie aendert, aendert sie an
-   beiden Stellen — und genau das ist beabsichtigt.
+   Neben der Verzweigung trugen bis zum 26.08.2026 auch die Kaesten der
+   Geschaeftsfuehrer diese Form; dafuer gab es die gemeinsame Klasse
+   `.ukant`. Der Abschnitt ist entfallen, die Klasse damit ohne zweiten
+   Nutzer — sie ist entfernt. Die Form gehoert jetzt allein dem Knoten und
+   den beiden Vergleichskaesten der Verzweigung.
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-.ukant { position: relative; isolation: isolate; }
-.ukant::before,
 .uvz__quelle::before,
 .uvz__saeule::before {
   content: '';
@@ -1064,7 +554,6 @@ html:not(.is-ready) .sp [data-lines] path {
   );
   box-shadow: var(--uvz-schatten);
 }
-.ukant::after,
 .uvz__quelle::after,
 .uvz__saeule::after {
   content: '';
@@ -1158,7 +647,6 @@ html:not(.is-ready) .sp [data-lines] path {
   color: var(--ink-black);
 }
 
-.uvz__fuss { margin-top: clamp(1.6rem, 3.4vh, 2.2rem); }
 
 /* Die frueher hier stehende @supports-Rueckfallebene fuer `backdrop-filter`
    ist entfallen: es gibt keinen backdrop-filter mehr, die Kaesten sind
@@ -1215,192 +703,6 @@ html:not(.is-ready) .sp [data-lines] path {
   .uvz__quelle { padding: 0.7rem 1.2rem; }
   .uvz__zelle { padding: 0.95rem 1.05rem; }
   .uvz__titel { padding: 1.1rem 1.05rem 0.85rem; }
-}
-
-/* ===========================================================================
-   02 · UNSER ABLAUF — UEBERARBEITUNG      (Kundenwunsch 23.08.2026)
-
-   Vier Aenderungen, die Schritt-fuer-Schritt-Animation bleibt unberuehrt:
-   der Kunde nennt sie ausdruecklich „sehr, sehr schön".
-     1  Der Grund ist klassisch WEISS (sp-band--cool ist im Markup entfallen).
-     2  Die Unterzeile steht deutlich groesser und fuellt sich Wort fuer Wort.
-     3  Die Schrittkaesten bekommen eine leichte goldene Umrandung und oben
-        rechts ein Symbol.
-     4  Am Abschnittsanfang liegt ein blass ausgeblendetes Immobilienbild.
-   =========================================================================== */
-
-/* --- Der Abschnitt traegt das Bild ---------------------------------------- */
-.uab-band {
-  position: relative;
-  background: var(--paper);
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     HIER STAND `overflow: hidden` — UND DAS HAT DIE SCROLL-ANIMATION
-     ZERSTOERT.
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     `position: sticky` wirkt nicht mehr, sobald IRGENDEIN Vorfahre
-     `overflow` auf etwas anderes als `visible` setzt — der Kasten scrollt
-     dann einfach mit. Genau das war der Grund, warum der Kunde meldete, die
-     Animation mit dem stehenbleibenden „Unser Ablauf" sei verschwunden:
-     sie war nicht entfernt worden, sie konnte nur nicht mehr wirken.
-     Die Beschneidung des Bildes ist deshalb dorthin gewandert, wo sie
-     hingehoert — an .uab__bild, das ohnehin `overflow: hidden` traegt und
-     als absolut positionierter Kasten nichts ueberragen kann.
-     NICHT WIEDER EINSETZEN. */
-}
-/* Der Inhalt liegt ueber dem Bild. Ohne diese Zeile stuende der Text
-   darunter — `position: relative` allein stapelt nicht. */
-.uab-band > .sp-band__inner { position: relative; z-index: 1; }
-
-/* --- DAS AUSGEBLENDETE BILD ----------------------------------------------
-   Machart wortgleich aus assets/css/prinzip.css, `.vt__rand--links img`:
-   Graustufe, aufgehellt, Kontrast zurueckgenommen, entsaettigt, dazu zwei
-   Masken, die sich schneiden. Geaendert ist allein die RICHTUNG: dort laeuft
-   das Bild nach rechts aus, hier nach UNTEN — es soll verschwunden sein,
-   sobald der Text des Ablaufs darueberlaeuft.
-
-   Es liegt am oberen Rand und ist auf 46 Prozent der Abschnittshoehe
-   gedeckelt. `pointer-events: none`, damit es keine Auswahl faengt. */
-.uab__bild {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 46%;
-  min-height: 260px;
-  max-height: 520px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.uab__bild img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 34%;
-  filter: grayscale(0.42) brightness(1.46) contrast(0.56) saturate(0.28);
-  opacity: 0.4;
-  -webkit-mask-image:
-    linear-gradient(180deg, #000 0%, #000 34%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-  -webkit-mask-composite: source-in;
-          mask-image:
-    linear-gradient(180deg, #000 0%, #000 34%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-          mask-composite: intersect;
-}
-
-/* --- DIE UNTERZEILE MIT DER FUELLUNG --------------------------------------
-   „Die Unterzeile deutlich groesser" — von 1,06–1,19 rem auf 1,32–1,72 rem,
-   also rund ein Drittel mehr. Sie ist damit die zweitgroesste Schrift des
-   Abschnitts und traegt ihn, wie es die Fuellung verlangt: an einer kleinen
-   Zeile faellt das Umschlagen nicht auf.
-
-   DAS VERFAHREN IST UEBERNOMMEN, nicht neu geschrieben. Es steht Zeile fuer
-   Zeile in assets/css/vertrauen.css („Die Fuellung") und
-   assets/js/vertrauen.js; hier heissen die Attribute data-uab-* statt
-   data-vtr-*.
-
-   GRUNDZUSTAND IST VOLL GEFUELLT. Die blasse Lage schaltet erst
-   `data-uab-fuellen` ein, und das setzt allein assets/js/ueber.js. Ohne
-   Javascript, in alten Browsern und bei prefers-reduced-motion steht der
-   Satz vollstaendig da — er kann nicht blass haengenbleiben. */
-.uab__lead {
-  font-size: clamp(1.32rem, 1.75vw, 1.72rem);
-  line-height: 1.5;
-  /* Kein `text-wrap: balance`: es wuerde die Zeilenzahl je nach Fenster
-     umverteilen und die Bauhoehe springen lassen. */
-  text-wrap: pretty;
-}
-.uab__wort {
-  color: #000;
-  -webkit-text-stroke: 0.34px currentColor;
-}
-/* Ungefuellt: blass, aber ausdruecklich LESBAR — --ink-mute steht mit 5,20:1
-   auf Weiss weit ueber der Grenze von 4,5:1. */
-[data-uab-fuellen] .uab__wort {
-  color: var(--ink-mute);
-  -webkit-text-stroke: 0 currentColor;
-  /* KEINE Uebergangszeit. Der Kunde will sehen, wie ein Wort nach dem
-     anderen umschlaegt; ein Ueberblenden naehme genau die harte Kante weg,
-     um die es geht. Die Kante ist die Wortgrenze selbst. */
-}
-/* Umgeschlagen. Zwei Merkmale zugleich, damit der Wechsel auch aus dem
-   Augenwinkel auffaellt: die Farbe springt auf Schwarz, die Zeichnung wird
-   um 0,34 px kraeftiger.
-   WARUM NICHT `font-weight`: ein anderer Schnitt hat andere
-   Buchstabenbreiten. Der Satz braeche bei jedem umschlagenden Wort neu um
-   und die ganze Zeile zappelte. `-webkit-text-stroke` faerbt nur die Kontur
-   nach und laesst das Mass unangetastet — kein Layout Shift. */
-[data-uab-fuellen] .uab__wort[data-voll] {
-  color: #000;
-  -webkit-text-stroke: 0.34px currentColor;
-}
-
-/* --- DIE SCHRITTKAESTEN ---------------------------------------------------
-   „Eine leichte goldene Umrandung" — --gold als Linie, nie als Schrift.
-   Die 2 px schwarze Kontur der uebrigen Kaesten dieser Seite waere daneben
-   zu laut; hier steht eine Haarlinie in Gold, dazu ein sehr weicher
-   Schatten, der den Kasten vom weissen Grund abhebt.
-   Gemessen: --line-gold auf Weiss 2,1:1 — als reine ZIERLINIE zulaessig, die
-   Information traegt sie nicht. Der Kasten ist ohne sie vollstaendig
-   erfassbar (Zaehlung, Ueberschrift, Text). */
-.uab__kasten {
-  position: relative;
-  border: 1px solid var(--line-gold);
-  box-shadow: 0 10px 30px rgba(16, 41, 73, 0.05);
-  /* Platz fuer das Symbol oben rechts, damit die Ueberschrift nicht
-     darunterlaeuft. Mitgewachsen, als das Symbol groesser wurde. */
-  padding-right: clamp(4.6rem, 6.5vw, 6.2rem);
-}
-
-/* --- DAS SYMBOL OBEN RECHTS -----------------------------------------------
-   Feine Navy-Konturzeichnung auf 24er-Raster, ohne Kasten darum, in der
-   Formensprache der uebrigen Symbole des Projekts. aria-hidden im Markup:
-   die Ueberschrift des Schritts steht unmittelbar daneben.
-   Es sitzt in der Ecke und nicht im Textfluss — dadurch aendert es die
-   Bauhoehe des Kastens um keinen Pixel. */
-.uab__sym {
-  position: absolute;
-  top: clamp(1.2rem, 2vw, 1.7rem);
-  right: clamp(1.2rem, 2vw, 1.7rem);
-  display: block;
-  line-height: 0;
-  color: var(--navy-600);
-}
-/* „Ich will nur, dass die Icons noch größer dargestellt werden in den
-   Kästen." Von 24–30 px auf 40–54 px, also gut das Doppelte der Flaeche.
-   Die Strichstaerke von 1.1 im 24er-Raster kommt dadurch bei 54 px als rund
-   2,5 px an — die Zeichnung bleibt fein, ist aber jetzt aus dem Augenwinkel
-   zu erkennen. */
-.uab__sym svg {
-  display: block;
-  width: clamp(40px, 3.4vw, 54px);
-  height: clamp(40px, 3.4vw, 54px);
-}
-/* Das Sprite selbst zeigt nichts an. */
-.uab__sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
-
-/* --- Schmale Fenster ------------------------------------------------------ */
-@media (max-width: 620px) {
-  /* Auf einer Handbreite ist die Ecke knapp. Das Symbol rueckt enger an den
-     Rand und bleibt bei 24 px — kleiner waere es nicht mehr zu erkennen. */
-  .uab__kasten { padding-right: 4.1rem; }
-  .uab__sym { top: 1.05rem; right: 0.95rem; }
-  .uab__sym svg { width: 34px; height: 34px; }
-  /* Der Satz bleibt gross genug, dass die Fuellung sichtbar ist, ohne die
-     Zeile auf drei Woerter zu verkuerzen. */
-  .uab__lead { font-size: 1.24rem; }
-}
-
-/* --- Ohne Bewegung --------------------------------------------------------
-   assets/js/ueber.js setzt `data-uab-fuellen` bei prefers-reduced-motion gar
-   nicht erst; der Satz steht dann voll schwarz. Die Regel hier ist die
-   zweite Sicherung fuer den Fall, dass die Einstellung erst nach dem Laden
-   umgeschaltet wird. */
-@media (prefers-reduced-motion: reduce) {
-  [data-uab-fuellen] .uab__wort {
-    color: #000;
-    -webkit-text-stroke: 0.34px currentColor;
-  }
-  .sp [data-drawn='true'] marker path { transition: none; }
 }
 
 /* ===========================================================================
@@ -1709,301 +1011,6 @@ html:not(.is-ready) .sp [data-lines] path {
   }
 }
 
-/* ===========================================================================
-   03 · GESCHAEFTSFUEHRER — OHNE KAESTEN      (Kundenwunsch 23.08.2026)
-
-   „Es sollen keine Kästen mehr vorhanden sein … Die Kasten-Optik soll
-   komplett weg sein." Keine Kontur, keine Fuellung, kein Schatten. Der
-   Abschnitt steht frei auf Weiss und wird von Typografie und den beiden
-   Portraits getragen. Die Initialen SM und IO sind ersatzlos entfallen —
-   sie waren der Ersatz fuer die fehlenden Bilder.
-
-   EINE REIHE, SPIEGELBILDLICH:
-
-       [ Bild Meilbeck ] [ Text ]   [ Text ] [ Bild Orfanidis ]
-
-   Aussen die Bilder, innen die Texte. Die Reihenfolge im Quelltext ist
-   zugleich die Darstellungsreihenfolge — es wird nichts per CSS umsortiert,
-   die Vorlesereihenfolge stimmt also mit dem Bild ueberein.
-
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   DIE BILDBREITE IST GEDECKELT, UND ZWAR ABSICHTLICH UNTER DEM, WAS DIE
-   SPALTE HERGAEBE.
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Die Vorlagen sind 640 zu 640 bei 21 beziehungsweise 24 KB und bereits auf
-   840 px hochgerechnet. Oberhalb von rund 420 CSS-px werden Artefakte
-   sichtbar, am deutlichsten in den Locken von gf-2. Der Rahmen geht deshalb
-   nicht ueber 400 px hinaus, auch wenn die Spalte auf einem breiten Schirm
-   mehr zuliesse — ein unscharfes Portrait faellt staerker auf als ein
-   etwas kuerzeres Bild.
-
-   Das Verhaeltnis bleibt HOCHFORMATIG (4:5). Die Quellen sind quadratisch;
-   `cover` beschneidet damit ausschliesslich seitlich. Ein querformatiger
-   Rahmen wuerde oben schneiden — die Koepfe sitzen dicht an der Oberkante,
-   und genau das ist schon zweimal beanstandet worden.
-   =========================================================================== */
-.ugf {
-  margin-top: clamp(2.4rem, 5vh, 3.4rem);
-  display: grid;
-  /* Vier Spalten: Bild, Text, Text, Bild. Die Bildspalten sind schmaler —
-     sie sind ohnehin gedeckelt, und der Text braucht die Breite. */
-  grid-template-columns:
-    minmax(0, 0.86fr) minmax(0, 1.14fr)
-    minmax(0, 1.14fr) minmax(0, 0.86fr);
-  gap: clamp(1.4rem, 2.8vw, 2.6rem);
-  align-items: start;
-}
-
-/* DER BILDRAHMEN IST EIN ABGEKANTETER KASTEN.
-   Kundenwunsch 23.08.2026: „Die Kästen sollen auch die Struktur und den Stil
-   haben wie bei ‚Warum Estera' — die Kästen also so abgekantet an den
-   Ecken." Die Form kommt aus .ukant und ist damit dieselbe wie in der
-   Verzweigung; geaendert wird sie an EINER Stelle.
-
-   ENTSCHIEDEN: je Person ZWEI Kaesten — einer um das Bild, einer um den
-   Text. Nicht ein durchgehender um beide. Grund: ein umschliessender Kasten
-   haette die vier Elemente wieder zu zwei grossen Bloecken gemacht, und
-   genau das hatte der Kunde eine Runde zuvor beanstandet („nicht alles in
-   zwei Kästen"). Vier gleich geformte Kaesten nebeneinander sind ausserdem
-   dasselbe Bild wie in der Verzweigung darueber. */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   KEINE UMRANDUNG — ABER EINE WEISSE FLAECHE UNTER DEM TEXT.
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Der Kunde am 23.08.2026: „Du musst die Texte darunter in einen weißen
-   Kasten geben, aber ohne Umrandung, also in der Weise eines Kastens, und
-   leicht in das jeweilige zugehörige Bild reinragen."
-   Also: keine Kontur, kein Schatten, kein clip-path — aber eine erkennbare
-   weisse Flaeche mit Innenabstand und Radius, die das zugehoerige Bild an
-   einer Kante ueberlappt. Der frueher hier stehende abgekantete Rahmen ist
-   damit endgueltig weg.
-
-   BILD UND TEXT SIND GLEICH HOCH. Die Bildhoehe richtet sich nach dem
-   Textblock — „so groß wie Start und Ende der Zitate".
-
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   DIE BREITE IST GEDECKELT, UND DIESER DECKEL WIEGT SCHWERER ALS
-   „SO HOCH WIE DER TEXT".
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Die Bildquelle ist 640 px, das Gesicht darin nur rund 200 px breit. Ueber
-   440 CSS-px wird es sichtbar weich, ab 500 mulmig. Gebraucht wird aber
-   HOEHE, nicht Breite — deshalb ist das Seitenverhaeltnis von 4:5 auf 3:4
-   gewechselt: der Ausschnitt wird schmaler und dadurch hoeher, ohne dass
-   das Bild breiter dargestellt werden muss.
-   OBEN WIRD NICHT BESCHNITTEN — die Koepfe sitzen dicht an der Oberkante
-   der Quelle. `object-position` steht deshalb auf der Oberkante.
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-.ugf {
-  margin-top: clamp(2.4rem, 5vh, 3.4rem);
-  display: grid;
-  /* Die Bildspalten stehen FEST, die Textspalten teilen sich den Rest.
-     Mit Anteilen kam das Bild nur auf 293 px — die Vorgabe lautet 380 bei
-     einer Obergrenze von 440. 360 px ist der Wert, der beides traegt: das
-     Bild ist gross genug und den beiden Zitaten bleiben je rund 250 px
-     Textbreite. Bei 380 wurden die Zitate sechszeilig. */
-  /* Gemessen: mit 360 px Bildspalten blieben den Texten nur 286 px, und die
-     Zeile „GESCHÄFTSFÜHRER DER ESTERA GMBH" lief mit `nowrap` aus der
-     Flaeche heraus — genau der Ueberlauf, den nowrap ohne Rueckfall
-     erzeugt. Die Bildspalte gibt deshalb 40 px an den Text ab. */
-  grid-template-columns:
-    minmax(0, 320px) minmax(0, 1fr)
-    minmax(0, 1fr) minmax(0, 320px);
-  gap: 0 clamp(1rem, 2vw, 1.8rem);
-  align-items: stretch;
-}
-
-.ugf__bild {
-  margin: 0;
-  /* Zielbreite 380, Obergrenze 440 — NICHT anheben. */
-  max-width: 320px;
-  width: 100%;
-  /* Schmaler und dadurch hoeher, siehe oben. */
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border-radius: 14px;
-  /* Der Grund der freigestellten Portraits, damit die Kante zwischen Bild
-     und Rahmen unsichtbar bleibt. */
-  background: #3A3F45;
-  align-self: stretch;
-}
-.ugf__bild:last-child { justify-self: end; }
-.ugf__bild img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* OBERKANTE. Die Koepfe sitzen dicht am oberen Rand der Quelle; jeder
-     andere Wert schneidet sie an. */
-  object-position: 50% 0%;
-}
-
-.ugf__text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.7rem;
-  min-width: 0;
-  /* Die weisse Flaeche: erkennbar, aber ohne Umrandung und ohne Schatten. */
-  background: var(--paper);
-  border-radius: 14px;
-  padding: clamp(1.1rem, 2.2vw, 1.8rem);
-  align-self: center;
-  position: relative;
-  z-index: 1;
-}
-/* „leicht in das jeweilige zugehörige Bild reinragen": der Textblock des
-   linken Paares ueberlappt das Bild links von ihm, der des rechten Paares
-   das Bild rechts von ihm. Deshalb ziehen die beiden in entgegengesetzte
-   Richtungen. */
-.ugf__text:nth-of-type(1) { margin-left: calc(-1 * clamp(0.9rem, 2vw, 1.8rem)); }
-.ugf__text:nth-of-type(2) { margin-right: calc(-1 * clamp(0.9rem, 2vw, 1.8rem)); }
-
-.ugf__name {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.34rem, 1.8vw, 1.72rem);
-  line-height: 1.16;
-  /* Der Name darf nicht mitten im Wort brechen; die Spalte ist schmal. */
-  text-wrap: balance;
-  letter-spacing: -0.004em;
-  color: var(--ink-black);
-}
-/* „Geschäftsführer der Estera GmbH" MUSS IN EINE ZEILE (Kundenwunsch).
-   Zurueckgenommen sind BEIDES: Groesse und Laufweite — die Sperrung von
-   0,14em allein trug rund 40 px bei. KEIN `white-space: nowrap` ohne
-   Rueckfall: das erzeugt Ueberlauf statt Umbruch; auf sehr schmalen
-   Fenstern darf die Zeile umbrechen, siehe unten. */
-.ugf__rolle {
-  font-family: var(--font-ui);
-  font-size: clamp(0.76rem, 0.82vw, 0.84rem);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-mute);
-}
-/* Ohne Trennlinie: „keine Kästen" schliesst auch die Kontur ueber dem
-   Zitat ein — sie war die letzte gezeichnete Linie im Abschnitt. */
-.ugf__zitat { margin: 0; }
-.ugf__zitat p {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.02rem, 1.15vw, 1.2rem);
-  line-height: 1.5;
-  color: var(--ink-black);
-}
-
-@media (max-width: 1100px) {
-  /* Untereinander, paarweise: Bild, darunter sein Text. */
-  .ugf { grid-template-columns: minmax(0, 1fr); gap: clamp(1.2rem, 3vh, 2rem) 0; }
-  .ugf__bild,
-  .ugf__bild:last-child {
-    justify-self: center;
-    max-width: 320px;
-  }
-  /* Der Text des zweiten Paares steht im Quelltext VOR seinem Bild. Auf
-     einer Spalte muss das Bild aber ueber seinem Text stehen — deshalb
-     tauschen genau diese beiden Felder ihre Reihenfolge. Beide gehoeren
-     zur selben Person, die Vorlesereihenfolge bleibt also stimmig. */
-  .ugf > :nth-child(3) { order: 2; }
-  .ugf > :nth-child(4) { order: 1; }
-  /* Untereinander ueberlappt nichts mehr — das waere hier nur eine
-     verrutschte Kante. */
-  .ugf__text:nth-of-type(1),
-  .ugf__text:nth-of-type(2) { margin: 0; }
-}
-@media (max-width: 420px) {
-  /* Hier reicht die Breite fuer die einzeilige Funktionsangabe nicht mehr
-     aus, ohne unter die Lesbarkeitsgrenze zu gehen. Sie darf umbrechen —
-     besser als eine Zeile, die aus dem Kasten laeuft. */
-  .ugf__rolle { white-space: normal; }
-}
-}
-
-/* ===========================================================================
-   04 · WERDEN SIE TEIL UNSERES TEAMS — JETZT AUF WEISS
-   Der dunkle Moment der Seite ist am 23.08.2026 entfallen: der Grund ist
-   weiss, die Kleinzeile „04 · Karriere" ist gestrichen. Damit greifen die
-   Umkehrregeln fuer .sp-band--navy hier nicht mehr — die Aufzaehlung und
-   der Bildplatz brauchen ihre eigenen Farben auf hellem Grund.
-   =========================================================================== */
-.ukar-band { background: var(--paper); }
-
-/* Die Aufzaehlung stand bisher unter `.sp-band--navy .ue-punkte` und war
-   damit an den dunklen Grund gebunden. Auf Weiss braucht sie dieselbe Form
-   in dunkler Schrift. */
-.ukar-band .ue-punkte {
-  margin-top: clamp(1.8rem, 4vh, 2.6rem);
-  display: grid;
-  gap: 1rem;
-}
-.ukar-band .ue-punkte li {
-  position: relative;
-  padding-left: 2.4rem;
-  font-size: clamp(1rem, 1.05vw, 1.08rem);
-  line-height: 1.7;
-  color: var(--ink-black);
-}
-.ukar-band .ue-punkte li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.85em;
-  width: 22px;
-  height: 1px;
-  background: var(--gold);
-}
-
-/* --- Das Bild ------------------------------------------------------------- */
-.ukar__bild { margin: 0; }
-.ukar__flaeche {
-  /* 3:2 — genau das Verhaeltnis der Vorlage (1536 zu 1024). Dadurch wird
-     ueberhaupt nicht beschnitten; die beiden Personen bleiben da, wo sie im
-     Bild stehen. Das Verhaeltnis steht am Kasten, damit der Platz schon vor
-     dem Laden reserviert ist und nichts springt. */
-  aspect-ratio: 3 / 2;
-  overflow: hidden;
-  border-radius: var(--ue-rund);
-  background: var(--paper-cool);
-}
-/* Der leere Platzhalter — sichtbar als solcher gekennzeichnet, in
-   derselben gestrichelten Machart wie .sp-offen auf den anderen
-   Unterseiten. */
-.ukar__flaeche--leer {
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: 0.9rem;
-  padding: clamp(1.2rem, 2.4vw, 2rem);
-  border: 1px dashed rgba(168, 135, 79, 0.55);
-  background: var(--paper-cool);
-  text-align: center;
-}
-.ukar__flaeche--leer .ue-platz__marke { color: var(--gold-text); border-color: rgba(134, 105, 58, 0.5); }
-.ukar__flaeche--leer .ue-platz__text { max-width: 34ch; color: var(--ink-mute); }
-
-.ukar__flaeche img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-/* Der Herkunftsvermerk ist Teil der Aussage, nicht Zierat: das Bild ist
-   maschinell erzeugt und zeigt keine realen Personen. Er bleibt sichtbar,
-   bis eine echte Aufnahme vorliegt. */
-.ukar__vermerk {
-  margin-top: 0.85rem;
-  padding-left: clamp(0.8rem, 1.4vw, 1.1rem);
-  border-left: 1px solid var(--line-gold);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--ink-mute);
-}
-
-/* Das Verhaeltnis bleibt in jeder Fensterbreite 3:2 — es ist das der
-   Vorlage, und jede Abweichung wuerde beschneiden. Eine Sonderregel fuer
-   schmale Fenster gibt es deshalb nicht mehr. */
-
 /* ---------------------------------------------------------------------------
    DER VERLAUF LAEUFT JETZT PRO BUCHSTABE
    Kundenwunsch 23.08.2026: „Es soll nicht nur beim Ü und beim b oben Weiss
@@ -2047,4 +1054,357 @@ html:not(.is-ready) .sp [data-lines] path {
             background-clip: text;
     color: transparent;
   }
+}
+
+
+/* ===========================================================================
+   02 · ÜBER ESTERA — DIE CREMEFLAECHE        (Wording-Master Abschnitt 9)
+
+   Neu gebaut am 26.08.2026. An dieser Stelle standen zuvor „Unser Ablauf"
+   und „Unsere Geschaeftsfuehrer"; beide sind auf Kundenwunsch entfallen
+   (Begruendung im Quelltext von ueber-estera.html).
+
+   DER RHYTHMUS IST DIE GLIEDERUNG. Von oben nach unten:
+     Hero (Bild) · Warum Estera (weiss) · DIESER ABSCHNITT (creme) ·
+     Werte (navy) · Versprechen (weiss) · Fusszeile (navy)
+   Zwei helle Flaechen hintereinander liefen als ein einziger Block durch —
+   genau der Einwand, an dem die erste Fassung dieser Seite gescheitert ist.
+
+   DIE CREMEFLAECHE IST KEIN NEUER FARBWERT. #F7F3EC ist der Ton der
+   Kundenstimmen auf der Startseite (referenzen.css, --rez-grund). Er steht
+   hier aus demselben Grund wie dort: er setzt sich vom Weiss darueber ab,
+   ohne kalt zu wirken, und traegt Navy und Gold gleich gut.
+
+   GEMESSEN gegen #F7F3EC (Rechnung wie in referenzen.css):
+     --navy-800  #102949  Ueberschrift             13,25:1
+     --ink-black #2B2E33  Fliesstext               12,32:1
+     --ink-soft  #4A5F7A  Unterzeile                5,92:1
+     --gold-text #86693A  Kleinzeile                4,53:1
+     --gold      #A8874F  Haarlinien                3,16:1 — nichttextlich,
+                                                    dort gelten 3:1
+   Kein Schwarz. Ausdrueckliche Ansage des Kunden zur Karriereseite; sie
+   gilt hier genauso.
+
+   ANORDNUNG: Kopf mittig ueber die volle Breite, darunter zweispaltig —
+   links das Bild, rechts der Fliesstext. Das ist der Wechsel gegenueber der
+   symmetrischen Gegenueberstellung darueber, die aus der Mitte heraus
+   aufgebaut ist.
+   =========================================================================== */
+.uhalt {
+  --uhalt-grund: #F7F3EC;
+  position: relative;
+  /* UNTEN KOMMT DIE HOEHE DER KURVE HINZU. Der Abschnitt darunter wird um
+     genau diesen Betrag nach oben gezogen (siehe .uwert) und legt sich mit
+     seiner Kurve auf die Cremeflaeche. Ohne den Zuschlag frisst die Kurve
+     den unteren Abstand auf und liefe gemessene 9 px unter der Bildkante
+     durch. Der Wert MUSS derselbe sein wie --uwert-bogen. */
+  padding: clamp(4rem, 10vh, 7.6rem) var(--gutter)
+           calc(clamp(4rem, 10vh, 7.6rem) + clamp(44px, 5.6vw, 88px));
+  background: var(--uhalt-grund);
+}
+.uhalt__inner { max-width: var(--ue-breit); margin: 0 auto; }
+
+/* --- Der Kopf: Kleinzeile, Goldstrich, Ueberschrift, Unterzeile ----------- */
+/* Mittig und schmaler als die Flaeche darunter. Die Ueberschrift ist zwei
+   volle Saetze lang; ueber die ganzen 1320 px gesetzt zerfiele sie in eine
+   Zeile, die man nicht mehr als Aussage liest, sondern als Balken. */
+.uhalt__kopf {
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+}
+/* Die Kleinzeile steht im Master in VERSALIEN — deshalb steht sie auch im
+   Markup so und wird NICHT ueber text-transform erzeugt. Der Wortlaut ist
+   der des Kunden, Zeichen fuer Zeichen.
+   text-indent gleicht die Sperrung hinter dem letzten Zeichen aus, sonst
+   sitzt die Zeile bei zentriertem Satz sichtbar links. */
+.uhalt__klein {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.82rem, 0.86vw, 0.9rem);
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  /* Nicht --gold: reines Gold erreicht als Schrift auf Creme nur 3,16:1. */
+  color: var(--gold-text);
+}
+.uhalt__strich {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: clamp(0.6rem, 1.2vh, 0.95rem) auto 0;
+  background: var(--gold);
+  opacity: 0.85;
+}
+.uhalt__h2 {
+  margin-top: clamp(1rem, 2.2vh, 1.6rem);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.95rem, 3.4vw, 3.05rem);
+  line-height: 1.14;
+  letter-spacing: -0.004em;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+/* Deutlich groesser als ein Vorspann auf den reinen Textseiten
+   (.sp-kopf__lead: bis 1,19rem). Unter einer Ueberschrift von 48 px verliert
+   eine Zeile von 17 px ihren Rang und liest sich als Bildunterschrift. */
+.uhalt__unter {
+  margin: clamp(1rem, 2.2vh, 1.5rem) auto 0;
+  max-width: 42rem;
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.5rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* --- Bild und Fliesstext nebeneinander ------------------------------------ */
+/* Zwei annaehernd gleich breite Spalten. Die Textspalte bekommt einen Hauch
+   mehr, weil sie drei Absaetze traegt und das Bild reine Stimmung ist. */
+.uhalt__raster {
+  margin-top: clamp(2.6rem, 6vh, 4.4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4.2vw, 3.8rem);
+  align-items: center;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DIE BILDHOEHE IST GESETZT UND NICHT GEERBT — WARUM DAS NOETIG WAR
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Zuerst stand hier `height: 100%` am Rahmen, damit das Bild genau so hoch
+   wird wie der Textblock (die Machart von .kar-ablauf__bild). Das greift
+   hier NICHT: ein Prozentwert braucht eine feste Bezugshoehe, und die Hoehe
+   eines gestreckten Rasterfeldes ist unbestimmt. Der Wert fiel auf `auto`
+   zurueck, das Bild stand in seinem Eigenverhaeltnis von 2:3 — bei 1440 px
+   waren das gemessene 906 px, gut 270 px hoeher als der Text daneben.
+
+   Deshalb eine gerechnete Hoehe statt einer geerbten. Sie folgt der
+   Fensterbreite und liegt in jeder Breite dicht am Textblock. Gemessen,
+   Bildhoehe gegen Texthoehe:
+     1920 px  720 : 643   ·   1440 px  720 : 643   ·   1024 px  635 : 711
+   Unter 900 px ist das Bild ohnehin einspaltig und bekommt sein festes
+   Seitenverhaeltnis (siehe unten). object-fit deckt den Rest ab.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.uhalt__bild { margin: 0; }
+.uhalt__bild picture { display: contents; }
+.uhalt__bild img {
+  width: 100%;
+  height: clamp(400px, 62vw, 720px);
+  object-fit: cover;
+  /* Die Fassade laeuft nach links weg; der Ausschnitt haelt die Ecke im
+     Bild, an der das Gebaeude seine Tiefe bekommt. */
+  object-position: 62% 50%;
+  border-radius: var(--radius-img);
+  /* Eine Haarlinie statt eines Schattens. Das Briefing verbietet
+     Vertriebsoptik (S.20), und auf Creme braucht ein helles Bild eine
+     Kante, sonst franst es an der Oberkante aus. */
+  box-shadow: 0 0 0 1px var(--line-gold);
+}
+.uhalt__text {
+  display: grid;
+  gap: clamp(1.1rem, 2.4vh, 1.6rem);
+  /* ZEILENLAENGE, NICHT SPALTENBREITE. Die Spalte gibt auf 1920 px rund
+     560 px her; ohne Deckel stuenden dort ueber 70 Zeichen in der Zeile.
+     62ch sind in Cormorant gemessene 474 px und damit rund 58 gesetzte
+     Zeichen — die Laenge, bei der Fliesstext noch ruhig laeuft.
+     Der Rest der Spalte bleibt bewusst leer; das ist der Weissraum, den
+     das Briefing verlangt, und kein Ausrichtungsfehler. */
+  max-width: 62ch;
+}
+/* Cormorant hat eine kleine x-Hoehe (0,386 em). Die Groessen sind deshalb
+   projektweit angehoben — hier auf bis zu 21 px, sonst liest sich der
+   Fliesstext unter einer Ueberschrift von 48 px wie eine Fussnote.
+   Der Kleinstwert liegt bei 17,6 px und damit ueber der 16-px-Grenze. */
+.uhalt__text p {
+  font-size: clamp(1.1rem, 1.02rem + 0.36vw, 1.32rem);
+  line-height: 1.76;
+  color: var(--ink-black);
+}
+
+
+/* ===========================================================================
+   03 · DIE DREI WERTE — DER DUNKLE MOMENT    (Wording-Master Abschnitt 9)
+
+   Das Briefing erlaubt dunkle Vollflaechen „nur als bewusste
+   Spannungsmomente" (S.20). Dieser hier ist der einzige der Seite und liegt
+   genau in ihrer Mitte.
+
+   KEINE UEBERSCHRIFT — UND DAS IST ABSICHT.
+   Der Master fuehrt die drei Werte ohne Titel, nur unter dem Stichwort
+   „Werte:". Eine Zeile wie „Wofuer wir stehen" waere hinzugedichtet. Der
+   Abschnitt traegt deshalb keine, und die drei Werte stehen als Ebene 3
+   unter der Ueberschrift des Abschnitts darueber, zu dem sie im Master
+   gehoeren.
+
+   DER GESCHWUNGENE OBERE RAND
+   Machart und Kurve kommen unveraendert aus den Kundenstimmen der
+   Startseite (referenzen.css, .ref__bogen; derselbe Pfad im Markup).
+   Umgekehrt ist allein die Farbrichtung: dort liegt eine Cremekurve auf
+   einem dunklen Bildband, hier ragt eine Navykurve in die Cremeflaeche.
+
+   Warum die Flaeche unter der Kurve ein eigenes Element ist (::after) und
+   nicht schlicht `background` am Abschnitt: eine Flaeche am Element laege
+   ueber die volle Hoehe und damit auch OBERHALB der Kurve — die Kurve waere
+   dann nicht zu sehen. Ein Pixel Ueberlappung nach oben, sonst blitzt bei
+   manchen Bildschirmskalierungen eine Haarlinie zwischen Kurve und Flaeche
+   durch. Beides steht so schon in referenzen.css.
+
+   GEMESSEN gegen --navy-900 (#0A192E):
+     --sand   #D9B485  Werteueberschrift    9,03:1
+     #DEE3EA           Fliesstext          13,50:1
+     rgba(216,180,133,0.5)  Haarlinie      nichttextlich
+   Kein Schwarz.
+   =========================================================================== */
+.uwert {
+  /* Die Kurve muss flacher bleiben als der untere Innenabstand der
+     Cremeflaeche (dort clamp(4rem, 10vh, 7.6rem) = 64…122 px) — sonst
+     legte sie sich auf deren Fliesstext statt auf ihren Rand. */
+  --uwert-bogen: clamp(44px, 5.6vw, 88px);
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--uwert-bogen));
+  /* Derselbe Takt wie .ue-band-luft (clamp(4rem, 10vh, 7.6rem)) — der
+     Abschnitt traegt nur drei kurze Bloecke und wirkt mit weniger Luft wie
+     ein eingeschobener Streifen statt wie eine eigene Flaeche. */
+  padding: calc(var(--uwert-bogen) + clamp(4rem, 10vh, 7.6rem))
+           var(--gutter)
+           clamp(4.2rem, 10.5vh, 8rem);
+  /* KEINE Flaeche am Element selbst — siehe Begruendung im Kopf. */
+  background: none;
+}
+.uwert::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--uwert-bogen) - 1px);
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--navy-900);
+}
+.uwert__bogen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: var(--uwert-bogen);
+  display: block;
+}
+.uwert__bogen path { fill: var(--navy-900); }
+
+.uwert__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--ue-breit);
+  margin: 0 auto;
+}
+.uwert__liste {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.8rem, 3.6vw, 3.4rem);
+}
+/* Kein Kasten, keine Fuellung, kein Symbol: eine Goldhaarlinie ueber jedem
+   Wert. Dieselbe Geste wie .rule-gold und wie die Trennlinien der
+   Karriereseite — Karten mit Schatten sind genau die Vertriebsoptik, die
+   das Briefing ausschliesst. */
+.uwert__punkt {
+  padding-top: clamp(1.1rem, 2.4vh, 1.6rem);
+  border-top: 1px solid rgba(216, 180, 133, 0.5);
+}
+.uwert__titel {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.32rem, 1.15rem + 0.55vw, 1.85rem);
+  line-height: 1.24;
+  color: var(--sand);
+}
+.uwert__text {
+  margin-top: clamp(0.6rem, 1.4vh, 0.95rem);
+  font-size: clamp(1rem, 0.97rem + 0.18vw, 1.13rem);
+  line-height: 1.7;
+  color: #DEE3EA;
+}
+
+
+/* ===========================================================================
+   04 · DAS VERSPRECHEN                       (Wording-Master Abschnitt 9)
+
+   Statement und Knopfbeschriftung stehen woertlich im Master.
+
+   WEISS ZWISCHEN ZWEI DUNKLEN FLAECHEN. Darueber liegt das navyblaue
+   Werteband, darunter die navyblaue Fusszeile. Ohne diesen hellen
+   Abschluss liefen beide in eine einzige dunkle Flaeche zusammen und die
+   Seite endete ohne Zaesur.
+
+   DER KNOPF IST DER NAVYBLAUE (.btn), NICHT DER SANDFARBENE.
+   Das ist eine Lesbarkeitsentscheidung und keine Gestaltungslaune:
+   .btn--sand traegt seit dem 24.08.2026 auf Kundenwunsch weisse Schrift auf
+   Sand, gemessen 1,94:1 (die Rechnung steht bei .btn--sand in base.css).
+   Auf dieser Seite muss jede Schrift 4,5:1 halten. Der navyblaue Knopf
+   misst 13,34:1 und ist derselbe, der im Menue-Overlay steht.
+   Wer den Sandknopf hier will, muss vorher dessen Schriftfarbe reparieren —
+   nicht die Anforderung senken.
+   =========================================================================== */
+.uvers {
+  padding: clamp(4rem, 10vh, 7.2rem) var(--gutter);
+  background: var(--paper);
+}
+.uvers__inner {
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.uvers__strich {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: 0 auto clamp(1.4rem, 3vh, 2.2rem);
+  background: var(--gold);
+  opacity: 0.85;
+}
+/* Der Satz traegt den Abschnitt allein. --navy-800 auf Weiss: 15,51:1.
+   Die Deckelung auf 26ch bricht ihn in drei bis vier ruhige Zeilen; ueber
+   die volle Breite gesetzt liest er sich als Fliesstext, nicht als
+   Aussage. */
+.uvers__satz {
+  max-width: 26ch;
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.72rem, 3.2vw, 2.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.004em;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+.uvers__knopf { margin-top: clamp(1.8rem, 4vh, 2.8rem); }
+
+
+/* ===========================================================================
+   SCHMALE FENSTER — DIE DREI NEUEN ABSCHNITTE
+   Geprueft bei 1920, 1440, 1024 und 390 px: keine waagerechte Rollflaeche,
+   kein Fliesstext unter 16 px, jede Trefferflaeche ueber 44 px.
+   =========================================================================== */
+@media (max-width: 900px) {
+  /* Bild ueber Text. Die Reihenfolge im Quelltext bleibt die
+     Vorlesereihenfolge — es wird nichts per CSS umsortiert. */
+  .uhalt__raster { grid-template-columns: minmax(0, 1fr); }
+  .uhalt__bild { height: auto; min-height: 0; }
+  .uhalt__bild img { aspect-ratio: 4 / 5; height: auto; }
+  .uhalt__text { max-width: none; }
+}
+@media (max-width: 860px) {
+  /* Drei Werte nebeneinander gehen bis hier auf. Darunter blieben je Spalte
+     rund 22 Zeichen Zeilenlaenge — ein Zwischenschritt mit zwei Spalten
+     liesse den dritten Wert allein in der zweiten Reihe stehen. */
+  .uwert__liste { grid-template-columns: minmax(0, 1fr); gap: clamp(1.6rem, 4vh, 2.2rem); }
+}
+@media (max-width: 620px) {
+  .uhalt__kopf { text-align: left; }
+  .uhalt__strich { margin-inline: 0; }
+  .uhalt__unter { margin-inline: 0; }
+  /* Zentrierter Satz bleibt hier zentriert: er ist der Abschluss der Seite
+     und der einzige Ort, an dem die Mitte traegt. Nur die Deckelung faellt,
+     sonst stuenden auf 390 px zwei Woerter je Zeile. */
+  .uvers__satz { max-width: none; }
 }
