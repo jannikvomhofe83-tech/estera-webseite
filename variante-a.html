@@ -953,7 +953,7 @@
       <a class="wi__karte wi__karte--02" href="#wi-text-02" data-wi-punkt="02"
          aria-controls="wi-text-02" aria-expanded="false">
         <span class="wi__ikon">
-          <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+          <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="900" height="1350" loading="lazy" decoding="async"></picture>
         </span>
         <span class="wi__karte-wort">
           <span class="wi__karte-t">Miete</span>
@@ -971,7 +971,7 @@
       <a class="wi__karte wi__karte--03" href="#wi-text-03" data-wi-punkt="03"
          aria-controls="wi-text-03" aria-expanded="false">
         <span class="wi__ikon">
-          <picture><source srcset="assets/img/warum/steuer.webp?v=b24a" type="image/webp"><img src="assets/img/warum/steuer.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+          <picture><source srcset="assets/img/warum/steuer.webp?v=b24a" type="image/webp"><img src="assets/img/warum/steuer.png?v=b24a" alt="" width="900" height="1350" loading="lazy" decoding="async"></picture>
         </span>
         <span class="wi__karte-wort">
           <span class="wi__karte-t">Steuervorteile</span>
@@ -1029,7 +1029,7 @@
 
       <li class="wi__panel" id="wi-text-02" data-wi-text="02">
         <span class="wi__panel-ikon" aria-hidden="true">
-          <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+          <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="900" height="1350" loading="lazy" decoding="async"></picture>
         </span>
         <div class="wi__panel-wort">
           <p class="wi__panel-nr"><span>02</span> · Miete</p>
@@ -1041,7 +1041,7 @@
 
       <li class="wi__panel" id="wi-text-03" data-wi-text="03">
         <span class="wi__panel-ikon" aria-hidden="true">
-          <picture><source srcset="assets/img/warum/steuer.webp?v=b24a" type="image/webp"><img src="assets/img/warum/steuer.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async"></picture>
+          <picture><source srcset="assets/img/warum/steuer.webp?v=b24a" type="image/webp"><img src="assets/img/warum/steuer.png?v=b24a" alt="" width="900" height="1350" loading="lazy" decoding="async"></picture>
         </span>
         <div class="wi__panel-wort">
           <p class="wi__panel-nr"><span>03</span> · Steuervorteile</p>
@@ -2825,10 +2825,16 @@
       </div>
 
       <!-- SPALTE 4 — Fassade und die zwei Zeilen darunter.
-           Die Zeichnung ist reines Inline-SVG: keine Aufloesung, keine
-           Unschaerfe, kein Nachladen. Sie ist Schmuck und deshalb
-           aria-hidden; die beiden Zeilen darunter sind echter Text. -->
+           Rechts sitzt jetzt ein FOTO (assets/img/ablauf/ablauf-fassade-1),
+           an derselben Stelle, in derselben Lage und Groesse wie zuvor die
+           Zeichnung. Sie ist Schmuck und deshalb aria-hidden; die beiden
+           Zeilen darunter sind echter Text. -->
       <div class="abl__spalte abl__spalte--haus">
+        <!-- ERSETZT am 26.08.2026: Die gezeichnete Fassade (Inline-SVG) ist
+             durch das Foto einer Gruenderzeit-Fassade ersetzt worden
+             (Kundenwunsch: „da muss ja ein echtes Haus sein"). Die Zeichnung
+             bleibt hier zum Beleg auskommentiert stehen; die Regeln fuer
+             beides — Foto wie Zeichnung — stehen in ablauf.css.
         <svg class="abl__fassade" viewBox="0 0 640 920" preserveAspectRatio="xMidYMax slice"
              aria-hidden="true" focusable="false">
         <g class="abl__fassade-zeichnung" fill="none" stroke-linecap="square" stroke-linejoin="miter">
@@ -3029,6 +3035,13 @@
           <path d="M626 58V900" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
         </g>
         </svg>
+        -->
+        <picture>
+          <source type="image/webp" srcset="assets/img/ablauf/ablauf-fassade-1.webp?v=b24a">
+          <img class="abl__fassade" src="assets/img/ablauf/ablauf-fassade-1.png?v=b24a"
+               width="2048" height="3072" alt="" aria-hidden="true"
+               loading="lazy" decoding="async">
+        </picture>
         <div class="abl__hausworte">
           <svg class="abl__hausstrich" width="52" height="1" viewBox="0 0 52 1" aria-hidden="true" focusable="false">
             <path d="M0 .5H52" stroke="currentColor" stroke-width="1"/>

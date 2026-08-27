@@ -488,16 +488,16 @@
   overflow: clip;
 }
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   ZWISCHENSTAND — 25.08.2026
-   Hier steht derzeit eine Inline-SVG-Zeichnung einer Gruenderzeit-Fassade.
-   Sie ist ein PLATZHALTER. Vorgesehen ist an dieser Stelle ein erzeugtes
-   Bild, das die Vorlage 1:1 trifft; der englische Bildprompt samt
-   Seitenverhaeltnis und Anzeigebreiten liegt beim Auftraggeber.
+/* Reiner Rahmen ohne eigene Groesse — das <img> darin traegt Lage und Masse
+   ueber .abl__fassade (position: absolute, inset: 0). */
+.abl__spalte--haus picture { display: contents; }
 
-   Wenn das Bild kommt, ersetzt <picture> das <svg> an derselben Stelle im
-   Markup. Alles Uebrige — Maske, Deckkraft, Lage, die zwei Zeilen darunter —
-   bleibt unveraendert; die Regeln unten gelten fuer beides.
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   FOTO STATT ZEICHNUNG — 26.08.2026
+   Kundenwunsch: „Da muss ja ein echtes Haus sein." Die Inline-SVG-Zeichnung
+   ist ersetzt durch <picture> mit assets/img/ablauf/ablauf-fassade-1
+   (webp zuerst, png als Ruecksturz; Quelle im Markup auskommentiert stehen
+   gelassen). Lage, Groesse und diese Regeln gelten unveraendert fuer beides.
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .abl__fassade {
   position: absolute;
@@ -506,14 +506,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Sie blendet nach links und nach unten aus, damit sie Grund bleibt und
-     nicht als Bildkasten mit Kante steht — wie auf der Vorlage. */
+  /* Weicher Auslauf an ALLEN VIER SEITEN — zwei gekreuzte Verlaeufe
+     (waagrecht x senkrecht), per `intersect` multipliziert. Kein Bildkasten
+     mit harter Kante, wie es die Vorlage referenz-neu-B.png zeigt. */
   -webkit-mask-image:
-      linear-gradient(90deg, transparent 0, #000 30%, #000 100%),
-      linear-gradient(180deg, #000 0, #000 62%, transparent 97%);
+      linear-gradient(90deg, transparent 0, #000 24%, #000 88%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 14%, #000 62%, transparent 97%);
   mask-image:
-      linear-gradient(90deg, transparent 0, #000 30%, #000 100%),
-      linear-gradient(180deg, #000 0, #000 62%, transparent 97%);
+      linear-gradient(90deg, transparent 0, #000 24%, #000 88%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 14%, #000 62%, transparent 97%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
   opacity: 0.78;
@@ -577,8 +578,14 @@
     align-content: end;
   }
   .abl__fassade {
-    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 95%);
-    mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 95%);
+    -webkit-mask-image:
+        linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%),
+        linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 95%);
+    mask-image:
+        linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%),
+        linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 95%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
     opacity: 0.6;
   }
 }
