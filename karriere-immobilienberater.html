@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immobilienberater (m/w/d) — Karriere bei Estera</title>
+<meta name="description" content="Estera sucht Immobilienberater für den Vertrieb von Kapitalanlagen. Ausgewählte Objekte, koordinierte Finanzierung, klare Prozesse und persönliche Begleitung.">
+<!-- Wie alle Seiten dieses Standes: in Abstimmung, gehoert nicht in eine
+     Suchmaschine. Vor dem Livegang zu entfernen. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Dieselben zwei Schriftschnitte wie alle Seiten. OHNE ?v=b24a, und das ist
+     Absicht: die Adresse muss Zeichen fuer Zeichen mit der in fonts.css
+     stehen, sonst laedt der Browser den Schnitt zweimal und die Vorladung
+     ist wertlos. Alle uebrigen Verweise dieser Seite tragen den Stempel. -->
+<link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Das Standbild des Kopfvideos traegt den ersten Bildschirm, solange das
+     Video laedt — und bei prefers-reduced-motion: reduce dauerhaft. -->
+<link rel="preload" as="image" href="assets/video/kar-hero-poster.jpg?v=b24a" fetchpriority="high">
+
+<!-- REIHENFOLGE IST ABSICHT
+     fonts.css und base.css tragen Token, Kopfleiste, Wortmarke, Menue und
+     Schaltflaechen — unveraendert von der Startseite.
+     schluss.css steht hier ausschliesslich wegen der Fusszeile (.fuss__*).
+     seiten.css traegt den gemeinsamen Bestand der Unterseiten; auf dieser
+     Seite greift davon nur, was Kopf und Fuss betrifft — der eigene Inhalt
+     ist durchgehend mit stl- benannt und beruehrt .sp-* nirgends.
+     stelle.css kommt ZULETZT und gehoert allein den beiden Stellenseiten.
+     karriere.css wird hier bewusst NICHT geladen: sie gehoert der
+     Uebersichtsseite und traegt einen anderen Seitenkopf.
+     Keine bestehende CSS-Datei wurde fuer diese Seite veraendert. -->
+<link rel="stylesheet" href="assets/css/fonts.css?v=b24a">
+<link rel="stylesheet" href="assets/css/base.css?v=b24a">
+<link rel="stylesheet" href="assets/css/schluss.css?v=b24a">
+<link rel="stylesheet" href="assets/css/seiten.css?v=b24a">
+<link rel="stylesheet" href="assets/css/stelle.css?v=b24a">
+</head>
+<body class="stl">
+
+<a class="stl-skip" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- =====================================================================
+     KOPF — Zeichen fuer Zeichen wie auf den uebrigen Seiten.
+
+     MIT site-header--invert: der Seitenkopf traegt hier ein dunkles Video
+     mit Navy-Schleier, helle Kopfschrift ist darauf lesbar, navyblaue
+     waere es nicht. Wer den Schleier zurueckdreht oder das Video
+     austauscht, muss diese Klasse mitpruefen. Sie wirkt ausschliesslich am
+     Seitenanfang: jede Invertierungsregel in base.css ist
+     :not(.site-header--sticky) qualifiziert, und site.js setzt --sticky ab
+     24 px Scroll. Ohne Javascript bleibt die Leiste absolut positioniert
+     und scrollt mit dem Kopfbereich aus dem Bild.
+
+     Die Navigation ist unveraendert. „Karriere" traegt aria-current, weil
+     diese Seite unter diesem Punkt haengt.
+     ===================================================================== -->
+<header class="site-header site-header--invert" data-header>
+
+  <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
+    <ul>
+      <li><a href="variante-a.html?v=b24a#warum-immobilien">Vorteile</a></li>
+      <li><a href="variante-a.html?v=b24a#leistungen">Leistungen</a></li>
+      <li><a href="variante-a.html?v=b24a#vorteile">Eigentumsaufbau</a></li>
+    </ul>
+  </nav>
+
+  <a class="wordmark" href="./variante-a.html?v=b24a" aria-label="Estera — Startseite">
+    <span class="wordmark__name">ESTERA</span>
+    <span class="wordmark__sub">Immobilien</span>
+  </a>
+
+  <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
+    <ul>
+      <li><a href="ueber-estera.html?v=b24a">Über Estera</a></li>
+      <li><a href="karriere.html?v=b24a" aria-current="page">Karriere</a></li>
+      <li class="kopfnav__cta"><a href="kontakt.html?v=b24a">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <button class="burger" type="button" data-menu-open aria-expanded="false" aria-controls="hauptmenue">
+    <span class="burger__label">Menü</span>
+    <span class="burger__lines" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+</header>
+
+<main id="inhalt">
+
+<!-- =====================================================================
+     1 — KOPFBEREICH
+     Aufbau der Vorlage: vollbreite Flaeche, Text im unteren Drittel,
+     zentriert, darueber die Vorzeile in Versalien, darunter Unterzeile und
+     Knopf. Gemessene Verhaeltnisse der Vorlage: Gesamthoehe 816 px bei
+     1920 (= 42,5 vw), Textblock endet 60 px ueber der Unterkante,
+     Vorzeile → H1 35 px, H1 → Unterzeile 20 px, Unterzeile → Knopf 30 px.
+
+     ABWEICHUNG VON DER VORLAGE, VOM KUNDEN GEDECKT: die Vorlage traegt hier
+     ein Standbild. Der Kunde will ausdruecklich dasselbe Video wie auf der
+     Uebersichtsseite. Lage, Beschnitt, Schleier und Textstand bleiben die
+     der Vorlage.
+
+     Der Schleier ist kraeftiger als die 15 % Schwarz der Vorlage: das
+     Estera-Video ist deutlich heller (Glasfassade, Tageslicht), 15 %
+     haetten weisse Schrift auf unter 3:1 gedrueckt. Der Wert ist am
+     Bildpunkt gegen das gerenderte Videobild gemessen, nicht geschaetzt.
+     ===================================================================== -->
+<section class="stl-hero">
+  <div class="stl-hero__medien">
+    <!-- Das Standbild liegt UNTER dem Video. Es traegt den ersten Moment,
+         solange das Video laedt, und bei prefers-reduced-motion: reduce
+         dauerhaft — dort wird das Video per CSS ausgeblendet und von
+         stelle.js zusaetzlich angehalten. Ohne Javascript bleibt es beim
+         reinen CSS-Weg: das Bild steht, das Video ist unsichtbar. -->
+    <img class="stl-hero__still" src="assets/video/kar-hero-poster.jpg?v=b24a"
+         alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+    <video class="stl-hero__video"
+           autoplay muted loop playsinline preload="auto"
+           poster="assets/video/kar-hero-poster.jpg?v=b24a"
+           width="1920" height="1080"
+           aria-hidden="true" tabindex="-1">
+      <source src="assets/video/kar-hero.webm?v=b24a" type="video/webm">
+      <source src="assets/video/kar-hero.mp4?v=b24a" type="video/mp4">
+    </video>
+  </div>
+  <div class="stl-hero__schleier" aria-hidden="true"></div>
+
+  <div class="stl-hero__inner">
+    <p class="stl-hero__vor">Wir suchen dich</p>
+    <h1 class="stl-hero__h1">Immobilienberater&nbsp;(m/w/d)</h1>
+    <p class="stl-hero__unter">
+      Du willst Menschen beim Aufbau von Eigentum begleiten und gleichzeitig eine
+      langfristige Vertriebsperspektive entwickeln? Bei Estera erhältst du klare
+      Prozesse, ausgewählte Immobilien und persönliche Unterstützung.
+    </p>
+    <a class="btn btn--weiss stl-hero__btn" href="kontakt.html?v=b24a">Jetzt bewerben</a>
+  </div>
+</section>
+
+<!-- Die schwarze Logoleiste der Vorlage (Abschnitt 2) ENTFAELLT: es gibt
+     keine freigegebenen Partnerlogos. Kommt eine Freigabe, gehoert die
+     Leiste genau hierher — vollbreit, 103 px hoch, fuenf Logos in einer
+     statischen 5-Spalten-Reihe mit 32 px Abstand. -->
+
+<!-- =====================================================================
+     2 — WAS WIR BIETEN
+     Vorlage: Leitfarbe als Flaeche, zwei Spalten 575/575 mit 100 px
+     Abstand. Links Ueberschrift mittig, Trennlinie, sechs Punkte mit
+     Symbolkreis (40 px, Abstand 40 px, Text 22 px/600). Rechts Fliesstext
+     16 px und ein Personenbild.
+
+     ABWEICHUNGEN VON DER VORLAGE — KUNDENWUNSCH VOM 29.08.2026:
+     a) Die Flaeche ist WEISS statt in der Leitfarbe. Der Kunde will auf
+        diesen Seiten deutlich mehr Weiss.
+     b) Die sechs Punkte stehen MITTIG unter der Ueberschrift, nicht mehr
+        linksbuendig in der Spalte.
+     c) Statt des Hakens traegt jeder Punkt ein HAUS-Symbol, gezeichnet in
+        der Strichstaerke und Handschrift der uebrigen Symbole des Projekts
+        (viewBox 0 0 24 24, stroke-width 1.1, runde Enden).
+     d) Rechts steht vorerst ein LEERES BILDFENSTER statt des Fliesstextes.
+
+     Inhalt: die sechs Punkte aus dem Wording-Master, „Warum
+     Vertriebspartner mit Estera arbeiten", woertlich. Die dazugehoerigen
+     Erlaeuterungen des Masters standen bis zum 29.08.2026 in der rechten
+     Spalte und sind mit Aenderung (d) entfallen. Sie sind nicht verloren,
+     sondern stehen weiter unten in diesem Abschnitt als Kommentar — wer
+     die Spalte wieder mit Text belegen will, findet sie dort woertlich.
+     Die Personenangabe der Vorlage (rundes Bild, Name, Rolle) entfaellt:
+     es gibt keinen freigegebenen Ansprechpartner fuer diese Stelle, und
+     erfunden wird nichts.
+     ===================================================================== -->
+<section class="stl-abs stl-abs--weiss stl-bieten" id="angebot" aria-labelledby="t-bieten">
+  <div class="stl-inner stl-zwei stl-zwei--bieten">
+
+    <div class="stl-bieten__links">
+      <h2 class="stl-h2 stl-h2--mitte" id="t-bieten">Was wir bieten</h2>
+      <div class="stl-trenn" aria-hidden="true"></div>
+
+      <ul class="stl-haken">
+        <li>
+          <span class="stl-haken__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
+          </span>
+          <span class="stl-haken__text">Ausgewählte Immobilien</span>
+        </li>
+        <li>
+          <span class="stl-haken__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
+          </span>
+          <span class="stl-haken__text">Finanzierung als Teil des Prozesses</span>
+        </li>
+        <li>
+          <span class="stl-haken__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
+          </span>
+          <span class="stl-haken__text">Klare Vertriebsunterlagen</span>
+        </li>
+        <li>
+          <span class="stl-haken__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
+          </span>
+          <span class="stl-haken__text">Persönliche Begleitung</span>
+        </li>
+        <li>
+          <span class="stl-haken__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
+          </span>
+          <span class="stl-haken__text">Langfristige Kundenbeziehung</span>
+        </li>
+        <li>
+          <span class="stl-haken__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
+          </span>
+          <span class="stl-haken__text">Attraktive Verdienstperspektive</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- LEERES BILDFENSTER, Kundenwunsch vom 29.08.2026.
+         Hier gehoert spaeter EIN Bild hin, Verhaeltnis 4:5 (hochkant),
+         Ausgabe mindestens 1150 x 1438 px fuer 2-fache Schaerfe bei
+         575 px Anzeigebreite. Motiv nach Kundenwunsch ohne Gesichter.
+         Bis dahin steht hier bewusst NUR ein Rahmen: kein Bild, kein
+         Symbol, keine Farbflaeche, kein Verlauf — man soll sehen, dass
+         etwas fehlt, und nicht denken, es sei fertig.
+         Zum Einsetzen: dieses <div> durch das gewohnte <picture> ersetzen
+         und .stl-platz gegen .stl-bieten__bild tauschen. -->
+    <div class="stl-platz" role="img" aria-label="Platz für ein Bild, das noch folgt"></div>
+
+  </div>
+</section>
+
+<!-- WOERTLICHER TEXT AUS DEM WORDING-MASTER, der bis zum 29.08.2026 in der
+     rechten Spalte des Abschnitts „Was wir bieten" stand. Er ist nur
+     ausgeblendet, nicht verworfen — Reihenfolge wie die sechs Punkte:
+
+     Estera sucht Vertriebspartner, die langfristige Kundenbeziehungen
+     aufbauen, verständlich kommunizieren und Verantwortung für eine saubere
+     Begleitung übernehmen.
+
+     Du erhältst Zugang zu Kapitalanlageimmobilien, die vor der
+     Kundenpräsentation strukturiert aufbereitet werden.
+
+     Finanzierung wird nicht dem Zufall überlassen, sondern mit
+     spezialisierten Ansprechpartnern koordiniert.
+
+     Du arbeitest mit nachvollziehbaren Informationen und einem
+     strukturierten Ablauf statt mit losem Material.
+
+     Du hast Ansprechpartner für Rückfragen, Fälle und nächste Schritte.
+
+     Die Zusammenarbeit endet nicht beim Notar. Aus einer einzelnen
+     Immobilie kann eine langfristige Kundenbeziehung entstehen.
+
+     Du erhältst eine nachvollziehbare Vergütungsstruktur und kannst dir mit
+     Leistung eine langfristige Vertriebsperspektive aufbauen.
+     -->
+
+<!-- =====================================================================
+     3 — LAUFBAND A
+     Gemessene Werte der Vorlage: Hoehe 355 px, randlos ueber die volle
+     Breite, acht Bilder je Satz ohne Fuge, Reihenfolge H·H·H·H·Q·H·Q·H,
+     Hochformat 2:3 (237 px breit), Querformat 3:2 (533 px breit),
+     Satzbreite 2486 px, 60 px/s nach links, linear, endlos, keine
+     Kantenmaske, harte Kanten am Fensterrand. Drei Saetze im Markup.
+
+     ABWEICHUNG IM MOTIV, VOM KUNDEN GEDECKT: die Vorlage zeigt hier
+     Luxusautos und Monte Carlo mit Menschen darauf. Bei Estera stehen
+     Immobilien und ruhiger Bueroalltag, auf keinem Bild ein Mensch.
+     Aufbau, Hoehe, Formatfolge, Tempo und Richtung bleiben unveraendert.
+
+     Rein dekorativ: aria-hidden und leere alt-Texte. Reines CSS, laeuft
+     also auch ohne Javascript; bei reduce steht es still.
+     ===================================================================== -->
+<section class="stl-band stl-band--a" aria-hidden="true">
+  <div class="stl-band__spur">
+    <div class="stl-band__satz">
+      <picture><source srcset="assets/img/karriere/band/band-a-1.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-1.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="1536"></picture><!-- Altbaufassade -->
+      <picture><source srcset="assets/img/karriere/band/band-a-2.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-2.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Neubau mit Olivenbaum -->
+      <picture><source srcset="assets/img/karriere/band/band-a-4.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-4.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="935" height="1402"></picture><!-- Treppenhaus mit Gelaender -->
+      <picture><source srcset="assets/img/karriere/band/band-a-5.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-5.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- leerer Parkettraum am Fenster -->
+      <picture><source srcset="assets/img/karriere/band/band-a-8.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-a-8.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Stadtdaecher -->
+      <picture><source srcset="assets/img/karriere/band/band-a-3.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-3.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Schluessel auf Ledermappe -->
+      <picture><source srcset="assets/img/karriere/band/band-a-7.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-a-7.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- leerer Besprechungsraum -->
+      <picture><source srcset="assets/img/karriere/band/band-a-6.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-6.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Grundriss mit Fueller und Espresso -->
+    </div>
+    <div class="stl-band__satz">
+      <picture><source srcset="assets/img/karriere/band/band-a-1.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-1.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="1536"></picture><!-- Altbaufassade -->
+      <picture><source srcset="assets/img/karriere/band/band-a-2.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-2.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Neubau mit Olivenbaum -->
+      <picture><source srcset="assets/img/karriere/band/band-a-4.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-4.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="935" height="1402"></picture><!-- Treppenhaus mit Gelaender -->
+      <picture><source srcset="assets/img/karriere/band/band-a-5.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-5.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- leerer Parkettraum am Fenster -->
+      <picture><source srcset="assets/img/karriere/band/band-a-8.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-a-8.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Stadtdaecher -->
+      <picture><source srcset="assets/img/karriere/band/band-a-3.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-3.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Schluessel auf Ledermappe -->
+      <picture><source srcset="assets/img/karriere/band/band-a-7.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-a-7.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- leerer Besprechungsraum -->
+      <picture><source srcset="assets/img/karriere/band/band-a-6.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-6.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Grundriss mit Fueller und Espresso -->
+    </div>
+    <div class="stl-band__satz">
+      <picture><source srcset="assets/img/karriere/band/band-a-1.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-1.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="1536"></picture><!-- Altbaufassade -->
+      <picture><source srcset="assets/img/karriere/band/band-a-2.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-2.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Neubau mit Olivenbaum -->
+      <picture><source srcset="assets/img/karriere/band/band-a-4.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-4.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="935" height="1402"></picture><!-- Treppenhaus mit Gelaender -->
+      <picture><source srcset="assets/img/karriere/band/band-a-5.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-5.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- leerer Parkettraum am Fenster -->
+      <picture><source srcset="assets/img/karriere/band/band-a-8.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-a-8.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Stadtdaecher -->
+      <picture><source srcset="assets/img/karriere/band/band-a-3.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-3.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Schluessel auf Ledermappe -->
+      <picture><source srcset="assets/img/karriere/band/band-a-7.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-a-7.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- leerer Besprechungsraum -->
+      <picture><source srcset="assets/img/karriere/band/band-a-6.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--hoch" src="assets/img/karriere/band/band-a-6.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="683" height="1024"></picture><!-- Grundriss mit Fueller und Espresso -->
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     4 — DAS MACHT DICH AUS
+     In der Vorlage sind das zwei Abschnitte: einer traegt nur die
+     Ueberschrift (48 px, zentriert, 70 px Luft darueber), der zweite das
+     Raster aus 3 x 2 Kacheln (Spalten 395 px, Abstand 32 px, Symbol
+     39 x 39, Kachelueberschrift 20 px/600 zentriert, Kacheltext 14 px).
+     Hier zu einem Abschnitt zusammengefasst, Masse unveraendert.
+
+     ABWEICHUNGEN VON DER VORLAGE — KUNDENWUNSCH VOM 29.08.2026:
+     a) Die Flaeche ist WEISS statt in der Leitfarbe.
+     b) Die sechs Merkmale stehen nicht mehr nackt im Raster, sondern je in
+        einer eigenen Karte mit feiner Navy-Haarlinie und 12 px Radius —
+        dieselbe Handschrift wie die Rezensionskarten der Startseite
+        (assets/css/referenzen.css: 1 px Linie, 12 px Radius, kein
+        Schatten), dort in Gold, hier auf Wunsch in Navy.
+
+     Inhalt: die sechs Punkte aus „Was Estera erwartet" (Wording-Master),
+     woertlich. Der Master gibt dazu keinen erlaeuternden Satz her —
+     die Kacheln bleiben deshalb ohne Fliesstext. Nicht gefuellt, sondern
+     kuerzer gebaut. Die Zeile unter der Ueberschrift ist die
+     Master-Ueberschrift dieses Bausteins.
+     ===================================================================== -->
+<section class="stl-abs stl-abs--weiss stl-macht" id="profil" aria-labelledby="t-macht">
+  <div class="stl-inner">
+    <h2 class="stl-h2-gross" id="t-macht">Das macht dich aus</h2>
+    <p class="stl-macht__lead">Vertrauen entsteht durch Haltung.</p>
+
+    <ul class="stl-raster">
+      <li class="stl-kachel">
+        <span class="stl-kachel__zeichen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6.5a1.5 1.5 0 0 1 1.5-1.5h10A1.5 1.5 0 0 1 16 6.5v6a1.5 1.5 0 0 1-1.5 1.5H8l-3.5 3v-3H4.5A1.5 1.5 0 0 1 3 12.5z"></path>
+            <path d="M18 9h1.5A1.5 1.5 0 0 1 21 10.5v6a1.5 1.5 0 0 1-1.5 1.5H19v3l-3.5-3H11"></path>
+          </svg>
+        </span>
+        <h3 class="stl-kachel__titel">Verbindliche und klare Kommunikation</h3>
+      </li>
+      <li class="stl-kachel">
+        <span class="stl-kachel__zeichen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6 4.5 5.4v6.1c0 4.4 3.1 8.3 7.5 9.9 4.4-1.6 7.5-5.5 7.5-9.9V5.4z"></path>
+            <path d="M9.4 12.1 11.3 14l3.6-3.7"></path>
+          </svg>
+        </span>
+        <h3 class="stl-kachel__titel">Verantwortungsbewusster Umgang mit Kundendaten</h3>
+      </li>
+      <li class="stl-kachel">
+        <span class="stl-kachel__zeichen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3.4v17.2"></path><path d="M5 6.3h14"></path>
+            <path d="M5 6.3 2.4 12.4h5.2z"></path><path d="M19 6.3l-2.6 6.1h5.2z"></path>
+            <path d="M8.4 20.6h7.2"></path>
+          </svg>
+        </span>
+        <h3 class="stl-kachel__titel">Keine pauschalen Steuer-, Finanzierungs- oder Renditeversprechen</h3>
+      </li>
+      <li class="stl-kachel">
+        <span class="stl-kachel__zeichen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8.6 4.3H6.4A1.4 1.4 0 0 0 5 5.7v14.2a1.4 1.4 0 0 0 1.4 1.4h11.2a1.4 1.4 0 0 0 1.4-1.4V5.7a1.4 1.4 0 0 0-1.4-1.4h-2.2"></path>
+            <rect x="8.6" y="2.6" width="6.8" height="3.4" rx="1"></rect>
+            <path d="M8.8 11.4h6.4M8.8 15.2h4.4"></path>
+          </svg>
+        </span>
+        <h3 class="stl-kachel__titel">Konsequentes Nachhalten und saubere Dokumentation</h3>
+      </li>
+      <li class="stl-kachel">
+        <span class="stl-kachel__zeichen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 6.4C10.3 5.1 8.2 4.4 6 4.4H3.2v13.2H6c2.2 0 4.3.7 6 2 1.7-1.3 3.8-2 6-2h2.8V4.4H18c-2.2 0-4.3.7-6 2z"></path>
+            <path d="M12 6.4v14.2"></path>
+          </svg>
+        </span>
+        <h3 class="stl-kachel__titel">Bereitschaft, Prozesse und fachliche Grundlagen zu lernen</h3>
+      </li>
+      <li class="stl-kachel">
+        <span class="stl-kachel__zeichen" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.6"></circle>
+            <path d="M12 6.9v5.4l3.6 2.2"></path>
+          </svg>
+        </span>
+        <h3 class="stl-kachel__titel">Langfristiges Denken statt kurzfristiger Abschlussorientierung</h3>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- =====================================================================
+     5 — LAUFBAND B
+     Gemessene Werte der Vorlage: Hoehe 277 px, randlos, sieben Bilder je
+     Satz ohne Fuge, Reihenfolge Q·6:5·Q·Q·Q·Q·6:5, Querformat 3:2
+     (416 px breit), 6:5 (332 px breit), Satzbreite 2741 px, 60 px/s nach
+     links, linear, endlos, Kantenmaske
+     linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent).
+     Liegt auf der Navy-Flaeche, die Kanten blenden ins Navy aus.
+     ===================================================================== -->
+<section class="stl-band stl-band--b" aria-hidden="true">
+  <div class="stl-band__spur">
+    <div class="stl-band__satz">
+      <picture><source srcset="assets/img/karriere/band/band-b-1.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-1.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- Laptop mit Headset -->
+      <picture><source srcset="assets/img/karriere/band/band-b-6.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--sechsfuenf" src="assets/img/karriere/band/band-b-6.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="853"></picture><!-- offenes Notizbuch mit Kaffee -->
+      <picture><source srcset="assets/img/karriere/band/band-b-2.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-2.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- zwei Sessel an Glaswand -->
+      <picture><source srcset="assets/img/karriere/band/band-b-4.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-4.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Empfang mit Steintresen -->
+      <picture><source srcset="assets/img/karriere/band/band-b-5.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-5.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Schreibtischreihe am Fenster -->
+      <picture><source srcset="assets/img/karriere/band/band-b-3.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-3.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Ledermappe mit Blaettern und Fueller -->
+      <picture><source srcset="assets/img/karriere/band/band-b-7.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--sechsfuenf" src="assets/img/karriere/band/band-b-7.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1229" height="1024"></picture><!-- geschlossener Laptop mit Tasse am Fenster -->
+    </div>
+    <div class="stl-band__satz">
+      <picture><source srcset="assets/img/karriere/band/band-b-1.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-1.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- Laptop mit Headset -->
+      <picture><source srcset="assets/img/karriere/band/band-b-6.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--sechsfuenf" src="assets/img/karriere/band/band-b-6.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="853"></picture><!-- offenes Notizbuch mit Kaffee -->
+      <picture><source srcset="assets/img/karriere/band/band-b-2.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-2.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- zwei Sessel an Glaswand -->
+      <picture><source srcset="assets/img/karriere/band/band-b-4.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-4.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Empfang mit Steintresen -->
+      <picture><source srcset="assets/img/karriere/band/band-b-5.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-5.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Schreibtischreihe am Fenster -->
+      <picture><source srcset="assets/img/karriere/band/band-b-3.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-3.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Ledermappe mit Blaettern und Fueller -->
+      <picture><source srcset="assets/img/karriere/band/band-b-7.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--sechsfuenf" src="assets/img/karriere/band/band-b-7.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1229" height="1024"></picture><!-- geschlossener Laptop mit Tasse am Fenster -->
+    </div>
+    <div class="stl-band__satz">
+      <picture><source srcset="assets/img/karriere/band/band-b-1.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-1.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- Laptop mit Headset -->
+      <picture><source srcset="assets/img/karriere/band/band-b-6.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--sechsfuenf" src="assets/img/karriere/band/band-b-6.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="853"></picture><!-- offenes Notizbuch mit Kaffee -->
+      <picture><source srcset="assets/img/karriere/band/band-b-2.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-2.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1536" height="1024"></picture><!-- zwei Sessel an Glaswand -->
+      <picture><source srcset="assets/img/karriere/band/band-b-4.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-4.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Empfang mit Steintresen -->
+      <picture><source srcset="assets/img/karriere/band/band-b-5.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-5.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Schreibtischreihe am Fenster -->
+      <picture><source srcset="assets/img/karriere/band/band-b-3.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--quer" src="assets/img/karriere/band/band-b-3.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1024" height="683"></picture><!-- Ledermappe mit Blaettern und Fueller -->
+      <picture><source srcset="assets/img/karriere/band/band-b-7.webp?v=b24a" type="image/webp"><img class="stl-band__bild stl-band__bild--sechsfuenf" src="assets/img/karriere/band/band-b-7.jpg?v=b24a" alt="" loading="lazy" decoding="async" width="1229" height="1024"></picture><!-- geschlossener Laptop mit Tasse am Fenster -->
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     6 — DAS ERWARTET DICH
+     Vorlage: weisse Flaeche, zwei Spalten 597/597 mit 56 px Abstand.
+     Links Ueberschrift linksbuendig (32 px), darunter eine Liste mit
+     Symbol 39 x 39, Punktueberschrift 20 px/600 und Punkttext 16 px,
+     zwischen den Punkten duenne Trennlinien. Rechts zwei Bilder
+     597 x 355, direkt uebereinander OHNE Abstand.
+
+     Inhalt: die fuenf Schritte aus „So laeuft die Partnerschaft ab"
+     (Wording-Master), woertlich, dazu dessen Abschlusszeile. Die Vorlage
+     hat sechs Punkte, der Master gibt fuenf her — also fuenf. Nicht
+     gefuellt.
+     ===================================================================== -->
+<section class="stl-abs stl-abs--weiss stl-erwartet" id="aufgaben" aria-labelledby="t-erwartet">
+  <div class="stl-inner stl-zwei stl-zwei--erwartet">
+
+    <div class="stl-erwartet__links">
+      <h2 class="stl-h2" id="t-erwartet">Das erwartet dich</h2>
+
+      <ul class="stl-liste">
+        <li class="stl-punkt">
+          <span class="stl-punkt__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3.2 6.4a1.4 1.4 0 0 1 1.4-1.4h9.2a1.4 1.4 0 0 1 1.4 1.4v5.4a1.4 1.4 0 0 1-1.4 1.4H7.6L4.4 16v-2.8h-0.2a1.4 1.4 0 0 1-1-1.4z"></path>
+              <path d="M17.6 8.6h1.8A1.4 1.4 0 0 1 20.8 10v5.4a1.4 1.4 0 0 1-1.4 1.4h-0.2v2.8l-3.2-2.8h-4.6"></path>
+            </svg>
+          </span>
+          <div class="stl-punkt__text">
+            <h3 class="stl-punkt__titel">Kennenlernen</h3>
+            <p>Wir sprechen über deinen Hintergrund, deine Ziele und deine bisherige Erfahrung.</p>
+          </div>
+        </li>
+        <li class="stl-punkt">
+          <span class="stl-punkt__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.6" cy="10.6" r="6.6"></circle>
+              <path d="m15.6 15.6 4.6 4.6"></path>
+              <path d="m7.9 10.7 1.9 1.9 3.6-3.7"></path>
+            </svg>
+          </span>
+          <div class="stl-punkt__text">
+            <h3 class="stl-punkt__titel">Eignung prüfen</h3>
+            <p>Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch und Zielgruppe zusammenpassen.</p>
+          </div>
+        </li>
+        <li class="stl-punkt">
+          <span class="stl-punkt__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 6.4C10.3 5.1 8.2 4.4 6 4.4H3.2v13.2H6c2.2 0 4.3.7 6 2 1.7-1.3 3.8-2 6-2h2.8V4.4H18c-2.2 0-4.3.7-6 2z"></path>
+              <path d="M12 6.4v14.2"></path>
+            </svg>
+          </span>
+          <div class="stl-punkt__text">
+            <h3 class="stl-punkt__titel">Onboarding</h3>
+            <p>Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung und rechtliche
+               Kommunikationsgrenzen kennen.</p>
+          </div>
+        </li>
+        <li class="stl-punkt">
+          <span class="stl-punkt__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6.2A1.4 1.4 0 0 1 5.4 4.8h3.4l1.8 2.2h8A1.4 1.4 0 0 1 20 8.4v9.4a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 17.8z"></path>
+              <path d="M8.6 13.2h6.8"></path>
+            </svg>
+          </span>
+          <div class="stl-punkt__text">
+            <h3 class="stl-punkt__titel">Erste Kundenfälle</h3>
+            <p>Bei den ersten Fällen wirst du eng begleitet und erhältst Unterstützung bei
+               Einordnung, Objekt und Prozess.</p>
+          </div>
+        </li>
+        <li class="stl-punkt">
+          <span class="stl-punkt__zeichen" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3.6 20.4h16.8"></path>
+              <path d="M6.4 20.4v-5.2M11 20.4V10.6M15.6 20.4V6.4M20.2 20.4V3.6"></path>
+            </svg>
+          </span>
+          <div class="stl-punkt__text">
+            <h3 class="stl-punkt__titel">Eigenständiger Aufbau</h3>
+            <p>Mit zunehmender Erfahrung übernimmst du mehr Verantwortung und entwickelst
+               deinen eigenen Kundenbestand.</p>
+          </div>
+        </li>
+      </ul>
+
+      <p class="stl-erwartet__schluss">Klare Prozesse. Persönliche Unterstützung. Leistung,
+         die sich entwickeln kann.</p>
+    </div>
+
+    <!-- EIN Bild, Kundenwunsch vom 29.08.2026.
+         Die Vorlage stapelt hier zwei Bilder zu je 597 x 355 direkt
+         uebereinander (masonry-horizontal --zero-vertical), zusammen
+         597 x 710. Der Kunde will nur eines. Es steht an der Stelle des
+         oberen und fuellt die Hoehe, die vorher beide zusammen hatten —
+         Verhaeltnis also 597 : 710 statt 597 : 355.
+         Motiv aus dem erzeugten Bestand, ohne Menschen. -->
+    <div class="stl-bilder">
+      <picture>
+        <source srcset="assets/img/karriere/band/band-a-7.webp?v=b24a" type="image/webp">
+        <img src="assets/img/karriere/band/band-a-7.jpg?v=b24a" alt="Leerer Besprechungsraum mit Blick ins Freie" loading="lazy" decoding="async" width="1536" height="1024">
+      </picture>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     7 — ABSCHLUSS
+     Lage und Masse des Vorlagenabschnitts „Karriere auf der Ueberholspur":
+     Navy-Flaeche, zwei Spalten 597/597, links unterstrichene Ueberschrift
+     (32 px), Fliesstext 20 px/30 px, Knopf 272 x 61 in Hell auf Navy,
+     rechts ein Medienfeld 597 x 299 mit 4 px Radius.
+
+     ABWEICHUNG VOM 29.08.2026, KUNDENWUNSCH: die Flaeche ist WEISS statt
+     in der Leitfarbe. Der Knopf ist deshalb der gefuellte Navy-Knopf des
+     Projekts (.btn) statt des hellen — auf Weiss traegt ein weisser Knopf
+     nicht.
+
+     ZWEI WEITERE ABWEICHUNGEN, BEIDE BEGRUENDET:
+     1. Rechts sitzt in der Vorlage ein Mitarbeiter-Interview als Video.
+        Solche Videos gibt es bei Estera nicht und werden nicht erfunden.
+        An seiner Stelle steht ein Standbild in derselben Lage und
+        demselben Verhaeltnis (2:1). SOBALD ES EIN ECHTES
+        MITARBEITERVIDEO GIBT, GEHOERT ES GENAU HIERHIN — gleiche Lage,
+        gleiches Feld, mit Abspielknopf und Klick zum Starten.
+     2. Die Ueberschrift der Vorlage ist deren eigene Formulierung und
+        wird nicht uebernommen. Hier steht die Abschlussueberschrift aus
+        dem Wording-Master, woertlich.
+     ===================================================================== -->
+<section class="stl-abs stl-abs--weiss stl-schluss" aria-labelledby="t-schluss">
+  <div class="stl-inner stl-zwei stl-zwei--schluss">
+
+    <div class="stl-schluss__links">
+      <h2 class="stl-h2 stl-h2--unterstrichen" id="t-schluss">Prüfe, ob Estera zu deinem
+         nächsten beruflichen Schritt passt.</h2>
+      <p class="stl-schluss__text">Bewirb dich für ein unverbindliches Kennenlernen. Wir
+         sprechen offen über Erwartungen, Voraussetzungen, Zusammenarbeit und deine
+         Entwicklungsmöglichkeiten.</p>
+      <div class="stl-schluss__aktionen">
+        <a class="btn" href="kontakt.html?v=b24a">Jetzt bewerben</a>
+        <a class="stl-zurueck" href="karriere.html?v=b24a">Zurück zur Übersicht</a>
+      </div>
+      <p class="stl-schluss__hinweis">Keine Einkommensgarantie. Die tatsächliche Entwicklung
+         hängt insbesondere von Erfahrung, Einsatz, Qualifikation und Vertriebserfolg ab.</p>
+    </div>
+
+    <figure class="stl-schluss__medium">
+      <picture>
+        <source srcset="assets/img/karriere/kar-beratung.webp?v=b24a" type="image/webp">
+        <img src="assets/img/karriere/kar-beratung.png?v=b24a" alt="Beratungssituation am Besprechungstisch" loading="lazy" decoding="async" width="1536" height="1024">
+      </picture>
+    </figure>
+
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     Die fuenf Abschnitte, die die Vorlage danach noch traegt
+     (Mitarbeitervideos, kununu-Auszeichnung, Mitarbeiterzitate,
+     Standortkarte, eigener Fuss), ENTFALLEN ERSATZLOS: es gibt bei Estera
+     dafuer keine Grundlage, und nichts davon wird erfunden. Die Seite
+     endet mit dem gemeinsamen Fussbereich.
+     ===================================================================== -->
+
+<!-- =====================================================================
+     FUSS — unveraendert wie auf allen Seiten.
+     ===================================================================== -->
+<footer class="fuss" id="kontakt">
+  <div class="fuss__inner">
+
+    <div class="fuss__marke">
+      <span class="wordmark">
+        <span class="wordmark__name">ESTERA</span>
+        <span class="wordmark__sub">Immobilien</span>
+      </span>
+      <p class="fuss__anker">Diskret. Strukturiert. Langfristig.</p>
+    </div>
+
+    <div>
+      <p class="fuss__titel">Kontakt</p>
+      <div class="fuss__liste">
+        <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
+        <span>Telefon — folgt</span>
+        <span>Anschrift — folgt</span>
+        <a href="partner.html?v=b24a">Für Partner</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="fuss__titel">Rechtliches</p>
+      <div class="fuss__liste">
+        <a href="impressum.html?v=b24a">Impressum</a>
+        <a href="datenschutz.html?v=b24a">Datenschutz</a>
+        <a href="cookies.html?v=b24a">Cookie-Einstellungen</a>
+        <a href="erstinformation.html?v=b24a">Erstinformation</a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="fuss__risiko">
+    Kapitalanlageimmobilien sind langfristige Investitionen. Wertentwicklung,
+    Vermietbarkeit und steuerliche Wirkung hängen vom Einzelfall ab und können
+    nicht zugesichert werden. Diese Website ersetzt keine steuerliche,
+    rechtliche oder finanzielle Beratung.
+  </p>
+
+  <div class="fuss__unten">
+    <span>© 2026 Estera GmbH</span>
+    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     MENÜ-OVERLAY — dieselben Punkte wie in der Kopfleiste.
+     ===================================================================== -->
+<nav class="menu" id="hauptmenue" data-menu data-open="false" aria-hidden="true" aria-label="Hauptmenü">
+
+  <div class="menu__bar">
+    <span class="wordmark">
+      <span class="wordmark__name">ESTERA</span>
+      <span class="wordmark__sub">Immobilien</span>
+    </span>
+    <button class="menu__close" type="button" data-menu-close>
+      Schließen
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <line x1="2" y1="2" x2="16" y2="16"></line>
+        <line x1="16" y1="2" x2="2" y2="16"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div class="menu__body">
+    <p class="menu__gruppe">Auf der Startseite</p>
+    <ul class="menu__nav">
+      <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
+      <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <li><a class="menu__link" href="variante-a.html?v=b24a#vorteile"><span class="num">03</span> Eigentumsaufbau</a></li>
+    </ul>
+    <p class="menu__gruppe">Seiten</p>
+    <ul class="menu__nav">
+      <li><a class="menu__link" href="ueber-estera.html?v=b24a"><span class="num">01</span> Über Estera</a></li>
+      <li><a class="menu__link" href="karriere.html?v=b24a" aria-current="page"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html?v=b24a"><span class="num">03</span> Kontakt</a></li>
+    </ul>
+
+    <aside class="menu__aside">
+      <div>
+        <p class="kicker">Nächster Schritt</p>
+        <p>Ein Erstgespräch klärt zuerst, ob eine Kapitalanlageimmobilie überhaupt zu Ihrer
+           Situation passt. Erst danach sprechen wir über Objekte.</p>
+      </div>
+      <a class="btn" href="kontakt.html?v=b24a">Erstgespräch vereinbaren</a>
+      <div>
+        <p class="kicker">Kontakt</p>
+        <p><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="menu__foot">
+    <span>Diskret. Strukturiert. Langfristig.</span>
+    <ul>
+      <li><a href="impressum.html?v=b24a">Impressum</a></li>
+      <li><a href="datenschutz.html?v=b24a">Datenschutz</a></li>
+      <li><a href="cookies.html?v=b24a">Cookie-Einstellungen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<script src="assets/js/site.js?v=b24a"></script>
+<!-- Einzige eigene Zeile Javascript dieser Seite: das Kopfvideo bei
+     prefers-reduced-motion: reduce wirklich anhalten. Sichtbar ist es dort
+     schon per CSS nicht mehr; ohne Javascript bleibt es dabei. -->
+<script src="assets/js/stelle.js?v=b24a"></script>
+</body>
+</html>

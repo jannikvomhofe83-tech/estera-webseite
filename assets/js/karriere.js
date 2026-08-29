@@ -1,152 +1,103 @@
 /* ---------------------------------------------------------------------------
-   ESTERA — Karriereseite: der Stellen-Aufklapper
+   ESTERA — KARRIERE (Übersichtsseite)
+   Neubau vom 29.08.2026.
 
-   WARUM EINE EIGENE DATEI UND NICHT faq.js
-   faq.js bedient bewusst GENAU EINE Wurzel: es sucht mit
-   `document.querySelector('[data-faq]')`, nicht mit querySelectorAll. Auf
-   dieser Seite ist diese eine Wurzel bereits von den haeufigen Fragen
-   belegt. Die Stellenliste braucht deshalb ihr eigenes Skript. Es haengt
-   an [data-stellen] und ruehrt nichts an, was faq.js gehoert — die
-   Merkmalsnamen (data-stelle-knopf statt data-faq-knopf) sind bewusst
-   verschieden, damit sich die beiden nicht gegenseitig finden koennen.
+   Diese Datei macht genau zwei Dinge. Mehr braucht die Seite nicht — und
+   mehr hat auch die Vorlage nicht (wiese/bericht.md, Abschnitt 5): dort
+   bewegt KEINE Bibliothek irgendetwas, kein GSAP, kein Lenis, kein AOS,
+   kein Framer. Alles läuft über CSS-Keyframes plus einen
+   IntersectionObserver, der Klassen umschaltet. Genau das steht hier.
 
-   WARUM UEBERHAUPT JAVASCRIPT UND KEIN <details>
-   Dieselbe Begruendung wie in faq.js: das Aufklappen soll weich in der
-   Hoehe laufen, und das Projektmuster dafuer ist
-   `grid-template-rows: 0fr -> 1fr`. <details> kann das nicht.
+   1  EINBLENDUNG BEIM EINTRITT
+      Ein IntersectionObserver setzt die Klasse `ist-da`, sobald ein
+      Element ins Bild kommt. Die eigentliche Bewegung steckt vollständig
+      in karriere.css; hier wird nur geschaltet. Einmalig — danach wird das
+      Element nicht mehr beobachtet, wie in der Vorlage, die ihre Klassen
+      nach dem Lauf ebenfalls wieder abräumt.
+
+   2  DAS KOPFVIDEO BEI RUHIGER DARSTELLUNG ANHALTEN
+      Das Ausblenden erledigt karriere.css und wirkt auch ohne Javascript.
+      Hier wird das Video zusätzlich angehalten, damit es nicht unsichtbar
+      weiterläuft und Rechenzeit und Bandbreite kostet.
 
    OHNE JAVASCRIPT
-   Steht im HTML ALLES offen: aria-expanded="true", data-offen="true".
-   Die Zuklapp-Regeln in karriere.css haengen an
-   .kar-stellen[data-js='an'], und dieses Merkmal setzt erst diese Datei.
-   Faellt das Skript aus, ist die Section eine vollstaendig lesbare
-   Stellenanzeige — nie eine leere Karte.
+   steht die Seite vollständig da. Sämtliche Einblendregeln in karriere.css
+   hängen an [data-js='an'], und dieses Merkmal setzt erst diese Datei —
+   fällt sie aus, ist nie etwas unsichtbar. Das Video trägt autoplay, muted,
+   loop und playsinline im HTML und spielt deshalb auch ohne Skript von
+   selbst ab.
 
-   ZUKLAPPEN BEIM START
-   Genau einmal, direkt nach dem Setzen von data-js, und OHNE Bewegung:
-   der Besucher soll die Karte nicht erst zulaufen sehen. Dafuer wird fuer
-   einen Bilddurchlauf `transition: none` gesetzt (data-start="true") und
-   danach wieder freigegeben.
+   BEI prefers-reduced-motion: reduce
+   steigt die Einblendung in der ersten Zeile aus (wie die Vorlage es tut):
+   [data-js='an'] wird dann gar nicht erst gesetzt, alles steht sofort.
 
-   ES IST DERZEIT GENAU EINE STELLE AUSGESCHRIEBEN. Das Skript ist
-   trotzdem fuer mehrere gebaut — kommt eine zweite Karte ins Markup,
-   findet es sie von selbst. „Nur einer offen" ist deshalb hier
-   ausgeschaltet: bei einer einzigen Karte waere die Regel wirkungslos,
-   und bei zweien ist der Vergleich zweier Stellen der haeufigere Fall.
-
-   SPRUNG AUS DEM SEITENKOPF
-   Der Knopf im Kopfbereich fuehrt auf #stellen. Landet jemand ueber
-   einen solchen Sprung hier, soll die Karte offen sein — sonst springt
-   er auf eine zugeklappte Zeile und sieht nichts.
-
-   ESCAPE
-   Schliesst die offene Karte und legt den Fokus zurueck auf deren Knopf.
+   BEKANNTE GRENZE, damit sie nicht als Fehler gelesen wird: fällt das
+   Skript aus UND ist gleichzeitig „reduce" gesetzt, wird das Video von
+   karriere.css zwar ausgeblendet, läuft aber im Hintergrund weiter. Die
+   Vorlage hat dieselbe Grenze — auch dort hängt die Rücksicht auf ruhige
+   Darstellung am Skript. Sichtbar bewegt sich in diesem Fall nichts.
 --------------------------------------------------------------------------- */
 (function () {
   'use strict';
 
-  var wurzel = document.querySelector('[data-stellen]');
-  if (!wurzel) return;
+  var ruhig = window.matchMedia &&
+              window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var knoepfe = Array.prototype.slice.call(wurzel.querySelectorAll('[data-stelle-knopf]'));
-  if (!knoepfe.length) return;
-
-  /* Zu jedem Knopf sein Fach. Der Bezug laeuft ueber aria-controls und
-     nicht ueber die Nachbarschaft im Baum — so bleibt beides
-     zwangslaeufig synchron: was die Hilfstechnik liest, ist genau das,
-     was bewegt wird. Findet sich zu einem Knopf kein Fach, bleibt er
-     unangetastet; lieber ein Knopf ohne Funktion als ein Absturz, der
-     die ganze Section lahmlegt. */
-  var paare = [];
-  knoepfe.forEach(function (knopf) {
-    var id = knopf.getAttribute('aria-controls');
-    var fach = id ? document.getElementById(id) : null;
-    if (fach) paare.push({ knopf: knopf, fach: fach });
-  });
-  if (!paare.length) return;
-
-  var zuFach = function (knopf) {
-    for (var i = 0; i < paare.length; i++) {
-      if (paare[i].knopf === knopf) return paare[i].fach;
-    }
-    return null;
-  };
-
-  var istOffen = function (knopf) {
-    return knopf.getAttribute('aria-expanded') === 'true';
-  };
-
-  var setzen = function (knopf, offen) {
-    var fach = zuFach(knopf);
-    if (!fach) return;
-    knopf.setAttribute('aria-expanded', offen ? 'true' : 'false');
-    fach.setAttribute('data-offen', offen ? 'true' : 'false');
-  };
-
-  /* --- Schaltbetrieb einschalten ----------------------------------------
-     BEI GENAU EINER STELLE BLEIBT DIE KARTE OFFEN. Das ist eine bewusste
-     Abweichung von der Vorlage, die zwei Stellen fuehrt und beide
-     zuklappt. Bei einer einzigen Karte waere der ganze Abschnitt sonst
-     eine einzelne zugeklappte Zeile in einem hellen Band — der Besucher
-     scrollt daran vorbei und erfaehrt nicht, dass es ueberhaupt eine
-     Stelle gibt. Der Aufklapper bleibt trotzdem in Betrieb: er ist
-     bedienbar, und sobald eine zweite Karte im Markup steht, faehrt
-     dieser Zweig automatisch wieder alles zu.
-
-     Zugeklappt wird ohne Bewegung (data-start sperrt die
-     Ueberblendungen fuer einen Bilddurchlauf) — der Besucher soll die
-     Karten nicht erst zulaufen sehen. */
-  wurzel.setAttribute('data-start', 'true');
-  wurzel.setAttribute('data-js', 'an');
-  if (paare.length > 1) {
-    paare.forEach(function (p) { setzen(p.knopf, false); });
+  /* ---------------------------------------------------------------------
+     2  Das Kopfvideo — zuerst, weil es unabhängig von allem Übrigen ist
+        und auch dann greifen soll, wenn die Einblendung aussteigt.
+     --------------------------------------------------------------------- */
+  var video = document.querySelector('[data-hero-video]');
+  if (video && ruhig) {
+    video.removeAttribute('autoplay');
+    video.autoplay = false;
+    video.loop = false;
+    try { video.pause(); } catch (e) { /* manche Browser werfen, bevor
+                                          Metadaten da sind — dann greift
+                                          das pause() unten */ }
+    video.addEventListener('loadeddata', function () {
+      try { video.pause(); } catch (e) {}
+    });
   }
 
-  /* Zwei Bilddurchlaeufe warten, dann die Ueberblendungen freigeben. Einer
-     reicht in Chromium, nicht zuverlaessig in Safari. */
-  requestAnimationFrame(function () {
-    requestAnimationFrame(function () { wurzel.removeAttribute('data-start'); });
-  });
+  /* ---------------------------------------------------------------------
+     1  Einblendung beim Eintritt
+     --------------------------------------------------------------------- */
 
-  /* --- Bedienung -------------------------------------------------------- */
-  paare.forEach(function (p) {
-    p.knopf.addEventListener('click', function () {
-      setzen(p.knopf, !istOffen(p.knopf));
-    });
-  });
+  /* Wie die Vorlage: bei ruhiger Darstellung in der ersten Zeile aussteigen.
+     Ebenso, wenn der Browser keinen IntersectionObserver kennt — dann bleibt
+     alles sichtbar stehen, statt auf ein Ereignis zu warten, das nie kommt. */
+  if (ruhig || !('IntersectionObserver' in window)) return;
 
-  wurzel.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape' && e.key !== 'Esc') return;
-    for (var i = 0; i < paare.length; i++) {
-      if (istOffen(paare[i].knopf)) {
-        setzen(paare[i].knopf, false);
-        paare[i].knopf.focus();
-        e.preventDefault();
-        return;
-      }
+  var wurzel = document.querySelector('.kar');
+  if (!wurzel) return;
+
+  /* Erst JETZT wird das Merkmal gesetzt, das die Anfangszustände in
+     karriere.css scharf schaltet. Das Skript steht am Ende des <body>, der
+     Baum ist also vollständig; gesetzt wird vor dem ersten Anstrich, damit
+     nichts erst sichtbar wird und dann verschwindet. */
+  wurzel.setAttribute('data-js', 'an');
+
+  /* Die Kacheln der Stellenliste blenden als GRUPPE ein — der Versatz von
+     0,2 s zwischen den Geschwistern steckt als --i im Markup und wird in
+     karriere.css zur animation-delay. Beobachtet wird deshalb die Liste,
+     nicht die einzelne Karte: sonst liefe der Versatz gegen den Zeitpunkt
+     des Eintritts jeder einzelnen Karte statt gegen den der Reihe. */
+  var ziele = [];
+  var liste = wurzel.querySelector('[data-stellen]');
+  if (liste) ziele.push(liste);
+  Array.prototype.push.apply(ziele, wurzel.querySelectorAll('[data-auf]'));
+
+  /* Ein Zehntel des Elements reicht als Auslöser. Ein rootMargin von
+     −40px am Fuß verhindert, dass etwas losläuft, das gerade erst mit
+     einem Pixel in den Bildausschnitt ragt. */
+  var beobachter = new IntersectionObserver(function (eintraege, selbst) {
+    for (var i = 0; i < eintraege.length; i++) {
+      if (!eintraege[i].isIntersecting) continue;
+      eintraege[i].target.classList.add('ist-da');
+      selbst.unobserve(eintraege[i].target);
     }
-  });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  /* --- Sprung von aussen ------------------------------------------------
-     Der Knopf im Kopfbereich und der im Abschnitt „Fuer wen Estera passt"
-     fuehren beide auf #stellen. Bei genau einer Karte steht sie ohnehin
-     offen; hat jemand sie zwischendurch zugeklappt, geht sie beim Sprung
-     wieder auf. Bei mehreren Karten wird nichts aufgerissen — dann soll
-     der Besucher die Liste sehen und selbst waehlen. */
-  var oeffneErste = function () {
-    if (paare.length === 1) setzen(paare[0].knopf, true);
-  };
-  var pruefeSprung = function () {
-    if (location.hash === '#stellen') oeffneErste();
-  };
-  pruefeSprung();
-  window.addEventListener('hashchange', pruefeSprung);
-
-  /* Auch der Knopf im Seitenkopf und der im Abschnitt „Fuer wen Estera
-     passt" fuehren auf #stellen. Steht der Anker schon in der Adresse,
-     loest hashchange nicht aus — deshalb zusaetzlich am Klick. */
-  Array.prototype.forEach.call(
-    document.querySelectorAll('a[href="#stellen"]'),
-    function (a) { a.addEventListener('click', oeffneErste); }
-  );
+  for (var i = 0; i < ziele.length; i++) beobachter.observe(ziele[i]);
 })();

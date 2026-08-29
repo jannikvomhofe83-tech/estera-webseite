@@ -1,0 +1,762 @@
+/* ===========================================================================
+   ESTERA — STELLENSEITEN
+   Gilt fuer karriere-immobilienberater.html und karriere-backoffice.html.
+   Beide Seiten teilen sich diese Datei vollstaendig; sie unterscheiden sich
+   nur im Text und in der Stellenbezeichnung.
+
+   HERKUNFT DER MASSE
+   Aufbau, Groessenverhaeltnisse, Abstaende und Bewegung stammen aus der
+   Bauaufnahme von estateanfrage-karriere.de/immobilienberater (gemessen am
+   29.08.2026 bei 1920 px, siehe Kladde `estate/bericht.md`). Jede Zahl in
+   dieser Datei, die als Kommentar eine Vorlagenzahl nennt, ist dort
+   gemessen — nicht geschaetzt.
+
+   WAS NICHT VON DORT KOMMT
+   Schrift (dort Figtree, hier Cormorant Garamond wie im ganzen Projekt) und
+   Farbe (dort #336079 / #EBECED / #000000, hier Navy, Weiss, Creme, Gold und
+   Sand aus dem Farbblock von base.css). Uebernommen sind die
+   GROESSENVERHAELTNISSE der Schriftleiter, nicht der Schnitt.
+
+   UMRECHNUNG DER SCHRIFTGROESSEN
+   Cormorant hat eine x-Hoehe von 0,386 em gegenueber 0,46 em bei einer
+   Grotesk. Damit die optische Groesse erhalten bleibt, sind alle Werte der
+   Vorlage mit 1,19 multipliziert — derselbe Faktor, mit dem base.css im
+   ganzen Projekt rechnet. Die Vorlage ist nicht fluid (sie springt bei
+   992 px); hier steht wie ueberall im Projekt clamp(), die Endwerte oben und
+   unten treffen aber die gemessenen Stufen.
+
+   ES GIBT KEINE ANIMATION AUSSER DEN ZWEI LAUFBAENDERN.
+   Die Vorlage bewegt nichts weiter: kein Einfliegen, kein Parallax, keine
+   klebende Kopfleiste, kein gestalteter Hover. Wer hier Scroll-Animationen
+   einbaut, trifft den Charakter nicht.
+   =========================================================================== */
+
+.stl {
+  /* --- Flaechenfarben ---------------------------------------------------
+     Die Vorlage traegt drei Flaechen, hart gewechselt, ohne Verlauf, ohne
+     Trennlinie, ohne Schatten: #336079 (Leitfarbe), #FFFFFF, #EBECED.
+     Hier: Navy als Leitfarbe, Weiss, Creme.                              */
+  --stl-navy:  var(--navy-800);      /* #102949 */
+  --stl-weiss: #FFFFFF;
+  --stl-creme: var(--paper-cool);    /* #F3F5F8 */
+
+  /* Schrift auf Navy. Reines Weiss fuer Ueberschriften, leicht
+     zurueckgenommen fuer Fliesstext — beides misst gegen #102949 ueber
+     11:1 und liegt damit weit ueber der Anforderung von 4,5:1.           */
+  --stl-auf-navy:      #FFFFFF;
+  --stl-auf-navy-text: rgba(255, 255, 255, 0.86);
+  --stl-auf-navy-line: rgba(255, 255, 255, 0.20);
+
+  /* --- Container --------------------------------------------------------
+     Vorlage, gemessen: >=1400 -> 1250 px, 1200-1399 -> 1150,
+     992-1199 -> 970, <992 -> 750, jeweils gedeckelt auf 100vw - 48 px.
+     Die Stufen stehen weiter unten in Medienabfragen.                    */
+  --stl-breite: 1250px;
+
+  /* --- Abschnittsluft ---------------------------------------------------
+     Regelwert der Vorlage ist 100 px oben und unten (bei 1920, also
+     5,21 vw). Die uebrigen Werte sind ebenso gemessen.                   */
+  --stl-luft-100: clamp(48px, 5.21vw, 100px);
+  --stl-luft-109: clamp(56px, 5.68vw, 109px);  /* Abschnitte 8+9 zusammen */
+  --stl-luft-80:  clamp(40px, 4.17vw, 80px);
+  --stl-luft-70:  clamp(34px, 3.65vw, 70px);
+  --stl-luft-65:  clamp(32px, 3.39vw, 65px);
+  --stl-luft-60:  clamp(36px, 3.13vw, 60px);
+
+  /* --- Spaltenabstaende, gemessen --------------------------------------- */
+  --stl-spalt-100: clamp(40px, 5.21vw, 100px);  /* Abschnitt 3            */
+  --stl-spalt-56:  clamp(32px, 2.92vw, 56px);   /* Abschnitte 9 und 10    */
+  --stl-spalt-32:  clamp(24px, 1.67vw, 32px);   /* Abschnitt 6            */
+
+  /* --- Schriftleiter ----------------------------------------------------
+     Links die gemessene Groesse der Vorlage, rechts der Wert hier.
+       64 px H1                -> bis 4.50rem (72 px)
+       48 px „Das macht ..."   -> bis 3.55rem (57 px)
+       32 px Abschnittstitel   -> bis 2.38rem (38 px)
+       22 px Listenpunkt       -> bis 1.63rem (26 px)
+       20 px Kachel-/Punkttitel-> bis 1.49rem (24 px)
+       20 px Fliesstext gross  -> bis 1.49rem (24 px)
+       16 px Fliesstext        -> bis 1.19rem (19 px)
+       14 px Fliesstext klein  -> bis 1.04rem (17 px)                     */
+  --stl-t-h1:     clamp(1.75rem, 3.75vw, 4.50rem);
+  --stl-t-gross:  clamp(2.10rem, 2.97vw, 3.55rem);
+  --stl-t-h2:     clamp(1.75rem, 1.98vw, 2.38rem);
+  --stl-t-punkt:  clamp(1.35rem, 1.36vw, 1.63rem);
+  --stl-t-titel:  clamp(1.25rem, 1.24vw, 1.49rem);
+  --stl-t-gross2: clamp(1.19rem, 1.24vw, 1.49rem);
+  --stl-t-text:   clamp(1.06rem, 0.99vw, 1.19rem);
+  --stl-t-klein:  clamp(0.95rem, 0.87vw, 1.04rem);
+}
+
+/* Sprungmarke — sichtbar erst beim Antabben. Die Vorlage hat dieselbe
+   Einrichtung („Zum Inhalt springen"), dort unsichtbar positioniert. */
+.stl-skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 200;
+  padding: 0.7rem 1.1rem;
+  background: var(--stl-navy);
+  color: #fff;
+  border-radius: var(--radius-btn);
+  font-size: var(--stl-t-text);
+  transition: top 0.2s var(--ease);
+}
+.stl-skip:focus-visible { top: 1rem; }
+
+/* --- Container -------------------------------------------------------- */
+.stl-inner {
+  width: min(var(--stl-breite), 100% - 48px);
+  margin-inline: auto;
+}
+
+/* --- Abschnitte ------------------------------------------------------- */
+.stl-abs { position: relative; }
+
+/* Jede Flaeche setzt ihre eigenen vier Textwerte. Damit tragen dieselben
+   Bausteine (Ueberschrift, Punkt, Symbol, Haarlinie) auf Navy wie auf
+   Weiss, ohne dass irgendwo eine Farbe doppelt gepflegt werden muss.
+   Das ist absichtlich so gebaut: der Kunde hat am 29.08.2026 vier
+   Abschnitte von der Leitfarbe auf Weiss gezogen, und es kann gut sein,
+   dass er einen davon wieder zurueckdreht. Dann reicht der Tausch der
+   Klasse am <section>. */
+.stl-abs--navy {
+  background: var(--stl-navy);
+  color: var(--stl-auf-navy-text);
+  --stl-tx:       #FFFFFF;                    /* 15,4:1 auf Navy */
+  --stl-tx-weich: rgba(255, 255, 255, 0.86);  /* 11,3:1 */
+  --stl-tx-leise: rgba(255, 255, 255, 0.74);  /*  8,3:1 */
+  --stl-linie:    rgba(255, 255, 255, 0.20);
+  --stl-zeichen:  var(--sand);                /*  7,55:1 auf Navy */
+}
+.stl-abs--weiss {
+  background: var(--stl-weiss);
+  color: var(--ink-soft);
+  --stl-tx:       var(--navy-800);   /* 15,5:1 auf Weiss */
+  --stl-tx-weich: var(--ink-soft);   /*  6,54:1 */
+  --stl-tx-leise: var(--ink-mute);   /*  5,20:1 */
+  --stl-linie:    var(--line);       /* rgba(16,41,73,0.16) */
+  --stl-zeichen:  var(--gold);       /*  3,36:1 — Grafik, nicht Schrift */
+}
+.stl-abs--creme {
+  background: var(--stl-creme);
+  color: var(--ink-soft);
+  --stl-tx:       var(--navy-800);
+  --stl-tx-weich: var(--ink-soft);
+  --stl-tx-leise: var(--ink-mute);
+  --stl-linie:    var(--line);
+  --stl-zeichen:  var(--gold);
+}
+
+/* --- Ueberschriften ---------------------------------------------------
+   Vorlage: Ueberschriften 600 / Zeilenhoehe 1,3 / Sperrung -0,4 px.
+   Cormorant traegt bei diesen Groessen den leichten Schnitt besser; die
+   Sperrung entfaellt, weil sie bei einer Antiqua die Anschluesse zerreisst. */
+.stl-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--stl-t-h2);
+  line-height: 1.18;
+  letter-spacing: -0.004em;
+  color: var(--stl-tx);
+  margin: 0;
+}
+.stl-h2--mitte { text-align: center; }
+
+/* Unterstrichen wie in der Vorlage (Abschnitt 10). Die Haarlinie steht in
+   Sand: auf Navy misst Sand 7,55:1 und bleibt als Linie sichtbar, ohne die
+   Schrift zu ueberlagern. */
+.stl-h2--unterstrichen {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  /* Sand traegt auf Navy (7,55:1), auf Weiss aber nur 1,94:1 — dort waere
+     der Strich praktisch nicht da. Auf hellen Flaechen steht deshalb Gold
+     (3,36:1). Beide Werte stehen im Farbblock von base.css. */
+  text-decoration-color: var(--gold);
+  text-underline-offset: 0.24em;
+}
+.stl-abs--navy .stl-h2--unterstrichen { text-decoration-color: var(--sand); }
+
+/* Genau EINE Ueberschrift der Seite ist gross — in der Vorlage 48 px
+   gegenueber 32 px bei allen uebrigen. Das ist der ganze Rhythmus. */
+.stl-h2-gross {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--stl-t-gross);
+  line-height: 1.14;
+  letter-spacing: -0.004em;
+  color: var(--stl-tx);
+  text-align: center;
+  margin: 0;
+  max-width: 1092px;             /* Feldbreite der Vorlage, gemessen */
+  margin-inline: auto;
+}
+
+/* ===========================================================================
+   1 — KOPFBEREICH
+
+   Vorlage: 816 px hoch bei 1920 (= 42,5 vw), Innenabstand oben 491 px, der
+   Textblock endet 60 px ueber der Unterkante. Text zentriert, unten
+   ausgerichtet. Hier ueber flex-end geloest statt ueber einen festen
+   Innenabstand oben — das Ergebnis ist dasselbe und traegt auch, wenn der
+   Text laenger umbricht.
+   =========================================================================== */
+.stl-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(520px, 42.5vw, 816px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: var(--stl-luft-60);
+  padding-top: calc(var(--header-h) + 2rem);
+  background: var(--navy-900);   /* Grundflaeche, wie die Vorlage sie unter
+                                    das Bild legt (dort #000000) */
+  overflow: hidden;
+}
+
+.stl-hero__medien { position: absolute; inset: 0; z-index: -2; }
+
+/* Beschnitt wie in der Vorlage: cover, Bildmitte nach unten verschoben,
+   damit der Text im unteren Drittel nicht ins Motiv faellt.
+   Vorlage: object-position 50% 89%. Beim Estera-Video liegt der ruhige
+   Teil des Bildes tiefer, deshalb 50% 62%. */
+.stl-hero__still,
+.stl-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 62%;
+}
+/* Das Video liegt UEBER dem Standbild. Solange es laedt, traegt das Bild. */
+.stl-hero__video { z-index: 1; }
+
+/* Der Schleier.
+
+   Die Vorlage legt flache 15 % Schwarz auf ein Foto, das schon dunkel ist.
+   Das Estera-Video ist das Gegenteil: Glasfassade, Tageslicht, helle
+   Buerodecke. 15 % haetten die Schrift auf unter 3:1 gedrueckt.
+
+   DIE WERTE SIND GERECHNET, NICHT GESCHAETZT. Der Kopflos-Browser
+   dekodiert beim Springen im Video kein neues Bild — alle Aufnahmen zeigten
+   dasselbe Standbild. Statt dessen sind 19 echte Einzelbilder aus
+   kar-hero.mp4 (alle 0,5 s ueber die volle Schleife) mit demselben
+   Beschnitt (cover, 50% 62%, 1920 x 816) und diesem Schleier gerechnet und
+   fuer JEDEN Bildpunkt unter jeder Schriftflaeche der Kontrast bestimmt.
+   Der jeweils schlechteste Bildpunkt ueber alle 19 Bilder:
+
+     Vorzeile (Sand, 17 px)          5,08:1
+     H1 (weiss, 72 px)              11,16:1
+     Unterzeile (weiss, 19 px)      10,47:1
+     Kopfleiste, Menuepunkte         7,4 bis 9,2:1
+     Wortmarke „ESTERA"              9,01:1
+     Wortmarke „IMMOBILIEN" (10 px)  4,80:1
+
+   Der Kopfleisten-Verlauf aus base.css (.site-header::before) ist dabei
+   mitgerechnet; er traegt die Werte in der oberen Leiste mit. Wer diesen
+   Schleier zurueckdreht, muss beide Rechnungen neu machen.
+
+   Der Verlauf ist nach unten schwer, weil der Text dort sitzt, und oben
+   nur so kraeftig, wie die Kopfleiste es braucht — dazwischen bleibt das
+   Motiv sichtbar. */
+.stl-hero__schleier {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to bottom,
+      rgba(10, 25, 46, 0.58) 0%,
+      rgba(10, 25, 46, 0.50) 26%,
+      rgba(10, 25, 46, 0.62) 46%,
+      rgba(10, 25, 46, 0.79) 60%,
+      rgba(10, 25, 46, 0.85) 80%,
+      rgba(10, 25, 46, 0.88) 100%),
+    linear-gradient(rgba(10, 25, 46, 0.18), rgba(10, 25, 46, 0.18));
+}
+
+.stl-hero__inner {
+  position: relative;
+  width: min(1036px, 100% - 48px);   /* Textblockbreite der Vorlage */
+  text-align: center;
+  color: #fff;
+}
+
+/* Vorzeile. Vorlage: 18 px / 700, Versalien, keine Sperrung. Hier im
+   Kicker-Schnitt des Projekts — Versalien mit Sperrung, wie ueberall. */
+.stl-hero__vor {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.80rem, 0.94vw, 1.06rem);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--sand);            /* Sand auf dunklem Grund: 7,55:1 */
+  margin: 0;
+}
+
+.stl-hero__h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--stl-t-h1);
+  line-height: 1.14;
+  letter-spacing: -0.006em;
+  color: #fff;
+  margin: 0.55rem 0 0;           /* Vorlage: Vorzeile -> H1 = 35 px */
+  text-wrap: balance;
+}
+
+.stl-hero__unter {
+  font-size: var(--stl-t-text);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 62ch;
+  margin: 1.25rem auto 0;        /* Vorlage: H1 -> Unterzeile = 20 px */
+}
+
+.stl-hero__btn { margin-top: 1.9rem; }   /* Vorlage: Unterzeile -> Knopf = 30 px */
+
+/* ===========================================================================
+   2 — WAS WIR BIETEN
+   Vorlage: zwei Spalten 575/575, Abstand 100 px. Innenabstand 65 oben,
+   100 unten.
+   =========================================================================== */
+.stl-bieten { padding: var(--stl-luft-65) 0 var(--stl-luft-100); }
+
+.stl-zwei { display: grid; }
+.stl-zwei > * { min-width: 0; }
+.stl-zwei--bieten {
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--stl-spalt-100);
+}
+
+/* Trennlinie unter der Ueberschrift. Vorlage: volle Spaltenbreite, 2 px
+   stark, Feld 52 px hoch. Dort fast schwarz auf der Leitfarbe; hier in der
+   Haarlinienfarbe der jeweiligen Flaeche. */
+.stl-trenn {
+  height: 2px;
+  background: var(--stl-linie);
+  margin: 20px 0 30px;
+}
+
+/* Die sechs Punkte. Vorlage: Abstand zwischen den Punkten 40 px,
+   Symbolfeld 40 x 40, Symbol 28 x 28, Abstand Symbol -> Text 12 px,
+   Text 22 px / 600.
+
+   ZWEI ABWEICHUNGEN, KUNDENWUNSCH VOM 29.08.2026:
+   1. Die Punkte stehen MITTIG unter der Ueberschrift, nicht linksbuendig.
+      Zentriert wird das Paar aus Symbol und Text; der Text selbst bleibt
+      linksbuendig, damit umbrechende Punkte nicht ausfransen.
+   2. Aus dem gefuellten Kreis mit Haken wird ein HAUS als reine
+      Strichzeichnung — dieselbe Handschrift wie die uebrigen Symbole des
+      Projekts. Ohne Fuellung, weil auf Weiss eine Sandflaeche nur 1,94:1
+      traegt und der Kreis dort ausfranst; die Strichzeichnung in Gold
+      misst 3,36:1 und ist als Grafik damit ausreichend. */
+.stl-haken { display: grid; gap: 40px; }
+.stl-haken li {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+}
+.stl-haken__zeichen {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: var(--stl-zeichen);
+}
+.stl-haken__zeichen svg { width: 30px; height: 30px; }
+.stl-haken__text {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--stl-t-punkt);
+  line-height: 1.3;
+  color: var(--stl-tx);
+  padding-top: 0.24em;
+}
+
+/* Das leere Bildfenster rechts — Kundenwunsch vom 29.08.2026.
+   Bewusst LEER: kein Bild, kein Symbol, keine Flaeche, kein Verlauf. Nur
+   eine Haarlinie und ein Radius, damit man sieht, dass hier etwas fehlt.
+   Verhaeltnis 4:5 hochkant; es entspricht ungefaehr der Hoehe der linken
+   Spalte, damit die beiden Spalten zusammen stehen. */
+.stl-platz {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  border: 1px solid var(--stl-linie);
+  border-radius: var(--radius-img);
+  background: none;
+}
+
+/* Fliesstextspalte. Steht seit dem 29.08.2026 auf keiner der beiden
+   Stellenseiten mehr im Markup (an ihrer Stelle das leere Bildfenster),
+   bleibt aber stehen: der Text ist im HTML als Kommentar erhalten, und
+   wer ihn zurueckholt, hat die Gestaltung sofort wieder.
+   Vorlage: 16 px / 400 / 24 px. */
+.stl-prosa-w { display: grid; gap: 1.05rem; align-content: start; }
+.stl-prosa-w p {
+  font-size: var(--stl-t-text);
+  line-height: 1.6;
+  color: var(--stl-tx-weich);
+}
+
+/* ===========================================================================
+   3 und 5 — DIE ZWEI LAUFBAENDER
+
+   Gemessene Werte der Vorlage:
+     Band A  Hoehe 355 px, 8 Bilder je Satz, Satzbreite 2486 px,
+             Dauer 41 433,33 ms  ->  60,0 px/s, linear, endlos, nach links
+             Formatfolge H·H·H·H·Q·H·Q·H, Hochformat 2:3, Querformat 3:2
+             keine Kantenmaske, harte Kanten am Fensterrand
+     Band B  Hoehe 277 px, 7 Bilder je Satz, Satzbreite 2741 px,
+             Dauer 45 683,33 ms  ->  60,0 px/s, linear, endlos, nach links
+             Formatfolge Q·6:5·Q·Q·Q·Q·6:5
+             Kantenmaske linear-gradient(90deg, transparent, #000 20%,
+             #000 80%, transparent)
+
+   Beide behalten diese Werte auf JEDER Fensterbreite — bei 390 px ist das
+   Band ebenso 355 bzw. 277 px hoch und zeigt nur einen Ausschnitt. Das ist
+   in der Vorlage nachgemessen und hier absichtlich uebernommen.
+
+   Abstand zwischen den Bildern: 0 px. Sie stossen ohne Fuge aneinander.
+   Kein Radius, kein Rahmen, kein Schatten.
+
+   Reines CSS — laeuft also auch ohne Javascript, genau wie in der Vorlage.
+   =========================================================================== */
+.stl-band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;               /* sonst setzt der Zeilenkasten eine Fuge */
+}
+.stl-band--a { --stl-band-h: 355px; --stl-band-dauer: 41.4333s; background: var(--stl-weiss); }
+.stl-band--b { --stl-band-h: 277px; --stl-band-dauer: 45.6833s; background: var(--stl-navy); }
+
+/* Kantenmaske nur bei B. Die Vorlage setzt dort
+   mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%,
+   transparent) — die aeusseren 20 % links und rechts blenden ins Blau aus.
+
+   HIER ALS AUFLIEGENDER VERLAUF STATT ALS MASKE, und das aus zwei Gruenden.
+   Erstens duerfte die Maske nicht auf .stl-band__spur liegen: die ist drei
+   Satzbreiten breit (ueber 8000 px) und wird verschoben, der Verlauf zoege
+   also mit dem Bild mit statt am Fensterrand zu stehen. Zweitens duerfte
+   sie auch nicht auf dem Kasten liegen: der traegt die Navy-Flaeche, und
+   die wuerde an den Kanten mit weggemaskt — dort schiene dann das weisse
+   Papier durch. Ein Verlauf von Navy nach durchsichtig ueber demselben
+   Navy-Grund sieht Bildpunkt fuer Bildpunkt genauso aus und hat keines
+   der beiden Probleme. */
+.stl-band--b::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    var(--stl-navy) 0%,
+    rgba(16, 41, 73, 0) 20%,
+    rgba(16, 41, 73, 0) 80%,
+    var(--stl-navy) 100%);
+}
+
+/* Drei Saetze liegen im Markup; die Spur ist damit genau drei Satzbreiten
+   breit. Ein Umlauf um -33,3333 % ist folglich exakt EINE Satzbreite —
+   der Sprung am Ende ist unsichtbar. */
+.stl-band__spur {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: stl-lauf var(--stl-band-dauer) linear infinite;
+}
+.stl-band__satz { display: flex; flex: none; }
+
+@keyframes stl-lauf {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-33.33333%, 0, 0); }
+}
+
+.stl-band__bild {
+  display: block;
+  height: var(--stl-band-h);
+  flex: none;
+  object-fit: cover;
+  border-radius: 0;
+}
+/* Bildbreiten aus Hoehe und Verhaeltnis, wie in der Vorlage:
+     A hoch 2:3   -> 355 * 2/3 = 236,67 px   (Vorlage: 237)
+     A quer 3:2   -> 355 * 3/2 = 532,50 px   (Vorlage: 533)
+     B quer 3:2   -> 277 * 3/2 = 415,50 px   (Vorlage: 416)
+     B 6:5        -> 277 * 6/5 = 332,40 px   (Vorlage: 331) */
+.stl-band__bild--hoch       { width: calc(var(--stl-band-h) * 2 / 3); }
+.stl-band__bild--quer       { width: calc(var(--stl-band-h) * 3 / 2); }
+.stl-band__bild--sechsfuenf { width: calc(var(--stl-band-h) * 6 / 5); }
+
+/* ===========================================================================
+   4 — DAS MACHT DICH AUS
+   Vorlage: zwei Abschnitte. Der erste traegt nur die Ueberschrift (48 px,
+   zentriert, 70 px Luft darueber, 0 darunter), der zweite das Raster
+   (3 Spalten a 395 px, Abstand 32 px, 100 px Luft darunter).
+   Hier zu einem Abschnitt zusammengefasst, Masse unveraendert.
+   =========================================================================== */
+.stl-macht { padding: var(--stl-luft-70) 0 var(--stl-luft-100); }
+
+.stl-macht__lead {
+  text-align: center;
+  font-size: var(--stl-t-gross2);
+  line-height: 1.5;
+  color: var(--stl-tx-weich);
+  margin: 0.9rem auto 0;
+  max-width: 60ch;
+}
+
+/* Raster. Vorlage: 3 x 2, Symbol 39 x 39, Kachelueberschrift 20 px / 600
+   zentriert, darunter Kacheltext 14 px. Der Wording-Master gibt zu diesen
+   sechs Punkten keinen erlaeuternden Satz her — die Kacheln bleiben
+   deshalb ohne Fliesstext. Kuerzer gebaut, nicht gefuellt. */
+.stl-raster {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--stl-spalt-32);
+  row-gap: var(--stl-spalt-32);
+  align-items: stretch;
+  margin-top: clamp(40px, 3.65vw, 70px);
+}
+/* Die sechs Merkmale stehen seit dem 29.08.2026 je in einer eigenen Karte
+   (Kundenwunsch). Handschrift wie die Rezensionskarten der Startseite,
+   assets/css/referenzen.css: 1 px Haarlinie, 12 px Radius, KEIN Schatten,
+   Innenrand clamp(20px, 1.8vw, 30px). Dort steht die Linie in Gold, hier
+   auf Wunsch in Navy mit niedriger Deckkraft. */
+.stl-kachel {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(20px, 1.8vw, 30px);
+  border: 1px solid var(--stl-linie);
+  border-radius: 12px;
+  background: none;
+  box-shadow: none;
+}
+.stl-kachel__zeichen {
+  display: inline-grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  color: var(--stl-zeichen);
+  margin-bottom: 1.1rem;
+}
+.stl-kachel__zeichen svg { width: 39px; height: 39px; }
+.stl-kachel__titel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--stl-t-titel);
+  line-height: 1.28;
+  color: var(--stl-tx);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ===========================================================================
+   6 — DAS ERWARTET DICH
+   Vorlage: weisse Flaeche, zwei Spalten 597/597, Abstand 56 px. Links
+   Ueberschrift linksbuendig, darunter eine Liste mit Symbol 39 x 39,
+   Punktueberschrift 20 px / 600 und Punkttext 16 px, zwischen den Punkten
+   duenne Trennlinien. Rechts zwei Bilder 597 x 355, direkt uebereinander
+   OHNE Abstand.
+   Vorlage: Abschnitt 8 (79 px leer) + Abschnitt 9 (30 oben) = 109 oben,
+   80 unten.
+   =========================================================================== */
+.stl-erwartet { padding: var(--stl-luft-109) 0 var(--stl-luft-80); }
+.stl-zwei--erwartet {
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--stl-spalt-56);
+  align-items: start;
+}
+
+.stl-liste { margin-top: clamp(24px, 1.8vw, 34px); }
+.stl-punkt {
+  display: grid;
+  grid-template-columns: 39px 1fr;
+  column-gap: 31px;             /* Vorlage: Symbol x 335, Text x 405 */
+  align-items: start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.stl-punkt:first-child { padding-top: 0; }
+.stl-punkt__zeichen {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  color: var(--navy-800);       /* Vorlage: Symbole in der Leitfarbe */
+}
+.stl-punkt__zeichen svg { width: 39px; height: 39px; }
+.stl-punkt__titel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--stl-t-titel);
+  line-height: 1.25;
+  color: var(--navy-800);
+  margin: 0 0 0.25rem;
+}
+.stl-punkt__text p {
+  font-size: var(--stl-t-text);
+  line-height: 1.6;
+  color: var(--ink-soft);       /* 6,54:1 auf Weiss */
+}
+
+.stl-erwartet__schluss {
+  margin-top: clamp(20px, 1.6vw, 30px);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--stl-t-gross2);
+  line-height: 1.4;
+  color: var(--navy-800);
+}
+
+/* Die Vorlage stapelt hier zwei Bilder ohne Fuge (masonry-horizontal
+   --zero-vertical, je 597 x 355). Seit dem 29.08.2026 steht auf
+   Kundenwunsch nur EINES da, an der Stelle des oberen, und fuellt die
+   Hoehe beider zusammen: 597 x 710. Das Raster bleibt, damit ein zweites
+   Bild ohne Umbau wieder daruntergesetzt werden koennte. */
+.stl-bilder { display: grid; gap: 0; line-height: 0; }
+/* height: auto ist Pflicht, nicht Kosmetik. Die Bilder tragen width- und
+   height-Attribute (gegen Layoutsprünge beim Nachladen). Diese Attribute
+   sind Darstellungshinweise und setzen eine echte CSS-Hoehe — solange die
+   steht, bleibt aspect-ratio wirkungslos. Erst height: auto gibt das
+   Verhaeltnis frei. */
+.stl-bilder img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 597 / 710;
+  object-fit: cover;
+  border-radius: 0;             /* Vorlage: 4 px Grundwert, praktisch keine
+                                   Rundung. Hier bewusst hart, damit die
+                                   beiden Bilder als ein Block stehen. */
+}
+
+/* ===========================================================================
+   7 — ABSCHLUSS
+   Lage und Masse des Vorlagenabschnitts 10: Navy, zwei Spalten 597/597,
+   Innenabstand 80 oben / 70 unten. Links Ueberschrift, Fliesstext
+   20 px / 30 px, Knopf. Rechts ein Medienfeld 597 x 299 (Verhaeltnis 2:1),
+   Radius 4 px.
+   =========================================================================== */
+.stl-schluss { padding: var(--stl-luft-80) 0 var(--stl-luft-70); }
+.stl-zwei--schluss {
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--stl-spalt-56);
+  align-items: start;
+}
+
+.stl-schluss__text {
+  margin-top: 1.2rem;
+  font-size: var(--stl-t-gross2);
+  line-height: 1.5;
+  color: var(--stl-tx-weich);
+  max-width: 46ch;
+}
+
+.stl-schluss__aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.4rem 1.8rem;
+  margin-top: 1.9rem;
+}
+
+/* Rueckweg zur Uebersicht. In der Vorlage gibt es ihn nicht — dort ist die
+   Stellenseite die einzige Seite. Hier haengt sie unter karriere.html und
+   braucht den Weg zurueck. */
+.stl-zurueck {
+  font-size: var(--stl-t-text);
+  color: var(--stl-tx);
+  border-bottom: 1px solid var(--stl-zeichen);
+  padding-bottom: 0.15em;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.stl-zurueck:hover { border-bottom-color: currentColor; }
+
+.stl-schluss__hinweis {
+  margin-top: 1.6rem;
+  font-size: var(--stl-t-klein);
+  line-height: 1.55;
+  color: var(--stl-tx-leise);
+  max-width: 56ch;
+}
+
+/* Das Medienfeld. IN DER VORLAGE SITZT HIER EIN VIDEO (Mitarbeiter-
+   Interview, Klick zum Abspielen, 597 x 299, Radius 4 px, Flaeche
+   rgba(255,255,255,.1), Innenabstand 40 px, runder Abspielknopf 72 px).
+   Solche Videos gibt es bei Estera nicht und werden nicht erfunden — an
+   der Stelle steht ein Standbild in derselben Lage und demselben
+   Verhaeltnis. Kommt spaeter ein echtes Video, gehoert es genau hierhin. */
+.stl-schluss__medium {
+  margin: 0;
+  border-radius: var(--radius-img);
+  overflow: hidden;
+  line-height: 0;
+}
+.stl-schluss__medium img {
+  width: 100%;
+  height: auto;                 /* siehe .stl-bilder img */
+  aspect-ratio: 597 / 299;
+  object-fit: cover;
+}
+
+/* ===========================================================================
+   BREITEN
+   Die Containerstufen sind die der Vorlage, gemessen. Der Umbruch der
+   zweispaltigen Abschnitte liegt bei 992 px — dort springt in der Vorlage
+   auch die Schriftleiter.
+   =========================================================================== */
+@media (max-width: 1399px) { .stl-inner { width: min(1150px, 100% - 48px); } }
+@media (max-width: 1199px) { .stl-inner { width: min(970px,  100% - 48px); } }
+
+@media (max-width: 991px) {
+  .stl-inner { width: min(750px, 100% - 48px); }
+
+  .stl-zwei--bieten,
+  .stl-zwei--erwartet,
+  .stl-zwei--schluss {
+    grid-template-columns: 1fr;
+    row-gap: clamp(36px, 6vw, 56px);
+  }
+  .stl-raster { grid-template-columns: repeat(2, 1fr); }
+
+  /* Das Bild rechts steht unter dem Text und wird flacher, damit es
+     einspaltig nicht den halben Bildschirm fuellt. Dasselbe gilt fuer das
+     leere Bildfenster im Abschnitt „Was wir bieten". */
+  .stl-bilder img { aspect-ratio: 16 / 9; }
+  .stl-platz      { aspect-ratio: 3 / 2; }
+}
+
+@media (max-width: 620px) {
+  .stl-inner       { width: min(100% - 40px, 640px); }
+  .stl-hero__inner { width: min(100% - 40px, 640px); }
+  .stl-raster      { grid-template-columns: 1fr; row-gap: 34px; }
+  .stl-haken       { gap: 28px; }
+  .stl-haken li    { grid-template-columns: 34px 1fr; }
+  .stl-haken__kreis { width: 34px; height: 34px; }
+  .stl-haken__kreis svg { width: 22px; height: 22px; }
+  .stl-punkt       { grid-template-columns: 32px 1fr; column-gap: 18px; }
+  .stl-punkt__zeichen, .stl-punkt__zeichen svg { width: 32px; height: 32px; }
+  .stl-schluss__aktionen { gap: 1.1rem; }
+  .stl-schluss__aktionen .btn { width: 100%; justify-content: center; }
+}
+
+/* ===========================================================================
+   RUHIGE DARSTELLUNG (prefers-reduced-motion: reduce)
+   Die Baender stehen still und zeigen den ersten Satz. Das Kopfvideo wird
+   ausgeblendet, darunter steht das Standbild — ohne Javascript ist das
+   bereits der vollstaendige Weg; stelle.js haelt es zusaetzlich an.
+   =========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .stl-band__spur {
+    animation: none;
+    transform: none;
+  }
+  .stl-hero__video { display: none; }
+  .stl-zurueck, .stl-hero__btn { transition: none; }
+}

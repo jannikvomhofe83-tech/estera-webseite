@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Karriere bei Estera — Immobilienberater im Vertrieb Kapitalanlagen</title>
-<meta name="description" content="Estera sucht Immobilienberater für den Vertrieb von Kapitalanlagen. Ausgewählte Objekte, koordinierte Finanzierung, ein klarer Prozess und ein Ansprechpartner, der dich begleitet.">
+<title>Karriere bei Estera — offene Stellen</title>
+<meta name="description" content="Estera sucht Verstärkung: Immobilienberater für den Vertrieb von Kapitalanlagen und einen Back-Office-Manager für Immobilienabwicklung und After Sales.">
 <!-- Wie die Startseite: die Seite ist in Abstimmung und gehoert nicht in
      eine Suchmaschine. Vor dem Livegang zu entfernen. -->
 <meta name="robots" content="noindex, nofollow">
@@ -22,34 +22,35 @@
 <link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-<!-- Der Kopfbereich traegt den ersten Bildschirm und wird deshalb vorgeladen:
-     der Hintergrund und beide freigestellten Geschaeftsfuehrer. `type`
-     sorgt dafuer, dass nur die WebP-Fassung geholt wird — sonst laedt der
-     Browser zusaetzlich das PNG. -->
-<link rel="preload" as="image" href="assets/img/karriere/kar-bg-2.webp?v=b24a" type="image/webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/img/karriere/gf-1-frei.webp?v=b24a" type="image/webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/img/karriere/gf-2-frei.webp?v=b24a" type="image/webp" fetchpriority="high">
+<!-- NEUBAU 29.08.2026 — die Vorladungen sind ausgetauscht.
+     Bis heute standen hier kar-bg-2, gf-1-frei und gf-2-frei. Keines
+     dieser Bilder kommt auf der neu gebauten Seite noch vor; eine
+     Vorladung auf eine ungenutzte Datei kostet Bandbreite und meldet sich
+     in der Konsole als Warnung. An ihre Stelle tritt das Standbild des
+     Kopfvideos: es ist das erste, was der Besucher sieht, und es traegt
+     den Kopfbereich, solange die Videospur noch laedt.
+     Die beiden Stellenbilder werden bewusst NICHT vorgeladen — sie stehen
+     weit unterhalb des ersten Bildschirms. -->
+<link rel="preload" as="image" href="assets/video/kar-hero-poster.jpg?v=b24a" type="image/jpeg" fetchpriority="high">
 
 <!-- REIHENFOLGE IST ABSICHT
      fonts.css und base.css tragen Token, Kopfleiste, Wortmarke, Menue und
      Schaltflaechen — unveraendert von der Startseite uebernommen.
      schluss.css steht hier ausschliesslich wegen der Fusszeile (.fuss__*).
      Ihre uebrigen Regeln greifen auf dieser Seite ins Leere.
-     seiten.css traegt den gemeinsamen Bestand der Unterseiten (Seitenkopf,
-     Abschnittsrhythmus, Wertekarten, Schrittfolge, sichtbare Luecken).
-     faq.css traegt den Aufklapper. Er ist im Projekt bereits gebaut und
-     wird hier NICHT nachgebaut, sondern benutzt; die Farbgebung des
-     Kastens wird in karriere.css ueber die vorgesehenen Variablen auf
-     Navy gestellt, ohne faq.css anzufassen.
-     karriere.css kommt ZULETZT und gehoert allein dieser Seite. Wo sie
-     sich mit seiten.css ueberschneidet, gewinnt bewusst die spaetere
-     Datei — Begruendung steht jeweils dort.
-     Keine bestehende CSS-Datei wurde fuer diese Seite veraendert. -->
+     karriere.css kommt ZULETZT und gehoert allein dieser Seite.
+     Keine bestehende CSS-Datei wurde fuer diese Seite veraendert.
+
+     SEITEN.CSS UND FAQ.CSS SIND SEIT DEM NEUBAU NICHT MEHR EINGEBUNDEN.
+     Die neu gebaute Seite besteht aus genau drei Abschnitten und benutzt
+     weder den gemeinsamen Unterseitenrhythmus (.sp-*) noch einen
+     Aufklapper. Die beiden Dateien wiegen zusammen rund 47 kB und haetten
+     auf dieser Seite keine einzige wirksame Regel mehr. Sie bleiben
+     unveraendert im Projekt und werden von den anderen Seiten weiter
+     benutzt — hier sind nur die zwei <link> entfallen. -->
 <link rel="stylesheet" href="assets/css/fonts.css?v=b24a">
 <link rel="stylesheet" href="assets/css/base.css?v=b24a">
 <link rel="stylesheet" href="assets/css/schluss.css?v=b24a">
-<link rel="stylesheet" href="assets/css/seiten.css?v=b24a">
-<link rel="stylesheet" href="assets/css/faq.css?v=b24a">
 <link rel="stylesheet" href="assets/css/karriere.css?v=b24a">
 </head>
 <body>
@@ -66,11 +67,14 @@
      Seit dem 26.08.2026 traegt der Seitenkopf hier ein DUNKLES Bild mit
      Navy-Schleier — die Vorlage macht es genauso. Damit ist die Lage
      umgekehrt: navyblaue Kopfschrift auf dunklem Grund waere unlesbar,
-     helle ist es nicht. Gemessen am Bildpunkt gegen den HELLSTEN Punkt im
-     Kopfbereich (das Fenster links im Bild) stehen die Menuepunkte bei
-     ueber 7:1.
+     helle ist es nicht. Seit dem Neubau vom 29.08.2026 liegt darunter ein
+     Video; der Schleier ist derselbe geblieben und die Videospur ist auf
+     brightness(0.6) gedaempft, damit die Kopfschrift ueber JEDEM Bild der
+     Schleife traegt — schlechtester gemessener Wert 4,96:1 (Zusatz
+     „IMMOBILIEN"), alle uebrigen Punkte darueber. Die Rechnung steht in
+     karriere.css beim Schleier.
 
-     Wer den Schleier zurueckdreht oder das Bild austauscht, muss diese
+     Wer den Schleier zurueckdreht oder das Video austauscht, muss diese
      Klasse mitpruefen. Sie wirkt ausschliesslich am Seitenanfang: jede
      Invertierungsregel in base.css ist :not(.site-header--sticky)
      qualifiziert, und site.js setzt --sticky ab 24 px Scroll. Ohne
@@ -118,789 +122,392 @@
   </button>
 </header>
 
-<main class="sp kar">
+<main class="kar">
 
 <!-- =====================================================================
-     KARRIERE — vollstaendiger Neubau vom 26.08.2026
+     KOPFBEREICH — Abschnitt 1
 
-     WARUM NEU
-     Der erste Entwurf ist vom Kunden verworfen worden: „zu KI-lastig,
-     null in dem Stil, wie wir es sonst gebaut haben." Diagnose: zu viele
-     gleichfoermige Karten mit Symbolen, zu wenig echtes Bildmaterial, zu
-     brave Abstaende, kein Rhythmus. Der Neubau folgt deshalb Abschnitt
-     fuer Abschnitt drei vermessenen Vorlagen und uebernimmt von ihnen
-     genau das, was diesen Fehler behebt: grosse Fotos, kraeftige
-     Flaechen, grosse Typografie, Wechsel zwischen hell und dunkel,
-     Abschnitte die sich in Hoehe und Aufbau unterscheiden.
+     Nachbau von wiesedental.de/karriereseite, Abschnitt 1. Die Bauaufnahme
+     liegt im Kladdeordner (wiese/bericht.md, Abschnitt 2); jede Zahl
+     unten ist von dort und dort gemessen, nicht geschaetzt.
 
-     WAS „1:1" HIER HEISST
-     Aufbau, Anordnung, Groessenverhaeltnisse, Rhythmus. NICHT die Farben,
-     NICHT die Schrift, und kein einziger Satz im Wortlaut. Die
-     Firmennamen der Vorlagen und deren Personennamen kommen auf dieser
-     Seite nicht vor.
+     Reihenfolge der Vorlage von oben nach unten:
+       Bildmarke · fuenf Sterne · Kennzeile auf einem Balken · Ueberschrift
+       · Logoreihe
+     Die LOGOREIHE ENTFAELLT auf ausdrueckliche Anweisung („entfaellt —
+     ausdruecklich, vorerst"). Ihre 94 px Hoehe und die 300 px Luft
+     darunter bleiben trotzdem stehen: der Abschnitt behaelt seine
+     gemessene Hoehe von 1013,7 px, und damit stehen Bildmarke, Sterne,
+     Kennzeile und Ueberschrift auf exakt denselben y-Werten wie in der
+     Vorlage. Das ist der einzige Weg, die Lage 1:1 zu halten, ohne die
+     Reihe zu erfinden. Kommt sie spaeter dazu, wird sie unter der
+     Ueberschrift eingesetzt und die Hoehe bleibt, wie sie ist.
 
-     WOHER DIE MASSE STAMMEN
-     Nicht abgelesen, sondern mit Playwright und getComputedStyle an den
-     Originalseiten gemessen (Fensterbreiten 1920, 1440, 1024). Die
-     Einzelwerte stehen als Kommentar an der jeweiligen Stelle in
-     assets/css/karriere.css.
-
-     WAS ES BEI ESTERA NICHT GIBT, KOMMT NICHT AUF DIE SEITE
-     Die Vorlagen tragen mehrere Abschnitte, fuer die hier keine
-     Grundlage besteht. Sie entfallen ersatzlos, nichts davon ist
-     erfunden. An der jeweils passenden Stelle steht ein Vermerk, falls
-     spaeter doch Material kommt:
-       - Teamevents (Sportwagen, Hubschrauber, Monaco, Dubai)
-       - Erfolgsgeschichte eines Mitarbeiters mit Einkommensangabe
-       - Auszeichnung / Arbeitgebersiegel
-       - Mitarbeitervideos und Mitarbeiterzitate
-       - Kundenlogos als Vertrauensbeweis
-       - Alltags-Film („Day in the life")
-
-     AUSGESCHRIEBEN IST GENAU EINE STELLE: Immobilienberater (m/w/d),
-     Vertrieb Kapitalanlagen. Keine weitere erfinden.
-
-     KEINE ZAHL AUF DIESER SEITE. Kein Gehalt, keine Provision, keine
-     Quote, keine Mitarbeiterzahl. Der Wording-Master haelt dazu fest:
-     konkrete Provisionen und Einkommensbeispiele nur, wenn sie
-     vollstaendig belegbar und mit den vertraglichen Regelungen identisch
-     sind. Es gibt derzeit keine.
+     KNOEPFE STEHEN HIER KEINE. Die Vorlage hat im Kopfbereich keine, und
+     was dort nach einem Knopf aussieht, ist die Kennzeile auf ihrem
+     Balken (bericht.md, Abschnitt 9).
      ===================================================================== -->
+<section class="kar-kopf" aria-labelledby="kar-kopf-titel">
 
-
-<!-- ---------------------------------------------------------------------
-     01 · KOPFBEREICH        Vorlage: estateanfrage-karriere.de, Hero
-     ---------------------------------------------------------------------
-     GEMESSENER AUFBAU DER VORLAGE (Fensterbreite 1920):
-
-       Bildstreifen   0 … 613 px, volle Fensterbreite, IMMER 613 px hoch,
-                      unabhaengig von der Fensterbreite. Das Bild ist im
-                      Original 5:3 angelegt und wird senkrecht mittig
-                      beschnitten (object-fit: cover).
-       Personen       sieben Figuren, Gesichtsmitten alle 265 px
-                      (13,8 % der Fensterbreite), Kopfoberkante der
-                      mittleren, groessten Figur bei 21 % der
-                      Streifenhoehe, Kopfhoehe rund 25 %. KEIN harter
-                      Schnitt unten: die Koerper loesen sich ab
-                      Brusthoehe in Schwarz auf.
-       Text           steht NICHT im Bild, sondern direkt DARUNTER auf
-                      schwarzem Grund:
-                        H1        y 612, 64 px, Zeilenhoehe 80,5 px,
-                                  Spalte 1250 px, zentriert
-                        Unterzeile y 713 (20 px darunter), Spalte 1070 px
-                        Knopf      y 819 (34 px darunter), 267 x 72 px
-                        Textflaeche endet bei 1075
-
-     WAS HIER ANDERS IST — und warum
-
-     Der Hintergrund ist ein eigenes Bild: ein Muenchner Altbau zur
-     blauen Stunde statt des Glasturms der Vorlage. Angelegt wie dort
-     (Motiv mittig, Himmelverlauf, unten in Schwarz auslaufend), aber
-     sichtbar anderes Motiv, andere Tageszeit, andere Farbwelt — Navy,
-     Creme, Sand statt Cyan auf Blau.
-
-     Davor stehen ZWEI Figuren statt sieben: die beiden
-     Geschaeftsfuehrer, freigestellt. Ihre Anordnung ist aus der Vorlage
-     gerechnet — Gesichtsmitten bei 41 % und 59 % der Fensterbreite,
-     Kopfoberkante bei rund 18 % der Streifenhoehe.
-
-     DER SCHWARZE AUSLAUF liegt im CSS, nicht im Bild. Zwei Gruende:
-     er trifft die Kante zur Textflaeche darunter auf den Bildpunkt
-     genau, und er bleibt beim Bildwechsel erhalten.
-
-     Das Bild traegt keine Aussage, es traegt Stimmung — deshalb alt=""
-     und der Traeger aria-hidden. Die beiden Portraets tragen sehr wohl
-     eine Aussage und bekommen deshalb einen echten Alternativtext.
-     --------------------------------------------------------------------- -->
-<section class="kar-kopf" aria-labelledby="kar-h1">
-
-  <div class="kar-kopf__buehne">
-
-    <div class="kar-kopf__grund" aria-hidden="true">
-      <picture>
-        <source srcset="assets/img/karriere/kar-bg-2.webp?v=b24a" type="image/webp">
-        <img src="assets/img/karriere/kar-bg-2.png?v=b24a" alt=""
-             width="1402" height="1122" fetchpriority="high" decoding="async">
-      </picture>
-    </div>
-
-    <!-- Der Auslauf nach unten. Liegt ueber dem Bild und unter den
-         Figuren, damit die Figuren selbst ihre eigene Maske behalten. -->
-    <div class="kar-kopf__auslauf" aria-hidden="true"></div>
-
-    <!-- DIE BEIDEN GESCHAEFTSFUEHRER, freigestellt.
-
-         Kundenwunsch vom 26.08.2026, woertlich und scheinbar
-         widerspruechlich: „Du musst die zwei Geschaeftsfuehrer
-         durchsichtig machen. Die muessen durchsichtig sein, also nicht
-         transparent." Gemeint ist: sauber freigestellt, sodass der
-         Hintergrund um sie herum durchscheint — aber nicht
-         halbdurchsichtig. Durch die Personen selbst sieht man nichts
-         hindurch. Es liegt deshalb KEIN `opacity` auf ihnen, und der
-         Auslauf ihrer Maske beginnt erst unterhalb der Schultern; die
-         gemessenen Werte stehen in assets/css/karriere.css bei
-         .kar-kopf__figur--a / --b.
-
-         `data-anim` staffelt ihren Einlauf VOR der Ueberschrift — die
-         Figuren stehen zuerst, dann kommt der Text dazu. Ohne
-         Javascript stehen sie sofort da. Die Verschiebung laeuft bei
-         ihnen ueber `translate` statt ueber `transform`, weil
-         `transform` ihre Mittigkeit traegt; Begruendung ebenfalls im
-         Stylesheet. -->
-    <div class="kar-kopf__leute">
-      <figure class="kar-kopf__figur kar-kopf__figur--a" data-anim style="--d:60">
-        <picture>
-          <source srcset="assets/img/karriere/gf-1-frei.webp?v=b24a" type="image/webp">
-          <img src="assets/img/karriere/gf-1-frei.png?v=b24a"
-               alt="Einer der beiden Geschäftsführer von Estera"
-               width="836" height="920" fetchpriority="high" decoding="async">
-        </picture>
-      </figure>
-      <figure class="kar-kopf__figur kar-kopf__figur--b" data-anim style="--d:170">
-        <picture>
-          <source srcset="assets/img/karriere/gf-2-frei.webp?v=b24a" type="image/webp">
-          <img src="assets/img/karriere/gf-2-frei.png?v=b24a"
-               alt="Der zweite Geschäftsführer von Estera"
-               width="886" height="991" fetchpriority="high" decoding="async">
-        </picture>
-      </figure>
-    </div>
+  <!-- Das Video liegt unter dem Schleier und ist reine Ausstattung: kein
+       Bedienfeld, kein Klick, kein Ton, Endlosschleife — genau wie die
+       Vorlage. `aria-hidden` und `tabindex=-1`, damit es weder im
+       Vorlesegeraet noch in der Tabfolge auftaucht.
+       Der Schnitt ist als nahtlose Schleife gebaut (die letzten 0,8 s
+       blenden in die ersten 0,8 s), deshalb 9,25 s statt 10 s.
+       WebM zuerst, MP4 als Rueckfall — Safari nimmt das MP4.
+       Bei prefers-reduced-motion: reduce wird das Element in karriere.css
+       ausgeblendet und das Standbild uebernimmt; karriere.js haelt es
+       zusaetzlich an, damit es nicht unsichtbar weiterlaeuft. -->
+  <div class="kar-kopf__grund" aria-hidden="true">
+    <video class="kar-kopf__video"
+           autoplay muted loop playsinline preload="auto"
+           poster="assets/video/kar-hero-poster.jpg?v=b24a"
+           width="1920" height="1080"
+           tabindex="-1" data-hero-video>
+      <source src="assets/video/kar-hero.webm?v=b24a" type="video/webm">
+      <source src="assets/video/kar-hero.mp4?v=b24a" type="video/mp4">
+    </video>
   </div>
 
-  <!-- Die Textflaeche. Schliesst ohne sichtbare Kante an den Streifen an,
-       weil beide auf demselben Schwarz sitzen — genau wie in der Vorlage. -->
-  <div class="kar-kopf__text">
-    <!-- KEIN Kicker ueber der H1, obwohl das sonst die Handschrift des
-         Projekts ist: der Kunde hat den Kopfbereich ausdruecklich „1:1"
-         verlangt, und die Vorlage traegt dort keinen. Eine Zeile mehr
-         haette H1, Unterzeile und Knopf um rund 35 px nach unten
-         geschoben und damit genau die Groessenverhaeltnisse verschoben,
-         auf die es hier ankommt. -->
-    <!-- DIE RUHIGE STAFFELUNG IM KOPFBEREICH. Die Zahl in `--d` sind
-         Millisekunden Verzoegerung; die Ueberblendung selbst dauert
-         1,15 s (base.css). Reihenfolge: erst die beiden Figuren
-         (60 / 170), dann Ueberschrift, Unterzeile, Knopf, Verweis. Der
-         Abstand von rund 130 ms je Zeile ist derselbe, den die
-         Startseite benutzt — schneller wirkt es hektisch, langsamer
-         wartet man darauf. -->
-    <h1 class="kar-kopf__h1" id="kar-h1" data-anim style="--d:300">
-      Werde Teil des Teams bei Estera
-    </h1>
+  <div class="kar-mitte">
+    <div class="kar-kopf__stapel">
 
-    <p class="kar-kopf__lead" data-anim style="--d:430">
-      Du willst Menschen beim Aufbau von Eigentum begleiten und gleichzeitig eine
-      langfristige Vertriebsperspektive entwickeln? Bei Estera erhältst du klare
-      Prozesse, ausgewählte Immobilien und persönliche Unterstützung.
-    </p>
+      <!-- 1 — Bildmarke. Die Vorlage setzt hier ein 105 x 105 grosses
+           Logobild. Estera hat keine Bildmarke, sondern eine Wortmarke;
+           sie steht deshalb im Schnitt der Website in einem Feld von
+           exakt 105 px Hoehe, mittig darin. Dadurch bleibt der Beginn
+           der Sternreihe bei y = 422 wie gemessen.
 
-    <!-- Die Vorlage traegt hier GENAU EINEN Knopf. Uebernommen. Der
-         zweite Weg aus dem Wording-Master („Das Partnermodell
-         kennenlernen") steht deshalb als ruhiger Verweis darunter und
-         nicht als zweiter Knopf — sonst kippt der Rhythmus. -->
-    <p class="kar-kopf__knopf" data-anim style="--d:560">
-      <a class="kar-btn kar-btn--sand" href="kontakt.html">Als Vertriebspartner bewerben</a>
-    </p>
-    <p class="kar-kopf__weiter" data-anim style="--d:660">
-      <a href="#stellen">Die offene Stelle ansehen</a>
-    </p>
-  </div>
-
-  <!-- VERMERK: Hier fuehrt die Vorlage ein Laufband mit Kundenlogos als
-       Vertrauensbeweis. Estera hat dafuer keine Freigaben — der
-       Abschnitt entfaellt ersatzlos. Kommen Logos, gehoeren sie an
-       diese Stelle. -->
-</section>
-
-
-<!-- ---------------------------------------------------------------------
-     02 · FUER WEN ESTERA PASST
-     Vorlage: estateanfrage-karriere.de, „Mehr als nur ein Arbeitsplatz"
-     ---------------------------------------------------------------------
-     GEMESSENER AUFBAU (Fensterbreite 1600, Spalte 1250 px):
-
-       Abschnitt      612 px hoch, weiss
-       links          Spalte 444 px (35,5 %): Ueberschrift 48 px,
-                      darunter Fliesstext 18/27, darunter ein Knopf
-                      345 x 56 px
-       Luecke         119 px (9,5 %)
-       rechts         Bild 688 x 385 px (55 %), Eckenradius, oben
-                      buendig mit der Ueberschrift
-
-     WAS HIER ANDERS IST
-     Die Vorlage legt auf das Bild einen Abspielknopf — dort steckt ein
-     Mitarbeitervideo dahinter. Estera hat keines, und der Kunde will
-     ausdruecklich keines. Das Bild bleibt deshalb ein Bild.
-
-     VERMERK: Kommt spaeter ein Film, gehoert er genau hierhin.
-     --------------------------------------------------------------------- -->
-<section class="kar-split" id="fuer-wen" aria-labelledby="kar-h-passt">
-  <div class="kar-split__inner">
-
-    <div class="kar-split__text">
-      <p class="kar-kicker" data-reveal>Für wen Estera passt</p>
-      <h2 class="kar-h2" id="kar-h-passt" data-reveal>
-        Für Menschen, die beraten wollen –
-        <span class="kar-akzent">nicht nur verkaufen.</span>
-      </h2>
-      <p class="kar-fliess" data-reveal>
-        Estera sucht Vertriebspartner, die langfristige Kundenbeziehungen aufbauen,
-        verständlich kommunizieren und Verantwortung für eine saubere Begleitung
-        übernehmen.
+           OHNE DEN BEISATZ „IMMOBILIEN" — Kundenwunsch vom 29.08.2026,
+           und NUR hier. In der Kopfleiste und im Fussbereich steht die
+           Wortmarke unveraendert mit Beisatz.
+           Der Beisatz war zugleich der Grund, warum die Marke nicht mittig
+           stand: er traegt in base.css 0,38 em Sperrung mit passendem
+           text-indent, der Name daneben 0,36 em — zwei verschiedene
+           Ausgleichswerte in einem gemeinsamen, zentrierten Kasten. Mit
+           dem Wegfall bleibt genau eine Zeile, und die steht exakt mittig
+           ueber der Sternreihe (nachgemessen, nicht geschaetzt: gleiche
+           x-Mitte bei 1920 / 1440 / 1024 / 390). -->
+      <p class="kar-kopf__marke" data-auf>
+        <span class="wordmark">
+          <span class="wordmark__name">ESTERA</span>
+        </span>
       </p>
-      <p class="kar-split__knopf" data-reveal>
-        <a class="kar-btn kar-btn--navy" href="#stellen">Die offene Stelle ansehen</a>
+
+      <!-- 2 — fuenf Sterne. Vorlage: Kaesten 20 x 20 auf 22er Raster,
+           also 2 px Luft, Gesamtbreite 108. Farbe dort die Leitfarbe;
+           bei uns Sand (Anweisung: „fuenf, in Sand"). Rein schmueckend,
+           deshalb aria-hidden — sie behaupten keine Bewertung. -->
+      <p class="kar-kopf__sterne" aria-hidden="true" data-auf>
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
       </p>
+
+      <!-- 3 — Kennzeile auf dem Balken. Wortlaut vom Auftraggeber
+           festgelegt. Der Balken ist auf dunklem Grund in Sand mit
+           Navy-Schrift (9,08:1); Navy auf Navy waere unsichtbar.
+           Begruendung steht in karriere.css beim Balken. -->
+      <p class="kar-kopf__kennzeile" data-auf>
+        <span class="kar-balken kar-balken--hell">Baue dir etwas Eigenes auf</span>
+      </p>
+
+      <!-- 4 — Ueberschrift. Vorlage: 48 / 56,68 px, eine Zeile, weiss. -->
+      <h1 class="kar-titel kar-kopf__titel" id="kar-kopf-titel" data-auf>Starte deine Karriere bei Estera</h1>
+
+      <!-- HIER STAND IN DER VORLAGE DIE LAUFENDE LOGOREIHE.
+           Sie entfaellt vorerst ausdruecklich. Kommen Partnerlogos dazu,
+           braucht jedes eine schriftliche Freigabe; die Vorlage laesst sie
+           mit 42 px/s nach links laufen, 94 px hoch, ohne Randweichblende
+           (bericht.md, Abschnitt 2). -->
+
     </div>
-
-    <figure class="kar-split__bild" data-reveal>
-      <picture>
-        <source srcset="assets/img/karriere/kar-zusammenarbeit.webp?v=b24a" type="image/webp">
-        <img src="assets/img/karriere/kar-zusammenarbeit.png?v=b24a"
-             alt="Zwei Personen arbeiten an einem Tisch gemeinsam einen Grundriss durch."
-             width="1536" height="1536" loading="lazy" decoding="async">
-      </picture>
-    </figure>
-
   </div>
 </section>
 
 
-<!-- ---------------------------------------------------------------------
-     03 · OFFENE STELLEN
-     Vorlage: imperiaimmobilien.de/karriere, Abschnitt „Offene Stellen"
-     ---------------------------------------------------------------------
-     GEMESSENER AUFBAU (Fensterbreite 1600):
+<!-- =====================================================================
+     WER IST ESTERA — Abschnitt 2
 
-       Ueberschrift   44 px, zentriert
-       Liste          Karten 1100 px breit, mittig, Abstand 14 px
-       Karte          weiss, Eckenradius 12 px, weicher Schlagschatten
-       Kopfzeile      90 px hoch, Innenabstand 16 / 25 px
-                      Titel 20 px halbfett
-                      darunter eine Zeile Eckdaten, 16 px, in der
-                      Akzentfarbe, mit „•" getrennt
-                      rechts ein Winkel, der beim Aufklappen kippt
-       Fach           Innenabstand 0 / 25 / 25 px, Eckdaten mit Symbol,
-                      dann Fliesstext und drei Aufzaehlungen
+     Nachbau von bericht.md, Abschnitt 3. Aufbau der Vorlage:
+       Bogen · Etikett auf Balken · Ueberschrift zweifarbig · zwei
+       mittig gesetzte Absaetze in schmalem Satzspiegel.
 
-     WAS HIER ANDERS IST
-     Die Vorlage fuehrt zwei Stellen, Estera hat genau eine. Der Aufbau
-     bleibt deshalb ein Aufklapper mit einer einzigen Karte — er ist
-     dafuer gebaut und traegt eine zweite Stelle ohne Umbau, sobald es
-     sie gibt.
+     DER BOGEN ENTFAELLT — ausdrueckliche Anweisung. In der Vorlage ist er
+     ohnehin kein CSS, sondern ein Rasterbild (eine helle Kuppel mit dem
+     Firmenzeichen darin, 330,6 x 165,3 dargestellt); er liesse sich also
+     gar nicht ableiten, sondern muesste neu gezeichnet werden.
+     Seine 165,3 px Hoehe und die 8 px darunter fallen mit ihm weg, alles
+     Uebrige behaelt seine gemessenen Abstaende.
 
-     KEINE ZAHL IM FACH. Die Vorlage nennt an dieser Stelle Fixgehalt,
-     Urlaubstage und Fahrtkostenzuschuss. Fuer Estera ist davon nichts
-     belegt, also steht davon nichts hier.
+     DER TEXT IST PLATZHALTER. Er ist nicht erfunden, sondern aus bereits
+     freigegebenen Saetzen der Website zusammengesetzt, damit hier nichts
+     Neues behauptet wird. Der endgueltige Wortlaut kommt von Estera.
+     ===================================================================== -->
+<section class="kar-wer" aria-labelledby="kar-wer-titel">
+  <div class="kar-mitte">
 
-     OHNE JAVASCRIPT steht das Fach OFFEN: aria-expanded="true",
-     data-offen="true". Die Zuklapp-Regeln in karriere.css haengen an
-     .kar-stellen[data-js='an'], und dieses Merkmal setzt erst
-     assets/js/karriere.js. Faellt das Skript aus, ist die Section eine
-     vollstaendig lesbare Stellenanzeige.
-     --------------------------------------------------------------------- -->
-<section class="kar-stellen" id="stellen" data-stellen aria-labelledby="kar-h-stellen">
-  <div class="kar-stellen__inner">
-
-    <h2 class="kar-h2 kar-h2--mitte" id="kar-h-stellen" data-reveal>Offene Stellen</h2>
-
-    <div class="kar-stellen__liste" data-reveal>
-
-      <article class="kar-stelle">
-        <h3 class="kar-stelle__kopf">
-          <button class="kar-stelle__knopf" type="button" id="kar-stelle-k1"
-                  data-stelle-knopf aria-expanded="true" aria-controls="kar-stelle-f1">
-            <span class="kar-stelle__titelblock">
-              <span class="kar-stelle__titel">Immobilienberater (m/w/d) — Vertrieb Kapitalanlagen</span>
-              <span class="kar-stelle__meta">
-                <span>München</span>
-                <span class="kar-stelle__punkt" aria-hidden="true">•</span>
-                <span>Vertrieb Kapitalanlagen</span>
-                <span class="kar-stelle__punkt" aria-hidden="true">•</span>
-                <span>Vor Ort</span>
-              </span>
-            </span>
-            <span class="kar-stelle__winkel" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                   stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-            </span>
-          </button>
-        </h3>
-
-        <div class="kar-stelle__fach" id="kar-stelle-f1" data-offen="true"
-             role="region" aria-labelledby="kar-stelle-k1">
-          <div class="kar-stelle__klappe">
-            <div class="kar-stelle__inhalt">
-
-              <ul class="kar-stelle__daten">
-                <li><span class="kar-stelle__datenwort">Standort</span> Leopoldstraße 156, 80804 München</li>
-                <li><span class="kar-stelle__datenwort">Bereich</span> Vertrieb Kapitalanlagen</li>
-                <li><span class="kar-stelle__datenwort">Rolle</span> Immobilienberater (m/w/d)</li>
-                <li><span class="kar-stelle__datenwort">Start</span> Nach Absprache</li>
-              </ul>
-
-              <p class="kar-stelle__prosa">
-                <strong>Worum es geht.</strong> Du begleitest Menschen beim Aufbau von
-                Eigentum: vom ersten Gespräch über die Einordnung eines Objekts bis zur
-                Abstimmung mit der Finanzierung. Die Immobilien sind vor der
-                Kundenpräsentation strukturiert aufbereitet, für Rückfragen und nächste
-                Schritte hast du feste Ansprechpartner.
-              </p>
-
-              <div class="kar-stelle__spalten">
-
-                <div>
-                  <p class="kar-stelle__zwischen">Passt zu dir, wenn du hierher kommst</p>
-                  <ul class="kar-liste">
-                    <li>Finanzberatung oder Versicherungsmaklerei</li>
-                    <li>Finanzdienstleistung mit bestehendem Kundenstamm</li>
-                    <li>Vertrieb mit hoher Beratungsqualität</li>
-                    <li>Selbstständigkeit oder Unternehmertum mit relevantem Netzwerk</li>
-                    <li>Quereinstieg mit Lernbereitschaft und Disziplin</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <p class="kar-stelle__zwischen">Passt nicht, wenn du das suchst</p>
-                  <ul class="kar-liste kar-liste--gegen">
-                    <li>Kurzfristigen Abschlussdruck</li>
-                    <li>Unrealistische Rendite- oder Steuerversprechen</li>
-                    <li>Unstrukturierte Einzelaktionen</li>
-                    <li>Vertrieb ohne verbindliche Kundenbetreuung</li>
-                  </ul>
-                </div>
-
-              </div>
-
-              <p class="kar-stelle__zwischen">Was Estera erwartet</p>
-              <ul class="kar-liste kar-liste--zwei">
-                <li>Verbindliche und klare Kommunikation</li>
-                <li>Verantwortungsbewusster Umgang mit Kundendaten</li>
-                <li>Keine pauschalen Steuer-, Finanzierungs- oder Renditeversprechen</li>
-                <li>Konsequentes Nachhalten und saubere Dokumentation</li>
-                <li>Bereitschaft, Prozesse und fachliche Grundlagen zu lernen</li>
-                <li>Langfristiges Denken statt kurzfristiger Abschlussorientierung</li>
-              </ul>
-
-              <p class="kar-stelle__abschluss">
-                <a class="kar-btn kar-btn--navy" href="kontakt.html">Auf diese Stelle bewerben</a>
-                <span class="kar-stelle__hinweis">
-                  Keine Einkommensgarantie. Die tatsächliche Entwicklung hängt
-                  insbesondere von Erfahrung, Einsatz, Qualifikation und
-                  Vertriebserfolg ab.
-                </span>
-              </p>
-
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- VERMERK: Eine zweite Karte wird hier eingehaengt, sobald eine
-           zweite Stelle ausgeschrieben ist. Das Skript findet sie von
-           selbst; es braucht nur ein weiteres <article class="kar-stelle">
-           mit eigenen ids. -->
-
-    </div>
-
-    <p class="kar-stellen__fuss" data-reveal>
-      Keine passende Stelle dabei? Schreib uns trotzdem — wir sprechen offen darüber,
-      ob und wann eine Zusammenarbeit Sinn ergibt.
-      <a class="kar-textlink" href="kontakt.html">Kontakt aufnehmen</a>
+    <p class="kar-wer__etikett" data-auf>
+      <span class="kar-balken">Estera in Kürze</span>
     </p>
 
-  </div>
-</section>
+    <!-- Akzentregel der Vorlage, konsequent auf jeder Ueberschrift: die
+         zweite Haelfte steht kursiv UND in der Akzentfarbe — nie nur
+         eins von beidem (bericht.md, Abschnitt 8.3). -->
+    <h2 class="kar-titel" id="kar-wer-titel" data-auf>Wer ist <span class="kar-akzent">Estera</span>?</h2>
 
-
-<!-- ---------------------------------------------------------------------
-     04 · WARUM VERTRIEBSPARTNER MIT ESTERA ARBEITEN
-     Vorlage: wiesedental.de/karriereseite, „Mehr als nur Gehalt"
-     ---------------------------------------------------------------------
-     GEMESSENER AUFBAU (Fensterbreite 1600):
-
-       Abschnitt      961 px hoch
-       Ueberschrift   zweizeilig, 32 px, zentriert, in der Akzentfarbe
-       Liste          EINE Spalte, 869 px breit, mittig — ausdruecklich
-                      keine Karten und keine Symbole
-       Punkt          Titel 18 px halbfett in der Akzentfarbe,
-                      darunter Fliesstext 16/24 ueber die volle
-                      Spaltenbreite
-       Trennung       eine Haarlinie zwischen den Punkten, Abstand
-                      104 px bei zweizeiligem, 130 px bei dreizeiligem
-                      Text
-
-     Genau dieser Aufbau ist das Gegenteil dessen, was am ersten Entwurf
-     bemaengelt wurde. Er kommt ohne Karten und ohne Symbole aus und
-     laesst den Text die Arbeit machen.
-
-     FARBE — Kundenwunsch vom 26.08.2026, woertlich: „Da musst du einen
-     weissen Hintergrund machen auf die Section." Der Abschnitt stand
-     zwischenzeitlich auf Navy und steht jetzt hell — wie in der
-     Vorlage. Die beiden Klassen fuer helle Schrift (--hell) sind
-     deshalb weg; alle Farben sind gegen Weiss neu gemessen. Sand als
-     Schrift kommt auf Weiss nicht in Frage (1,94:1), das
-     hervorgehobene Wort steht in --accent (10,07:1).
-
-     Die Ziffern 01 bis 06 vor den sechs Punkten stehen NICHT im
-     Markup: sie kommen aus einem CSS-Zaehler auf dieser <ol>. Es ist
-     also kein neues Wort und keine erfundene Zahl dazugekommen — nur
-     die laufende Nummer einer Liste, die ohnehin nummeriert ist.
-     --------------------------------------------------------------------- -->
-<section class="kar-gruende" id="partnermodell" aria-labelledby="kar-h-gruende">
-  <div class="kar-gruende__inner">
-
-    <h2 class="kar-h2 kar-h2--gross kar-h2--mitte" id="kar-h-gruende" data-reveal>
-      Warum Vertriebspartner<br>
-      <span class="kar-akzent">mit Estera arbeiten</span>
-    </h2>
-
-    <ol class="kar-gruende__liste" data-reveal>
-      <li class="kar-grund">
-        <h3 class="kar-grund__titel">Ausgewählte Immobilien</h3>
-        <p class="kar-grund__text">
-          Du erhältst Zugang zu Kapitalanlageimmobilien, die vor der
-          Kundenpräsentation strukturiert aufbereitet werden.
-        </p>
-      </li>
-      <li class="kar-grund">
-        <h3 class="kar-grund__titel">Finanzierung als Teil des Prozesses</h3>
-        <p class="kar-grund__text">
-          Finanzierung wird nicht dem Zufall überlassen, sondern mit spezialisierten
-          Ansprechpartnern koordiniert.
-        </p>
-      </li>
-      <li class="kar-grund">
-        <h3 class="kar-grund__titel">Klare Vertriebsunterlagen</h3>
-        <p class="kar-grund__text">
-          Du arbeitest mit nachvollziehbaren Informationen und einem strukturierten
-          Ablauf statt mit losem Material.
-        </p>
-      </li>
-      <li class="kar-grund">
-        <h3 class="kar-grund__titel">Persönliche Begleitung</h3>
-        <p class="kar-grund__text">
-          Du hast Ansprechpartner für Rückfragen, Fälle und nächste Schritte.
-        </p>
-      </li>
-      <li class="kar-grund">
-        <h3 class="kar-grund__titel">Langfristige Kundenbeziehung</h3>
-        <p class="kar-grund__text">
-          Die Zusammenarbeit endet nicht beim Notar. Aus einer einzelnen Immobilie
-          kann eine langfristige Kundenbeziehung entstehen.
-        </p>
-      </li>
-      <li class="kar-grund">
-        <h3 class="kar-grund__titel">Attraktive Verdienstperspektive</h3>
-        <p class="kar-grund__text">
-          Du erhältst eine nachvollziehbare Vergütungsstruktur und kannst dir mit
-          Leistung eine langfristige Vertriebsperspektive aufbauen.
-        </p>
-      </li>
-    </ol>
-
-    <!-- VERMERK: Die Vorlage schliesst diesen Abschnitt mit einer
-         Vertrauenszahl („Bereits 400+ Einrichtungen …"). Estera hat
-         dafuer keinen Beleg — die Zeile entfaellt ersatzlos. -->
+    <!-- PLATZHALTER — Freigabe von Estera steht aus. -->
+    <div class="kar-wer__text" data-auf>
+      <p>Estera begleitet Menschen beim Aufbau von Eigentum — von der Auswahl der
+         Immobilie über die passende Finanzierung bis zur Betreuung nach dem
+         Notartermin. Wir arbeiten mit ausgewählten Objekten, klaren Prozessen und
+         einem Ansprechpartner, der bleibt.</p>
+      <p>Unser Anspruch ist keine schnelle Vermittlung, sondern eine Entscheidung,
+         die in zehn Jahren noch trägt.</p>
+    </div>
 
   </div>
 </section>
 
 
-<!-- ---------------------------------------------------------------------
-     05 · SO LAEUFT DIE PARTNERSCHAFT AB
-     Vorlage: estateanfrage-karriere.de, „Dein Bewerbungsablauf"
-     ---------------------------------------------------------------------
-     GEMESSENER AUFBAU (Fensterbreite 1600, Spalte 1250 px):
+<!-- =====================================================================
+     ENTDECKE, WAS UNSERE MITARBEITER SAGEN
 
-       Abschnitt      893 px hoch, weiss
-       Ueberschrift   64 px, ZENTRIERT ueber die volle Spalte
-       darunter       zwei Spalten:
-         links        Schrittfolge. Zahl in einem Kaestchen 40 x 40 px,
-                      Eckenradius 6 px, gefuellt, weisse Ziffer.
-                      Daneben bei x+76: Titel 24 px halbfett,
-                      darunter Fliesstext 16/24 in einer Spalte 521 px.
-                      Senkrechte Haarlinie 3 px breit, laeuft durch die
-                      Mitte der Kaestchen von Schritt 1 bis Schritt 3.
-         Luecke       56 px
-         rechts       Bild 597 x 554 px, hochkant, unten buendig mit dem
-                      Ende der Schrittfolge
+     Nachtrag vom 29.08.2026, Kundenwunsch. Dieser Abschnitt steht NICHT in
+     der Bauaufnahme der Vorlage — er ist eine Ergaenzung und als solche
+     hier vermerkt. Die Bauart des Laufbands ist dagegen gemessen: sie folgt
+     den beiden Baendern aus der Bauaufnahme der Stellenseiten
+     (estate/bericht.md, Abschnitt 4.1) — 60 px/s, linear, endlos, drei
+     Saetze im DOM fuer den nahtlosen Umlauf, auf jeder Fensterbreite
+     gleich schnell.
 
-     WAS HIER ANDERS IST
-     Die Vorlage fuehrt drei Schritte, der Wording-Master fuenf. Der
-     Aufbau bleibt gleich, die Spalte wird laenger — und das Bild
-     wandert von 554 px auf die volle Hoehe der Schrittfolge mit, damit
-     der untere Abschluss buendig bleibt wie dort.
+     EINE ABWEICHUNG MIT ABSICHT: dieses Band laeuft nach RECHTS. Die
+     Baender der Stellenseiten laufen nach links; die Gegenrichtung war
+     ausdruecklich gewuenscht, damit die beiden Seiten nicht wie dieselbe
+     Schleife wirken.
 
-     Die Vorlage nennt im zweiten Schritt ihren Geschaeftsfuehrer beim
-     Namen. Personennamen der Vorlage kommen hier nicht vor.
-     --------------------------------------------------------------------- -->
-<section class="kar-ablauf" id="ablauf" aria-labelledby="kar-h-ablauf">
-  <div class="kar-ablauf__inner">
+     PLATZHALTER — 29.08.2026
+     Acht erfundene Stimmen, vom Kunden als Platzhalter beauftragt.
+     VOR DEM LIVEGANG ERSETZEN: echte Aussagen echter Mitarbeiter, mit
+     deren Zustimmung. Erfundene Mitarbeiterstimmen sind irrefuehrende
+     Werbung.
+     Deshalb steht in keiner Karte ein Name, kein Initialenkreis und kein
+     Datum — nichts, was eine bestimmte Person behauptet. Keine Zahl, kein
+     Gehalt, keine Zusage steht darin.
+     ===================================================================== -->
+<section class="kar-stimmen" aria-labelledby="kar-stimmen-titel">
 
-    <h2 class="kar-h2 kar-h2--gross kar-h2--mitte" id="kar-h-ablauf" data-reveal>
-      So läuft die Partnerschaft ab
-    </h2>
+  <div class="kar-mitte">
+    <h2 class="kar-titel" id="kar-stimmen-titel" data-auf>Entdecke, <span class="kar-akzent">was unsere Mitarbeiter sagen</span></h2>
+  </div>
 
-    <div class="kar-ablauf__raster">
+  <!-- Das Band ist vollbreit und laeuft ueber den Behaelter hinaus. Die
+       Bewegung ist reines CSS und laeuft deshalb auch ohne Javascript.
+       Bei prefers-reduced-motion: reduce steht sie still und die acht
+       Karten stehen als umbrechende Reihe da — dann sind alle acht
+       lesbar, ohne dass jemand schieben muesste. -->
+  <div class="kar-band">
+    <ul class="kar-band__spur">
 
-      <ol class="kar-ablauf__schritte" data-reveal>
-        <li class="kar-schritt">
-          <span class="kar-schritt__nr" aria-hidden="true">1</span>
-          <h3 class="kar-schritt__titel">Kennenlernen</h3>
-          <p class="kar-schritt__text">
-            Wir sprechen über deinen Hintergrund, deine Ziele und deine bisherige
-            Erfahrung.
-          </p>
+        <!-- Satz 1 — der einzige, den Vorlesegeräte hören. -->
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Tolles Team</p>
+          <p class="kar-band__text">Man hilft sich hier gegenseitig, ohne dass man lange fragen muss. Das macht den Arbeitstag spürbar leichter.</p>
         </li>
-        <li class="kar-schritt">
-          <span class="kar-schritt__nr" aria-hidden="true">2</span>
-          <h3 class="kar-schritt__titel">Eignung prüfen</h3>
-          <p class="kar-schritt__text">
-            Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch und Zielgruppe
-            zusammenpassen.
-          </p>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Super Entwicklungsperspektiven</p>
+          <p class="kar-band__text">Wer mehr Verantwortung übernehmen will, bekommt hier die Gelegenheit dazu. Man muss sie nur ergreifen.</p>
         </li>
-        <li class="kar-schritt">
-          <span class="kar-schritt__nr" aria-hidden="true">3</span>
-          <h3 class="kar-schritt__titel">Onboarding</h3>
-          <p class="kar-schritt__text">
-            Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung und rechtliche
-            Kommunikationsgrenzen kennen.
-          </p>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Persönliche Ziele</p>
+          <p class="kar-band__text">Worauf ich hinarbeite, war von Anfang an Thema. Darüber sprechen wir regelmäßig und nicht nur nebenbei.</p>
         </li>
-        <li class="kar-schritt">
-          <span class="kar-schritt__nr" aria-hidden="true">4</span>
-          <h3 class="kar-schritt__titel">Erste Kundenfälle</h3>
-          <p class="kar-schritt__text">
-            Bei den ersten Fällen wirst du eng begleitet und erhältst Unterstützung bei
-            Einordnung, Objekt und Prozess.
-          </p>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Klare Prozesse</p>
+          <p class="kar-band__text">Ich weiß, wer wofür zuständig ist und wie ein Fall weitergeht. Das nimmt viel Unruhe aus dem Alltag.</p>
         </li>
-        <li class="kar-schritt">
-          <span class="kar-schritt__nr" aria-hidden="true">5</span>
-          <h3 class="kar-schritt__titel">Eigenständiger Aufbau</h3>
-          <p class="kar-schritt__text">
-            Mit zunehmender Erfahrung übernimmst du mehr Verantwortung und entwickelst
-            deinen eigenen Kundenbestand.
-          </p>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Offene Kommunikation</p>
+          <p class="kar-band__text">Fragen sind hier keine Störung. Man bekommt eine ehrliche Antwort, auch wenn sie nicht die bequeme ist.</p>
         </li>
-      </ol>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Verlässliche Einarbeitung</p>
+          <p class="kar-band__text">Am Anfang saß jemand neben mir, bis ich es allein konnte. Danach blieb die Tür trotzdem offen.</p>
+        </li>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Verantwortung von Anfang an</p>
+          <p class="kar-band__text">Ich durfte früh eigene Aufgaben übernehmen und wurde dabei begleitet, statt ins kalte Wasser geworfen.</p>
+        </li>
+        <li class="kar-band__karte">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Kurze Wege</p>
+          <p class="kar-band__text">Wenn etwas geklärt werden muss, geht das direkt. Niemand schiebt eine Entscheidung lange hin und her.</p>
+        </li>
 
-      <figure class="kar-ablauf__bild" data-reveal>
+        <!-- Satz 2: wortgleiche Kopie, nur für den nahtlosen Umlauf.
+             aria-hidden, damit der Inhalt nicht dreimal vorgelesen wird. -->
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Tolles Team</p>
+          <p class="kar-band__text">Man hilft sich hier gegenseitig, ohne dass man lange fragen muss. Das macht den Arbeitstag spürbar leichter.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Super Entwicklungsperspektiven</p>
+          <p class="kar-band__text">Wer mehr Verantwortung übernehmen will, bekommt hier die Gelegenheit dazu. Man muss sie nur ergreifen.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Persönliche Ziele</p>
+          <p class="kar-band__text">Worauf ich hinarbeite, war von Anfang an Thema. Darüber sprechen wir regelmäßig und nicht nur nebenbei.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Klare Prozesse</p>
+          <p class="kar-band__text">Ich weiß, wer wofür zuständig ist und wie ein Fall weitergeht. Das nimmt viel Unruhe aus dem Alltag.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Offene Kommunikation</p>
+          <p class="kar-band__text">Fragen sind hier keine Störung. Man bekommt eine ehrliche Antwort, auch wenn sie nicht die bequeme ist.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Verlässliche Einarbeitung</p>
+          <p class="kar-band__text">Am Anfang saß jemand neben mir, bis ich es allein konnte. Danach blieb die Tür trotzdem offen.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Verantwortung von Anfang an</p>
+          <p class="kar-band__text">Ich durfte früh eigene Aufgaben übernehmen und wurde dabei begleitet, statt ins kalte Wasser geworfen.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Kurze Wege</p>
+          <p class="kar-band__text">Wenn etwas geklärt werden muss, geht das direkt. Niemand schiebt eine Entscheidung lange hin und her.</p>
+        </li>
+
+        <!-- Satz 3: wortgleiche Kopie, nur für den nahtlosen Umlauf.
+             aria-hidden, damit der Inhalt nicht dreimal vorgelesen wird. -->
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Tolles Team</p>
+          <p class="kar-band__text">Man hilft sich hier gegenseitig, ohne dass man lange fragen muss. Das macht den Arbeitstag spürbar leichter.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Super Entwicklungsperspektiven</p>
+          <p class="kar-band__text">Wer mehr Verantwortung übernehmen will, bekommt hier die Gelegenheit dazu. Man muss sie nur ergreifen.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Persönliche Ziele</p>
+          <p class="kar-band__text">Worauf ich hinarbeite, war von Anfang an Thema. Darüber sprechen wir regelmäßig und nicht nur nebenbei.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Klare Prozesse</p>
+          <p class="kar-band__text">Ich weiß, wer wofür zuständig ist und wie ein Fall weitergeht. Das nimmt viel Unruhe aus dem Alltag.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Offene Kommunikation</p>
+          <p class="kar-band__text">Fragen sind hier keine Störung. Man bekommt eine ehrliche Antwort, auch wenn sie nicht die bequeme ist.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Verlässliche Einarbeitung</p>
+          <p class="kar-band__text">Am Anfang saß jemand neben mir, bis ich es allein konnte. Danach blieb die Tür trotzdem offen.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Verantwortung von Anfang an</p>
+          <p class="kar-band__text">Ich durfte früh eigene Aufgaben übernehmen und wurde dabei begleitet, statt ins kalte Wasser geworfen.</p>
+        </li>
+        <li class="kar-band__karte kar-band__karte--kopie" aria-hidden="true">
+          <p class="kar-band__sterne" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg><svg viewBox="0 0 24 24" width="17" height="17" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9z"/></svg></p>
+          <p class="kar-band__titel">Kurze Wege</p>
+          <p class="kar-band__text">Wenn etwas geklärt werden muss, geht das direkt. Niemand schiebt eine Entscheidung lange hin und her.</p>
+        </li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- =====================================================================
+     DEINE KARRIERE, UNSER ANGEBOT — Abschnitt 3
+
+     Die Vorlage trennt Ueberschrift und Liste in zwei Abschnitte mit
+     eigenen Innenabstaenden (bericht.md, 4a und 4b). Das ist hier
+     uebernommen, weil davon der Abstand zwischen Unterzeile und erster
+     Kartenreihe abhaengt.
+     ===================================================================== -->
+<section class="kar-angebot" aria-labelledby="kar-angebot-titel">
+  <div class="kar-mitte">
+    <h2 class="kar-titel" id="kar-angebot-titel" data-auf>Deine Karriere, <span class="kar-akzent">unser Angebot</span></h2>
+    <p class="kar-angebot__unterzeile" data-auf>Zwei Stellen sind ausgeschrieben. Sieh dir an, worum es geht — und melde dich, wenn es passt.</p>
+  </div>
+</section>
+
+<section class="kar-stellen" aria-label="Offene Stellen">
+  <div class="kar-mitte">
+    <ul class="kar-liste" data-stellen>
+
+      <!-- KARTE 1 — Immobilienberater.
+           Das Bild ist ein PLATZHALTER ohne Gesicht. Ein Gesicht zu
+           erzeugen hiesse, eine Person zu erfinden, die es nicht gibt —
+           auf einer Stellenseite ist das heikel. Sobald es eine echte
+           Aufnahme gibt, wird sie getauscht. -->
+      <li class="kar-karte" style="--i:0">
         <picture>
-          <source srcset="assets/img/karriere/kar-unterlagen.webp?v=b24a" type="image/webp">
-          <img src="assets/img/karriere/kar-unterlagen.png?v=b24a"
-               alt="Aufgeschlagene Unterlagen mit Stift und Brille auf einem Schreibtisch."
-               width="1536" height="1229" loading="lazy" decoding="async">
+          <source srcset="assets/img/karriere/stelle-berater.webp?v=b24a" type="image/webp">
+          <img class="kar-karte__bild"
+               src="assets/img/karriere/stelle-berater.jpg?v=b24a"
+               width="1024" height="1280" loading="lazy" decoding="async"
+               alt="Aufgeräumter Schreibtisch mit Laptop und Ledermappe vor einem Bürofenster">
         </picture>
-      </figure>
-
-    </div>
-
-    <p class="kar-ablauf__schluss" data-reveal>
-      Klare Prozesse. Persönliche Unterstützung. Leistung, die sich entwickeln kann.
-    </p>
-
-    <!-- VERMERK: Die Vorlage schliesst den Ablauf mit einer
-         Probearbeit und mit Mitarbeiterzitaten samt Sternen. Beides
-         gibt es bei Estera nicht und wird nicht erfunden. -->
-
-  </div>
-</section>
-
-
-<!-- ---------------------------------------------------------------------
-     06 · HAEUFIGE FRAGEN
-     Der Aufklapper ist im Projekt bereits gebaut (assets/css/faq.css,
-     assets/js/faq.js) und wird hier BENUTZT, nicht nachgebaut. Nur die
-     Farbgebung wird in karriere.css ueber die dafuer vorgesehenen
-     Variablen gestellt; faq.css bleibt unberuehrt.
-     Die sechs Fragen stehen wortgleich im Wording-Master.
-     --------------------------------------------------------------------- -->
-<section class="kar-faq faq" id="faq" data-faq aria-labelledby="kar-h-faq">
-  <div class="kar-faq__inner">
-
-    <h2 class="kar-h2 kar-h2--mitte" id="kar-h-faq" data-reveal>Häufige Fragen</h2>
-
-    <!-- Der Winkel steht einmal als Sprite und wird sechsmal geholt. -->
-    <svg class="faq__sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
-      <symbol id="faq-winkel" viewBox="0 0 24 24">
-        <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor"
-              stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-    </svg>
-
-    <div class="faq__liste" data-reveal>
-
-      <div class="faq__punkt">
-        <h3 class="faq__frage">
-          <button class="faq__knopf" type="button" id="kar-faq-k1" data-faq-knopf
-                  aria-expanded="true" aria-controls="kar-faq-a1">
-            <span class="faq__fragetext">Brauche ich Erfahrung im Immobilienvertrieb?</span>
-            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
-          </button>
-        </h3>
-        <div class="faq__fach" id="kar-faq-a1" data-offen="true" role="region" aria-labelledby="kar-faq-k1">
-          <div class="faq__fach-klappe">
-            <div class="faq__antwort">
-              <p>
-                Erfahrung ist hilfreich, aber nicht in jedem Fall zwingend. Wichtiger
-                sind Vertriebsstärke, Lernbereitschaft, Verbindlichkeit und ein
-                verantwortungsvoller Umgang mit Kunden.
-              </p>
-            </div>
-          </div>
+        <div class="kar-karte__inhalt">
+          <p class="kar-karte__art">Vollzeit (m/w/d)</p>
+          <h3 class="kar-karte__titel">Immobilienberater</h3>
+          <p class="kar-karte__bereiche">Bereiche: Vertrieb, Kapitalanlagen</p>
+          <p class="kar-karte__knoepfe">
+            <a class="kar-knopf kar-knopf--voll" href="kontakt.html" aria-label="Als Immobilienberater bewerben">Jetzt bewerben</a>
+            <a class="kar-knopf kar-knopf--linie" href="karriere-immobilienberater.html" aria-label="Mehr über die Stelle Immobilienberater erfahren">Mehr erfahren</a>
+          </p>
         </div>
-      </div>
+      </li>
 
-      <div class="faq__punkt">
-        <h3 class="faq__frage">
-          <button class="faq__knopf" type="button" id="kar-faq-k2" data-faq-knopf
-                  aria-expanded="true" aria-controls="kar-faq-a2">
-            <span class="faq__fragetext">Kann ich nebenberuflich starten?</span>
-            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
-          </button>
-        </h3>
-        <div class="faq__fach" id="kar-faq-a2" data-offen="true" role="region" aria-labelledby="kar-faq-k2">
-          <div class="faq__fach-klappe">
-            <div class="faq__antwort">
-              <p>
-                Ob ein nebenberuflicher Einstieg möglich ist, hängt von deiner
-                Ausgangslage, der verfügbaren Zeit und der konkreten Ausgestaltung
-                der Zusammenarbeit ab.
-              </p>
-            </div>
-          </div>
+      <!-- KARTE 2 — Back-Office-Manager. Echte Aufnahme des Kunden. -->
+      <li class="kar-karte" style="--i:1">
+        <picture>
+          <source srcset="assets/img/karriere/stelle-backoffice.webp?v=b24a" type="image/webp">
+          <img class="kar-karte__bild"
+               src="assets/img/karriere/stelle-backoffice.jpg?v=b24a"
+               width="1206" height="1506" loading="lazy" decoding="async"
+               alt="Mitarbeiterin aus dem Back Office am Laptop an ihrem Arbeitsplatz">
+        </picture>
+        <div class="kar-karte__inhalt">
+          <p class="kar-karte__art">Vollzeit (m/w/d)</p>
+          <h3 class="kar-karte__titel">Back-Office-Manager</h3>
+          <p class="kar-karte__bereiche">Bereiche: Immobilienabwicklung, After Sales</p>
+          <p class="kar-karte__knoepfe">
+            <a class="kar-knopf kar-knopf--voll" href="kontakt.html" aria-label="Als Back-Office-Manager bewerben">Jetzt bewerben</a>
+            <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html" aria-label="Mehr über die Stelle Back-Office-Manager erfahren">Mehr erfahren</a>
+          </p>
         </div>
-      </div>
+      </li>
 
-      <div class="faq__punkt">
-        <h3 class="faq__frage">
-          <button class="faq__knopf" type="button" id="kar-faq-k3" data-faq-knopf
-                  aria-expanded="true" aria-controls="kar-faq-a3">
-            <span class="faq__fragetext">Erhalte ich Leads?</span>
-            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
-          </button>
-        </h3>
-        <div class="faq__fach" id="kar-faq-a3" data-offen="true" role="region" aria-labelledby="kar-faq-k3">
-          <div class="faq__fach-klappe">
-            <div class="faq__antwort">
-              <p>
-                Die konkrete Lead- und Terminstruktur wird im persönlichen Gespräch
-                erläutert. Entscheidend ist, dass du auch eigene Kundenbeziehungen
-                langfristig entwickeln kannst.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="faq__punkt">
-        <h3 class="faq__frage">
-          <button class="faq__knopf" type="button" id="kar-faq-k4" data-faq-knopf
-                  aria-expanded="true" aria-controls="kar-faq-a4">
-            <span class="faq__fragetext">Wie werde ich vergütet?</span>
-            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
-          </button>
-        </h3>
-        <div class="faq__fach" id="kar-faq-a4" data-offen="true" role="region" aria-labelledby="kar-faq-k4">
-          <div class="faq__fach-klappe">
-            <div class="faq__antwort">
-              <p>
-                Die Vergütung ist leistungsabhängig und wird transparent im persönlichen
-                Gespräch sowie in der Vertriebsvereinbarung dargestellt.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="faq__punkt">
-        <h3 class="faq__frage">
-          <button class="faq__knopf" type="button" id="kar-faq-k5" data-faq-knopf
-                  aria-expanded="true" aria-controls="kar-faq-a5">
-            <span class="faq__fragetext">Gibt es ein Onboarding?</span>
-            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
-          </button>
-        </h3>
-        <div class="faq__fach" id="kar-faq-a5" data-offen="true" role="region" aria-labelledby="kar-faq-k5">
-          <div class="faq__fach-klappe">
-            <div class="faq__antwort">
-              <p>
-                Ja. Du wirst in Angebot, Prozesse, Zielgruppe, Gesprächsführung und die
-                Zusammenarbeit mit den internen Ansprechpartnern eingearbeitet.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="faq__punkt">
-        <h3 class="faq__frage">
-          <button class="faq__knopf" type="button" id="kar-faq-k6" data-faq-knopf
-                  aria-expanded="true" aria-controls="kar-faq-a6">
-            <span class="faq__fragetext">Welche Erlaubnisse benötige ich?</span>
-            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
-          </button>
-        </h3>
-        <div class="faq__fach" id="kar-faq-a6" data-offen="true" role="region" aria-labelledby="kar-faq-k6">
-          <div class="faq__fach-klappe">
-            <div class="faq__antwort">
-              <p>
-                Das hängt von deiner konkreten Tätigkeit und Rolle ab. Vor Beginn der
-                Zusammenarbeit wird geklärt, welche gewerbe- und aufsichtsrechtlichen
-                Voraussetzungen erfüllt sein müssen.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ---------------------------------------------------------------------
-     07 · ABSCHLUSS
-     Kein Nachbau einer Vorlage — der Abschluss steht so im
-     Wording-Master und schliesst die Seite auf derselben dunklen Flaeche,
-     mit der sie begonnen hat.
-
-     KEINE KARTEN-EINBETTUNG. Der Standort steht als Zeile mit einem
-     Verweis, nicht als eingebettete Karte (ausdrueckliche Vorgabe).
-     --------------------------------------------------------------------- -->
-<section class="kar-schluss" id="bewerben" aria-labelledby="kar-h-schluss">
-  <div class="kar-schluss__inner">
-
-    <p class="kar-kicker kar-kicker--hell" data-reveal>Nächster Schritt</p>
-
-    <h2 class="kar-h2 kar-h2--gross kar-h2--hell" id="kar-h-schluss" data-reveal>
-      Prüfe, ob Estera zu deinem nächsten beruflichen Schritt passt.
-    </h2>
-
-    <p class="kar-schluss__lead" data-reveal>
-      Bewirb dich für ein unverbindliches Kennenlernen. Wir sprechen offen über
-      Erwartungen, Voraussetzungen, Zusammenarbeit und deine
-      Entwicklungsmöglichkeiten.
-    </p>
-
-    <p class="kar-schluss__knopf" data-reveal>
-      <a class="kar-btn kar-btn--sand" href="kontakt.html">Als Vertriebspartner bewerben</a>
-    </p>
-
-    <p class="kar-schluss__ort" data-reveal>
-      Das Büro liegt in der Leopoldstraße 156, 80804 München.
-      <a class="kar-textlink kar-textlink--hell"
-         href="https://www.google.com/maps/search/?api=1&amp;query=Leopoldstra%C3%9Fe+156%2C+80804+M%C3%BCnchen"
-         target="_blank" rel="noopener noreferrer">Auf der Karte ansehen</a>
-    </p>
-
-    <p class="kar-schluss__hinweis" data-reveal>
-      Keine Einkommensgarantie. Die tatsächliche Entwicklung hängt insbesondere von
-      Erfahrung, Einsatz, Qualifikation und Vertriebserfolg ab.
-    </p>
-
+    </ul>
   </div>
 </section>
 
@@ -1024,17 +631,14 @@
      und hat auf einer Unterseite keine Bedeutung. -->
 
 <script src="assets/js/site.js?v=b24a"></script>
-<!-- Der Aufklapper. Unveraendert aus dem Projekt; die Datei sucht sich ihre
-     Wurzel ueber [data-faq] und die Knoepfe ueber [data-faq-knopf].
-     Reihenfolge zu site.js ist gleichgueltig — sie haengt an nichts daraus.
-     ueber.js ist hier bewusst NICHT mehr eingebunden: es suchte die
-     Wortfuellung aus Abschnitt 2 von ueber-estera.html und lief auf dieser
-     Seite ohnehin ins Leere. -->
-<script src="assets/js/faq.js?v=b24a"></script>
-<!-- Der Stellen-Aufklapper. Eigene Datei, weil faq.js bewusst genau EINE
-     Wurzel bedient (querySelector, nicht querySelectorAll) und die FAQ auf
-     dieser Seite bereits belegt. karriere.js haengt an [data-stellen] und
-     ruehrt nichts an, was faq.js gehoert. -->
+<!-- faq.js ist seit dem Neubau nicht mehr eingebunden: die Seite hat
+     keinen Aufklapper mehr. Die Datei selbst ist unveraendert und wird von
+     den anderen Seiten weiter benutzt.
+     karriere.js gehoert allein dieser Seite und macht genau zwei Dinge:
+     die Einblendung beim Eintritt und das Anhalten des Kopfvideos bei
+     prefers-reduced-motion. Faellt es aus, steht die Seite vollstaendig
+     da — die Einblendregeln haengen an [data-js='an'], und dieses Merkmal
+     setzt erst diese Datei. -->
 <script src="assets/js/karriere.js?v=b24a"></script>
 </body>
 </html>
