@@ -365,10 +365,28 @@
   /* `index.html` (Variante B) ist am 24.08.2026 geloescht. Stuende der
      Name hier weiter drin, waere ein Verweis darauf freigeschaltet — also
      eine 404 statt eines gesperrten Knopfes. */
+  /* OHNE Dateiendung vergleichen — Grund am 29.08.2026 teuer gelernt:
+     Netlify liefert die Seiten unter huebschen Adressen aus und schreibt
+     dabei im HTML `karriere.html` zu `/karriere` um. Die Liste stand
+     vorher mit `.html` drin, der Vergleich schlug also auf Netlify bei
+     JEDEM Unterseitenverweis fehl — und diese Sperre hat daraufhin die
+     komplette Navigation stillgelegt. Oertlich faellt das nie auf, weil
+     dort die Adresse unveraendert bleibt.
+     `normalisiere` schneidet deshalb fuehrenden Schraegstrich, `./`,
+     Abfrage, Sprungmarke und `.html` ab. */
   var vorhandeneSeiten = [
-    'variante-a.html',
-    'ueber-estera.html', 'karriere.html', 'kontakt.html'
-  ];
+    'variante-a', 'ueber-estera', 'karriere', 'kontakt',
+    'karriere-immobilienberater'
+  ];   /* karriere-backoffice fehlt hier mit Absicht, solange es die Datei
+          nicht gibt — die Sperre soll genau davor schuetzen. */
+  function normalisiere(adresse) {
+    return adresse
+      .split('#')[0]
+      .split('?')[0]
+      .replace(/^\.\//, '')
+      .replace(/^\//, '')
+      .replace(/\.html$/, '');
+  }
   Array.prototype.forEach.call(
     document.querySelectorAll('.kopfnav a, .menu__link'),
     function (verweis) {
@@ -380,10 +398,9 @@
          Abschnittsverweise stillgelegt, die funktionieren sollten.
          Geprueft wird deshalb nur der Dateiname; ob die Sprungmarke auf der
          Zielseite existiert, kann von hier aus ohnehin niemand wissen. */
-      var datei = ziel.replace('./', '').split('#')[0];
       var fehlt = ziel.charAt(0) === '#'
         ? !document.querySelector(ziel)
-        : vorhandeneSeiten.indexOf(datei) === -1;
+        : vorhandeneSeiten.indexOf(normalisiere(ziel)) === -1;
       if (!fehlt) return;
       verweis.setAttribute('aria-disabled', 'true');
       verweis.addEventListener('click', function (e) { e.preventDefault(); });
