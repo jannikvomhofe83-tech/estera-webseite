@@ -1,0 +1,49 @@
+[
+  {
+    "name": "kar-a",
+    "mode": "pro",
+    "aspect_ratio": "16:9",
+    "duration": 10,
+    "shots": [
+      {
+        "duration": 4,
+        "prompt": "Aerial drone rising slowly along the mirrored glass facade of a tall modern office tower, clean rectilinear architecture, floor-to-ceiling glazing reflecting a cool blue-grey sky. Completely deserted: no people, no pedestrians, no silhouettes, no cars. No text, no signage, no logos. Cool desaturated blue-grey grade, soft even daylight, no lens flare. Razor-sharp focus, deep depth of field, no motion blur, ultra-stable slow gimbal move, ARRI Alexa 65, 24mm prime, photorealistic."
+      },
+      {
+        "duration": 3,
+        "prompt": "Smooth forward flight through the vast empty atrium of a modern office building, past white steel balustrades and open galleries, daylight falling through a huge glass roof onto polished light concrete, slender columns. Completely empty: no people anywhere, no figures on the galleries. No text, no signage, no logos. Cool blue-grey grade, clean bright daylight. Razor-sharp focus, deep depth of field, no motion blur, ultra-stable forward dolly, ARRI Alexa 65, 24mm prime, photorealistic."
+      },
+      {
+        "duration": 3,
+        "prompt": "Slow lateral tracking past an empty modern open-plan office: long rows of light oak desks, dark grey chairs pushed in, closed silver laptops, switched-off monitors, small plants, floor-to-ceiling windows showing a blue-grey skyline. Completely deserted: no people, nobody at any desk. No text, no signage, no logos, no letters on screens. Cool desaturated grade, soft window light. Razor-sharp focus, deep depth of field, no motion blur, ultra-stable dolly, ARRI Alexa 65, 35mm prime, photorealistic."
+      }
+    ]
+  },
+  {
+    "name": "kar-b",
+    "mode": "pro",
+    "aspect_ratio": "16:9",
+    "duration": 10,
+    "prompt": "One single continuous flowing camera movement, no cuts. The camera starts high outside, craning down along the mirrored glass facade of a large modern corporate office tower, then flies forward through the open entrance into a vast bright atrium, past white steel balustrades and slender columns, and finally glides into an empty open-plan office with long rows of light oak desks, dark grey chairs pushed in, closed laptops and a wall of floor-to-ceiling windows showing a blue-grey city skyline. The entire building is completely deserted from the first to the last frame: absolutely no people, no pedestrians, no silhouettes, no figures at the desks, no cars. No text, no signage, no logos, no readable letters anywhere. Cool desaturated blue-grey colour grade, soft even overcast daylight, no lens flare. Razor-sharp focus across the whole frame at all times, deep depth of field, extreme architectural detail, no motion blur, ultra-stable smooth continuous gimbal flight at a slow steady pace, shot on ARRI Alexa 65 with a 24mm prime lens, cinematic corporate architecture film, photorealistic, 8K detail."
+  },
+  {
+    "name": "kar-c",
+    "mode": "pro",
+    "aspect_ratio": "16:9",
+    "duration": 10,
+    "shots": [
+      {
+        "duration": 3,
+        "prompt": "Slow aerial rise along the glass and steel facade of a tall modern office tower at blue hour, warm lit windows in a strict grid against a deep blue evening sky. Completely deserted: no people, no silhouettes in any window, no cars, no movement but the camera. No text, no signage, no logos. Deep navy and cool grey grade with restrained warm light, no lens flare. Razor-sharp focus, deep depth of field, no motion blur, ultra-stable slow crane, ARRI Alexa 65, 24mm prime, photorealistic."
+      },
+      {
+        "duration": 4,
+        "prompt": "Slow forward flight through a vast empty double-height office lobby at dusk, polished stone floor with soft reflections, glowing linear ceiling lights, tall glass walls, pale marble surfaces. Completely empty: no people, no reception staff, no silhouettes. No text, no signage, no logos. Deep navy and cool grey grade with warm accent light. Razor-sharp focus, deep depth of field, no motion blur, ultra-stable forward dolly, ARRI Alexa 65, 24mm prime, photorealistic."
+      },
+      {
+        "duration": 3,
+        "prompt": "Slow tracking shot past empty desks in a modern open-plan office in the evening, chairs pushed in, closed laptops, dark monitors, warm task lamps, the blue-black city skyline glittering behind floor-to-ceiling glass. Completely deserted: no people, nobody at any desk, no reflections of people. No text, no signage, no logos, no letters on screens. Deep navy and cool grey grade. Razor-sharp focus, deep depth of field, no motion blur, ultra-stable dolly, ARRI Alexa 65, 35mm prime, photorealistic."
+      }
+    ]
+  }
+]

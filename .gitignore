@@ -13,3 +13,13 @@ node_modules/
 # aufblaehen. Die fertigen Videos unter assets/video/ sind versioniert.
 Bilder/*.mov
 Bilder/b28f8eb9*.mp4
+
+# Die drei Rohfassungen des Karriere-Videos aus kie.ai, zusammen rund 60 MB.
+# Gewaehlt wurde B; sie liegt geschnitten unter assets/video/kar-hero.*.
+# Die Rohfassungen bleiben nur oertlich liegen, falls doch A oder C gewuenscht wird.
+Bilder/video-entwuerfe/
+
+# Die unbeschnittenen Ausgangsbilder der beiden Laufbaender, 27 MB.
+# Sie sind aus Briefing/bildauftraege-baender.json jederzeit neu erzeugbar;
+# ausgeliefert werden ohnehin nur die beschnittenen webp/jpg daneben.
+assets/img/karriere/band/.original/
