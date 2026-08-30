@@ -144,7 +144,16 @@
      gewinnt der Abschnitt 15 px, weil der grosse obere Aussenabstand mit
      dem senkrechten Keil weggefallen ist. Der Richtwert von hoechstens
      180 px bei 1920 ist gehalten. */
-  padding: clamp(1.5rem, 2.5vh, 1.8rem) 0;
+  /* ALS TOKEN SEIT 30.08.2026, vorher stand der Wert direkt im padding.
+     Der goldene Strich haengt jetzt daran: er sitzt an der OBERKANTE DES
+     FOTOS, und das Foto beginnt am oberen Rand dieser Section — also genau
+     eine Polsterhoehe ueber dem Inhaltskasten. Wer das Polster aendert,
+     verschiebt sonst den Strich gegen das Foto. */
+  --vtr-pad-y: clamp(1.5rem, 2.5vh, 1.8rem);
+  /* Die seitliche Polsterung von .vtr__inner, ebenfalls als Token: der
+     Strich liegt absolut und muesste sie sonst als Zahl wiederholen. */
+  --vtr-pad-x: clamp(1.25rem, 4vw, 4.2rem);
+  padding: var(--vtr-pad-y) 0;
 
   /* Bewegung des Einlaufs */
   --vtr-ease:  cubic-bezier(0.22, 1, 0.36, 1);
@@ -409,8 +418,40 @@
    sichtbar. Es ist dieselbe Linie wie .abl__hausstrich unter dem Ablauf
    und .ref__strich im Kopf der Kundenstimmen — der Abschnitt bekommt kein
    eigenes Vokabular. */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DER STRICH IST GEWANDERT — 30.08.2026, Kundenwunsch.
+
+   Er lief bisher UNTER dem Zitatband. Das Band ist am 30.08.2026 auf
+   Kundenwunsch ersatzlos entfallen („Pack einfach nur die Zitate raus."),
+   und damit gab es nichts mehr, worunter er haette laufen koennen.
+
+   NEUE LAGE: GENAU AUF DER OBERKANTE DES FOTOS. Das Fassadenfoto
+   (.vtr__bild) sitzt `position: absolute; top: 0` in dieser Section — seine
+   Oberkante IST also die Oberkante von .vtr. Der Strich liegt jetzt
+   ebenfalls dort und schliesst damit den Abschnitt darueber ab, statt
+   einen leeren Kasten zu unterstreichen.
+
+   WARUM ER ABSOLUT LIEGT UND NICHT IM FLUSS.
+   Er steht im Markup weiterhin in .vtr__inner — der Kasten gibt ihm seine
+   Breite, und dessen Polsterung ist zugleich die Kante, an der Text auf
+   dieser Seite ansetzt. .vtr__inner beginnt aber erst eine Polsterhoehe
+   (--vtr-pad-y) unter dem Rand der Section. Genau diese Polsterhoehe wird
+   hier wieder abgezogen; der Strich landet dadurch auf dem Bildpunkt genau
+   auf der Fotokante. Ein Element im Fluss koennte das nicht — es kaeme
+   immer erst nach dem Polster.
+
+   left/right sind NICHT 0: ein absolut liegendes Kind bezieht sich auf den
+   POLSTERkasten seines Elternteils, nicht auf dessen Inhaltskasten. Ohne
+   diese beiden Werte liefe der Strich um --vtr-pad-x zu weit nach aussen,
+   auf jeder Seite — und rechts damit weiter auf das Foto zu, als die
+   Ausblendung unten vorrechnet.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .vtr__linie {
   display: block;
+  position: absolute;
+  top: calc(-1 * var(--vtr-pad-y));
+  left: var(--vtr-pad-x);
+  right: var(--vtr-pad-x);
   height: 1px;
   background: linear-gradient(90deg,
       var(--gold) 0%,

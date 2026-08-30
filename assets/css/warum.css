@@ -575,6 +575,89 @@
   width: 2px; height: 76%;
 }
 
+/* ===========================================================================
+   3b  DIE ZAESUR ZWISCHEN DEN KAESTEN UND DEM ZWISCHENKOPF — 31.08.2026
+
+   Kundenwunsch, woertlich: zwischen den beiden Kaesten und „Deine Vorteile
+   zum Vermoegen" sei es zu eng; dort solle mehr Abstand und danach eine
+   feine goldene Linie als Zaesur stehen.
+
+   ---------------------------------------------------------------------------
+   1  DER ABSTAND. Er steht jetzt an ZWEI Stellen, und das ist Absicht: die
+      Linie soll nicht an einem der beiden Nachbarn kleben, sondern frei
+      dazwischen liegen.
+
+        ueber der Linie   clamp(3.4rem, 7.6vh, 5.8rem)   (hier)
+        unter der Linie   clamp(2.6rem, 6.4vh, 4.6rem)   (an .wi__h3, unveraendert)
+
+      Gemessen bei 1440 x 900: vorher standen zwischen der Unterkante des
+      Kastenpaars und der Versalhoehe des Zwischenkopfes 57,6 px reiner
+      Abstand (6,4vh). Jetzt sind es 68,4 + 57,6 = 126,0 px mit der Linie
+      auf 68,4 px — also 2,2-mal so viel Luft wie vorher.
+      Oben bewusst mehr als unten: die Linie schliesst die Kaesten ab und
+      leitet den Kopf ein; ein groesserer Abstand nach oben und ein
+      kleinerer nach unten bindet sie an das, was danach kommt.
+
+   ---------------------------------------------------------------------------
+   2  DIE LINIE IST UEBERNOMMEN, NICHT NACHEMPFUNDEN.
+
+      Vorbild ist `.vtr__linie` in assets/css/vertrauen.css — die Linie
+      zwischen dem Knopf „Mein Immobilienpotenzial pruefen" (Ende dieses
+      Abschnitts) und „Dein Weg zur eigenen Immobilie". Uebernommen sind
+      alle fuenf Groessen, Zeichen fuer Zeichen:
+
+        Farbe        var(--gold)  #A8874F
+        Staerke      height: 1px
+        Deckkraft    opacity: 0.75
+        Breite       die Inhaltskante des Abschnitts
+                     (dort ueber left/right = --vtr-pad-x, hier von selbst,
+                      weil das Element im Fluss in .wi__inner steht)
+        Ausblendung  deckend 0 %..52 %, ab 78 % ganz weg
+                     unter 1024 px: 72 % / 96 %
+
+      DER UNTERSCHIED IM AUFBAU ist nur die Lage: .vtr__linie liegt absolut,
+      weil sie auf der Oberkante eines ueberhaengenden Fotos sitzen muss.
+      Hier gibt es kein Foto; die Linie steht im Fluss und braucht deshalb
+      weder `position` noch left/right. An Farbe, Staerke, Breite und
+      Ausblendung aendert das nichts.
+
+      WARUM DIE AUSBLENDUNG HIER MITKOMMT, obwohl rechts kein Foto steht:
+      der Kunde hat die Linie als Vorbild BENANNT. Eine Linie, die hier
+      durchliefe und dort ausblendet, waeren zwei verschiedene Zeichen fuer
+      dieselbe Sache. Die Ausblendung ist die Handschrift dieser Seite und
+      steht ausserdem am zweiten Ende weich statt hart abgeschnitten.
+
+      FARBE: --gold #A8874F misst 3,36:1 auf Weiss. Nichttextlich, also
+      greift die Schwelle von 4,5:1 nicht — als Zeichnung ist die Linie
+      klar sichtbar. Der Verlauf laeuft in der DECKKRAFT, nicht in der
+      Farbe; die Steilheitsregel von 0,03 Farbeinheiten je Bildpunkt aus
+      base.css ist damit nicht beruehrt.
+
+      KEINE BEWEGUNG. Die Linie steht sofort und vollstaendig — ohne
+      Javascript wie mit, bei `prefers-reduced-motion: reduce` wie ohne.
+      Sie traegt kein `data-reveal` und keine Animation.
+   =========================================================================== */
+.wi__zaesur {
+  display: block;
+  height: 1px;
+  margin: clamp(3.4rem, 7.6vh, 5.8rem) 0 0;
+  background: linear-gradient(90deg,
+      var(--gold) 0%,
+      var(--gold) 52%,
+      rgba(168, 135, 79, 0) 78%);
+  opacity: 0.75;
+}
+/* Dieselbe Staffel wie bei .vtr__linie: unter 1024 px darf die Linie
+   weiter laufen, endet aber weiterhin weich. */
+@media (max-width: 1023px) {
+  .wi__zaesur {
+    background: linear-gradient(90deg,
+        var(--gold) 0%,
+        var(--gold) 72%,
+        rgba(168, 135, 79, 0) 96%);
+  }
+}
+
 /* ---------------------------------------------------------------------------
    4  ZWISCHENKOPF
    Vorlage: „Vier Kräfte…" Grundlinie y=482, Versalhoehe 30px → 45px Grad.
@@ -1138,12 +1221,55 @@
    Vorlage: Haarlinie ueber der Reiterzeile; Reiter links, Knopf rechts
    (350 x 62, Radius 10).
 --------------------------------------------------------------------------- */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DIE REITERZEILE IST ENTFALLEN — 30.08.2026, Kundenwunsch.
+
+   Weg ist <nav class="wi__reiter"> mit „01 BANKKAPITAL · 02 MIETE ·
+   03 STEUERN · 04 WERTENTWICKLUNG". Begruendung des Kunden: dieselben vier
+   Begriffe stehen direkt darueber schon in den vier Kaesten — dreimal
+   dasselbe ist zu viel.
+
+   DIE UMSCHALTUNG DER TAFEL LAEUFT WEITER, OHNE EINE ZEILE JAVASCRIPT.
+   Das war die eigentliche Frage bei diesem Eingriff, und die Antwort stand
+   schon im Skript: assets/js/warum.js sammelt seine Schalter mit
+   `wi.querySelectorAll('[data-wi-punkt]')`. Dieses Attribut tragen NICHT NUR
+   die Reiter, sondern auch die vier Karten (.wi__karte). Die Karten haben
+   die Tafel also von Anfang an mitgeschaltet; die Reiter waren der zweite
+   Weg zur selben Sache. Faellt der zweite weg, bleibt der erste.
+   Der Block in warum.js, der die goldene Marke setzt, prueft ausdruecklich
+   auf `parentNode.parentNode.tagName === 'OL'` — er trifft ohne die Reiter
+   einfach nie zu und schadet nicht. AN warum.js IST NICHTS GEAENDERT.
+
+   OHNE JAVASCRIPT und bei `reduce` steigt das Skript wie bisher vorher aus;
+   dann stehen alle vier Tafeln offen untereinander. Die Karten sind dort
+   gewoehnliche Links auf die Tafeln (href="#wi-text-01" …). Es bleibt also
+   kein toter Knopf und kein leerer Kasten zurueck.
+
+   DIE REGELN .wi__reiter WEITER UNTEN BLEIBEN STEHEN und laufen ins Leere.
+   Sie kosten nichts und tragen die Masse der Vorlage (Haarlinie, Trenner,
+   Ziffernfarbe, die aktive Unterstreichung). Wer die Zeile zurueckholt,
+   soll sie nicht neu bauen muessen.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .wi__fuss {
   display: grid;
-  grid-template-columns: 1fr auto;
+  /* EINE mittige Spalte statt „Reiter links, Knopf rechts". Ohne die Reiter
+     stuende der Knopf sonst allein am rechten Rand und die linke Haelfte
+     der Zeile waere leer — genau der Eindruck, den der Kunde vermeiden
+     wollte. `justify-items: center` mittet den Knopf, `1fr` laesst ihn
+     seine eigene Breite behalten. */
+  grid-template-columns: 1fr;
+  justify-items: center;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3.2rem);
   margin-top: clamp(1.6rem, 3.6vh, 2.6rem);
+  /* DIE HAARLINIE IST HIERHER GEZOGEN. Sie sass an `.wi__reiter ol` und
+     trennte die Tafel von der Fusszeile — mit den Reitern waere sie
+     ersatzlos verschwunden und die Fusszeile haette ohne Absetzung an der
+     Tafel geklebt. Es ist dieselbe Linie in derselben Farbe an derselben
+     Stelle; sie haengt nur an einem anderen Element. Wer sie nicht will,
+     loescht diese zwei Zeilen. */
+  border-top: 1px solid var(--wi-haar);
+  padding-top: clamp(0.9rem, 1.9vw, 1.8rem);
 }
 
 .wi__reiter { min-width: 0; }

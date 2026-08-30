@@ -684,7 +684,29 @@
   }
   /* Text und Bild auf EINER gemeinsamen linken Kante */
   .heroA__text   { padding: var(--panel-pad) var(--panel-pad) 0; }
-  .heroA__figure { padding: var(--panel-pad); }
+  .heroA__figure {
+    padding: var(--panel-pad);
+    /* FEHLER BEHOBEN 31.08.2026 — er stand hier seit dem Umbau auf zwei
+       Rasterzeilen und war aelter als der neue Wortlaut.
+
+       .heroA__figure traegt oben `margin-top: calc(-1 * var(--h1-zeile))`.
+       Der Wert hat GENAU EINEN Zweck: im ZWEISPALTIGEN Kasten sitzt das Bild
+       rechts NEBEN der Ueberschrift, und ohne diesen Zug begaenne es erst
+       unter ihr — rechts stuende eine leere Flaeche.
+
+       Hier gibt es keine zwei Spalten mehr. Der Kasten stapelt einspaltig,
+       das Bild steht UNTER dem Text, und derselbe negative Abstand zieht es
+       dann in den Text hinein. Nachgemessen bei 390, 620, 900 und 980 px:
+       die Guetezeile „Diskret ausgewaehlt. Strukturiert geprueft.
+       Langfristig begleitet." war an allen vier Breiten um 35 px vom Foto
+       ueberdeckt — die zweite Zeile war schlicht nicht zu lesen.
+       (Vor dem 31.08. waren es sogar 70 px: der Abstand hiess damals
+       `-2 * var(--h1-zeile)`, weil die Ueberschrift zwei Zeilen hatte.)
+
+       Unter 980 px gehoert der Zug deshalb auf 0. Am zweispaltigen Kasten
+       darueber aendert das nichts. */
+    margin-top: 0;
+  }
   .heroA__h1 { font-size: clamp(1.95rem, 5.2vw, 2.5rem); }
 }
 
