@@ -971,21 +971,22 @@
   max-width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: contain;
-  /* Nur beim Ueberfahren. Der Eintritt liegt auf <picture>, siehe oben. */
-  transition: transform 0.5s var(--ease);
 }
-/* DIE GRAFIK BEWEGT SICH BEIM UEBERFAHREN — Kundenwunsch, woertlich:
-   „ruhig und kurz — sie soll aufmerken, nicht tanzen."
-   Sechs Bildpunkte hoch und 1,8 Grad Neigung, in einer halben Sekunde hin
-   und ebenso zurueck. Es ist ausdruecklich KEIN Zoom: der Massstab bleibt,
-   das Symbol kippt nur kurz an. Zoom beim Ueberfahren ist auf diesen
-   Seiten seit dem ersten Bau ausgeschlossen.
-   `focus-within` steht daneben, damit es auch dann kommt, wenn jemand mit
-   der Tastatur in den Kasten faehrt. */
-.stl-aus__kasten:hover .stl-aus__bild img,
-.stl-aus__kasten:focus-within .stl-aus__bild img {
-  transform: translateY(-6px) rotate(-1.8deg);
-}
+/* HIER STAND DIE EINE REGEL, DIE ALLE SECHS GLEICH BEWEGTE — bis zum
+   31.08.2026: `translateY(-6px) rotate(-1.8deg)` auf dem ganzen Bild beim
+   Ueberfahren, dazu eine `transition` darauf.
+
+   GENAU DAS HAT DER KUNDE BEANSTANDET: „Heute bewegen sie sich nur als
+   Ganzes. Ich will, dass das Symbol selbst etwas tut." An ihre Stelle
+   treten sechs eigene Gesten — der Sand rieselt, der Hut hebt ab, das
+   Schloss schliesst, die Waage pendelt ein, der Haken zeichnet sich, die
+   zweite Sprechblase kommt nach. Sie stehen im Bewegungsabschnitt weiter
+   unten in dieser Datei, jede mit ihrer Herleitung.
+
+   Die Regel ist ERSATZLOS raus und nicht etwa zusaetzlich zu den neuen
+   Gesten stehen geblieben: das ganze Bild zu kippen, waehrend sich ein
+   Teil darin bewegt, waeren zwei Bewegungen zugleich. Der Kunde will
+   Eleganz, keinen Jahrmarkt. */
 
 .stl-aus__text {
   margin: clamp(12px, 1.05vw, 18px) 0 0;
@@ -1004,8 +1005,9 @@
    OHNE Abstand.
    DIE LISTE IST SEIT DEM 30.08.2026 EIN KARTENSTAPEL (Kundenwunsch). Die
    Zweiteilung, die Spaltenbreiten und das Bildfeld rechts bleiben, wie sie
-   waren; an die Stelle von .stl-liste / .stl-punkt tritt .stl-stapel.
-   Rechnung und Begruendung stehen unten bei .stl-stapel.
+   waren; an ihre Stelle trat .stl-stapel (30.08.2026), dann die Karten
+   ohne Stapel (31.08.2026 vormittags) und jetzt .stl-folge — eine reine
+   Schrittliste ohne Flaeche. Herleitung unten bei .stl-folge.
    Vorlage: Abschnitt 8 (79 px leer) + Abschnitt 9 (30 oben) = 109 oben,
    80 unten.
    =========================================================================== */
@@ -1029,195 +1031,144 @@
    Luft bleibt trotzdem: der Abschnitt ist ohnehin der laengste der Seite,
    und 130 px oben und unten wuerden ihn ohne Gewinn weiter strecken. */
 .stl-erwartet { padding: var(--stl-luft-104) 0 var(--stl-luft-91); }
+/* MITTIG STATT OBEN BUENDIG — 31.08.2026. Mit den Karten ist die linke
+   Spalte deutlich kuerzer geworden als das Bild rechts (gemessen bei
+   1440 px: 575 gegen 718 px). Oben buendig blieben darunter rund 140 px
+   Loch, und das las sich wie ein Fehler. Mittig sitzt die Schrittliste
+   auf der Hoehe des Bildes und der Abschnitt steht ruhig. */
 .stl-zwei--erwartet {
   grid-template-columns: 1fr 1fr;
   column-gap: var(--stl-spalt-56);
-  align-items: start;
+  align-items: center;
 }
 
 /* ---------------------------------------------------------------------------
-   DIE KARTENLISTE — 31.08.2026, KUNDENWUNSCH: DER STAPEL IST RAUS
+   DIE SCHRITTLISTE — 31.08.2026, KUNDENWUNSCH: DIE KAESTEN SIND WEG
 
-   „Die Punkte einfach untereinander gelistet, ohne Scrollanimation" —
-   wie der Ablauf auf der Startseite, der im selben Durchgang umgebaut wird.
-   Die Karten stehen jetzt schlicht untereinander: Nummer, Titel, Satz.
+   „Bei der Section ‚Dein Einstieg, das erwartet dich' musst du die Kaesten
+   wegmachen. Das Bild rechts bleibt, die Kaesten sollen aber weg sein, und
+   dann soll es genauso sein wie bei ‚Unser Ablauf', einfach nur ohne
+   Kaesten."
 
-   WAS AM 30.08.2026 HIER STAND UND SEIT DEM 31.08.2026 NICHT MEHR:
-   ein Kartenstapel aus `position: sticky`-Kaesten mit gestaffelten
-   Klebehoehen, der die jeweils vorige Karte zu 90 Prozent ueberdeckte
-   (K + n·V, V = H/10, daher die feste Kartenhoehe H). Ersatzlos raus sind
-   damit:
-     - `position: sticky` auf .stl-halt und die fuenf nth-child-Klebehoehen
-     - die feste `height` der Karte im Klebefall
-     - die Rechengroessen --stl-karte-h und --stl-versatz
-     - die zwei Ruecknahmen im Block „Ruhige Darstellung", die den Stapel
-       dort wieder aufloesten — ohne Stapel gibt es nichts aufzuloesen
-   Damit haengt an diesem Abschnitt KEINE einzige Regel mehr am Rollweg.
+   GEBAUT NACH assets/css/ablauf.css IN SEINER FASSUNG VOM 31.08.2026
+   (.abl__folge / .abl__stufe / .abl__stufe-nr / -titel / -text). Jene
+   Datei ist dafuer nur GELESEN worden, nicht veraendert — an ihr arbeitet
+   ein anderer. Uebernommen sind Aufbau und Massverhaeltnisse, nicht die
+   Klassennamen: die Stellenseiten haben ihren eigenen Namensraum.
 
-   --stl-klebe BLEIBT, aber nur noch fuer das Bildfeld rechts (.stl-bilder),
-   siehe dort. Es ist die einzige verbliebene Klebehoehe der Seite.
+   WAS AN EINEM TAG ZWEIMAL GEFALLEN IST
+     Stand 30.08.2026  Karten, die sich beim Rollen stapelten und die
+                       vorige zu 90 % ueberdeckten
+     Vormittag 31.08.  der Stapel raus, die Karten blieben und standen
+                       schlicht untereinander
+     jetzt             auch die Karten raus
+   Ersatzlos entfallen sind damit .stl-stapel, .stl-halt und die ganze
+   Familie .stl-karte* — Kartenverlauf (#1E222D nach #2E3643), Rahmen,
+   14 px Radius, zwei Schattenlagen, das Symbolfeld mit seiner
+   Strichzeichnung und die feste Mindesthoehe. Es steht keine Flaeche mehr
+   unter den Schritten.
 
-   BEIDE STELLENSEITEN SEHEN JETZT GLEICH AUS, und das war der zweite Teil
-   des Auftrags. Vorher unterschieden sie sich in drei Punkten, jetzt nur
-   noch in einem:
+   WAS STATTDESSEN DA IST: Nummer, Titel, Satz, dazwischen eine Haarlinie.
+   Nach dem letzten Schritt steht keine — eine Linie am Ende der Liste
+   wuerde etwas abtrennen, das nicht mehr kommt. Dieselbe Regel wie im
+   Ablauf.
 
-       Merkmal              vorher                      jetzt
-       Kleben               Immo ja / Back-Office nein   beide nein
-       Mindesthoehe Karte   14,4 rem / 10,6 rem          beide 10,6 rem
-       Ziffer               Immo ja / Back-Office nein   unveraendert
+   DAS BILD RECHTS BLEIBT, wo es war (.stl-bilder, Verhaeltnis 597 : 710).
+   Es klebt weiterhin; die linke Spalte ist auch als Liste noch die
+   hoehere. Es haengt an [data-stl-js] und steht ohne Javascript und bei
+   ruhiger Darstellung still.
 
-   DIE ZIFFER BLEIBT DER EINE UNTERSCHIED, und das ist Absicht und keine
-   Nachlaessigkeit: die Immobilienberater-Seite fuehrt fuenf Schritte in
-   einer Reihenfolge (<ol>, „So laeuft die Partnerschaft ab" aus dem
-   Wording-Master), die Back-Office-Seite vier Punkte OHNE Reihenfolge
-   (<ul>) — deren vierter ist „Persoenliche Begleitung" und beschreibt
-   keinen Schritt. Eine Nummerierung wuerde dort einen Ablauf behaupten,
-   den der Master fuer diese Stelle nicht hergibt. Diese Entscheidung
-   stammt aus einem frueheren Durchgang, ist im Markup beider Seiten
-   vermerkt und bleibt. Am AUSSEHEN der Karte aendert sie nichts weiter
-   als die eine Zeile darueber.
+   DIE GROESSEN SIND KLEINER ALS IM ABLAUF, und das mit Absicht: dort
+   steht die Liste in einer halben Spalte von rund 700 px, hier in einer
+   von rund 600 px, und hier sollen UEBERSCHRIFT UND ALLE SCHRITTE BEI
+   1440 x 900 ZUSAMMEN INS FENSTER passen. Gemessen bei 1440 px:
 
-   .stl-stapel--folge heisst deshalb ab jetzt nur noch „das ist eine
-   Reihenfolge, zeig die Ziffern" und nicht mehr „das klebt".
-   .stl-stapel--ruhig heisst „keine Reihenfolge, keine Ziffern".
-   Der Name .stl-stapel selbst bleibt — er steht im Markup beider Seiten
-   und in stelle.js, und ein Umbenennen brächte an dieser Stelle nichts
-   ausser Bruchstellen.
+       Ablauf (Startseite)        hier
+       Nummer  22,2 px            16,7 px
+       Titel   28,1 px            21,0 px
+       Satz    21,6 px            15,7 px
+
+   15,7 px Fliesstext liegt ueber der Untergrenze von 14 px, die fuer
+   diesen Umbau ausdruecklich gesetzt war. Die clamp-Untergrenzen
+   (0,94 rem = 15,04 px) fallen nirgends darunter.
+
+   DIE FARBEN sind die der Seite, mit EINER Ausnahme: die Ziffer traegt
+   #8A5A20 und nicht --stl-zeichen. --stl-zeichen ist auf hellem Grund das
+   Gold mit 3,05:1 — das genuegt fuer Grafik, aber nicht fuer Schrift. Der
+   Bronzeton ist derselbe, den ablauf.css fuer dieselbe Ziffer benutzt
+   (dort mit 5,41:1 vermerkt); er ist von dort uebernommen, damit die
+   beiden Listen auch farblich als dieselbe Sache gelesen werden.
    --------------------------------------------------------------------------- */
 .stl-erwartet {
-  --stl-karte-luft: clamp(0.7rem, 1.05vw, 1.05rem);
-  /* Klebehoehe des Bildfeldes rechts: Kopfleiste plus Luft. Die Kopfleiste
-     wird ab 24 px Rollweg `position: fixed` (base.css, .site-header--sticky)
-     — ohne diesen Vorhalt schoebe sie sich ueber das Bild. */
-  --stl-klebe:      calc(var(--header-h) + clamp(1rem, 3vh, 2.4rem));
+  --stl-erw-nr:     clamp(0.95rem, 1.16vw, 1.16rem);
+  --stl-erw-titel:  clamp(1.12rem, 1.46vw, 1.46rem);
+  --stl-erw-satz:   clamp(0.94rem, 1.09vw, 1.09rem);
+  --stl-erw-bronze: #8A5A20;
 }
 
-.stl-stapel {
-  display: block;
-  margin: clamp(24px, 1.8vw, 34px) 0 0;
-  /* HIER STAND EIN POLSTER VON BIS ZU 5 rem AM FUSS. Es hatte genau eine
-     Aufgabe: die oberste Karte des Stapels noch eine Weile stehen zu
-     lassen, bevor der Stapel den Abschnitt verliess. Ohne Stapel ist es
-     ein Loch zwischen der letzten Karte und der Abschlusszeile — bei
-     1440 px gemessene 106 px. Entfernt am 31.08.2026; den Abstand zur
-     Abschlusszeile setzt jetzt allein deren margin-top
-     (.stl-erwartet__schluss, 20 bis 30 px). */
+.stl-folge {
+  display: grid;
+  align-content: start;
+  margin: clamp(18px, 1.5vw, 28px) 0 0;
   padding: 0;
   list-style: none;
 }
-.stl-halt { display: block; }
-.stl-halt + .stl-halt { margin-top: var(--stl-karte-luft); }
 
-/* Die Karte. Der Verlauf ist der des FAQ-Kastens, waagerecht — dieselben
-   zwei Werte, mit denen die Ablaufkarten der Startseite arbeiten
-   (--abl-karte-links/-rechts in ablauf.css).
-   DECKEND UND MIT HAARLINIE, auch ohne Stapel: die Karten stehen mit
-   0,7 bis 1,05 rem Luft untereinander, und eine Kante trennt zwei gleich
-   gefaerbte Flaechen sauberer als ein Zwischenraum allein.
-
-   DIE MINDESTHOEHE IST SEIT DEM 31.08.2026 FUER BEIDE SEITEN DIESELBE.
-   Vorher stand hier --stl-karte-h (bis 14,4 rem) — das war die feste
-   Hoehe, an der die 90-Prozent-Rechnung des Stapels hing, und nur dort
-   war sie begruendet. Ohne Stapel ist sie Leerraum (gemessen: 230 px
-   Karte fuer 159 px Inhalt). Es gilt jetzt ueberall das Mass, das die
-   Back-Office-Seite schon hatte: gerechnet am laengsten Satz, nicht an
-   einer Stapelquote. */
-.stl-karte {
-  --stl-karte-links:  #1E222D;
-  --stl-karte-rechts: #2E3643;
+.stl-stufe {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: clamp(16px, 1.35vw, 24px);
-  align-content: start;
+  grid-template-columns: clamp(2.1rem, 2.9vw, 2.8rem) minmax(0, 1fr);
+  column-gap: clamp(0.7rem, 1.2vw, 1.2rem);
   align-items: start;
-  min-height: clamp(8.6rem, 8.8vw, 10.6rem);
-  padding: clamp(1.05rem, 1.55vw, 1.6rem) clamp(1.2rem, 1.75vw, 1.8rem);
-  border: 1px solid rgba(237, 241, 248, 0.16);
-  border-radius: 14px;
-  overflow: clip;   /* der Radius muss auch den Inhalt beschneiden;
-                       `clip` statt `hidden`, es richtet keinen Rollbereich
-                       ein. */
-  background: linear-gradient(90deg,
-      var(--stl-karte-links) 0%, var(--stl-karte-rechts) 100%);
-  box-shadow:
-      0 1px 2px rgba(16, 41, 73, 0.10),
-      0 16px 34px rgba(16, 41, 73, 0.18);
+  padding-block: clamp(0.8rem, 1.3vw, 1.25rem);
+  border-bottom: 1px solid var(--stl-linie);
+}
+/* Der erste Schritt braucht oben kein Polster — die Ueberschrift darueber
+   bringt ihren eigenen Abstand mit. Nach dem letzten keine Linie. */
+.stl-stufe:first-child { padding-top: 0; }
+.stl-stufe:last-child  { padding-bottom: 0; border-bottom: 0; }
+
+/* OHNE ZIFFERNSPALTE — Back-Office-Seite. Deren vier Punkte sind keine
+   Reihenfolge (der vierte ist „Persoenliche Begleitung" und beschreibt
+   keinen Schritt); eine Nummerierung wuerde dort einen Ablauf behaupten,
+   den der Wording-Master nicht hergibt. Die Entscheidung stammt aus einem
+   frueheren Durchgang und bleibt. Ohne Ziffer faellt auch die Spalte weg —
+   eine leere Spalte waere nur eine Einrueckung ohne Grund. */
+.stl-folge--ohne-nr .stl-stufe { grid-template-columns: minmax(0, 1fr); }
+
+.stl-stufe__nr {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--stl-erw-nr);
+  line-height: 1.28;                 /* auf die Grundlinie des Titels */
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--stl-erw-bronze);
 }
 
-/* Das Symbol in seinem eigenen Feld. Strichzeichnung wie ueberall im
-   Projekt; es zeichnet sich beim Eintritt (siehe Bewegungsblock). */
-.stl-karte__zeichen {
-  display: grid;
-  place-items: center;
-  width: clamp(46px, 3.4vw, 58px);
-  height: clamp(46px, 3.4vw, 58px);
-  flex: none;
-  border: 1px solid rgba(237, 241, 248, 0.18);
-  border-radius: 12px;
-  color: #C9B08A;                 /* 5,83:1 an der hellsten Kartenstelle */
-}
-.stl-karte__zeichen svg {
-  width: clamp(24px, 1.8vw, 30px);
-  height: clamp(24px, 1.8vw, 30px);
-}
+.stl-stufe__wort { min-width: 0; }
 
-.stl-karte__wort { min-width: 0; }
-
-.stl-karte__nr {
-  display: flex;
-  align-items: center;
-  gap: 0.85em;
-  font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: clamp(0.72rem, 0.74vw, 0.82rem);
-  line-height: 1;
-  letter-spacing: 0.14em;
-  font-variant-numeric: tabular-nums;
-  color: #C9B08A;                 /* 5,83:1 an der hellsten Kartenstelle */
-  margin: 0 0 clamp(0.5rem, 0.7vw, 0.75rem);
-}
-/* Der Haarstrich hinter der Ziffer — wie in der Kleinzeile. */
-.stl-karte__nr::after {
-  content: '';
-  width: clamp(20px, 1.7vw, 32px);
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-/* Auf der Back-Office-Seite gibt es die Ziffer nicht, siehe Kopf dieses
-   Blocks. Sie steht dort auch nicht im Markup — diese Regel ist nur der
-   Riegel, falls sie jemand versehentlich wieder einsetzt. */
-.stl-stapel--ruhig .stl-karte__nr { display: none; }
-
-/* Die eigene Mindesthoehe der Back-Office-Karte ist am 31.08.2026
-   entfallen — ihr Wert steht jetzt an .stl-karte selbst und gilt fuer
-   beide Seiten. Genau das war der Auftrag: „pruefen, dass beide Seiten
-   jetzt gleich aussehen". */
-
-.stl-karte__titel {
+.stl-stufe__titel {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(1.35rem, 1.62vw, 1.95rem);
-  line-height: 1.1;
-  letter-spacing: -0.006em;
-  color: #FFFFFF;                 /* 12,17:1 an der hellsten Kartenstelle */
-  margin: 0;
+  font-size: var(--stl-erw-titel);
+  line-height: 1.14;
+  letter-spacing: -0.004em;
+  color: var(--stl-tx);
   text-wrap: balance;
 }
-.stl-karte__text {
-  margin: clamp(0.5rem, 0.75vw, 0.8rem) 0 0;
-  font-size: var(--stl-t-text);
-  line-height: 1.55;
-  color: #C7CEDA;                 /* 7,69:1 an der hellsten Kartenstelle */
-  text-wrap: pretty;
-}
 
-/* HIER STAND DAS KLEBEN — sieben Regeln, entfernt am 31.08.2026:
-   `position: sticky` auf .stl-halt, die feste `height` der Karte und die
-   fuenf gestaffelten Klebehoehen nth-child(1..5). Sie haben den Stapel
-   gemacht, und der Stapel ist raus. Die Karten stehen jetzt im normalen
-   Fluss, auf beiden Seiten gleich, und es haengt nichts mehr am Rollweg.
-   Der Rest des Abschnitts ist unveraendert. */
+.stl-stufe__text {
+  margin: clamp(0.3rem, 0.5vw, 0.5rem) 0 0;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--stl-erw-satz);
+  line-height: 1.5;
+  color: var(--stl-tx-weich);
+  text-wrap: pretty;
+  max-width: 44em;
+}
 
 .stl-erwartet__schluss {
   margin-top: clamp(20px, 1.6vw, 30px);
@@ -1235,19 +1186,19 @@
    Bild ohne Umbau wieder daruntergesetzt werden koennte. */
 .stl-bilder { display: grid; gap: 0; line-height: 0; }
 
-/* DAS BILDFELD KLEBT MIT — seit dem 30.08.2026, zusammen mit dem
-   Kartenstapel links. Die linke Spalte ist jetzt ein Vielfaches hoeher als
-   die rechte; ohne Kleben liefe das Bild schon nach der zweiten Karte aus
-   dem Bild und die rechte Seite waere den Rest des Abschnitts leer.
-   Es haengt am selben Merkmal wie der Stapel: ohne Javascript und bei
-   ruhiger Darstellung steht es still an seinem Platz.
-   Der klebende Bereich ist die Rasterzelle; sie reicht ueber die volle
-   Zeilenhoehe, also ueber die ganze Laenge des Stapels. */
-[data-stl-js] .stl-bilder {
-  position: sticky;
-  top: var(--stl-klebe);
-  align-self: start;
-}
+/* DAS BILDFELD KLEBT SEIT DEM 31.08.2026 NICHT MEHR.
+   Es klebte seit dem 30.08.2026, und der Grund stand dabei: links
+   stapelten sich fuenf Karten ueber eine vielfache Hoehe, ohne Kleben
+   waere das Bild schon nach der zweiten Karte aus dem Bild gelaufen.
+   Der Stapel ist raus, die Karten sind raus, und die linke Spalte ist
+   jetzt KUERZER als das Bild (gemessen bei 1440 px: 575 gegen 718 px).
+   Damit laeuft nichts mehr weg, und ein `sticky` haette keine Aufgabe
+   mehr — ausser einer Bewegung beim Rollen, die der Kunde an diesem
+   Abschnitt ausdruecklich nicht mehr will („ohne Scrollanimation").
+   Das Bildfeld steht deshalb einfach da. An diesem Abschnitt haengt jetzt
+   keine einzige Regel mehr am Rollweg.
+   --stl-klebe wird damit nirgends mehr benutzt und ist bei .stl-erwartet
+   ebenfalls entfallen. */
 /* height: auto ist Pflicht, nicht Kosmetik. Die Bilder tragen width- und
    height-Attribute (gegen Layoutsprünge beim Nachladen). Diese Attribute
    sind Darstellungshinweise und setzen eine echte CSS-Hoehe — solange die
@@ -1404,9 +1355,9 @@
     row-gap: clamp(36px, 6vw, 56px);
   }
 
-  /* Einspaltig steht das Bildfeld UNTER dem Stapel. Kleben hat dort keine
-     Aufgabe mehr und wuerde nur den Fluss stoeren. */
-  [data-stl-js] .stl-bilder { position: static; }
+  /* HIER LOESTE EINE REGEL DAS KLEBEN DES BILDFELDES FUER DEN
+     EINSPALTIGEN FALL. Seit dem 31.08.2026 klebt es ueberhaupt nicht mehr,
+     siehe .stl-bilder weiter oben. */
 
   /* Das Bild rechts steht unter dem Text und wird flacher, damit es
      einspaltig nicht den halben Bildschirm fuellt. Dasselbe gilt fuer das
@@ -1415,10 +1366,10 @@
   .stl-platz      { aspect-ratio: 3 / 2; }
 
   /* HIER STAND EIN EIGENES --stl-karte-h FUER DEN EINSPALTIGEN FALL.
-     Mit dem Stapel ist es am 31.08.2026 entfallen: die Mindesthoehe an
-     .stl-karte ist ein clamp mit vw-Anteil und passt sich von selbst an.
-     Ueber die volle Containerbreite bricht der Text ohnehin frueher um,
-     die Karte waechst dann gar nicht erst ueber ihre Mindesthoehe hinaus. */
+     Es ist am 31.08.2026 mit dem Stapel und dann mit den Karten selbst
+     entfallen. Die Schrittliste braucht keine Hoehenangabe: sie waechst
+     mit ihrem Text, und ihre drei Schriftgroessen sind clamps mit
+     vw-Anteil. */
 }
 
 /* --- Unter 700 px: EINE Spalte -------------------------------------------
@@ -1448,13 +1399,11 @@
   .stl-haken__zeichen     { width: 34px; height: 34px; }
   .stl-haken__zeichen svg { width: 26px; height: 26px; }
   /* HIER STAND DIE GEGENLAEUFIGE KARTENHOEHE (clamp mit negativem
-     vw-Vorfaktor). Sie war noetig, solange die Karte im Stapel eine FESTE
-     Hoehe hatte und der Text bei schmalem Fenster sonst herausgerissen
-     waere. Seit dem 31.08.2026 gibt es keine feste Hoehe mehr, nur noch
-     eine Mindesthoehe — die Karte waechst hier von selbst mit ihrem Text.
-     Die engere Luft zwischen den Karten bleibt. */
-  .stl-erwartet { --stl-karte-luft: 0.65rem; }
-  .stl-karte { column-gap: 14px; padding: 1rem 1.05rem; }
+     vw-Vorfaktor) und die engere Kartenluft. Beides ist mit den Karten
+     entfallen. Die Schrittliste braucht hier nur etwas mehr Luft je
+     Zeile, weil der Satz auf schmalem Fenster zwei- bis dreizeilig
+     umbricht und die Haarlinien sonst zu dicht aufeinander stehen. */
+  .stl-stufe { padding-block: 0.95rem; }
   .stl-schluss__aktionen { gap: 1.1rem; }
   .stl-schluss__aktionen .btn { width: 100%; justify-content: center; }
 }
@@ -1512,7 +1461,7 @@
       Schritte bauen sich dadurch nacheinander auf, statt gemeinsam da zu
       stehen.
       AUF DER BACK-OFFICE-SEITE GIBT ES DIESE ZIFFERN NICHT (deren vier
-      Punkte sind keine Reihenfolge, siehe .stl-karte__nr weiter oben). Die
+      Punkte sind keine Reihenfolge, siehe .stl-folge--ohne-nr weiter oben). Die
       Regeln unten laufen dort ins Leere; die übrigen Gesten des Abschnitts
       greifen unverändert.
 
@@ -1578,7 +1527,7 @@
 
       DER KARTENSTAPEL in „Das erwartet dich" ist KEINE Animation und steht
       deshalb nicht in dieser Liste — er ist reines `position: sticky`, der
-      Leser rollt selbst. Die Rechnung dazu steht oben bei .stl-stapel.
+      Leser rollt selbst. Die Schrittliste steht oben bei .stl-folge.
 
    DIE GRENZEN, DIE NICHT VERHANDELBAR SIND — und wo sie hier stehen:
 
@@ -1680,6 +1629,339 @@
 }
 
 
+/* ===========================================================================
+   DIE SECHS SYMBOLE BEWEGEN SICH SELBST — 31.08.2026, KUNDENWUNSCH
+
+   „Heute bewegen sie sich nur als Ganzes. Das Symbol selbst soll etwas tun."
+   Drei Beispiele kamen vom Kunden, drei sind dazuerfunden:
+
+       aus-01  zwei Sprechblasen   die zweite kommt nach
+       aus-02  Schloss             es schliesst sich, es oeffnet sich    (K)
+       aus-03  Waage               sie schwingt einmal aus und pendelt ein
+       aus-04  Blattstapel         der Haken zeichnet sich
+       aus-05  Buch mit Hut        der Hut hebt ab, eine Seite blaettert  (K)
+       aus-06  Sanduhr             der Sand rieselt durch                 (K)
+
+   WAS DAFUER WEGGEFALLEN IST: die eine Regel, die bis heute JEDES der sechs
+   Bilder beim Ueberfahren um 6 px hob und 1,8 Grad neigte. Sie war genau
+   das „nur als Ganzes", das der Kunde beanstandet hat. Zwei Bewegungen
+   gleichzeitig — das ganze Bild kippt UND ein Teil darin bewegt sich —
+   waeren ausserdem eine Bewegung zu viel.
+
+   --------------------------------------------------------------------------
+   DAS GRUNDPROBLEM: ES SIND RASTERBILDER, KEINE SVG
+   Ein PNG kann nicht blaettern. Je Symbol ist deshalb einer von zwei Wegen
+   gewaehlt, und welcher, steht bei jeder Geste dabei:
+
+     ZERSCHNITTEN (c)  Das Bild ist in Lagen zerlegt, jede Lage eine eigene
+                       Datei in assets/img/stelle/teil/. UEBEREINANDERGELEGT
+                       ergeben die Lagen wieder genau das Original — der
+                       Ruhezustand ist also Bildpunkt fuer Bildpunkt der
+                       alte. Wo eine Lage beim Bewegen etwas freigibt, ist
+                       das Freigegebene vorher aufgefuellt worden.
+     DARUEBERGELEGT (b) Das Bild bleibt, wie es ist; die Bewegung ist ein
+                       kleines SVG genau darueber. Nur dort gewaehlt, wo
+                       nichts freigelegt werden muss.
+
+     Nicht gewaehlt wurde (a), das Nachzeichnen als Inline-SVG. Die sechs
+     Grafiken sind mattes weiches 3D mit Verlaeufen und weichen Schatten;
+     eine Strichzeichnung daneben saehe wie ein Fremdkoerper aus, und alle
+     sechs im selben Stil nachzuzeichnen ist eine eigene Arbeit.
+
+   --------------------------------------------------------------------------
+   DER AUFBAU IM MARKUP — drei Ebenen, drei getrennte Bewegungen
+
+       <figure class="stl-aus__bild stl-aus__bild--NAME">
+         <span class="stl-aus__lage stl-aus__lage--TEIL">   <- Eintrittsgeste
+           <picture>                                        <- gemeinsamer
+             <img>                                             Auftritt
+           </picture>                                       <- Ueberfahren
+         </span>
+         ... weitere Lagen ...
+       </figure>
+
+   DREI EBENEN UND NICHT EINE, und das ist keine Umstaendlichkeit: zwei
+   `animation`-Kurzformen auf demselben Element ueberschreiben sich, die
+   zuerst genannte Bewegung fiele ersatzlos aus. Dieselbe Regel gilt im
+   ganzen Projekt (siehe .stl-bilder picture / img weiter oben).
+     span    traegt die Geste beim ERSTEN ERSCHEINEN
+     picture traegt den gemeinsamen Auftritt des ganzen Symbols (stl-grafik)
+     img     traegt die Geste beim UEBERFAHREN
+   Faellt eine Ebene aus, stehen die anderen zwei trotzdem.
+
+   WARUM DIE LAGEN DIESELBEN BILDMASSE HABEN wie das Original: .stl-aus__bild
+   img zwingt jedes Bild in ein QUADRATISCHES Feld und legt es mit
+   `object-fit: contain` hinein. Zwei Dateien landen genau dann deckungs-
+   gleich, wenn sie dieselben Bildmasse haben. Die Lagen sind deshalb NICHT
+   auf ihren Inhalt zugeschnitten, sondern volle Leinwand mit durch-
+   sichtigem Rest. Das kostet fast nichts — die webp-Dateien wiegen 14 bis
+   111 kB, weil durchsichtige Flaechen sich hervorragend packen.
+
+   DIE DREHPUNKTE SIND GERECHNET, NICHT GERATEN. transform-origin bezieht
+   sich auf den QUADRATISCHEN Kasten, das Bild liegt darin aber mit Rand.
+   Umrechnung fuer ein Querbild (b × h, b > h) in einem Quadrat der Seite S:
+       x_Kasten = x_Bild
+       y_Kasten = (1 − h/b)/2 + y_Bild · h/b
+   und fuer ein Hochbild entsprechend mit vertauschten Achsen. Jeder Wert
+   unten ist so aus gemessenen Bildpunkten hergeleitet.
+
+   NUR transform, opacity UND clip-path. Kein Rollhorcher, kein
+   requestAnimationFrame, keine Bildfolge, kein Javascript ausser dem
+   IntersectionObserver, den stelle.js ohnehin schon hat.
+   =========================================================================== */
+
+/* Die Lage. Deckt denselben Kasten wie <picture> und liegt in
+   Dokumentreihenfolge darueber — hinten zuerst, vorn zuletzt. */
+.stl-aus__lage { position: absolute; inset: 0; display: block; }
+
+/* Die zwei aufgelegten SVG.
+
+   SIE BEKOMMEN GENAU DIE MASSREGELN DES BILDES und nicht etwa `inset: 0`.
+   Das ist der Punkt, an dem so etwas sonst schiefgeht: <figure> ist NICHT
+   quadratisch (es nimmt die Restbreite des Kastens und die Resthoehe), das
+   Bild darin schon — es liegt mittig in einem Quadrat mit
+   `aspect-ratio: 1/1` und `object-fit: contain`. Ein SVG mit `inset: 0`
+   laege also im falschen Kasten, und jede gemessene Koordinate waere
+   daneben. Mit denselben vier Zeilen deckt es dasselbe Quadrat.
+
+   viewBox 0 0 100 100 und `preserveAspectRatio` in der Voreinstellung:
+   eine Benutzereinheit ist damit ein Prozent der Quadratseite, und die
+   gemessenen Bildpunkte lassen sich direkt eintragen.
+
+   IN RUHE UNSICHTBAR: ohne Javascript und bei ruhiger Darstellung laeuft
+   keine Animation, und dann darf hier auch nichts stehen. Das Symbol sieht
+   dann aus wie vorher — das gelieferte Bild, unveraendert. */
+.stl-aus__auf {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: block;
+  height: min(100%, 17rem);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  opacity: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* --- 01  ZWEI SPRECHBLASEN — „Klare Worte" ------------------------------
+   WEG (c), ZERSCHNITTEN, und hier ohne jedes Auffuellen: die zwei Blasen
+   sind in der Vorlage sauber nach Farbe getrennt (Navy hinten, Creme vorn).
+   Die Maske ist die Navy-Klasse mit geschlossenen Loechern; was uebrig
+   bleibt, ist die vordere Blase. Zusammengelegt ergibt das wieder das
+   Original.
+   GESTE: die zweite Blase kommt nach — beim Eintritt waechst sie hinter der
+   ersten hervor, beim Ueberfahren antwortet sie der ersten mit einem
+   Wimpernschlag Abstand. Zwei Schlaege, wie in einem Gespraech.
+   DREHPUNKT 39 % 35 %: die obere linke Ecke der hinteren Blase, gemessen
+   bei (605, 287) in 1536 × 1024. Genau dort ueberdecken sich die beiden,
+   und genau dort darf sich am wenigsten bewegen — sonst blitzte die
+   Schnittkante auf. Nach aussen hin waechst die Blase, an der Naht steht
+   sie still. */
+.stl-aus__lage--hinten img,
+.stl-aus__lage--hinten { transform-origin: 39% 35%; }
+
+@keyframes stl-reden-nach {
+  from { opacity: 0; transform: scale(0.82); }
+  55%  { opacity: 1; }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes stl-reden-tupf {
+  0%, 100% { transform: scale(1); }
+  46%      { transform: scale(1.045); }
+}
+
+/* --- 02  SCHLOSS VOR SCHILD — „Sorgsam mit Daten" -----------------------
+   WEG (c), ZERSCHNITTEN IN DREI LAGEN: Schild, Buegel, Koerper. Drei und
+   nicht zwei, weil der Buegel ZWISCHEN Schild und Koerper haengt — seine
+   Beine verschwinden hinter dem Schlosskoerper. Mit nur zwei Lagen liesse
+   er sich nicht bewegen, ohne dass eines von beidem falsch waere.
+
+   DIE KOERPERKANTE IST GEMESSEN, NICHT GESCHAETZT: bis Zeile 639 ist der
+   breiteste zusammenhaengende helle Lauf 81 px breit (ein Buegelbein), ab
+   Zeile 645 sind es 357 px (die Koerperoberkante). Der Schnitt liegt bei
+   642, also 41,8 % der Bildhoehe.
+
+   DIE BEINE SIND UM 150 px VERLAENGERT. In der Vorlage enden sie exakt an
+   der Koerperkante; hebt man den Buegel, klaffte dort eine Luecke und man
+   saehe zwei abgeschnittene Stummel schweben. Die letzten Buegelzeilen sind
+   deshalb nach unten fortgeschrieben. In Ruhe liegt die Verlaengerung
+   VOLLSTAENDIG hinter dem Koerper und ist unsichtbar; sie traegt genau die
+   9 %, die der Buegel hoechstens faehrt (0,09 · 1536 = 138 px < 150).
+
+   HINTER DEM BUEGEL WURDE AUFGEFUELLT. Das Schild ist dort glattes Navy,
+   das Auffuellen laeuft vom Rand des Lochs nach innen und ist bei der
+   Darstellungsgroesse (100 bis 220 px fuer ein Bild von 1024 px Breite)
+   nicht auszumachen.
+
+   GESTE: beim Eintritt faellt der Buegel ins Schloss — es SCHLIESST sich.
+   Beim Ueberfahren faehrt er heraus und wieder hinein — es OEFFNET sich
+   und faellt zu. Beides hat der Kunde als moeglich genannt; hier ist beides
+   da, jedes an der Stelle, an der es sich von selbst erklaert. */
+@keyframes stl-schloss-zu {
+  from { transform: translateY(-9%); }
+  72%  { transform: translateY(0.7%); }
+  to   { transform: translateY(0); }
+}
+@keyframes stl-schloss-auf {
+  0%        { transform: translateY(0); }
+  36%, 60%  { transform: translateY(-6%); }
+  100%      { transform: translateY(0); }
+}
+
+/* --- 03  WAAGE — „Keine Versprechen zu Steuern und Rendite" -------------
+   WEG (c), ZERSCHNITTEN IN ZWEI LAGEN, und der Schnitt ist geometrisch und
+   nicht farblich: Balken, Schnuere und Schalen drehen sich, Saeule und
+   Sockel stehen still.
+
+   DER SCHNITT, AUSGESCHRIEBEN: zur beweglichen Lage gehoert alles
+   ausserhalb des Saeulenbandes 44,5 bis 55,5 % UND oberhalb von Zeile 856.
+   Beide Zahlen sind gemessen. Das Band, weil die Saeule ueber die ganze
+   Hoehe zwischen 46 und 54 % steht. Die Zeile, weil dort die SCHALEN enden
+   — nicht der Sockel: der laeuft mit 38 bis 62 % breiter als das Band und
+   wuerde sonst mitten durchgeschnitten (einmal passiert, im Bild sofort zu
+   sehen gewesen).
+
+   DIE NAHT AN DER SAEULE FAELLT NICHT AUF, und das laesst sich ausrechnen:
+   ein Punkt am Bandrand liegt 75 Bildpunkte vom Drehpunkt entfernt und legt
+   bei 3,4 Grad 4,5 Bildpunkte zurueck — bei 1374 px Bildbreite sind das
+   0,33 %, auf 200 px Darstellung also 0,7 Bildpunkte. Eine Schale liegt
+   480 Bildpunkte entfernt und legt 28 zurueck, also 4 Bildpunkte auf 200.
+   Genau dieses Verhaeltnis ist gewollt: an der Naht unsichtbar, an den
+   Schalen deutlich. Der navyfarbene Knauf in der Balkenmitte deckt den Rest.
+
+   DREHPUNKT 50 % 26,2 %: die Balkenmitte bei (687, 246) in 1374 × 1145,
+   umgerechnet ueber (1 − 1145/1374)/2 + 246/1145 · 1145/1374.
+
+   GESTE: einmal ausschwingen und einpendeln — vier abnehmende Ausschlaege,
+   3,4 / 2,1 / 1,2 / 0,55 Grad. Eine Waage, die zur Ruhe kommt. */
+.stl-aus__lage--balken img,
+.stl-aus__lage--balken { transform-origin: 50% 26.2%; }
+
+@keyframes stl-waage-schwingt {
+  0%   { transform: rotate(-3.4deg); }
+  30%  { transform: rotate(2.1deg); }
+  55%  { transform: rotate(-1.2deg); }
+  78%  { transform: rotate(0.55deg); }
+  100% { transform: rotate(0); }
+}
+@keyframes stl-waage-tippt {
+  0%   { transform: rotate(0); }
+  24%  { transform: rotate(2.6deg); }
+  50%  { transform: rotate(-1.5deg); }
+  74%  { transform: rotate(0.7deg); }
+  100% { transform: rotate(0); }
+}
+
+/* --- 04  BLATTSTAPEL MIT HAKEN — „Sauber dokumentiert" ------------------
+   WEG (c), ZERSCHNITTEN IN ZWEI LAGEN. Der Kunde hatte hier (b) angeregt,
+   also einen SVG-Haken ueber das Bild zu legen — das geht nicht, solange
+   der gezeichnete Haken darunter noch da ist: er waere von Anfang an zu
+   sehen, und das Zeichnen liefe ins Leere. Der Haken muss also HERAUS,
+   und wenn er ohnehin heraus ist, kann gleich er selbst gezeichnet werden
+   statt einer Nachzeichnung.
+
+   DIE MASKE WAECHST UM 46 px, und das ist der eigentliche Kniff. Der Haken
+   wirft einen weichen Schatten auf das Blatt, und der ist nicht gruen.
+   Waechst die Maske nur um das Gruen, zieht das Auffuellen den Schatten von
+   aussen nach innen und es bleibt ein Gespenst in Hakenform stehen —
+   einmal gebaut, im Bild gesehen und verworfen.
+
+   GEZEICHNET WIRD MIT clip-path, NICHT MIT stroke-dashoffset: es ist ein
+   Bild und kein Pfad, es gibt keine Pfadlaenge. Ein Wischer von links nach
+   rechts liest sich hier trotzdem als Zeichnen, und zwar nicht zufaellig:
+   ein Haken besteht aus zwei Strichen, die BEIDE von links nach rechts
+   laufen — der kurze abwaerts, der lange aufwaerts. Der Stift kommt also
+   nie zurueck, und ein Wischer entlang x bildet den Weg des Stiftes ab.
+   Der Haken steht bei 37,0 bis 64,5 % der Bildbreite (gemessen: 486 bis
+   848 von 1312). Der Wischer laeuft deshalb von 66 % Beschnitt rechts auf
+   33 % und nicht von 100 auf 0 — sonst waere die halbe Laufzeit Leerlauf,
+   bevor ueberhaupt etwas erscheint. */
+@keyframes stl-haken-zieht {
+  from { clip-path: inset(0 66% 0 0); }
+  to   { clip-path: inset(0 33% 0 0); }
+}
+
+/* --- 05  BUCH MIT HUT — „Lust zu lernen" --------------------------------
+   ZWEI WEGE IN EINEM SYMBOL, weil der Kunde zwei Dinge genannt hat.
+
+   DER HUT: WEG (c), ZERSCHNITTEN. Er liess sich sauber ausloesen, weil er
+   im Bild ein EIGENES zusammenhaengendes Navy-Gebiet ist (106 156 Bild-
+   punkte, x 50,8 bis 85,3 %, y 10,8 bis 47,3 %) — er beruehrt den Buchdeckel
+   nicht. Dazu die Quaste: Gold oberhalb 58 % und rechts von 62 %, denn die
+   Blattkanten liegen tiefer und der Falz weiter links.
+   KEIN LOECHERSCHLIESSEN auf der zusammengesetzten Maske: es hat beim
+   ersten Versuch die Luecke zwischen Mortarboard-Ecke, Quaste und Buchkante
+   mitgenommen und ein Stueck Buchseite in die Hutlage geschnitten. Es steht
+   dort jetzt nur ein morphologisches Schliessen mit 5 px — kleine Luecken
+   aus der Kantenglaettung gehen zu, grosse Flaechen bleiben draussen.
+   DIE HEBUNG BLEIBT KLEIN (3 % der Quadratseite, das sind 46 Bildpunkte im
+   Original): mehr wuerde die aufgefuellte Flaeche unter dem Hut zeigen.
+   Der Schlagschatten des Huts bleibt im Buch liegen — er gehoert zur
+   Seite, nicht zum Hut, und ein Hut, der sich einen Fingerbreit hebt,
+   nimmt seinen Schatten nicht mit.
+   DREHPUNKT 62 % 48 %: der Fuss der Hutkappe, dort wo sie das Buch
+   beruehrt. Der Hut kippt also um seine Auflage und schwebt nicht.
+
+   DIE SEITE: WEG (b), DARUEBERGELEGT. Ein Blatt aus dem Bild zu schneiden
+   ginge nicht — darunter liegt keine zweite Seite, es bliebe ein Loch. Das
+   aufgelegte Blatt ist stattdessen ein SVG-Pfad in der Papierfarbe, der dem
+   gemessenen Umriss der rechten Seite folgt (Zeile fuer Zeile abgelesen:
+   Falz bei 45 bis 46 %, rechte Kante von 63 % bei y 22 % bis 87 % bei y 65 %).
+   ER IST IN RUHE UNSICHTBAR (opacity 0) und wird erst beim Aufschlagen
+   sichtbar — deshalb muss er im flachen Zustand auch nicht auf den Bildpunkt
+   passen; man sieht ihn nur, waehrend er steht. Er dreht um den Falz
+   (46 % 49 %) auf 62 Grad und faellt zurueck: eine Seite, die ein Stueck
+   blaettert.
+   DIE ZWEI GESTEN LAUFEN NACHEINANDER, nicht zugleich — erst hebt der Hut,
+   dann blaettert die Seite. Zwei Bewegungen im selben Augenblick waeren
+   der Jahrmarkt, den der Kunde ausdruecklich nicht will. */
+.stl-aus__lage--hut img,
+.stl-aus__lage--hut { transform-origin: 62% 48%; }
+.stl-aus__auf--seite { transform-origin: 46% 49%; }
+
+@keyframes stl-hut-hebt {
+  0%        { transform: translateY(0) rotate(0); }
+  38%, 58%  { transform: translateY(-3%) rotate(-2.2deg); }
+  100%      { transform: translateY(0) rotate(0); }
+}
+@keyframes stl-seite-blaettert {
+  0%   { opacity: 0; transform: perspective(520px) rotateY(0deg); }
+  22%  { opacity: 1; }
+  52%  { opacity: 1; transform: perspective(520px) rotateY(-62deg); }
+  84%  { opacity: 0.45; }
+  100% { opacity: 0; transform: perspective(520px) rotateY(0deg); }
+}
+
+/* --- 06  SANDUHR — „Langfristig denken" ---------------------------------
+   WEG (b), DARUEBERGELEGT, und hier ist er ohne Abstriche der richtige: es
+   muss nichts freigelegt werden, das Bild bleibt vollstaendig, und die
+   Bewegung ist genau das, was fehlt.
+
+   DIE LAGE DER KOERNER IST GEMESSEN. Der Hals der Sanduhr ist die engste
+   Stelle des Glases: bei Zeile 726 bis 756 ist der Glaskoerper nur noch
+   6,4 % breit (46,7 bis 53,1 %), darueber und darunter oeffnet er sich
+   wieder. Der gezeichnete Sandstrahl laeuft von dort bis zum Kegel unten,
+   der bei 66 % beginnt. Umgerechnet auf das quadratische Feld eines
+   Hochbildes (x_Kasten = 16,67 % + x_Bild · 66,67 %) fallen die Koerner
+   also bei x 49,4 bis 50,6 von y 50 nach y 65.
+
+   FUENF KOERNER, VERSETZT, und nicht mehr: ein dichter Strahl waere im
+   Bild schon da. Die Farbe ist aus dem Bild genommen (242, 212, 174 im
+   Strahl, 220, 175, 121 im Kegel).
+
+   BEIM UEBERFAHREN RIESELT ES WEITER, so lange der Zeiger steht. Das ist
+   die eine Stelle, an der eine Wiederholung richtig ist: Sand rinnt, bis
+   er durch ist. Beim ersten Erscheinen laeuft ein einziger Durchgang. */
+@keyframes stl-korn {
+  0%   { opacity: 0; transform: translateY(0); }
+  14%  { opacity: 0.95; }
+  78%  { opacity: 0.95; }
+  100% { opacity: 0; transform: translateY(15px); }
+}
+
+
 /* --- Die Anfangszustände ---------------------------------------------------
    ALLES hängt an [data-stl-js] (gesetzt von stelle.js auf <body class="stl">).
    Ohne Javascript existiert keine dieser Regeln. */
@@ -1736,8 +2018,8 @@
 
 /* Die Kartenziffer bekommt dieselbe Kante. .stl-zi ist die Hülle, die
    stelle.js um den Ziffernsatz legt. */
-[data-stl-js] .stl-karte__nr { clip-path: inset(-100% -0.4em -0.14em -0.4em); }
-[data-stl-js] .stl-karte__nr .stl-zi { display: inline-block; transform: translateY(200%); }
+[data-stl-js] .stl-stufe__nr { clip-path: inset(-100% -0.4em -0.14em -0.4em); }
+[data-stl-js] .stl-stufe__nr .stl-zi { display: inline-block; transform: translateY(200%); }
 
 /* Strichzeichnungen: --len setzt stelle.js aus der echten Pfadlänge. */
 [data-stl-js] .stl-zeichnet path {
@@ -1758,11 +2040,11 @@
 [data-stl-js] .stl-aus__kasten > *:not(.stl-aus__bild) { opacity: 0; transform: translateY(26px); }
 [data-stl-js] .stl-aus__bild picture { opacity: 0; transform: translateY(18px) scale(0.94); }
 [data-stl-js] .stl-haken__text { opacity: 0; transform: translateY(14px); }
-/* Titel und Satz der Karte steigen, die Ziffer faehrt aus ihrer Kante —
+/* Titel und Satz des Schrittes steigen, die Ziffer faehrt aus ihrer Kante —
    drei getrennte Elemente, damit sich keine zwei Bewegungen auf einem
    Element ueberschreiben. */
-[data-stl-js] .stl-karte__titel,
-[data-stl-js] .stl-karte__text { opacity: 0; transform: translateY(18px); }
+[data-stl-js] .stl-stufe__titel,
+[data-stl-js] .stl-stufe__text { opacity: 0; transform: translateY(18px); }
 
 /* Das leere Bildfenster zieht seinen Rahmen auf.
 
@@ -1882,28 +2164,133 @@
   animation-delay: calc(var(--i, 0) * 0.09s + 0.22s);
 }
 
-/* 2 und 3 — die Schrittfolge in „Das erwartet dich". Erst zeichnet sich das
-   Symbol, dann läuft die Ziffer aus ihrer Zeile heraus, dann kommen Titel
-   und Satz. Der Schritt baut sich damit in derselben Reihenfolge auf, in
-   der er gelesen wird.
-   Der Versatz laeuft gegen den Eintritt der GRUPPE (.stl-stapel), nicht
-   gegen den jeder Karte: gestapelt liegen die Karten ohnehin uebereinander,
-   ein Versatz je Karte waere dort nicht zu sehen. */
-[data-stl-js] .stl-stapel.ist-da .stl-zeichnet path {
-  animation: stl-zieht 0.9s var(--stl-e-weich) both;
-  animation-delay: calc(var(--i, 0) * 0.12s + var(--dz, 0) * 0.12s);
+/* --- 4b  DIE SECHS SYMBOLGESTEN -------------------------------------------
+   Aufbau und Herleitung jeder einzelnen Geste stehen weiter oben bei den
+   Bildfolgen. Hier steht nur, WANN sie laufen.
+
+   EINE GEMEINSAME UHR FUER ALLE SECHS: --auf ist der Zeitpunkt, zu dem das
+   Symbol seinen Auftritt (stl-grafik, 0,85 s ab --i · 0,09 s + 0,22 s)
+   hinter sich hat. Erst dann faengt die eigene Geste an — sonst liefen
+   Auftritt und Geste uebereinander und man saehe beides nicht.
+       --i · 0,09 s + 0,22 s + 0,85 s ≈ --i · 0,09 s + 1,05 s
+   Aufgerundet auf 1,1 s. Die sechs Kaesten starten damit nacheinander im
+   Abstand von 0,09 s, so wie ihr Auftritt auch. */
+[data-stl-js] .stl-aus.ist-da .stl-aus__bild {
+  --auf: calc(var(--i, 0) * 0.09s + 1.1s);
 }
-[data-stl-js] .stl-stapel.ist-da .stl-karte__nr .stl-zi {
+
+/* 01  die zweite Sprechblase kommt nach */
+[data-stl-js] .stl-aus.ist-da .stl-aus__lage--hinten {
+  animation: stl-reden-nach 0.75s var(--stl-e-raus) both;
+  animation-delay: var(--auf);
+}
+/* 02  der Buegel faellt ins Schloss */
+[data-stl-js] .stl-aus.ist-da .stl-aus__lage--buegel {
+  animation: stl-schloss-zu 0.7s cubic-bezier(0.34, 0, 0.2, 1) both;
+  animation-delay: var(--auf);
+}
+/* 03  die Waage schwingt aus und pendelt ein */
+[data-stl-js] .stl-aus.ist-da .stl-aus__lage--balken {
+  animation: stl-waage-schwingt 1.5s cubic-bezier(0.33, 0, 0.3, 1) both;
+  animation-delay: var(--auf);
+}
+/* 04  der Haken zeichnet sich */
+[data-stl-js] .stl-aus.ist-da .stl-aus__lage--haken {
+  animation: stl-haken-zieht 0.85s cubic-bezier(0.42, 0, 0.3, 1) both;
+  animation-delay: var(--auf);
+}
+/* 05  der Hut hebt ab, danach blaettert die Seite */
+[data-stl-js] .stl-aus.ist-da .stl-aus__lage--hut {
+  animation: stl-hut-hebt 1.05s var(--stl-e-weich) both;
+  animation-delay: var(--auf);
+}
+[data-stl-js] .stl-aus.ist-da .stl-aus__auf--seite {
+  animation: stl-seite-blaettert 1.35s var(--stl-e-weich) both;
+  animation-delay: calc(var(--auf) + 0.55s);
+}
+/* 06  der Sand rieselt einmal durch. --k ist die Nummer des Korns; sie
+       steht als Stilangabe am Korn selbst im Markup, damit die fuenf
+       versetzt fallen statt im Block. */
+[data-stl-js] .stl-aus.ist-da .stl-aus__auf--sand { opacity: 1; }
+[data-stl-js] .stl-aus.ist-da .stl-aus__korn {
+  animation: stl-korn 1.15s linear both;
+  animation-delay: calc(var(--auf) + var(--k, 0) * 0.19s);
+}
+
+/* --- 4c  DIESELBEN SECHS BEIM UEBERFAHREN --------------------------------
+   Sie sitzen auf dem <img>, waehrend der Eintritt auf der <span>-Lage
+   liegt: zwei `animation`-Kurzformen auf demselben Element loeschen sich
+   gegenseitig aus, getrennt komponieren sie sich.
+   `focus-within` steht ueberall daneben, damit die Geste auch kommt, wenn
+   jemand mit der Tastatur in den Kasten faehrt.
+   ES LAEUFT JE KASTEN GENAU EINE GESTE. Wo zwei Teile beteiligt sind
+   (Sprechblasen, Buch), laufen sie NACHEINANDER. */
+
+/* 01  erst die vordere Blase, einen Wimpernschlag spaeter die hintere */
+.stl-aus__kasten:hover .stl-aus__lage--vorn img,
+.stl-aus__kasten:focus-within .stl-aus__lage--vorn img {
+  animation: stl-reden-tupf 0.62s var(--stl-e-weich);
+  transform-origin: 62% 62%;
+}
+.stl-aus__kasten:hover .stl-aus__lage--hinten img,
+.stl-aus__kasten:focus-within .stl-aus__lage--hinten img {
+  animation: stl-reden-tupf 0.62s var(--stl-e-weich) 0.17s;
+}
+/* 02  das Schloss oeffnet sich und faellt wieder zu */
+.stl-aus__kasten:hover .stl-aus__lage--buegel img,
+.stl-aus__kasten:focus-within .stl-aus__lage--buegel img {
+  animation: stl-schloss-auf 1.05s cubic-bezier(0.34, 0, 0.2, 1);
+}
+/* 03  die Waage bekommt einen Stoss und pendelt ein */
+.stl-aus__kasten:hover .stl-aus__lage--balken img,
+.stl-aus__kasten:focus-within .stl-aus__lage--balken img {
+  animation: stl-waage-tippt 1.4s cubic-bezier(0.33, 0, 0.3, 1);
+}
+/* 04  der Haken zeichnet sich noch einmal */
+.stl-aus__kasten:hover .stl-aus__lage--haken img,
+.stl-aus__kasten:focus-within .stl-aus__lage--haken img {
+  animation: stl-haken-zieht 0.85s cubic-bezier(0.42, 0, 0.3, 1);
+}
+/* 05  der Hut hebt ab, danach blaettert die Seite */
+.stl-aus__kasten:hover .stl-aus__lage--hut img,
+.stl-aus__kasten:focus-within .stl-aus__lage--hut img {
+  animation: stl-hut-hebt 1.05s var(--stl-e-weich);
+}
+.stl-aus__kasten:hover .stl-aus__auf--seite,
+.stl-aus__kasten:focus-within .stl-aus__auf--seite {
+  animation: stl-seite-blaettert 1.35s var(--stl-e-weich) 0.5s;
+}
+/* 06  der Sand rieselt weiter, so lange der Zeiger steht */
+.stl-aus__kasten:hover .stl-aus__auf--sand,
+.stl-aus__kasten:focus-within .stl-aus__auf--sand { opacity: 1; }
+.stl-aus__kasten:hover .stl-aus__korn,
+.stl-aus__kasten:focus-within .stl-aus__korn {
+  animation: stl-korn 1.15s linear infinite;
+  animation-delay: calc(var(--k, 0) * 0.19s);
+}
+
+/* 2 und 3 — die Schrittliste in „Das erwartet dich". Erst faehrt die Ziffer
+   aus ihrer Zeile heraus, dann kommen Titel und Satz. Der Schritt baut sich
+   damit in derselben Reihenfolge auf, in der er gelesen wird.
+   Der Versatz laeuft gegen den Eintritt der GRUPPE (.stl-folge) und nicht
+   gegen den jedes Schrittes: die Liste steht als Ganzes im Bild, und ein
+   Beobachter je Zeile wuerde die unteren Schritte erst nachziehen, wenn man
+   ohnehin schon vorbei ist.
+   DIE ZEICHNENDEN STRICHE SIND HIER RAUS. Sie gehoerten zum Symbolfeld der
+   Karte (.stl-karte__zeichen), und das ist am 31.08.2026 mit den Karten
+   entfallen. `stl-zieht` laeuft weiter — aber nur noch in „Was wir bieten",
+   wo es die Haeuser zeichnet. */
+[data-stl-js] .stl-folge.ist-da .stl-stufe__nr .stl-zi {
   animation: stl-zeile 0.9s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.12s + 0.45s);
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.06s);
 }
-[data-stl-js] .stl-stapel.ist-da .stl-karte__titel {
+[data-stl-js] .stl-folge.ist-da .stl-stufe__titel {
   animation: stl-steigt 0.8s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.12s + 0.18s);
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.14s);
 }
-[data-stl-js] .stl-stapel.ist-da .stl-karte__text {
+[data-stl-js] .stl-folge.ist-da .stl-stufe__text {
   animation: stl-steigt 0.8s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.12s + 0.28s);
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.22s);
 }
 
 /* Die zwei Bildfelder entstehen. */
@@ -1951,26 +2338,22 @@
   .stl-hero__video { display: none; }
   .stl-zurueck, .stl-hero__btn { transition: none; }
 
-  /* HIER STANDEN ZWEI RUECKNAHMEN FUER DEN KARTENSTAPEL. Sie loesten ihn
-     bei ruhiger Darstellung wieder auf, weil er Gelesenes verdeckte —
-     fuer Menschen mit Bewegungsempfindlichkeit die eigentliche Zumutung.
-     Seit dem 31.08.2026 gibt es den Stapel gar nicht mehr; die Karten
-     stehen fuer alle untereinander, und es bleibt nichts zurueckzunehmen.
-     Das Bildfeld rechts klebt weiterhin und steht hier still. */
-  [data-stl-js] .stl-bilder { position: static; }
-  .stl-stapel { padding-bottom: 0; }
+  /* HIER STANDEN DREI RUECKNAHMEN FUER „Das erwartet dich": zwei fuer den
+     Kartenstapel und eine fuer das klebende Bildfeld. An diesem Abschnitt
+     haengt seit dem 31.08.2026 nichts mehr am Rollweg — kein Stapel, keine
+     Karten, kein `sticky`. Es bleibt nichts zurueckzunehmen. */
 
   /* --- Jeder Anfangszustand des Bewegungsabschnitts, zurueckgenommen ------ */
   [data-stl-js] [data-stl-auf],
   [data-stl-js] .stl-haken__text,
-  [data-stl-js] .stl-karte__titel,
-  [data-stl-js] .stl-karte__text,
+  [data-stl-js] .stl-stufe__titel,
+  [data-stl-js] .stl-stufe__text,
   [data-stl-js] .stl-aus__bild picture,
   [data-stl-js] .stl-aus__kasten > * { opacity: 1; }
 
   [data-stl-js] .stl-aus__kasten,
   [data-stl-js] .stl-platz,
-  [data-stl-js] .stl-karte__nr,
+  [data-stl-js] .stl-stufe__nr,
   [data-stl-js] .stl-bilder picture,
   [data-stl-js] .stl-schluss__medium picture { clip-path: none; }
 
@@ -1979,10 +2362,10 @@
   .stl-zg { clip-path: none; }
 
   [data-stl-js] .stl-geteilt .stl-zg__i,
-  [data-stl-js] .stl-karte__nr .stl-zi,
+  [data-stl-js] .stl-stufe__nr .stl-zi,
   [data-stl-js] .stl-haken__text,
-  [data-stl-js] .stl-karte__titel,
-  [data-stl-js] .stl-karte__text,
+  [data-stl-js] .stl-stufe__titel,
+  [data-stl-js] .stl-stufe__text,
   [data-stl-js] .stl-aus__kasten > *,
   [data-stl-js] .stl-aus__bild picture,
   [data-stl-js] .stl-trenn,
@@ -1990,14 +2373,46 @@
   [data-stl-js] .stl-bilder img,
   [data-stl-js] .stl-schluss__medium img { transform: none; }
 
-  /* Auch das Ueberfahren steht still: weder die Grafik noch der Haarstrich
-     bewegen sich. */
-  .stl-aus__bild img,
+  /* Auch das Ueberfahren steht still: der Haarstrich bewegt sich nicht. */
   .stl-aus__strich::before { transition: none; }
-  .stl-aus__kasten:hover .stl-aus__bild img,
-  .stl-aus__kasten:focus-within .stl-aus__bild img,
   .stl-aus__kasten:hover .stl-aus__strich::before,
   .stl-aus__kasten:focus-within .stl-aus__strich::before { transform: none; }
+
+  /* --- DIE SECHS SYMBOLGESTEN STEHEN STILL — 31.08.2026 -------------------
+     Alle drei Ebenen auf einmal: die Lage (Eintritt), das Bild darin
+     (Ueberfahren) und die zwei aufgelegten SVG. `animation: none` und
+     nicht nur `animation-play-state: paused` — angehalten hiesse, sie
+     stuenden irgendwo in ihrer Bahn fest, und bei den Lagen waere das ein
+     schwebender Buegel oder eine schiefe Waage.
+     Danach wird jede Lage ausdruecklich auf ihren Ruhewert gesetzt. Das
+     ist Pflicht und nicht Vorsicht: die Eintrittsgesten laufen mit `both`,
+     ihr Endwert bliebe sonst an der Lage haengen, wenn jemand die
+     Einstellung erst NACH dem Laden umstellt.
+     ERGEBNIS: die sechs Symbole sehen aus wie vor dem 31.08.2026 —
+     zusammengesetzt aus ihren Lagen ist das Bildpunkt fuer Bildpunkt das
+     gelieferte Original, und die zwei aufgelegten SVG sind unsichtbar. */
+  .stl-aus__lage,
+  .stl-aus__lage img,
+  .stl-aus__auf,
+  .stl-aus__korn,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__lage,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__auf,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__korn,
+  .stl-aus__kasten:hover .stl-aus__lage img,
+  .stl-aus__kasten:focus-within .stl-aus__lage img,
+  .stl-aus__kasten:hover .stl-aus__auf,
+  .stl-aus__kasten:focus-within .stl-aus__auf,
+  .stl-aus__kasten:hover .stl-aus__korn,
+  .stl-aus__kasten:focus-within .stl-aus__korn { animation: none; }
+
+  .stl-aus__lage,
+  .stl-aus__lage img { opacity: 1; transform: none; clip-path: none; }
+  /* Die zwei aufgelegten SVG bleiben unsichtbar — sie sind Bewegung und
+     sonst nichts. */
+  .stl-aus__auf,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__auf,
+  .stl-aus__kasten:hover .stl-aus__auf,
+  .stl-aus__kasten:focus-within .stl-aus__auf { opacity: 0; }
 
   /* Das Akzentstueck der Trennlinie behaelt seinen Ausgleich — der ist
      seine Lage, nicht seine Bewegung. */
@@ -2023,10 +2438,9 @@
   [data-stl-js] .stl-aus.ist-da .stl-aus__kasten,
   [data-stl-js] .stl-aus.ist-da .stl-aus__kasten > *,
   [data-stl-js] .stl-aus.ist-da .stl-aus__bild picture,
-  [data-stl-js] .stl-stapel.ist-da .stl-zeichnet path,
-  [data-stl-js] .stl-stapel.ist-da .stl-karte__nr .stl-zi,
-  [data-stl-js] .stl-stapel.ist-da .stl-karte__titel,
-  [data-stl-js] .stl-stapel.ist-da .stl-karte__text,
+  [data-stl-js] .stl-folge.ist-da .stl-stufe__nr .stl-zi,
+  [data-stl-js] .stl-folge.ist-da .stl-stufe__titel,
+  [data-stl-js] .stl-folge.ist-da .stl-stufe__text,
   [data-stl-js] .stl-bilder.ist-da picture,
   [data-stl-js] .stl-bilder.ist-da img,
   [data-stl-js] .stl-schluss__medium.ist-da picture,

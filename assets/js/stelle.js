@@ -27,13 +27,15 @@
       vier Zeilen umbricht und bei 1920 px auf zwei.
 
    3  DIE ECHTEN PFADLAENGEN DER STRICHZEICHNUNGEN SETZEN
-      Die Haeuser und Symbole zeichnen sich ueber stroke-dashoffset. Dafuer
-      muss die Laenge jedes Pfades bekannt sein, und die wird hier mit
-      getTotalLength() VOM PFAD SELBST abgelesen und als --len geschrieben —
-      nicht geschaetzt. Dasselbe Verfahren benutzt site.js fuer die
-      Grafiken der Startseite.
+      Die Haeuser in „Was wir bieten" zeichnen sich ueber
+      stroke-dashoffset. Dafuer muss die Laenge jedes Pfades bekannt sein,
+      und die wird hier mit getTotalLength() VOM PFAD SELBST abgelesen und
+      als --len geschrieben — nicht geschaetzt. Dasselbe Verfahren benutzt
+      site.js fuer die Grafiken der Startseite.
+      SEIT DEM 31.08.2026 NUR NOCH DIE HAEUSER: die Symbolfelder der
+      Schrittkarten (.stl-karte__zeichen) sind mit den Karten entfallen.
 
-   4  DIE ZIFFERN DER KARTEN IN EINE HUELLE SETZEN
+   4  DIE ZIFFERN DER SCHRITTLISTE IN EINE HUELLE SETZEN
       Damit sie hinter derselben Kante hervorfahren koennen wie die
       Ueberschriften. Auf der Back-Office-Seite gibt es diese Ziffern nicht
       (deren vier Punkte sind keine Reihenfolge, siehe stelle.css); die
@@ -48,20 +50,23 @@
       Teils.
 
    WAS DIESE DATEI NICHT MACHT — AUSDRUECKLICH
-   Der Kartenstapel in „Das erwartet dich" laeuft ohne eine einzige Zeile
-   Javascript: er ist reines `position: sticky` mit gestaffelten
-   Klebehoehen, genau wie der Ablauf-Stapel der Startseite. Kein
-   Rollhorcher, kein requestAnimationFrame, keine Messung, keine Neurechnung
-   bei Groessenaenderung. Das Merkmal [data-stl-js] ist dort NUR der
-   Schalter, der dafuer sorgt, dass ohne Javascript nichts klebt.
+   An „Das erwartet dich" haengt seit dem 31.08.2026 gar nichts mehr am
+   Rollweg. Dort stand bis dahin ein Kartenstapel aus `position: sticky`;
+   er ist raus, und mit ihm die Karten selbst. Geblieben ist eine
+   Schrittliste, die beim Eintritt einmal aufsteigt — mehr nicht.
+   Kein Rollhorcher, kein requestAnimationFrame, keine Messung, keine
+   Neurechnung bei Groessenaenderung.
+   Das einzige verbliebene `sticky` der Seite ist das Bildfeld rechts
+   (.stl-bilder); auch dort ist [data-stl-js] nur der Schalter, der dafuer
+   sorgt, dass ohne Javascript nichts klebt.
 
    OHNE JAVASCRIPT
    stehen beide Seiten vollstaendig da. Saemtliche Bewegungsregeln in
    stelle.css haengen an [data-stl-js], und dieses Merkmal setzt erst diese
    Datei — faellt sie aus, ist nie etwas unsichtbar. Auch geteilt wird dann
-   nicht, es werden keine Merkmale gesetzt, die fuenf Karten stehen in voller
-   Hoehe untereinander statt gestapelt, und die zwei Laufbaender laufen wie
-   bisher vom ersten Bildpunkt an. Das Kopfvideo traegt autoplay, muted,
+   nicht, es werden keine Merkmale gesetzt, die Schrittliste steht
+   vollstaendig da, und die zwei Laufbaender laufen wie bisher vom ersten
+   Bildpunkt an. Das Kopfvideo traegt autoplay, muted,
    loop und playsinline im HTML und spielt von selbst ab.
 
    BEI prefers-reduced-motion: reduce
@@ -236,7 +241,7 @@
      nacheinander: erst das Dach, dann die Waende, dann die Tuer.
      Aufgerundet, damit am Ende garantiert kein Rest stehen bleibt.
      --------------------------------------------------------------------- */
-  var zeichen = alle('.stl-haken__zeichen svg, .stl-karte__zeichen svg');
+  var zeichen = alle('.stl-haken__zeichen svg');
   for (i = 0; i < zeichen.length; i++) {
     var pfade = zeichen[i].querySelectorAll('path, line, polyline, circle, rect');
     var gesetzt = 0;
@@ -256,7 +261,7 @@
   /* ---------------------------------------------------------------------
      4  Die Ziffern der Schrittfolge in eine Huelle setzen
      --------------------------------------------------------------------- */
-  var ziffern = alle('.stl-karte__nr');
+  var ziffern = alle('.stl-stufe__nr');
   for (i = 0; i < ziffern.length; i++) {
     var huelle = document.createElement('span');
     huelle.className = 'stl-zi';
@@ -275,10 +280,9 @@
   }
   versatz('.stl-haken',  ':scope > li');
   versatz('.stl-aus',    ':scope > .stl-aus__kasten');
-  /* Beim Kartenstapel sitzt --i auf dem KLEBEKASTEN (.stl-halt), nicht auf
-     der Karte: alles, was den Versatz benutzt (Symbol, Ziffer, Titel, Satz),
-     liegt darin und erbt ihn von dort. */
-  versatz('.stl-stapel', ':scope > .stl-halt');
+  /* Bei der Schrittliste sitzt --i auf dem <li>: Ziffer, Titel und Satz
+     liegen darin und erben ihn von dort. */
+  versatz('.stl-folge',  ':scope > .stl-stufe');
 
   /* ---------------------------------------------------------------------
      5  Der Auslöser
@@ -299,7 +303,7 @@
      es traegt das leere Bildfenster, das sich wegen seines eigenen
      clip-path nicht selbst beobachten lassen kann (Begruendung bei
      .stl-platz in stelle.css). */
-  Array.prototype.push.apply(ziele, alle('.stl-haken, .stl-aus, .stl-stapel, .stl-band, .stl-zwei--bieten'));
+  Array.prototype.push.apply(ziele, alle('.stl-haken, .stl-aus, .stl-folge, .stl-band, .stl-zwei--bieten'));
 
   /* Ein Zehntel des Elements reicht als Ausloeser. Ein rootMargin von
      −40 px am Fuss verhindert, dass etwas losläuft, das gerade erst mit

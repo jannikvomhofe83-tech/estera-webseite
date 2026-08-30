@@ -624,35 +624,40 @@
      hat sechs Punkte, der Master gibt fuenf her — also fuenf. Nicht
      gefuellt.
 
-     GEAENDERT AM 31.08.2026 — KUNDENWUNSCH: DER KARTENSTAPEL IST RAUS.
-     „Die Punkte einfach untereinander gelistet, ohne Scrollanimation" —
-     wie der Ablauf auf der Startseite, der im selben Durchgang umgebaut
-     wird. Die fuenf Karten stehen jetzt schlicht untereinander: Nummer,
-     Titel, kurzer Text. AM WORTLAUT AENDERT SICH NICHTS.
+GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
+     Erst fiel die Stapelanimation, dann fielen die Kaesten selbst:
+       „Bei der Section ‚Dein Einstieg, das erwartet dich' musst du die
+        Kaesten wegmachen. Das Bild rechts bleibt, die Kaesten sollen aber
+        weg sein, und dann soll es genauso sein wie bei ‚Unser Ablauf',
+        einfach nur ohne Kaesten."
+     Die fuenf Schritte stehen jetzt schlicht untereinander: Nummer, Titel,
+     Satz, dazwischen eine Haarlinie. Keine Karte, kein Verlauf, kein
+     Rahmen, kein Radius, kein Schatten, kein Symbolfeld.
+     AM WORTLAUT AENDERT SICH NICHTS.
 
      WAS AM 30.08.2026 HIER STAND: „Karten, die sich beim Scrollen stapeln
      und die vorige zu etwa 90 % ueberdecken", gebaut aus `position:
-     sticky` mit gestaffelten Klebehoehen. Ersatzlos entfernt sind damit
-     das Kleben, die feste Kartenhoehe und die Rechengroessen dahinter;
-     die Regeln standen in stelle.css bei .stl-stapel und sind dort mit
-     Begruendung als entfernt vermerkt. AM MARKUP DIESER SEITE HAT SICH
-     DAFUER NICHTS GEAENDERT — es stand nie eine Klebehoehe darin, und die
-     Klassen bleiben, wie sie waren.
+     sticky` mit gestaffelten Klebehoehen. Beides — Stapel und Karte — ist
+     ersatzlos raus. Die Regeln standen in stelle.css bei .stl-stapel und
+     .stl-karte und sind dort mit Begruendung als entfallen vermerkt.
 
-     .stl-stapel--folge HEISST JETZT NUR NOCH „zeig die Ziffern".
-     Das Kleben hing an derselben Klasse; ohne Kleben bleibt von ihr die
-     Nummerierung. Die Back-Office-Seite traegt weiter --ruhig und hat
-     keine Ziffern — der einzige verbliebene Unterschied zwischen den
-     beiden Stellenseiten, und ein gewollter (Begruendung dort im Markup
-     und in stelle.css).
+     GEBAUT NACH DEM ABLAUF DER STARTSEITE in dessen Fassung vom
+     31.08.2026 (assets/css/ablauf.css, .abl__folge / .abl__stufe). Jene
+     Datei wurde nur GELESEN. Uebernommen sind Aufbau und
+     Massverhaeltnisse, nicht die Klassennamen.
+
+     KLEINER GESETZT ALS DORT, mit Absicht: Ueberschrift und alle fuenf
+     Schritte sollen bei 1440 x 900 zusammen ins Fenster passen. Nummer
+     16,7 px, Titel 21,0 px, Satz 15,7 px bei 1440 — der Satz bleibt damit
+     ueber der Untergrenze von 14 px. Die Rechnung steht in stelle.css bei
+     .stl-folge.
 
      Rechts bleibt das Bildfeld stehen, das dort schon vor dem Stapel
      stand. Es klebt weiterhin (.stl-bilder in stelle.css) — die linke
-     Spalte ist auch ohne Stapel noch die hoehere.
+     Spalte ist auch als Liste noch die hoehere.
 
-     Ohne Javascript und bei prefers-reduced-motion: reduce sieht der
-     Abschnitt jetzt genauso aus wie mit: es gibt nichts mehr, was sich
-     beim Rollen anders verhielte.
+     Ohne Javascript und bei prefers-reduced-motion: reduce steht die Liste
+     vollstaendig und unbewegt da.
 
      <ol> UND NICHT <ul>: der Abschnitt beschreibt eine Reihenfolge, und
      das steht damit auch im Baum, nicht nur in den Ziffern.
@@ -665,104 +670,63 @@
         <span class="stl-kleinzeile__num">03</span>Dein Einstieg</p>
       <h2 class="stl-h2" id="t-erwartet">Das erwartet dich</h2>
 
-      <ol class="stl-stapel stl-stapel--folge">
-        <li class="stl-halt">
-          <article class="stl-karte">
-            <span class="stl-karte__zeichen" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3.2 6.4a1.4 1.4 0 0 1 1.4-1.4h9.2a1.4 1.4 0 0 1 1.4 1.4v5.4a1.4 1.4 0 0 1-1.4 1.4H7.6L4.4 16v-2.8h-0.2a1.4 1.4 0 0 1-1-1.4z"></path>
-                <path d="M17.6 8.6h1.8A1.4 1.4 0 0 1 20.8 10v5.4a1.4 1.4 0 0 1-1.4 1.4h-0.2v2.8l-3.2-2.8h-4.6"></path>
-              </svg>
-            </span>
-            <div class="stl-karte__wort">
-              <p class="stl-karte__nr">01</p>
-              <h3 class="stl-karte__titel">Kennenlernen</h3>
-              <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                   Vorher: "Wir sprechen über deinen Hintergrund, deine Ziele und
-                   deine bisherige Erfahrung."
-                   VON ESTERA BESTAETIGEN LASSEN. -->
-              <p class="stl-karte__text">Wir sprechen über dich und deine Ziele.</p>
-            </div>
-          </article>
+      <ol class="stl-folge">
+        <li class="stl-stufe">
+          <p class="stl-stufe__nr">01</p>
+          <div class="stl-stufe__wort">
+            <h3 class="stl-stufe__titel">Kennenlernen</h3>
+            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
+                 Vorher: "Wir sprechen über deinen Hintergrund, deine Ziele und
+                 deine bisherige Erfahrung."
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <p class="stl-stufe__text">Wir sprechen über dich und deine Ziele.</p>
+          </div>
         </li>
-        <li class="stl-halt">
-          <article class="stl-karte">
-            <span class="stl-karte__zeichen" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="10.6" cy="10.6" r="6.6"></circle>
-                <path d="m15.6 15.6 4.6 4.6"></path>
-                <path d="m7.9 10.7 1.9 1.9 3.6-3.7"></path>
-              </svg>
-            </span>
-            <div class="stl-karte__wort">
-              <p class="stl-karte__nr">02</p>
-              <h3 class="stl-karte__titel">Eignung prüfen</h3>
-              <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                   Vorher: "Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch
-                   und Zielgruppe zusammenpassen."
-                   VON ESTERA BESTAETIGEN LASSEN. -->
-              <p class="stl-karte__text">Passen wir zusammen? Das klären wir gemeinsam.</p>
-            </div>
-          </article>
+        <li class="stl-stufe">
+          <p class="stl-stufe__nr">02</p>
+          <div class="stl-stufe__wort">
+            <h3 class="stl-stufe__titel">Eignung prüfen</h3>
+            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
+                 Vorher: "Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch
+                 und Zielgruppe zusammenpassen."
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <p class="stl-stufe__text">Passen wir zusammen? Das klären wir gemeinsam.</p>
+          </div>
         </li>
-        <li class="stl-halt">
-          <article class="stl-karte">
-            <span class="stl-karte__zeichen" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 6.4C10.3 5.1 8.2 4.4 6 4.4H3.2v13.2H6c2.2 0 4.3.7 6 2 1.7-1.3 3.8-2 6-2h2.8V4.4H18c-2.2 0-4.3.7-6 2z"></path>
-                <path d="M12 6.4v14.2"></path>
-              </svg>
-            </span>
-            <div class="stl-karte__wort">
-              <p class="stl-karte__nr">03</p>
-              <h3 class="stl-karte__titel">Onboarding</h3>
-              <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                   Vorher: "Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung
-                   und rechtliche Kommunikationsgrenzen kennen."
-                   VON ESTERA BESTAETIGEN LASSEN. -->
-              <p class="stl-karte__text">Wir arbeiten dich ein. Du lernst Angebot und
-                 Abläufe kennen.</p>
-            </div>
-          </article>
+        <li class="stl-stufe">
+          <p class="stl-stufe__nr">03</p>
+          <div class="stl-stufe__wort">
+            <h3 class="stl-stufe__titel">Onboarding</h3>
+            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
+                 Vorher: "Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung
+                 und rechtliche Kommunikationsgrenzen kennen."
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <p class="stl-stufe__text">Wir arbeiten dich ein. Du lernst Angebot und
+             Abläufe kennen.</p>
+          </div>
         </li>
-        <li class="stl-halt">
-          <article class="stl-karte">
-            <span class="stl-karte__zeichen" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 6.2A1.4 1.4 0 0 1 5.4 4.8h3.4l1.8 2.2h8A1.4 1.4 0 0 1 20 8.4v9.4a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 17.8z"></path>
-                <path d="M8.6 13.2h6.8"></path>
-              </svg>
-            </span>
-            <div class="stl-karte__wort">
-              <p class="stl-karte__nr">04</p>
-              <h3 class="stl-karte__titel">Erste Kundenfälle</h3>
-              <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                   Vorher: "Bei den ersten Fällen wirst du eng begleitet und erhältst
-                   Unterstützung bei Einordnung, Objekt und Prozess."
-                   VON ESTERA BESTAETIGEN LASSEN. -->
-              <p class="stl-karte__text">Bei deinen ersten Fällen sind wir dabei.</p>
-            </div>
-          </article>
+        <li class="stl-stufe">
+          <p class="stl-stufe__nr">04</p>
+          <div class="stl-stufe__wort">
+            <h3 class="stl-stufe__titel">Erste Kundenfälle</h3>
+            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
+                 Vorher: "Bei den ersten Fällen wirst du eng begleitet und erhältst
+                 Unterstützung bei Einordnung, Objekt und Prozess."
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <p class="stl-stufe__text">Bei deinen ersten Fällen sind wir dabei.</p>
+          </div>
         </li>
-        <li class="stl-halt">
-          <article class="stl-karte">
-            <span class="stl-karte__zeichen" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3.6 20.4h16.8"></path>
-                <path d="M6.4 20.4v-5.2M11 20.4V10.6M15.6 20.4V6.4M20.2 20.4V3.6"></path>
-              </svg>
-            </span>
-            <div class="stl-karte__wort">
-              <p class="stl-karte__nr">05</p>
-              <h3 class="stl-karte__titel">Eigenständiger Aufbau</h3>
-              <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                   Vorher: "Mit zunehmender Erfahrung übernimmst du mehr Verantwortung
-                   und entwickelst deinen eigenen Kundenbestand."
-                   VON ESTERA BESTAETIGEN LASSEN. -->
-              <p class="stl-karte__text">Du übernimmst mehr. Du baust deinen eigenen
-                 Kundenbestand auf.</p>
-            </div>
-          </article>
+        <li class="stl-stufe">
+          <p class="stl-stufe__nr">05</p>
+          <div class="stl-stufe__wort">
+            <h3 class="stl-stufe__titel">Eigenständiger Aufbau</h3>
+            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
+                 Vorher: "Mit zunehmender Erfahrung übernimmst du mehr Verantwortung
+                 und entwickelst deinen eigenen Kundenbestand."
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <p class="stl-stufe__text">Du übernimmst mehr. Du baust deinen eigenen
+             Kundenbestand auf.</p>
+          </div>
         </li>
       </ol>
 
