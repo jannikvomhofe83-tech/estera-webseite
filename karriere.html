@@ -256,12 +256,25 @@
      freigegebenen Saetzen der Website zusammengesetzt, damit hier nichts
      Neues behauptet wird. Der endgueltige Wortlaut kommt von Estera.
      ===================================================================== -->
-<!-- ZWEISPALTIG SEIT 30.08.2026, KUNDENWUNSCH — Abweichung von der Vorlage.
-     Die Vorlage setzt diesen Abschnitt einspaltig und mittig. Der Kunde
-     will den Text links und linksbuendig, rechts ein Bildfenster mit einer
-     gemeinsamen Aufnahme der beiden Geschaeftsfuehrer. Wortlaut von
-     Kleinzeile, Ueberschrift und Text bleibt unveraendert.
-     Unter 1024 px stehen die beiden Spalten untereinander, Text zuerst. -->
+<!-- EINSPALTIG SEIT 31.08.2026, KUNDENWUNSCH — das Bildfenster ist raus.
+     „Entferne bitte erst mal das Bild von den zwei Geschaeftsfuehrern."
+     Ersatzlos, samt Rahmen. Damit faellt auch die Zweispaltigkeit vom
+     30.08.2026 weg, die es nur wegen des Bildes gab.
+
+     LINKSBUENDIG BLEIBT ES. Das war eine eigene Anweisung desselben
+     Kunden („Text links und linksbuendig") und haengt nicht am Bild. Die
+     Vorlage setzt diesen Abschnitt mittig — hier steht er weiter links.
+
+     DER SATZSPIEGEL IST GEDECKELT, und das ist der eigentliche Eingriff.
+     Ohne Deckel liefe der Text ueber die volle Behaelterbreite: bei
+     1920 px sind das 1250 px und rund 175 Zeichen je Zeile. Ueber etwa
+     75 Zeichen verliert das Auge beim Ruecksprung die Zeile. Der Deckel
+     steht deshalb in `ch` in der CSS (.kar-wer__text) und haelt den Satz
+     auf hoechstens 66 Zeichen — nachgemessen, nicht geschaetzt.
+
+     DIE BILDDATEIEN BLEIBEN LIEGEN: assets/img/karriere/gf-zusammen.jpg
+     und .webp. Nur die Einbindung ist raus. Was zum Wiedereinsetzen
+     noetig ist, steht in assets/css/karriere.css bei .kar-wer__bild. -->
 <!-- DER EINE WEICHE UEBERGANG DIESER SEITE. .fl-creme-nach-weiss aus
      base.css laesst den Abschnitt ueber seine EIGENE volle Hoehe von
      Creme nach Weiss laufen — er endet damit auf der Farbe des
@@ -298,68 +311,33 @@
              Vorher: "Wir bauen mit Menschen Eigentum auf. Wir wählen die Immobilie aus. Wir bereiten die Finanzierung vor. Nach dem Notar bleiben wir da. Daran arbeitest du mit."
              Vorher: "Wir wollen Entscheidungen für die nächsten zehn Jahre."
              VON ESTERA BESTAETIGEN LASSEN. -->
+        <!-- KRAEFTIGER SEIT 31.08.2026, KUNDENWUNSCH: „packst den Text bei
+             ‚Wer ist es' mit dick."
+             DER WORTLAUT IST UNVERAENDERT. Dazugekommen sind nur die zwei
+             <strong>, und die tragen keine eigene Aussage — sie stehen um
+             den jeweils ERSTEN Satz eines Absatzes, also um genau die
+             Saetze, die den Absatz ohnehin schon eroeffnen.
+
+             WARUM NICHT DER GANZE ABSATZ IN FETT: 90 Woerter durchgehend
+             fett sind keine Betonung mehr, sondern eine gleichmaessig
+             laute Flaeche — was hervorstechen soll, sticht dann nirgends
+             hervor, und der feine Strichkontrast des Cormorant, der die
+             ganze Seite traegt, waere auf dieser Flaeche weg.
+             Stattdessen zwei Stufen, beide in der CSS bei .kar-wer__text:
+             der Absatz steht jetzt auf 500 statt 400 (eine echte
+             Schnittstufe, kein gerechnetes Fett — CormorantGaramond-500
+             liegt als eigene Datei vor), die zwei Kernsaetze auf 600.
+             Damit ist der Absatz als Ganzes spuerbar kraeftiger UND hat
+             innen noch eine Rangfolge. -->
         <div class="kar-wer__text" data-auf>
-          <p>Wir helfen Menschen beim Kauf einer Kapitalanlage.
+          <p><strong>Wir helfen Menschen beim Kauf einer Kapitalanlage.</strong>
              Wir suchen das passende Objekt. Wir bereiten die Finanzierung vor.
              Nach dem Kauf bleiben wir Ansprechpartner.</p>
-          <p>Daran arbeitest du mit. Wir denken in zehn Jahren.</p>
+          <p><strong>Daran arbeitest du mit.</strong> Wir denken in zehn Jahren.</p>
         </div>
 
       </div>
 
-      <!-- BILDFENSTER — gemeinsame Aufnahme der beiden Geschaeftsfuehrer.
-           Datei 2496 x 1664, Verhaeltnis 3:2 quer.
-
-           DAS BILDFENSTER STEHT AUF GENAU 3:2 (aspect-ratio in der CSS).
-           Damit schneidet object-fit: cover NICHTS weg — und das ist hier
-           die entscheidende Bedingung, nicht eine Feinheit: die Koepfe
-           sitzen im oberen Viertel, die Fuesse ganz unten. Jeder Beschnitt
-           oben oder unten nimmt Kopf oder Schuh und zerstoert die Aussage
-           der Aufnahme. Wer das Fenster spaeter auf ein anderes
-           Verhaeltnis setzt, muss vorher das Bild passend zuschneiden
-           lassen oder auf object-fit: contain wechseln — NICHT cover mit
-           fester Hoehe.
-
-           Erzeugt ueber kie.ai (google/nano-banana-edit) und auf 2496 px
-           hochskaliert. Grundlage war eine Fassung, in der die echten
-           Gesichter aus gf-1.jpg und gf-2.jpg ueber die Augenlinie
-           eingesetzt waren; der Erzeugungsschritt hat daraus ein
-           zusammenhaengendes Bild gemacht, ohne die Gesichter neu zu
-           zeichnen. Zwischenstaende in .original/.
-
-           Der Weg dahin steht hier, weil er sich sonst wiederholt: die
-           Fassung mit eingesetzten Gesichtern hatte SICHTBARE NAEHTE und
-           wurde als Montage erkannt. Zwei freie Neuerzeugungen allein aus
-           den Portraets haben stattdessen FREMDE MAENNER gezeichnet
-           (.original/gf-verworfen-neu-a.png und -neu-b.png). Nur der
-           Umweg ueber die Montage als Vorlage hat beides zugleich
-           gehalten: keine Naht und dieselben Menschen.
-
-           DIE DATEI WURDE AM 30.08.2026 MEHRFACH GETAUSCHT
-           (3072 x 2048 -> 1248 x 832 -> 2496 x 1664). Fest sind dabei nur
-           PFAD und VERHAELTNIS 3:2 geblieben. Am Aufbau aendert ein
-           weiterer Tausch im selben Verhaeltnis nichts; es genuegt, die
-           width/height unten nachzuziehen.
-
-           NICHT ENGER SCHNEIDEN. Die ganze Figur mit Beinen und Fuessen
-           ist ausdruecklich gewollt — eine Halbfigur wurde aus genau dem
-           Grund schon einmal verworfen. Wirken die Figuren zu klein, ist
-           die SPALTENBREITE das Mittel, nicht der Beschnitt.
-
-           object-position: 50% 35% steht in der CSS als Absicherung fuer
-           genau den Fall, dass das Fenster einmal nicht mehr 3:2 ist.
-
-           KEINE NAMENSZUORDNUNG im Alternativtext — welches Gesicht zu
-           welchem Namen gehoert, ist hier nicht gesichert; eine geratene
-           Zuordnung waere eine Behauptung ueber eine echte Person. -->
-      <figure class="kar-wer__bild" data-auf>
-        <picture>
-          <source srcset="assets/img/karriere/gf-zusammen.webp?v=b24a" type="image/webp">
-          <img src="assets/img/karriere/gf-zusammen.jpg?v=b24a"
-               width="2496" height="1664" loading="lazy" decoding="async"
-               alt="Die beiden Geschäftsführer von Estera sitzen nebeneinander in ihrem Büroraum">
-        </picture>
-      </figure>
 
     </div>
   </div>

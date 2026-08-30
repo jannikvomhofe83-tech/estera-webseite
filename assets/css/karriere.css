@@ -702,53 +702,27 @@
   .kar-wer { padding: var(--kar-luft) 0; }
 }
 
-/* --- ZWEI SPALTEN — ABWEICHUNG VON DER VORLAGE, KUNDENWUNSCH 30.08.2026 ---
-   Die Vorlage setzt diesen Abschnitt einspaltig und durchgehend mittig:
-   Etikett, Überschrift und Fließtext stehen zentriert in einer schmalen
-   Satzbreite von 707,1 px. Der Kunde will stattdessen den Text LINKS und
-   LINKSBÜNDIG und rechts daneben ein Bildfenster. Der Wortlaut bleibt
-   unangetastet, nur die Anordnung ändert sich.
+/* --- EINSPALTIG — KUNDENWUNSCH 31.08.2026 --------------------------------
+   Das Bildfenster mit den beiden Geschäftsführern ist raus („Entferne
+   bitte erst mal das Bild von den zwei Geschäftsführern."), ersatzlos.
+   Damit fällt auch die Zweispaltigkeit vom 30.08.2026 weg — sie gab es
+   nur, weil rechts ein Bild stand.
 
-   WAS DAS AN DER BAUAUFNAHME ÄNDERT — und was nicht:
-     - Die vertikalen Abstände 46 (Etikett → Überschrift) und 48
-       (Überschrift → Text) bleiben auf den gemessenen Werten.
-     - Die Satzbreite 707,1 px bleibt als Deckel stehen, wirkt aber jetzt
-       nur noch unterhalb von 1024 px. Ab 1024 px begrenzt die linke
-       Spalte den Satz ohnehin auf weniger, und der Deckel würde die
-       Spalte nicht ausfüllen.
-     - Die Überschrift steht nicht mehr zentriert. `text-wrap: balance`
-       aus .kar-titel bleibt trotzdem sinnvoll: es verhindert eine
-       einzelne Schleppzeile, wenn „Wer ist Estera?" umbricht.
+   WAS BLEIBT: der Text steht LINKS und LINKSBÜNDIG. Das war eine eigene
+   Anweisung desselben Kunden und hängt nicht am Bild. Die Vorlage setzt
+   diesen Abschnitt einspaltig und durchgehend MITTIG in einer Satzbreite
+   von 707,1 px; hier steht er weiter links.
 
-   DIE GRENZE LIEGT BEI 1024 px, nicht bei den 992 px des Baukastens.
-   Unter 1024 px stünde die Textspalte in einer Breite, in der die 57 px
-   große Überschrift zwei- bis dreizeilig umbricht, während daneben ein
-   Bildfenster von unter 350 px stünde — beides zu schmal. Darunter stehen
-   die zwei Spalten deshalb untereinander, Text zuerst, Bild darunter.
-   Linksbündig bleibt der Text auch dort. */
+   WAS BLEIBT: die vertikalen Abstände 46 (Etikett → Überschrift) und 48
+   (Überschrift → Text) auf den gemessenen Werten der Vorlage.
+
+   `display: grid` bleibt als einspaltiges Raster stehen — es kostet
+   nichts, hält die Struktur .kar-wer__raster > .kar-wer__spalte im
+   Markup unverändert und wäre die Stelle, an der eine zweite Spalte
+   wieder anzusetzen hätte. */
 .kar-wer__raster {
   display: grid;
   gap: 40px;
-}
-@media (min-width: 1024px) {
-  .kar-wer__raster {
-    /* 1 : 0,9. Das Bildfenster liegt im Querformat 3:2 und ist damit von
-       Haus aus flach — eine schmale rechte Spalte ergäbe einen Streifen.
-       Bei 1250 px Behälter und 72 px Rinne stehen 620 px Text neben
-       558 px Bild (558 × 372). Damit sind Textblock und Bild fast gleich
-       hoch, und keine der beiden Spalten zieht den Abschnitt in die Länge. */
-    /* 0,82 : 1 — die BILDSPALTE IST JETZT DIE BREITERE. Geändert am
-       30.08.2026: die Aufnahme zeigt beide Geschäftsführer in ganzer
-       Figur von Kopf bis Schuh, und bei 558 px lasen sich die Figuren zu
-       klein. Enger schneiden ist ausdrücklich ausgeschlossen — die ganze
-       Figur ist gewollt —, also ist die Spaltenbreite das Mittel.
-       Bei 1250 px Behälter und 72 px Rinne: 531 px Text neben 647 px
-       Bild (647 × 431). Die Figuren gewinnen damit rund 16 % Höhe.
-       Der Text steht bei 531 px noch bei rund 73 Zeichen je Zeile. */
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
-    gap: 72px;
-    align-items: center;
-  }
 }
 
 .kar-wer__etikett {
@@ -760,21 +734,105 @@
 /* 20 + 26 aus der Bauaufnahme (Abstand plus Zeilenabstand). */
 .kar-wer .kar-titel { margin-top: var(--kar-eng); text-align: left; }
 
-/* Satzbreite 707,1 bei 1250 Behälter — bewusst breit gesetzt gegen die
-   sehr große Überschrift. Die Vorlage kommt damit auf rund 95 Zeichen je
-   Zeile. Absatzabstand 21 px, also genau eine Zeile. */
+/* --- DER SATZSPIEGEL — der eigentliche Eingriff vom 31.08.2026 ------------
+   Mit dem Bildfenster ist die rechte Spalte weggefallen, und die hatte den
+   Satz bisher nebenbei begrenzt: 531 px, gemessene 74 Zeichen je Zeile.
+   Ohne Deckel liefe der Text jetzt über die volle Behälterbreite — bei
+   1920 px sind das 1250 px und rund 175 Zeichen. Ab etwa 75 Zeichen
+   verliert das Auge beim Rücksprung an den Zeilenanfang die Spur; genau
+   deshalb steht hier ein Deckel und nicht `width: auto`.
+
+   DER DECKEL STEHT IN `ch` UND NICHT IN PIXELN. `ch` ist die Breite der
+   Ziffer Null der laufenden Schrift — der Deckel wandert damit mit, wenn
+   die Schriftgröße einmal geändert wird, und die Zeichenzahl bleibt.
+   Ein Pixelwert wäre nach der nächsten Größenänderung wieder falsch.
+
+   58ch UND NICHT 65ch: die Null des Cormorant Garamond ist deutlich
+   breiter als seine mittlere Kleinbuchstabenbreite (7,95 px gegen
+   6,97 px bei 16,66 px Schriftgröße), `ch` zählt also nicht eins zu eins
+   in Zeichen — ein ch sind hier rund 1,14 Zeichen. Nachgemessen an
+   diesem Text (Wortlaut vom 30.08.2026, Zeile für Zeile über
+   Range-Rechtecke gezählt, nicht überschlagen):
+
+       Deckel      Breite     längste Zeile
+       707,1 px    707 px     95 Zeichen   (Vorlage, zu breit)
+       531 px      531 px     74 Zeichen   (Stand mit Bild)
+       58ch        460,9 px   65 Zeichen   ← hier
+       (zum Vergleich: 50ch = 397,3 px = 57 Zeichen, spürbar zu schmal
+        für einen Abschnitt dieser Breite)
+
+   65 Zeichen liegen im ruhigen Bereich und deutlich unter der Grenze von
+   75. Bei 390 px greift der Deckel nicht — dort ist der Behälter mit
+   342 px ohnehin schmaler, längste Zeile 50 Zeichen.
+   Die 707,1 px der Bauaufnahme bleiben als zweiter, weicherer Deckel
+   stehen: er greift nirgends mehr, hält aber den gemessenen Wert der
+   Vorlage in der Datei.
+
+   FETTER SEIT 31.08.2026, KUNDENWUNSCH: „packst den Text bei ‚Wer ist es'
+   mit dick." Der Absatz steht auf 500 statt 400. Das ist eine ECHTE
+   Schnittstufe und kein vom Browser gerechnetes Fett —
+   CormorantGaramond-500-latin.woff2 liegt vor und ist in fonts.css
+   angemeldet. Die zwei Kernsätze darin stehen auf 600 (siehe strong
+   unten), sodass der Absatz innen noch eine Rangfolge hat.
+
+   AM KONTRAST ÄNDERT DAS NICHTS ZUM SCHLECHTEREN. Die Farbe bleibt
+   --ink-black #2B2E33; ein kräftigerer Schnitt legt mehr volle statt
+   halbdeckender Bildpunkte, der gemessene Wert am Bildpunkt kann dadurch
+   nur steigen. Nachgemessen am fertigen Bild bei 1440 px, Grundton aus
+   dem echten Bildpunkt neben der Zeile gelesen (der Abschnitt läuft von
+   Creme nach Weiß, ein fester Grundwert wäre hier falsch):
+
+       Absatz 1, fw 500   #2B2E33 auf (252,250,249)   13,09:1
+       Absatz 2, fw 500   #2B2E33 auf (253,252,251)   13,30:1
+       strong,   fw 600   #2B2E33 auf (251,249,248)   12,98:1
+       Überschrift fw 300 #2B2E33 auf (250,248,246)   12,86:1
+
+   Alles weit über 4,5:1; der schwerere Schnitt kostet nichts.
+   Absatzabstand 21 px, also genau eine Zeile. */
 .kar-wer__text {
-  max-width: 707.1px;
+  max-width: min(58ch, 707.1px);
   margin: var(--kar-eng) 0 0;
   display: grid;
   gap: 21px;
   text-align: left;
   font-size: var(--kar-fs-fliess);
   line-height: var(--kar-lh-fliess);
+  font-weight: 500;
   color: var(--ink-black);
 }
+/* Die zwei Kernsätze. `font-weight` ausdrücklich gesetzt und nicht dem
+   Browservorgabewert `bolder` überlassen: `bolder` rechnet sich relativ
+   zum Elternwert und läge auf 500 bei 700 — das wäre der schwerste
+   vorhandene Schnitt und genau das laute Fett, das hier nicht hinsoll.
+   600 ist eine Stufe über dem Absatz und ebenfalls eine gelieferte
+   Schnittdatei. */
+.kar-wer__text strong { font-weight: 600; }
 
-/* --- DAS BILDFENSTER ------------------------------------------------------
+/* --- DAS BILDFENSTER — SEIT 31.08.2026 OHNE MARKUP ------------------------
+   ES GIBT AUF karriere.html KEIN .kar-wer__bild MEHR. Der Kunde hat das
+   Bild der beiden Geschäftsführer am 31.08.2026 herausnehmen lassen
+   („Entferne bitte erst mal das Bild von den zwei Geschäftsführern."),
+   ersatzlos und samt Rahmen. Die <figure> ist aus dem Markup raus.
+
+   DIESER BLOCK BLEIBT TROTZDEM STEHEN, und das ist eine Entscheidung
+   und kein Versehen. Der Kunde hat „erst mal" gesagt, die zwei
+   Bilddateien liegen unverändert unter assets/img/karriere/gf-zusammen.jpg
+   und .webp, und sie haben vier Anläufe gekostet. Was zum Wiedereinsetzen
+   nötig ist, ist damit genau dies:
+
+     1. Die <figure class="kar-wer__bild"> wieder in .kar-wer__raster
+        hinter .kar-wer__spalte setzen (Bauart siehe git-Verlauf,
+        Stand 30.08.2026).
+     2. In .kar-wer__raster die Regel für ab 1024 px wieder aufnehmen:
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+        gap: 72px; align-items: center;
+     3. Den Deckel in .kar-wer__text zurücknehmen — die rechte Spalte
+        begrenzt den Satz dann wieder von selbst auf 531 px / 74 Zeichen.
+
+   Die Regeln darunter greifen bis dahin ins Leere; ein Selektor ohne
+   passendes Element kostet nichts. Dasselbe gilt für die Einträge zu
+   .kar-wer__bild im Bewegungsblock am Ende dieser Datei.
+
    Verhältnis 3:2 quer — das Maß der gelieferten Datei (3072 × 2048). Der
    Rahmen steht im selben Verhältnis, es wird also nichts beschnitten.
    `aspect-ratio` steht am RAHMEN, nicht am Bild: das Fenster hält sein Maß
