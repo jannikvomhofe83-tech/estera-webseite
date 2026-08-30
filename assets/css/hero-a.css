@@ -21,6 +21,7 @@
   --h1-fest:    clamp(1.9rem, 2.75vw, 2.75rem);
   --h1-zeile:      calc(1.1 * var(--h1-groesse));
   --h1-zeile-fest: calc(1.1 * var(--h1-fest));
+
   position: relative;
   /* NAVY ALS GRUND, WEISSER MARMORKASTEN DARAUF.
      Der Grund war zuerst weiss, dann Navy, kurz der Sandton des Knopfes und
@@ -414,16 +415,20 @@
   color: var(--accent);
 }
 
-/* „Eigentum" (das erste) und „Vermögen" stehen fett statt farbig
-   (Kundenwunsch 24.08.2026). Farbe waere auf dem wieder weissen Kasten das
-   falsche Mittel — der Satz traegt schon eine farbige Zeile darunter.
-   .display setzt 300; 600 ist bei Cormorant der erste Schnitt, der neben
-   300 wirklich als „dick" liest — 500 verschwimmt.
-   Kein <strong>, sondern <b>: hervorgehoben wird hier optisch, nicht in der
-   Bedeutung; <strong> wuerde von Vorlesesoftware betont vorgetragen. */
-.heroA__h1 b {
-  font-weight: 600;
-}
+/* DIE AUSZEICHNUNG IM KOPF IST ENTFALLEN — 30.08.2026.
+
+   Hier stand `.heroA__h1 b { font-weight: 600 }`. Die Auszeichnung lag auf
+   „Eigentum" und „Vermögen" im alten Satz, danach kurz auf der ersten von
+   zwei Zeilen. Der Kunde hat den Kopfbereich am 30.08.2026 endgueltig
+   festgelegt: EINE Zeile, „Deine Kapitalanlage-Immobilie." Bei einer
+   einzigen Zeile gibt es nichts abzusetzen — die Ueberschrift steht im
+   Schnitt 300 aus .display wie jede andere Ueberschrift der Seite.
+
+   Mit ihr entfallen ist `.heroA__h1zwei`, der Grad der zweiten Zeile.
+   Wer je wieder zwei ungleich grosse Zeilen setzt, muss daran denken, dass
+   das Objektbild rechts mit einem negativen Abstand an der HOEHE der
+   Ueberschrift haengt (siehe .heroA__figure) — zwei ungleiche Zeilen sind
+   nicht `2 x --h1-zeile`. */
 
 /* Die wechselnde Nutzenzeile trägt seit dem 24.08.2026 den Sandton des
    Knopfes „Vorteile entdecken" statt des Blaus — Kundenwunsch, damit sich
@@ -455,11 +460,102 @@
   max-width: 100%;
   /* Optischer Ausgleich der kleineren x-Höhe von Jost. Die Herleitung stand
      in hero-b.css; die Datei ist mit Variante B am 24.08.2026 entfallen. */
-  font-size: clamp(1.37rem, 2.08vw, 2.08rem);
+  /* DEUTLICH KLEINER SEIT 30.08.2026 — Kundenwunsch: „Schreibe das kleiner."
+     Vorher: clamp(1.37rem, 2.08vw, 2.08rem) — gemessen 30 px bei 1440.
+     Jetzt gemessen 22 px bei 1440, also gut ein Viertel weniger.
+
+     DIE UNTERGRENZE IST NICHT FREI GEWAEHLT. Der Fliesstext der Seite steht
+     in base.css auf 16 px; darunter darf diese Zeile nicht rutschen, sonst
+     ist die Unterzeile des Kopfbereichs kleiner als der Text im Fliess.
+     Der Mindestwert 1.18rem sind 18.9 px — er greift ab rund 1220 px
+     Fensterbreite und haelt bis 390 px hinunter Abstand zum Fliesstext.
+     Die Obergrenze 1.6rem (25.6 px) faengt die ganz breiten Fenster ab;
+     ohne sie stuende die Zeile bei 1920 px wieder bei 30 px. */
+  font-size: clamp(1.18rem, 1.55vw, 1.6rem);
   line-height: 1.34;
   font-weight: 400;
   color: var(--ink-black);
   text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------------------
+   DIE DREI MARKEN — 30.08.2026
+
+   „Die Bank finanziert · Die Mieter zahlen mit · Steuern können sinken"
+
+   Der Kunde hat viermal verlangt, dass die Vorteile in den ersten Bildschirm
+   kommen. Massstab ist neocore.capital: deren Kopfbereich traegt vier
+   Vorteile mit fetter Marke. Unserer trug bis heute nur eine Ueberschrift
+   und einen Satz darueber, was WIR tun.
+
+   NEBENEINANDER, NICHT UNTEREINANDER — und das ist der ganze Punkt.
+   Eine erste Fassung stand als Liste aus vier Punkten mit je einer
+   Erklaerzeile darunter. Der Kunde hat sie verworfen: zu viel Text.
+   Untereinander waere es wieder eine Liste. Als EINE Zeile aus drei kurzen
+   Marken liest es sich als Beschriftung, nicht als Aufzaehlung — man nimmt
+   sie im Vorbeisehen mit, ohne sie zu lesen.
+
+   ES IST EIN <p> MIT DREI <span>, KEINE <ul>. Das ist keine Formsache:
+   Vorlesesoftware kuendigt eine Liste als „Liste mit drei Eintraegen" an
+   und zaehlt sie durch. Hier ist es eine Zeile, und sie soll auch als eine
+   Zeile vorgetragen werden.
+
+   IN DER HANDSCHRIFT DES PROJEKTS, OHNE NEUE BAUTEILE.
+   Gesperrte Versalien in --gold-text, dieselbe Sprache wie .kicker, nur in
+   Gold. Getrennt durch einen feinen Mittelpunkt. KEINE Kaesten, KEINE
+   Symbole, KEINE Schatten — der Kasten traegt schon Marmor, Verlauf,
+   Rahmen und Foto.
+
+   FARBE IST HIER EINE MESSUNG, KEIN GESCHMACK.
+   Auf dem hellen Marmorkasten misst --gold-text (#86693A) 5.13:1 und traegt
+   damit auch als kleine Versalzeile. Der naheliegende Sandton --sand
+   (#D9B485) misst dort 1.94:1 und ist unbrauchbar; --sand-schrift kaeme auf
+   3.39:1 und bliebe unter der Regel von 4.5:1. Wer die Farbe tauscht, muss
+   neu messen.
+--------------------------------------------------------------------------- */
+.heroA__marken {
+  margin: clamp(1.1rem, 2.4vh, 1.7rem) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  /* Der Zwischenraum traegt die Trennung mit — der Mittelpunkt allein
+     stuende zu eng an beiden Marken. */
+  gap: 0.5em clamp(0.7rem, 1.1vw, 1.05rem);
+  font-family: var(--font-ui);
+  font-size: clamp(0.79rem, 0.83vw, 0.86rem);
+  font-weight: 600;
+  /* ENGER GESPERRT ALS .kicker — nachgemessen, nicht geschaetzt.
+     --track-wide sind 0.24em. Damit brauchten die drei Marken bei 1440 px
+     675 px, die Textspalte bietet dort aber nur 655 px: die Zeile brach in
+     zwei. Der Kunde will sie nebeneinander. 0.13em spart ueber die rund 60
+     Zeichen genug ein, dass sie bei 1440 und 1920 px in EINER Zeile stehen.
+     Unter 0.10em verliert die Versalzeile ihren Charakter und liest sich wie
+     ein Wort — dort ist die Grenze, nicht beim Platz. */
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  line-height: 1.4;
+}
+/* Eine Marke bricht NIE in sich um. „Steuern können / sinken" ueber zwei
+   Zeilen waere schlimmer als drei Marken untereinander: der Leser sucht dann
+   nach dem Zusammenhang. Bei 1024 px stehen deshalb zwei Marken oben und
+   eine darunter, bei 390 px jede fuer sich — der Kunde hat „nebeneinander in
+   eine Zeile, WENN DER PLATZ REICHT" verlangt, und dort reicht er nicht. */
+.heroA__marken span { white-space: nowrap; }
+/* Der Mittelpunkt haengt an der Marke davor, nicht an der dahinter: bricht
+   die Zeile um, steht er dadurch am Ende der oberen Zeile und nicht als
+   erstes Zeichen der unteren. */
+.heroA__marken span:not(:last-child)::after {
+  content: '·';
+  /* Der letzte Buchstabe einer gesperrten Marke schleppt seinen Zwischenraum
+     hinter sich her. Ohne diesen Ausgleich stuende der Punkt sichtbar naeher
+     an der folgenden Marke als an der eigenen. */
+  margin-left: calc(0.72em - var(--track-wide));
+  letter-spacing: 0;
+  /* Blasser als die Schrift: der Punkt trennt, er zaehlt nicht mit.
+     Als reines Trennzeichen traegt er keine Aussage — der Kontrastwert der
+     Marken selbst bleibt davon unberuehrt. */
+  color: var(--line-gold);
 }
 
 .heroA__actions {
@@ -499,8 +595,21 @@
      Kein geschaetzter Wert — er haengt an denselben Token wie die
      Ueberschrift und wandert mit, wenn deren Groesse sich aendert.
      Die Ueberschrift steht links und ist deutlich schmaler als ihre Spalte;
-     ihr Text kollidiert deshalb nicht mit dem Bild (nachgemessen). */
-  margin-top: calc(-2 * var(--h1-zeile));
+     ihr Text kollidiert deshalb nicht mit dem Bild (nachgemessen).
+
+     NACHGEZOGEN 30.08.2026. Hier stand `-2 * var(--h1-zeile)`, weil die
+     Ueberschrift zwei Zeilen hatte. Seit der endgueltigen Fassung hat sie
+     nur noch EINE („Deine Kapitalanlage-Immobilie."), also ist es EINE
+     Zeilenhoehe. Waere die Zwei stehen geblieben, haette der Abstand das
+     Bild um eine volle Zeile — rund 47 px bei 1440 — ueber die Oberkante
+     des Kastens hinausgezogen.
+
+     WAS DER WERT MEINT, ist unveraendert: „zieh das Bild um die Hoehe der
+     Ueberschrift nach oben, damit es nicht erst unter ihr beginnt".
+     Mit dem Wegfall der Kleinzeile sitzt seine Oberkante jetzt genau am
+     Innenabstand des Kastens statt darunter — das ist die Folge davon,
+     dass ueber ihm nichts mehr steht, und nicht eine eigene Entscheidung. */
+  margin-top: calc(-1 * var(--h1-zeile));
 }
 .heroA__figure > div {
   position: relative;
@@ -588,6 +697,18 @@
   }
   .heroA__actions { flex-direction: column; align-items: stretch; }
   .heroA__actions .btn { justify-content: center; }
+
+  /* ENGER GESTELLT AUF SCHMALEN FENSTERN — 30.08.2026.
+     Bei 390 px steht jede Marke auf einer eigenen Zeile; die drei Zeilen
+     kosten Hoehe, und der Kopfbereich ist hier ohnehin schon laenger als
+     ein Bildschirm. Abstand nach oben und Zeilenzwischenraum sind deshalb
+     zurueckgenommen — gemessene 12 px, die der Kasten dadurch kuerzer wird.
+     Am Schriftgrad wird NICHT gespart: 12.6 px sind bei gesperrten Versalien
+     die Untergrenze der Lesbarkeit. */
+  .heroA__marken {
+    margin-top: clamp(0.85rem, 1.9vh, 1.15rem);
+    gap: 0.3em 0.75rem;
+  }
 }
 
 /* ===========================================================================
