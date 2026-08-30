@@ -1151,26 +1151,39 @@
     </div>
 
     <!-- ---------- 2b  DIE ZAESUR ----------------------------------------
-         NEU AM 31.08.2026 — Kundenwunsch, woertlich: zwischen den beiden
-         Kaesten („Klassisch investieren" / „Mit Immobilie") und der
-         Ueberschrift „Deine Vorteile zum Vermoegen" war es ihm zu eng, und
-         er wollte dort eine feine goldene Linie als Zaesur.
+         NEU AM 31.08.2026 — Kundenwunsch, in drei Ansagen am selben Tag.
 
-         ZWEI DINGE, in dieser Reihenfolge:
-           1  MEHR LUFT. Der Abstand steht jetzt zweimal — einmal ueber der
-              Linie (an .wi__zaesur) und einmal darunter (der vorhandene
-              Abstand an .wi__h3). Gerechnet in warum.css.
-           2  DIE LINIE SELBST.
+         1  MEHR LUFT zwischen den beiden Kaesten („Klassisch investieren" /
+            „Mit Immobilie") und der Ueberschrift „Deine Vorteile zum
+            Vermoegen": „Es darf sogar noch einen Ticken mehr Platz sein …
+            in beiden Kaesten darfst du sogar noch einen Ticken mehr Platz
+            lassen."
+         2  EINE FEINE GOLDENE LINIE als Zaesur mitten in diese Luecke.
+         3  SIE LAEUFT DURCH: „Der goldene Strich darf ruhig durchgezogen
+            sein. Auf der linken Seite passt er, da schliesst er ab und
+            endet auf der gleichen Hoehe wie die Kaesten. Rechts verlaeuft
+            er und wird zu weiss — aber er muss rechts genauso weitergehen
+            wie auf der linken Seite."
 
-         SIE IST NICHT NACHEMPFUNDEN, SONDERN UEBERNOMMEN. Vorbild ist die
-         Linie, die weiter unten zwischen dem Knopf „Mein
-         Immobilienpotenzial pruefen" und „Dein Weg zur eigenen Immobilie"
-         steht: `.vtr__linie` in assets/css/vertrauen.css. Farbe (--gold
-         #A8874F), Staerke (1 px), Deckkraft (0,75), Breite (die
-         Inhaltskante des Abschnitts) und die Ausblendung nach rechts
-         (deckend bis 52 %, ab 78 % ganz weg; unter 1024 px 72 % / 96 %)
-         sind Zeichen fuer Zeichen dieselben Werte. Wer die eine aendert,
-         muss die andere mitziehen — der Vermerk steht an beiden Stellen.
+         DER ABSTAND IST OBEN UND UNTEN GLEICH GROSS. Die Linie sitzt
+         mittig in der Luecke; sonst wirkte sie einer der beiden Seiten
+         zugeschlagen. Beide Werte stehen in warum.css, dort auch die
+         Messung.
+
+         SIE ENDET BEIDSEITIG BUENDIG MIT DEN KAESTEN, und das ist nicht
+         gerechnet, sondern gegeben: die Linie steht als Blockelement im
+         Fluss in .wi__inner, genau wie die Kastenreihe .wi__band darueber.
+         Beide haben damit dieselbe Inhaltskante links wie rechts, bei
+         jeder Fensterbreite.
+
+         KEINE AUSBLENDUNG. Die erste Fassung von heute frueh war Zeichen
+         fuer Zeichen von `.vtr__linie` uebernommen — samt deren Verlauf
+         nach rechts. Der Kunde hat genau den beanstandet. NICHT
+         VERWECHSELN: .vtr__linie (die Linie zwischen dem Knopf „Mein
+         Immobilienpotenzial pruefen" und „Dein Weg zur eigenen Immobilie")
+         blendet weiterhin aus — sie muss es, sonst liefe sie in das
+         ueberhaengende Fassadenfoto. Diese hier laeuft durch. Wer die eine
+         anfasst, darf die andere nicht mitziehen.
 
          Sie ist reine Zeichnung und traegt keine Aussage, deshalb
          `aria-hidden`. Die Schwelle von 4,5:1 gilt fuer sie nicht; als
@@ -1178,17 +1191,24 @@
     <span class="wi__zaesur" aria-hidden="true"></span>
 
     <!-- ---------- 3  ZWISCHENKOPF ---------- -->
-    <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, ganze Startseite.
-         Zwei Fassungen standen zur Wahl. Zuerst gesetzt war die kurze
-         „Deine Vorteile", weil direkt darueber im Kopfbereich schon
-         „Deine Kapitalanlage-Immobilie." steht und die lange Fassung
-         dieselben Woerter zum dritten Mal in Folge gebracht haette.
-         Der Kunde hat sich danach ausdruecklich fuer die lange Fassung
-         entschieden — sie steht jetzt.
-         Die Unterzeile bleibt unveraendert.
+    <!-- WORDING GEAENDERT 31.08.2026 — Kundenwunsch.
          Vorher: "Vier Kräfte. Ein Ergebnis: dein Vermögen."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <h3 class="wi__h3">Deine Vorteile zum Vermögen</h3>
+         Die Unterzeile „Alles greift ineinander." bleibt unveraendert.
+         VON ESTERA BESTAETIGEN LASSEN.
+
+         Der Kunde wollte etwas, das direkt sagt, worum es geht, und hat
+         zwei Fassungen genannt: „Deine Vorteile" und „Deine Vorteile mit
+         deiner Kapitalanlage-Immobilie".
+
+         ES STEHT DIE KURZE. Das ist eine Entscheidung der Redaktion, nicht
+         des Kunden — sie gehoert deshalb hierher und nicht in eine
+         Behauptung ueber seinen Willen. Der Grund: seit dem 31.08. traegt
+         der Kopfbereich die Ueberschrift „Deine Kapitalanlage-Immobilie."
+         Die lange Fassung braechte dieselben Woerter zum dritten Mal in
+         Folge — Kopfbereich, Zwischenkopf, und in den Kacheln darunter
+         noch einmal. Wer sie doch lang haben will, setzt sie hier ein;
+         inhaltlich ist beides gedeckt. -->
+    <h3 class="wi__h3">Deine Vorteile</h3>
     <p class="wi__h3sub">Alles greift ineinander.</p>
 
     <!-- ---------- 4  DAS FELD ----------
@@ -1337,8 +1357,17 @@
                Die Marke nennt den Nutzen und spricht den Leser an.
                Vorher Marke: "Miete"
                Vorher Zeile: "trägt monatlich mit"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <span class="wi__karte-t">Dein Mieter zahlt mit</span>
+               VON ESTERA BESTAETIGEN LASSEN.
+
+               PLURAL, UND ZWAR ABSICHTLICH. Die Marke hiess zwischendurch
+               „Dein Mieter zahlt mit". Der Kunde hat am 31.08.2026 fuer den
+               Kopfbereich ausdruecklich den Plural verlangt: „Beachte den
+               Plural: ‚Die Mieter zahlen mit', nicht ‚Der Mieter zahlt mit'."
+               Diese Marke steht zeichengleich im Kopfbereich; der Singular
+               waere hier genau die Fassung, die er dort abgelehnt hat.
+               Der Fliesstext der Tafel unten spricht weiter vom einzelnen
+               Mieter — dort geht es um EINE Wohnung, das ist richtig so. -->
+          <span class="wi__karte-t">Die Mieter zahlen mit</span>
           <span class="wi__karte-s">Monat für Monat</span>
           <span class="wi__karte-mehr">Mehr erfahren
             <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
