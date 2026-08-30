@@ -85,11 +85,26 @@
      ===================================================================== -->
 <header class="site-header site-header--invert" data-header>
 
+  <!-- NAVIGATION UMSORTIERT 31.08.2026 (Kundenwunsch):
+       links   Vorteile · Leistungen
+       rechts  Ablauf · Karriere · Kontakt (Kontakt abgesetzt, .kopfnav__cta)
+       „Ablauf" stand bis heute LINKS und ist nach rechts vor „Karriere"
+       gewandert. Sonst hat sich an den Punkten nichts geaendert.
+
+       DAMIT STEHEN LINKS ZWEI UND RECHTS DREI PUNKTE. Die Wortmarke bleibt
+       trotzdem mittig: .site-header ist ein Raster aus
+       minmax(0,1fr) auto minmax(0,1fr) (base.css), die Wortmarke sitzt in
+       der Mittelspalte, und die beiden Navigationen draengen sie nicht.
+       Nachgemessen, dass keine Seite an die Wortmarke stoesst — die Werte
+       stehen in der Rueckmeldung. Unterhalb von 1340 px uebernimmt der
+       Burger (base.css, @media min-width 1340px).
+
+       Der Anker ist geprueft, nicht geraten: variante-a.html traegt
+       <section class="abl" id="ablauf">. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
       <li><a href="variante-a.html?v=b24a#warum-immobilien">Vorteile</a></li>
       <li><a href="variante-a.html?v=b24a#leistungen">Leistungen</a></li>
-      <li><a href="variante-a.html?v=b24a#ablauf">Ablauf</a></li>
     </ul>
   </nav>
 
@@ -100,6 +115,7 @@
 
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
     <ul>
+      <li><a href="variante-a.html?v=b24a#ablauf">Ablauf</a></li>
       <li><a href="karriere.html?v=b24a" aria-current="page">Karriere</a></li>
       <li class="kopfnav__cta"><a href="kontakt.html?v=b24a">Kontakt</a></li>
     </ul>
@@ -872,16 +888,25 @@
   </div>
 
   <div class="menu__body">
+    <!-- UMSORTIERT 31.08.2026 wie die Kopfleiste: „Ablauf" ist aus der
+         ersten Gruppe in die zweite gewandert und steht dort vor
+         „Karriere". Die Ziffern laufen in jeder Gruppe wieder bei 01 los,
+         beide Gruppen sind deshalb neu gezaehlt.
+         VERMERK: „Ablauf" zeigt weiterhin auf einen Abschnitt der
+         STARTSEITE und steht jetzt unter der Ueberschrift „Seiten" —
+         die Reihenfolge folgt der Kopfleiste, die Gruppenbezeichnung
+         passt dazu nicht mehr genau. Das ist gemeldet und nicht
+         eigenmaechtig umbenannt worden. -->
     <p class="menu__gruppe">Auf der Startseite</p>
     <ul class="menu__nav">
       <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
       <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Leistungen</a></li>
-      <li><a class="menu__link" href="variante-a.html?v=b24a#ablauf"><span class="num">03</span> Ablauf</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="karriere.html?v=b24a" aria-current="page"><span class="num">01</span> Karriere</a></li>
-      <li><a class="menu__link" href="kontakt.html?v=b24a"><span class="num">02</span> Kontakt</a></li>
+      <li><a class="menu__link" href="variante-a.html?v=b24a#ablauf"><span class="num">01</span> Ablauf</a></li>
+      <li><a class="menu__link" href="karriere.html?v=b24a" aria-current="page"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html?v=b24a"><span class="num">03</span> Kontakt</a></li>
     </ul>
 
     <aside class="menu__aside">
