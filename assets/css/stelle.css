@@ -1036,80 +1036,73 @@
 }
 
 /* ---------------------------------------------------------------------------
-   DER KARTENSTAPEL — 30.08.2026, KUNDENWUNSCH
+   DIE KARTENLISTE — 31.08.2026, KUNDENWUNSCH: DER STAPEL IST RAUS
 
-   „Karten, die sich beim Scrollen stapeln und die vorige zu etwa 90 %
-   ueberdecken" — dieselbe Geste wie im Abschnitt „Unser Ablauf" auf der
-   Startseite. Die dortige Mechanik (assets/css/ablauf.css, .abl__stapel)
-   ist die Vorlage; sie wurde gelesen und nachgebaut, nicht veraendert.
+   „Die Punkte einfach untereinander gelistet, ohne Scrollanimation" —
+   wie der Ablauf auf der Startseite, der im selben Durchgang umgebaut wird.
+   Die Karten stehen jetzt schlicht untereinander: Nummer, Titel, Satz.
 
-   ZWEI UNTERSCHIEDE ZUR STARTSEITE
-   1. Der Stapel steht nur in der LINKEN Spalte. Rechts bleibt das Bildfeld,
-      das dort schon stand; es klebt mit (.stl-bilder), damit es waehrend
-      des Stapelns im Bild bleibt statt wegzulaufen.
-   2. Die Karten tragen die fuenf Schritte aus „So laeuft die Partnerschaft
-      ab" (Wording-Master), woertlich.
+   WAS AM 30.08.2026 HIER STAND UND SEIT DEM 31.08.2026 NICHT MEHR:
+   ein Kartenstapel aus `position: sticky`-Kaesten mit gestaffelten
+   Klebehoehen, der die jeweils vorige Karte zu 90 Prozent ueberdeckte
+   (K + n·V, V = H/10, daher die feste Kartenhoehe H). Ersatzlos raus sind
+   damit:
+     - `position: sticky` auf .stl-halt und die fuenf nth-child-Klebehoehen
+     - die feste `height` der Karte im Klebefall
+     - die Rechengroessen --stl-karte-h und --stl-versatz
+     - die zwei Ruecknahmen im Block „Ruhige Darstellung", die den Stapel
+       dort wieder aufloesten — ohne Stapel gibt es nichts aufzuloesen
+   Damit haengt an diesem Abschnitt KEINE einzige Regel mehr am Rollweg.
 
-   DIE RECHNUNG, AUSGESCHRIEBEN
-   Jede Karte liegt in einem eigenen `position: sticky`-Kasten (.stl-halt).
-   Die Klebehoehen sind gestaffelt:
+   --stl-klebe BLEIBT, aber nur noch fuer das Bildfeld rechts (.stl-bilder),
+   siehe dort. Es ist die einzige verbliebene Klebehoehe der Seite.
 
-       Karte 1   top = K
-       Karte 2   top = K + V          K = --stl-klebe  (Kopfleiste + Luft)
-       …                              V = --stl-versatz
-       Karte 5   top = K + 4V
+   BEIDE STELLENSEITEN SEHEN JETZT GLEICH AUS, und das war der zweite Teil
+   des Auftrags. Vorher unterschieden sie sich in drei Punkten, jetzt nur
+   noch in einem:
 
-   Beim Rollen bleibt Karte 1 bei K stehen. Karte 2 laeuft weiter, bis sie
-   ihr K+V erreicht; ihre Oberkante liegt dann genau V unter der von Karte 1
-   und verdeckt Karte 1 bis auf diesen Streifen. Sichtbar bleibt also V / H
-   der vorigen Karte, verdeckt sind (H − V) / H. Mit V = H / 10 sind das
-   10 % sichtbar und 90 % verdeckt — genau das, was der Kunde verlangt hat.
-   Deshalb haben alle fuenf Karten DIESELBE feste Hoehe H (--stl-karte-h);
-   mit unterschiedlichen Hoehen waere die Quote bei jeder Karte eine andere.
+       Merkmal              vorher                      jetzt
+       Kleben               Immo ja / Back-Office nein   beide nein
+       Mindesthoehe Karte   14,4 rem / 10,6 rem          beide 10,6 rem
+       Ziffer               Immo ja / Back-Office nein   unveraendert
 
-   Warum spaetere Karten die frueheren verdecken und nicht umgekehrt:
-   `position: sticky` macht die Kaesten zu positionierten Elementen, und die
-   zeichnet der Browser in Dokumentreihenfolge uebereinander. Karte 5 liegt
-   damit von sich aus oben. Kein z-index noetig.
+   DIE ZIFFER BLEIBT DER EINE UNTERSCHIED, und das ist Absicht und keine
+   Nachlaessigkeit: die Immobilienberater-Seite fuehrt fuenf Schritte in
+   einer Reihenfolge (<ol>, „So laeuft die Partnerschaft ab" aus dem
+   Wording-Master), die Back-Office-Seite vier Punkte OHNE Reihenfolge
+   (<ul>) — deren vierter ist „Persoenliche Begleitung" und beschreibt
+   keinen Schritt. Eine Nummerierung wuerde dort einen Ablauf behaupten,
+   den der Master fuer diese Stelle nicht hergibt. Diese Entscheidung
+   stammt aus einem frueheren Durchgang, ist im Markup beider Seiten
+   vermerkt und bleibt. Am AUSSEHEN der Karte aendert sie nichts weiter
+   als die eine Zeile darueber.
 
-   KEIN `overflow` an .stl-stapel oder einem seiner Vorfahren — `sticky`
-   hoert sonst auf zu wirken. Geprueft sind: .stl-erwartet, .stl-inner,
-   .stl-zwei--erwartet, .stl-erwartet__links. Keiner setzt overflow.
-
-   MIT JAVASCRIPT WIRD GESTAPELT, OHNE NICHT
-   Alle Klebe-Regeln haengen an [data-stl-js]. Faellt das Skript aus, bleiben
-   die Kaesten `static`, die Karten behalten ihre Mindesthoehe und stehen
-   lesbar untereinander. Bei `prefers-reduced-motion: reduce` ebenso — dort
-   steigt stelle.js aus, bevor das Merkmal gesetzt wird, und der Block
-   „Ruhige Darstellung" nimmt es zusaetzlich zurueck.
-
-   AUF DER BACK-OFFICE-SEITE STEHT .stl-stapel--ruhig: dieselben Karten,
-   aber OHNE Kleben und OHNE Ziffer. Deren vier Punkte sind keine
-   Reihenfolge — der vierte ist „Persoenliche Begleitung" und beschreibt
-   keinen Schritt. Ein Stapel und eine Nummerierung wuerden dort einen
-   Ablauf behaupten, den der Wording-Master fuer diese Stelle nicht hergibt.
-   Diese Entscheidung stammt aus einem frueheren Durchgang und bleibt.
+   .stl-stapel--folge heisst deshalb ab jetzt nur noch „das ist eine
+   Reihenfolge, zeig die Ziffern" und nicht mehr „das klebt".
+   .stl-stapel--ruhig heisst „keine Reihenfolge, keine Ziffern".
+   Der Name .stl-stapel selbst bleibt — er steht im Markup beider Seiten
+   und in stelle.js, und ein Umbenennen brächte an dieser Stelle nichts
+   ausser Bruchstellen.
    --------------------------------------------------------------------------- */
 .stl-erwartet {
-  /* Die Hoehe ist am laengsten Schritt gemessen (04, zwei Zeilen Fliesstext
-     bei halber Containerbreite). --stl-versatz ist genau ein Zehntel davon,
-     daran haengt die 90-Prozent-Quote. */
-  --stl-karte-h:    clamp(11.2rem, 12.4vw, 14.4rem);
-  --stl-versatz:    calc(var(--stl-karte-h) / 10);
   --stl-karte-luft: clamp(0.7rem, 1.05vw, 1.05rem);
-  /* Klebehoehe: Kopfleiste plus Luft. Dieselbe Rechnung wie --abl-klebe in
-     ablauf.css. Die Kopfleiste wird ab 24 px Rollweg `position: fixed`
-     (base.css, .site-header--sticky) — ohne diesen Vorhalt schoebe sie sich
-     ueber die oberste Karte. */
+  /* Klebehoehe des Bildfeldes rechts: Kopfleiste plus Luft. Die Kopfleiste
+     wird ab 24 px Rollweg `position: fixed` (base.css, .site-header--sticky)
+     — ohne diesen Vorhalt schoebe sie sich ueber das Bild. */
   --stl-klebe:      calc(var(--header-h) + clamp(1rem, 3vh, 2.4rem));
 }
 
 .stl-stapel {
   display: block;
   margin: clamp(24px, 1.8vw, 34px) 0 0;
-  /* Polster am Fuss: die letzte Karte bleibt dadurch noch eine Weile
-     stehen, bevor der Stapel den Abschnitt verlaesst. */
-  padding: 0 0 clamp(0.8rem, 7vh, 5rem);
+  /* HIER STAND EIN POLSTER VON BIS ZU 5 rem AM FUSS. Es hatte genau eine
+     Aufgabe: die oberste Karte des Stapels noch eine Weile stehen zu
+     lassen, bevor der Stapel den Abschnitt verliess. Ohne Stapel ist es
+     ein Loch zwischen der letzten Karte und der Abschlusszeile — bei
+     1440 px gemessene 106 px. Entfernt am 31.08.2026; den Abstand zur
+     Abschlusszeile setzt jetzt allein deren margin-top
+     (.stl-erwartet__schluss, 20 bis 30 px). */
+  padding: 0;
   list-style: none;
 }
 .stl-halt { display: block; }
@@ -1118,11 +1111,17 @@
 /* Die Karte. Der Verlauf ist der des FAQ-Kastens, waagerecht — dieselben
    zwei Werte, mit denen die Ablaufkarten der Startseite arbeiten
    (--abl-karte-links/-rechts in ablauf.css).
-   DECKEND: eine durchscheinende Karte liesse die darunter liegende
-   durchschimmern, der Stapel saehe nach Fehler aus.
-   Die helle Haarlinie bleibt: bei 90 Prozent Ueberdeckung sind von jeder
-   Karte nur rund zehn Prozent zu sehen, und zwei gleich gefaerbte Streifen
-   uebereinander waeren ohne Kante nicht auseinanderzuhalten. */
+   DECKEND UND MIT HAARLINIE, auch ohne Stapel: die Karten stehen mit
+   0,7 bis 1,05 rem Luft untereinander, und eine Kante trennt zwei gleich
+   gefaerbte Flaechen sauberer als ein Zwischenraum allein.
+
+   DIE MINDESTHOEHE IST SEIT DEM 31.08.2026 FUER BEIDE SEITEN DIESELBE.
+   Vorher stand hier --stl-karte-h (bis 14,4 rem) — das war die feste
+   Hoehe, an der die 90-Prozent-Rechnung des Stapels hing, und nur dort
+   war sie begruendet. Ohne Stapel ist sie Leerraum (gemessen: 230 px
+   Karte fuer 159 px Inhalt). Es gilt jetzt ueberall das Mass, das die
+   Back-Office-Seite schon hatte: gerechnet am laengsten Satz, nicht an
+   einer Stapelquote. */
 .stl-karte {
   --stl-karte-links:  #1E222D;
   --stl-karte-rechts: #2E3643;
@@ -1131,14 +1130,13 @@
   column-gap: clamp(16px, 1.35vw, 24px);
   align-content: start;
   align-items: start;
-  min-height: var(--stl-karte-h);
+  min-height: clamp(8.6rem, 8.8vw, 10.6rem);
   padding: clamp(1.05rem, 1.55vw, 1.6rem) clamp(1.2rem, 1.75vw, 1.8rem);
   border: 1px solid rgba(237, 241, 248, 0.16);
   border-radius: 14px;
   overflow: clip;   /* der Radius muss auch den Inhalt beschneiden;
                        `clip` statt `hidden`, es richtet keinen Rollbereich
-                       ein. UNBEDENKLICH: der klebende Kasten ist .stl-halt
-                       und liegt UEBER dieser Karte, nicht darunter. */
+                       ein. */
   background: linear-gradient(90deg,
       var(--stl-karte-links) 0%, var(--stl-karte-rechts) 100%);
   box-shadow:
@@ -1191,12 +1189,10 @@
    Riegel, falls sie jemand versehentlich wieder einsetzt. */
 .stl-stapel--ruhig .stl-karte__nr { display: none; }
 
-/* Auch die Mindesthoehe ist dort eine andere. Die feste Kartenhoehe ist
-   allein die Voraussetzung der 90-Prozent-Rechnung des Stapels; wo nichts
-   stapelt, waere sie nur Leerraum (gemessen: 230 px Karte fuer 159 px
-   Inhalt). Die vier Karten der Back-Office-Seite stehen deshalb auf ihrem
-   eigenen Mass. */
-.stl-stapel--ruhig .stl-karte { min-height: clamp(8.6rem, 8.8vw, 10.6rem); }
+/* Die eigene Mindesthoehe der Back-Office-Karte ist am 31.08.2026
+   entfallen — ihr Wert steht jetzt an .stl-karte selbst und gilt fuer
+   beide Seiten. Genau das war der Auftrag: „pruefen, dass beide Seiten
+   jetzt gleich aussehen". */
 
 .stl-karte__titel {
   font-family: var(--font-display);
@@ -1216,21 +1212,12 @@
   text-wrap: pretty;
 }
 
-/* --- DAS KLEBEN. Nur mit Javascript, nur bei --folge. --------------------
-   Erst hier die FESTE Hoehe: sie ist die Voraussetzung dafuer, dass
-   --stl-versatz wirklich ein Zehntel der Kartenhoehe ist. Im Fluss (ohne
-   Skript, bei ruhiger Darstellung, auf der Back-Office-Seite) gilt nur die
-   Mindesthoehe, und die Karte darf mitwachsen.
-   Die Klebehoehen stehen als nth-child und nicht als Inline-Wert, damit im
-   Markup keine Rechengroesse steht. */
-[data-stl-js] .stl-stapel--folge .stl-halt { position: sticky; }
-[data-stl-js] .stl-stapel--folge .stl-karte { height: var(--stl-karte-h); }
-
-[data-stl-js] .stl-stapel--folge > li:nth-child(1) { top: var(--stl-klebe); }
-[data-stl-js] .stl-stapel--folge > li:nth-child(2) { top: calc(var(--stl-klebe) + 1 * var(--stl-versatz)); }
-[data-stl-js] .stl-stapel--folge > li:nth-child(3) { top: calc(var(--stl-klebe) + 2 * var(--stl-versatz)); }
-[data-stl-js] .stl-stapel--folge > li:nth-child(4) { top: calc(var(--stl-klebe) + 3 * var(--stl-versatz)); }
-[data-stl-js] .stl-stapel--folge > li:nth-child(5) { top: calc(var(--stl-klebe) + 4 * var(--stl-versatz)); }
+/* HIER STAND DAS KLEBEN — sieben Regeln, entfernt am 31.08.2026:
+   `position: sticky` auf .stl-halt, die feste `height` der Karte und die
+   fuenf gestaffelten Klebehoehen nth-child(1..5). Sie haben den Stapel
+   gemacht, und der Stapel ist raus. Die Karten stehen jetzt im normalen
+   Fluss, auf beiden Seiten gleich, und es haengt nichts mehr am Rollweg.
+   Der Rest des Abschnitts ist unveraendert. */
 
 .stl-erwartet__schluss {
   margin-top: clamp(20px, 1.6vw, 30px);
@@ -1427,9 +1414,11 @@
   .stl-bilder img { aspect-ratio: 16 / 9; }
   .stl-platz      { aspect-ratio: 3 / 2; }
 
-  /* Der Stapel laeuft jetzt ueber die volle Containerbreite; die Karte darf
-     dabei flacher werden, weil der Text frueher umbricht. */
-  .stl-erwartet { --stl-karte-h: clamp(10.6rem, 20vw, 13.6rem); }
+  /* HIER STAND EIN EIGENES --stl-karte-h FUER DEN EINSPALTIGEN FALL.
+     Mit dem Stapel ist es am 31.08.2026 entfallen: die Mindesthoehe an
+     .stl-karte ist ein clamp mit vw-Anteil und passt sich von selbst an.
+     Ueber die volle Containerbreite bricht der Text ohnehin frueher um,
+     die Karte waechst dann gar nicht erst ueber ihre Mindesthoehe hinaus. */
 }
 
 /* --- Unter 700 px: EINE Spalte -------------------------------------------
@@ -1458,23 +1447,13 @@
      dem Tausch Haken -> Haus nicht mehr gibt. */
   .stl-haken__zeichen     { width: 34px; height: 34px; }
   .stl-haken__zeichen svg { width: 26px; height: 26px; }
-  /* HIER LAEUFT DIE HOEHE GEGEN DIE BREITE — der Vorfaktor ist NEGATIV,
-     und das ist Absicht: je schmaler das Fenster, desto mehr Zeilen braucht
-     derselbe Satz. Gemessen am laengsten Schritt (04, „Bei den ersten
-     Faellen …"):
-
-         Fensterbreite   noetig   gesetzt
-            620 px        154      204
-            390 px        190      234
-            320 px       ~223      243
-
-     Rund 30 px Luft bleiben ueberall — genug, dass nichts herausreisst,
-     wenig genug, dass die Karte nicht leer wirkt. Die Deckel oben und
-     unten (12 und 17 rem) fangen die Extreme ab. */
-  .stl-erwartet {
-    --stl-karte-h: clamp(12rem, calc(285px - 13vw), 17rem);
-    --stl-karte-luft: 0.65rem;
-  }
+  /* HIER STAND DIE GEGENLAEUFIGE KARTENHOEHE (clamp mit negativem
+     vw-Vorfaktor). Sie war noetig, solange die Karte im Stapel eine FESTE
+     Hoehe hatte und der Text bei schmalem Fenster sonst herausgerissen
+     waere. Seit dem 31.08.2026 gibt es keine feste Hoehe mehr, nur noch
+     eine Mindesthoehe — die Karte waechst hier von selbst mit ihrem Text.
+     Die engere Luft zwischen den Karten bleibt. */
+  .stl-erwartet { --stl-karte-luft: 0.65rem; }
   .stl-karte { column-gap: 14px; padding: 1rem 1.05rem; }
   .stl-schluss__aktionen { gap: 1.1rem; }
   .stl-schluss__aktionen .btn { width: 100%; justify-content: center; }
@@ -1972,14 +1951,12 @@
   .stl-hero__video { display: none; }
   .stl-zurueck, .stl-hero__btn { transition: none; }
 
-  /* DER KARTENSTAPEL GEHOERT DAZU. Er ist zwar keine Animation — es rollt
-     niemand von allein —, aber er VERDECKT Gelesenes, und genau das ist fuer
-     Menschen mit Bewegungsempfindlichkeit die Zumutung. Hier stehen deshalb
-     alle fuenf Karten untereinander, in voller Hoehe, nichts klebt und
-     nichts ueberdeckt etwas. Dasselbe Bild wie ohne Javascript.
-     Bedingung, nicht Kuer. Dieselbe Entscheidung wie in ablauf.css. */
-  [data-stl-js] .stl-stapel--folge .stl-halt { position: static; }
-  [data-stl-js] .stl-stapel--folge .stl-karte { height: auto; }
+  /* HIER STANDEN ZWEI RUECKNAHMEN FUER DEN KARTENSTAPEL. Sie loesten ihn
+     bei ruhiger Darstellung wieder auf, weil er Gelesenes verdeckte —
+     fuer Menschen mit Bewegungsempfindlichkeit die eigentliche Zumutung.
+     Seit dem 31.08.2026 gibt es den Stapel gar nicht mehr; die Karten
+     stehen fuer alle untereinander, und es bleibt nichts zurueckzunehmen.
+     Das Bildfeld rechts klebt weiterhin und steht hier still. */
   [data-stl-js] .stl-bilder { position: static; }
   .stl-stapel { padding-bottom: 0; }
 

@@ -608,25 +608,35 @@
      hat sechs Punkte, der Master gibt fuenf her — also fuenf. Nicht
      gefuellt.
 
-     NEU AM 30.08.2026 — KUNDENWUNSCH:
-     Aus der Liste wird ein KARTENSTAPEL. „Karten, die sich beim Scrollen
-     stapeln und die vorige zu etwa 90 % ueberdecken" — dieselbe Geste wie
-     im Abschnitt „Unser Ablauf" auf der Startseite (assets/css/ablauf.css
-     und ablauf.js; beide nur gelesen, nicht veraendert).
+     GEAENDERT AM 31.08.2026 — KUNDENWUNSCH: DER KARTENSTAPEL IST RAUS.
+     „Die Punkte einfach untereinander gelistet, ohne Scrollanimation" —
+     wie der Ablauf auf der Startseite, der im selben Durchgang umgebaut
+     wird. Die fuenf Karten stehen jetzt schlicht untereinander: Nummer,
+     Titel, kurzer Text. AM WORTLAUT AENDERT SICH NICHTS.
 
-     ZWEI UNTERSCHIEDE ZUR STARTSEITE:
-       1. Der Stapel steht NUR LINKS. Rechts bleibt das Bildfeld, das dort
-          schon stand — es klebt jetzt mit, damit die rechte Seite waehrend
-          des Stapelns nicht leer laeuft.
-       2. Die Karten tragen die fuenf Schritte des Masters in dessen
-          Reihenfolge: Kennenlernen, Eignung pruefen, Onboarding, Erste
-          Kundenfaelle, Eigenstaendiger Aufbau.
+     WAS AM 30.08.2026 HIER STAND: „Karten, die sich beim Scrollen stapeln
+     und die vorige zu etwa 90 % ueberdecken", gebaut aus `position:
+     sticky` mit gestaffelten Klebehoehen. Ersatzlos entfernt sind damit
+     das Kleben, die feste Kartenhoehe und die Rechengroessen dahinter;
+     die Regeln standen in stelle.css bei .stl-stapel und sind dort mit
+     Begruendung als entfernt vermerkt. AM MARKUP DIESER SEITE HAT SICH
+     DAFUER NICHTS GEAENDERT — es stand nie eine Klebehoehe darin, und die
+     Klassen bleiben, wie sie waren.
 
-     DER STAPEL IST REINES `position: sticky`. Kein Rollhorcher, kein
-     requestAnimationFrame. Die Rechnung fuer die 90 Prozent Ueberdeckung
-     steht in stelle.css bei .stl-stapel. Ohne Javascript und bei
-     prefers-reduced-motion: reduce klebt nichts — die fuenf Karten stehen
-     dann in voller Hoehe lesbar untereinander.
+     .stl-stapel--folge HEISST JETZT NUR NOCH „zeig die Ziffern".
+     Das Kleben hing an derselben Klasse; ohne Kleben bleibt von ihr die
+     Nummerierung. Die Back-Office-Seite traegt weiter --ruhig und hat
+     keine Ziffern — der einzige verbliebene Unterschied zwischen den
+     beiden Stellenseiten, und ein gewollter (Begruendung dort im Markup
+     und in stelle.css).
+
+     Rechts bleibt das Bildfeld stehen, das dort schon vor dem Stapel
+     stand. Es klebt weiterhin (.stl-bilder in stelle.css) — die linke
+     Spalte ist auch ohne Stapel noch die hoehere.
+
+     Ohne Javascript und bei prefers-reduced-motion: reduce sieht der
+     Abschnitt jetzt genauso aus wie mit: es gibt nichts mehr, was sich
+     beim Rollen anders verhielte.
 
      <ol> UND NICHT <ul>: der Abschnitt beschreibt eine Reihenfolge, und
      das steht damit auch im Baum, nicht nur in den Ziffern.

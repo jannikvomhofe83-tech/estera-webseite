@@ -588,19 +588,29 @@
      Die Abschlusszeile ist wieder woertlich aus dem Master und
      rollenneutral.
 
-     KEIN STAPEL UND KEINE ZIFFERN — 30.08.2026, BEWUSST.
-     Auf der Seite Immobilienberater sind aus den fuenf Schritten Karten
-     geworden, die sich beim Rollen stapeln und die vorige zu 90 Prozent
-     ueberdecken (Kundenwunsch). HIER NICHT. Die vier Punkte dieser Seite
-     sind keine Reihenfolge — der vierte ist „Persoenliche Begleitung" und
-     beschreibt keinen Schritt. Ein Stapel wuerde einen Ablauf behaupten,
-     den der Master fuer diese Stelle nicht hergibt, und eine Nummerierung
-     erst recht. Dieselbe Entscheidung war schon in einem frueheren
-     Durchgang getroffen worden; sie bleibt.
-     Was die Seite SEHR WOHL uebernimmt, ist das Aussehen der Karten
-     (.stl-karte): die beiden Stellenseiten sollen als Paar gelesen werden.
-     Die vier Karten stehen in voller Hoehe untereinander — .stl-stapel
-     OHNE --folge, deshalb klebt nichts.
+     KEINE ZIFFERN — 30.08.2026, BEWUSST, UND WEITER GUELTIG.
+     Die vier Punkte dieser Seite sind keine Reihenfolge — der vierte ist
+     „Persoenliche Begleitung" und beschreibt keinen Schritt. Eine
+     Nummerierung wuerde einen Ablauf behaupten, den der Master fuer diese
+     Stelle nicht hergibt. Deshalb <ul> und nicht <ol>, deshalb
+     .stl-stapel--ruhig und nicht --folge. Dieselbe Entscheidung war schon
+     in einem frueheren Durchgang getroffen worden; sie bleibt.
+
+     KEIN STAPEL — DIESE SEITE HATTE NIE EINEN, UND JETZT HAT IHN AUCH DIE
+     ANDERE NICHT MEHR. Auf der Seite Immobilienberater stapelten sich die
+     fuenf Karten seit dem 30.08.2026 beim Rollen und ueberdeckten die
+     vorige zu 90 Prozent. Am 31.08.2026 ist das auf Kundenwunsch raus
+     („die Punkte einfach untereinander gelistet, ohne Scrollanimation").
+     AN DIESER SEITE WAR DAFUER NICHTS ZU TUN — sie stand ohnehin so da.
+
+     GEPRUEFT AM 31.08.2026, dass beide Seiten jetzt gleich aussehen. Ein
+     Unterschied war noch da und ist beseitigt: die Karten trugen hier eine
+     eigene, flachere Mindesthoehe (10,6 rem gegen 14,4 rem drueben, weil
+     die 14,4 rem allein die Stapelrechnung trugen). Der hiesige Wert gilt
+     jetzt fuer beide Seiten und steht an .stl-karte selbst; die
+     Sonderregel .stl-stapel--ruhig .stl-karte ist entfallen.
+     Gemessene Kartenhoehen nach der Aenderung siehe stelle.css.
+     Was bleibt, ist die Ziffer — der eine gewollte Unterschied, siehe oben.
      VOR DEM LIVEGANG DURCH ESTERA BESTAETIGEN LASSEN.
      ===================================================================== -->
 <section class="stl-abs stl-abs--hell stl-erwartet fl-weiss-nach-creme" id="aufgaben" aria-labelledby="t-erwartet">
@@ -612,8 +622,10 @@
       <h2 class="stl-h2" id="t-erwartet">Das erwartet dich</h2>
 
       <!-- <ul> und nicht <ol>: keine Reihenfolge, siehe Vermerk oben.
-           .stl-stapel--ruhig statt --folge: dieselben Karten, aber ohne
-           Kleben und ohne Ziffer. -->
+           .stl-stapel--ruhig statt --folge: dieselben Karten, ohne Ziffer.
+           (Bis zum 31.08.2026 unterschied --ruhig sich zusaetzlich durch
+           das fehlende Kleben; seit der Stapel drueben raus ist, klebt
+           auf keiner der beiden Seiten mehr etwas.) -->
       <ul class="stl-stapel stl-stapel--ruhig">
         <li class="stl-halt">
           <article class="stl-karte">
