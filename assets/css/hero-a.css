@@ -591,35 +591,106 @@
 }
 
 /* ===========================================================================
-   DER MARMORKASTEN ZIEHT AUF — 30.08.2026
+   DER KASTEN BAUT SICH AUF — 31.08.2026
 
-   Eine Geste fuer den Kopfbereich, und sie erklaert etwas: der Kasten ist
-   die RUHIGE Flaeche vor dem bewegten Bildband. Er faehrt deshalb aus seiner
-   eigenen Mittellinie auf, waagrecht nach oben und unten zugleich — wie ein
-   Passepartout, das sich oeffnet. Kein Einblenden von unten, kein
-   Groesserwerden.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DIE VORIGE GESTE IST ERSATZLOS ENTFALLEN. Der Kasten fuhr aus seiner
+   eigenen Mittellinie auf, waagrecht nach oben und unten zugleich
+   (`clip-path` von `inset(46% ...)` auf `inset(-4% ...)`). Kundenwortlaut
+   vom 31.08.2026: „das gefaellt mir nicht, dass es so auffaehrt."
+   Ausdrueckliche Ausschlusskriterien fuer den Ersatz: kein Aufziehen aus
+   der Mitte, kein blosses Groesserwerden.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   TECHNIK: `clip-path` von `inset(46% ...)` auf `inset(-4% ...)`. Bewegt
-   wird nur der Beschnitt; Lage, Groesse und Schrift stehen die ganze Zeit an
-   ihrem Platz und werden nicht neu umbrochen.
-   Die vier Prozent Ueberstand am Ende sind Absicht: der Kasten hat einen
-   Radius und eine Marmorlage bis an die Kante, und `inset(0)` haette sie auf
-   den Bildpunkt genau beschnitten — bei halben Bildpunkten wird daraus eine
-   Haarlinie.
+   WAS JETZT PASSIERT, in einem Satz: der Kasten steht ZUERST NUR AUF SEINER
+   UNTERKANTE und baut sich von dort in einem ruhigen Zug nach oben auf, bis
+   er vollstaendig dasteht. Er kommt nicht auf einen zu, er faehrt nicht
+   auseinander, er wird nicht groesser — er ENTSTEHT, von unten nach oben.
 
-   AUSLOESER ist `data-anim` aus site.js, also derselbe Einlauf beim Laden,
-   den der Kasten ohnehin hat (`--d: 260` als Versatz). Es kommt kein zweiter
-   Schalter dazu.
+   WARUM AUSGERECHNET DAS. Der Kunde hat an dieser Seite genau eine Sache
+   ausdruecklich gelobt: „Die Animation mit dem Haus, dass sich das Haus so
+   aufbaut, gefaellt mir sehr, sehr gut. Genau das ist das, was wir haben
+   wollen." Die Hauszeichnung in warum.css laeuft ueber eine Maske, die von
+   unten nach oben ueber das Blatt geht. Der Kopfbereich nimmt diese
+   Richtung auf. Es ist damit keine neue Idee, sondern dieselbe Idee an der
+   ersten Stelle der Seite — was hier passiert, erklaert sich beim Haus
+   noch einmal.
 
-   OHNE JAVASCRIPT gibt es kein `.is-ready`, dann steht der Kasten sofort
-   vollstaendig. Bei `reduce` ebenso.
+   TECHNISCH IST ES EINE EINZIGE BEWEGUNG (`clip-path` am Kasten). Von
+   `inset(100% -4% -4% -4%)` auf `inset(-4% -4% -4% -4%)`: der obere
+   Beschnitt wandert von der Unterkante an die Oberkante. BEWEGT WIRD NUR
+   DER BESCHNITT. Lage, Groesse, Umbruch und Schriftsatz stehen die ganze
+   Zeit fest — es wird nichts neu umbrochen und nichts skaliert.
+   Die vier Prozent Ueberstand an den drei uebrigen Kanten sind Absicht und
+   aus der vorigen Fassung uebernommen: der Kasten hat einen Radius und eine
+   Marmorlage bis an die Kante, und `inset(0)` haette sie auf den Bildpunkt
+   genau beschnitten — bei halben Bildpunkten wird daraus eine Haarlinie.
+
+   ES IST BEWUSST NUR EINE BEWEGUNG. Erprobt war zusaetzlich, den Marmor
+   ueber dieselbe Zeit von 0 auf seine 0.7 kommen zu lassen — der Kasten
+   waere erst eine ruhige weisse Flaeche gewesen und haette sich dann
+   geaedert. Das ist aus zwei Gruenden nicht eingebaut: der Kunde hat
+   „ruhig und einmalig" verlangt, und zwei Dinge im selben Augenblick sind
+   zwei Ereignisse; und es kostete bei 1920 x 1080 gemessene 10 Bilder je
+   Sekunde (63,0 -> 53,4). Die Regel dafuer steht unten auskommentiert
+   nicht mehr da — sie ist ersatzlos entfallen.
+
+   DIE ZEITKURVE IST --ease-soft, cubic-bezier(0.33, 0, 0.15, 1). Sie
+   beginnt langsam, nimmt in der Mitte Fahrt auf und laeuft lange aus. Das
+   letzte Drittel der Strecke braucht mehr als die Haelfte der Zeit — die
+   Bewegung hoert nicht auf, sie KOMMT ZUR RUHE. Genau das war die Vorgabe.
+
+   NUR `clip-path`. Kein `transform` am Kasten, keine Maske, kein Filter,
+   kein `scale`. Die Deckkraft des Kastens selbst fuehrt weiterhin die
+   Grundregel in base.css; hier wird nur der Beschnitt bewegt.
+
+   ---------------------------------------------------------------------
+   BILDRATE — und warum die Geste so und nicht anders aussieht
+   ---------------------------------------------------------------------
+   Der Kopfbereich ist die teuerste Stelle der Seite: waehrend der Geste
+   dekodiert der Browser gleichzeitig die Drohnenfahrt (2400 x 1598,
+   autoplay). Gemessen bei 1920 x 1080, Median aus fuenf Laeufen, gezaehlt
+   ueber 1,5 s ab dem Start der Geste:
+
+     ganz ohne Geste am Kasten                        105,7 fps
+     Aufbau von unten            ← GEWAEHLT            63,0 fps
+                                 (im Einbau nachgemessen, Minimum 61,0)
+     Aufbau von unten, dazu der Marmor                 53,4 fps
+     die abgeloeste Geste aus der Mitte                57,8 fps
+     Aufbau von OBEN nach unten                        39,1 fps
+     Kasten kippt herein (rotate 0,42 Grad)            33,7 fps
+     Ecken schaerfen sich (clip-path round 110 -> 12)  31,6 fps
+     Kasten setzt sich senkrecht (translateY)          44,1 fps
+
+   Das ist keine Feinheit, sondern der Grund fuer die Wahl. Alles, was den
+   Kasten NEU ZEICHNEN laesst — eine Drehung, ein wandernder Eckradius,
+   eine Verschiebung —, zwingt den Browser, die ganze Flaeche samt
+   Marmorlage, Verlaeufen und Foto Bild fuer Bild neu zu rastern, und das
+   zusammen mit der laufenden Filmdekodierung. Ein RECHTECKIGER Beschnitt
+   tut das nicht: er schneidet die fertige Flaeche nur ab.
+   Dass der Aufbau von UNTEN schneller ist als der von OBEN (62 gegen 39),
+   hat denselben Grund: der Kasten beisst mit seinem oberen Drittel in das
+   Filmband hinein. Laeuft die Schnittkante dort zuerst durch, faellt
+   waehrend jedes Bildes zusaetzlich die Flaeche ueber dem Film an. Laeuft
+   sie zuletzt durch, ist sie dort schon langsam geworden.
+
+   WER DIESE GESTE AENDERT, MUSS NEU MESSEN. Die Grenze ist 50 Bilder je
+   Sekunde bei 1920 x 1080.
+
+   AUSLOESER bleibt `data-anim` aus site.js — derselbe Einlauf beim Laden,
+   den der Kasten ohnehin hat (`--d: 260` als Versatz). Es kommt kein
+   zweiter Schalter dazu.
+
+   OHNE JAVASCRIPT gibt es kein `.is-ready`: der Kasten steht sofort
+   vollstaendig da. Bei `reduce` ebenso.
    =========================================================================== */
 .is-ready .heroA__panel[data-anim] {
-  clip-path: inset(46% -4% 46% -4%);
-  animation: heroA-auf 1100ms var(--ease-soft) calc(var(--d, 0) * 1ms + 120ms) forwards;
+  clip-path: inset(100% -4% -4% -4%);
+  animation: heroA-aufbau 1250ms var(--ease-soft)
+             calc(var(--d, 0) * 1ms + 120ms) forwards;
 }
-@keyframes heroA-auf {
-  from { clip-path: inset(46% -4% 46% -4%); }
+@keyframes heroA-aufbau {
+  from { clip-path: inset(100% -4% -4% -4%); }
   to   { clip-path: inset(-4% -4% -4% -4%); }
 }
 

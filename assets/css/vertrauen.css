@@ -3,74 +3,57 @@
 
    Steht zwischen „Vorteile von Immobilien" (#warum-immobilien) und
    „Unsere Leistungen" (#leistungen). Beide Nachbarn stehen auf Weiss:
-   .wimm setzt keinen eigenen Grund und erbt den der Seite, .wahl setzt
-   var(--paper). Der Verlauf dieser Leiste laeuft nach rechts in genau
-   dieses Weiss aus — an beiden Nahtstellen entsteht deshalb keine Kante,
-   die abgestimmt werden muesste, und es braucht weiterhin keine
-   Haarlinie.
+   #warum-immobilien traegt `fl-creme-nach-weiss` und endet auf reinem
+   Weiss, .wahl setzt var(--paper). Diese Leiste steht seit dem
+   31.08.2026 selbst auf --paper — an beiden Nahtstellen gibt es damit
+   gar keinen Farbunterschied, es braucht weder Blende noch Haarlinie.
 
-   Inhalt ist ein einzelnes Zitat, mittig, ohne Ueberschrift. Es fuellt
-   sich beim Scrollen Wort fuer Wort mit Schwarz.
+   INHALT SEIT DEM 31.08.2026: ein LAUFBAND aus sechs kleinen Kaesten mit
+   je einem Satz von Estera, oben und unten von einer goldenen Haarlinie
+   gefasst. Bauart und Rechnung stehen weiter unten unter „DAS LAUFBAND".
+   Bis dahin stand hier ein einzelnes, mittiges Zitat, das sich beim
+   Scrollen Wort fuer Wort mit Schwarz fuellte.
 
    ---------------------------------------------------------------------
-   1  DER KONFLIKT: NAVY LINKS UND DER SATZ IN DER MITTE
+   1  DER GRUND IST WEISS — ueber die ganze Breite
    ---------------------------------------------------------------------
-   Der Kunde will beides — „es soll wirklich navyblau sein" und „das
-   Zitat soll mittig sein". Ein mittiger Satz laeuft mit seiner linken
-   Kante aber in die dunkle Zone, und dort ist dunkler Text unlesbar:
-   --ink-mute misst auf --navy-800 nur 2.83:1, auf --navy-600 1.96:1.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   BIS ZUM 31.08.2026 STAND HIER DER NAVYBLAUE KEIL: ein waagerechter
+   Verlauf ueber die ersten 22 Prozent der Breite, senkrecht auf schmalen
+   Fenstern ueber die ersten 28 Prozent der Hoehe. Er ist auf Kundenwunsch
+   entfallen. An seine Stelle trat zunaechst eine goldene Haarlinie ueber
+   dem Satz; seit dem Umbau zum Laufband am selben Tag ist es die goldene
+   Haarlinie UNTER dem Band (.vtr__linie), die nach rechts ausblendet. Die
+   Begruendung steht an der Regel selbst und ausfuehrlich im Markup.
 
-   Geloest ueber die BREITE der Navy-Zone, nicht ueber Schrift oder
-   Kontrast. Der Verlauf ist bei 22 Prozent der Breite bei reinem Weiss
-   angekommen; das Navy bleibt als kraeftiger Anschnitt am linken Rand
-   stehen. Die ersten fuenf Prozent sind unveraendertes --navy-800, bei
-   1920 px also rund 96 px volle Leitfarbe.
-   Der Satz ist ueber `max-width` in `em` begrenzt statt in Pixeln. Das
-   ist der Kniff, der die Sache stabil macht: Blockbreite und
-   Schriftgroesse wachsen gemeinsam, also bleibt der Anteil, den der Satz
-   von der Leiste einnimmt, ueber alle Breiten fast gleich — und damit
-   auch die Stelle, an der seine linke Kante sitzt.
-
-   NACHGEMESSEN an der TATSAECHLICHEN Kante der aeussersten Glyphe
-   (Anteil t an der Breite der Leiste, gemessen ueber alle drei Zeilen):
-        1920 x 1080   t = 0.315     Verlauf dort weiss ab t = 0.22
-        1280 x  800   t = 0.300     Verlauf dort weiss ab t = 0.22
-         390 x  844   t = 0.361     senkrechter Verlauf, t misst von
-                                    oben, weiss ab t = 0.28
-   Der Satz beginnt damit auf jeder Breite mit mindestens acht
-   Prozentpunkten Sicherheitsabstand hinter dem Ende der Toenung. Kein
-   Buchstabe steht auf getoentem Grund.
+   DAMIT IST DIE GANZE RECHNUNG DAZU HINFAELLIG, und sie steht hier nur
+   noch als Merkposten, falls je wieder Farbe in diese Flaeche soll:
+   der Satz ist mittig gesetzt und seine linke Kante lag je nach
+   Fensterbreite bei t = 0,300 bis 0,361 der Leistenbreite; der Verlauf
+   musste deshalb spaetestens bei t = 0,22 (quer) beziehungsweise
+   t = 0,28 (hoch) bei reinem Weiss angekommen sein. Wer hier wieder
+   toent, muss diese Grenze einhalten und neu nachmessen.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    ---------------------------------------------------------------------
    2  KONTRASTE — BEIDE ZUSTAENDE, GEGEN DEN ECHTEN GRUND
    ---------------------------------------------------------------------
-   Massgeblich ist der UNGEFUELLTE Zustand; er ist der schwaechere von
-   beiden. „Blass" heisst hier ausdruecklich nicht „noch nicht sichtbar":
-   der Satz ist Fliesstext und muss auch ungefuellt lesbar sein. Die
-   Fuellung ist eine Betonung, kein Sichtbarwerden — man liest den Satz
-   sofort und sieht ihn sich dann fuellen.
-   Der Grund unter jedem Buchstaben ist nach Punkt 1 reines #FFFFFF:
+   Der Satz steht seit dem 31.08.2026 nicht mehr direkt auf dem Grund des
+   Abschnitts, sondern auf der eigenen, DECKENDEN Flaeche seiner Karte —
+   und die traegt seit dem Farbtausch desselben Tages den FAQ-Ton:
 
-     ungefuellt   --vtr-blass  #5F6E85 (--ink-mute)    5.18:1   ✓
-     gefuellt     --vtr-voll   #000000               21.00:1   ✓
-     Schwelle fuer Fliesstext 4.5:1
+     Satz   #FFFFFF auf der Karte #262C39   13,98:1   ✓
+     Schwelle fuer Fliesstext 4,5:1
 
-   Der Sprung zwischen beiden Zustaenden betraegt damit das Vierfache im
-   Kontrastverhaeltnis. Vorher stand gefuellt --navy-800 (14.63:1); der
-   Kunde wollte ausdruecklich „ganz normal schwarz", und der groessere
-   Abstand ist genau der Grund, warum die Fuellung jetzt auffaellt.
+   Zum Vergleich die beiden abgeloesten Zustaende: der Satz auf reinem
+   Weiss (5,18:1 ungefuellt, 21,00:1 gefuellt) und der Satz auf der hellen
+   Karte #FBF9F5 (5,04:1).
 
-   Zur Sicherheit dieselben Werte an der dunkelsten Stelle, die der Grund
-   unter einem Buchstaben ueberhaupt erreichen koennte — t = 0.30 quer
-   beziehungsweise t = 0.32 hoch, beide Male reines #FFFFFF: unveraendert
-   5.18:1 und 21.00:1. Selbst am aeussersten noch getoenten Punkt
-   t = 0.21 (#F7F9FC, dort steht kein Text) haelt der ungefuellte Ton
-   noch 4.92:1.
-
-   Die dunkle Zone links traegt keinen Text und keine Information; sie
-   ist Flaeche. WCAG 1.4.11 greift dort nicht.
-   Der Sonderfarbwert --vtr-gold ist mit der Kleinzeile entfallen; er
-   wird nirgends mehr gebraucht.
+   Die goldene Haarlinie unter dem Band und das blasse Anfuehrungszeichen
+   in der Karte sind nichttextlich — Zeichnung, keine Aussage; die
+   Schwelle von 4,5:1 gilt fuer sie nicht.
+   Die Sonderfarbwerte --vtr-blass, --vtr-voll und --vtr-strich sind mit
+   der Wort-fuer-Wort-Fuellung entfallen.
    =========================================================================== */
 
 .vtr {
@@ -89,9 +72,9 @@
      einsetzt, schneidet den Ueberhang ab. */
   overflow: visible;
 
-  --vtr-blass:  var(--ink-mute);   /* #5F6E85 — ungefuellt, aber lesbar   */
-  --vtr-voll:   #000;              /* Kundenwunsch: ganz normal schwarz   */
-  --vtr-strich: 0.34px;            /* Hauch mehr Zeichnung fuer gefuellte Woerter */
+  /* --vtr-blass, --vtr-voll und --vtr-strich standen hier bis zum
+     31.08.2026 und gehoerten zur Wort-fuer-Wort-Fuellung des einzelnen
+     Zitats. Sie sind mit ihr entfallen und werden nirgends mehr gebraucht. */
 
   /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      KEINE BLENDEN MEHR AN OBER- UND UNTERKANTE — 30.08.2026, dritter Anlauf
@@ -114,37 +97,53 @@
      Einheiten je Bildpunkt gegen die Regel von 0,03.
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-     DER KEIL BLEIBT UNVERAENDERT. Er ist keine Naht, sondern ein
-     Gestaltungselement: der navyblaue Anschnitt am linken Rand, den der
-     Kunde ausdruecklich verlangt hat („es soll wirklich navyblau sein, das
-     ist wichtig"). Er laeuft INNERHALB der Flaeche von links nach rechts
-     aus, nicht zwischen zwei Abschnitten. Seine Breite ist zudem an die
-     Lage des Zitats gebunden — der Satz beginnt bei t = 0,315 der Breite,
-     der Verlauf ist bei t = 0,22 weiss; jede Verbreiterung setzt Text auf
-     getoenten Grund. Die Rechnung dazu steht oben unter Punkt 1. */
-  background:
-    linear-gradient(90deg,
-    var(--navy-800)   0%,
-    var(--navy-800)   5%,
-    var(--navy-600)   9%,
-    #6D8CB6          13%,
-    #B9C9DE          17%,
-    #EEF2F8          20%,
-    #FFFFFF          22%);
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DER NAVYBLAUE KEIL IST ERSATZLOS ENTFALLEN — 31.08.2026
+
+     Hier stand bis heute ein waagerechter Verlauf, der die ersten 22
+     Prozent der Breite von --navy-800 ins Weisse laufen liess (und auf
+     schmalen Fenstern dasselbe senkrecht ueber die ersten 28 Prozent der
+     Hoehe). Kundenwortlaut vom 31.08.2026: „koennen wir dafuer irgendwas
+     anderes verwenden?"
+
+     ERSATZ IST EINE GOLDENE HAARLINIE ueber dem Satz (.vtr__strich). Die
+     ausfuehrliche Begruendung — vier Punkte — steht im Markup unmittelbar
+     an diesem Element in variante-a.html.
+
+     WAS DAMIT AN RECHNUNG WEGFAELLT: die Breite des Keils war an die Lage
+     des Zitats gebunden (Satz beginnt bei t = 0,315 der Breite, Verlauf
+     weiss ab t = 0,22), und die Steilheit des Verlaufs musste gegen die
+     Regel von 0,03 Einheiten je Bildpunkt gehalten werden. Beides ist
+     gegenstandslos: in diesem Abschnitt liegt jetzt ueberhaupt kein
+     Verlauf mehr, der Satz steht auf ganzer Breite auf reinem Weiss.
+     Die Kontrastwerte des Satzes gegen den Grund (5,18:1 ungefuellt,
+     21,00:1 gefuellt) gelten damit nicht mehr nur an der hellsten,
+     sondern an JEDER Stelle.
+
+     Beide Nachbarabschnitte sind weiss — #warum-immobilien endet auf
+     Weiss, #leistungen traegt --paper. Es entsteht an keiner der beiden
+     Kanten ein Farbunterschied und damit auch keine Naht. */
+  background: var(--paper);
 
   /* HOEHE. Der laengere Satz darf sie wachsen lassen, aber nicht zurueck
      auf den alten Stand — Richtwert hoechstens 180 px bei 1920. Der
      Aussenabstand rechnet in vh, weil die Vorgabe eine Bauhoehe ist und
      keine Breite; Untergrenze fuer flache Laptops, Deckel gegen hohe
      Bildschirme.
-     NACHGEMESSEN am gerenderten Abschnitt
-       1920 x 1080   156 px   drei Zeilen
-       1280 x  800   122 px   drei Zeilen
-        390 x  844   190 px   vier Zeilen
-     Zum Vergleich: mit dem kurzen Satz und der goldenen Kleinzeile stand
-     die Leiste bei 153 / 121 / 177 px. Der mehr als doppelt so lange
-     Satz kostet also fast nichts — das ist der Verdienst der um eine
-     Stufe kleineren Schrift und des Wegfalls der Kleinzeile. */
+     NACHGEMESSEN am gerenderten Abschnitt, Stand 31.08.2026 — also mit
+     dem positiv formulierten Satz und mit der goldenen Haarlinie darueber:
+       1920 x 1080   176 px   drei Zeilen
+       1440 x  900   150 px   drei Zeilen
+       1280 x  800   139 px   drei Zeilen
+        390 x  844   174 px   vier Zeilen
+     Zum Vergleich die drei Stufen davor (1920 / 1280 / 390):
+       kurzer Satz mit goldener Kleinzeile      153 / 121 / 177 px
+       langer Satz, Kleinzeile weg, Keil da     156 / 122 / 190 px
+       positiver Satz, Haarlinie statt Keil     176 / 139 / 174 px
+     Die Haarlinie kostet in der Waagerechten rund 19 px; auf dem Telefon
+     gewinnt der Abschnitt 15 px, weil der grosse obere Aussenabstand mit
+     dem senkrechten Keil weggefallen ist. Der Richtwert von hoechstens
+     180 px bei 1920 ist gehalten. */
   padding: clamp(1.5rem, 2.5vh, 1.8rem) 0;
 
   /* Bewegung des Einlaufs */
@@ -276,84 +275,299 @@
           mask-composite: intersect;
 }
 
-/* --- Das Zitat ------------------------------------------------------------- */
-.vtr__zitat {
-  margin: 0 auto;
-  font-family: var(--font-display);
-  /* Eine Stufe kleiner als zuvor (war clamp(1.2rem, 1.7vw, 1.72rem)) —
-     Kundenwunsch. Der kleinere Satz ist zugleich der Grund, warum die
-     Leiste trotz 29 statt 15 Woertern flach bleibt. */
-  font-size: clamp(1.05rem, 1.35vw, 1.5rem);
+/* ===========================================================================
+   DAS LAUFBAND — 31.08.2026
 
-  /* In `em`, nicht in Pixeln — die Begruendung steht oben unter Punkt 1.
-     ACHTUNG, hier lag ein Fehler: stand die Groesse erst am <p> darunter
-     und die Breite hier, rechnete `em` gegen die geerbten 16 px der
-     Seite statt gegen die Schriftgroesse des Zitats. Der Block war
-     dadurch 480 statt 720 px breit, der Satz lief auf fuenf Zeilen und
-     die Leiste war 224 px hoch. Groesse und Breite muessen am SELBEN
-     Element stehen. Wer den Wert aendert, verschiebt die linke
-     Textkante und muss die Kontraste neu messen. */
-  max-width: 30em;
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   WAS HIER ERSATZLOS ENTFAELLT
+     · `.vtr__zitat` als EIN mittiger Satzblock mit `max-width: 30em`
+     · `.vtr__satz` mit `text-wrap: pretty`
+     · die ganze Wort-fuer-Wort-Fuellung: `.vtr__wort`,
+       `[data-vtr-fuellen] .vtr__wort` und `… [data-voll]`, dazu die
+       Sonderwerte --vtr-blass, --vtr-voll und --vtr-strich
+     · die goldene Haarlinie ueber dem Satz (.vtr__strich) von heute frueh
+   Die Klasse `.vtr__zitat` gibt es weiter, sie meint jetzt aber den SATZ IN
+   EINER KARTE und nicht mehr den Block.
+   Die Fuellung faellt weg, weil sie an EINEM stehenden Satz haftete: sie
+   las die Scrollposition und schlug Wort fuer Wort um. An sechs Saetzen,
+   die waagrecht durchlaufen, gibt es keine Scrollposition, an der man das
+   festmachen koennte. assets/js/vertrauen.js steigt von allein aus — es
+   sucht `[data-vtr-wort]`, findet nichts mehr und laesst nur noch den
+   einmaligen Einlauf laufen. Es bleibt kein toter Code stehen.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   ---------------------------------------------------------------------
+   DIE HOEHE — die enge Vorgabe
+   ---------------------------------------------------------------------
+   Der Kunde: „Die Hoehe des Zitats ist gut … Die Section soll nicht
+   hoeher werden." Der Abschnitt hat also ein festes Budget, und alles
+   darin ist daraufhin gerechnet. Bei 1920 x 1080 war er 176 px hoch:
+
+     Aussenabstand oben und unten   2 x 27,0 = 54,0
+     Strich oben und unten          2 x  1,0 =  2,0
+     Abstand Strich zu Band         2 x 14,0 = 28,0
+     bleibt fuer das Band                      92,0
+
+   Die Karte ist deshalb auf 88 px gedeckelt und ihr Satz auf ZWEI Zeilen
+   ausgelegt (16,3 px Grad, Zeilenabstand 1,42 -> 46,3 px) plus 2 x 13 px
+   Innenabstand plus 2 px Rand = 74,3 px. Die 88 px sind der Anschlag, den
+   auch das laengste der sechs Zitate nicht sprengt.
+
+   WER EIN ZITAT VERLAENGERT, muss hier nachmessen. Das laengste ist heute
+   „Ausgewählte Immobilien, passende Finanzierung und langfristige
+   Betreuung aus einer Hand." mit 88 Zeichen; es steht bei 400 px
+   Kartenbreite gerade zweizeilig.
+
+   ---------------------------------------------------------------------
+   DER UMLAUF
+   ---------------------------------------------------------------------
+   Zwei wortgleiche Saetze zu je sechs Karten liegen hintereinander in
+   einer Spur. Die Spur wandert um GENAU EINEN SATZ nach links, also um
+   50 Prozent ihrer Breite, und springt dann zurueck. Weil an der
+   Sprungstelle dieselbe Karte steht wie vorher, sieht man den Sprung
+   nicht.
+
+   `margin-right` an der Karte und NICHT `gap` an der Spur: `gap` wirkt
+   auch zwischen dem letzten Element des ersten und dem ersten des zweiten
+   Satzes — dort aber nicht noch einmal am Ende. Die zweite Haelfte waere
+   dadurch um einen Abstand kuerzer als die erste, und der Ruecksprung
+   um 50 Prozent traefe nicht mehr.
+
+   DIE DAUER ist aus der Strecke gerechnet, nicht geraten: ein Satz misst
+   6 x (400 + 22) = 2532 px. Bei rund 52 px je Sekunde sind das 48,7 s.
+   Das ist bewusst langsam — der Abschnitt ist eine Haltung, kein Ticker;
+   man soll einen Satz zu Ende lesen koennen, waehrend er durchlaeuft.
+
+   BEWEGT WIRD NUR `transform`. Reines CSS, also laeuft es auch ohne
+   Javascript.
+
+   ---------------------------------------------------------------------
+   DIE KANTENMASKE
+   ---------------------------------------------------------------------
+   Wie am Band der Karriereseite: der Behaelter steht still und traegt
+   `overflow: hidden` und eine Maske, die links und rechts ins
+   Durchsichtige laeuft. Die Karten treten damit aus dem Weiss heraus und
+   laufen wieder hinein, statt an einer harten Kante abgeschnitten zu
+   werden. Der Behaelter traegt selbst keine Flaeche; was durch die
+   ausgeblendeten Kanten scheint, ist das --paper des Abschnitts.
+
+   DIE MASKE LOEST AUCH DAS FOTO. Rechts im Abschnitt haengt das blass
+   ausgeblendete Gruenderzeithaus (.vtr__bild). Der Behaelter reicht bis
+   an dessen linke Kante heran: bei 1920 px steht das Foto von 1610 bis
+   1920, der Inhaltskasten endet bei 1720. In diesen letzten 110 px liegt
+   die Maske bereits unter 0,4 — was dort noch von einer Karte zu sehen
+   ist, ist ein Hauch. Ein Kontrastproblem entsteht ohnehin nicht: jede
+   Karte hat eine DECKENDE eigene Flaeche, der Satz steht also nie auf dem
+   Foto.
+
+   BEI reduce IST DIE MASKE ABGESCHALTET — siehe unten. Dort steht das
+   Band still und bricht in eine mittige Gruppe um; eine Kantenmaske
+   wuerde die aeusseren Karten jeder Zeile ausbleichen, obwohl sie gelesen
+   werden sollen.
+   =========================================================================== */
+
+/* --- Der Strich unter dem Band ----------------------------------------------
+   ER IST DAS ZEICHEN. „Man muss schon irgendwie kennzeichnen, dass es eine
+   Trust-Section ist … machst da drueber einen Strich darunter."
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ES WAREN ZWEI STRICHE, einer ueber und einer unter dem Band. Der obere
+   ist am 31.08.2026 auf Kundenwunsch ersatzlos entfallen. Uebrig bleibt
+   der untere; er schliesst den Abschnitt ab, statt ihn einzurahmen.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   ER LAEUFT NICHT DURCH, SONDERN BLENDET NACH RECHTS AUS. Kundenwortlaut:
+   „Diese Linie darf nicht in das Bild rechts hineinlaufen. Sie muss vorher
+   ausblenden." Gemeint ist das ueberhaengende Fassadenfoto (.vtr__bild),
+   das rechts aus der Leiste in die Leistungen hineinragt.
+
+   WO DAS FOTO ANFAENGT — nachgerechnet als Anteil der Inhaltsbreite. Der
+   Inhaltskasten misst hoechstens 1520 px und traegt links wie rechts
+   clamp(1.25rem, 4vw, 4.2rem) Innenabstand; das Foto ist
+   clamp(200px, 17vw, 310px) breit und sitzt am rechten FENSTERrand:
+
+     Fenster   Inhalt von .. bis   Breite   Foto ab   Anteil
+      1920      200,0 .. 1720,0    1520,0    1610,0    92,8 %
+      1440       57,6 .. 1382,4    1324,8    1195,0    85,9 %
+      1280       51,2 .. 1228,8    1177,6    1062,4    85,9 %
+      1024       41,0 ..  983,0     942,0     824,0    83,1 %
+
+   Der engste Fall ist 83,1 Prozent. DER STRICH IST BEI 78 PROZENT
+   VOLLSTAENDIG WEG und beginnt bei 52 Prozent auszublenden — fuenf
+   Prozentpunkte Reserve zum engsten Fall. Unter 1024 px gibt es kein Foto
+   mehr (.vtr__bild ist dort ausgeblendet); dort darf der Strich weiter
+   laufen, siehe die zweite Regel.
+
+   ES IST EIN VERLAUF AUF DER LINIE SELBST, kein hartes Ende — genau so
+   verlangt. Der Verlauf laeuft in der Deckkraft, nicht in der Farbe: die
+   Steilheitsregel von 0,03 Farbeinheiten je Bildpunkt ist damit nicht
+   beruehrt. Ueber 26 Prozent von rund 1300 px sind es ausserdem 338 px
+   Blendstrecke, also eine sehr flache Rampe.
+
+   FARBE: --gold #A8874F, gemessen 3,36:1 auf Weiss. Nichttextlich, also
+   greift die Schwelle von 4,5:1 nicht; als Zeichnung ist die Linie klar
+   sichtbar. Es ist dieselbe Linie wie .abl__hausstrich unter dem Ablauf
+   und .ref__strich im Kopf der Kundenstimmen — der Abschnitt bekommt kein
+   eigenes Vokabular. */
+.vtr__linie {
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg,
+      var(--gold) 0%,
+      var(--gold) 52%,
+      rgba(168, 135, 79, 0) 78%);
+  opacity: 0.75;
+}
+/* Ohne Foto darf der Strich weiter laufen. Er endet trotzdem weich —
+   ein hart abgeschnittener Strich mitten in der Flaeche saehe aus wie ein
+   Fehler, und die Blende ist hier ohnehin die Handschrift. */
+@media (max-width: 1023px) {
+  .vtr__linie {
+    background: linear-gradient(90deg,
+        var(--gold) 0%,
+        var(--gold) 72%,
+        rgba(168, 135, 79, 0) 96%);
+  }
 }
 
-.vtr__satz {
+/* --- Der Behaelter ---------------------------------------------------------- */
+.vtr__band {
+  --vtr-schleier: 9%;
+  --vtr-maske: linear-gradient(90deg,
+      rgba(0, 0, 0, 0)    0,
+      rgba(0, 0, 0, 0.10) calc(var(--vtr-schleier) * 0.25),
+      rgba(0, 0, 0, 0.50) calc(var(--vtr-schleier) * 0.5),
+      rgba(0, 0, 0, 0.90) calc(var(--vtr-schleier) * 0.75),
+      rgba(0, 0, 0, 1)    var(--vtr-schleier),
+      rgba(0, 0, 0, 1)    calc(100% - var(--vtr-schleier)),
+      rgba(0, 0, 0, 0.90) calc(100% - var(--vtr-schleier) * 0.75),
+      rgba(0, 0, 0, 0.50) calc(100% - var(--vtr-schleier) * 0.5),
+      rgba(0, 0, 0, 0.10) calc(100% - var(--vtr-schleier) * 0.25),
+      rgba(0, 0, 0, 0)    100%);
+
+  margin-block: clamp(0.7rem, 1.3vh, 0.875rem);
+  overflow: hidden;
+  -webkit-mask-image: var(--vtr-maske);
+          mask-image: var(--vtr-maske);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+}
+/* Ab 768 px ist der Kasten breit genug, dass ein kraeftiger Schleier je
+   Seite immer noch mehr als eine ganze Karte unangetastet stehen laesst.
+   Gerechnet gegen die feste Kartenbreite von 400 px, Inhaltskasten
+   hoechstens 1520 px: bei 1440 misst der Schleier 0,24 x 1352 = 324 px je
+   Seite, in der Mitte bleiben 704 px — eineinhalb Karten. */
+@media (min-width: 768px) {
+  .vtr__band { --vtr-schleier: 24%; }
+}
+
+@keyframes vtr-band {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.vtr__spur {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: vtr-band 48.7s linear infinite;
+}
+
+/* --- Die Karte -------------------------------------------------------------- */
+/* KLEIN, wie verlangt: „Die Zitate packst du auch noch in einen kleinen
+   Kasten jeweils."
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DIE KARTE WAR HELL (#FBF9F5 mit --ink-mute als Schrift). Der Kunde hat
+   sie am 31.08.2026 auf den FAQ-Ton gestellt, mit weisser Schrift — es ist
+   derselbe Ton wie in den zwei Vergleichskaesten von „Warum Immobilien"
+   und in den Ablaufkarten. Der Kunde will diese Wiederholung
+   ausdruecklich; sie bindet die drei Stellen zusammen.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   ES IST EINE FLAECHE UND KEIN VERLAUF, aus demselben Grund wie bei den
+   Vergleichskaesten: der FAQ-Verlauf #1E222D -> #2E3643 misst 22 Einheiten
+   im Blaukanal; ueber die 400 px einer Karte sind das 0,055 Einheiten je
+   Bildpunkt und damit fast das Doppelte der erlaubten 0,03. Gesetzt ist
+   der Mittelwert des Paares als Flaeche: #262C39.
+
+   DIE FLAECHE IST DECKEND, und das ist hier tragend: die Karte kann am
+   rechten Ende ueber dem ausgeblassten Foto liegen. Der Satz steht damit
+   nie auf dem Bild, sondern immer auf seiner eigenen Flaeche.
+
+   KONTRAST des Satzes gegen genau diese Flaeche:
+     #FFFFFF auf #262C39   13,98:1   ✓ (Schwelle 4,5)
+   Zum Vergleich der abgeloeste Zustand: --ink-mute auf #FBF9F5, 5,04:1.
+
+   DIE KANTE ist die Goldhaarlinie des Projekts in derselben Bauart wie an
+   den Rezensionskarten der Startseite (referenzen.css, .rez__karte):
+   1 px, --gold auf 0,42. Auf dem dunklen Grund tritt sie deutlicher
+   hervor als auf dem hellen — das ist erwuenscht, sie ist die Fassung.
+
+   `margin-right` statt `gap` — die Begruendung steht oben beim Umlauf. */
+.vtr__karte {
+  flex: 0 0 400px;
+  width: 400px;
+  margin-right: 22px;
+  position: relative;
+  isolation: isolate;          /* haelt das z-index:-1 des Zeichens im Kasten */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 74px;
+  max-height: 88px;
+  padding: 13px 20px;
+  border: 1px solid rgba(168, 135, 79, 0.42);
+  border-radius: 12px;
+  background: #262C39;         /* Mittelwert des FAQ-Paares, siehe oben */
+}
+
+/* DIE ZWEI ANFUEHRUNGSZEICHEN. „Dann packst du noch zwei
+   Anfuehrungszeichen hin, so wie bei ‚Entdecke, was unsere Mitarbeiter
+   sagen‘." Dort ist es ein doppeltes Anfuehrungszeichen als sehr blasse
+   Zeichnung oben rechts in der Karte, hinter dem Satz. Dieselbe Zeichnung
+   und dieselbe Deckkraft, nur kleiner — die Karte hier ist flacher.
+
+   `z-index: -1` legt es HINTER den Satz, `isolation: isolate` an der
+   Karte haelt es trotzdem in ihr drin. Es kostet keine Bauhoehe.
+
+   NICHTTEXTLICH UND OHNE AUSSAGE: es ist `aria-hidden`, und der Satz
+   traegt seine echten Anfuehrungszeichen im Text selbst. */
+.vtr__anf {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 8px;
+  right: 12px;
+  width: 62px;
+  height: 40px;                /* 62 x 60/94, das Verhaeltnis der Zeichnung */
+  /* 0,16 statt 0,10 seit dem 31.08.2026: die Karte ist jetzt dunkel, und
+     Gold auf 10 Prozent ueber #262C39 waere praktisch nicht zu sehen. Bei
+     0,16 steht es als ruhiger warmer Schatten in der Ecke und bleibt
+     trotzdem weit hinter dem Satz zurueck. */
+  opacity: 0.16;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 94 60' fill='%23A8874F'%3E%3Cpath d='M38 6C20 10 6 22 6 38a17 17 0 1 0 22-16C30 16 34 11 40 8Z'/%3E%3Cpath d='M90 6C72 10 58 22 58 38a17 17 0 1 0 22-16c2-6 6-11 12-14Z'/%3E%3C/svg%3E");
+}
+
+/* Der Satz. Grad und Zeilenabstand sind aus dem Hoehenbudget gerechnet,
+   siehe oben; zwei Zeilen muessen in 88 px Karte passen.
+   Die Schrift ist die des abgeloesten Einzelzitats — Cormorant, nicht die
+   Grotesk. Es bleibt derselbe Ton, nur in kleineren Portionen. */
+.vtr__zitat {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;          /* 16,3 px */
   font-weight: 400;
   line-height: 1.42;
   letter-spacing: -0.004em;
-  text-align: center;
-  /* Kein `text-wrap: balance`: es wuerde die Zeilenzahl je nach Fenster
-     umverteilen und damit die Bauhoehe springen lassen. */
+  color: #FFFFFF;              /* 13,98:1 auf #262C39 */
   text-wrap: pretty;
-}
-
-/* --- Die Fuellung ---------------------------------------------------------- */
-/* GRUNDZUSTAND IST VOLL GEFUELLT. Ohne Javascript, in alten Browsern und
-   bei prefers-reduced-motion bleibt es dabei — die blasse Lage schaltet
-   erst `data-vtr-fuellen` ein, und das setzt allein
-   assets/js/vertrauen.js. So kann der Satz nicht blass haengenbleiben. */
-.vtr__wort {
-  color: var(--vtr-voll);
-  -webkit-text-stroke: var(--vtr-strich) currentColor;
-}
-
-/* Ungefuellt: blass, ohne die zusaetzliche Zeichnung. */
-[data-vtr-fuellen] .vtr__wort {
-  color: var(--vtr-blass);
-  -webkit-text-stroke: 0 currentColor;
-  /* KEINE Uebergangszeit. Der Kunde will sehen, wie ein Wort nach dem
-     anderen umschlaegt; ein Ueberblenden wuerde genau die harte Kante
-     wegnehmen, um die es geht. Die Kante ist hier die Wortgrenze
-     selbst — nicht ein Verlauf, der durch den Satz wandert. */
-}
-
-/* Umgeschlagen. Das Attribut setzt assets/js/vertrauen.js Wort fuer Wort
-   entlang der Scrollposition und nimmt es beim Zurueckscrollen wieder
-   weg. Zwei Merkmale zugleich, damit der Wechsel auch aus dem Augenwinkel
-   auffaellt: die Farbe springt von #5F6E85 auf #000, und die Zeichnung
-   wird um 0.34 px kraeftiger.
-   WARUM NICHT `font-weight`: ein anderer Schnitt hat andere
-   Buchstabenbreiten. Der Satz braeche bei jedem umschlagenden Wort neu
-   um und die ganze Leiste zappelte. `-webkit-text-stroke` faerbt nur die
-   Kontur nach und laesst das Mass unangetastet. */
-[data-vtr-fuellen] .vtr__wort[data-voll] {
-  color: var(--vtr-voll);
-  -webkit-text-stroke: var(--vtr-strich) currentColor;
-}
-
-/* --- Einlauf --------------------------------------------------------------- */
-/* Nur `opacity` und `transform`, hoechstens 12 px Versatz, einmalig.
-   Der Anfangszustand haengt an `data-vtr-bereit`; auch dieses Attribut
-   setzt erst das Skript. */
-[data-vtr-bereit] .vtr__auf {
-  opacity: 0;
-  transform: translateY(var(--vtr-weg));
-}
-[data-vtr-bereit][data-vtr-sicht] .vtr__auf {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity   var(--vtr-dauer) var(--vtr-ease),
-    transform var(--vtr-dauer) var(--vtr-ease);
 }
 
 /* --- Unter 1024 px kein Foto ------------------------------------------------ */
@@ -375,41 +589,63 @@
    Oberkante bei t = 0.361, der Verlauf ist ab t = 0.28 weiss. */
 @media (max-width: 620px) {
   .vtr {
-    /* Die Stufen liegen hier weiter auseinander als in der Waagerechten.
-       Grund: quer misst die Zone 22 Prozent von 1920 px, also gut 420 px
-       — senkrecht waeren 22 Prozent von 190 px nur 42 px, und davon
-       waeren keine 15 wirklich dunkel. Die Toenung reicht deshalb bis
-       28 Prozent, und der obere Aussenabstand ist entsprechend groesser.
-       „Es soll aber wirklich navyblau sein, das ist wichtig." */
-    /* Die 34-Punkt-Blende an der Oberkante ist am 30.08.2026 ersatzlos
-       entfallen — derselbe Grund wie in der Waagerechten weiter oben:
-       #warum-immobilien endet jetzt selbst auf Weiss, es gibt an dieser
-       Kante keinen Farbunterschied mehr. Der senkrechte Keil selbst bleibt
-       unveraendert; er ist Gestaltung, keine Naht. */
-    background:
-      linear-gradient(180deg,
-      var(--navy-800)   0%,
-      var(--navy-800)   8%,
-      var(--navy-600)  13%,
-      #6D8CB6          18%,
-      #B9C9DE          22%,
-      #EEF2F8          25%,
-      #FFFFFF          28%);
-    padding: clamp(3.6rem, 8vh, 4.6rem) 0 clamp(1.4rem, 3vh, 1.9rem);
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       DER SENKRECHTE KEIL IST AM 31.08.2026 MIT DEM WAAGERECHTEN
+       ENTFALLEN — siehe die ausfuehrliche Begruendung weiter oben. Hier
+       lief der Verlauf von oben nach unten ueber die ersten 28 Prozent
+       der Hoehe ins Weisse.
+
+       DER GROSSE OBERE AUSSENABSTAND FAELLT DAMIT MIT WEG. Er war kein
+       Gestaltungsmass, sondern eine Notwendigkeit: die erste Zeile
+       musste UNTERHALB der Toenung beginnen (Oberkante bei t = 0,361,
+       Verlauf weiss ab t = 0,28). Ohne Toenung gibt es nichts mehr zu
+       unterlaufen, und die Leiste steht wieder in ihrem eigenen Mass.
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+    padding: clamp(1.9rem, 4.5vh, 2.6rem) 0 clamp(1.4rem, 3vh, 1.9rem);
   }
   .vtr__inner { padding: 0 1.15rem; }
-  /* Fliesstext bleibt bei 16.8 px — die Lesbarkeitsgrenze auf dem
-     Telefon wird nicht fuer die Bauhoehe geopfert. */
-  .vtr__zitat { font-size: 1.05rem; }
-  .vtr__satz  { line-height: 1.44; }
+  /* Auf dem Telefon ist eine 400 px breite Karte breiter als das Fenster.
+     Sie geht deshalb auf 78 Prozent der Fensterbreite zurueck, hoechstens
+     300 px — dann steht immer genau eine Karte im Blick und die naechste
+     laeuft sichtbar heran.
+     Der Schriftgrad bleibt bei 16,3 px: die Lesbarkeitsgrenze auf dem
+     Telefon wird nicht fuer die Bauhoehe geopfert. Weil die Karte
+     schmaler ist, brauchen die laengeren Zitate dort drei Zeilen; der
+     Deckel der Kartenhoehe geht deshalb auf 106 px hoch. Der Abschnitt
+     misst damit 174 px — genau so viel wie vor dem Umbau. */
+  .vtr__karte {
+    flex-basis: min(78vw, 300px);
+    width: min(78vw, 300px);
+    margin-right: 14px;
+    max-height: 106px;
+    padding: 11px 15px;
+  }
+  .vtr__anf { width: 48px; height: 31px; top: 6px; right: 9px; }
 }
 
 /* --- Ohne Bewegung --------------------------------------------------------- */
-/* Der Einlauf steht sofort. Die Fuellung wird gar nicht erst
-   eingeschaltet — assets/js/vertrauen.js setzt `data-vtr-fuellen` dann
-   nicht, der Satz steht also voll schwarz da. Die Regel hier ist die
-   zweite Sicherung fuer den Fall, dass die Einstellung erst nach dem
-   Laden umgeschaltet wird. */
+/* ZWEI DINGE STEHEN HIER STILL, und beide vollstaendig, nicht gebremst:
+
+   1  DER EINLAUF steht sofort im Endzustand.
+
+   2  DAS BAND LAEUFT NICHT. Und es reicht NICHT, nur die Animation
+      anzuhalten — dann stuenden von sechs Zitaten je nach Fensterbreite
+      ein bis zwei im Bild und die uebrigen waeren ueberhaupt nicht
+      erreichbar, weil es keine Bedienung zum Weiterschieben gibt.
+      Die Spur bricht deshalb um und steht als mittige Gruppe da: alle
+      sechs Zitate sind dann sichtbar und lesbar. Die sechs Kopien, die es
+      nur fuer den nahtlosen Umlauf gibt, fallen weg.
+      DER ABSCHNITT WIRD DABEI HOEHER, und das ist richtig so: die Vorgabe
+      „die Section soll nicht hoeher werden" gilt der laufenden Fassung.
+      Ein abgeschnittenes Zitat waere hier der schlechtere Handel.
+
+   DIE KANTENMASKE FAELLT MIT WEG. Sie gehoert zur laufenden Fassung, wo
+   sie ausblendet, was gerade in den Rand hineinlaeuft. Bei einer
+   stehenden Gruppe wuerde sie die aeusseren Karten jeder Zeile
+   ausbleichen — und die sollen gelesen werden.
+
+   ALLE DIESE REGELN STEHEN IM CSS und wirken deshalb AUCH OHNE
+   JAVASCRIPT. */
 @media (prefers-reduced-motion: reduce) {
   [data-vtr-bereit] .vtr__auf,
   [data-vtr-bereit][data-vtr-sicht] .vtr__auf {
@@ -417,8 +653,24 @@
     transform: none;
     transition: none;
   }
-  [data-vtr-fuellen] .vtr__wort {
-    color: var(--vtr-voll);
-    -webkit-text-stroke: var(--vtr-strich) currentColor;
+
+  .vtr__band {
+    overflow: visible;
+    -webkit-mask-image: none;
+            mask-image: none;
   }
+  .vtr__spur {
+    animation: none;
+    transform: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .vtr__karte {
+    flex: 0 1 400px;
+    margin-right: 0;
+    max-height: none;
+  }
+  .vtr__karte--kopie { display: none; }
 }

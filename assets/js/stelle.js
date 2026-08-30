@@ -33,25 +33,35 @@
       nicht geschaetzt. Dasselbe Verfahren benutzt site.js fuer die
       Grafiken der Startseite.
 
-   4  DIE ZIFFERN DER SCHRITTFOLGE IN EINE HUELLE SETZEN
+   4  DIE ZIFFERN DER KARTEN IN EINE HUELLE SETZEN
       Damit sie hinter derselben Kante hervorfahren koennen wie die
-      Ueberschriften. Auf der Back-Office-Seite gibt es diese Ziffern nicht;
-      die Schleife laeuft dort ins Leere.
+      Ueberschriften. Auf der Back-Office-Seite gibt es diese Ziffern nicht
+      (deren vier Punkte sind keine Reihenfolge, siehe stelle.css); die
+      Schleife laeuft dort ins Leere.
 
    5  DIE KLASSE `ist-da` BEIM EINTRITT SETZEN
       Ein IntersectionObserver, einmalig; danach wird das Element nicht mehr
       beobachtet. Beobachtet werden teils GRUPPEN (die Hakenliste, das
-      Kachelraster, die Schrittliste, die Laufbaender) und teils einzelne
+      versetzte Raster, der Kartenstapel, die Laufbaender) und teils einzelne
       Bausteine — bei den Gruppen deshalb, weil ihr Versatz gegen den
       Eintritt der GRUPPE laufen muss und nicht gegen den jedes einzelnen
       Teils.
+
+   WAS DIESE DATEI NICHT MACHT — AUSDRUECKLICH
+   Der Kartenstapel in „Das erwartet dich" laeuft ohne eine einzige Zeile
+   Javascript: er ist reines `position: sticky` mit gestaffelten
+   Klebehoehen, genau wie der Ablauf-Stapel der Startseite. Kein
+   Rollhorcher, kein requestAnimationFrame, keine Messung, keine Neurechnung
+   bei Groessenaenderung. Das Merkmal [data-stl-js] ist dort NUR der
+   Schalter, der dafuer sorgt, dass ohne Javascript nichts klebt.
 
    OHNE JAVASCRIPT
    stehen beide Seiten vollstaendig da. Saemtliche Bewegungsregeln in
    stelle.css haengen an [data-stl-js], und dieses Merkmal setzt erst diese
    Datei — faellt sie aus, ist nie etwas unsichtbar. Auch geteilt wird dann
-   nicht, es werden keine Merkmale gesetzt, und die zwei Laufbaender laufen
-   wie bisher vom ersten Bildpunkt an. Das Kopfvideo traegt autoplay, muted,
+   nicht, es werden keine Merkmale gesetzt, die fuenf Karten stehen in voller
+   Hoehe untereinander statt gestapelt, und die zwei Laufbaender laufen wie
+   bisher vom ersten Bildpunkt an. Das Kopfvideo traegt autoplay, muted,
    loop und playsinline im HTML und spielt von selbst ab.
 
    BEI prefers-reduced-motion: reduce
@@ -226,7 +236,7 @@
      nacheinander: erst das Dach, dann die Waende, dann die Tuer.
      Aufgerundet, damit am Ende garantiert kein Rest stehen bleibt.
      --------------------------------------------------------------------- */
-  var zeichen = alle('.stl-haken__zeichen svg, .stl-kachel__zeichen svg, .stl-punkt__zeichen svg');
+  var zeichen = alle('.stl-haken__zeichen svg, .stl-karte__zeichen svg');
   for (i = 0; i < zeichen.length; i++) {
     var pfade = zeichen[i].querySelectorAll('path, line, polyline, circle, rect');
     var gesetzt = 0;
@@ -246,7 +256,7 @@
   /* ---------------------------------------------------------------------
      4  Die Ziffern der Schrittfolge in eine Huelle setzen
      --------------------------------------------------------------------- */
-  var ziffern = alle('.stl-punkt__num');
+  var ziffern = alle('.stl-karte__nr');
   for (i = 0; i < ziffern.length; i++) {
     var huelle = document.createElement('span');
     huelle.className = 'stl-zi';
@@ -264,8 +274,11 @@
     for (var k = 0; k < kinder.length; k++) kinder[k].style.setProperty('--i', k);
   }
   versatz('.stl-haken',  ':scope > li');
-  versatz('.stl-raster', ':scope > .stl-kachel');
-  versatz('.stl-liste',  ':scope > .stl-punkt');
+  versatz('.stl-aus',    ':scope > .stl-aus__kasten');
+  /* Beim Kartenstapel sitzt --i auf dem KLEBEKASTEN (.stl-halt), nicht auf
+     der Karte: alles, was den Versatz benutzt (Symbol, Ziffer, Titel, Satz),
+     liegt darin und erbt ihn von dort. */
+  versatz('.stl-stapel', ':scope > .stl-halt');
 
   /* ---------------------------------------------------------------------
      5  Der Auslöser
@@ -286,7 +299,7 @@
      es traegt das leere Bildfenster, das sich wegen seines eigenen
      clip-path nicht selbst beobachten lassen kann (Begruendung bei
      .stl-platz in stelle.css). */
-  Array.prototype.push.apply(ziele, alle('.stl-haken, .stl-raster, .stl-liste, .stl-band, .stl-zwei--bieten'));
+  Array.prototype.push.apply(ziele, alle('.stl-haken, .stl-aus, .stl-stapel, .stl-band, .stl-zwei--bieten'));
 
   /* Ein Zehntel des Elements reicht als Ausloeser. Ein rootMargin von
      −40 px am Fuss verhindert, dass etwas losläuft, das gerade erst mit

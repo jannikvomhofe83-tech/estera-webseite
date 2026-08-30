@@ -174,7 +174,33 @@
 
    Die Kanten zwischen Navy und Hell bleiben hart — Entscheidung des
    Kunden vom 30.08.2026, Begruendung im Verlaufsblock weiter unten.
-   Die Messwerte stehen im Bericht vom 30.08.2026.                       */
+   Die Messwerte stehen im Bericht vom 30.08.2026.
+
+   NACHTRAG 30.08.2026, SPAETER AM TAG — DIE ANTEILE HABEN SICH VERSCHOBEN,
+   und zwar durch die zwei Umbauten, die der Kunde an diesem Tag bestellt
+   hat: das versetzte Raster in „Das macht dich aus" (869 -> 1317 px) und
+   der Kartenstapel in „Das erwartet dich" (1047 -> 1708 px). KEINE
+   Abschnittsfarbe wurde dabei angefasst; die Folge ist trotzdem, dass sich
+   die Anteile aendern, weil die Abschnitte laenger sind.
+
+   Gemessen an echten Fensterausschnitten (die einzige Methode, bei der
+   `position: sticky` richtig erscheint — eine fullPage-Aufnahme setzt das
+   Fenster auf die volle Seitenhoehe, und dann liegt der Stapel auf einmal
+   oben):
+
+                       vorher     nachher
+       Navy            23,5 %     19,1 %
+       Weiss           26,5 %     16,7 %
+       Creme           23,4 %     23,0 %
+       dunkle Bilder   24,5 %     34,9 %   <- hier stecken die Karten
+       ----------------------------------
+       dunkel gesamt   47,9 %     54,0 %
+       hell   gesamt   52,1 %     46,0 %
+
+   Der Anteil an reinem Navy faellt, weil die Seite laenger ist und die
+   Navy-Flaechen (Kopf, Band B, Abschluss, Fuss) gleich gross geblieben
+   sind. Der DUNKLE Anteil steigt trotzdem: die anthrazitfarbenen Karten
+   stehen jetzt ueber 1700 px in der linken Spalte.                      */
 .stl-abs { position: relative; }
 
 /* Jede Flaeche setzt ihre eigenen vier Textwerte. Damit tragen dieselben
@@ -712,9 +738,12 @@
 /* ===========================================================================
    4 — DAS MACHT DICH AUS
    Vorlage: zwei Abschnitte. Der erste traegt nur die Ueberschrift (48 px,
-   zentriert, 70 px Luft darueber, 0 darunter), der zweite das Raster
-   (3 Spalten a 395 px, Abstand 32 px, 100 px Luft darunter).
-   Hier zu einem Abschnitt zusammengefasst, Masse unveraendert.
+   zentriert, 70 px Luft darueber, 0 darunter), der zweite ein
+   gleichmaessiges Raster (3 Spalten a 395 px, Abstand 32 px, 100 px Luft
+   darunter). Hier zu einem Abschnitt zusammengefasst; die Luft ist die der
+   Vorlage, DAS RASTER NICHT MEHR — es ist seit dem 30.08.2026 versetzt und
+   traegt sechs verschieden grosse Kaesten. Begruendung und Rechnung stehen
+   unten bei .stl-aus.
    Er faengt auf Creme an — der Farbe, auf der „Was wir bieten" ueber Band
    A hinweg endet — und laeuft ueber seine volle Hoehe nach Weiss, auf dem
    Band B und „Das erwartet dich" ansetzen (.fl-creme-nach-weiss).
@@ -730,51 +759,240 @@
   max-width: 60ch;
 }
 
-/* Raster. Vorlage: 3 x 2, Symbol 39 x 39, Kachelueberschrift 20 px / 600
-   zentriert, darunter Kacheltext 14 px. Der Wording-Master gibt zu diesen
-   sechs Punkten keinen erlaeuternden Satz her — die Kacheln bleiben
-   deshalb ohne Fliesstext. Kuerzer gebaut, nicht gefuellt. */
-.stl-raster {
+/* ---------------------------------------------------------------------------
+   DAS VERSETZTE RASTER — 30.08.2026, KUNDENWUNSCH
+
+   „Ich will, dass die Kaesten immer unterschiedlich gross sind. Also einer
+   ist mal laenglicher, einer ist mal hoeher, einer ist mal breiter."
+
+   Bis heute standen die sechs Merkmale in einem gleichmaessigen 3 x 2-Raster
+   (Vorlage: drei Spalten a 395 px, Abstand 32 px). Das ist ersatzlos raus,
+   ebenso die Klassen .stl-raster / .stl-kachel und ihre Strichsymbole. An
+   ihre Stelle tritt .stl-aus mit sechs verschieden grossen Kaesten, und je
+   Kasten von oben nach unten: Ueberschrift, Grafik, Text.
+
+   DIE KOMPOSITION IST GERECHNET, NICHT GEWUERFELT
+   Zwoelf Spalten, neun Zeilen. Die zwoelf Spalten sind in DREI Buendel
+   geteilt — 4 | 5 | 3 —, und jedes Buendel traegt genau zwei Kaesten:
+
+       Buendel        Breite   oben       unten
+       Spalte  1– 4    4/12    5 Zeilen   4 Zeilen
+       Spalte  5– 9    5/12    4 Zeilen   5 Zeilen
+       Spalte 10–12    3/12    4 Zeilen   5 Zeilen
+
+   Jedes Buendel ist damit 9 Zeilen hoch — dieselbe Hoehe fuer alle drei.
+   GENAU DARAN haengt, dass keine Luecke entsteht: die Flaeche ist restlos
+   gedeckt, obwohl kein Kasten so gross ist wie ein anderer. Die Trennstelle
+   liegt in jedem Buendel woanders (nach 5, nach 4, nach 4 Zeilen) — daher
+   der Versatz.
+
+   Sechs verschiedene Groessen, bei 1920 px gerechnet (Container 1250,
+   Spalte 73,8 px, Fuge 24 px, Zeile 66 px):
+
+       1  400 x 418   4 Spalten, 5 Zeilen   hoch
+       2  507 x 330   5 Spalten, 4 Zeilen   laenglich
+       3  294 x 330   3 Spalten, 4 Zeilen   der kleinste
+       4  400 x 330   4 Spalten, 4 Zeilen   breit
+       5  507 x 418   5 Spalten, 5 Zeilen   der groesste
+       6  294 x 418   3 Spalten, 5 Zeilen   schmal und hoch
+
+   GERECHNET WIRD IN RASTEREINHEITEN, NICHT IN BILDPUNKTEN: die Spalten sind
+   `1fr`, die Zeilen `minmax(--aus-einheit, auto)`. Braucht ein Text mehr
+   Platz als gedacht, waechst die Zeile — und weil alle drei Buendel dieselben
+   Zeilen benutzen, waechst die Nachbarschaft mit. Es kann also auch dann
+   keine Luecke aufreissen, und die Rechnung traegt bei jeder Breite.
+
+   WELCHER KASTEN IN WELCHES FELD KOMMT, ist nach der Textmenge vergeben und
+   nachgerechnet (Zeichen je Zeile aus Feldbreite / mittlerer Zeichenbreite):
+   die laengsten Ueberschriften (3 und 6, je ueber 60 Zeichen) stehen in den
+   schmalen Feldern und brauchen dort drei Zeilen — deshalb sind genau diese
+   beiden Felder die hoeheren ihres Buendels. Der laengste Text (4) sitzt im
+   breiten Feld, wo er zwei Zeilen braucht statt vier.
+   --------------------------------------------------------------------------- */
+.stl-aus {
+  /* Zeilenhoehe und Fuge. Die Fuge ist enger als die 32 px der Vorlage: bei
+     sechs verschieden grossen Kaesten traegt der Versatz die Gliederung, da
+     braucht es keine breiten Gassen dazu. */
+  --aus-einheit: clamp(54px, 3.44vw, 66px);
+  --aus-fuge:    clamp(16px, 1.25vw, 24px);
+
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: var(--stl-spalt-32);
-  row-gap: var(--stl-spalt-32);
-  align-items: stretch;
-  margin-top: clamp(36px, 3.13vw, 60px);   /* Vorlage 70 px */
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(var(--aus-einheit), auto);
+  gap: var(--aus-fuge);
+  margin: clamp(34px, 3.0vw, 58px) 0 0;
+  padding: 0;
+  list-style: none;
 }
-/* Die sechs Merkmale stehen seit dem 29.08.2026 je in einer eigenen Karte
-   (Kundenwunsch). Handschrift wie die Rezensionskarten der Startseite,
-   assets/css/referenzen.css: 1 px Haarlinie, 12 px Radius, KEIN Schatten,
-   Innenrand clamp(20px, 1.8vw, 30px). Dort steht die Linie in Gold, hier
-   auf Wunsch in Navy mit niedriger Deckkraft. */
-.stl-kachel {
-  text-align: center;
+
+.stl-aus__kasten:nth-child(1) { grid-column:  1 / span 4; grid-row: 1 / span 5; }
+.stl-aus__kasten:nth-child(2) { grid-column:  5 / span 5; grid-row: 1 / span 4; }
+.stl-aus__kasten:nth-child(3) { grid-column: 10 / span 3; grid-row: 1 / span 4; }
+.stl-aus__kasten:nth-child(4) { grid-column:  1 / span 4; grid-row: 6 / span 4; }
+.stl-aus__kasten:nth-child(5) { grid-column:  5 / span 5; grid-row: 5 / span 5; }
+.stl-aus__kasten:nth-child(6) { grid-column: 10 / span 3; grid-row: 5 / span 5; }
+
+/* Der Kasten selbst. Handschrift des Projekts: feine Linie statt Schatten,
+   grosszuegiger Radius, kein Kasten, der schwebt.
+
+   DIE FLAECHE ist ein Hauch Sand auf dem, was der Abschnitt gerade zeigt
+   (rgba(217,180,133,0.05)). Sie ist ABSICHTLICH nicht in einer festen Farbe
+   gesetzt: der Abschnitt laeuft ueber seine Hoehe von Creme nach Weiss, ein
+   fester Ton waere oben zu hell und unten zu dunkel. Der Schleier legt sich
+   stattdessen auf beide und waermt sie gleich stark an — ueber Weiss
+   #FDFBF9, ueber Creme #F6F0EB, also 4 bzw. 5 Einheiten. Das liegt weit
+   unter der Verlaufsgrenze von 0,03 Einheiten je Bildpunkt und aendert an
+   den Kontrasten nichts Messbares (nachgerechnet: Fliesstext 5,84:1 statt
+   5,93:1). */
+.stl-aus__kasten {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(20px, 1.8vw, 30px);
+  text-align: center;
+  min-width: 0;
+  padding: clamp(18px, 1.45vw, 26px) clamp(18px, 1.55vw, 28px);
   border: 1px solid var(--stl-linie);
-  border-radius: 12px;
-  background: none;
+  border-radius: 14px;
+  background: rgba(217, 180, 133, 0.05);
   box-shadow: none;
+  transition: border-color 0.45s var(--ease);
 }
-.stl-kachel__zeichen {
-  display: inline-grid;
-  place-items: center;
-  width: 39px;
-  height: 39px;
-  color: var(--stl-zeichen);
-  margin-bottom: 1.1rem;
-}
-.stl-kachel__zeichen svg { width: 39px; height: 39px; }
-.stl-kachel__titel {
+/* Beim Ueberfahren wechselt nur die Linie ins Gold. Keine Flaeche, kein
+   Schatten, kein Zoom — der Massstab dafuer steht im Bewegungsblock. */
+.stl-aus__kasten:hover,
+.stl-aus__kasten:focus-within { border-color: rgba(168, 135, 79, 0.45); }
+
+.stl-aus__titel {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: var(--stl-t-titel);
-  line-height: 1.28;
+  line-height: 1.24;
   color: var(--stl-tx);
   margin: 0;
   text-wrap: balance;
+}
+
+/* Der Haarstrich zwischen Ueberschrift und Grafik. Er traegt denselben
+   Akzent wie die Kleinzeilen (Gold auf hell) und ist reine Grafik, keine
+   Schrift — 3,05:1 genuegt dafuer.
+   ZWEI ELEMENTE, UND DAS IST NOETIG: die Huelle traegt den Eintritt, der
+   ::before-Strich das Ueberfahren. Laegen beide auf einem Element, wuerde
+   der Endzustand der Animation (`both`) den Hover-transform dauerhaft
+   ueberschreiben — derselbe Grund wie bei Grafik und Bildfeld. */
+.stl-aus__strich {
+  display: block;
+  flex: none;
+  width: clamp(26px, 2.2vw, 38px);
+  height: 1px;
+  margin: clamp(10px, 0.9vw, 15px) 0 clamp(12px, 1.1vw, 18px);
+}
+.stl-aus__strich::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--stl-zeichen);
+  transform-origin: 50% 50%;
+  transition: transform 0.45s var(--ease);
+}
+.stl-aus__kasten:hover .stl-aus__strich::before,
+.stl-aus__kasten:focus-within .stl-aus__strich::before { transform: scaleX(1.75); }
+
+/* DIE GRAFIK NIMMT SICH, WAS UEBRIG BLEIBT.
+   `flex: 1 1 auto` gibt ihr die Resthoehe des Kastens; weil die Kaesten
+   verschieden hoch sind, ist auch die Grafik in jedem Kasten anders gross —
+   von rund 100 px im kleinsten bis rund 220 px im groessten. Das ist kein
+   Nebeneffekt, sondern gewollt: eine ueberall gleich grosse Grafik haette
+   das versetzte Raster wieder eingeebnet.
+   Die Bilder sind quadratisch; `max-height` und `max-width` halten sie in
+   ihrem Feld, ohne sie zu verzerren. */
+.stl-aus__bild {
+  /* `flex-basis: 0` UND NICHT `auto` — das ist der Unterschied zwischen
+     einem Raster, das aufgeht, und einem, das sich selbst aufblaeht.
+     Mit `auto` geht die EIGENGROESSE des Bildes in die Mindesthoehe des
+     Kastens ein: das sind 800 Bildpunkte, gedeckelt auf max-width, also
+     rund 270. Jeder Kasten waere damit mindestens 270 px hoch, bevor
+     ueberhaupt Text darin steht, und das versetzte Raster waere ein
+     Vielfaches zu hoch (gemessen: 1105 statt 824 px Rasterhoehe).
+     Mit `0` zaehlt nur die Mindesthoehe unten. Im fertigen Satz ist die
+     Kastenhoehe dann bekannt, `max-height: 100 %` greift, und das Bild
+     wird auf das Feld gerechnet, statt es zu bestimmen. */
+  flex: 1 1 0;
+  min-height: clamp(96px, 6.4vw, 122px);
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  /* Traeger fuer das Bild, siehe naechsten Block. */
+  position: relative;
+}
+/* DAS BILD HAENGT ABSOLUT IM FELD, und auch das ist kein Schoenheitsfehler.
+   Auf dem Weg ueber `height: 100 %` blieb das Bild in flachen Kaesten bei
+   seinen vollen 272 px stehen und ragte unten heraus (gemessen: Feld 104,
+   Bild 272) — die Prozentangabe fand keine feste Bezugshoehe, weil sie durch
+   zwei Zwischenkaesten (figure -> picture -> img) hindurch musste.
+   Absolut gesetzt hat <picture> durch `inset: 0` immer eine feste Hoehe,
+   `max-height: 100 %` greift damit zuverlaessig, und das Bild bleibt in
+   jedem Kasten in seinem Feld. Nebenbei zaehlt es dann gar nicht mehr in
+   die Mindesthoehe des Kastens hinein. */
+.stl-aus__bild picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+/* EIN QUADRATISCHES FELD, UND DAS BILD LIEGT DARIN — 30.08.2026.
+
+   DIE SECHS GRAFIKEN SIND NICHT GLEICH FORMATIG. Geliefert wurden drei
+   Querformate (1536 x 1024, 1536 x 1024, 1374 x 1145), zwei Hochformate
+   (je 1024 x 1536) und ein fast quadratisches (1312 x 1199). Laesst man
+   jedes Bild sein eigenes Feld fuellen, sind die sechs Symbole im Raster
+   verschieden gross — ein Hochformat waere halb so breit wie ein
+   Querformat daneben.
+
+   Deshalb bekommt jedes Bild ein QUADRATISCHES Feld (aspect-ratio 1, Seite
+   = Hoehe des Bildfeldes, gedeckelt auf 17 rem) und liegt mit
+   `object-fit: contain` darin. Kein `cover` — das wuerde beschneiden, und
+   die Symbole sind freigestellt, da faellt jeder Beschnitt auf.
+   Ergebnis: alle sechs wirken gleich gross, obwohl die Dateien es nicht
+   sind, und keines ist verzerrt oder angeschnitten.
+
+   ABSOLUT GESETZT, mit `inset: 0` und `margin: auto`, und das ist kein
+   Schoenheitsfehler: auf dem Weg ueber `height: 100 %` im Fluss blieb das
+   Bild in flachen Kaesten bei seiner vollen Groesse stehen und ragte unten
+   heraus (gemessen: Feld 104, Bild 272) — die Prozentangabe fand keine
+   feste Bezugshoehe, weil sie durch zwei Zwischenkaesten hindurch musste.
+   Gegen den festen Kasten von <picture> (inset: 0) gibt es diesen Ring
+   nicht. */
+.stl-aus__bild img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: min(100%, 17rem);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  /* Nur beim Ueberfahren. Der Eintritt liegt auf <picture>, siehe oben. */
+  transition: transform 0.5s var(--ease);
+}
+/* DIE GRAFIK BEWEGT SICH BEIM UEBERFAHREN — Kundenwunsch, woertlich:
+   „ruhig und kurz — sie soll aufmerken, nicht tanzen."
+   Sechs Bildpunkte hoch und 1,8 Grad Neigung, in einer halben Sekunde hin
+   und ebenso zurueck. Es ist ausdruecklich KEIN Zoom: der Massstab bleibt,
+   das Symbol kippt nur kurz an. Zoom beim Ueberfahren ist auf diesen
+   Seiten seit dem ersten Bau ausgeschlossen.
+   `focus-within` steht daneben, damit es auch dann kommt, wenn jemand mit
+   der Tastatur in den Kasten faehrt. */
+.stl-aus__kasten:hover .stl-aus__bild img,
+.stl-aus__kasten:focus-within .stl-aus__bild img {
+  transform: translateY(-6px) rotate(-1.8deg);
+}
+
+.stl-aus__text {
+  margin: clamp(12px, 1.05vw, 18px) 0 0;
+  font-size: var(--stl-t-klein);
+  line-height: 1.55;
+  color: var(--stl-tx-weich);
+  text-wrap: pretty;
 }
 
 /* ===========================================================================
@@ -784,15 +1002,32 @@
    Punktueberschrift 20 px / 600 und Punkttext 16 px, zwischen den Punkten
    duenne Trennlinien. Rechts zwei Bilder 597 x 355, direkt uebereinander
    OHNE Abstand.
+   DIE LISTE IST SEIT DEM 30.08.2026 EIN KARTENSTAPEL (Kundenwunsch). Die
+   Zweiteilung, die Spaltenbreiten und das Bildfeld rechts bleiben, wie sie
+   waren; an die Stelle von .stl-liste / .stl-punkt tritt .stl-stapel.
+   Rechnung und Begruendung stehen unten bei .stl-stapel.
    Vorlage: Abschnitt 8 (79 px leer) + Abschnitt 9 (30 oben) = 109 oben,
    80 unten.
    =========================================================================== */
 /* Oben 104, unten 91 — als einziger Abschnitt WENIGER als der Regelwert
-   von 130. „Das erwartet dich" ist der laengste helle Abschnitt der
-   Seite und muss unter einer Bildschirmhoehe bleiben, sonst laeuft dort
-   wieder mehr als 1200 px am Stueck hell durch. Die Vorlage steht hier
-   bei 109 oben / 80 unten — auch mit 104/91 ist der Abschnitt noch
-   weiter als dort. */
+   von 130. Die Vorlage steht hier bei 109 oben / 80 unten; auch mit
+   104/91 ist der Abschnitt noch weiter als dort.
+
+   DIE BEGRUENDUNG DAFUER HAT SICH AM 30.08.2026 GEDREHT. Bis dahin stand
+   hier: der Abschnitt sei der laengste helle der Seite und muesse unter
+   einer Bildschirmhoehe bleiben. Mit dem Kartenstapel ist er 1708 px hoch
+   und damit deutlich darueber — aber er ist auch kein heller Abschnitt
+   mehr: ueber die ganze Strecke steht links ein Stapel anthrazitfarbener
+   Karten. Nachgemessen an echten Fensterausschnitten, mit sichtbarem
+   Stapel:
+
+                       vorher            nachher
+       dunkel          47,9 %            54,0 %
+       hell            52,1 %            46,0 %
+
+   Die Seite ist also nicht heller geworden, sondern dunkler. Die enge
+   Luft bleibt trotzdem: der Abschnitt ist ohnehin der laengste der Seite,
+   und 130 px oben und unten wuerden ihn ohne Gewinn weiter strecken. */
 .stl-erwartet { padding: var(--stl-luft-104) 0 var(--stl-luft-91); }
 .stl-zwei--erwartet {
   grid-template-columns: 1fr 1fr;
@@ -800,67 +1035,202 @@
   align-items: start;
 }
 
-.stl-liste { margin-top: clamp(24px, 1.8vw, 34px); }
-.stl-punkt {
-  display: grid;
-  grid-template-columns: 39px 1fr;
-  column-gap: 31px;             /* Vorlage: Symbol x 335, Text x 405 */
-  align-items: start;
-  padding: clamp(12px, 0.83vw, 16px) 0;   /* Vorlage 20 px, siehe Farbblock */
-  border-bottom: 1px solid var(--stl-linie);
+/* ---------------------------------------------------------------------------
+   DER KARTENSTAPEL — 30.08.2026, KUNDENWUNSCH
+
+   „Karten, die sich beim Scrollen stapeln und die vorige zu etwa 90 %
+   ueberdecken" — dieselbe Geste wie im Abschnitt „Unser Ablauf" auf der
+   Startseite. Die dortige Mechanik (assets/css/ablauf.css, .abl__stapel)
+   ist die Vorlage; sie wurde gelesen und nachgebaut, nicht veraendert.
+
+   ZWEI UNTERSCHIEDE ZUR STARTSEITE
+   1. Der Stapel steht nur in der LINKEN Spalte. Rechts bleibt das Bildfeld,
+      das dort schon stand; es klebt mit (.stl-bilder), damit es waehrend
+      des Stapelns im Bild bleibt statt wegzulaufen.
+   2. Die Karten tragen die fuenf Schritte aus „So laeuft die Partnerschaft
+      ab" (Wording-Master), woertlich.
+
+   DIE RECHNUNG, AUSGESCHRIEBEN
+   Jede Karte liegt in einem eigenen `position: sticky`-Kasten (.stl-halt).
+   Die Klebehoehen sind gestaffelt:
+
+       Karte 1   top = K
+       Karte 2   top = K + V          K = --stl-klebe  (Kopfleiste + Luft)
+       …                              V = --stl-versatz
+       Karte 5   top = K + 4V
+
+   Beim Rollen bleibt Karte 1 bei K stehen. Karte 2 laeuft weiter, bis sie
+   ihr K+V erreicht; ihre Oberkante liegt dann genau V unter der von Karte 1
+   und verdeckt Karte 1 bis auf diesen Streifen. Sichtbar bleibt also V / H
+   der vorigen Karte, verdeckt sind (H − V) / H. Mit V = H / 10 sind das
+   10 % sichtbar und 90 % verdeckt — genau das, was der Kunde verlangt hat.
+   Deshalb haben alle fuenf Karten DIESELBE feste Hoehe H (--stl-karte-h);
+   mit unterschiedlichen Hoehen waere die Quote bei jeder Karte eine andere.
+
+   Warum spaetere Karten die frueheren verdecken und nicht umgekehrt:
+   `position: sticky` macht die Kaesten zu positionierten Elementen, und die
+   zeichnet der Browser in Dokumentreihenfolge uebereinander. Karte 5 liegt
+   damit von sich aus oben. Kein z-index noetig.
+
+   KEIN `overflow` an .stl-stapel oder einem seiner Vorfahren — `sticky`
+   hoert sonst auf zu wirken. Geprueft sind: .stl-erwartet, .stl-inner,
+   .stl-zwei--erwartet, .stl-erwartet__links. Keiner setzt overflow.
+
+   MIT JAVASCRIPT WIRD GESTAPELT, OHNE NICHT
+   Alle Klebe-Regeln haengen an [data-stl-js]. Faellt das Skript aus, bleiben
+   die Kaesten `static`, die Karten behalten ihre Mindesthoehe und stehen
+   lesbar untereinander. Bei `prefers-reduced-motion: reduce` ebenso — dort
+   steigt stelle.js aus, bevor das Merkmal gesetzt wird, und der Block
+   „Ruhige Darstellung" nimmt es zusaetzlich zurueck.
+
+   AUF DER BACK-OFFICE-SEITE STEHT .stl-stapel--ruhig: dieselben Karten,
+   aber OHNE Kleben und OHNE Ziffer. Deren vier Punkte sind keine
+   Reihenfolge — der vierte ist „Persoenliche Begleitung" und beschreibt
+   keinen Schritt. Ein Stapel und eine Nummerierung wuerden dort einen
+   Ablauf behaupten, den der Wording-Master fuer diese Stelle nicht hergibt.
+   Diese Entscheidung stammt aus einem frueheren Durchgang und bleibt.
+   --------------------------------------------------------------------------- */
+.stl-erwartet {
+  /* Die Hoehe ist am laengsten Schritt gemessen (04, zwei Zeilen Fliesstext
+     bei halber Containerbreite). --stl-versatz ist genau ein Zehntel davon,
+     daran haengt die 90-Prozent-Quote. */
+  --stl-karte-h:    clamp(11.2rem, 12.4vw, 14.4rem);
+  --stl-versatz:    calc(var(--stl-karte-h) / 10);
+  --stl-karte-luft: clamp(0.7rem, 1.05vw, 1.05rem);
+  /* Klebehoehe: Kopfleiste plus Luft. Dieselbe Rechnung wie --abl-klebe in
+     ablauf.css. Die Kopfleiste wird ab 24 px Rollweg `position: fixed`
+     (base.css, .site-header--sticky) — ohne diesen Vorhalt schoebe sie sich
+     ueber die oberste Karte. */
+  --stl-klebe:      calc(var(--header-h) + clamp(1rem, 3vh, 2.4rem));
 }
-.stl-punkt:first-child { padding-top: 0; }
-.stl-punkt__zeichen {
+
+.stl-stapel {
+  display: block;
+  margin: clamp(24px, 1.8vw, 34px) 0 0;
+  /* Polster am Fuss: die letzte Karte bleibt dadurch noch eine Weile
+     stehen, bevor der Stapel den Abschnitt verlaesst. */
+  padding: 0 0 clamp(0.8rem, 7vh, 5rem);
+  list-style: none;
+}
+.stl-halt { display: block; }
+.stl-halt + .stl-halt { margin-top: var(--stl-karte-luft); }
+
+/* Die Karte. Der Verlauf ist der des FAQ-Kastens, waagerecht — dieselben
+   zwei Werte, mit denen die Ablaufkarten der Startseite arbeiten
+   (--abl-karte-links/-rechts in ablauf.css).
+   DECKEND: eine durchscheinende Karte liesse die darunter liegende
+   durchschimmern, der Stapel saehe nach Fehler aus.
+   Die helle Haarlinie bleibt: bei 90 Prozent Ueberdeckung sind von jeder
+   Karte nur rund zehn Prozent zu sehen, und zwei gleich gefaerbte Streifen
+   uebereinander waeren ohne Kante nicht auseinanderzuhalten. */
+.stl-karte {
+  --stl-karte-links:  #1E222D;
+  --stl-karte-rechts: #2E3643;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(16px, 1.35vw, 24px);
+  align-content: start;
+  align-items: start;
+  min-height: var(--stl-karte-h);
+  padding: clamp(1.05rem, 1.55vw, 1.6rem) clamp(1.2rem, 1.75vw, 1.8rem);
+  border: 1px solid rgba(237, 241, 248, 0.16);
+  border-radius: 14px;
+  overflow: clip;   /* der Radius muss auch den Inhalt beschneiden;
+                       `clip` statt `hidden`, es richtet keinen Rollbereich
+                       ein. UNBEDENKLICH: der klebende Kasten ist .stl-halt
+                       und liegt UEBER dieser Karte, nicht darunter. */
+  background: linear-gradient(90deg,
+      var(--stl-karte-links) 0%, var(--stl-karte-rechts) 100%);
+  box-shadow:
+      0 1px 2px rgba(16, 41, 73, 0.10),
+      0 16px 34px rgba(16, 41, 73, 0.18);
+}
+
+/* Das Symbol in seinem eigenen Feld. Strichzeichnung wie ueberall im
+   Projekt; es zeichnet sich beim Eintritt (siehe Bewegungsblock). */
+.stl-karte__zeichen {
   display: grid;
   place-items: center;
-  width: 39px;
-  height: 39px;
-  color: var(--stl-tx);         /* Vorlage: Symbole in der Leitfarbe */
+  width: clamp(46px, 3.4vw, 58px);
+  height: clamp(46px, 3.4vw, 58px);
+  flex: none;
+  border: 1px solid rgba(237, 241, 248, 0.18);
+  border-radius: 12px;
+  color: #C9B08A;                 /* 5,83:1 an der hellsten Kartenstelle */
 }
-.stl-punkt__zeichen svg { width: 39px; height: 39px; }
-
-/* Die Schrittziffer. Der Abschnitt beschreibt eine Reihenfolge — vom
-   Kennenlernen bis zum eigenstaendigen Aufbau —, und die Ziffer sagt das,
-   ohne ein Wort dazuzudichten. Sie traegt denselben Akzent wie die
-   Kleinzeilen: Sand auf Navy, --gold-text auf hell.
-
-   Sie steht UNTER dem Symbol in derselben 39-px-Spalte, nicht ueber der
-   Punktueberschrift. Dort kostet sie keine Zeile: die Textspalte ist mit
-   Ueberschrift und zwei Zeilen Fliesstext ohnehin hoeher als Symbol plus
-   Ziffer. Ueber der Ueberschrift haette dieselbe Ziffer den Abschnitt um
-   110 px verlaengert und die helle Strecke bis zum Abschluss ueber die
-   Bildschirmhoehe getrieben.
-
-   AUF DER BACK-OFFICE-SEITE STEHT SIE NICHT. Deren vier Punkte sind
-   keine Reihenfolge — der vierte ist „Persoenliche Begleitung" und
-   beschreibt keinen Schritt. Eine Nummerierung wuerde dort einen Ablauf
-   behaupten, den der Wording-Master fuer diese Stelle nicht hergibt. */
-.stl-punkt__marke {
-  display: grid;
-  justify-items: center;
-  row-gap: 6px;
+.stl-karte__zeichen svg {
+  width: clamp(24px, 1.8vw, 30px);
+  height: clamp(24px, 1.8vw, 30px);
 }
-.stl-punkt__num {
+
+.stl-karte__wort { min-width: 0; }
+
+.stl-karte__nr {
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
   font-family: var(--font-ui);
   font-weight: 500;
   font-size: clamp(0.72rem, 0.74vw, 0.82rem);
   line-height: 1;
-  letter-spacing: 0.12em;
-  color: var(--stl-ziffer);
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+  color: #C9B08A;                 /* 5,83:1 an der hellsten Kartenstelle */
+  margin: 0 0 clamp(0.5rem, 0.7vw, 0.75rem);
 }
-.stl-punkt__titel {
+/* Der Haarstrich hinter der Ziffer — wie in der Kleinzeile. */
+.stl-karte__nr::after {
+  content: '';
+  width: clamp(20px, 1.7vw, 32px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+/* Auf der Back-Office-Seite gibt es die Ziffer nicht, siehe Kopf dieses
+   Blocks. Sie steht dort auch nicht im Markup — diese Regel ist nur der
+   Riegel, falls sie jemand versehentlich wieder einsetzt. */
+.stl-stapel--ruhig .stl-karte__nr { display: none; }
+
+/* Auch die Mindesthoehe ist dort eine andere. Die feste Kartenhoehe ist
+   allein die Voraussetzung der 90-Prozent-Rechnung des Stapels; wo nichts
+   stapelt, waere sie nur Leerraum (gemessen: 230 px Karte fuer 159 px
+   Inhalt). Die vier Karten der Back-Office-Seite stehen deshalb auf ihrem
+   eigenen Mass. */
+.stl-stapel--ruhig .stl-karte { min-height: clamp(8.6rem, 8.8vw, 10.6rem); }
+
+.stl-karte__titel {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--stl-t-titel);
-  line-height: 1.25;
-  color: var(--stl-tx);
-  margin: 0 0 0.25rem;
+  font-weight: 300;
+  font-size: clamp(1.35rem, 1.62vw, 1.95rem);
+  line-height: 1.1;
+  letter-spacing: -0.006em;
+  color: #FFFFFF;                 /* 12,17:1 an der hellsten Kartenstelle */
+  margin: 0;
+  text-wrap: balance;
 }
-.stl-punkt__text p {
+.stl-karte__text {
+  margin: clamp(0.5rem, 0.75vw, 0.8rem) 0 0;
   font-size: var(--stl-t-text);
-  line-height: 1.6;
-  color: var(--stl-tx-weich); /* 6,54:1 auf Weiss */
+  line-height: 1.55;
+  color: #C7CEDA;                 /* 7,69:1 an der hellsten Kartenstelle */
+  text-wrap: pretty;
 }
+
+/* --- DAS KLEBEN. Nur mit Javascript, nur bei --folge. --------------------
+   Erst hier die FESTE Hoehe: sie ist die Voraussetzung dafuer, dass
+   --stl-versatz wirklich ein Zehntel der Kartenhoehe ist. Im Fluss (ohne
+   Skript, bei ruhiger Darstellung, auf der Back-Office-Seite) gilt nur die
+   Mindesthoehe, und die Karte darf mitwachsen.
+   Die Klebehoehen stehen als nth-child und nicht als Inline-Wert, damit im
+   Markup keine Rechengroesse steht. */
+[data-stl-js] .stl-stapel--folge .stl-halt { position: sticky; }
+[data-stl-js] .stl-stapel--folge .stl-karte { height: var(--stl-karte-h); }
+
+[data-stl-js] .stl-stapel--folge > li:nth-child(1) { top: var(--stl-klebe); }
+[data-stl-js] .stl-stapel--folge > li:nth-child(2) { top: calc(var(--stl-klebe) + 1 * var(--stl-versatz)); }
+[data-stl-js] .stl-stapel--folge > li:nth-child(3) { top: calc(var(--stl-klebe) + 2 * var(--stl-versatz)); }
+[data-stl-js] .stl-stapel--folge > li:nth-child(4) { top: calc(var(--stl-klebe) + 3 * var(--stl-versatz)); }
+[data-stl-js] .stl-stapel--folge > li:nth-child(5) { top: calc(var(--stl-klebe) + 4 * var(--stl-versatz)); }
 
 .stl-erwartet__schluss {
   margin-top: clamp(20px, 1.6vw, 30px);
@@ -877,6 +1247,20 @@
    Hoehe beider zusammen: 597 x 710. Das Raster bleibt, damit ein zweites
    Bild ohne Umbau wieder daruntergesetzt werden koennte. */
 .stl-bilder { display: grid; gap: 0; line-height: 0; }
+
+/* DAS BILDFELD KLEBT MIT — seit dem 30.08.2026, zusammen mit dem
+   Kartenstapel links. Die linke Spalte ist jetzt ein Vielfaches hoeher als
+   die rechte; ohne Kleben liefe das Bild schon nach der zweiten Karte aus
+   dem Bild und die rechte Seite waere den Rest des Abschnitts leer.
+   Es haengt am selben Merkmal wie der Stapel: ohne Javascript und bei
+   ruhiger Darstellung steht es still an seinem Platz.
+   Der klebende Bereich ist die Rasterzelle; sie reicht ueber die volle
+   Zeilenhoehe, also ueber die ganze Laenge des Stapels. */
+[data-stl-js] .stl-bilder {
+  position: sticky;
+  top: var(--stl-klebe);
+  align-self: start;
+}
 /* height: auto ist Pflicht, nicht Kosmetik. Die Bilder tragen width- und
    height-Attribute (gegen Layoutsprünge beim Nachladen). Diese Attribute
    sind Darstellungshinweise und setzen eine echte CSS-Hoehe — solange die
@@ -1003,6 +1387,26 @@
 @media (max-width: 1399px) { .stl-inner { width: min(1150px, 100% - 48px); } }
 @media (max-width: 1199px) { .stl-inner { width: min(970px,  100% - 48px); } }
 
+/* --- Das versetzte Raster, zweite Fassung: ZWEI Buendel statt drei --------
+   Unter 1200 px steht der Container auf 970 bzw. 750 px. Drei Buendel waeren
+   dort 3/12 = rund 200 px schmal — zu wenig fuer Ueberschrift, Grafik und
+   Text. Also zwei Buendel, 7 | 5, und wieder mit versetzter Trennstelle:
+
+       Spalte 1–7   (7/12)   5 | 4 | 5 Zeilen
+       Spalte 8–12  (5/12)   4 | 5 | 5 Zeilen
+
+   Beide Buendel sind 14 Zeilen hoch, die Flaeche bleibt also luecken-
+   los. Vier verschiedene Groessen statt sechs; der Versatz bleibt. */
+@media (max-width: 1199px) {
+  .stl-aus { --aus-einheit: clamp(52px, 5.2vw, 64px); }
+  .stl-aus__kasten:nth-child(1) { grid-column: 1 / span 7; grid-row:  1 / span 5; }
+  .stl-aus__kasten:nth-child(2) { grid-column: 8 / span 5; grid-row:  1 / span 4; }
+  .stl-aus__kasten:nth-child(3) { grid-column: 8 / span 5; grid-row:  5 / span 5; }
+  .stl-aus__kasten:nth-child(4) { grid-column: 1 / span 7; grid-row:  6 / span 4; }
+  .stl-aus__kasten:nth-child(5) { grid-column: 1 / span 7; grid-row: 10 / span 5; }
+  .stl-aus__kasten:nth-child(6) { grid-column: 8 / span 5; grid-row: 10 / span 5; }
+}
+
 @media (max-width: 991px) {
   .stl-inner { width: min(750px, 100% - 48px); }
 
@@ -1012,35 +1416,66 @@
     grid-template-columns: 1fr;
     row-gap: clamp(36px, 6vw, 56px);
   }
-  .stl-raster { grid-template-columns: repeat(2, 1fr); }
+
+  /* Einspaltig steht das Bildfeld UNTER dem Stapel. Kleben hat dort keine
+     Aufgabe mehr und wuerde nur den Fluss stoeren. */
+  [data-stl-js] .stl-bilder { position: static; }
 
   /* Das Bild rechts steht unter dem Text und wird flacher, damit es
      einspaltig nicht den halben Bildschirm fuellt. Dasselbe gilt fuer das
      leere Bildfenster im Abschnitt „Was wir bieten". */
   .stl-bilder img { aspect-ratio: 16 / 9; }
   .stl-platz      { aspect-ratio: 3 / 2; }
+
+  /* Der Stapel laeuft jetzt ueber die volle Containerbreite; die Karte darf
+     dabei flacher werden, weil der Text frueher umbricht. */
+  .stl-erwartet { --stl-karte-h: clamp(10.6rem, 20vw, 13.6rem); }
+}
+
+/* --- Unter 700 px: EINE Spalte -------------------------------------------
+   Ausdrueckliche Vorgabe. Die Rasterzuweisungen werden vollstaendig
+   aufgehoben; die Kaesten stehen der Reihe nach untereinander.
+   Die Grafik nimmt hier keine Resthoehe mehr (es gibt keine feste
+   Kastenhoehe, aus der etwas uebrig bliebe), sondern ein eigenes Mass. */
+@media (max-width: 699px) {
+  .stl-aus {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+    gap: clamp(14px, 3.4vw, 20px);
+    margin-top: clamp(26px, 5vw, 34px);
+  }
+  .stl-aus__kasten:nth-child(n) { grid-column: 1 / -1; grid-row: auto; }
+  .stl-aus__kasten { padding: clamp(18px, 4.6vw, 24px) clamp(18px, 4.6vw, 24px); }
+  .stl-aus__bild   { flex: none; height: clamp(140px, 38vw, 200px); }
 }
 
 @media (max-width: 620px) {
   .stl-inner       { width: min(100% - 40px, 640px); }
   .stl-hero__inner { width: min(100% - 40px, 640px); }
-  /* Einspaltig stehen die sechs Kacheln untereinander, und „Das macht
-     dich aus" wird damit das laengste helle Stueck der ganzen Seite.
-     Mit den Werten der breiten Darstellung waren es gemessen 1233 px,
-     also mehr als eine Bildschirmhoehe am Stueck. Enger gesetzt —
-     Abstand 34 -> 16, Innenrand 20 -> 16, Symbolabstand 1,1 -> 0,65 rem,
-     Vorlauf des Rasters 36 -> 28 — sind es 1157 px. */
-  .stl-raster      { grid-template-columns: 1fr; row-gap: 16px; margin-top: 28px; }
-  .stl-kachel      { padding: 16px 20px; }
-  .stl-kachel__zeichen { margin-bottom: 0.65rem; }
   /* Aufgeraeumt am 30.08.2026: hier standen noch drei Regeln aus dem
      Zustand vor dem Kundenwunsch — grid-template-columns auf einem
      Flex-Element (wirkungslos) und zweimal .stl-haken__kreis, den es seit
      dem Tausch Haken -> Haus nicht mehr gibt. */
   .stl-haken__zeichen     { width: 34px; height: 34px; }
   .stl-haken__zeichen svg { width: 26px; height: 26px; }
-  .stl-punkt       { grid-template-columns: 32px 1fr; column-gap: 18px; }
-  .stl-punkt__zeichen, .stl-punkt__zeichen svg { width: 32px; height: 32px; }
+  /* HIER LAEUFT DIE HOEHE GEGEN DIE BREITE — der Vorfaktor ist NEGATIV,
+     und das ist Absicht: je schmaler das Fenster, desto mehr Zeilen braucht
+     derselbe Satz. Gemessen am laengsten Schritt (04, „Bei den ersten
+     Faellen …"):
+
+         Fensterbreite   noetig   gesetzt
+            620 px        154      204
+            390 px        190      234
+            320 px       ~223      243
+
+     Rund 30 px Luft bleiben ueberall — genug, dass nichts herausreisst,
+     wenig genug, dass die Karte nicht leer wirkt. Die Deckel oben und
+     unten (12 und 17 rem) fangen die Extreme ab. */
+  .stl-erwartet {
+    --stl-karte-h: clamp(12rem, calc(285px - 13vw), 17rem);
+    --stl-karte-luft: 0.65rem;
+  }
+  .stl-karte { column-gap: 14px; padding: 1rem 1.05rem; }
   .stl-schluss__aktionen { gap: 1.1rem; }
   .stl-schluss__aktionen .btn { width: 100%; justify-content: center; }
 }
@@ -1078,9 +1513,12 @@
 
    2  DIE HÄUSER UND SYMBOLE ZEICHNEN SICH
       Die Symbole der Seite sind reine Strichzeichnungen — sechs Häuser in
-      „Was wir bieten", sechs Zeichen in „Das macht dich aus", vier bis fünf
-      in „Das erwartet dich". Eine Strichzeichnung, die sich zeichnet, ist
-      keine Zutat, sondern das, was das Bild ohnehin behauptet.
+      „Was wir bieten", vier bis fünf Zeichen auf den Karten in „Das erwartet
+      dich". Eine Strichzeichnung, die sich zeichnet, ist keine Zutat,
+      sondern das, was das Bild ohnehin behauptet.
+      IN „DAS MACHT DICH AUS" GIBT ES SIE SEIT DEM 30.08.2026 NICHT MEHR:
+      dort stehen jetzt sechs erzeugte Grafiken, und die tragen ihre eigene
+      Geste (siehe 6).
       Gebaut über stroke-dasharray/stroke-dashoffset mit der ECHTEN
       Pfadlänge: stelle.js liest sie mit getTotalLength() vom Pfad selbst ab
       und schreibt sie als --len. Geraten wird nichts — dasselbe Verfahren,
@@ -1095,16 +1533,19 @@
       Schritte bauen sich dadurch nacheinander auf, statt gemeinsam da zu
       stehen.
       AUF DER BACK-OFFICE-SEITE GIBT ES DIESE ZIFFERN NICHT (deren vier
-      Punkte sind keine Reihenfolge, siehe .stl-punkt__num weiter oben). Die
+      Punkte sind keine Reihenfolge, siehe .stl-karte__nr weiter oben). Die
       Regeln unten laufen dort ins Leere; die übrigen Gesten des Abschnitts
       greifen unverändert.
 
-   4  DIE KACHELN STEHEN AUS IHRER EIGENEN GRUNDLINIE AUF
-      clip-path inset(100 % 0 0 0) → 0: die Kachel wächst von ihrer
-      Unterkante nach oben, während Symbol und Überschrift darin aus 26 px
-      nachrücken. Die Kante steht dabei STILL — sie ist die Grundlinie, auf
-      der die Kachel steht, nicht eine Kante, die mitfährt. Genau dadurch
-      liest es sich als Aufstehen und nicht als Einschieben.
+   4  DIE KÄSTEN STEHEN AUS IHRER EIGENEN GRUNDLINIE AUF
+      clip-path inset(100 % 0 0 0) → 0: der Kasten wächst von seiner
+      Unterkante nach oben, während Überschrift, Haarstrich und Satz darin
+      aus 26 px nachrücken. Die Kante steht dabei STILL — sie ist die
+      Grundlinie, auf der der Kasten steht, nicht eine Kante, die mitfährt.
+      Genau dadurch liest es sich als Aufstehen und nicht als Einschieben.
+      Weil die sechs Kästen seit dem 30.08.2026 verschieden groß sind,
+      stehen sie auch verschieden weit auf — die Geste bekommt dadurch von
+      selbst einen Rhythmus, den sie im gleichmäßigen Raster nicht hatte.
 
    5  DIE LAUFBÄNDER LAUFEN AN, STATT ZU RENNEN
       Bis heute liefen beide Bänder vom ersten Bildpunkt an mit vollen
@@ -1134,6 +1575,31 @@
       Spur.
       Warum dafür die PHASE der Endlosbewegung verschoben wurde, steht oben
       bei @keyframes stl-lauf.
+
+   6  DIE GRAFIK IM KASTEN BEWEGT SICH ZWEIMAL — NEU AM 30.08.2026
+      Ausdrücklicher Kundenwunsch: „Die Grafik bewegt sich, wenn man mit der
+      Maus darüberfährt UND wenn sie zum ersten Mal ins Bild kommt. Ruhig und
+      kurz — sie soll aufmerken, nicht tanzen."
+
+        beim Eintritt   opacity 0 → 1, translateY 18 px → 0,
+                        scale 0,94 → 1, über 0,85 s (@keyframes stl-grafik)
+        beim Überfahren translateY 0 → −6 px und rotate 0 → −1,8°,
+                        über 0,5 s, und ebenso zurück
+
+      Das Neigen ist Absicht und der Grund, warum es kein Zoom ist: der
+      Maßstab bleibt, das Bild kippt nur kurz an. Ein Zoom beim Überfahren
+      ist auf diesen Seiten seit jeher ausgeschlossen.
+
+      DIE ZWEI BEWEGUNGEN LIEGEN AUF ZWEI ELEMENTEN, und das ist keine
+      Geschmacksfrage: der Eintritt läuft mit `both` und hält damit seinen
+      Endwert für `transform` dauerhaft fest. Läge das Überfahren auf
+      demselben Element, käme es nie zum Zug. Also trägt <picture> den
+      Eintritt und <img> das Überfahren. Derselbe Grund steht beim Haarstrich
+      (.stl-aus__strich und dessen ::before).
+
+      DER KARTENSTAPEL in „Das erwartet dich" ist KEINE Animation und steht
+      deshalb nicht in dieser Liste — er ist reines `position: sticky`, der
+      Leser rollt selbst. Die Rechnung dazu steht oben bei .stl-stapel.
 
    DIE GRENZEN, DIE NICHT VERHANDELBAR SIND — und wo sie hier stehen:
 
@@ -1221,6 +1687,13 @@
   from { opacity: 0; transform: translateY(26px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* Die Grafik im Kasten, wenn sie zum ersten Mal ins Bild kommt: sie setzt
+   sich, statt einzublenden. 6 Prozent Groesse und 18 px Weg — genug, dass
+   man es merkt, zu wenig, dass es auffaellt. */
+@keyframes stl-grafik {
+  from { opacity: 0; transform: translateY(18px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
 /* Der Anlauf der Bänder. Herleitung siehe Geste 5. */
 @keyframes stl-anlauf {
   from { transform: translate3d(-48px, 0, 0); }
@@ -1275,11 +1748,17 @@
 
    Der Unterstrich ist abgenommene Gestaltung, die Zeilengeste ist eine
    Zutat. Also weicht die Zutat: diese eine Ueberschrift kommt als Ganzes
-   auf (stl-steigt), alle uebrigen vier tragen die Zeilengeste. 
-/* Die Ziffer bekommt dieselbe Kante. .stl-zi ist die Hülle, die stelle.js
-   um den Ziffernsatz legt. */
-[data-stl-js] .stl-punkt__num { clip-path: inset(-100% -0.4em -0.14em -0.4em); }
-[data-stl-js] .stl-punkt__num .stl-zi { display: inline-block; transform: translateY(200%); }
+   auf (stl-steigt), alle uebrigen vier tragen die Zeilengeste.
+
+   NEBENBEI REPARIERT AM 30.08.2026: dieser Kommentar war nie geschlossen.
+   Das fehlende Kommentarende hat den naechsten Block mitverschluckt — die
+   CSS lief trotzdem, weil dessen Ende den offenen Block beendete, aber
+   eine Erklaerung war damit unsichtbar. */
+
+/* Die Kartenziffer bekommt dieselbe Kante. .stl-zi ist die Hülle, die
+   stelle.js um den Ziffernsatz legt. */
+[data-stl-js] .stl-karte__nr { clip-path: inset(-100% -0.4em -0.14em -0.4em); }
+[data-stl-js] .stl-karte__nr .stl-zi { display: inline-block; transform: translateY(200%); }
 
 /* Strichzeichnungen: --len setzt stelle.js aus der echten Pfadlänge. */
 [data-stl-js] .stl-zeichnet path {
@@ -1291,11 +1770,20 @@
 [data-stl-js] .stl-trenn { transform: scaleX(0); }
 [data-stl-js] .stl-trenn::before { transform: translateX(-50%) scaleX(0); }
 
-/* Kacheln, Punkte, Hakenzeilen. */
-[data-stl-js] .stl-kachel { clip-path: inset(100% 0 0 0); }
-[data-stl-js] .stl-kachel > * { opacity: 0; transform: translateY(26px); }
+/* Kaesten, Karten, Hakenzeilen.
+   Die GRAFIK ist ausgenommen und traegt ihren eigenen Anfangszustand auf
+   <picture> — sonst laege ihre Bewegung zweimal uebereinander (einmal ueber
+   das <figure>, einmal ueber das Bild selbst) und der Weg waere doppelt so
+   weit wie gedacht. */
+[data-stl-js] .stl-aus__kasten { clip-path: inset(100% 0 0 0); }
+[data-stl-js] .stl-aus__kasten > *:not(.stl-aus__bild) { opacity: 0; transform: translateY(26px); }
+[data-stl-js] .stl-aus__bild picture { opacity: 0; transform: translateY(18px) scale(0.94); }
 [data-stl-js] .stl-haken__text { opacity: 0; transform: translateY(14px); }
-[data-stl-js] .stl-punkt__text { opacity: 0; transform: translateY(18px); }
+/* Titel und Satz der Karte steigen, die Ziffer faehrt aus ihrer Kante —
+   drei getrennte Elemente, damit sich keine zwei Bewegungen auf einem
+   Element ueberschreiben. */
+[data-stl-js] .stl-karte__titel,
+[data-stl-js] .stl-karte__text { opacity: 0; transform: translateY(18px); }
 
 /* Das leere Bildfenster zieht seinen Rahmen auf.
 
@@ -1394,35 +1882,49 @@
   animation: stl-blende 0.9s var(--stl-e-weich) both;
 }
 
-/* 4 — die Kacheln in „Das macht dich aus". */
-[data-stl-js] .stl-raster.ist-da .stl-kachel {
+/* 4 — die sechs Kaesten in „Das macht dich aus".
+   Der Kasten waechst aus seiner Grundlinie, Ueberschrift, Haarstrich und
+   Satz ruecken darin nach, und die GRAFIK kommt zuletzt — sie ist das
+   Einzige, was in diesem Kasten eine eigene Bewegung verdient. */
+[data-stl-js] .stl-aus.ist-da .stl-aus__kasten {
   animation: stl-waechst 0.9s var(--stl-e-raus) both;
   animation-delay: calc(var(--i, 0) * 0.09s);
 }
-[data-stl-js] .stl-raster.ist-da .stl-kachel > * {
+[data-stl-js] .stl-aus.ist-da .stl-aus__kasten > *:not(.stl-aus__bild) {
   animation: stl-hebt 0.9s var(--stl-e-raus) both;
   animation-delay: calc(var(--i, 0) * 0.09s + 0.08s);
 }
-[data-stl-js] .stl-raster.ist-da .stl-zeichnet path {
-  animation: stl-zieht 0.9s var(--stl-e-weich) both;
-  animation-delay: calc(var(--i, 0) * 0.09s + 0.25s + var(--dz, 0) * 0.12s);
+/* DIE GRAFIK, WENN SIE ZUM ERSTEN MAL INS BILD KOMMT.
+   Ruhig und kurz: 0,85 s, 18 px Weg und 6 Prozent Groesse. Sie sitzt auf
+   <picture>, damit das Bild darin frei bleibt fuer das Ueberfahren — zwei
+   Bewegungen auf einem Element wuerden sich gegenseitig ausloeschen. */
+[data-stl-js] .stl-aus.ist-da .stl-aus__bild picture {
+  animation: stl-grafik 0.85s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.09s + 0.22s);
 }
 
 /* 2 und 3 — die Schrittfolge in „Das erwartet dich". Erst zeichnet sich das
-   Symbol, dann läuft die Ziffer aus ihrer Zeile heraus, dann kommt der Text.
-   Der Schritt baut sich damit in derselben Reihenfolge auf, in der er
-   gelesen wird. */
-[data-stl-js] .stl-liste.ist-da .stl-zeichnet path {
+   Symbol, dann läuft die Ziffer aus ihrer Zeile heraus, dann kommen Titel
+   und Satz. Der Schritt baut sich damit in derselben Reihenfolge auf, in
+   der er gelesen wird.
+   Der Versatz laeuft gegen den Eintritt der GRUPPE (.stl-stapel), nicht
+   gegen den jeder Karte: gestapelt liegen die Karten ohnehin uebereinander,
+   ein Versatz je Karte waere dort nicht zu sehen. */
+[data-stl-js] .stl-stapel.ist-da .stl-zeichnet path {
   animation: stl-zieht 0.9s var(--stl-e-weich) both;
   animation-delay: calc(var(--i, 0) * 0.12s + var(--dz, 0) * 0.12s);
 }
-[data-stl-js] .stl-liste.ist-da .stl-punkt__num .stl-zi {
+[data-stl-js] .stl-stapel.ist-da .stl-karte__nr .stl-zi {
   animation: stl-zeile 0.9s var(--stl-e-raus) both;
   animation-delay: calc(var(--i, 0) * 0.12s + 0.45s);
 }
-[data-stl-js] .stl-liste.ist-da .stl-punkt__text {
+[data-stl-js] .stl-stapel.ist-da .stl-karte__titel {
   animation: stl-steigt 0.8s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.12s + 0.2s);
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.18s);
+}
+[data-stl-js] .stl-stapel.ist-da .stl-karte__text {
+  animation: stl-steigt 0.8s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.28s);
 }
 
 /* Die zwei Bildfelder entstehen. */
@@ -1470,15 +1972,28 @@
   .stl-hero__video { display: none; }
   .stl-zurueck, .stl-hero__btn { transition: none; }
 
+  /* DER KARTENSTAPEL GEHOERT DAZU. Er ist zwar keine Animation — es rollt
+     niemand von allein —, aber er VERDECKT Gelesenes, und genau das ist fuer
+     Menschen mit Bewegungsempfindlichkeit die Zumutung. Hier stehen deshalb
+     alle fuenf Karten untereinander, in voller Hoehe, nichts klebt und
+     nichts ueberdeckt etwas. Dasselbe Bild wie ohne Javascript.
+     Bedingung, nicht Kuer. Dieselbe Entscheidung wie in ablauf.css. */
+  [data-stl-js] .stl-stapel--folge .stl-halt { position: static; }
+  [data-stl-js] .stl-stapel--folge .stl-karte { height: auto; }
+  [data-stl-js] .stl-bilder { position: static; }
+  .stl-stapel { padding-bottom: 0; }
+
   /* --- Jeder Anfangszustand des Bewegungsabschnitts, zurueckgenommen ------ */
   [data-stl-js] [data-stl-auf],
   [data-stl-js] .stl-haken__text,
-  [data-stl-js] .stl-punkt__text,
-  [data-stl-js] .stl-kachel > * { opacity: 1; }
+  [data-stl-js] .stl-karte__titel,
+  [data-stl-js] .stl-karte__text,
+  [data-stl-js] .stl-aus__bild picture,
+  [data-stl-js] .stl-aus__kasten > * { opacity: 1; }
 
-  [data-stl-js] .stl-kachel,
+  [data-stl-js] .stl-aus__kasten,
   [data-stl-js] .stl-platz,
-  [data-stl-js] .stl-punkt__num,
+  [data-stl-js] .stl-karte__nr,
   [data-stl-js] .stl-bilder picture,
   [data-stl-js] .stl-schluss__medium picture { clip-path: none; }
 
@@ -1487,14 +2002,25 @@
   .stl-zg { clip-path: none; }
 
   [data-stl-js] .stl-geteilt .stl-zg__i,
-  [data-stl-js] .stl-punkt__num .stl-zi,
+  [data-stl-js] .stl-karte__nr .stl-zi,
   [data-stl-js] .stl-haken__text,
-  [data-stl-js] .stl-punkt__text,
-  [data-stl-js] .stl-kachel > *,
+  [data-stl-js] .stl-karte__titel,
+  [data-stl-js] .stl-karte__text,
+  [data-stl-js] .stl-aus__kasten > *,
+  [data-stl-js] .stl-aus__bild picture,
   [data-stl-js] .stl-trenn,
   [data-stl-js] .stl-band__satz,
   [data-stl-js] .stl-bilder img,
   [data-stl-js] .stl-schluss__medium img { transform: none; }
+
+  /* Auch das Ueberfahren steht still: weder die Grafik noch der Haarstrich
+     bewegen sich. */
+  .stl-aus__bild img,
+  .stl-aus__strich::before { transition: none; }
+  .stl-aus__kasten:hover .stl-aus__bild img,
+  .stl-aus__kasten:focus-within .stl-aus__bild img,
+  .stl-aus__kasten:hover .stl-aus__strich::before,
+  .stl-aus__kasten:focus-within .stl-aus__strich::before { transform: none; }
 
   /* Das Akzentstueck der Trennlinie behaelt seinen Ausgleich — der ist
      seine Lage, nicht seine Bewegung. */
@@ -1517,12 +2043,13 @@
   [data-stl-js] .stl-haken.ist-da li .stl-zeichnet path,
   [data-stl-js] .stl-haken.ist-da .stl-haken__text,
   [data-stl-js] .stl-zwei--bieten.ist-da .stl-platz,
-  [data-stl-js] .stl-raster.ist-da .stl-kachel,
-  [data-stl-js] .stl-raster.ist-da .stl-kachel > *,
-  [data-stl-js] .stl-raster.ist-da .stl-zeichnet path,
-  [data-stl-js] .stl-liste.ist-da .stl-zeichnet path,
-  [data-stl-js] .stl-liste.ist-da .stl-punkt__num .stl-zi,
-  [data-stl-js] .stl-liste.ist-da .stl-punkt__text,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__kasten,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__kasten > *,
+  [data-stl-js] .stl-aus.ist-da .stl-aus__bild picture,
+  [data-stl-js] .stl-stapel.ist-da .stl-zeichnet path,
+  [data-stl-js] .stl-stapel.ist-da .stl-karte__nr .stl-zi,
+  [data-stl-js] .stl-stapel.ist-da .stl-karte__titel,
+  [data-stl-js] .stl-stapel.ist-da .stl-karte__text,
   [data-stl-js] .stl-bilder.ist-da picture,
   [data-stl-js] .stl-bilder.ist-da img,
   [data-stl-js] .stl-schluss__medium.ist-da picture,

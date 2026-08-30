@@ -171,6 +171,10 @@
   var naechste = 0;       /* Index der naechsten zu startenden Stufe       */
   var startZeit = [0, 0, 0];
   var uhr = null;
+  /* Steht auf true, sobald die LETZTE Stufe angelaufen ist. Ab da setzt
+     nichts mehr zurueck — die Folge laeuft genau ein Mal, siehe der
+     ausfuehrliche Vermerk am Rahmenbeobachter weiter unten. */
+  var fertig = false;
 
   var pumpe = function () {
     if (uhr || naechste >= bis) return;
@@ -183,6 +187,7 @@
       startZeit[i] = Date.now();
       naechste = i + 1;
       netz.setAttribute('data-s' + (i + 1), 'true');
+      if (naechste >= STUFEN) fertig = true;
       pumpe();
     }, warte);
   };
@@ -216,13 +221,29 @@
   var marken = netz.querySelectorAll('.wnetz__marke');
   for (var m = 0; m < marken.length; m++) markenBeob.observe(marken[m]);
 
-  /* Verlaesst die Grafik das Fenster VOLLSTAENDIG, faengt die Folge beim
-     naechsten Hereinscrollen von vorn an — der gruene Puls ist dann wieder
-     zu sehen. Die Marken melden sich dabei von selbst neu, weil ihr
-     Sichtbarkeitszustand ebenfalls gewechselt hat. */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DIE FOLGE LAEUFT NUR NOCH EIN EINZIGES MAL — 31.08.2026
+
+     Bis heute galt: verlaesst die Grafik das Fenster VOLLSTAENDIG, faengt
+     die Folge beim naechsten Hereinscrollen von vorn an. Wer zweimal daran
+     vorbeirollte, sah die Drehung des Zielkastens zweimal — und wer beim
+     Lesen ein Stueck zurueckging und wieder vor, oefter.
+
+     Kundenwortlaut vom 31.08.2026: „Ihre Immobilie als Kapitalanlage"
+     dreht sich beim Hereinkommen mehrfach; es soll sich genau einmal,
+     langsam drehen und dann STEHEN. „Dann stehen" heisst: auch beim
+     zweiten Vorbeikommen steht es.
+
+     `fertig` merkt sich, dass die letzte Stufe angelaufen ist. Danach
+     setzt nichts mehr zurueck, und die Grafik bleibt in ihrem Endzustand.
+     Der Ruecksetzer selbst bleibt erhalten: er greift weiterhin, solange
+     die Folge noch nicht durch ist — wer waehrend des Einlaufs wieder
+     wegrollt, bekommt sie beim naechsten Mal von vorn und nicht in der
+     Mitte angefangen.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   var rahmenBeob = new IntersectionObserver(function (eintraege) {
     for (var i = 0; i < eintraege.length; i++) {
-      if (!eintraege[i].isIntersecting && bis > 0) zuruecksetzen();
+      if (!eintraege[i].isIntersecting && bis > 0 && !fertig) zuruecksetzen();
     }
   }, { threshold: 0 });
   rahmenBeob.observe(netz);

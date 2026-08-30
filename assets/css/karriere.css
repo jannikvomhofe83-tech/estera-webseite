@@ -1002,12 +1002,58 @@
   flex: 0 0 320px;
   width: 320px;
   margin-right: 24px;          /* NICHT gap — Begründung oben */
+  position: relative;
+  isolation: isolate;          /* hält das z-index:-1 des Zeichens im Kasten */
   display: flex;
   flex-direction: column;
   padding: 24px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--paper);
+}
+
+/* --- DAS ANFÜHRUNGSZEICHEN — KUNDENWUNSCH 30.08.2026 ----------------------
+   „Entdecke, was unsere Mitarbeiter sagen" war dem Kunden zu langweilig.
+   Der Aufbau bleibt unangetastet (weißer Grund, acht Karten, Schleier
+   30 % ab 768 px und 9 % darunter, Bandtempo unverändert) — was fehlte,
+   war ein Zeichen, das die Karten als ZITATE ausweist. Bisher war an
+   keiner Stelle zu sehen, dass hier jemand spricht.
+
+   ES IST EIN HINTERGRUNDBILD, KEIN SCHRIFTZEICHEN, und das ist Absicht:
+   ein `content: '\201C'` würde von Vorlesegeräten mitgesprochen, und ein
+   Anführungszeichen ohne schließendes Gegenstück vorgelesen zu bekommen
+   ist Lärm. Eine Hintergrundgrafik gilt als schmückend und wird nicht
+   angesagt; aria-hidden lässt sich an einem Pseudoelement nicht setzen.
+   Gezeichnet ist das Zeichen selbst, nicht ein fremdes Symbol aus einer
+   Zeichensammlung: je Hälfte eine Kugel mit einem Keil, der nach rechts
+   oben ausläuft — die Form, die die Anführung im Schriftschnitt hat. Eine
+   erste Fassung setzte Kugel plus geraden Schwanz nach unten; die las sich
+   in der Ansicht als Ballon und ist verworfen.
+
+   ES STEHT HINTER DEM TEXT (z-index: -1 im eigenen Stapel der Karte) und
+   ist SEHR BLASS: --gold mit 10 % Deckkraft über Weiß ergibt #F6F3ED.
+   Nachgerechnet, weil Text darüber laufen kann:
+
+       Fließtext --ink-black auf reinem Weiß   13,62:1
+       derselbe Text auf dem Zeichen           12,22:1
+
+   Beides am Bildpunkt nachgemessen: der tiefste Ton, den das Zeichen in
+   der Aufnahme erreicht, ist #F6F2ED. Die Anforderung liegt bei 4,5:1 —
+   der Schleier kostet gut ein Zehntel des Wertes und bleibt weit darüber. Der Platz oben rechts ist zudem so
+   gewählt, dass die fünf Sterne nicht berührt werden: die enden bei
+   x = 129, das Zeichen beginnt bei x = 218. */
+.kar-band__karte::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 16px;
+  right: 18px;
+  width: 84px;
+  height: 54px;                /* 84 × 60/94, das Verhältnis der Zeichnung */
+  opacity: 0.10;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 94 60' fill='%23A8874F'%3E%3Cpath d='M38 6C20 10 6 22 6 38a17 17 0 1 0 22-16C30 16 34 11 40 8Z'/%3E%3Cpath d='M90 6C72 10 58 22 58 38a17 17 0 1 0 22-16c2-6 6-11 12-14Z'/%3E%3C/svg%3E");
 }
 
 /* Fünf Sterne, Maße und Abstand wie bei den Rezensionskarten (17 px, 5 px).
@@ -1033,6 +1079,16 @@
   height: 17px;
   fill: var(--gold);
 }
+/* --s ist die Nummer des Sterns in seiner Reihe und steuert nur den
+   Versatz seines Auftritts (Abschnitt 9, Geste 7). In CSS gibt es keinen
+   Zähler, der sich in eine Verzögerung rechnen ließe; fünf Zeilen sind
+   billiger als eine Schleife in Javascript. Ohne Bewegung ist der Wert
+   folgenlos. */
+.kar-band__sterne svg:nth-child(1) { --s: 0; }
+.kar-band__sterne svg:nth-child(2) { --s: 1; }
+.kar-band__sterne svg:nth-child(3) { --s: 2; }
+.kar-band__sterne svg:nth-child(4) { --s: 3; }
+.kar-band__sterne svg:nth-child(5) { --s: 4; }
 
 .kar-band__titel {
   font-family: var(--font-display);
@@ -1067,50 +1123,108 @@
          +38 unten
    =========================================================================== */
 
-/* DIE RANDLOSE NAVY-FLÄCHE — SIE BLEIBT. Der Kunde hatte sie am
-   30.08.2026 zunächst zurückgenommen und sich noch am selben Tag wieder
-   umentschieden: „Hinter ‚Deine Karriere, unser Angebot' muss auch ein
-   Navyblau sein und auch ein Farbübergang." Der ursprüngliche Grund
-   trägt damit weiter: es ist der einzige Abschnitt ohne Bild, dem eine
-   Farbfläche nichts wegnimmt, und zugleich das Kapitelblatt vor den zwei
-   Stellen. Die Farbe sitzt am <section>, der Text in .kar-mitte — die
-   Fläche läuft über die volle Fensterbreite.
+/* ===========================================================================
+   DIE DURCHLAUFENDE NAVYFLÄCHE — KUNDENWUNSCH 30.08.2026
 
-   BEIDE KANTEN SIND HART, und das ist die Entscheidung vom 30.08.2026:
-   oben stößt Weiß an Navy 800, unten Navy 800 an Creme. Zwischen Navy
-   und Hell liegen rund 245 Einheiten; die sind auf keiner Strecke
-   unauffällig unterzubringen (über 600 px noch 0,41 je Bildpunkt gegen
-   ein Prüfmaß von 0,03). Dort steht eine saubere Kante.
+   Wörtlich: „Gefällt mir überhaupt nicht, dass dort so blau ist und dann
+   kommt darunter wieder eine andere Farbe. Mach hier die Section darunter
+   einfach auch in dem gleichen Blau wie ‚Deine Karriere, unser Angebot'."
 
-   DER „FARBÜBERGANG", den der Kunde für diese Fläche verlangt, ist
-   deshalb der Verlauf IN der Fläche: .fl-navy800 aus base.css lässt sie
-   von oben nach unten in der eigenen Farbfamilie atmen.
+   Deshalb trägt jetzt EIN Behälter (.kar-navy im Markup) die Fläche für
+   BEIDE Abschnitte — das Kapitelblatt und die zwei Stellen. Die Abschnitte
+   selbst sind durchsichtig. Zwischen ihnen gibt es damit keine Naht mehr.
 
-   DIE AMPLITUDE IST HIER KLEINER ALS IN base.css, und das ist gerechnet,
-   nicht geschätzt. base.css setzt --fl-navy800-b auf #1C3A5E, also
-   21 Einheiten im stärksten Kanal; der Baustein ist für Abschnitte von
-   rund 800 px gedacht. Dieser Abschnitt misst 361,6 px (bei 390 px
-   Fenster 439,8), und 21 / 361,6 = 0,058 je Bildpunkt — fast das Doppelte
-   des Prüfmaßes. Der Wert unten hält die Richtung des Bausteins bei und
-   halbiert nur den Weg:
+   WARUM NICHT ZWEIMAL DIESELBE KLASSE. Zwei Flächen mit je eigenem Verlauf
+   hätten an ihrer Nahtstelle einen Sprung: das Kapitelblatt endete bei
+   #163153, die Stellen begännen wieder bei #102949 — 10 Einheiten Kante
+   mitten in der Fläche, also genau das, was abgestellt werden sollte.
 
-       #102949 → #163153, Kanäle R 6 · G 8 · B 10 — stärkster Kanal 10
-       10 / 361,6 = 0,028 je Bildpunkt   (bei 390 px: 10 / 439,8 = 0,023)
+   DER VERLAUF ENDET AUF NAVY 900, DER FARBE DES FUSSBEREICHS.
+   Das ist die zweite Naht, die damit verschwindet. .fuss trägt in
+   schluss.css eine glatte Fläche in var(--navy-900) = #0A192E; bis heute
+   stieß dort Navy 800 (#102949) an, 17 Einheiten Unterschied im stärksten
+   Kanal und als Kante sichtbar. Jetzt kommt der Verlauf genau auf dieser
+   Farbe an — die Flächen gehen ohne Übergangsstelle ineinander über.
 
-   Beides unter 0,03. Wer den Abschnitt einmal auf über 700 px zieht, kann
-   die Zeile streichen und den vollen Wert aus base.css nehmen. */
-.kar-angebot {
-  padding: 104px 0;
+   DIE STEILHEIT IST GERECHNET, NICHT GESCHÄTZT.
+   #102949 → #0A192E, Kanäle R 6 · G 16 · B 27 — stärkster Kanal 27.
+   Gemessene Höhe des Behälters (Kapitelblatt + Stellen):
+
+       1920 / 1440   1254,72 px   27 / 1254,72 = 0,0215 je Bildpunkt
+       1024          1249,72 px   27 / 1249,72 = 0,0216
+        390          1944,34 px   27 / 1944,34 = 0,0139
+
+   Alle drei unter dem Prüfmaß von 0,03. Der Weg ist hier immer noch
+   dreimal so lang wie beim alten Verlauf über nur das Kapitelblatt
+   (361,6 px), deshalb trägt die Fläche die volle Strecke bis Navy 900,
+   obwohl diese 27 statt 10 Einheiten misst.
+
+   NACHGERECHNET AM 30.08.2026, ALS DIE KÄSTEN NACH OBEN RÜCKTEN. Der
+   Behälter hat dabei 200 px verloren (232 px Luft über den Kästen auf
+   32 px), derselbe Farbweg verteilt sich also auf weniger Höhe und der
+   Verlauf wird steiler: 0,0186 → 0,0215 je Bildpunkt. Das ist geprüft und
+   liegt weiter unter 0,03, der Farbweg musste NICHT zurückgenommen
+   werden. Der Puffer ist damit aber kleiner: wer den Behälter noch einmal
+   um mehr als 350 px kürzt, muss den Endwert anheben — bei einer Höhe
+   unter 900 px reißt die Rechnung.
+
+   DIE OBERE KANTE BLEIBT HART. Dort stößt das Weiß des Stimmen-Abschnitts
+   an Navy 800; zwischen Navy und Hell liegen rund 245 Einheiten, die auf
+   keiner Strecke unauffällig unterzubringen sind (über 600 px noch 0,41
+   je Bildpunkt). An Navy-Kanten gibt es keinen Verlauf — dort steht eine
+   saubere Kante, und zwar die einzige, die bleibt.
+
+   background-color als Rückfall: wenn das background-image der .fl-Klasse
+   einmal nicht greift, steht die Fläche trotzdem in Navy. */
+.kar-navy {
   background-color: var(--navy-800);
-  --fl-navy800-b: #163153;
+  --fl-navy800-b: var(--navy-900);
 }
-/* Kontraste auf der Fläche, am dunkelsten UND am hellsten Ende gemessen —
-   der Verlauf läuft hinter der ganzen Textgruppe durch:
 
-                              auf #102949   auf #163153
-       Weiß                     14,63:1       13,14:1
-       Sand #D9B485              7,54:1        6,77:1
-       Weiß 82 % (Unterzeile)   10,22:1        9,34:1
+/* Das Kapitelblatt selbst ist jetzt durchsichtig — die Farbe kommt von
+   .kar-navy.
+
+   UNTEN OHNE INNENABSTAND — KUNDENWUNSCH 30.08.2026: „Die Kästen müssen
+   weiter nach oben, dass sie direkt unter der Subline beginnen."
+
+   Die 104 px unten waren der Abstand des Kapitelblatts gegen den NÄCHSTEN
+   ABSCHNITT. Seit beide auf einer Fläche liegen, gibt es diesen nächsten
+   Abschnitt optisch nicht mehr: Überschrift, Unterzeile und die zwei
+   Kästen sind EIN Block. Zusammen mit den 96 px, die .kar-stellen oben
+   abgelegt hat, standen zwischen Unterzeile und Kasten 232 px — mehr als
+   die Höhe der ganzen Textgruppe darüber.
+
+   Was bleibt, ist der Abstand INNERHALB eines Blocks: --kar-eng, 32 px,
+   und der sitzt schon an .kar-liste. Gemessen (Unterkante des
+   Unterzeilen-Kastens gegen Oberkante des Kastenrahmens):
+
+       vorher  232,00 px   =  104 (hier) + 96 (.kar-stellen) + 32 (.kar-liste)
+       nachher  32,00 px   =    0        +  0               + 32
+
+   an allen vier Breiten gleich. Zum Vergleich die Abstände innerhalb der
+   Textgruppe: Raute → Überschrift 28 px, Überschrift → Unterzeile 20 px.
+   Die 32 px sind damit genau EIN Schritt weiter als die internen Abstände
+   — die Kästen hängen an der Unterzeile, ohne mit ihr zu verkleben.
+
+   OBEN BLEIBEN DIE 104 px DER VORLAGE. Sie sind der Abstand der Fläche
+   gegen ihre eigene Oberkante, und die ist unverändert eine harte Kante
+   gegen das Weiß darüber. */
+.kar-angebot {
+  padding: 104px 0 0;
+}
+/* Kontraste auf der Fläche, am HELLSTEN und am dunkelsten Punkt gemessen,
+   den die Textgruppe berührt. Der Verlauf läuft jetzt von #102949 (ganz
+   oben) nach #0A192E (an der Fusskante); das Kapitelblatt liegt im
+   obersten Viertel und endet bei #0F2542:
+
+                              auf #102949   auf #0F2542
+       Weiß                     14,63:1       15,45:1
+       Sand #D9B485              7,54:1        7,96:1
+       Weiß 82 % (Unterzeile)   10,26:1       10,84:1
+
+   Alle Werte sind mit der neuen Fläche BESSER geworden, weil der Grund
+   nach unten dunkler wird statt heller. Der schlechteste Wert der Gruppe
+   steht damit gleich am oberen Rand.
 
    Der Akzent steht hier in Sand statt im Blau der hellen Abschnitte: auf
    Navy trägt Blau auf Blau nicht, und es ist zugleich die Stelle, an der
@@ -1157,11 +1271,12 @@
   font-weight: 600;            /* Vorlage 700; Cormorant 600 ist hier der
                                   entsprechende Sprung gegen die 400 der
                                   Kartentexte */
-  /* Weiß mit 82 % auf Navy: 10,22:1 am dunklen Ende der Fläche, 9,34:1
-     am hellen. Das --ink-black, das hier bis zum 30.08.2026 stand, ergab
-     auf der Navy-Fläche 1,3:1 und war nicht mehr zu lesen. Die Zeile
-     steht bewusst etwas zurück gegen die volle Überschrift daneben, aber
-     weit über der Anforderung. */
+  /* Weiß mit 82 % auf Navy: 10,26:1 am hellsten Punkt der Fläche (#102949,
+     ganz oben), 10,84:1 am unteren Rand des Kapitelblatts (#0F2542). Das
+     --ink-black, das hier bis zum 30.08.2026 stand, ergab auf der
+     Navy-Fläche 1,3:1 und war nicht mehr zu lesen. Die Zeile steht bewusst
+     etwas zurück gegen die volle Überschrift daneben, aber weit über der
+     Anforderung. */
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -1206,22 +1321,38 @@
    iPhone-Kennung zeigt.
    =========================================================================== */
 
-/* Creme, glatt, ohne Verlauf — und beide Kanten hart. Oben stößt die
-   Navy-800-Fläche des Kapitelblatts an, unten das Navy 900 des
-   Fußbereichs; beides sind Navy-gegen-Hell-Nähte und bleiben nach der
-   Entscheidung vom 30.08.2026 saubere Kanten. Ein Verlauf innerhalb
-   dieser Fläche hätte auch keinen Nachbarn, auf dessen Farbe er enden
-   könnte — er wäre reine Zutat.
+/* KEINE EIGENE FLÄCHE MEHR — KUNDENWUNSCH 30.08.2026. Bis dahin stand hier
+   Creme; der Kunde beanstandet ausdrücklich, dass unter dem Navy des
+   Kapitelblatts „wieder eine andere Farbe" kommt. Der Abschnitt ist jetzt
+   durchsichtig, die Farbe kommt vom Behälter .kar-navy und läuft über
+   beide Abschnitte durch (Rechnung oben bei .kar-navy).
 
-   Dass hier kein Verlauf liegt, ist zugleich Voraussetzung für die zwei
-   Kästen: ihre weiße Fläche steht mit 1,10:1 gegen die Creme, und ihre
-   2-px-Randlinie rgba(16,41,73,0.55) mit 3,5:1 — beide Werte gelten nur,
-   solange der Grund ringsum eine einzige, gleichbleibende Farbe ist. Die
-   Kästen selbst — 468 px breit, Bild 416 px mit 24 px Luft ringsum —
-   sind unberührt. */
+   ZWEI DINGE HÄNGEN DARAN, und beide sind unten gelöst:
+
+   1. DIE KÄSTEN STEHEN JETZT AUF NAVY. Fläche, Randlinie und alle drei
+      Schriftfarben darin sind neu gesetzt und am Bildpunkt nachgemessen —
+      die alten Werte (weiße Fläche 1,07:1 gegen Creme, Randlinie
+      rgba(16,41,73,0.55) mit 3,55:1 gegen Weiß) gelten auf Navy nicht
+      mehr. Die Randlinie hätte dort 1,04:1 und wäre unsichtbar.
+      Siehe .kar-karte unten.
+
+   2. DIE UNTERE NAHT ZUM FUSS IST WEG. Der Verlauf des Behälters endet
+      auf #0A192E, also genau der Farbe von .fuss. Vorher stieß dort
+      Navy 800 (#102949) an Navy 900 — 17 Einheiten und als Kante sichtbar.
+
+   Die MASSE der Kästen sind unberührt: 468 px breit, Bild 416 px mit
+   24 px Luft ringsum. Nachgemessen nach der Verschiebung vom 30.08.2026:
+   468 / 416 bei 1920 und 1440, 464 / 412 bei 1024, 342 / 290 bei 390 —
+   Zahl für Zahl dieselben Werte wie vorher.
+
+   OHNE INNENABSTAND OBEN — KUNDENWUNSCH 30.08.2026, „die Kästen müssen
+   weiter nach oben". Die 96 px waren Abschnittsluft gegen das
+   Kapitelblatt; seit beide auf EINER Fläche liegen, trennen sie etwas,
+   das zusammengehört. Die vollständige Rechnung steht oben bei
+   .kar-angebot. Unten bleiben die 96 px: dort stößt der Fußbereich an,
+   und das ist weiterhin ein Abschnittswechsel. */
 .kar-stellen {
-  padding: var(--kar-luft) 0;
-  background-color: var(--kar-creme);
+  padding: 0 0 var(--kar-luft);
 }
 
 /* 968 px = 2 × 468 Kasten + 32 Rinne. Stand vorher auf 872 (2 × 420 + 32)
@@ -1270,35 +1401,48 @@
 
    DIE ENTSCHEIDUNG: zwei zurückhaltende Mittel zusammen, kein Schatten.
 
-   1. RANDLINIE 2 px in rgba(16,41,73,0.55).
-      Gemessen: #7C899B, 3,55:1 gegen das weiße Papier außen und 3,25:1
-      gegen die Kartenfläche innen. Beide über 3:1, der Grenze für ein
-      nicht-textliches Zeichen — die Linie ist damit als Zeichen sicher
-      wahrnehmbar und nicht mehr nur zu erahnen. Sie läuft ohne
-      Unterbrechung um Bild UND Textteil; das Bild sitzt bündig innen, es
-      steht also kein Rand seitlich daneben, und der Kasten ist genau so
-      breit wie das Bild — beides ausdrücklich verlangt.
-
+   1. RANDLINIE 2 px.
    2. DIE KARTENFLÄCHE IST ABGESETZT — sie ist eine andere Fläche als die
       Seite ringsum. Zusammen mit der Randlinie macht das den Unterschied
       zwischen einem gezeichneten Umriss und einem KÖRPER, und genau das
       trägt die Lesart „zwei Kästen".
 
-      NACHGEZOGEN AM 30.08.2026, ALS DER ABSCHNITT CREME BEKAM. Vorher
-      stand hier --paper-cool (#F3F5F8) auf weißem Papier: 1,09:1, die
-      Karte eine Spur DUNKLER als die Seite. Genau diese Fassung hat der
-      Kunde gelobt. Auf Creme (#FAF7F1) misst derselbe Ton nur noch
-      1,02:1 — die Karte wäre dort praktisch verschwunden, und mit ihr
-      der Kasten, um den es die ganze Zeit ging.
+   BEIDE WERTE SIND AM 30.08.2026 EIN DRITTES MAL NEU GESETZT WORDEN, weil
+   der Abschnitt vom Kunden auf Navy gestellt wurde. Was vorher hier stand,
+   gilt auf Navy nicht mehr — und zwar nicht knapp:
 
-      Jetzt steht die Karte auf WEISS und ist eine Spur HELLER als die
-      Seite. Der Abstand ist mit 1,07:1 fast derselbe wie die gelobten
-      1,09:1, nur mit umgekehrtem Vorzeichen — die Trennung trägt also
-      genauso weit. Alle Kontraste darin werden dabei besser statt
-      schlechter: Randlinie 3,55:1 statt 3,25, Fließtext 13,62:1 statt
-      12,47, die Kleinzeile in --gold-text 4,92:1 statt 4,69.
-      Ein warmer, dunklerer Ton wäre die andere Lösung gewesen; er hätte
-      die Kleinzeile auf 4,41:1 gedrückt und damit unter die Anforderung.
+       Randlinie rgba(16,41,73,0.55) — auf Weiß 3,55:1, auf Navy 1,04:1.
+       Kartenfläche Weiß              — auf Creme 1,07:1, auf Navy 14,4:1.
+
+   Eine Navy-Randlinie auf Navy ist unsichtbar, eine weiße Kartenfläche auf
+   Navy ist ein Scheinwerfer. Beides wäre falsch. Die Fassung unten kehrt
+   deshalb die Richtung um: die Karte hebt sich nach OBEN aus der Fläche,
+   die Linie ebenso.
+
+   DER GRUND, GEGEN DEN GEMESSEN WIRD, IST EIN VERLAUF. Die Kästen liegen
+   im Behälter .kar-navy zwischen t = 0,336 und t = 0,934 des Verlaufs
+   #102949 → #0A192E, der Grund um sie herum läuft also von #0E2440 an
+   ihrer Oberkante nach #0A1A30 an ihrer Unterkante (Werte für 1920 px,
+   an schmaleren Fenstern verschiebt sich das um wenige Einheiten). Jeder
+   Wert unten ist an BEIDEN Enden gerechnet; genannt sind immer beide.
+
+   1. KARTENFLÄCHE rgba(255,255,255,0.055).
+      Weiß mit 5,5 % über dem Verlauf — also KEIN fester Farbwert, sondern
+      eine Aufhellung, die den Verlauf mitgeht. Damit ist der Abstand zur
+      Umgebung an der Oberkante derselbe wie an der Unterkante; ein fester
+      Ton wäre oben zu dunkel und unten zu hell.
+          oben  #1B304A gegen #0E2440   1,17:1
+          unten #18273B gegen #0A1A30   1,15:1
+      Zum Vergleich die gelobten Fassungen: 1,09:1 auf Weiß, 1,07:1 auf
+      Creme. Der Abstand trägt hier also eine Spur weiter, und das ist
+      Absicht — auf dunklem Grund braucht dieselbe Trennung etwas mehr.
+
+   2. RANDLINIE 2 px in rgba(255,255,255,0.40).
+          oben  außen 3,66:1   innen 3,46:1
+          unten außen 3,77:1   innen 3,64:1
+      Alle vier über 3:1, der Grenze für ein nicht-textliches Zeichen, und
+      im selben Bereich wie die 3,55/3,25 der gelobten Fassung. Auch sie
+      ist eine Aufhellung und geht den Verlauf mit.
 
    KEIN SCHLAGSCHATTEN — ausdrücklich ausgeschlossen und ohnehin richtig:
    im ganzen Projekt kommt kein einziger Schatten vor, weder in base.css
@@ -1337,9 +1481,9 @@
   display: flex;
   flex-direction: column;
   padding: 24px 24px 0;
-  border: 2px solid rgba(16, 41, 73, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.40);
   border-radius: 12px;
-  background: var(--paper);
+  background: rgba(255, 255, 255, 0.055);
 }
 
 /* Bild bündig, Text und Knöpfe eingerückt. Der gemessene Abstand von 20 px
@@ -1396,28 +1540,41 @@
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 12px;
-  background: var(--paper-cool);
+  /* Platzhalterfläche, solange die Datei noch lädt. Seit die Karte auf
+     Navy steht, ist das --paper-cool von vorher ein weißer Blitz im
+     dunklen Kasten; hier dieselbe Aufhellung wie an der Karte, nur eine
+     Spur stärker (#293C55 an der Kastenoberkante). */
+  background: rgba(255, 255, 255, 0.06);
 }
 .kar-karte picture { display: block; }
 
 /* Abstände von oben nach unten wie gemessen: 20 · 10 · 20 · 26.
    Alle vier sind absolut, nicht mit der Kartenbreite skaliert — so hält es
    die Vorlage auch (die Größen sind ab 768 px fest). */
-/* SAND ALS AKZENT auf der Kleinzeile — bisher stand sie im selben
-   Schwarz wie alles andere in der Karte. Nicht --sand: der misst auf
-   heller Fläche 1,94:1 und ist als Schrift unlesbar. Für Sand als
-   SCHRIFT hält base.css --gold-text (#86693A) bereit; auf der
-   Kartenfläche #F3F5F8 sind das 4,60:1, also über der Anforderung.
-   Gesperrt und in Versalien, damit sie als Kleinzeile liest und nicht
-   als zu kleiner Fließtext. */
+/* SAND ALS AKZENT auf der Kleinzeile.
+   HIER STAND --gold-text (#86693A), solange die Karte hell war: 4,92:1 auf
+   Weiß. Auf der Navy-Karte misst derselbe Ton 1,64:1 und ist unlesbar. Auf
+   dunklem Grund trägt umgekehrt der HELLE Sand, den base.css für genau
+   diesen Fall vorsieht:
+
+       --sand #D9B485   auf #1B304A (Kastenoberkante) 6,91:1
+                        auf #18273B (Kastenunterkante) 7,80:1
+
+   Das ist besser als die 4,92:1 vorher, und es ist derselbe Sand, der
+   zwanzig Zeilen darüber die Raute und den Akzent des Kapitelblatts trägt —
+   die Kleinzeile gehört damit sichtbar zur selben Fläche.
+   Gesperrt und in Versalien, damit sie als Kleinzeile liest und nicht als
+   zu kleiner Fließtext. */
 .kar-karte__art {
   text-align: center;
-  color: var(--gold-text);
+  color: var(--sand);
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: var(--kar-fs-lead);
   line-height: var(--kar-lh-fliess);
 }
+/* Volles Weiß: 13,42:1 an der Kastenoberkante, 15,13:1 an der Unterkante.
+   Das --ink-black von vorher ergäbe auf der Navy-Karte 1,55:1. */
 .kar-karte__titel {
   margin-top: 10px;
   text-align: center;
@@ -1425,14 +1582,16 @@
   font-weight: 600;            /* Vorlage 700, s. Unterzeile oben */
   font-size: var(--kar-fs-kartentitel);
   line-height: var(--kar-lh-karte);
-  color: var(--ink-black);
+  color: #fff;
 }
+/* Weiß mit 82 %, derselbe Rückschritt gegen die Überschrift wie bei der
+   Unterzeile des Kapitelblatts: 9,39:1 oben, 10,59:1 unten. */
 .kar-karte__bereiche {
   margin-top: 20px;
   text-align: center;
   font-size: var(--kar-fs-lead);
   line-height: var(--kar-lh-fliess);
-  color: var(--ink-black);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 /* margin-top: auto hält die Knopfgruppen beider Karten auf einer Linie,
@@ -1474,12 +1633,26 @@
   line-height: var(--kar-lh-fliess);
   text-align: center;
 }
+/* SAND STATT NAVY — Folge der Navyfläche. Ein Knopf in --navy-800 auf einer
+   Navy-Karte hätte 1,17:1 gegen seinen eigenen Grund und wäre als Fläche
+   nicht mehr zu sehen; er verlöre genau das, was ihn zum Vollflächenknopf
+   macht. Auf dunklem Grund ist der helle Ton der Leitton, und base.css hält
+   ihn als Baustein bereit (.btn--sand).
+
+       Fläche --sand #D9B485, Schrift --navy-900        9,08:1
+       Fläche gegen die Karte  oben 6,91:1, unten 7,80:1
+
+   NICHT weiße Schrift auf Sand: base.css hält bei .btn--sand ausdrücklich
+   fest, dass das 1,94:1 ergibt. Auf dieser Seite steht deshalb Navy auf
+   Sand — derselbe Wert, den auch der Balken im Kopfbereich trägt. */
 .kar-knopf--voll {
-  background: var(--navy-800);
-  color: #fff;                 /* 13,7:1 */
+  background: var(--sand);
+  color: var(--navy-900);      /* 9,08:1 */
 }
 /* Überfahren: die Vorlage legt 10 % Weiß über die Fläche, die Grundfarbe
-   bleibt. Übergang 0,3 s ease. */
+   bleibt. Auf Sand ergibt das #DDBC91 und hebt den Kontrast der
+   Navy-Schrift von 9,08:1 auf 9,76:1 — der Knopf wird beim Anfahren also
+   besser lesbar, nicht schlechter. Übergang 0,3 s ease. */
 .kar-knopf--voll::before {
   content: '';
   position: absolute;
@@ -1493,28 +1666,32 @@
 .kar-knopf--voll:hover::before,
 .kar-knopf--voll:focus-visible::before { opacity: 1; }
 
-/* Durchsichtig wie in der Vorlage — der Knopf holt sich das Weiß der
-   Karte. Zwischenzeitlich stand hier ausdrücklich Weiß, weil die Karte
-   auf --paper-cool lag und der durchsichtige Knopf darin verschwunden
-   wäre; seit die Karte wieder weiß ist (siehe .kar-karte), ist die
-   Ausnahme hinfällig und der Knopf steht wieder auf dem Stand der
-   Vorlage. Schrift --ink-black auf Weiß: 13,62:1. */
+/* Durchsichtig wie in der Vorlage — der Knopf holt sich die Fläche der
+   Karte. Mit der Navy-Karte kehren sich beide Farben um: die Schrift steht
+   in Weiß (13,42:1 an der Kastenoberkante, 15,13:1 unten), die Kante ist
+   eine Aufhellung statt einer Abdunklung.
+
+       Kante rgba(255,255,255,0.36) → #6B7582, 3,22:1 gegen die Karte.
+
+   Der Wert liegt bewusst UNTER dem der Kartenrandlinie (0,40 / 3,66:1):
+   der Kasten ist die stärkere Kante, der Knopf darin die schwächere. Beide
+   über 3:1. Die Vorlage setzt hier ein fast unsichtbares #f2f2f2 (1,36:1
+   auf Weiß) — der Charakter „zurückhaltende Kante" bleibt, der Wert ist
+   auf das Prüfmaß gehoben. */
 .kar-knopf--linie {
-  color: var(--ink-black);
-  box-shadow: inset 0 0 0 2px var(--line);
+  color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.36);
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 /* Die Vorlage setzt hier filter: brightness(1.1). Auf einem durchsichtigen
    Knopf hellt das nur die Schrift auf und SENKT damit den Kontrast — ein
    Überfahren, das die Lesbarkeit verschlechtert, wird nicht nachgebaut.
    An seiner Stelle dieselbe Zurückhaltung mit umgekehrtem Vorzeichen:
-   die Kante tritt hervor, derselbe Übergang von 0,3 s.
-
-   Der Überfahrton steht wieder auf dem Alphawert der Vorlage, seit die
-   Karte weiß ist: er legt sich über Weiß und ergibt #F5F6F8. */
+   die Kante tritt hervor, derselbe Übergang von 0,3 s. Die Fläche hellt
+   dabei um 6 % auf; die weiße Schrift bleibt damit über 12:1. */
 .kar-knopf--linie:hover {
-  box-shadow: inset 0 0 0 2px rgba(16, 41, 73, 0.30);
-  background: rgba(16, 41, 73, 0.04);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.60);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 
@@ -1620,10 +1797,44 @@
       dort nach links noch eine volle Satzbreite (2752 px) über den
       Fensterrand hinaus. 48 px davon aufzubrauchen ist folgenlos.
 
+   7  DIE STIMMKARTE SCHREIBT SICH — NEU AM 30.08.2026
+      Der Kunde nennt „Entdecke, was unsere Mitarbeiter sagen" ausdrücklich
+      als langweilig. Der AUFBAU bleibt unangetastet — weißer Grund, acht
+      Karten, Schleier 30 % ab 768 px und 9 % darunter, Bandtempo und
+      Satzbreite unverändert. Was fehlte, war eine Geste, die etwas
+      ERKLÄRT. Gebaut ist deshalb eine einzige, zusammenhängende:
+
+        a) Das Anführungszeichen wird von links nach rechts GESCHRIEBEN
+           (clip-path inset 0 100 % 0 0 → 0, 0,9 s). Es ist das Zeichen,
+           das die Karte als Zitat ausweist — es zuerst zu setzen und dann
+           den Rest folgen zu lassen, ist die Reihenfolge, in der jemand
+           ein Zitat notiert.
+        b) DIE FÜNF STERNE LEUCHTEN NACHEINANDER AUF, 0,06 s auseinander,
+           mit derselben Bewegung wie die fünf im Kopfbereich (kar-stern:
+           aus −55° und 0,35 in ihre Lage). Fünf gemeinsam eingeblendete
+           Sterne sind eine Fläche, fünf nacheinander sind eine ZÄHLUNG —
+           man sieht, dass es fünf sind, ohne sie zu zählen. Dieselbe Geste
+           an derselben Sache: die Seite bekommt dadurch eine Handschrift
+           statt zweier Einfälle.
+
+      Der Versatz zwischen den Karten ist der schon vorhandene (--i, 0,07 s);
+      das Zeichen setzt bei +0,25 s ein, die Sterne bei +0,40 s — beide
+      also erst, während die Karte aus ihrer Grundlinie auftaucht, nie
+      davor. Der Auslöser ist unverändert der Behälter .kar-band, es kommt
+      also keine zweite Beobachtung dazu.
+
+      NICHTS DAVON BEWEGT DAS BAND. Die Spur trägt weiter genau ihre eine
+      transform (Umlauf plus Anlauf); das Zeichen sitzt auf einem
+      Pseudoelement der Karte, die Sterne auf den svg darin. Drei
+      verschiedene Elemente, drei verschiedene Eigenschaften.
+
    ZUSÄTZLICH, klein und ohne eigene Nummer: der Rautenpunkt über „Deine
    Karriere, unser Angebot" zieht seine beiden Sandlinien nach außen aus
    der Raute heraus, und die Raute dreht sich dabei in ihre 45°. Das
    Zeichen baut sich also aus seiner Mitte auf, statt fertig da zu stehen.
+   Und der Balken „Estera in Kürze" schreibt sich wie der im Kopfbereich —
+   derselbe Filzstift, dieselbe Kurve, dieselben 0,75 s: wo dasselbe
+   Zeichen steht, läuft dieselbe Geste (Geste 3).
 
    DIE GRENZEN, DIE NICHT VERHANDELBAR SIND — und wo sie hier stehen:
 
@@ -1737,6 +1948,23 @@
   to   { transform: translate3d(0, 0, 0); }
 }
 
+/* Das Anführungszeichen wird von links nach rechts geschrieben. */
+@keyframes kar-schreibt {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* Das Etikett kommt als Ganzes hinter einer Kante hervor — Fläche und
+   Wörter zusammen. Die negativen Werte sind Auslauf, kein Beschnitt:
+   1,7 em rechts, weil der Balken seine Fläche über ::before genau 1,6 em
+   über die eigene Kante hinauslaufen lässt; 60 % oben und unten für den
+   Innenabstand des Balkens; 0,2 em links, damit die erste Buchstabenkante
+   nicht angeschnitten wird. */
+@keyframes kar-etikett {
+  from { clip-path: inset(-60% calc(100% + 1.7em) -60% -0.2em); }
+  to   { clip-path: inset(-60% -1.7em -60% -0.2em); }
+}
+
 
 /* --- Die Anfangszustände ---------------------------------------------------
    ALLES hängt an [data-js='an']. Ohne Javascript existiert keine dieser
@@ -1767,9 +1995,29 @@
 
 [data-js='an'] .kar-kopf__sterne svg { opacity: 0; }
 
+/* Der Filzstift steht am linken Anfang und hat noch nicht geschrieben. */
 [data-js='an'] .kar-kopf__kennzeile .kar-balken::before {
   transform: scaleX(0);
   transform-origin: 0 50%;
+}
+
+/* Das Etikett „Estera in Kürze" wird als GANZES geschrieben — Fläche und
+   Wörter zusammen hinter einer Kante hervor. Der Absatz bleibt selbst
+   sichtbar und gibt seine Bewegung an den Balken weiter, wie die drei
+   Bausteine oben.
+
+   DIE KANTE SITZT AUF DEM BALKEN, NICHT AUF DEM ABSATZ — und das ist
+   dieselbe Notwendigkeit, die oben schon beim Bildfenster steht: der
+   Absatz ist das, was der IntersectionObserver beobachtet, und Chromium
+   rechnet den eigenen clip-path des Ziels in dessen Schnittfläche ein.
+   Eine auf null zusammengezogene Fläche schneidet sich mit nichts, das
+   Etikett wäre also NIE eingetreten und dauerhaft unsichtbar geblieben.
+   Genau dieser Fehler stand hier für eine Fassung und ist in der
+   Bildfolge aufgefallen. Beobachtet wird der Absatz (ungeschnitten),
+   geschnitten wird der Balken darin. */
+[data-js='an'] .kar-wer__etikett { opacity: 1; }
+[data-js='an'] .kar-wer__etikett .kar-balken {
+  clip-path: inset(-60% calc(100% + 1.7em) -60% -0.2em);
 }
 
 [data-js='an'] .kar-angebot__raute::before { transform: scaleX(0); transform-origin: 100% 50%; }
@@ -1799,6 +2047,11 @@
 [data-js='an'] .kar-karte > * { opacity: 0; transform: translateY(48px); }
 
 [data-js='an'] .kar-band__karte { opacity: 0; clip-path: inset(100% 0 0 0); }
+
+/* Geste 7 — das Zeichen ist noch nicht geschrieben, die Sterne noch nicht
+   aufgeleuchtet. */
+[data-js='an'] .kar-band__karte::before { clip-path: inset(0 100% 0 0); }
+[data-js='an'] .kar-band__sterne svg { opacity: 0; }
 
 /* Das Band steht still, bis sein Abschnitt eintritt. animation-play-state
    hält auch die Verzögerung an, die Rechnung des Anlaufs bleibt also
@@ -1843,11 +2096,48 @@
   animation-delay: calc(0.7s + var(--z, 0) * 0.1s);
 }
 
-/* 3 — der Balken schreibt sich, die Wörter kommen danach. */
+/* 3 — der Balken schreibt sich, die Wörter kommen danach.
+
+   DIE REIHENFOLGE IST ZWINGEND, nicht Geschmack: die Schrift auf dem
+   Balken ist Weiß (im Kopfbereich Navy auf Sand). Kämen die Wörter vor der
+   Fläche, stünden sie kurz auf dem nackten Grund — Weiß auf Creme, und das
+   wäre unlesbar. Deshalb setzt der Strich immer zuerst an und die Wörter
+   erst, wenn er weit genug gelaufen ist.
+
+   AUCH AM ETIKETT „ESTERA IN KÜRZE" — nachgezogen am 30.08.2026. Es ist
+   derselbe Baustein .kar-balken; dass er dort bisher ohne seine Geste
+   stand, war eine Lücke und keine Entscheidung.
+
+   DORT IST SIE ANDERS GEBAUT, und der Grund ist gemessen worden. Der erste
+   Versuch hat die Bauart des Kopfbereichs übernommen — Strich zuerst,
+   Wörter danach über die Deckkraft der Gruppe. In der Bildfolge war davon
+   NICHTS zu sehen: der Strich läuft dort, während die Gruppe noch auf
+   Deckkraft 0 steht, und wenn sie erscheint, ist er längst fertig. Im
+   Kopfbereich fällt das nicht auf, weil dort ohnehin ein langer Vorlauf
+   liegt; hier war die Geste schlicht unsichtbar.
+
+   GEBAUT IST DESHALB EINE KANTE ÜBER DAS GANZE ETIKETT: Fläche und Wörter
+   kommen zusammen hinter ihr hervor, von links nach rechts. Das ist
+   dieselbe Aussage — hier schreibt jemand — nur in einem Zug, und das
+   Problem „Weiß auf noch nicht gezeichnetem Grund" kann gar nicht erst
+   entstehen, weil die Schrift nie vor ihrer Fläche da ist.
+
+   DIE KANTE SITZT AM ABSATZ, NICHT AM BALKEN. Der Balken lässt seine
+   Fläche über ::before 1,6 em nach rechts auslaufen; ein clip-path am
+   Balken selbst schnitte genau diesen Auslauf ab. Der Absatz ist breiter
+   als beides. Die Werte in Prozent (senkrecht −60 %, links −2 %) sind
+   Auslauf, kein Beschnitt — sie geben der Fläche und den Oberlängen Luft
+   und halten alle vier Werte in derselben Einheit, damit die Kante sauber
+   durchläuft. */
 [data-js='an'] .kar-kopf__kennzeile.ist-da .kar-balken::before {
   animation: kar-strich 0.75s var(--kar-e-raus) 0.55s both;
 }
 [data-js='an'] .kar-kopf__kennzeile.ist-da { animation-delay: 1.05s; }
+
+[data-js='an'] .kar-wer__etikett.ist-da { animation: none; }
+[data-js='an'] .kar-wer__etikett.ist-da .kar-balken {
+  animation: kar-etikett 0.85s var(--kar-e-raus) both;
+}
 
 /* Die Wortmarke eröffnet. */
 [data-js='an'] .kar-kopf__marke.ist-da { animation-delay: 0s; }
@@ -1896,6 +2186,20 @@
   animation-delay: calc(var(--i, 0) * 0.07s), 0s;
 }
 [data-js='an'] .kar-band.ist-da .kar-band__spur { animation-play-state: running; }
+
+/* 7 — die Stimmkarte schreibt sich: erst das Zeichen, dann die fünf
+   Sterne. --i kommt von der Karte (karriere.js, umlaufend 0 … 7), --s vom
+   Stern selbst (Abschnitt 6). Beide Verzögerungen sind gegen den Auftritt
+   DER KARTE gerechnet, nicht gegen den Eintritt des Bandes — deshalb
+   steht --i in beiden Zeilen. */
+[data-js='an'] .kar-band.ist-da .kar-band__karte::before {
+  animation: kar-schreibt 0.9s var(--kar-e-weich) both;
+  animation-delay: calc(var(--i, 0) * 0.07s + 0.25s);
+}
+[data-js='an'] .kar-band.ist-da .kar-band__sterne svg {
+  animation: kar-stern 0.55s var(--kar-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.07s + 0.4s + var(--s, 0) * 0.06s);
+}
 
 
 /* ===========================================================================
@@ -1956,14 +2260,24 @@
   .kar-band__karte--kopie { display: none; }
 
   /* --- Jeder Anfangszustand aus Abschnitt 9, ausdrücklich zurückgenommen --- */
+  /* .kar-karte > * FEHLTE HIER BIS ZUM 30.08.2026. Der Anfangszustand in
+     Abschnitt 9 setzt Deckkraft UND Weg (opacity: 0; translateY(48px));
+     zurückgenommen wurde unten nur der Weg. Wer die Einstellung nach dem
+     Laden umstellte, bekam zwei leere Kästen — Bild und Text darin standen
+     dauerhaft auf 0. Am Bildpunkt nachgeprüft: jetzt bleibt kein Element
+     der Seite unter voller Deckung. */
   [data-js='an'] [data-auf],
   [data-js='an'] .kar-kopf__sterne svg,
+  [data-js='an'] .kar-band__sterne svg,
   [data-js='an'] .kar-band__karte,
+  [data-js='an'] .kar-karte > *,
   [data-js='an'] .kar-angebot__raute span,
   [data-js='an'] .kar-wer__bild { opacity: 1; }
 
   [data-js='an'] .kar-karte,
   [data-js='an'] .kar-band__karte,
+  [data-js='an'] .kar-band__karte::before,
+  [data-js='an'] .kar-wer__etikett .kar-balken,
   [data-js='an'] .kar-wer__bild picture { clip-path: none; }
 
   [data-js='an'] .kar-karte > *,
@@ -1988,6 +2302,7 @@
   [data-js='an'] .kar-geteilt.ist-da .kar-zg__i,
   [data-js='an'] .kar-kopf__titel.ist-da .kar-zg__i,
   [data-js='an'] .kar-kopf__kennzeile.ist-da .kar-balken::before,
+  [data-js='an'] .kar-wer__etikett.ist-da .kar-balken,
   [data-js='an'] .kar-wer__bild.ist-da picture,
   [data-js='an'] .kar-wer__bild.ist-da img,
   [data-js='an'] .kar-angebot__raute.ist-da span,
@@ -1995,7 +2310,9 @@
   [data-js='an'] .kar-angebot__raute.ist-da::after,
   [data-js='an'] .kar-liste.ist-da .kar-karte,
   [data-js='an'] .kar-liste.ist-da .kar-karte > *,
-  [data-js='an'] .kar-band.ist-da .kar-band__karte { animation: none; }
+  [data-js='an'] .kar-band.ist-da .kar-band__karte,
+  [data-js='an'] .kar-band.ist-da .kar-band__karte::before,
+  [data-js='an'] .kar-band.ist-da .kar-band__sterne svg { animation: none; }
 
   .kar-knopf,
   .kar-knopf--voll::before,

@@ -454,54 +454,63 @@
 }
 
 /* ===========================================================================
-   DIE FUENF STERNE FUELLEN SICH — 30.08.2026
+   DIE FUENF STERNE FALLEN AUF IHRE GROESSE ZUSAMMEN — 31.08.2026
 
-   Eine Geste fuer diesen Abschnitt, und sie erklaert die Zahl daneben: die
-   fuenf goldenen Sterne im Google-Siegel decken sich von links nach rechts
-   auf, einer nach dem anderen, und enden auf „5,0 von 5 Sternen". Wer
-   hinsieht, hat die Bewertung gelesen, bevor er sie liest.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DIE VORIGE GESTE IST ERSATZLOS ENTFALLEN. Die fuenf Sterne deckten sich
+   ueber eine wandernde Maske von links nach rechts auf, einer nach dem
+   anderen. Kundenwunsch vom 31.08.2026: die Sterne sollen „gross
+   hereinkommen und dann auf ihre Groesse zusammenfallen".
+   Die ganze Maskenrechnung (240 % Maskenkasten, Verlauf 45 -> 55 Prozent,
+   mask-position 0 -> 100 %) ist damit gegenstandslos und mit entfernt.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   Sie laeuft NACH dem Kopf: `.ref__kopf` hat seinen eigenen Einlauf (0,9 s),
-   die Sterne setzen mit 500 ms Versatz nach.
+   WAS JETZT PASSIERT: die Leiste aus fuenf Sternen beginnt auf dem
+   2,6-Fachen ihrer Groesse und fast durchsichtig und faellt in einem Zug
+   auf ihr Mass zusammen; dabei wird sie fest. Am Ende steht sie genau
+   dort, wo sie ohne jede Bewegung auch staende, neben „5,0 von 5 Sternen".
 
-   DIE RECHNUNG ZUR MASKE — dieselbe wie beim Haus in warum.css:
-     Maskenkasten  240 % der Leistenbreite B
-     Verlauf       von links: durchsichtig bis 45 %, deckend ab 55 %
-                   deckender Teil damit 0,45 x 2,4B = 1,08 B — breiter als
-                   die Leiste, sonst deckt er sie am Ende nicht ganz
-     Anfang  mask-position-x   0 %  -> deckend ab 1,32B: kein Stern zu sehen
-     Ende    mask-position-x 100 %  -> Versatz -1,4B, deckend ab -0,08B:
-                                       alle fuenf stehen
+   DIE ZWEI WERTE UND WARUM SIE SO STEHEN
+     Massstab  2.6 -> 1     Die Leiste ist rund 100 px breit; auf dem
+                            2,6-Fachen sind das 260 px. Sie ragt damit
+                            deutlich ueber das Siegel hinaus — das ist das
+                            „gross hereinkommen". Mehr waere Spielerei,
+                            weniger saehe man nicht.
+     Deckkraft 0.1 -> 1     Ausdruecklich „leicht durchscheinend beginnen".
+                            Bei 0.1 liegt der grosse Zustand als Hauch
+                            ueber der Zeile daneben und macht sie nicht
+                            unleserlich; die Zeile bleibt die ganze Zeit
+                            zu lesen. Bei voller Groesse steht die Leiste
+                            wieder deckend.
+     Ursprung  Mitte        Die Leiste faellt in sich zusammen, nicht in
+                            eine Ecke. `transform` aendert das Mass im
+                            Fluss nicht: das Siegel bleibt waehrend der
+                            ganzen Bewegung genau so breit wie danach, es
+                            rueckt also nichts.
 
-   BEWEGT WIRD NUR `mask-position`.
-   OHNE JAVASCRIPT fehlt `.is-ready` und alle fuenf Sterne stehen sofort;
-   bei `reduce` ebenso.
+   ZEITLICH: 900 ms, Ausklingkurve, 500 ms nach dem Einlauf des Kopfes
+   (`.ref__kopf` selbst braucht 0,9 s). Einmalig — `data-seen` setzt
+   assets/js/site.js genau ein Mal, wenn der Kopf ins Bild kommt.
+
+   BEWEGT WERDEN NUR `transform` UND `opacity`.
+   OHNE JAVASCRIPT fehlt `.is-ready` und die Leiste steht sofort in ihrer
+   Groesse; bei `reduce` ebenso.
    =========================================================================== */
 .is-ready .ref__kopf[data-reveal] .ref__siegel-sterne {
-  --ref-sterne-maske: linear-gradient(to right,
-      rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 45%, #000 55%, #000 100%);
-  -webkit-mask-image: var(--ref-sterne-maske);
-          mask-image: var(--ref-sterne-maske);
-  -webkit-mask-size: 240% 100%;
-          mask-size: 240% 100%;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: 0% 0%;
-          mask-position: 0% 0%;
+  transform-origin: 50% 50%;
 }
 .is-ready .ref__kopf[data-reveal][data-seen='true'] .ref__siegel-sterne {
-  animation: ref-sterne 1000ms 500ms var(--ease-soft) both;
+  animation: ref-sterne 900ms 500ms var(--ease-soft) both;
 }
 @keyframes ref-sterne {
-  from { -webkit-mask-position: 0%   0%; mask-position: 0%   0%; }
-  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+  from { transform: scale(2.6); opacity: 0.1; }
+  to   { transform: none;       opacity: 1;   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-ready .ref__kopf[data-reveal] .ref__siegel-sterne,
   .is-ready .ref__kopf[data-reveal][data-seen='true'] .ref__siegel-sterne {
-    -webkit-mask-image: none;
-            mask-image: none;
     animation: none;
+    transform: none;
+    opacity: 1;
   }
 }

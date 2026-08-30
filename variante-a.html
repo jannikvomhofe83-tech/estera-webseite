@@ -38,6 +38,29 @@
 <link rel="stylesheet" href="assets/css/warum.css?v=b24a">
 <link rel="stylesheet" href="assets/css/faq.css?v=b24a">
 <link rel="stylesheet" href="assets/css/vertrauen.css?v=b24a">
+
+<!-- =====================================================================
+     OHNE JAVASCRIPT IST ALLES SOFORT SICHTBAR — 31.08.2026
+
+     base.css setzt `[data-anim] { opacity: 0; transform: translateY(18px) }`
+     und nimmt das erst mit `.is-ready` am Wurzelelement zurueck. Die Klasse
+     setzt assets/js/site.js. Ist Javascript aus, kommt sie nie — und jedes
+     Element mit `data-anim` bliebe dauerhaft unsichtbar. Auf dieser Seite
+     traf das den Marmorkasten im Kopfbereich: nachgemessen stand er ohne
+     Javascript auf Deckkraft 0,00.
+
+     Das hier ist die Sicherung dagegen, und sie steht bewusst HIER und
+     nicht in base.css: base.css gehoert allen Seiten des Projekts, und ein
+     Eingriff dort haette Wirkungen weit ueber diese Seite hinaus.
+
+     <noscript> im Kopf ist der richtige Ort — der Inhalt wird nur
+     ausgewertet, wenn Javascript wirklich abgeschaltet ist. Laeuft es,
+     steht hier nichts. Die Regeln sind bewusst so eng gefasst, dass sie
+     nur die beiden Startwerte zuruecknehmen und sonst nichts anfassen.
+     ===================================================================== -->
+<noscript><style>
+  [data-anim] { opacity: 1 !important; transform: none !important; }
+</style></noscript>
 </head>
 <body>
 
@@ -839,52 +862,181 @@
       </symbol>
     </svg>
 
-    <!-- ---------- 1+2  KOPF UND VERGLEICHSBAND — EIN KASTEN ----------
-         30.08.2026, Kundenwunsch: „das ist das Wichtigste und muss
-         hervorgehoben werden." Kleinzeile, Ueberschrift, Unterzeile UND die
-         Gegenueberstellung stehen deshalb zusammen in EINEM Kasten, nicht
-         mehr in zwei getrennten Flaechen.
+    <!-- ---------- 1+2  EIN WEISSER KASTEN OBEN, ZWEI DUNKLE DARUNTER ----------
+         UMBAU 31.08.2026. Der Kunde hat den Aufbau selbst gezeichnet:
 
-         Die Farbe ist die des FAQ-Kastens, Zeichen fuer Zeichen aus
-         faq.css uebernommen: #1E222D nach #2E3643, waagerecht. Woertlich
-         der Kunde: „kein blauer Kasten, aber in der gleichen Farbe wie die
-         Kaesten bei der FAQ-Section". Das ist ein entsaettigtes Anthrazit
-         mit einem Hauch Blau — ausdruecklich kein Navy.
+           ┌──────────────────────────────────────────┐
+           │  ein laenglicher Kasten, GRAU            │
+           │  „Der Unterschied ist, wie viel Kapital  │
+           │   vom ersten Tag an fuer dich arbeitet." │
+           └──────────────────────────────────────────┘
+           ┌────────────────────┐  ┌────────────────────┐
+           │  WEISS             │  │  WEISS             │
+           │  Klassisch         │  │  Mit Immobilie     │
+           │  investieren       │  │                    │
+           │  + Grafik          │  │  + Grafik          │
+           └────────────────────┘  └────────────────────┘
 
-         Die Schrift darin ist hell; jede Farbe ist gegen die RECHTE,
-         hellere Seite des Verlaufs gemessen, siehe warum.css.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         DIE FARBEN SIND AM 31.08.2026 GETAUSCHT WORDEN, spaeter am
+         selben Tag. Der Kunde hat es genau so aufgeschrieben:
+
+           oberer Kasten „Warum Immobilien"   ->  WEISS
+           „Klassisch investieren"            ->  die Farbe, die der
+           „Mit Immobilie"                        obere Kasten JETZT hat
+
+         Also genau andersherum als in der Zeichnung darueber. Der
+         FAQ-Ton (#1E222D -> #2E3643) wandert vom Kopfkasten in die
+         beiden Vergleichskaesten, deren Schrift wird weiss.
+
+         DAS HAUSSYMBOL IM KOPFKASTEN IST ERSATZLOS ENTFALLEN.
+         Kundenwortlaut: „Vergiss das Haus darin." Es stand seit heute
+         frueh rechts im Kasten, erst gross, dann klein, zuletzt als neu
+         erzeugtes Mehrfamilienhaus. Der Kopfkasten ist damit einspaltig
+         und traegt nur noch drei schmale Zeilen — genau das, was der
+         Kunde mit „viel niedriger, nicht ganz so hoch und nicht ganz so
+         gross" gemeint hat.
+         Die Dateien assets/img/warum/kapital-haus.{webp,png} liegen
+         weiter im Ordner, werden von dieser Seite aber nirgends mehr
+         geholt.
+
+         ZUR REIHENFOLGE DER DREI ZEILEN. Der Kunde hat den Aufbau als
+         vier Zeilen skizziert: Kleinzeile, Ueberschrift, Subline und
+         darunter „Der Unterschied ist, wie viel Kapital vom ersten Tag
+         an fuer dich arbeitet." in EINER Zeile. Freigegebenen Wortlaut
+         gibt es fuer drei davon; eine vierte Zeile muesste erfunden
+         werden, und das passiert hier nicht. Gesetzt ist deshalb:
+           Kleinzeile    „Warum Immobilien?"
+           Ueberschrift  „Du baust Vermoegen nicht nur mit deinem eigenen
+                          Geld auf."
+           Subline       „Der Unterschied ist, wie viel Kapital vom
+                          ersten Tag an fuer dich arbeitet."
+         Das ist zugleich die Rollenverteilung, die der Kunde heute frueh
+         schon einmal hatte: die Ueberschrift traegt wieder den Satz mit
+         dem Vermoegen, der Unterschied-Satz steht darunter und schliesst
+         den Kasten ab.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+         WAS SICH GEGEN DEN 30.08. GEAENDERT HAT
+         a) Die beiden weissen Flaechen liegen NICHT MEHR IM dunklen Kasten,
+            sondern als zwei eigene Kaesten DARUNTER. Der graue Kasten
+            traegt nur noch den Satz.
+         b) Der Kasten ist GRAU statt Anthrazit — der Kunde nennt ihn in
+            seiner Zeichnung ausdruecklich so. Die Werte und die
+            Kontrastrechnung stehen in warum.css.
+         c) DER SATZ HAT DIE ROLLEN GETAUSCHT.
+            Bis heute stand „Du baust Vermoegen nicht nur mit deinem
+            eigenen Geld auf." als Ueberschrift und „Der Unterschied: …"
+            als Unterzeile. Der Kunde hat die ERSTE Zeile ausdruecklich als
+            etwas benannt, das ihm in dieser Darstellung nicht gefaellt, und
+            hat die ZWEITE als den Satz genannt, der in den grauen Kasten
+            gehoert.
+            Beide Saetze bleiben also erhalten — nur ihr Gewicht dreht sich:
+            der positive Satz („Der Unterschied ist, …") traegt jetzt die
+            Ueberschrift, der andere steht darunter als ruhige Zeile. Damit
+            ist er nicht mehr das Erste und Groesste, was man liest, aber
+            auch nicht gestrichen. Am Wortlaut selbst ist nur das
+            Doppelpunkt-Konstrukt zu einem ganzen Satz geworden
+            („Der Unterschied: Wie viel …" -> „Der Unterschied ist, wie
+            viel …"), so wie der Kunde ihn selbst gesprochen hat.
+         d) `id="wi-titel"` wandert mit der Ueberschrift mit — das
+            `aria-labelledby` der Section zeigt weiterhin auf die <h2>.
          ---------------------------------------------------------------- -->
     <div class="wi__kopf">
       <p class="wi__eyebrow">Warum Immobilien?</p>
       <h2 class="wi__h2" id="wi-titel">Du baust Vermögen nicht nur mit deinem eigenen Geld auf.</h2>
-      <p class="wi__sub">Der Unterschied: Wie viel Kapital vom ersten Tag an für dich arbeitet.</p>
+      <p class="wi__sub">Der Unterschied ist, wie viel Kapital vom ersten Tag an für dich arbeitet.</p>
+    </div>
 
-      <div class="wi__band">
-        <div class="wi__band-halb">
+    <!-- Die zwei DUNKLEN Kaesten. Sie stehen ausserhalb von .wi__kopf und
+         damit auf dem Grund der Section. Seit dem Farbtausch vom
+         31.08.2026 tragen sie den FAQ-Ton und der Kasten darueber ist
+         weiss — siehe den Vermerk am Kopf oben. -->
+    <div class="wi__band">
+      <div class="wi__band-halb wi__band-halb--klassisch">
+        <!-- Marke und Text bilden die LINKE Spalte, das Symbol die rechte.
+             Ohne diese Huelle stuenden vier Kinder in einem zweispaltigen
+             Raster und die Zeilen fielen in die falschen Felder. -->
+        <div class="wi__band-satz">
           <p class="wi__band-marke">Klassisch investieren</p>
           <p class="wi__band-text">Von deinem Brutto gehen <b>Steuern, Abgaben und laufende Ausgaben</b> ab.</p>
           <p class="wi__band-text">Investiert wird nur, <b>was am Ende übrig bleibt.</b></p>
         </div>
 
-        <!-- 30.08.2026: Der Kreis mit „VS" ist auf Kundenwunsch vollstaendig
-             entfallen — Kreis UND Schrift. Es bleibt allein der senkrechte
-             Strich als Trennung.
-             Der Vorlesehinweis „im Vergleich zu" ist mitgegangen: er hing am
-             VS und beschrieb genau dieses Zeichen. Die Beziehung der beiden
-             Haelften steht weiterhin in den beiden Marken selbst
-             („Klassisch investieren" gegen „Mit Immobilie"), die als eigene
-             Absaetze vorgelesen werden. -->
-        <div class="wi__band-trenn">
-          <svg class="wi__band-linie" viewBox="0 0 2 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M1 0 V140" stroke="rgba(237,241,248,0.26)" stroke-width="1" vector-effect="non-scaling-stroke"/>
-          </svg>
-        </div>
+        <!-- ===== DAS SYMBOL — klein, RECHTS neben dem Text =============
+             Kundenwortlaut vom 31.08.2026: „Schreibe einfach den Text auf
+             der linken Seite, die Grafiken packst du jeweils auf die
+             rechte Seite, dann sind die Kaesten nicht so hoch. Die
+             Grafiken muessen viel, viel kleiner sein."
+             Die Grafik stand bis dahin UNTER dem Text und ueber die volle
+             Kastenbreite; der Kasten wurde dadurch hoch. Jetzt steht sie
+             daneben, und der Kasten ist flach und breit.
 
-        <div class="wi__band-halb">
+             DIE DATEI IST IM STIL DER VIER SYMBOLE DARUNTER erzeugt
+             (Bankkapital, Miete, Steuervorteile, Wertentwicklung):
+             mattes, weiches 3D in Salbeigruen, Creme, Sandbraun und Navy,
+             ohne Glanz. Freigestellt, mit Alphakanal — sie steht ohne
+             eigene Flaeche auf dem weissen Kasten.
+             NEU ERZEUGT AM 31.08.2026, 1214 x 1295 statt 1380 x 1140:
+             die vier Balken haben jetzt EINE einheitliche Farbe. Der Kunde
+             hatte die erste Fassung beanstandet — dort waren sie gemischt
+             (Salbei, Creme, Sand, Navy), und das las sich wie vier
+             verschiedene Dinge statt wie eine fallende Reihe.
+             1214 px Dateibreite gegen hoechstens 132 px Anzeigebreite
+             (der Deckel steht in warum.css): Faktor 9,2.
+
+             Die Grafik wiederholt, was die zwei Zeilen daneben sagen; sie
+             traegt keine eigene Aussage und keine Zahl. Deshalb `alt` mit
+             einer reinen Formbeschreibung und kein zweiter Satzinhalt. -->
+        <figure class="wi__vgl">
+          <picture>
+            <source srcset="assets/img/warum/vgl-klassisch.webp?v=b24a" type="image/webp">
+            <img src="assets/img/warum/vgl-klassisch.png?v=b24a"
+                 alt="Balkendiagramm mit fallenden Balken und einem roten Pfeil nach unten"
+                 width="1214" height="1295" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+      </div>
+
+      <!-- 30.08.2026: Der Kreis mit „VS" ist auf Kundenwunsch vollstaendig
+           entfallen — Kreis UND Schrift. Es bleibt allein der senkrechte
+           Strich als Trennung; er bleibt auch im neuen Aufbau, weil der
+           Kunde ihn ausdruecklich behalten wollte („nur der senkrechte
+           Strich bleibt"). Er steht jetzt zwischen den beiden weissen
+           Kaesten auf dem hellen Grund der Section und traegt deshalb den
+           Haarlinienton der Section statt des hellen Werts von vorher.
+           Der Vorlesehinweis „im Vergleich zu" ist mitgegangen: er hing am
+           VS und beschrieb genau dieses Zeichen. Die Beziehung der beiden
+           Haelften steht weiterhin in den beiden Marken selbst
+           („Klassisch investieren" gegen „Mit Immobilie"), die als eigene
+           Absaetze vorgelesen werden. -->
+      <div class="wi__band-trenn">
+        <svg class="wi__band-linie" viewBox="0 0 2 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M1 0 V140" stroke="#DCD5CC" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
+
+      <div class="wi__band-halb wi__band-halb--immobilie">
+        <div class="wi__band-satz">
           <p class="wi__band-marke">Mit Immobilie</p>
           <p class="wi__band-text">Deine Bonität eröffnet dir den Zugang zu <b>Bankkapital.</b></p>
           <p class="wi__band-text">So arbeitet von Beginn an <b>deutlich mehr Kapital</b> für dich.</p>
         </div>
+
+        <!-- ===== DAS SYMBOL — klein, RECHTS neben dem Text
+             Siehe den ausfuehrlichen Vermerk am Symbol der linken Haelfte.
+             1222 x 1287 Bildpunkte gegen hoechstens 132 px: Faktor 9,3.
+             Die Anmutung ist bewusst dieselbe wie beim Symbol
+             „Wertentwicklung" weiter unten im Feld — es ist derselbe
+             Gedanke an zwei Stellen. -->
+        <figure class="wi__vgl">
+          <picture>
+            <source srcset="assets/img/warum/vgl-immobilie.webp?v=b24a" type="image/webp">
+            <img src="assets/img/warum/vgl-immobilie.png?v=b24a"
+                 alt="Balkendiagramm mit wachsenden Balken und einem grünen Pfeil nach oben"
+                 width="1222" height="1287" loading="lazy" decoding="async">
+          </picture>
+        </figure>
       </div>
     </div>
 
@@ -1324,39 +1476,174 @@
   </span>
 
   <div class="vtr__inner">
-    <blockquote class="vtr__zitat vtr__auf">
-      <p class="vtr__satz">
-        <span class="vtr__wort" data-vtr-wort>„Estera</span>
-        <span class="vtr__wort" data-vtr-wort>macht</span>
-        <span class="vtr__wort" data-vtr-wort>Immobilien</span>
-        <span class="vtr__wort" data-vtr-wort>nicht</span>
-        <span class="vtr__wort" data-vtr-wort>für</span>
-        <span class="vtr__wort" data-vtr-wort>jeden.</span>
-        <span class="vtr__wort" data-vtr-wort>Nicht</span>
-        <span class="vtr__wort" data-vtr-wort>jede</span>
-        <span class="vtr__wort" data-vtr-wort>Immobilie</span>
-        <span class="vtr__wort" data-vtr-wort>ist</span>
-        <span class="vtr__wort" data-vtr-wort>eine</span>
-        <span class="vtr__wort" data-vtr-wort>gute</span>
-        <span class="vtr__wort" data-vtr-wort>Kapitalanlage.</span>
-        <span class="vtr__wort" data-vtr-wort>Und</span>
-        <span class="vtr__wort" data-vtr-wort>nicht</span>
-        <span class="vtr__wort" data-vtr-wort>jede</span>
-        <span class="vtr__wort" data-vtr-wort>Kapitalanlage</span>
-        <span class="vtr__wort" data-vtr-wort>passt</span>
-        <span class="vtr__wort" data-vtr-wort>zu</span>
-        <span class="vtr__wort" data-vtr-wort>jedem</span>
-        <span class="vtr__wort" data-vtr-wort>Menschen.</span>
-        <span class="vtr__wort" data-vtr-wort>Nicht</span>
-        <span class="vtr__wort" data-vtr-wort>jeder</span>
-        <span class="vtr__wort" data-vtr-wort>schnelle</span>
-        <span class="vtr__wort" data-vtr-wort>Abschluss</span>
-        <span class="vtr__wort" data-vtr-wort>ist</span>
-        <span class="vtr__wort" data-vtr-wort>ein</span>
-        <span class="vtr__wort" data-vtr-wort>guter</span>
-        <span class="vtr__wort" data-vtr-wort>Abschluss."</span>
-      </p>
-    </blockquote>
+
+    <!-- =================================================================
+         DAS VERTRAUENSBAND — UMBAU 31.08.2026
+
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         WAS HIER BIS HEUTE STAND, und warum es weg ist:
+           · EIN einzelnes Zitat, mittig, das sich beim Scrollen Wort fuer
+             Wort mit Schwarz fuellte (.vtr__satz mit `data-vtr-wort` an
+             jedem Wort).
+           · Davor, bis heute frueh, ein navyblauer Keil am linken Rand.
+             Der Kunde mochte ihn nicht; als Ersatz stand kurzzeitig eine
+             goldene Haarlinie ueber dem Satz.
+         Kundenwortlaut vom 31.08.2026: „Man muss schon irgendwie
+         kennzeichnen, dass es eine Trust-Section ist. Am besten packst du
+         mehrere Zitate rein, machst da drueber einen Strich darunter,
+         damit man sieht, es ist eine Trust-Section. Die Hoehe des Zitats
+         ist gut. Die Zitate packst du auch noch in einen kleinen Kasten
+         jeweils. Die Section soll nicht hoeher werden. Dann packst du noch
+         zwei Anfuehrungszeichen hin, so wie bei ‚Entdecke, was unsere
+         Mitarbeiter sagen‘, und dann laufen die Zitate durch."
+
+         DER KEIL ERLEDIGT SICH DAMIT VON SELBST. Er war das Mittel, das
+         dem Kunden nicht gefiel; das Band tritt an seine Stelle. Es
+         braucht dafuer keinen eigenen Ersatz mehr, und die goldene
+         Haarlinie von heute frueh ist in die beiden Striche uebergegangen,
+         die das Band jetzt oben und unten fassen.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+         DIE BAUART IST DIE DES BANDES AUF DER KARRIERESEITE
+         („Entdecke, was unsere Mitarbeiter sagen", .kar-band). Von dort
+         uebernommen, aber in eigenen Klassen und eigenen Regeln in
+         vertrauen.css nachgebaut — karriere.css ist NICHT angefasst:
+           · zwei wortgleiche Saetze Karten hintereinander, die Kopie
+             `aria-hidden`, damit nichts doppelt vorgelesen wird
+           · die Spur wandert um genau einen Satz; weil beide Saetze gleich
+             sind, ist der Ruecksprung unsichtbar
+           · reines CSS, also laeuft es auch OHNE JAVASCRIPT
+           · eine Kantenmaske links und rechts, damit die Karten aus dem
+             Weiss heraus- und wieder hineinlaufen
+           · das doppelte Anfuehrungszeichen als blasse Zeichnung in der
+             Karte
+
+         WAS ANDERS IST ALS DORT: kein Stern, keine Ueberschrift, kein
+         Name. Das hier sind keine Kundenstimmen, sondern SAETZE VON ESTERA
+         — die Haltung des Unternehmens. Ein Stern oder ein Name wuerde sie
+         zu Bewertungen machen, und die gaebe es dann nicht.
+
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         ZUM WORTLAUT DER SECHS ZITATE — bitte vollstaendig lesen.
+
+         ZWEI davon stehen WOERTLICH im Wording-Master, Abschnitt 2, und
+         zeichengleich schon im Kopfbereich dieser Seite:
+           · „Diskret ausgewählt. Strukturiert geprüft. Langfristig
+              begleitet."            (die Guetezeile, .heroA__guete)
+           · „Ausgewählte Immobilien, passende Finanzierung und
+              langfristige Betreuung aus einer Hand."
+                                     (die Unterueberschrift, .heroA__lead)
+
+         DREI sind die positive Wendung des Master-Satzes, den der Kunde
+         schon vorher positiv formuliert haben wollte. Im Master steht er
+         in der Verneinung:
+           „Estera macht Immobilien nicht für jeden. Nicht jede Immobilie
+            ist eine gute Kapitalanlage. Und nicht jede Kapitalanlage passt
+            zu jedem Menschen. Nicht jeder schnelle Abschluss ist ein guter
+            Abschluss."
+         Jede Verneinung ist zu genau EINER Bejahung geworden; der vierte
+         Teilsatz („nicht jede Kapitalanlage passt zu jedem Menschen") geht
+         inhaltlich im zweiten Zitat auf und ist nicht doppelt gesetzt.
+
+         EINES steht so auf dieser Seite, aber nicht nachweislich im
+         Master: „Auch ein Nein ist möglich." — es ist die Beschriftung des
+         Schrittes „Erstgespräch und Einordnung" in der Leistungsgrafik.
+
+         KEINES DER SECHS IST EINE KUNDENSTIMME, keines nennt eine Zahl,
+         keines enthaelt eines der untersagten Woerter, und keines gibt
+         eine Zusage ueber ein Ergebnis.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+         DER STRICH UNTER DEM BAND ist das, was den Abschnitt als
+         Vertrauensteil kennzeichnet.
+
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         ES WAREN ZWEI, EINER UEBER UND EINER UNTER DEM BAND. Der obere
+         ist am 31.08.2026 auf Kundenwunsch ersatzlos entfallen; nur der
+         untere bleibt.
+         Der verbliebene Strich LAEUFT NICHT MEHR DURCH: er blendet nach
+         rechts aus, bevor er das ueberhaengende Fassadenfoto beruehrt.
+         Kundenwortlaut: „Diese Linie darf nicht in das Bild rechts
+         hineinlaufen. Sie muss vorher ausblenden." Wie weit, ist in
+         vertrauen.css an der Regel vorgerechnet.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+         Er ist Zeichnung und traegt keine Aussage.
+         ================================================================= -->
+
+    <div class="vtr__band vtr__auf" role="group" aria-label="Sätze von Estera">
+      <ul class="vtr__spur">
+        <!-- PLATZHALTER — 31.08.2026. Nicht woertlich aus dem Wording-Master.
+             VOR DEM LIVEGANG VON ESTERA BESTAETIGEN LASSEN.
+             Herkunft: Positive Wendung des Master-Satzes „Estera macht Immobilien nicht für jeden.“ -->
+        <li class="vtr__karte">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Estera macht Immobilien für die Menschen, zu denen sie passen.“</p>
+        </li>
+        <!-- PLATZHALTER — 31.08.2026. Nicht woertlich aus dem Wording-Master.
+             VOR DEM LIVEGANG VON ESTERA BESTAETIGEN LASSEN.
+             Herkunft: Positive Wendung von „Nicht jede Immobilie ist eine gute Kapitalanlage.“ -->
+        <li class="vtr__karte">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Eine gute Kapitalanlage ist die, die zu deiner Situation passt.“</p>
+        </li>
+        <!-- PLATZHALTER — 31.08.2026. Nicht woertlich aus dem Wording-Master.
+             VOR DEM LIVEGANG VON ESTERA BESTAETIGEN LASSEN.
+             Herkunft: Positive Wendung von „Nicht jeder schnelle Abschluss ist ein guter Abschluss.“ -->
+        <li class="vtr__karte">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Ein guter Abschluss ist der, der Zeit hatte.“</p>
+        </li>
+        <!-- Herkunft: WÖRTLICH aus dem Wording-Master, Abschnitt 2 — die Gütezeile. Steht zeichengleich im Kopfbereich dieser Seite als .heroA__guete. -->
+        <li class="vtr__karte">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Diskret ausgewählt. Strukturiert geprüft. Langfristig begleitet.“</p>
+        </li>
+        <!-- Herkunft: WÖRTLICH aus dem Wording-Master, Abschnitt 2 — die Unterüberschrift. Steht zeichengleich im Kopfbereich dieser Seite als .heroA__lead. -->
+        <li class="vtr__karte">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Ausgewählte Immobilien, passende Finanzierung und langfristige Betreuung aus einer Hand.“</p>
+        </li>
+        <!-- PLATZHALTER — 31.08.2026. Nicht woertlich aus dem Wording-Master.
+             VOR DEM LIVEGANG VON ESTERA BESTAETIGEN LASSEN.
+             Herkunft: Steht so in der Leistungsgrafik dieser Seite (Erstgespräch und Einordnung). Nicht als Master-Zitat nachgewiesen. -->
+        <li class="vtr__karte">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Auch ein Nein ist möglich.“</p>
+        </li>
+
+        <!-- Satz 2 — wortgleiche Kopie, nur fuer den nahtlosen Umlauf.
+             `aria-hidden`, damit die sechs Saetze nicht doppelt
+             vorgelesen werden. -->
+        <li class="vtr__karte vtr__karte--kopie" aria-hidden="true">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Estera macht Immobilien für die Menschen, zu denen sie passen.“</p>
+        </li>
+        <li class="vtr__karte vtr__karte--kopie" aria-hidden="true">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Eine gute Kapitalanlage ist die, die zu deiner Situation passt.“</p>
+        </li>
+        <li class="vtr__karte vtr__karte--kopie" aria-hidden="true">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Ein guter Abschluss ist der, der Zeit hatte.“</p>
+        </li>
+        <li class="vtr__karte vtr__karte--kopie" aria-hidden="true">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Diskret ausgewählt. Strukturiert geprüft. Langfristig begleitet.“</p>
+        </li>
+        <li class="vtr__karte vtr__karte--kopie" aria-hidden="true">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Ausgewählte Immobilien, passende Finanzierung und langfristige Betreuung aus einer Hand.“</p>
+        </li>
+        <li class="vtr__karte vtr__karte--kopie" aria-hidden="true">
+          <span class="vtr__anf" aria-hidden="true"></span>
+          <p class="vtr__zitat">„Auch ein Nein ist möglich.“</p>
+        </li>
+      </ul>
+    </div>
+
+    <span class="vtr__linie" aria-hidden="true"></span>
+
   </div>
 </section>
 
@@ -2393,9 +2680,24 @@
              Hier steht deshalb eine FLAECHE in demselben warmen Ton. Eine
              Flaeche kann nicht ungleichmaessig dick sein. Geometrie und Lage
              sind die der Vorlage. -->
-        <svg class="robj__deko" viewBox="0 0 486 376" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path d="M0 0h473a13 13 0 0 1 13 13v350a13 13 0 0 1-13 13H0Z"/>
-        </svg>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             DAS VERSETZTE BLATT IST AM 31.08.2026 ERSATZLOS ENTFALLEN.
+
+             Was hier stand: eine Flaeche 486 x 376 in rgba(168,135,79,0.12),
+             absolut hinter dem Videorahmen, 15 px ueber dessen Oberkante und
+             2 Prozent ueber dessen rechte Kante hinaus. Sie stammte aus der
+             Kundenvorlage, wo an dieser Stelle eine goldene Haarlinie lag;
+             am 25.08.2026 war die Linie auf Kundenwunsch durch die Flaeche
+             ersetzt worden.
+
+             DER KUNDE HAT SIE AM 31.08.2026 SELBST BEANSTANDET: „In der
+             rechten oberen Ecke des Bildfensters klebt etwas, das dort nicht
+             hingehoert." Genau das war es: weil das weisse Passepartout des
+             Videos das Blatt links und unten verdeckt, schaute nur noch sein
+             oberer rechter Zipfel hervor — als Rest, nicht als Form. Es ist
+             deshalb ganz weg und nicht kleiner gestellt.
+             Die Regeln in referenzobjekte.css sind mit entfernt.
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         <figure class="robj__rahmen">
           <div class="robj__medium">
@@ -2419,36 +2721,78 @@
           </div>
         </figure>
 
-        <!-- 30.08.2026: EINE KARTE STATT DREI.
-             Die drei Umschaltpunkte unter dem Video sind auf Kundenwunsch
-             entfallen, damit auch die Ansichten 02 „Anflug" und 03
-             „Rundgang". Der KASTEN bleibt unveraendert: gleiche Klassen,
-             gleiche Breite (41 % / min. 300 px), gleiche Lage (left -6,6 %,
-             bottom 0), gleicher Radius, gleiche Flaeche, gleiche Schatten.
-             Nur der Inhalt ist jetzt EINE allgemeine Aussage.
+        <!-- ===== ZWEI KARTEN, SPIEGELBILDLICH — 31.08.2026 ==============
 
-             Die Zeile im Goldton trug bisher die Ordnungszahl „01". Ohne
-             Reihe traegt eine Ordnungszahl nichts mehr; an ihrer Stelle
-             steht der Satzgedanke des Kunden. Die Zeile bleibt einzeilig,
-             deshalb bleibt auch die Kastenhoehe dieselbe.
-             Ueberschrift und Text sind Zeichen fuer Zeichen die der
-             bisherigen Karte 01 — die stand Wort fuer Wort auf der
-             Kundenvorlage und kommt ohne Rundgang, ohne Lage, ohne Zahl und
-             ohne Zimmerschnitt aus.
-             `aria-live` ist weg: es wechselt nichts mehr. -->
+             30.08.2026 stand hier EINE Karte statt der urspruenglichen
+             drei: die Umschaltpunkte unter dem Video und damit die
+             Ansichten 02 „Anflug" und 03 „Rundgang" waren entfallen.
+
+             31.08.2026 kommt eine ZWEITE Karte dazu — nicht als Rueckkehr
+             der Reihe, sondern als eigenes Gestaltungselement. Der Kunde:
+             die Karte links unten soll etwas Besseres tragen, er nennt
+             selbst „Off-Market-Objekt"; dazu soll rechts unten eine zweite
+             Karte stehen, spiegelbildlich zur ersten, die RECHTS AUS DEM
+             BILD HERAUSLAEUFT, mit einem anderen Text — als Beispiel nennt
+             er „Ihre Immobilie als Kapitalanlage".
+
+             ES BLEIBT BEI ZWEI RUHENDEN KARTEN. Es wird nichts
+             umgeschaltet, es gibt keine Reihe, kein `aria-live`, keine
+             Punkte, keine Pfeile.
+
+             `data-robj-karte` STEHT DESHALB AN KEINER DER BEIDEN KARTEN,
+             und das ist wichtig: assets/js/referenzobjekte.js sammelt
+             ueber genau dieses Attribut die umschaltbaren Ansichten ein
+             und steigt bei weniger als zwei Treffern aus. Stuende es hier,
+             haelte das Skript die zweite Karte fuer die zweite Ansicht und
+             blendete sie mit `hidden` aus — sichtbar waere dann wieder nur
+             eine. Die beiden Karten werden ueber ihre eigenen Klassen
+             --links und --rechts angesprochen.
+
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             BEIDE KARTEN KOMMEN OHNE OBJEKTANGABE AUS — keine Adresse,
+             kein Zimmerschnitt, keine Zahl, keine Etage, kein Baujahr,
+             kein Preis. Das ist die harte Bedingung an dieser Stelle: die
+             Aufnahme zeigt eine MUSTERWOHNUNG, kein Angebot.
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+             ZUM WORTLAUT
+             Karte 1 traegt jetzt den Begriff, den der Kunde selbst genannt
+             hat. Der erklaerende Satz darunter ist NICHT neu formuliert,
+             sondern Zeichen fuer Zeichen der, mit dem die Seite den
+             Begriff ohnehin schon einfuehrt (Leistungsgrafik, Kasten
+             „Off-Market"): „Wohnungen, die nicht öffentlich angeboten
+             werden." Damit steht an beiden Stellen dasselbe, und der
+             Fachbegriff wird erklaert — der Kunde verlangt
+             Verstaendlichkeit ohne Vorwissen.
+
+             Karte 2 traegt den vom Kunden genannten Gedanken IN DER
+             DU-ANREDE. Die Seite siezt an keiner Stelle; die
+             „Ihre"-Fassung steht im Schaubild der Leistungen und stammt
+             aus der dortigen Kundenvorlage.
+             DER WORTLAUT IST AM 31.08.2026 AUF ANSAGE DES KUNDEN GEKUERZT:
+             aus „Deine Immobilie als Kapitalanlage" ist „Deine
+             Kapitalanlage-Immobilie" geworden. Der Grund ist die Zeilenzahl
+             — die lange Fassung brach in zwei Zeilen, und die rechte Karte
+             soll genauso viele Zeilen tragen wie die linke, also DREI:
+             Kennzeile, Ueberschrift, Satz. Nachgemessen bei 1440 px steht
+             die kurze Fassung einzeilig.
+             Der Satz darunter ist uebernommen und nicht neu erfunden:
+             „Langfristig gedacht statt schnell entschieden." steht
+             wortgleich in der Beschreibung derselben Grafik.
+
+             ABGELOEST ist damit „Der Anspruch / Was diskret ausgewaehlt und
+             geprueft wurde, sieht man." vom 30.08.2026. -->
         <div class="robj__karten">
-          <!-- 30.08.2026, zweite Fassung: „Raumgefuehl" ist auf ausdrueckliche
-               Ansage des Kunden heraus. An seiner Stelle steht jetzt „Der
-               Anspruch", und der Satz darunter greift die Gueterzeile aus dem
-               Kopf der Seite auf („Diskret ausgewaehlt. Strukturiert geprueft.
-               Langfristig begleitet.") — freigegebener Wortlaut, nichts
-               dazuerfunden. Keine Objektangabe, keine Zahl, kein Rundgang.
-               Beide Zeilen sind so lang wie die vorigen, damit der Kasten
-               seine Hoehe behaelt. -->
-          <div class="robj__karte" data-robj-karte="0">
-            <span class="robj__nr">So sieht es bei uns aus</span>
-            <span class="robj__kt">Der Anspruch</span>
-            <span class="robj__kb">Was diskret ausgewählt und geprüft wurde, sieht man.</span>
+          <div class="robj__karte robj__karte--links">
+            <span class="robj__nr">Nicht öffentlich angeboten</span>
+            <span class="robj__kt">Off-Market-Objekt</span>
+            <span class="robj__kb">Wohnungen, die nicht öffentlich angeboten werden.</span>
+          </div>
+
+          <div class="robj__karte robj__karte--rechts">
+            <span class="robj__nr">Worum es geht</span>
+            <span class="robj__kt">Deine Kapitalanlage-Immobilie</span>
+            <span class="robj__kb">Langfristig gedacht statt schnell entschieden.</span>
           </div>
         </div>
 
@@ -2737,18 +3081,38 @@
            Stapel auf die volle Breite gestellt. Jede Karte traegt jetzt ihr
            eigenes Bild, siehe .abl__karte-bild.
 
-           DIE ZWEI SCHLUSSZEILEN BLEIBEN. „Ein Ansprechpartner. Vom Anfang
-           bis zum Notar." ist eine Aussage ueber den Ablauf und haftete
-           nicht am Bild; sie stand nur zufaellig in derselben Spalte.
-           Sie steht jetzt mittig UNTER dem Stapel und schliesst den
-           Abschnitt ab — dort, wo vorher nur Leerraum war.
-           Die goldene Haarlinie darueber ist mitgekommen. -->
+           DIE ZWEI SCHLUSSZEILEN BLEIBEN. Sie sind eine Aussage ueber den
+           Ablauf und hafteten nicht am Bild; sie standen nur zufaellig in
+           derselben Spalte. Sie stehen jetzt mittig UNTER dem Stapel und
+           schliessen den Abschnitt ab — dort, wo vorher nur Leerraum war.
+           Die goldene Haarlinie darueber ist mitgekommen.
+
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           DIE ZWEITE ZEILE IST AM 31.08.2026 KORRIGIERT WORDEN — sie war
+           sachlich falsch.
+
+           Sie lautete „Vom Anfang bis zum Notar." Das stimmte, solange der
+           Ablauf mit dem Notartermin endete. Seit es Schritt 06
+           „Betreuung" gibt, endet er dort NICHT mehr: die Karte 06 sagt
+           selbst „Nach dem Notartermin bleibt der persönliche
+           Ansprechpartner — die Betreuung läuft weiter." Die Schlusszeile
+           behauptete also das Gegenteil des Schrittes, der unmittelbar
+           darueber steht.
+
+           Der Kunde hat die Richtigstellung selbst formuliert: „Ein
+           Ansprechpartner von Anfang an bis weit ueber den Notar hinaus."
+           Ausgeschrieben und auf die zwei vorhandenen Zeilen verteilt —
+           die erste Zeile bleibt Zeichen fuer Zeichen wie sie war, nur die
+           zweite ist neu. Weder Zusage noch Zahl kommt hinzu: „weit ueber
+           den Notar hinaus" beschreibt genau das, was Schritt 06 schon
+           zusagt, und nichts darueber.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <div class="abl__schluss">
         <svg class="abl__hausstrich" width="52" height="1" viewBox="0 0 52 1" aria-hidden="true" focusable="false">
           <path d="M0 .5H52" stroke="currentColor" stroke-width="1"/>
         </svg>
         <p class="abl__hauszeile">Ein Ansprechpartner.</p>
-        <p class="abl__hauszeile">Vom Anfang bis zum Notar.</p>
+        <p class="abl__hauszeile">Von Anfang an — und weit über den Notar hinaus.</p>
       </div>
 
     </div>

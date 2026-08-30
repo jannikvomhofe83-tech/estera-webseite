@@ -541,15 +541,31 @@
      uebernommen, weil davon der Abstand zwischen Unterzeile und erster
      Kartenreihe abhaengt.
      ===================================================================== -->
-<!-- DIE NAVY-FLAECHE BLEIBT. Der Kunde hatte sie am 30.08.2026 zunaechst
-     zurueckgenommen und sich am selben Tag wieder umentschieden:
-     „Hinter ‚Deine Karriere, unser Angebot' muss auch ein Navyblau sein
-     und auch ein Farbuebergang."
-     Der Farbuebergang ist .fl-navy800 aus base.css: die Flaeche atmet in
-     der eigenen Farbfamilie von oben nach unten. Ihre beiden Kanten
-     gegen Weiss und Creme bleiben hart — Navy gegen Hell bekommt keinen
-     Uebergang, dazu die Rechnung in karriere.css. -->
-<section class="kar-angebot fl-navy800" aria-labelledby="kar-angebot-titel">
+<!-- =====================================================================
+     EINE EINZIGE NAVYFLAECHE UEBER BEIDE ABSCHNITTE — KUNDENWUNSCH
+     30.08.2026: „Gefaellt mir ueberhaupt nicht, dass dort so blau ist und
+     dann kommt darunter wieder eine andere Farbe. Mach hier die Section
+     darunter einfach auch in dem gleichen Blau."
+
+     Deshalb dieser Behaelter. Er traegt die Flaeche fuer BEIDE Abschnitte,
+     das Kapitelblatt und die zwei Stellen; die Abschnitte selbst sind
+     durchsichtig. Damit gibt es zwischen ihnen keine Naht mehr — vorher
+     endete das Kapitelblatt auf einem helleren Navy und die Stellen
+     begannen wieder auf Creme.
+
+     WARUM EIN BEHAELTER UND NICHT ZWEIMAL DIESELBE KLASSE: zwei Flaechen
+     mit je eigenem Verlauf haetten an ihrer Nahtstelle einen Sprung
+     (das Kapitelblatt endete bei #163153, die Stellen begaennen wieder
+     bei #102949 — 10 Einheiten Kante mitten in der Flaeche). Ein Verlauf
+     ueber beide zusammen laeuft durch.
+
+     DER VERLAUF ENDET AUF NAVY 900 — genau der Farbe des Fussbereichs.
+     Damit ist auch die untere Naht weg: die Flaeche kommt dort an, wo der
+     Fuss anfaengt. Die Rechnung (Steilheit, Kontraste) steht in
+     karriere.css bei .kar-navy. -->
+<div class="kar-navy fl-navy800">
+
+<section class="kar-angebot" aria-labelledby="kar-angebot-titel">
   <div class="kar-mitte">
     <!-- Rautenpunkt: Sand als Akzent, wie ueber den Abschnitts-
          ueberschriften der Startseite. aria-hidden, weil das Zeichen
@@ -560,9 +576,11 @@
   </div>
 </section>
 
-<!-- OHNE Verlaufsklasse: beide Kanten dieses Abschnitts stossen an Navy
-     und bleiben harte Kanten. Ein Verlauf in der Flaeche haette keinen
-     Nachbarn, auf dessen Farbe er enden koennte. -->
+<!-- OHNE eigene Flaeche und ohne Verlaufsklasse: der Abschnitt ist
+     durchsichtig, die Farbe kommt vom Behaelter .kar-navy darueber.
+     Die zwei Kaesten stehen damit auf Navy statt auf Creme — ihre
+     Flaeche, ihr Rahmen und alle Schriftfarben darin sind neu gesetzt
+     und am Bildpunkt nachgemessen (karriere.css, Abschnitt 8). -->
 <section class="kar-stellen" aria-label="Offene Stellen">
   <div class="kar-mitte">
     <ul class="kar-liste" data-stellen>
@@ -614,6 +632,8 @@
     </ul>
   </div>
 </section>
+
+</div><!-- /.kar-navy — Ende der durchlaufenden Navyflaeche -->
 
 </main>
 

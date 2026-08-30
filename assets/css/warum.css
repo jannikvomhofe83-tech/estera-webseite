@@ -93,215 +93,383 @@
 }
 
 /* ===========================================================================
-   2  KOPF — EIN KASTEN, 30.08.2026
+   2  DER GRAUE KASTEN — UMBAU 31.08.2026
 
-   Kundenwunsch woertlich: „das ist das Wichtigste und muss hervorgehoben
-   werden." Kleinzeile, Ueberschrift, Unterzeile und die Gegenueberstellung
-   KLASSISCH INVESTIEREN / MIT IMMOBILIE stehen deshalb ZUSAMMEN in einem
-   Kasten. Vorher waren es zwei getrennte helle Flaechen: der Kopf stand
-   frei auf dem Cremegrund, das Vergleichsband hatte seine eigene, um einen
-   Hauch hellere Karte (#FBF8F5 mit Haarlinie und weichem Schatten).
+   Der Kunde hat den Aufbau selbst gezeichnet: OBEN ein laenglicher, GRAUER
+   Kasten mit dem Satz „Der Unterschied ist, wie viel Kapital vom ersten Tag
+   an fuer dich arbeitet." DARUNTER zwei WEISSE Kaesten nebeneinander,
+   „Klassisch investieren" und „Mit Immobilie", jeder mit einer Grafik.
 
-   DIE FARBE IST NICHT NACHEMPFUNDEN, SIE IST UEBERNOMMEN.
-   `--faq-kasten-links: #1E222D` nach `--faq-kasten-rechts: #2E3643`,
-   waagerecht — Zeichen fuer Zeichen die Werte aus faq.css. Der Kunde hat
-   den Massstab selbst genannt: „kein blauer Kasten, aber in der gleichen
-   Farbe wie die Kaesten bei der FAQ-Section". Der FAQ-Ton ist ein
-   entsaettigtes Anthrazit mit einem Hauch Blau, ausdruecklich KEIN Navy;
-   --navy-800 #102949 waere deutlich blauer und waere der falsche Kasten.
-
-   Die Werte stehen hier noch einmal als eigene Variablen und nicht als
-   `var(--faq-kasten-links)`: faq.css definiert die beiden auf `.faq`, also
-   auf einem Abschnitt weiter unten in der Seite. Von hier aus sind sie
-   nicht erreichbar. Wer den FAQ-Kasten umfaerbt, muss diese drei Zeilen
-   mitziehen — deshalb steht der Verweis hier.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   WAS DAMIT WEGFAELLT (Stand 30.08.2026)
+     — Die beiden weissen Flaechen lagen IM dunklen Kasten. Sie liegen
+       jetzt darunter und ausserhalb; .wi__band ist kein Kind von .wi__kopf
+       mehr.
+     — Der Kasten war Anthrazit #1E222D -> #2E3643, Zeichen fuer Zeichen die
+       Werte des FAQ-Kastens. Der Kunde nennt den Kasten in seiner Zeichnung
+       jetzt ausdruecklich GRAU. Der Bezug auf faq.css ist damit
+       aufgehoben — wer den FAQ-Kasten umfaerbt, muss hier NICHT mehr
+       nachziehen.
+     — Der Aussenabstand des Bandes zur Unterzeile (3,8rem) war ein Abstand
+       INNERHALB des Kastens. Er ist jetzt der Abstand ZWISCHEN zwei
+       Kaesten und entsprechend neu gesetzt.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    ---------------------------------------------------------------------
-   DIE SCHRIFT — jede Zeile gegen den TATSAECHLICHEN Grund gemessen
+   WELCHES GRAU — und warum nicht Navy und nicht Schwarz
    ---------------------------------------------------------------------
-   Der Kasten wird nach rechts heller. Massgeblich ist deshalb IMMER die
-   rechte Kante #2E3643, nicht der Mittelwert und erst recht nicht die
-   dunkle linke Seite. Gerechnet gegen alle drei Stellen:
+   Die Seite kennt kein Schwarz; die Leitfarbe ist Navy. Der Kunde hat hier
+   aber weder Navy noch Schwarz verlangt, sondern GRAU, und er stellt es in
+   seiner Zeichnung ausdruecklich gegen die beiden WEISSEN Kaesten darunter.
+   Gewaehlt ist deshalb ein NEUTRALES GRAPHITGRAU ohne Blaustich:
 
-                                        #1E222D  #262C39  #2E3643
-     Ueberschrift    #FFFFFF             15,89    13,98    12,17
-     Marken/VS       #EDF1F8             14,02    12,34    10,75
-     Fliesstext      #C7CEDA             10,04     8,84     7,69
-     Kleinzeile      #C9B08A (gold-soft)  7,61     6,70     5,83
+     --wi-kasten-links   #333941
+     --wi-kasten-rechts  #3F4650
 
-   VERWORFEN, weil sie rechts reissen oder zu knapp stehen:
-     --gold      #A8874F   4,72  4,16  3,62  — unter der Schwelle
-     --wi-punkt  #C0985C   5,97  5,25  4,57  — 0,07 Reserve, zu knapp
-     --sand      #D9B485   8,18  7,20  6,27  — traegt, ist hier aber zu
-                                               warm neben dem Gold-Soft
-   Gewaehlt ist --gold-soft #C9B08A: es haelt die goldene Familie der
-   Seite und steht mit 5,83:1 an der hellsten Stelle sicher ueber 4,5.
+   Es ist heller und deutlich weniger blau als das abgeloeste Anthrazit,
+   liest sich also als Grau und nicht als „fast schwarz"; zugleich bleibt es
+   dunkel genug, dass der Kasten das Wichtigste des Abschnitts bleibt
+   („das ist das Wichtigste und muss hervorgehoben werden", 30.08.) und die
+   beiden weissen Kaesten darunter als weiss lesbar sind.
 
-   Trennlinie und Kreisrand sind nichttextlich; sie stehen in
-   rgba(237,241,248,0.26) beziehungsweise 0.30 — Zeichnung, keine Aussage.
+   VERLAUFSREGEL: hoechstens 0,03 Einheiten je Bildpunkt. Der groesste
+   Kanalunterschied ist Blau, 0x41 -> 0x50 = 15 Einheiten, ueber die volle
+   Kastenbreite von 1328 px. Das sind 0,0113 Einheiten je Bildpunkt — knapp
+   ein Drittel der Grenze. An Navy-Kanten liegt der Verlauf nicht.
+
+   ---------------------------------------------------------------------
+   DIE SCHRIFT IM GRAUEN KASTEN — gegen die HELLSTE Stelle gerechnet
+   ---------------------------------------------------------------------
+   Der Kasten wird nach rechts heller. Massgeblich ist deshalb immer die
+   rechte Kante #3F4650, nicht der Mittelwert.
+
+                                       #333941   #3F4650
+     Ueberschrift    #FFFFFF            11,65     9,54
+     Unterzeile      #C7CEDA             7,36     6,03
+     Kleinzeile      --sand  #D9B485     6,00     4,91
+
+   VERWORFEN:
+     --gold-soft #C9B08A   6,53 / 4,57 — traegt zwar, aber nur mit 0,07
+                                         Reserve an der hellen Kante. Das
+                                         ist zu knapp; derselbe Grund hat am
+                                         30.08. schon --wi-punkt verworfen.
+     --gold      #A8874F   4,04 / 2,82 — reisst.
+   Gewaehlt ist --sand #D9B485 mit 4,91:1 an der hellsten Stelle. Es haelt
+   die warme Familie der Seite und hat 0,41 Reserve.
+
+   Die Trennlinie zwischen den weissen Kaesten ist nichttextlich; sie steht
+   in --wi-haar #DCD5CC — Zeichnung, keine Aussage.
    =========================================================================== */
 .wi__kopf {
-  /* Die Werte des FAQ-Kastens. Siehe den Vermerk darueber, warum sie hier
-     noch einmal stehen und nicht als var() aus faq.css geholt werden. */
-  --wi-kasten-links:  #1E222D;
-  --wi-kasten-rechts: #2E3643;
+  /* ===== WEISS — FARBTAUSCH VOM 31.08.2026 ===========================
+     Der Kasten trug bis heute Nachmittag den FAQ-Ton (#1E222D nach
+     #2E3643). Der Kunde hat die Farben getauscht: der Kopfkasten wird
+     WEISS, die beiden Vergleichskaesten darunter bekommen den FAQ-Ton.
+     Die drei Zeilen darin stehen damit wieder auf Weiss, und die auf
+     Weiss gemessenen Farben kehren zurueck:
 
-  background: linear-gradient(90deg, var(--wi-kasten-links) 0%, var(--wi-kasten-rechts) 100%);
-  /* Derselbe Radius wie am abgeloesten Vergleichsband — der Kasten ist
-     jetzt groesser, der Radius bleibt der der Vorlage. */
+       Kleinzeile     --wi-gold  #86693A auf #FFFFFF    5,12:1
+       Ueberschrift   --wi-navy  #102949 auf #FFFFFF   14,31:1
+       Unterzeile     --wi-grau  #5F6E85 auf #FFFFFF    5,26:1
+
+     ES LIEGT KEIN VERLAUF MEHR DARIN — eine einfarbige Flaeche kann die
+     Steilheitsregel von 0,03 Einheiten je Bildpunkt nicht verletzen.
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DAS HAUSSYMBOL RECHTS IM KASTEN IST ERSATZLOS ENTFALLEN.
+     Kundenwortlaut: „Vergiss das Haus darin." Hier standen dafuer ein
+     zweispaltiges Raster und die Regeln .wi__kopf-haus (Breite zuletzt
+     clamp(96px, 12vw, 168px), senkrechte Ausrichtung, Bilddarstellung)
+     samt eigenem Wert fuer schmale Fenster. Alles weg.
+     Der Kasten ist damit EINSPALTIG und traegt nur noch drei schmale
+     Zeilen — genau das, was der Kunde mit „viel niedriger, nicht ganz so
+     hoch und nicht ganz so gross" gemeint hat. Der Innenabstand ist
+     entsprechend zurueckgenommen (war bis 2,9rem oben und unten).
+     Die Dateien assets/img/warum/kapital-haus.{webp,png} liegen weiter
+     im Ordner, werden von dieser Seite aber nirgends mehr geholt.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     DIE KANTE ist die doppelte Haarlinie, die seit dem 31.08.2026 alle
+     drei Kaesten dieses Abschnitts fuehren — aussen Navy auf 0,13, innen
+     Gold auf 0,20. Ein weisser Kasten auf dem cremefarbenen Grund der
+     Section braucht sie: ohne Kante saehe man ihn nicht.
+     Der weiche Schlagschatten von heute frueh ist entfallen; die
+     Handschrift des Projekts ist die feine Linie, nicht der Schatten. */
+  background: #FFFFFF;
+  border: 1px solid rgba(16, 41, 73, 0.13);
   border-radius: 20px;
-  padding: clamp(1.8rem, 3.4vw, 3.2rem) clamp(1.2rem, 2.6vw, 2.8rem) clamp(1.9rem, 3.6vw, 3.4rem);
-  /* Der Kasten steht auf hellem Grund und braucht keine Kante — 15,89:1
-     gegen Weiss traegt sich selbst. Ein weicher Schatten gibt ihm Hoehe,
-     wie beim abgeloesten Band. */
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.06), 0 18px 44px -18px rgba(16, 41, 73, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(168, 135, 79, 0.20);
+  padding: clamp(1.3rem, 2.2vw, 2rem) clamp(1.2rem, 2.6vw, 2.8rem);
+  text-align: center;
 }
 
-/* Vorlage: mittig, Grundlinie y=40, Versalien, weite Sperrung, Serif. */
+/* Vorlage: mittig, Grundlinie y=40, Versalien, weite Sperrung. */
 .wi__eyebrow {
   font-family: var(--font-ui);
   font-weight: 500;
   font-size: clamp(0.74rem, 0.98vw, 0.94rem);   /* 15px bei 1536 */
   letter-spacing: 0.22em;
   text-transform: uppercase;
+  /* Wieder mittig: der Kasten ist seit dem Farbtausch einspaltig, es
+     steht nichts mehr rechts daneben, worauf sich eine linke Kante
+     beziehen koennte. */
   text-align: center;
-  /* Im Kasten, also hell. --wi-gold #86693A misst dort 1,6:1 und waere
-     unlesbar; --gold-soft haelt 5,83:1 an der hellsten Stelle. */
-  color: var(--gold-soft);
+  color: var(--wi-gold);       /* #86693A — 5,12:1 auf Weiss */
   margin: 0 0 clamp(0.5rem, 1vh, 0.9rem);
 }
 
-/* Vorlage: eine Zeile, mittig, Serif hell, Versalhoehe 41px → 62px Grad. */
+/* DIE UEBERSCHRIFT TRAEGT SEIT DEM FARBTAUSCH VOM 31.08.2026 WIEDER DEN
+   SATZ MIT DEM VERMOEGEN — siehe den Vermerk im Markup. Er ist kuerzer als
+   der Unterschied-Satz und steht bei 1440 px zweizeilig. */
 .wi__h2 {
   font-family: var(--font-display);
   font-weight: 300;
-  /* Die Vorlage setzt die Zeile EINZEILIG ueber 1180 von 1536 Punkten,
-     Versalhoehe 38. Cormorant baut bei dieser Versalhoehe rund 12 Prozent
-     breiter; auf 62px bliebe die Zeile nicht in einer Zeile. Grad und
-     Laufweite sind deshalb so gesetzt, dass die gemessene Zeilenbreite
-     der Vorlage steht — die Einzeiligkeit wiegt hier schwerer als die
-     letzten drei Punkte Versalhoehe. */
-  font-size: clamp(1.75rem, 3.52vw, 3.4rem);    /* 54px bei 1536 */
-  line-height: 1.12;
+  /* Eine Spur kleiner als der alte Wert (3.52vw / 3.4rem): der neue Satz
+     hat 12 statt 10 Woerter und stuende sonst dreizeilig im Kasten. */
+  font-size: clamp(1.68rem, 3.15vw, 3.05rem);
+  line-height: 1.14;
   letter-spacing: -0.012em;
   text-align: center;
-  color: #FFFFFF;              /* 12,17:1 an der hellsten Stelle des Kastens */
+  color: var(--wi-navy);       /* #102949 — 14,31:1 auf Weiss */
   text-wrap: balance;
-  margin: 0;
+  /* ===== EINE ZEILE — 31.08.2026 =====================================
+     Kundenwunsch: „Warum Immobilien soll in einer Zeile stehen. Dann kann
+     der Kasten auch ein bisschen kleiner werden."
+
+     DER GRAD WAR NIE DAS PROBLEM. Hier stand `max-width: 22em`, und genau
+     das hat den Satz umbrechen lassen — nicht die Kastenbreite.
+     Nachgemessen: der Satz braucht bei jedem Grad exakt 22,545 mal die
+     Schriftgroesse an Breite. 22em waren also 0,545em zu wenig, und der
+     Satz brach ab, obwohl im Kasten reichlich Platz war:
+
+       Fenster   Grad     noetig   im Kasten frei   alte Grenze 22em
+        1920     48,8 px   1100 px     1238 px          1074 px
+        1440     45,4 px   1023 px     1250 px           998 px
+        1280     40,3 px    909 px     1111 px           887 px
+        1024     32,3 px    727 px      889 px           710 px
+     In jeder Zeile ist „noetig" kleiner als „frei" und groesser als die
+     alte Grenze. Der Grad bleibt deshalb unveraendert; nur die Grenze
+     steigt auf 23,5em — knapp einen Buchstaben Reserve ueber dem
+     gemessenen Bedarf, damit sie ihre Aufgabe behaelt: den Satz nicht bis
+     an die Kastenkanten laufen zu lassen.
+
+     BIS WOHIN EINZEILIG. Solange der Grad an 3,15vw haengt, wachsen
+     Bedarf (0,710 x Fensterbreite) und freier Platz (0,868 x
+     Fensterbreite) im selben Verhaeltnis — der Satz bleibt einzeilig. Erst
+     wenn der Grad auf seinen unteren Anschlag von 1,68rem faellt, hoert
+     das auf: unterhalb von rund 695 px Fensterbreite bricht der Satz um.
+     Die Vorgabe „einzeilig ab etwa 1024 px" ist damit mit grossem Abstand
+     eingehalten.
+
+     WAS DER KASTEN GEWINNT: eine Zeile statt zwei, bei 1440 px also
+     51,7 px weniger Bauhoehe. */
+  max-width: 23.5em;
+  margin: 0 auto;
 }
 
-/* Vorlage: mittig, Grotesk, grau, Grundlinie y=137. */
 .wi__sub {
   font-family: var(--wi-sans);
   font-weight: 400;
   font-size: clamp(0.98rem, 1.24vw, 1.19rem);   /* 19px bei 1536 */
   line-height: 1.6;
   text-align: center;
-  color: #C7CEDA;              /* 7,69:1 an der hellsten Stelle des Kastens */
-  margin: clamp(0.6rem, 1.3vh, 1.05rem) auto 0;
-  max-width: 46em;
+  color: var(--wi-grau);       /* #5F6E85 — 5,26:1 auf Weiss */
+  margin: clamp(0.5rem, 1.1vh, 0.9rem) auto 0;
+  max-width: 42em;
 }
 
 /* ---------------------------------------------------------------------------
-   3  VERGLEICHSBAND
-   Vorlage: Kasten x 104..1432, y 168..380 — also 1328 x 212, Radius 20,
-   Flaeche einen Hauch heller als der Grund, Haarlinie, sehr weicher Schatten.
+   3  DIE ZWEI WEISSEN KAESTEN
+
+   Sie stehen als eigenstaendige Kaesten UNTER dem grauen, nicht mehr darin.
+   Die Zweispaltigkeit mit dem senkrechten Strich in der Mitte
+   (1fr / auto / 1fr) ist unveraendert aus der vorigen Fassung uebernommen.
+
+   `align-items: stretch` statt `start`: die beiden Kaesten sollen gleich
+   hoch sein, auch wenn die eine Haelfte eine Zeile mehr braucht — sonst
+   stuenden zwei verschieden hohe weisse Flaechen nebeneinander und die
+   Grafiken saessen auf verschiedenen Hoehen.
 --------------------------------------------------------------------------- */
 .wi__band {
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: start;
-  /* MEHR LUFT — 30.08.2026, Kundenwunsch: „Ansonsten finde ich das schon
-     sehr gut, aber da muss ein bisschen mehr Platz dazwischen sein."
-     Gemeint ist AUSDRUECKLICH NUR dieser eine Abstand, zwischen der
-     Unterzeile und der Gegenueberstellung. Von 2,3rem (36 px bei 1440) auf
-     3,8rem (61 px) — gut das Anderthalbfache. Damit steht die
-     Gegenueberstellung als eigener Teil im Kasten und klebt nicht mehr
-     unter der Unterzeile. Alle uebrigen Abstaende im Kopf sind unveraendert. */
-  margin-top: clamp(2.4rem, 5vh, 3.8rem);
-  /* SEIT DEM 30.08.2026 OHNE EIGENE FLAECHE. Das Band liegt jetzt IM
-     Kopfkasten (.wi__kopf); eine zweite Flaeche darin waere genau die
-     Mehrzahl von Kaesten, die der Kunde nicht will („alles in EINEM
-     Kasten"). Weggefallen sind deshalb: background #FBF8F5, die Haarlinie
-     rgba(16,41,73,0.06) und der weiche Schatten. Der seitliche Polster
-     faellt mit weg — den traegt jetzt der Kasten. Die Zweispaltigkeit
-     (grid-template-columns) bleibt unveraendert. */
+  align-items: stretch;
+  /* Der Abstand zum grauen Kasten. War bis zum 31.08. der Abstand INNERHALB
+     des dunklen Kastens (3,8rem); als Abstand zwischen zwei Kaesten darf er
+     etwas knapper stehen, sonst zerfaellt die Gruppe. */
+  margin-top: clamp(1.4rem, 2.6vh, 2.2rem);
   padding: 0;
 }
 
 /* ===========================================================================
-   ZWEI WEISSE KAESTEN IM DUNKLEN KASTEN — 30.08.2026
+   DIE ZWEI KAESTEN TRAGEN DEN FAQ-TON — 31.08.2026 (Farbtausch)
 
-   Kundenwunsch, und er hat die Form ausdruecklich benannt: „wirklich nur
-   abgeschnitten auf den Text, sodass dort ein weisser Kasten noch mal drin
-   ist, der hervorgehoben wird." Also KEIN Band ueber die ganze Spaltenbreite,
-   sondern eine Flaeche, die nur so breit ist, wie ihr Inhalt sie braucht.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   SIE WAREN WEISS. Der Kunde hat die Farben getauscht: der Kopfkasten
+   wird weiss, diese beiden bekommen die Farbe, die der Kopfkasten hatte —
+   den FAQ-Ton. Die Schrift darin wird weiss beziehungsweise hell.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   `width: fit-content` leistet genau das, und `margin-inline: auto` stellt
-   die so entstandene Flaeche mittig in ihre Spalte. Die Zeilenmasse der
-   beiden Haelften (22,4em links, 26em rechts) bleiben unangetastet — sie
-   bestimmen jetzt zugleich, wie breit der Kasten wird. `max-width: 100%`
-   ist die Sicherung fuer schmale Fenster: dort darf der Kasten nicht ueber
-   seine Spalte hinauswachsen.
+   ES IST EINE FLAECHE UND KEIN VERLAUF, und das ist gerechnet, nicht
+   gespart. Der FAQ-Kasten laeuft von #1E222D nach #2E3643, ein Abstand
+   von 22 Einheiten im Blaukanal. Die Regel des Projekts erlaubt hoechstens
+   0,03 Einheiten je Bildpunkt:
 
-   Der senkrechte Strich zwischen den beiden bleibt.
+     Kopfkasten frueher, ueber die volle Breite 1328 px   0,017   haelt
+     eine Haelfte bei 1920 px Fenster,           740 px   0,030   Grenze
+     eine Haelfte bei 1440 px Fenster,           650 px   0,034   reisst
+     eine Haelfte bei  760 px Fenster,           314 px   0,070   reisst
 
-   MIT DEM WEISSEN GRUND KEHREN DIE URSPRUENGLICHEN SCHRIFTFARBEN ZURUECK.
-   Sie waren am Vormittag auf Hell gestellt worden, weil der Text direkt auf
-   dem Anthrazit stand; auf Weiss waeren sie unlesbar. Gemessen:
+   Derselbe Verlauf, der ueber die volle Kastenbreite sauber war, ist auf
+   der halben Breite zu steil. Er wuerde ausserdem zweimal nebeneinander
+   von dunkel nach hell laufen und in der Mitte eine harte Kante ergeben.
 
-     Fliesstext     --wi-grau  #5F6E85 auf #FFFFFF   5,26:1
-     Hervorhebung   --wi-navy  #102949 auf #FFFFFF  14,31:1
+   GESETZT IST DESHALB DER MITTELWERT DES FAQ-PAARES ALS FLAECHE: #262C39.
+   Er steht schon in der Kontrasttabelle des abgeloesten Kopfkastens als
+   mittlere Messstelle. Eine einfarbige Flaeche kann die Steilheitsregel
+   nicht verletzen, und der Ton ist derselbe wie im FAQ-Kasten — nur ohne
+   das Atmen darin.
+
+   DIE SCHRIFT, gemessen gegen #262C39:
+     Marke          --sand    #D9B485    7,20:1   ✓
+     Hervorhebung   #FFFFFF             13,98:1   ✓
+     Fliesstext     #C7CEDA              8,84:1   ✓
+   Alle drei liegen deutlich ueber 4,5:1. Weil die Flaeche einfarbig ist,
+   gelten die Werte an JEDER Stelle des Kastens und nicht nur an der
+   hellsten — anders als beim frueheren Verlauf.
+
+   VERWORFEN fuer die Marke:
+     --wi-gold #86693A   auf #262C39 nur 1,7:1 — auf dunklem Grund
+                         unbrauchbar. Es ist der Ton, der auf WEISS trug;
+                         mit dem Farbtausch dreht sich das um.
+     --gold-soft #C9B08A  6,70:1 — traegt auch, ist aber blasser als Sand.
+   Gewaehlt ist --sand, weil der Kunde „in Richtung Gold" verlangt hat und
+   Sand von den tragenden Toenen der waermste und kraeftigste ist.
+
+   DIE KANTE bleibt die doppelte Haarlinie aller drei Kaesten dieses
+   Abschnitts: aussen Navy auf 0,13, innen Gold auf 0,20. Auf dem dunklen
+   Grund tritt die goldene Innenlinie hervor und die navyfarbene fast
+   nicht — das ist richtig so, die Fassung soll golden sein.
    =========================================================================== */
 .wi__band-halb {
-  text-align: center;
-  width: fit-content;
-  max-width: 100%;
-  margin-inline: auto;
-  background: #FFFFFF;
-  border-radius: 14px;
-  padding: clamp(1.15rem, 1.8vw, 1.75rem) clamp(1.3rem, 2.1vw, 2rem) clamp(1.3rem, 2vw, 1.9rem);
-}
+  /* ===== TEXT LINKS, SYMBOL RECHTS — 31.08.2026 ========================
+     Kundenwortlaut: „Schreibe einfach den Text auf der linken Seite, die
+     Grafiken packst du jeweils auf die rechte Seite, dann sind die
+     Kaesten nicht so hoch. Die Grafiken muessen viel, viel kleiner sein."
 
-/* Vorlage: Versalien, Serif, gesperrt, Navy, Versalhoehe 13px → 20px Grad. */
+     Bis dahin standen Marke, zwei Textzeilen und die Grafik
+     UNTEREINANDER und mittig; die Grafik war bis zu 440 px breit und
+     machte den Kasten hoch. Jetzt: Marke und Text bilden eine Spalte
+     links, das Symbol steht in einer eigenen, schmalen Spalte rechts.
+     Der Kasten ist dadurch flach und breit.
+
+     NACHGEMESSEN bei 1440 px Fensterbreite, Hoehe eines der beiden
+     Kaesten:  vorher 470 px, nachher 175 px.
+
+     `align-items: center` stellt das kleine Symbol auf die Mitte des
+     Textblocks. Die Textspalte ist linksbuendig — mittiger Satz neben
+     einem Bild haette zwei linke Kanten. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2.1rem);
+  text-align: left;
+  /* Der Mittelwert des FAQ-Paares als Flaeche — die Rechnung steht oben. */
+  background: #262C39;
+  /* ===== FEINE LINIE STATT SCHATTEN — 31.08.2026 ======================
+     Kundenwunsch: „Du musst die Kaesten generell noch ein bisschen
+     schoener darstellen." Die Vorgabe fuer das Wie ist die Handschrift
+     des Projekts, und die heisst: feine Linien statt Schatten.
+
+     WEGGEFALLEN ist der weiche Schlagschatten
+       0 1px 2px rgba(16,41,73,0.05), 0 16px 38px -20px rgba(16,41,73,0.22)
+     Er hob den Kasten von der Flaeche ab; das ist die Sprache von
+     Bedienelementen, nicht die dieser Seite.
+
+     AN SEINE STELLE tritt eine doppelte Kante, wie sie das Projekt an
+     seinen ruhigen Flaechen fuehrt: aussen eine Navy-Haarlinie in
+     rgba(16,41,73,0.13), innen — ueber `box-shadow: inset` und damit ohne
+     ein zweites Element — eine zweite Haarlinie in Gold auf 0,20. Die
+     goldene Linie liegt einen Punkt innerhalb der navyfarbenen und gibt
+     dem Kasten eine Fassung statt einer Kontur.
+
+     Beide sind nichttextlich; die Schwelle von 4,5:1 gilt fuer sie nicht.
+     Der Radius steigt von 18 auf 20 px — derselbe Wert wie am grauen
+     Kasten darueber, damit die drei Kaesten eine Familie sind. */
+  border: 1px solid rgba(16, 41, 73, 0.13);
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px rgba(168, 135, 79, 0.20);
+  padding: clamp(1.3rem, 2.1vw, 2rem) clamp(1.3rem, 2.1vw, 2rem);
+}
+/* Marke und die beiden Textzeilen bilden zusammen die linke Spalte. */
+.wi__band-satz { min-width: 0; }
+
+/* ===========================================================================
+   DIE ZWEI MARKEN — IN GOLD, 31.08.2026 (zweite Fassung)
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ERSTE FASSUNG DESSELBEN TAGES: das Sandetikett im Format des
+   Hero-Knopfes ist entfallen (Flaeche --sand, Kante --gold, Radius
+   --radius-btn, Schrift --navy-800) — der Kunde wollte keine gefuellte
+   Flaeche mehr, die Schrift selbst soll die Farbe tragen. Gesetzt war
+   danach: „Klassisch investieren" in --wi-grau, „Mit Immobilie" in
+   --wi-gold, also die Rangfolge der Aussage in der Farbe.
+
+   ZWEITE FASSUNG: „Klassisch investieren und Mit Immobilie muessen
+   kraeftiger hervortreten, in Richtung Gold." Der Kunde nennt das
+   ausdruecklich wichtig. BEIDE stehen deshalb jetzt in Gold; die
+   Unterscheidung traegt der Text selbst und das Symbol daneben, nicht
+   mehr die Farbe.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   WELCHES GOLD — gemessen auf dem tatsaechlichen Grund, und das ist der
+   WEISSE Kasten, nicht das Papier der Seite:
+
+     --gold-text / --wi-gold  #86693A   5,12:1   ← GESETZT
+     --sand-schrift           #B0834A   3,39:1   reisst
+     --gold                   #A8874F   3,36:1   reisst
+     --sand                   #D9B485   1,94:1   reisst deutlich
+
+   #86693A ist der dunkelste Ton der goldenen Familie des Projekts und der
+   einzige, der als SCHRIFT auf Weiss traegt. base.css haelt genau das
+   fest: „Gold als Schrift: 4.82:1 auf warmem Papier" — auf reinem Weiss
+   sind es die 5,12:1 von oben.
+
+   KRAEFTIGER WIRD DIE ZEILE ZUSAETZLICH DURCH ZWEI DINGE, die nichts mit
+   der Farbe zu tun haben und deshalb keinen Kontrast kosten:
+     · der Grad steigt um rund ein Zehntel (von 1,25 auf 1,38rem am
+       oberen Anschlag) und das Gewicht von 500 auf 600;
+     · unter der Zeile steht eine kurze goldene Haarlinie (::after).
+   Die Haarlinie ist dieselbe Zeichnung wie .ref__strich im Kopf der
+   Kundenstimmen und .abl__hausstrich unter dem Ablauf — es kommt kein
+   neues Zeichen dazu.
+   =========================================================================== */
 .wi__band-marke {
+  position: relative;
   font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: clamp(0.85rem, 1.3vw, 1.25rem);    /* 20px bei 1536 */
+  /* FETT — Kundenwunsch vom 31.08.2026: „Klassisch investieren und Mit
+     Immobilie werden fett gesetzt." 700 statt 600. */
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.42vw, 1.38rem);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-
-  /* ===== SANDETIKETT IM FORMAT DES HERO-KNOPFES — 30.08.2026 ============
-     Kundenwunsch: die beiden Kleinzeilen sollen aussehen wie der Knopf
-     „Erstgespräch vereinbaren" im Kopfbereich. Uebernommen sind von
-     `.btn--sand` die Flaeche (--sand #D9B485), die goldene Kante (--gold)
-     und der Knopfradius (--radius-btn, 8px). Die Masse sind kleiner: das
-     hier ist eine Kleinzeile, kein Knopf, und 48 Punkte Mindesthoehe waeren
-     hier ein zweiter Knopf mitten im Text.
-
-     ENTSCHIEDEN UND BEGRUENDET — NAVY STATT WEISS.
-     Der Hero-Knopf traegt WEISSE Schrift auf dieser Sandflaeche und misst
-     damit 1,94:1. Auf einem Knopf hat der Kunde das ausdruecklich so
-     gewollt; dort traegt die Bedienbarkeit ausserdem an Form, Groesse und
-     Lage mit. Hier steht eine Zeile, die GELESEN werden muss, und 1,94:1
-     ist dafuer weit unter jeder Schwelle. Es steht deshalb
-
-       --navy-800 #102949 auf --sand #D9B485    9,08:1
-
-     Die FLAECHE ist dieselbe wie am Knopf, und die traegt den
-     Wiedererkennungswert — die Schriftfarbe faellt daneben kaum auf.
-
-     NICHT MOEGLICH WAERE das Umgekehrte, also Sand als SCHRIFT auf dem
-     weissen Kasten: --sand misst dort 1,94:1, --sand-schrift #B0834A
-     3,39:1. Beide liegen unter 4,5. */
-  display: inline-block;
-  color: var(--navy-800);      /* 9,08:1 auf --sand */
-  background: var(--sand);
-  border: 1px solid var(--gold);
-  border-radius: var(--radius-btn);
-  padding: 0.42em 0.95em;
-  margin: 0 0 clamp(1.1rem, 2.1vw, 1.95rem);
+  color: var(--sand);          /* #D9B485 — 7,20:1 auf #262C39 */
+  /* Der Abstand nach unten traegt jetzt die Haarlinie mit. */
+  margin: 0 0 clamp(0.95rem, 1.7vw, 1.4rem);
+}
+/* Die goldene Haarlinie unter der Marke. Nichttextlich, deshalb ohne
+   Kontrastschwelle; --gold misst auf Weiss 3,36:1 und ist als Zeichnung
+   klar sichtbar. 34 px ist das Mass von .ref__strich. */
+.wi__band-marke::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: clamp(-0.66rem, -1.15vw, -0.48rem);
+  width: 34px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.8;
 }
 
 /* Vorlage: mittig, Grotesk 19px, Zeilenabstand 31px, grau; die
@@ -310,41 +478,102 @@
   font-family: var(--wi-sans);
   font-weight: 400;
   font-size: clamp(0.94rem, 1.24vw, 1.19rem);   /* 19px bei 1536 */
-  line-height: 1.65;
-  color: var(--wi-grau);       /* 5,26:1 auf dem weissen Kasten */
-  margin: 0 auto;
+  line-height: 1.6;
+  color: #C7CEDA;              /* 8,84:1 auf #262C39 */
+  margin: 0;
 }
-/* Die Umbrueche stehen so auf der Vorlage: links bricht die erste Zeile
-   nach „Steuern, Abgaben und", rechts steht der erste Satz einzeilig.
-   Deshalb tragen beide Haelften ein eigenes Zeilenmass. */
-.wi__band-halb:first-child  .wi__band-text { max-width: 22.4em; }
-.wi__band-halb:last-child   .wi__band-text { max-width: 26em; }
+/* Die eigenen Zeilenmasse der beiden Haelften (22,4em links, 26em rechts)
+   sind am 31.08.2026 entfallen. Sie stammten aus der mittigen Fassung und
+   sollten dort die Umbrueche der Vorlage nachstellen. Seit Text und Symbol
+   nebeneinander stehen, bestimmt die Spaltenbreite den Umbruch; ein
+   zusaetzliches Mass haette den Satz nur von seiner eigenen Spalte
+   abgekoppelt. */
 .wi__band-text + .wi__band-text { margin-top: 0.42em; }
 .wi__band-text b {
   font-weight: 500;
-  color: var(--wi-navy);       /* 14,31:1 auf dem weissen Kasten */
+  color: #FFFFFF;              /* 13,98:1 auf #262C39 */
+}
+
+/* ===========================================================================
+   DIE ZWEI SYMBOLE — 31.08.2026, zweite Fassung
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ERSTE FASSUNG VOM SELBEN TAG: die Grafik stand UNTER dem Text, ueber die
+   volle Kastenbreite, bis zu 440 px, mit `margin-top: auto` an die
+   Unterkante gedrueckt. Der Kunde hat genau das beanstandet — der Kasten
+   wurde dadurch hoch. Ersetzt durch: rechts neben dem Text, klein.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     vgl-klassisch   1380 x 1140   vier Balken fallend, roter Pfeil abwaerts
+     vgl-immobilie   1222 x 1287   vier Balken wachsend, gruener Pfeil aufwaerts
+
+   Beide sind im Stil der vier Symbole im Feld darunter erzeugt und
+   freigestellt. Sie stehen auf einer cremefarbenen Tafel — seit dem
+   Farbtausch vom 31.08.2026 ist der Kasten um sie herum dunkel, und ohne
+   die Tafel saessen zwei helle Zeichnungen ohne Halt auf der dunklen
+   Flaeche. Die Tafel gibt ihnen denselben Platz, den die vier Symbole im
+   Feld darunter in ihren Karten haben.
+
+   DER DECKEL VON 132 px ist der Wert, den der Kunde mit „viel, viel
+   kleiner" gemeint hat, und er ist an den vier Symbolen darunter geeicht:
+   die stehen bei 1240 px Feldbreite mit rund 96 px Kantenlaenge im Bild.
+   132 px sind damit derselbe Groessenbereich, eine Spur groesser, weil
+   hier nur zwei statt vier Symbole stehen.
+   Untergrenze 78 px fuer schmale Fenster — darunter ist ein Balkenpaar
+   nicht mehr als solches zu erkennen.
+
+   MASSE: bei 1380 beziehungsweise 1222 px Dateibreite gegen 132 px
+   Anzeige stehen die Faktoren bei 10,5 und 9,3. Weit ueber dem Doppelten.
+
+   `height: auto` mit den `width`/`height`-Angaben am <img> reserviert den
+   Platz vor dem Laden — es gibt keinen Nachsprung. Die beiden Dateien
+   haben verschiedene Seitenverhaeltnisse (1,21 quer und 0,95 hoch); die
+   Breite ist bei beiden dieselbe, die Hoehe darf sich unterscheiden. Weil
+   das Symbol senkrecht mittig zum Text steht, faellt das nicht auf.
+   =========================================================================== */
+/* DAS SYMBOL BEKOMMT EINEN PLATZ — 31.08.2026, Teil des „schoener".
+   Die beiden Symbole sind freigestellt und standen bis heute frei im
+   Kasten; sie sahen dadurch aus, als lagen sie lose darin. Sie stehen
+   jetzt auf einer cremefarbenen Tafel in --wi-grund #F7F3F0, dem Grund
+   dieser Section, mit demselben Radius wie der Kasten selbst, eine Stufe
+   kleiner (14 px). Seit dem Farbtausch traegt die Tafel doppelt: sie gibt
+   den Symbolen einen Platz UND den hellen Teilen der Zeichnung einen
+   Grund, auf dem sie stehen koennen. Das ist dieselbe Bauart wie bei den vier Karten im
+   Feld darunter, wo die Symbole ebenfalls in einem eigenen Feld sitzen.
+   Die Tafel ist Flaeche, kein Knopf: kein Rand, kein Schatten, kein
+   Radius aus der Knopffamilie. */
+.wi__vgl {
+  margin: 0;
+  width: clamp(78px, 11vw, 132px);
+  padding: clamp(0.35rem, 0.7vw, 0.6rem);
+  background: var(--wi-grund);
+  border-radius: 14px;
+}
+.wi__vgl picture { display: block; }
+.wi__vgl img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* Trenner: nur noch die senkrechte Haarlinie. Der Kreis mit „VS", der auf
    der Vorlage darauf sass (Mittelpunkt y=281, r=36), ist am 30.08.2026
-   entfallen. `place-items` und `position: relative` bleiben: die Linie liegt
-   absolut in diesem Kasten. */
+   entfallen. Der Strich selbst bleibt auf ausdruecklichen Kundenwunsch —
+   er steht jetzt zwischen den beiden weissen Kaesten auf hellem Grund und
+   traegt deshalb --wi-haar statt des hellen Werts von vorher. */
 .wi__band-trenn {
   position: relative;
   align-self: stretch;
-  width: clamp(56px, 8.6vw, 132px);
+  width: clamp(20px, 3.4vw, 52px);
   display: grid;
   place-items: center;
 }
 .wi__band-linie {
   position: absolute;
-  top: 0; bottom: 0; left: 50%;
+  top: 12%; bottom: 12%; left: 50%;
   transform: translateX(-50%);
-  width: 2px; height: 100%;
+  width: 2px; height: 76%;
 }
-/* Die Regel fuer den VS-Kreis (.wi__band-vs) ist am 30.08.2026 ersatzlos
-   entfallen — Kundenwunsch: „nur der senkrechte Strich bleibt". Sie stand
-   hier mit Kreisdurchmesser, Radius, Rand, Flaeche und Schriftgrad. */
 
 /* ---------------------------------------------------------------------------
    4  ZWISCHENKOPF
@@ -553,29 +782,85 @@
 }
 
 /* Das Schild. Feldeinheiten: 305 x 43, mittig, y 324..367. */
+/* ===========================================================================
+   DIE PILLE — LAGE BERICHTIGT UND NACHGEFUEHRT, 31.08.2026
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ERST DER FEHLER, DER HIER LAG. Die Pille stand mit
+     left: 48.634%;  transform: translateX(-50%);
+   und der Vermerk daneben rechnete vor, dass sie damit auf der
+   Ellipsenmitte 603,1 zentriert sei. Das war sie NIE. Der Einlauf des
+   Feldes endet in `@keyframes wi-nachlauf` auf `transform: none`, und weil
+   die Animation mit `both` gefuellt ist, steht dieses `none` auch NACH dem
+   Einlauf am Element. Es hat `translateX(-50%)` ueberschrieben.
+
+   Die Folge war eine Pille an ZWEI verschiedenen Stellen, je nach
+   Betriebsart — nachgemessen bei 1240 Feldeinheiten:
+     mit Javascript          603,0 bis 905,6   (Mitte 754,3)
+     ohne Javascript         451,8 bis 754,4   (Mitte 603,1)
+   Der Kunde hat also die verschobene Fassung gesehen, und sein
+   „sitzt noch nicht" trifft genau diese.
+
+   BERICHTIGT, indem `translateX(-50%)` ERSATZLOS ENTFAELLT und `left` die
+   TATSAECHLICHE LINKE KANTE angibt. Damit steht die Pille in jeder
+   Betriebsart an derselben Stelle — mit Javascript, ohne, und bei
+   `reduce`, wo `transform: none` ohnehin gesetzt wird.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   DANN DIE VERSCHIEBUNG. Der Kunde hat sie in ZWEI Runden desselben Tages
+   verlangt: erst „etwas weiter nach links und etwas tiefer", aber
+   „weiterhin auf der Linie"; danach „muss noch weiter nach links".
+   In Feldeinheiten (Feld 1240 x 323):
+
+                    Ausgang   1. Runde   2. Runde   Weg gesamt
+     linke Kante      603,0     558,0      471,2    131,8 nach links
+     Oberkante        277,0     285,0      285,0      8,0 nach unten
+     Breite           302,6     302,6      302,6    unveraendert
+     Hoehe             45,5      45,5       45,5    unveraendert
+
+   DIE PILLE STEHT DAMIT FAST MITTIG UNTER DEM HAUS, und das ist kein
+   Zufall: die Ellipsenmitte liegt bei 603,1, die Pillenmitte jetzt bei
+   622,5 — 19,4 Einheiten daneben. Das ist die Lage, die der urspruengliche
+   Vermerk immer schon beschrieben hat und die der `transform`-Fehler
+   verhindert hat.
+
+   BERUEHRT SIE DIE LINIE NOCH? Ja, an ZWEI Stellen, und das ist gerechnet.
+   Der Ring ist die Ellipse mit Mitte (603 | 241), rx 222, ry 66.
+
+   a) OBERKANTE. Der rechte Bogen liegt bei der Hoehe y bei
+        x = 603 + 222 * Wurzel(1 - ((y - 241) / 66)^2)
+      Auf y = 285:
+        x = 603 + 222 * Wurzel(1 - (44/66)^2) = 603 + 222 * 0,7454 = 768,5
+      Die Pille laeuft von 471,2 bis 773,8. Der Wert 768,5 liegt darin —
+      knapp, mit 5,3 Einheiten Reserve, aber er liegt darin. Der Bogen
+      verlaesst die Pille also ueber ihre Oberkante.
+
+   b) LINKE KANTE. Bei x = 471,2 steht die Ellipse bei
+        y = 241 +- 66 * Wurzel(1 - ((471,2 - 603) / 222)^2)
+          = 241 +- 66 * 0,8047 = 187,9 bis 294,1
+      Die linke Kante der Pille laeuft von 285,0 bis 330,5. Die beiden
+      ueberschneiden sich auf 9,1 Einheiten — der Bogen tritt also ueber
+      die linke Kante in die Pille ein.
+
+   Zum Vergleich die beiden abgeloesten Lagen: der Bogen kreuzte die
+   Oberkante bei 61,5 Prozent der Pillenbreite (Ausgang) beziehungsweise
+   bei 69,5 Prozent (1. Runde); jetzt bei 98,2 Prozent, dafuer kommt der
+   Eintritt ueber die linke Kante dazu.
+
+   WEITER NACH LINKS GEHT NICHT MEHR VIEL: ab einer linken Kante von 465,9
+   liegt der Austrittspunkt 768,5 rechts ausserhalb der Pille, und der
+   Kontakt haengt dann allein an der linken Kante.
+
+   PLATZ NACH UNTEN: die Unterkante liegt bei 330,5 statt 322,5, also 7,5
+   Einheiten unter dem Feld. Zwischen Feld und .wi__texte stehen seit dem
+   31.08.2026 gemessene 30 CSS-Punkte (vorher 17); bei 1240 px Feldbreite
+   ist eine Einheit ein Punkt, es bleiben also 22,5 Punkte Luft.
+   =========================================================================== */
 .wi__schild {
   position: absolute;
-  transform: translateX(-50%);
-  /* Pille aus der Vorlage: x 618..904, y 706..749 Bildpunkte — mal 1,058
-     sind das 463..766 waagrecht und 277..323 senkrecht. Sie schliesst
-     also buendig mit der Unterkante des Feldes ab. */
-  top: 85.76%;                  /* 277 / 323  */
-  /* MITTIG UNTER DEM HAUS — 30.08.2026 nachgemessen und berichtigt.
-     Hier stand `left: 50%`. 50 Prozent sind die Mitte des FELDES, also
-     Feldeinheit 620. Das Haus steht aber nicht auf der Feldmitte, sondern
-     auf der ELLIPSENMITTE 603 — und der sichtbare Inhalt seiner Datei liegt
-     nochmals um 1,9 Einheiten anders als der Kasten des Bildes, weil der
-     Alphakanal nicht mittig sitzt (Rahmen x 58..1211 von 1254).
-     Am gerenderten Bild gemessen, Feldbreite 1240:
-
-       Mitte des Hausbildes   601,2 Feldeinheiten
-       Mitte des Hausinhalts  603,1     (Ellipsenmitte, aus dem Alphakanal)
-       Mitte der Pille        620,0  -> 18,8 Punkte zu weit rechts
-       nachher                603,1  ->  0,0
-
-     603,06 / 1240 = 48,634 %. `translateX(-50%)` bleibt und zentriert die
-     Pille auf diesem Punkt. */
-  left: 48.634%;
+  /* Pille aus der Vorlage: 302,6 x 45,5 Feldeinheiten. */
+  top: 88.24%;                  /* 285,0 / 323  — 8 Einheiten tiefer      */
+  left: 38%;                    /* 471,2 / 1240 — siehe die zweite Runde  */
   width: 24.4%;                 /* 302,6 / 1240 */
   height: 14.09%;               /* 45,5 / 323 */
   z-index: 4;
@@ -754,10 +1039,23 @@
    Sinnbild 114 breit ab x 52, Textspalte ab x 221, gruener Kasten
    371 breit, 39 vom rechten Rand.
 --------------------------------------------------------------------------- */
+/* EINEN KLEINEN TICK TIEFER — 31.08.2026.
+   Kundenwunsch: die Tafel, die zwischen Bankkapital, Miete, Steuern und
+   Wertentwicklung wechselt, klebt zu nah an der Pille „DEIN EIGENTUM
+   WAECHST". Er betont ausdruecklich: wirklich nur einen kleinen Tick.
+
+   NACHGEMESSEN bei 1440 px, Abstand Unterkante Feld zu Oberkante Tafel:
+     vorher   17 px  — davon nahm die Pille 7,5 px weg, es blieben 9,5
+     nachher  30 px  — die Pille nimmt unveraendert 7,5 px, es bleiben 22,5
+   Der Abstand zwischen Pille und Tafel waechst damit von 9,5 auf 22,5
+   Punkte. Das ist der Tick: sichtbar, aber kein neuer Absatz.
+   Die drei Werte des clamp sind gleichmaessig um denselben Faktor
+   angehoben (0,9 -> 1,7rem; 1,9 -> 3,3vh; 1,5 -> 2,6rem), damit sich das
+   Verhaeltnis ueber alle Fensterhoehen nicht verschiebt. */
 .wi__texte {
   width: 100%;
   max-width: 1240px;
-  margin: clamp(0.9rem, 1.9vh, 1.5rem) auto 0;
+  margin: clamp(1.7rem, 3.3vh, 2.6rem) auto 0;
   container-type: inline-size;
 }
 .wi__texte li + li { margin-top: clamp(0.7rem, 1.4vh, 1.1rem); }
@@ -1029,21 +1327,26 @@
 }
 
 @media (max-width: 760px) {
+  /* Einspaltig. Der Aussenabstand des Bandes traegt hier keinen eigenen
+     Innenabstand mehr — den tragen seit dem 31.08.2026 die beiden weissen
+     Kaesten selbst. */
   .wi__band {
     grid-template-columns: 1fr;
-    justify-items: center;
-    padding: clamp(1.4rem, 5vw, 2rem) clamp(1rem, 4vw, 1.6rem);
+    justify-items: stretch;
+    padding: 0;
   }
-  /* Einspaltig steht die Trennung nicht mehr senkrecht. Bis heute trug der
-     VS-Kreis diese Stelle; ohne ihn waere der Kasten hier ohne jede
-     Zaesur. Statt dessen eine WAAGERECHTE Haarlinie in derselben Farbe wie
-     die senkrechte — dasselbe Zeichen, nur gedreht. */
+  /* Einspaltig steht die Trennung nicht mehr senkrecht. Bis zum 30.08.
+     trug der VS-Kreis diese Stelle; ohne ihn stuenden die beiden Kaesten
+     hier ohne jede Zaesur untereinander. Statt dessen eine WAAGERECHTE
+     Haarlinie in derselben Farbe wie die senkrechte — dasselbe Zeichen,
+     nur gedreht. Der Ton ist seit dem 31.08. --wi-haar: die Linie steht
+     jetzt auf hellem Grund, nicht mehr im dunklen Kasten. */
   .wi__band-trenn {
     width: min(58%, 220px);
     height: 1px;
     padding: 0;
-    margin: clamp(1.6rem, 6vw, 2.4rem) auto;
-    background: rgba(237, 241, 248, 0.26);
+    margin: clamp(1.2rem, 4.5vw, 1.8rem) auto;
+    background: var(--wi-haar);
   }
   .wi__band-linie { display: none; }
   .wi__band-marke { margin-bottom: clamp(0.8rem, 3vw, 1.2rem); }

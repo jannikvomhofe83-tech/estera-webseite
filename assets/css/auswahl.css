@@ -672,7 +672,31 @@
      gedecktes Salbei — der Kunde verlangt ausdruecklich „ein stark
      sichtbares Gruen". */
   --ziel-gruen: #1B7F3B;
-  --wn-dreh-dauer: 0.9s;
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     VON 0,9 s AUF 1,8 s — 31.08.2026. Kundenwortlaut: das Element dreht
+     sich beim Hereinkommen mehrfach, es soll sich „genau einmal, langsam"
+     drehen und dann stehen.
+
+     ES WAR SCHON IMMER GENAU EINE UMDREHUNG (360 Grad, `1` Durchlauf).
+     Gesehen hat der Kunde trotzdem mehr als eine, und der Grund ist die
+     Form: der Kasten ist flach (500 zu 250). Bei einer Drehung um seine
+     Laengsachse steht er zweimal je Umdrehung hochkant zur Blickrichtung
+     — bei 90 und bei 270 Grad — und verschwindet dort auf eine Strichlinie.
+     Er scheint also zweimal wegzugehen und wiederzukommen. Bei 0,9 s lagen
+     diese beiden Augenblicke 450 ms auseinander; das Auge liest daraus
+     zwei kurze Kipper statt einer Umdrehung.
+
+     Bei 1,8 s liegen sie 900 ms auseinander. Die Bewegung ist damit langsam
+     genug, dass man den Kasten ueber die ganze Drehung mit dem Blick
+     begleitet und die beiden Durchgaenge als das lesen, was sie sind:
+     Teile EINER Umdrehung.
+
+     Der zweite Teil der Antwort steht in assets/js/leistungen.js: die
+     Folge lief bisher jedes Mal neu an, wenn die Grafik das Fenster ganz
+     verlassen hatte. Wer zweimal daran vorbeirollte, sah die Drehung
+     zweimal. Das ist dort abgestellt.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  --wn-dreh-dauer: 1.8s;
 }
 
 .wnetz__kasten--ziel { stroke: var(--ziel-gruen); }
@@ -740,15 +764,22 @@
    beschrieben („fliegt jetzt einfach … ein").
 
    Die Drehung laeuft deshalb in zwei Abschnitten:
-     0 bis 72 Prozent der Zeit   0 bis 330 Grad, GLEICHFOERMIG. Eine
+     0 bis 85 Prozent der Zeit   0 bis 330 Grad, GLEICHFOERMIG. Eine
                                  Umdrehung liest man nur, wenn sie mit
                                  gleichbleibender Geschwindigkeit laeuft.
-     72 bis 100 Prozent          die letzten 30 Grad mit der vorgegebenen
+     85 bis 100 Prozent          die letzten 30 Grad mit der vorgegebenen
                                  Kurve cubic-bezier(0.22, 1, 0.36, 1). Sie
                                  gibt der Bewegung ihr weiches Einrasten,
                                  dort wo man es auch sieht.
    Die Zeitkurven stehen an den Keyframes selbst; am Element steht deshalb
    `linear`, sonst ueberschriebe es sie.
+
+   DIE TEILUNG STAND BIS ZUM 31.08.2026 BEI 72 PROZENT. Mit der auf 1,8 s
+   verdoppelten Dauer waeren daraus 0,50 s fuer die letzten 30 Grad
+   geworden — eine halbe Sekunde, in der sich fast nichts mehr bewegt; die
+   Drehung haette am Ende gehangen. Bei 85 Prozent liegt der gleichfoermige
+   Teil bei 1,53 s (330 Grad, also 216 Grad je Sekunde, gut lesbar) und das
+   Einrasten bei 0,27 s — genau so lang wie vorher.
 
    DIE FRUEHERE SKALIERUNG 0.94 -> 1 IST ENTFALLEN. Neben einer lesbaren
    Umdrehung war sie ein zweites Ereignis im selben Augenblick — der Kunde
@@ -758,7 +789,7 @@
     animation-timing-function: linear;
     transform: perspective(1200px) rotateX(0deg);
   }
-  72% {
+  85% {
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     transform: perspective(1200px) rotateX(330deg);
   }
@@ -773,8 +804,11 @@
   opacity: 1;
   transform: none;
   /* Die Karte ist schon da, bevor sie sich dreht — sonst dreht sich etwas,
-     das man noch gar nicht sieht. 0.22 s sind rund ein Viertel der
-     Drehdauer. */
+     das man noch gar nicht sieht. 0.22 s waren ein Viertel der alten
+     Drehdauer; seit dem 31.08.2026 dreht sie 1,8 s, das Aufblenden ist
+     damit ein Achtel davon und faellt noch weiter in den Anfang der
+     Bewegung. Das ist richtig so — die Karte soll stehen, bevor sie
+     kippt, nicht waehrenddessen erscheinen. */
   transition: opacity 0.22s linear;
   transition-delay: calc(var(--auf, 0) * var(--wn-takt));
   animation: wn-drehung var(--wn-dreh-dauer) linear

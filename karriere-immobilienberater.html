@@ -311,24 +311,75 @@
 <!-- =====================================================================
      4 — DAS MACHT DICH AUS
      In der Vorlage sind das zwei Abschnitte: einer traegt nur die
-     Ueberschrift (48 px, zentriert, 70 px Luft darueber), der zweite das
-     Raster aus 3 x 2 Kacheln (Spalten 395 px, Abstand 32 px, Symbol
-     39 x 39, Kachelueberschrift 20 px/600 zentriert, Kacheltext 14 px).
-     Hier zu einem Abschnitt zusammengefasst, Masse unveraendert.
+     Ueberschrift (48 px, zentriert, 70 px Luft darueber), der zweite ein
+     gleichmaessiges Raster aus 3 x 2 Kacheln (Spalten 395 px, Abstand
+     32 px). Hier zu einem Abschnitt zusammengefasst; die Luft ist die der
+     Vorlage.
 
      ABWEICHUNGEN VON DER VORLAGE — KUNDENWUNSCH VOM 29.08.2026:
      a) Die Flaeche ist WEISS statt in der Leitfarbe.
      b) Die sechs Merkmale stehen nicht mehr nackt im Raster, sondern je in
-        einer eigenen Karte mit feiner Navy-Haarlinie und 12 px Radius —
-        dieselbe Handschrift wie die Rezensionskarten der Startseite
-        (assets/css/referenzen.css: 1 px Linie, 12 px Radius, kein
-        Schatten), dort in Gold, hier auf Wunsch in Navy.
+        einem eigenen Kasten mit feiner Haarlinie.
 
-     Inhalt: die sechs Punkte aus „Was Estera erwartet" (Wording-Master),
-     woertlich. Der Master gibt dazu keinen erlaeuternden Satz her —
-     die Kacheln bleiben deshalb ohne Fliesstext. Nicht gefuellt, sondern
-     kuerzer gebaut. Die Zeile unter der Ueberschrift ist die
-     Master-Ueberschrift dieses Bausteins.
+     NEU AM 30.08.2026 — KUNDENWUNSCH, WOERTLICH:
+     „Ich will, dass die Kaesten immer unterschiedlich gross sind. Also
+      einer ist mal laenglicher, einer ist mal hoeher, einer ist mal
+      breiter."
+     Das gleichmaessige 3 x 2-Raster ist damit raus. An seiner Stelle steht
+     ein versetztes Raster aus zwoelf Spalten und neun Zeilen mit sechs
+     verschieden grossen Kaesten; die Rechnung, warum dabei keine Luecke
+     entsteht, steht in assets/css/stelle.css bei .stl-aus.
+     Je Kasten von oben nach unten: UEBERSCHRIFT, GRAFIK, TEXT.
+
+     DIE SECHS GRAFIKEN — assets/img/stelle/aus-01..06.{webp,png}
+     Freigestellt mit Alphakanal, deshalb PNG als Rueckfall und nicht JPG;
+     webp steht zuerst und traegt die Last (66–159 kB gegen 0,65–1,6 MB).
+     Erzeugt im Stil der vorhandenen Symbole der Startseite (Stilvorlage
+     ging als Bild mit in die Anfrage): mattes weiches 3D in Salbeigruen,
+     Creme, Sandbraun und Navy, kein Glanz.
+
+       01  zwei Sprechblasen      1536 x 1024
+       02  Schloss vor Schild     1024 x 1536
+       03  Waage im Gleichgewicht 1374 x 1145
+       04  Blattstapel mit Haken  1312 x 1199
+       05  Buch mit Hut           1536 x 1024
+       06  Sanduhr                1024 x 1536
+
+     DIE MASSE SIND ABSICHTLICH VERSCHIEDEN im Markup vermerkt — drei quer,
+     zwei hoch, eines fast quadratisch. Damit die sechs im Raster trotzdem
+     gleich gross wirken, sitzt jedes in einem QUADRATISCHEN Feld mit
+     `object-fit: contain` (stelle.css, .stl-aus__bild img). Kein `cover`:
+     freigestellte Symbole vertragen keinen Beschnitt.
+     Die Bilder tragen alt="" — sie sind schmueckend, die Ueberschrift
+     darueber sagt bereits, was gemeint ist. Ein zweites Mal dasselbe in
+     alt zu schreiben, waere fuer Screenreader nur Verdopplung.
+
+     INHALT
+     Die sechs UEBERSCHRIFTEN stehen woertlich im Wording-Master unter
+     „Was Estera erwartet". Die Zeile unter der Abschnittsueberschrift ist
+     die Master-Ueberschrift dieses Bausteins.
+
+     DIE SECHS SAETZE SIND NEU — und sie sind NICHT frei erfunden. Der
+     Master gibt zu diesen Punkten keinen eigenen Erlaeuterungssatz her.
+     Statt etwas zu behaupten, ist jeder Satz aus bereits freigegebenen
+     Master-Formulierungen zusammengesetzt; dasselbe Verfahren, mit dem
+     schon die Vorstellung auf karriere.html gebaut ist. Herkunft je Satz:
+
+       1  „verstaendlich kommunizieren" + „Verantwortung fuer eine saubere
+          Begleitung uebernehmen"            — Fuer wen Estera passt
+       2  „ein verantwortungsvoller Umgang mit Kunden"  — FAQ 1
+       3  „Unrealistische Rendite- oder Steuerversprechen"
+                                             — Nicht passend fuer
+       4  „nachvollziehbaren Informationen und einem strukturierten Ablauf"
+          (Punkt 3) + „Unstrukturierte Einzelaktionen" — Nicht passend fuer
+       5  „Erfahrung ist hilfreich, aber nicht in jedem Fall zwingend …
+          Lernbereitschaft, Verbindlichkeit" — FAQ 1
+       6  „Die Zusammenarbeit endet nicht beim Notar" (Punkt 5) +
+          „Kurzfristigen Abschlussdruck"     — Nicht passend fuer
+
+     Keine Zahl, keine Zusage, kein verbotenes Wort. Trotzdem sind die
+     Saetze in dieser Zusammenstellung nicht abgenommen:
+     VOR DEM LIVEGANG DURCH ESTERA BESTAETIGEN LASSEN.
      ===================================================================== -->
 <section class="stl-abs stl-abs--hell stl-macht fl-creme-nach-weiss" id="profil" aria-labelledby="t-macht">
   <div class="stl-inner">
@@ -337,62 +388,81 @@
     <h2 class="stl-h2-gross" id="t-macht">Das macht dich aus</h2>
     <p class="stl-macht__lead">Vertrauen entsteht durch Haltung.</p>
 
-    <ul class="stl-raster">
-      <li class="stl-kachel">
-        <span class="stl-kachel__zeichen" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6.5a1.5 1.5 0 0 1 1.5-1.5h10A1.5 1.5 0 0 1 16 6.5v6a1.5 1.5 0 0 1-1.5 1.5H8l-3.5 3v-3H4.5A1.5 1.5 0 0 1 3 12.5z"></path>
-            <path d="M18 9h1.5A1.5 1.5 0 0 1 21 10.5v6a1.5 1.5 0 0 1-1.5 1.5H19v3l-3.5-3H11"></path>
-          </svg>
-        </span>
-        <h3 class="stl-kachel__titel">Verbindliche und klare Kommunikation</h3>
+    <!-- Die Reihenfolge im Markup ist die des Wording-Masters. Welcher
+         Kasten wie gross wird, entscheidet allein die CSS ueber
+         nth-child — im Markup steht keine Rastergroesse. -->
+    <ul class="stl-aus">
+      <li class="stl-aus__kasten">
+        <h3 class="stl-aus__titel">Verbindliche und klare Kommunikation</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild">
+          <picture>
+            <source srcset="assets/img/stelle/aus-01.webp?v=b24a" type="image/webp">
+            <img src="assets/img/stelle/aus-01.png?v=b24a" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <p class="stl-aus__text">Du kommunizierst verständlich und übernimmst Verantwortung
+           für eine saubere Begleitung.</p>
       </li>
-      <li class="stl-kachel">
-        <span class="stl-kachel__zeichen" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2.6 4.5 5.4v6.1c0 4.4 3.1 8.3 7.5 9.9 4.4-1.6 7.5-5.5 7.5-9.9V5.4z"></path>
-            <path d="M9.4 12.1 11.3 14l3.6-3.7"></path>
-          </svg>
-        </span>
-        <h3 class="stl-kachel__titel">Verantwortungsbewusster Umgang mit Kundendaten</h3>
+      <li class="stl-aus__kasten">
+        <h3 class="stl-aus__titel">Verantwortungsbewusster Umgang mit Kundendaten</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild">
+          <picture>
+            <source srcset="assets/img/stelle/aus-02.webp?v=b24a" type="image/webp">
+            <img src="assets/img/stelle/aus-02.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <p class="stl-aus__text">Ein verantwortungsvoller Umgang mit Kunden und ihren Daten
+           gehört zu jedem Schritt der Zusammenarbeit.</p>
       </li>
-      <li class="stl-kachel">
-        <span class="stl-kachel__zeichen" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3.4v17.2"></path><path d="M5 6.3h14"></path>
-            <path d="M5 6.3 2.4 12.4h5.2z"></path><path d="M19 6.3l-2.6 6.1h5.2z"></path>
-            <path d="M8.4 20.6h7.2"></path>
-          </svg>
-        </span>
-        <h3 class="stl-kachel__titel">Keine pauschalen Steuer-, Finanzierungs- oder Renditeversprechen</h3>
+      <li class="stl-aus__kasten">
+        <h3 class="stl-aus__titel">Keine pauschalen Steuer-, Finanzierungs- oder Renditeversprechen</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild">
+          <picture>
+            <source srcset="assets/img/stelle/aus-03.webp?v=b24a" type="image/webp">
+            <img src="assets/img/stelle/aus-03.png?v=b24a" alt="" width="1374" height="1145" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <p class="stl-aus__text">Unrealistische Rendite- oder Steuerversprechen passen
+           nicht zu Estera.</p>
       </li>
-      <li class="stl-kachel">
-        <span class="stl-kachel__zeichen" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8.6 4.3H6.4A1.4 1.4 0 0 0 5 5.7v14.2a1.4 1.4 0 0 0 1.4 1.4h11.2a1.4 1.4 0 0 0 1.4-1.4V5.7a1.4 1.4 0 0 0-1.4-1.4h-2.2"></path>
-            <rect x="8.6" y="2.6" width="6.8" height="3.4" rx="1"></rect>
-            <path d="M8.8 11.4h6.4M8.8 15.2h4.4"></path>
-          </svg>
-        </span>
-        <h3 class="stl-kachel__titel">Konsequentes Nachhalten und saubere Dokumentation</h3>
+      <li class="stl-aus__kasten">
+        <h3 class="stl-aus__titel">Konsequentes Nachhalten und saubere Dokumentation</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild">
+          <picture>
+            <source srcset="assets/img/stelle/aus-04.webp?v=b24a" type="image/webp">
+            <img src="assets/img/stelle/aus-04.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <p class="stl-aus__text">Du arbeitest mit nachvollziehbaren Informationen und einem
+           strukturierten Ablauf statt mit unstrukturierten Einzelaktionen.</p>
       </li>
-      <li class="stl-kachel">
-        <span class="stl-kachel__zeichen" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 6.4C10.3 5.1 8.2 4.4 6 4.4H3.2v13.2H6c2.2 0 4.3.7 6 2 1.7-1.3 3.8-2 6-2h2.8V4.4H18c-2.2 0-4.3.7-6 2z"></path>
-            <path d="M12 6.4v14.2"></path>
-          </svg>
-        </span>
-        <h3 class="stl-kachel__titel">Bereitschaft, Prozesse und fachliche Grundlagen zu lernen</h3>
+      <li class="stl-aus__kasten">
+        <h3 class="stl-aus__titel">Bereitschaft, Prozesse und fachliche Grundlagen zu lernen</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild">
+          <picture>
+            <source srcset="assets/img/stelle/aus-05.webp?v=b24a" type="image/webp">
+            <img src="assets/img/stelle/aus-05.png?v=b24a" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <p class="stl-aus__text">Erfahrung ist hilfreich, aber nicht in jedem Fall zwingend —
+           wichtiger sind Lernbereitschaft und Verbindlichkeit.</p>
       </li>
-      <li class="stl-kachel">
-        <span class="stl-kachel__zeichen" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="8.6"></circle>
-            <path d="M12 6.9v5.4l3.6 2.2"></path>
-          </svg>
-        </span>
-        <h3 class="stl-kachel__titel">Langfristiges Denken statt kurzfristiger Abschlussorientierung</h3>
+      <li class="stl-aus__kasten">
+        <h3 class="stl-aus__titel">Langfristiges Denken statt kurzfristiger Abschlussorientierung</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild">
+          <picture>
+            <source srcset="assets/img/stelle/aus-06.webp?v=b24a" type="image/webp">
+            <img src="assets/img/stelle/aus-06.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <p class="stl-aus__text">Die Zusammenarbeit endet nicht beim Notar. Kurzfristiger
+           Abschlussdruck passt nicht dazu.</p>
       </li>
     </ul>
   </div>
@@ -451,6 +521,29 @@
      (Wording-Master), woertlich, dazu dessen Abschlusszeile. Die Vorlage
      hat sechs Punkte, der Master gibt fuenf her — also fuenf. Nicht
      gefuellt.
+
+     NEU AM 30.08.2026 — KUNDENWUNSCH:
+     Aus der Liste wird ein KARTENSTAPEL. „Karten, die sich beim Scrollen
+     stapeln und die vorige zu etwa 90 % ueberdecken" — dieselbe Geste wie
+     im Abschnitt „Unser Ablauf" auf der Startseite (assets/css/ablauf.css
+     und ablauf.js; beide nur gelesen, nicht veraendert).
+
+     ZWEI UNTERSCHIEDE ZUR STARTSEITE:
+       1. Der Stapel steht NUR LINKS. Rechts bleibt das Bildfeld, das dort
+          schon stand — es klebt jetzt mit, damit die rechte Seite waehrend
+          des Stapelns nicht leer laeuft.
+       2. Die Karten tragen die fuenf Schritte des Masters in dessen
+          Reihenfolge: Kennenlernen, Eignung pruefen, Onboarding, Erste
+          Kundenfaelle, Eigenstaendiger Aufbau.
+
+     DER STAPEL IST REINES `position: sticky`. Kein Rollhorcher, kein
+     requestAnimationFrame. Die Rechnung fuer die 90 Prozent Ueberdeckung
+     steht in stelle.css bei .stl-stapel. Ohne Javascript und bei
+     prefers-reduced-motion: reduce klebt nichts — die fuenf Karten stehen
+     dann in voller Hoehe lesbar untereinander.
+
+     <ol> UND NICHT <ul>: der Abschnitt beschreibt eine Reihenfolge, und
+     das steht damit auch im Baum, nicht nur in den Ziffern.
      ===================================================================== -->
 <section class="stl-abs stl-abs--hell stl-erwartet fl-weiss-nach-creme" id="aufgaben" aria-labelledby="t-erwartet">
   <div class="stl-inner stl-zwei stl-zwei--erwartet">
@@ -460,87 +553,89 @@
         <span class="stl-kleinzeile__num">03</span>Dein Einstieg</p>
       <h2 class="stl-h2" id="t-erwartet">Das erwartet dich</h2>
 
-      <ul class="stl-liste">
-        <li class="stl-punkt">
-          <span class="stl-punkt__marke">
-            <span class="stl-punkt__zeichen" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3.2 6.4a1.4 1.4 0 0 1 1.4-1.4h9.2a1.4 1.4 0 0 1 1.4 1.4v5.4a1.4 1.4 0 0 1-1.4 1.4H7.6L4.4 16v-2.8h-0.2a1.4 1.4 0 0 1-1-1.4z"></path>
-              <path d="M17.6 8.6h1.8A1.4 1.4 0 0 1 20.8 10v5.4a1.4 1.4 0 0 1-1.4 1.4h-0.2v2.8l-3.2-2.8h-4.6"></path>
-            </svg>
-          </span>
-            <span class="stl-punkt__num">01</span>
-          </span>
-          <div class="stl-punkt__text">
-            <h3 class="stl-punkt__titel">Kennenlernen</h3>
-            <p>Wir sprechen über deinen Hintergrund, deine Ziele und deine bisherige Erfahrung.</p>
-          </div>
+      <ol class="stl-stapel stl-stapel--folge">
+        <li class="stl-halt">
+          <article class="stl-karte">
+            <span class="stl-karte__zeichen" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.2 6.4a1.4 1.4 0 0 1 1.4-1.4h9.2a1.4 1.4 0 0 1 1.4 1.4v5.4a1.4 1.4 0 0 1-1.4 1.4H7.6L4.4 16v-2.8h-0.2a1.4 1.4 0 0 1-1-1.4z"></path>
+                <path d="M17.6 8.6h1.8A1.4 1.4 0 0 1 20.8 10v5.4a1.4 1.4 0 0 1-1.4 1.4h-0.2v2.8l-3.2-2.8h-4.6"></path>
+              </svg>
+            </span>
+            <div class="stl-karte__wort">
+              <p class="stl-karte__nr">01</p>
+              <h3 class="stl-karte__titel">Kennenlernen</h3>
+              <p class="stl-karte__text">Wir sprechen über deinen Hintergrund, deine Ziele und
+                 deine bisherige Erfahrung.</p>
+            </div>
+          </article>
         </li>
-        <li class="stl-punkt">
-          <span class="stl-punkt__marke">
-            <span class="stl-punkt__zeichen" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="10.6" cy="10.6" r="6.6"></circle>
-              <path d="m15.6 15.6 4.6 4.6"></path>
-              <path d="m7.9 10.7 1.9 1.9 3.6-3.7"></path>
-            </svg>
-          </span>
-            <span class="stl-punkt__num">02</span>
-          </span>
-          <div class="stl-punkt__text">
-            <h3 class="stl-punkt__titel">Eignung prüfen</h3>
-            <p>Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch und Zielgruppe zusammenpassen.</p>
-          </div>
+        <li class="stl-halt">
+          <article class="stl-karte">
+            <span class="stl-karte__zeichen" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10.6" cy="10.6" r="6.6"></circle>
+                <path d="m15.6 15.6 4.6 4.6"></path>
+                <path d="m7.9 10.7 1.9 1.9 3.6-3.7"></path>
+              </svg>
+            </span>
+            <div class="stl-karte__wort">
+              <p class="stl-karte__nr">02</p>
+              <h3 class="stl-karte__titel">Eignung prüfen</h3>
+              <p class="stl-karte__text">Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch
+                 und Zielgruppe zusammenpassen.</p>
+            </div>
+          </article>
         </li>
-        <li class="stl-punkt">
-          <span class="stl-punkt__marke">
-            <span class="stl-punkt__zeichen" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 6.4C10.3 5.1 8.2 4.4 6 4.4H3.2v13.2H6c2.2 0 4.3.7 6 2 1.7-1.3 3.8-2 6-2h2.8V4.4H18c-2.2 0-4.3.7-6 2z"></path>
-              <path d="M12 6.4v14.2"></path>
-            </svg>
-          </span>
-            <span class="stl-punkt__num">03</span>
-          </span>
-          <div class="stl-punkt__text">
-            <h3 class="stl-punkt__titel">Onboarding</h3>
-            <p>Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung und rechtliche
-               Kommunikationsgrenzen kennen.</p>
-          </div>
+        <li class="stl-halt">
+          <article class="stl-karte">
+            <span class="stl-karte__zeichen" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 6.4C10.3 5.1 8.2 4.4 6 4.4H3.2v13.2H6c2.2 0 4.3.7 6 2 1.7-1.3 3.8-2 6-2h2.8V4.4H18c-2.2 0-4.3.7-6 2z"></path>
+                <path d="M12 6.4v14.2"></path>
+              </svg>
+            </span>
+            <div class="stl-karte__wort">
+              <p class="stl-karte__nr">03</p>
+              <h3 class="stl-karte__titel">Onboarding</h3>
+              <p class="stl-karte__text">Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung
+                 und rechtliche Kommunikationsgrenzen kennen.</p>
+            </div>
+          </article>
         </li>
-        <li class="stl-punkt">
-          <span class="stl-punkt__marke">
-            <span class="stl-punkt__zeichen" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6.2A1.4 1.4 0 0 1 5.4 4.8h3.4l1.8 2.2h8A1.4 1.4 0 0 1 20 8.4v9.4a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 17.8z"></path>
-              <path d="M8.6 13.2h6.8"></path>
-            </svg>
-          </span>
-            <span class="stl-punkt__num">04</span>
-          </span>
-          <div class="stl-punkt__text">
-            <h3 class="stl-punkt__titel">Erste Kundenfälle</h3>
-            <p>Bei den ersten Fällen wirst du eng begleitet und erhältst Unterstützung bei
-               Einordnung, Objekt und Prozess.</p>
-          </div>
+        <li class="stl-halt">
+          <article class="stl-karte">
+            <span class="stl-karte__zeichen" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6.2A1.4 1.4 0 0 1 5.4 4.8h3.4l1.8 2.2h8A1.4 1.4 0 0 1 20 8.4v9.4a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 17.8z"></path>
+                <path d="M8.6 13.2h6.8"></path>
+              </svg>
+            </span>
+            <div class="stl-karte__wort">
+              <p class="stl-karte__nr">04</p>
+              <h3 class="stl-karte__titel">Erste Kundenfälle</h3>
+              <p class="stl-karte__text">Bei den ersten Fällen wirst du eng begleitet und erhältst
+                 Unterstützung bei Einordnung, Objekt und Prozess.</p>
+            </div>
+          </article>
         </li>
-        <li class="stl-punkt">
-          <span class="stl-punkt__marke">
-            <span class="stl-punkt__zeichen" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3.6 20.4h16.8"></path>
-              <path d="M6.4 20.4v-5.2M11 20.4V10.6M15.6 20.4V6.4M20.2 20.4V3.6"></path>
-            </svg>
-          </span>
-            <span class="stl-punkt__num">05</span>
-          </span>
-          <div class="stl-punkt__text">
-            <h3 class="stl-punkt__titel">Eigenständiger Aufbau</h3>
-            <p>Mit zunehmender Erfahrung übernimmst du mehr Verantwortung und entwickelst
-               deinen eigenen Kundenbestand.</p>
-          </div>
+        <li class="stl-halt">
+          <article class="stl-karte">
+            <span class="stl-karte__zeichen" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.6 20.4h16.8"></path>
+                <path d="M6.4 20.4v-5.2M11 20.4V10.6M15.6 20.4V6.4M20.2 20.4V3.6"></path>
+              </svg>
+            </span>
+            <div class="stl-karte__wort">
+              <p class="stl-karte__nr">05</p>
+              <h3 class="stl-karte__titel">Eigenständiger Aufbau</h3>
+              <p class="stl-karte__text">Mit zunehmender Erfahrung übernimmst du mehr Verantwortung
+                 und entwickelst deinen eigenen Kundenbestand.</p>
+            </div>
+          </article>
         </li>
-      </ul>
+      </ol>
 
       <p class="stl-erwartet__schluss">Klare Prozesse. Persönliche Unterstützung. Leistung,
          die sich entwickeln kann.</p>
