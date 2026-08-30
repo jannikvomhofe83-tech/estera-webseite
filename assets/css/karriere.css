@@ -820,6 +820,44 @@
    Schnittdatei. */
 .kar-wer__text strong { font-weight: 600; }
 
+/* --- DIE GOLDENE TRENNLINIE — 31.08.2026, KUNDENWUNSCH --------------------
+   „Nicht ganz nach rechts und ganz links, sondern nicht die ganze Breite."
+   Eine kurze, mittige Linie zwischen „Wer ist Estera?" und dem Laufband
+   „Das sagt unser Team" darunter.
+
+   MASS UND MACHART SIND DIE DES KOPFSTRICHS DER STARTSEITE
+   (.abl__kopfstrich in assets/css/ablauf.css; die Datei ist dafuer nur
+   GELESEN worden). Dort: `width: clamp(42px, 3.85vw, 60px)`, 1 px hoch,
+   in var(--abl-gold) #A8874F. Hier steht --gold aus base.css, derselbe
+   Ton — er ist die Akzentfarbe des Projekts und liegt im selben Wert.
+
+   Sie ist REINE GRAFIK und keine Schrift: 3,05:1 auf hellem Grund genuegt
+   dafuer. Dieselbe Einordnung wie beim Haarstrich der Merkmalkaesten auf
+   den Stellenseiten (--stl-zeichen).
+
+   DER ABSTAND IST GROSSZUEGIG (unten mehr als oben): sie soll den Abschnitt
+   abschliessen und nicht am Text kleben. Oben die Regelluft --kar-luft
+   halbiert, unten ganz — darunter folgt kein Text mehr, sondern die
+   Oberkante des Laufbands.
+
+   `color` und nicht `fill`/`stroke`: der Pfad im Markup faerbt sich ueber
+   `currentColor`, dieselbe Bauart wie auf der Startseite. Wer die Farbe
+   aendern will, aendert sie hier an einer Stelle.
+
+   SIE HEISST .kar-goldstrich UND NICHT .kar-strich, obwohl das kuerzer
+   waere: weiter unten in dieser Datei steht schon ein `@keyframes
+   kar-strich`. Klassen und Bildfolgen leben zwar in getrennten
+   Namensraeumen und kaemen sich technisch nicht ins Gehege — beim Suchen
+   und Lesen aber sehr wohl. */
+.kar-goldstrich {
+  display: block;
+  width: clamp(42px, 3.85vw, 60px);
+  height: 1px;
+  margin: calc(var(--kar-luft) / 2) auto 0;
+  color: var(--gold);
+}
+
+
 /* --- DAS BILDFENSTER — SEIT 31.08.2026 OHNE MARKUP ------------------------
    ES GIBT AUF karriere.html KEIN .kar-wer__bild MEHR. Der Kunde hat das
    Bild der beiden Geschäftsführer am 31.08.2026 herausnehmen lassen

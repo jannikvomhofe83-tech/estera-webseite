@@ -289,7 +289,7 @@
      --------------------------------------------------------------------- */
   var einzeln = [
     '.stl-hero__vor', '.stl-hero__unter', '.stl-hero__btn',
-    '.stl-kleinzeile', '.stl-macht__lead', '.stl-erwartet__schluss',
+    '.stl-kleinzeile', '.stl-macht__lead',
     '.stl-schluss__text', '.stl-schluss__aktionen', '.stl-schluss__hinweis',
     '.stl-hero__h1', '.stl-h2', '.stl-h2-gross',
     '.stl-trenn', '.stl-bilder', '.stl-schluss__medium'

@@ -346,6 +346,29 @@
           <p><strong>Daran arbeitest du mit.</strong> Wir denken in zehn Jahren.</p>
         </div>
 
+        <!-- DIE GOLDENE TRENNLINIE — 31.08.2026, Kundenwunsch: „nicht ganz
+             nach rechts und ganz links, sondern nicht die ganze Breite."
+             Also eine kurze, mittige Linie zwischen „Wer ist Estera?" und
+             „Das sagt unser Team".
+
+             MACHART DES KOPFSTRICHS DER STARTSEITE (.abl__kopfstrich in
+             assets/css/ablauf.css — nur gelesen, nicht veraendert): ein SVG
+             von 60 x 1 mit einem einzigen Pfad, gefaerbt ueber
+             `currentColor`. Als SVG und nicht als Rand oder ::before, weil
+             ein Element von 1 px Hoehe bei gebrochener Bildpunktdichte
+             verschwindet oder auf 2 px aufgeht; ein SVG-Pfad wird gerastert
+             und bleibt bei jeder Skalierung ein Haarstrich.
+
+             SIE STEHT INNERHALB des Abschnitts und nicht zwischen den
+             beiden Abschnitten: der Abschnitt laeuft ueber seine Hoehe von
+             Creme nach Weiss (.fl-creme-nach-weiss), eine Linie im
+             Zwischenraum saesse auf einer anderen Farbe als der Fuss dieses
+             Abschnitts. So sitzt sie auf dem Ton, auf dem sie liegen soll.
+             aria-hidden, weil sie reine Grafik ist. -->
+        <svg class="kar-goldstrich" width="60" height="1" viewBox="0 0 60 1" aria-hidden="true" focusable="false">
+          <path d="M0 .5H60" stroke="currentColor" stroke-width="1"/>
+        </svg>
+
       </div>
 
 

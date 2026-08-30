@@ -1116,16 +1116,30 @@
 
 .stl-stufe {
   display: grid;
-  grid-template-columns: clamp(2.1rem, 2.9vw, 2.8rem) minmax(0, 1fr);
-  column-gap: clamp(0.7rem, 1.2vw, 1.2rem);
+  grid-template-columns: clamp(2.0rem, 2.7vw, 2.6rem) minmax(0, 1fr);
+  column-gap: clamp(0.7rem, 1.15vw, 1.15rem);
   align-items: start;
-  padding-block: clamp(0.8rem, 1.3vw, 1.25rem);
-  border-bottom: 1px solid var(--stl-linie);
+  /* HAARLINIEN ENTFERNT 31.08.2026 — Kundenwunsch, wortgleich fuer den
+     Ablauf der Startseite und fuer hier: zwischen den Punkten sollen keine
+     Trennstriche stehen. Ohne sie muss die FUGE trennen, deshalb mehr
+     Polster als in der Linienfassung — 1,95vw statt 1,30vw, dieselbe Zahl
+     wie in ablauf.css (nur gelesen). Die Ziffer uebernimmt links die
+     Gliederung, die vorher die Linie geleistet hat.
+
+     DER DECKEL IST GERECHNET UND NICHT GEGRIFFEN. Die Bedingung bleibt:
+     Ueberschrift und alle Schritte stehen bei 1440 x 900 gleichzeitig im
+     Fenster. Jeder Punkt Polster zaehlt darin achtfach (vier Fugen, zwei
+     Seiten, fuenf Schritte). Mit 1,4rem misst der Block bei 1440 px
+     642 px gegen 900 px Fensterhoehe — 258 px Reserve, genug auch dann,
+     wenn eine Zeile einmal umbricht.
+     Die untere Schranke 0,95rem bleibt: darunter liefen die Zeilen ohne
+     Linien zu einem Block zusammen. */
+  padding-block: clamp(0.95rem, 1.95vw, 1.4rem);
 }
 /* Der erste Schritt braucht oben kein Polster — die Ueberschrift darueber
-   bringt ihren eigenen Abstand mit. Nach dem letzten keine Linie. */
+   bringt ihren eigenen Abstand mit. */
 .stl-stufe:first-child { padding-top: 0; }
-.stl-stufe:last-child  { padding-bottom: 0; border-bottom: 0; }
+.stl-stufe:last-child  { padding-bottom: 0; }
 
 /* OHNE ZIFFERNSPALTE — Back-Office-Seite. Deren vier Punkte sind keine
    Reihenfolge (der vierte ist „Persoenliche Begleitung" und beschreibt
@@ -1170,14 +1184,10 @@
   max-width: 44em;
 }
 
-.stl-erwartet__schluss {
-  margin-top: clamp(20px, 1.6vw, 30px);
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--stl-t-gross2);
-  line-height: 1.4;
-  color: var(--stl-tx);
-}
+/* .stl-erwartet__schluss IST AM 31.08.2026 ENTFALLEN — mit der Zeile
+   „Klare Prozesse. Echte Hilfe. Du kannst wachsen.", die der Kunde
+   ersatzlos hat streichen lassen. Der Abschnitt endet jetzt mit dem
+   letzten Schritt. */
 
 /* Die Vorlage stapelt hier zwei Bilder ohne Fuge (masonry-horizontal
    --zero-vertical, je 597 x 355). Seit dem 29.08.2026 steht auf
@@ -1403,7 +1413,7 @@
      entfallen. Die Schrittliste braucht hier nur etwas mehr Luft je
      Zeile, weil der Satz auf schmalem Fenster zwei- bis dreizeilig
      umbricht und die Haarlinien sonst zu dicht aufeinander stehen. */
-  .stl-stufe { padding-block: 0.95rem; }
+  .stl-stufe { padding-block: 0.85rem; }
   .stl-schluss__aktionen { gap: 1.1rem; }
   .stl-schluss__aktionen .btn { width: 100%; justify-content: center; }
 }
@@ -1935,30 +1945,68 @@
 }
 
 /* --- 06  SANDUHR — „Langfristig denken" ---------------------------------
-   WEG (b), DARUEBERGELEGT, und hier ist er ohne Abstriche der richtige: es
-   muss nichts freigelegt werden, das Bild bleibt vollstaendig, und die
-   Bewegung ist genau das, was fehlt.
+   WEG (b) UND (c) ZUSAMMEN, und das war eine Korrektur: der erste Versuch
+   war reines (b), fuenf aufgelegte Koerner ueber dem Glas. Sie liefen —
+   gemessen 0,0 % veraenderte Flaeche zwischen Ruhe und Geste. Ein Korn von
+   0,62 Einheiten Radius ist auf 200 px Darstellung 2,5 Bildpunkte breit;
+   das ist da, aber es ist nicht zu sehen. Die Geste, die der Kunde
+   beschrieben hat („der Sand rieselt von oben nach unten durch"), braucht
+   mehr als ein paar Punkte: sie braucht die zwei SANDMASSEN.
 
-   DIE LAGE DER KOERNER IST GEMESSEN. Der Hals der Sanduhr ist die engste
-   Stelle des Glases: bei Zeile 726 bis 756 ist der Glaskoerper nur noch
-   6,4 % breit (46,7 bis 53,1 %), darueber und darunter oeffnet er sich
-   wieder. Der gezeichnete Sandstrahl laeuft von dort bis zum Kegel unten,
-   der bei 66 % beginnt. Umgerechnet auf das quadratische Feld eines
-   Hochbildes (x_Kasten = 16,67 % + x_Bild · 66,67 %) fallen die Koerner
-   also bei x 49,4 bis 50,6 von y 50 nach y 65.
+   DREI LAGEN, GESCHNITTEN NACH FARBE UND HOEHE:
+     sand-glas   das Glas samt Gestell, ohne Sand, Loch aufgefuellt
+     sand-oben   der obere Kegel   (Gold oberhalb von 48,5 %)
+     sand-unten  der untere Kegel  (Gold unterhalb von 60 %)
+   48,5 % ist der Hals — dort ist das Glas mit 6,4 % Breite am engsten
+   (gemessen: Zeile 726 bis 756 von 1536). Dazwischen liegt der gezeichnete
+   Strahl; er bleibt im Glasbild und braucht nicht zu wandern.
+   Uebereinandergelegt ergeben die drei wieder genau das Original.
 
-   FUENF KOERNER, VERSETZT, und nicht mehr: ein dichter Strahl waere im
-   Bild schon da. Die Farbe ist aus dem Bild genommen (242, 212, 174 im
-   Strahl, 220, 175, 121 im Kegel).
+   DIE GESTE: der obere Kegel schrumpft zum Hals hin, der untere waechst
+   aus seinem Boden. Beides ist reines scaleY mit dem richtigen Drehpunkt —
+   oben die Unterkante des Kegels (50 % 48,5 %), unten dessen Unterkante
+   (50 % 81,2 %). Das liest sich als Durchrieseln, weil es genau das ist,
+   was beim Durchrieseln passiert.
 
-   BEIM UEBERFAHREN RIESELT ES WEITER, so lange der Zeiger steht. Das ist
-   die eine Stelle, an der eine Wiederholung richtig ist: Sand rinnt, bis
-   er durch ist. Beim ersten Erscheinen laeuft ein einziger Durchgang. */
+   MIT `transition` UND NICHT MIT `animation`, als einziges der sechs
+   Symbole. Der Grund ist der Rueckweg: eine Animation, die am Ende haelt,
+   muesste beim Verlassen zurueckspringen, und ein Sprung ist an einer so
+   grossen Flaeche sofort zu sehen. Mit einer Ueberblendung laeuft der Sand
+   hin, so lange der Zeiger steht, und ebenso ruhig wieder zurueck.
+
+   DIE KOERNER BLEIBEN als aufgelegtes SVG — jetzt groesser (Radius 1,5
+   statt 0,62) und zu siebt. Sie fallen weiter, so lange der Zeiger steht;
+   das ist die eine Stelle, an der eine Wiederholung richtig ist. Beim
+   ersten Erscheinen laeuft ein einziger Durchgang, ohne dass sich die
+   Kegel bewegen — ein Sanduhrglas, das beim Vorbeirollen von selbst
+   leerlaeuft, waere eine Behauptung zu viel. */
+.stl-aus__lage--sand-oben  img { transform-origin: 50% 48.5%; }
+.stl-aus__lage--sand-unten img { transform-origin: 50% 81.2%; }
+.stl-aus__lage--sand-oben  img,
+.stl-aus__lage--sand-unten img { transition: transform 1.5s linear; }
+/* HIER STAND KURZ EIN `will-change: transform`. Gemessen sprang das erste
+   Bild dieser Ueberblendung auf 33,3 ms, und der Vorhalt sollte das
+   beheben — er hat es nicht, der Wert blieb unveraendert. Die Ursache lag
+   woanders: gemessen wurde die Sanduhr als ERSTES Symbol unmittelbar nach
+   dem Eintritt aller sechs Kaesten, und der Sprung gehoerte noch dazu.
+   Misst man sie als letztes, liegt ihr laengster Bildabstand bei 9,3 ms.
+   Der Vorhalt ist deshalb wieder raus: eine Ebene, die nichts bringt,
+   kostet nur Speicher. */
+
+.stl-aus__kasten:hover .stl-aus__lage--sand-oben img,
+.stl-aus__kasten:focus-within .stl-aus__lage--sand-oben img {
+  transform: scaleY(0.62);
+}
+.stl-aus__kasten:hover .stl-aus__lage--sand-unten img,
+.stl-aus__kasten:focus-within .stl-aus__lage--sand-unten img {
+  transform: scaleY(1.22);
+}
+
 @keyframes stl-korn {
   0%   { opacity: 0; transform: translateY(0); }
   14%  { opacity: 0.95; }
   78%  { opacity: 0.95; }
-  100% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 0; transform: translateY(11px); }
 }
 
 
@@ -2407,6 +2455,16 @@
 
   .stl-aus__lage,
   .stl-aus__lage img { opacity: 1; transform: none; clip-path: none; }
+  /* Die Sandkegel laufen als einzige ueber `transition` und nicht ueber
+     `animation` (Begruendung oben bei Symbol 06). `animation: none` fasst
+     sie deshalb nicht — die Ueberblendung muss eigens abgeschaltet und der
+     Endwert eigens zurueckgenommen werden. */
+  .stl-aus__lage--sand-oben img,
+  .stl-aus__lage--sand-unten img { transition: none; }
+  .stl-aus__kasten:hover .stl-aus__lage--sand-oben img,
+  .stl-aus__kasten:focus-within .stl-aus__lage--sand-oben img,
+  .stl-aus__kasten:hover .stl-aus__lage--sand-unten img,
+  .stl-aus__kasten:focus-within .stl-aus__lage--sand-unten img { transform: none; }
   /* Die zwei aufgelegten SVG bleiben unsichtbar — sie sind Bewegung und
      sonst nichts. */
   .stl-aus__auf,
