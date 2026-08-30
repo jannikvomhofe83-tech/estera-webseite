@@ -93,7 +93,37 @@
   --vtr-voll:   #000;              /* Kundenwunsch: ganz normal schwarz   */
   --vtr-strich: 0.34px;            /* Hauch mehr Zeichnung fuer gefuellte Woerter */
 
-  background: linear-gradient(90deg,
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     KEINE BLENDEN MEHR AN OBER- UND UNTERKANTE — 30.08.2026, dritter Anlauf
+
+     Hier standen bis heute zwei zusaetzliche Hintergrundlagen: oben 26
+     Punkte von #F7F3F0 (dem Creme von #warum-immobilien) ins Durchsichtige,
+     unten 26 Punkte von #FFFFFF. Beide sind ERSATZLOS entfernt.
+
+     Der Grund ist die Entscheidung vom 30.08.2026, die im Kopf von base.css
+     vollstaendig steht: es gibt keine Blende ZWISCHEN zwei Abschnitten.
+     Jeder Abschnitt traegt seinen Verlauf ueber die eigene volle Hoehe und
+     endet auf der Farbe seiner Nachbarin. Genau das tut jetzt
+     #warum-immobilien: es traegt `fl-creme-nach-weiss` und endet auf
+     reinem WEISS. Diese Leiste steht also ohnehin auf Weiss, oben wie
+     unten — es gibt an beiden Kanten gar keinen Farbunterschied mehr, den
+     eine Blende ueberbruecken muesste. Eine Blende haette hier nur noch
+     einen Cremestreifen auf Weiss gemalt.
+
+     Die 26 Punkte waren ausserdem von Anfang an zu kurz: gemessen 9,42
+     Einheiten je Bildpunkt gegen die Regel von 0,03.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     DER KEIL BLEIBT UNVERAENDERT. Er ist keine Naht, sondern ein
+     Gestaltungselement: der navyblaue Anschnitt am linken Rand, den der
+     Kunde ausdruecklich verlangt hat („es soll wirklich navyblau sein, das
+     ist wichtig"). Er laeuft INNERHALB der Flaeche von links nach rechts
+     aus, nicht zwischen zwei Abschnitten. Seine Breite ist zudem an die
+     Lage des Zitats gebunden — der Satz beginnt bei t = 0,315 der Breite,
+     der Verlauf ist bei t = 0,22 weiss; jede Verbreiterung setzt Text auf
+     getoenten Grund. Die Rechnung dazu steht oben unter Punkt 1. */
+  background:
+    linear-gradient(90deg,
     var(--navy-800)   0%,
     var(--navy-800)   5%,
     var(--navy-600)   9%,
@@ -351,7 +381,13 @@
        waeren keine 15 wirklich dunkel. Die Toenung reicht deshalb bis
        28 Prozent, und der obere Aussenabstand ist entsprechend groesser.
        „Es soll aber wirklich navyblau sein, das ist wichtig." */
-    background: linear-gradient(180deg,
+    /* Die 34-Punkt-Blende an der Oberkante ist am 30.08.2026 ersatzlos
+       entfallen — derselbe Grund wie in der Waagerechten weiter oben:
+       #warum-immobilien endet jetzt selbst auf Weiss, es gibt an dieser
+       Kante keinen Farbunterschied mehr. Der senkrechte Keil selbst bleibt
+       unveraendert; er ist Gestaltung, keine Naht. */
+    background:
+      linear-gradient(180deg,
       var(--navy-800)   0%,
       var(--navy-800)   8%,
       var(--navy-600)  13%,

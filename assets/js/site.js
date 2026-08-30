@@ -376,9 +376,8 @@
      Abfrage, Sprungmarke und `.html` ab. */
   var vorhandeneSeiten = [
     'variante-a', 'ueber-estera', 'karriere', 'kontakt',
-    'karriere-immobilienberater'
-  ];   /* karriere-backoffice fehlt hier mit Absicht, solange es die Datei
-          nicht gibt — die Sperre soll genau davor schuetzen. */
+    'karriere-immobilienberater', 'karriere-backoffice'
+  ];
   function normalisiere(adresse) {
     return adresse
       .split('#')[0]

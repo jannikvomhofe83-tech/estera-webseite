@@ -95,11 +95,17 @@
      ===================================================================== -->
 <header class="site-header site-header--invert" data-header>
 
+  <!-- NAVIGATION GEAENDERT 30.08.2026 (Kundenwunsch):
+       links Vorteile · Leistungen · Ablauf, rechts Karriere · Kontakt.
+       „Eigentumsaufbau" (variante-a.html#vorteile) und „Ueber Estera"
+       sind heraus, „Ablauf" ist neu.
+       Der Anker ist geprueft, nicht geraten: variante-a.html Zeile 2482
+       traegt <section class="abl" id="ablauf">. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
       <li><a href="variante-a.html#warum-immobilien">Vorteile</a></li>
       <li><a href="variante-a.html#leistungen">Leistungen</a></li>
-      <li><a href="variante-a.html#vorteile">Eigentumsaufbau</a></li>
+      <li><a href="variante-a.html#ablauf">Ablauf</a></li>
     </ul>
   </nav>
 
@@ -110,7 +116,6 @@
 
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
     <ul>
-      <li><a href="ueber-estera.html">Über Estera</a></li>
       <li><a href="karriere.html" aria-current="page">Karriere</a></li>
       <li class="kopfnav__cta"><a href="kontakt.html">Kontakt</a></li>
     </ul>
@@ -147,6 +152,10 @@
      was dort nach einem Knopf aussieht, ist die Kennzeile auf ihrem
      Balken (bericht.md, Abschnitt 9).
      ===================================================================== -->
+<!-- OHNE Verlaufsklasse. Die Unterkante des Kopfbereichs ist eine
+     Navy-gegen-Hell-Naht; die bleibt nach der Entscheidung vom 30.08.2026
+     eine saubere Kante. Ein .fl-navy900 waere hier wirkungslos: Video und
+     Schleier decken die Flaeche vollstaendig ab. -->
 <section class="kar-kopf" aria-labelledby="kar-kopf-titel">
 
   <!-- Das Video liegt unter dem Schleier und ist reine Ausstattung: kein
@@ -247,28 +256,103 @@
      freigegebenen Saetzen der Website zusammengesetzt, damit hier nichts
      Neues behauptet wird. Der endgueltige Wortlaut kommt von Estera.
      ===================================================================== -->
-<section class="kar-wer" aria-labelledby="kar-wer-titel">
+<!-- ZWEISPALTIG SEIT 30.08.2026, KUNDENWUNSCH — Abweichung von der Vorlage.
+     Die Vorlage setzt diesen Abschnitt einspaltig und mittig. Der Kunde
+     will den Text links und linksbuendig, rechts ein Bildfenster mit einer
+     gemeinsamen Aufnahme der beiden Geschaeftsfuehrer. Wortlaut von
+     Kleinzeile, Ueberschrift und Text bleibt unveraendert.
+     Unter 1024 px stehen die beiden Spalten untereinander, Text zuerst. -->
+<!-- DER EINE WEICHE UEBERGANG DIESER SEITE. .fl-creme-nach-weiss aus
+     base.css laesst den Abschnitt ueber seine EIGENE volle Hoehe von
+     Creme nach Weiss laufen — er endet damit auf der Farbe des
+     Stimmenabschnitts darunter, und zwischen beiden gibt es keine Naht
+     mehr. Keine Blende, kein Zwischenstueck.
+     Der Verlauf sitzt HIER und nicht im Stimmenabschnitt: dessen Grund
+     muss von der ersten Bildzeile an reines Weiss sein, weil die
+     Kantenmaske des Laufbands dagegen ausblendet.
+     Die Oberkante bleibt hart — darueber steht Navy 900. -->
+<section class="kar-wer fl-creme-nach-weiss" aria-labelledby="kar-wer-titel">
   <div class="kar-mitte">
+    <div class="kar-wer__raster">
 
-    <p class="kar-wer__etikett" data-auf>
-      <span class="kar-balken">Estera in Kürze</span>
-    </p>
+      <div class="kar-wer__spalte">
 
-    <!-- Akzentregel der Vorlage, konsequent auf jeder Ueberschrift: die
-         zweite Haelfte steht kursiv UND in der Akzentfarbe — nie nur
-         eins von beidem (bericht.md, Abschnitt 8.3). -->
-    <h2 class="kar-titel" id="kar-wer-titel" data-auf>Wer ist <span class="kar-akzent">Estera</span>?</h2>
+        <p class="kar-wer__etikett" data-auf>
+          <span class="kar-balken">Estera in Kürze</span>
+        </p>
 
-    <!-- PLATZHALTER — Freigabe von Estera steht aus. -->
-    <div class="kar-wer__text" data-auf>
-      <p>Estera begleitet Menschen beim Aufbau von Eigentum — von der Auswahl der
-         Immobilie über die passende Finanzierung bis zur Betreuung nach dem
-         Notartermin. Wir arbeiten mit ausgewählten Objekten, klaren Prozessen und
-         einem Ansprechpartner, der bleibt.</p>
-      <p>Unser Anspruch ist keine schnelle Vermittlung, sondern eine Entscheidung,
-         die in zehn Jahren noch trägt.</p>
+        <!-- Akzentregel der Vorlage, konsequent auf jeder Ueberschrift: die
+             zweite Haelfte steht kursiv UND in der Akzentfarbe — nie nur
+             eins von beidem (bericht.md, Abschnitt 8.3). -->
+        <h2 class="kar-titel" id="kar-wer-titel" data-auf>Wer ist <span class="kar-akzent">Estera</span>?</h2>
+
+        <!-- PLATZHALTER — Freigabe von Estera steht aus. -->
+        <div class="kar-wer__text" data-auf>
+          <p>Estera begleitet Menschen beim Aufbau von Eigentum — von der Auswahl der
+             Immobilie über die passende Finanzierung bis zur Betreuung nach dem
+             Notartermin. Wir arbeiten mit ausgewählten Objekten, klaren Prozessen und
+             einem Ansprechpartner, der bleibt.</p>
+          <p>Unser Anspruch ist keine schnelle Vermittlung, sondern eine Entscheidung,
+             die in zehn Jahren noch trägt.</p>
+        </div>
+
+      </div>
+
+      <!-- BILDFENSTER — gemeinsame Aufnahme der beiden Geschaeftsfuehrer.
+           Datei 2496 x 1664, Verhaeltnis 3:2 quer.
+
+           DAS BILDFENSTER STEHT AUF GENAU 3:2 (aspect-ratio in der CSS).
+           Damit schneidet object-fit: cover NICHTS weg — und das ist hier
+           die entscheidende Bedingung, nicht eine Feinheit: die Koepfe
+           sitzen im oberen Viertel, die Fuesse ganz unten. Jeder Beschnitt
+           oben oder unten nimmt Kopf oder Schuh und zerstoert die Aussage
+           der Aufnahme. Wer das Fenster spaeter auf ein anderes
+           Verhaeltnis setzt, muss vorher das Bild passend zuschneiden
+           lassen oder auf object-fit: contain wechseln — NICHT cover mit
+           fester Hoehe.
+
+           Erzeugt ueber kie.ai (google/nano-banana-edit) und auf 2496 px
+           hochskaliert. Grundlage war eine Fassung, in der die echten
+           Gesichter aus gf-1.jpg und gf-2.jpg ueber die Augenlinie
+           eingesetzt waren; der Erzeugungsschritt hat daraus ein
+           zusammenhaengendes Bild gemacht, ohne die Gesichter neu zu
+           zeichnen. Zwischenstaende in .original/.
+
+           Der Weg dahin steht hier, weil er sich sonst wiederholt: die
+           Fassung mit eingesetzten Gesichtern hatte SICHTBARE NAEHTE und
+           wurde als Montage erkannt. Zwei freie Neuerzeugungen allein aus
+           den Portraets haben stattdessen FREMDE MAENNER gezeichnet
+           (.original/gf-verworfen-neu-a.png und -neu-b.png). Nur der
+           Umweg ueber die Montage als Vorlage hat beides zugleich
+           gehalten: keine Naht und dieselben Menschen.
+
+           DIE DATEI WURDE AM 30.08.2026 MEHRFACH GETAUSCHT
+           (3072 x 2048 -> 1248 x 832 -> 2496 x 1664). Fest sind dabei nur
+           PFAD und VERHAELTNIS 3:2 geblieben. Am Aufbau aendert ein
+           weiterer Tausch im selben Verhaeltnis nichts; es genuegt, die
+           width/height unten nachzuziehen.
+
+           NICHT ENGER SCHNEIDEN. Die ganze Figur mit Beinen und Fuessen
+           ist ausdruecklich gewollt — eine Halbfigur wurde aus genau dem
+           Grund schon einmal verworfen. Wirken die Figuren zu klein, ist
+           die SPALTENBREITE das Mittel, nicht der Beschnitt.
+
+           object-position: 50% 35% steht in der CSS als Absicherung fuer
+           genau den Fall, dass das Fenster einmal nicht mehr 3:2 ist.
+
+           KEINE NAMENSZUORDNUNG im Alternativtext — welches Gesicht zu
+           welchem Namen gehoert, ist hier nicht gesichert; eine geratene
+           Zuordnung waere eine Behauptung ueber eine echte Person. -->
+      <figure class="kar-wer__bild" data-auf>
+        <picture>
+          <source srcset="assets/img/karriere/gf-zusammen.webp?v=b24a" type="image/webp">
+          <img src="assets/img/karriere/gf-zusammen.jpg?v=b24a"
+               width="2496" height="1664" loading="lazy" decoding="async"
+               alt="Die beiden Geschäftsführer von Estera sitzen nebeneinander in ihrem Büroraum">
+        </picture>
+      </figure>
+
     </div>
-
   </div>
 </section>
 
@@ -298,6 +382,11 @@
      Datum — nichts, was eine bestimmte Person behauptet. Keine Zahl, kein
      Gehalt, keine Zusage steht darin.
      ===================================================================== -->
+<!-- OHNE Uebergangsklasse, und das ist Absicht: die Kantenmaske des
+     Laufbands blendet gegen den Grund DIESES Abschnitts aus. Laege hier
+     auch nur die Spitze eines Creme-Verlaufs, waere es ein cremefarbener
+     Schleier statt des verlangten weissen. Beide Kanten liegen deshalb
+     bei den Nachbarn (.kar-wer unten, .kar-angebot oben). -->
 <section class="kar-stimmen" aria-labelledby="kar-stimmen-titel">
 
   <div class="kar-mitte">
@@ -452,13 +541,28 @@
      uebernommen, weil davon der Abstand zwischen Unterzeile und erster
      Kartenreihe abhaengt.
      ===================================================================== -->
-<section class="kar-angebot" aria-labelledby="kar-angebot-titel">
+<!-- DIE NAVY-FLAECHE BLEIBT. Der Kunde hatte sie am 30.08.2026 zunaechst
+     zurueckgenommen und sich am selben Tag wieder umentschieden:
+     „Hinter ‚Deine Karriere, unser Angebot' muss auch ein Navyblau sein
+     und auch ein Farbuebergang."
+     Der Farbuebergang ist .fl-navy800 aus base.css: die Flaeche atmet in
+     der eigenen Farbfamilie von oben nach unten. Ihre beiden Kanten
+     gegen Weiss und Creme bleiben hart — Navy gegen Hell bekommt keinen
+     Uebergang, dazu die Rechnung in karriere.css. -->
+<section class="kar-angebot fl-navy800" aria-labelledby="kar-angebot-titel">
   <div class="kar-mitte">
+    <!-- Rautenpunkt: Sand als Akzent, wie ueber den Abschnitts-
+         ueberschriften der Startseite. aria-hidden, weil das Zeichen
+         rein schmueckend ist und vorgelesen nichts beitraegt. -->
+    <p class="kar-angebot__raute" aria-hidden="true" data-auf><span></span></p>
     <h2 class="kar-titel" id="kar-angebot-titel" data-auf>Deine Karriere, <span class="kar-akzent">unser Angebot</span></h2>
     <p class="kar-angebot__unterzeile" data-auf>Zwei Stellen sind ausgeschrieben. Sieh dir an, worum es geht — und melde dich, wenn es passt.</p>
   </div>
 </section>
 
+<!-- OHNE Verlaufsklasse: beide Kanten dieses Abschnitts stossen an Navy
+     und bleiben harte Kanten. Ein Verlauf in der Flaeche haette keinen
+     Nachbarn, auf dessen Farbe er enden koennte. -->
 <section class="kar-stellen" aria-label="Offene Stellen">
   <div class="kar-mitte">
     <ul class="kar-liste" data-stellen>
@@ -589,17 +693,20 @@
     <!-- „Auf dieser Seite" fuehrt hier zu den Abschnitten der STARTSEITE.
          Die Punkte muessen auf allen Seiten dieselben sein — deshalb bleiben
          sie stehen und bekommen die Startseite vorangestellt. -->
+    <!-- Dieselbe Aenderung wie in der Kopfleiste, damit beide Wege zur
+         selben Seite dieselben Punkte anbieten: „Eigentumsaufbau" und
+         „Ueber Estera" heraus, „Ablauf" neu. Die Ziffern laufen in jeder
+         Gruppe wieder bei 01 los, deshalb ist „Karriere" jetzt 01. -->
     <p class="menu__gruppe">Auf der Startseite</p>
     <ul class="menu__nav">
       <li><a class="menu__link" href="variante-a.html#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
       <li><a class="menu__link" href="variante-a.html#leistungen"><span class="num">02</span> Leistungen</a></li>
-      <li><a class="menu__link" href="variante-a.html#vorteile"><span class="num">03</span> Eigentumsaufbau</a></li>
+      <li><a class="menu__link" href="variante-a.html#ablauf"><span class="num">03</span> Ablauf</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="ueber-estera.html"><span class="num">01</span> Über Estera</a></li>
-      <li><a class="menu__link" href="karriere.html" aria-current="page"><span class="num">02</span> Karriere</a></li>
-      <li><a class="menu__link" href="kontakt.html"><span class="num">03</span> Kontakt</a></li>
+      <li><a class="menu__link" href="karriere.html" aria-current="page"><span class="num">01</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html"><span class="num">02</span> Kontakt</a></li>
     </ul>
 
     <aside class="menu__aside">

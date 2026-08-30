@@ -29,7 +29,16 @@
      nach unten in weisses Seitenpapier auszulaufen. Die weisse Kante unter
      dem Bildband traegt auf diesem Grund am staerksten: Weiss auf Navy sind
      17.63:1, auf Sand waren es 1.94:1. */
-  background: var(--navy-900);
+  /* NUR background-color. Der Abschnitt traegt seit dem 30.08.2026 die
+     Klasse `fl-navy900` aus base.css: die Flaeche bleibt in ihrer eigenen
+     Farbfamilie und atmet von #0A192E auf #16283F — 17 Einheiten ueber die
+     volle Hoehe, also weit unter der Regel von 0,03 je Bildpunkt. Das ist
+     kein Uebergang zu einer anderen Farbe, sondern derselbe Fall wie der
+     Verlauf im FAQ-Kasten. Die Kante zur Cremeflaeche darunter bleibt
+     sauber; sie liegt ohnehin unter dem geschwungenen Rand von .ref.
+     Kurzschreibweise waere hier falsch — sie wuerde die Klasse
+     ueberschreiben, weil hero-a.css nach base.css geladen wird. */
+  background-color: var(--navy-900);
   /* MEHR LUFT NACH UNTEN als frueher, und zwar deutlich.
 
      Die Section darunter zieht sich mit ihrem geschwungenen Rand um bis zu
@@ -504,40 +513,40 @@
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: 50% 55%;
-  /* AN DAS BAND ANGEGLICHEN am 24.08.2026 (Kundenwunsch: „farblich zueinander
-     passen … das Bild soll natürlich das Gleiche bleiben").
+  /* ZURUECKGENOMMEN am 30.08.2026 — Kundenwunsch: „gib dem Bild seine volle
+     Farbe wieder zurück, so wie es davor war."
 
-     Beide Flächen wurden dafür ausgemessen, nicht geschätzt. Der Unterschied
-     lag nicht in der Sättigung, sondern im Blaustich:
+     Am 24.08. war das Bild an das Band angeglichen worden, weil beide
+     Flächen farblich auseinanderliefen. Gemessen war das damals richtig:
 
                        B minus R     Sättigung   Helligkeit
        Band                17,9        0,284         65
-       Bild vorher         10,6        0,147        137
-       Bild jetzt          15,4        0,209         91
+       Bild angeglichen    15,4        0,209         91
+       Bild ursprünglich   10,6        0,147        137
 
-     Das Bild trägt jetzt dieselbe Behandlung wie das Band — gleiche
-     Kontrastanhebung, ähnliche Entsättigung und denselben Navy-Schleier —
-     bleibt aber bewusst deutlich heller. Es ist der einzige helle, scharfe
-     Bildträger der Section; auf die 65 des Bandes gezogen wäre es kein
-     Objektbild mehr, sondern ein zweiter Hintergrund. */
-  filter: saturate(0.30) contrast(1.12) brightness(0.88);
+     Der Kunde will den ursprünglichen Zustand zurück. Der Filter ist damit
+     ganz weg, nicht abgeschwächt — „so wie es davor war" heisst ohne.
+
+     Der Navy-Schleier darunter faellt mit weg. Ich hatte ihn erst behalten
+     wollen, aber die Historie ist eindeutig: er kam im selben Commit dazu
+     (4bafae8, 24.08.) und war vorher nicht da. Er war der groessere Teil
+     der Abdunklung — ihn stehen zu lassen haette den Auftrag nur halb
+     erfuellt. */
   transform: scale(1.02);
   transition: transform 2.2s var(--ease-soft);
 }
-/* Der Navy-Schleier. Er liegt als eigene Lage über dem Bild statt als
-   Filter darin: ein Farbstich über `sepia()`/`hue-rotate()` verzieht auch
-   die Grautöne der Fassade, ein Schleier legt sich gleichmäßig darüber.
-   Der Verlauf ist derselbe wie am Band, nur schwächer. */
-.heroA__figure > div::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  background: linear-gradient(to bottom,
-    rgba(10,25,46,0.35) 0%, rgba(10,25,46,0.28) 45%, rgba(10,25,46,0.31) 100%);
-}
+/* ENTFERNT am 30.08.2026 zusammen mit dem Filter oben — Kundenwunsch, das
+   Bild in seiner vollen Farbe zu zeigen.
+
+   Hier lag der Navy-Schleier, der das Bild an das Band angeglichen hat:
+   `linear-gradient(to bottom, rgba(10,25,46,0.35), rgba(10,25,46,0.28) 45%,
+   rgba(10,25,46,0.31))` auf `.heroA__figure > div::after`, inset 0,
+   z-index 2. Er stammt aus demselben Commit wie der Filter (4bafae8,
+   24.08.) und war der groessere Teil der Abdunklung.
+
+   Falls das Bild spaeter doch wieder an das Band herangeholt werden soll:
+   erst den Schleier zurueckholen, dann den Filter — in dieser Reihenfolge,
+   der Schleier allein reicht meistens. */
 .heroA__panel:hover .heroA__figure img { transform: scale(1.055); }
 /* SCHLAEFT seit dem 24.08.2026. Die Bildunterschrift „Auswahl vor Angebot"
    ist auf Kundenwunsch aus dem Markup entfernt; diese Regeln greifen damit
@@ -579,4 +588,44 @@
   }
   .heroA__actions { flex-direction: column; align-items: stretch; }
   .heroA__actions .btn { justify-content: center; }
+}
+
+/* ===========================================================================
+   DER MARMORKASTEN ZIEHT AUF — 30.08.2026
+
+   Eine Geste fuer den Kopfbereich, und sie erklaert etwas: der Kasten ist
+   die RUHIGE Flaeche vor dem bewegten Bildband. Er faehrt deshalb aus seiner
+   eigenen Mittellinie auf, waagrecht nach oben und unten zugleich — wie ein
+   Passepartout, das sich oeffnet. Kein Einblenden von unten, kein
+   Groesserwerden.
+
+   TECHNIK: `clip-path` von `inset(46% ...)` auf `inset(-4% ...)`. Bewegt
+   wird nur der Beschnitt; Lage, Groesse und Schrift stehen die ganze Zeit an
+   ihrem Platz und werden nicht neu umbrochen.
+   Die vier Prozent Ueberstand am Ende sind Absicht: der Kasten hat einen
+   Radius und eine Marmorlage bis an die Kante, und `inset(0)` haette sie auf
+   den Bildpunkt genau beschnitten — bei halben Bildpunkten wird daraus eine
+   Haarlinie.
+
+   AUSLOESER ist `data-anim` aus site.js, also derselbe Einlauf beim Laden,
+   den der Kasten ohnehin hat (`--d: 260` als Versatz). Es kommt kein zweiter
+   Schalter dazu.
+
+   OHNE JAVASCRIPT gibt es kein `.is-ready`, dann steht der Kasten sofort
+   vollstaendig. Bei `reduce` ebenso.
+   =========================================================================== */
+.is-ready .heroA__panel[data-anim] {
+  clip-path: inset(46% -4% 46% -4%);
+  animation: heroA-auf 1100ms var(--ease-soft) calc(var(--d, 0) * 1ms + 120ms) forwards;
+}
+@keyframes heroA-auf {
+  from { clip-path: inset(46% -4% 46% -4%); }
+  to   { clip-path: inset(-4% -4% -4% -4%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-ready .heroA__panel[data-anim] {
+    clip-path: none;
+    animation: none;
+  }
 }

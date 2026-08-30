@@ -1,41 +1,56 @@
 /* ---------------------------------------------------------------------------
    ESTERA — KARRIERE (Übersichtsseite)
-   Neubau vom 29.08.2026.
+   Neu gebaut am 30.08.2026 zusammen mit Abschnitt 9 von karriere.css.
 
-   Diese Datei macht genau zwei Dinge. Mehr braucht die Seite nicht — und
-   mehr hat auch die Vorlage nicht (wiese/bericht.md, Abschnitt 5): dort
-   bewegt KEINE Bibliothek irgendetwas, kein GSAP, kein Lenis, kein AOS,
-   kein Framer. Alles läuft über CSS-Keyframes plus einen
-   IntersectionObserver, der Klassen umschaltet. Genau das steht hier.
+   Diese Datei macht vier Dinge. Die eigentliche Bewegung steckt vollständig
+   in karriere.css — hier wird nur vorbereitet und geschaltet. Es läuft
+   keine einzige Bildfolge über Javascript, es hängt nichts am Bildlauf, und
+   es gibt kein requestAnimationFrame.
 
-   1  EINBLENDUNG BEIM EINTRITT
-      Ein IntersectionObserver setzt die Klasse `ist-da`, sobald ein
-      Element ins Bild kommt. Die eigentliche Bewegung steckt vollständig
-      in karriere.css; hier wird nur geschaltet. Einmalig — danach wird das
-      Element nicht mehr beobachtet, wie in der Vorlage, die ihre Klassen
-      nach dem Lauf ebenfalls wieder abräumt.
-
-   2  DAS KOPFVIDEO BEI RUHIGER DARSTELLUNG ANHALTEN
+   1  DAS KOPFVIDEO BEI RUHIGER DARSTELLUNG ANHALTEN
       Das Ausblenden erledigt karriere.css und wirkt auch ohne Javascript.
       Hier wird das Video zusätzlich angehalten, damit es nicht unsichtbar
       weiterläuft und Rechenzeit und Bandbreite kostet.
 
+   2  DIE ÜBERSCHRIFTEN IN ZEILEN TEILEN
+      Die Leitgeste der Seite schiebt jede Überschrift zeilenweise hinter
+      einer Kante hervor (Werte der Vorlage fluid.glass, siehe karriere.css).
+      Dafür braucht jede Zeile eine eigene Verzögerung — und Zeilen gibt es
+      im DOM nicht, es gibt nur Text. Also bekommt jedes WORT eine Hülle,
+      und die Hüllen werden anschließend nach ihrer gemessenen Höhenlage zu
+      Zeilen gruppiert. Das ist der Grund, warum der Versatz auch dann
+      stimmt, wenn die Überschrift bei 1024 px anders umbricht als bei 1920.
+
+   3  DEN VERSATZ DER BANDKARTEN SETZEN
+      --i umlaufend 0 … 7 auf allen 24 Karten des Laufbands. In CSS gibt es
+      keinen Zähler, der sich in eine Verzögerung rechnen ließe. Warum
+      umlaufend und nicht nur auf dem ersten Satz, steht unten an Ort und
+      Stelle — es hängt daran, welcher Satz beim Eintritt tatsächlich im
+      Bild steht.
+
+   4  DIE KLASSE `ist-da` BEIM EINTRITT SETZEN
+      Ein IntersectionObserver, einmalig; danach wird das Element nicht mehr
+      beobachtet.
+
    OHNE JAVASCRIPT
-   steht die Seite vollständig da. Sämtliche Einblendregeln in karriere.css
+   steht die Seite vollständig da. Sämtliche Bewegungsregeln in karriere.css
    hängen an [data-js='an'], und dieses Merkmal setzt erst diese Datei —
-   fällt sie aus, ist nie etwas unsichtbar. Das Video trägt autoplay, muted,
-   loop und playsinline im HTML und spielt deshalb auch ohne Skript von
-   selbst ab.
+   fällt sie aus, ist nie etwas unsichtbar. Auch geteilt wird dann nicht:
+   die Überschriften bleiben schlichter Text. Das Video trägt autoplay,
+   muted, loop und playsinline im HTML und spielt deshalb auch ohne Skript
+   von selbst ab.
 
    BEI prefers-reduced-motion: reduce
-   steigt die Einblendung in der ersten Zeile aus (wie die Vorlage es tut):
-   [data-js='an'] wird dann gar nicht erst gesetzt, alles steht sofort.
+   steigt alles ab Punkt 2 in der ersten Zeile aus: [data-js='an'] wird gar
+   nicht erst gesetzt, es wird nichts geteilt, es wird nichts beobachtet.
+   Alles steht sofort im Endzustand. Zusätzlich nimmt Abschnitt 10 von
+   karriere.css jeden Anfangszustand ausdrücklich zurück — für den Fall,
+   dass jemand die Einstellung erst NACH dem Laden umstellt.
 
    BEKANNTE GRENZE, damit sie nicht als Fehler gelesen wird: fällt das
    Skript aus UND ist gleichzeitig „reduce" gesetzt, wird das Video von
-   karriere.css zwar ausgeblendet, läuft aber im Hintergrund weiter. Die
-   Vorlage hat dieselbe Grenze — auch dort hängt die Rücksicht auf ruhige
-   Darstellung am Skript. Sichtbar bewegt sich in diesem Fall nichts.
+   karriere.css zwar ausgeblendet, läuft aber im Hintergrund weiter.
+   Sichtbar bewegt sich in diesem Fall nichts.
 --------------------------------------------------------------------------- */
 (function () {
   'use strict';
@@ -44,8 +59,8 @@
               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------------------------------------------------------------
-     2  Das Kopfvideo — zuerst, weil es unabhängig von allem Übrigen ist
-        und auch dann greifen soll, wenn die Einblendung aussteigt.
+     1  Das Kopfvideo — zuerst, weil es unabhängig von allem Übrigen ist
+        und auch dann greifen soll, wenn die Bewegung aussteigt.
      --------------------------------------------------------------------- */
   var video = document.querySelector('[data-hero-video]');
   if (video && ruhig) {
@@ -60,13 +75,9 @@
     });
   }
 
-  /* ---------------------------------------------------------------------
-     1  Einblendung beim Eintritt
-     --------------------------------------------------------------------- */
-
-  /* Wie die Vorlage: bei ruhiger Darstellung in der ersten Zeile aussteigen.
-     Ebenso, wenn der Browser keinen IntersectionObserver kennt — dann bleibt
-     alles sichtbar stehen, statt auf ein Ereignis zu warten, das nie kommt. */
+  /* Bei ruhiger Darstellung in der ersten Zeile aussteigen. Ebenso, wenn
+     der Browser keinen IntersectionObserver kennt — dann bleibt alles
+     sichtbar stehen, statt auf ein Ereignis zu warten, das nie kommt. */
   if (ruhig || !('IntersectionObserver' in window)) return;
 
   var wurzel = document.querySelector('.kar');
@@ -78,19 +89,161 @@
      nichts erst sichtbar wird und dann verschwindet. */
   wurzel.setAttribute('data-js', 'an');
 
-  /* Die Kacheln der Stellenliste blenden als GRUPPE ein — der Versatz von
-     0,2 s zwischen den Geschwistern steckt als --i im Markup und wird in
-     karriere.css zur animation-delay. Beobachtet wird deshalb die Liste,
-     nicht die einzelne Karte: sonst liefe der Versatz gegen den Zeitpunkt
-     des Eintritts jeder einzelnen Karte statt gegen den der Reihe. */
+  /* ---------------------------------------------------------------------
+     2  Die Überschriften in Zeilen teilen
+
+     ZWEI SCHRITTE, und die Trennung ist Absicht:
+       teilen()  zerlegt einmalig in Wörter — verändert den Baum
+       zeilen()  misst die Höhenlage und vergibt --z — verändert nur Werte
+     Nur der zweite Schritt wird wiederholt, wenn sich der Umbruch ändert
+     (Schriftnachladung, Fensterbreite). Ein zweites Zerlegen gäbe es nicht,
+     und es wäre auch nicht nötig.
+     --------------------------------------------------------------------- */
+
+  /* Zerlegt alle Textknoten unterhalb von el in Wörter und legt um jedes
+     Wort zwei Spannen: außen die Kante (.kar-zg), innen das Wort selbst
+     (.kar-zg__i), das dahinter hervorfährt.
+
+     DIE VORHANDENE AUSZEICHNUNG BLEIBT ERHALTEN. Zerlegt werden die
+     TEXTKNOTEN, nicht das Element — <span class="kar-akzent"> überlebt also
+     mit allem, was daran hängt (kursiv, Akzentfarbe). Deshalb sitzt die
+     Kante am Wort und nicht an der Zeile: eine Zeilenhülle müsste Wörter
+     aus dem Akzentspan herausnehmen, und die Auszeichnung wäre weg. Am
+     Bild ändert das nichts — alle Wörter einer Zeile stehen im selben
+     Zeilenkasten, ihre Kanten liegen also auf einer Geraden und der
+     Versatz ist für alle derselbe.
+
+     GETRENNT WIRD NUR AN ECHTEN LEERZEICHEN, Tabulatoren und Umbrüchen —
+     AUSDRÜCKLICH NICHT am geschützten Leerzeichen ( ). Ein \s in der
+     Regel würde auch dort trennen, und aus dem geschützten Leerzeichen
+     würde eine Trennstelle: „Immobilienberater (m/w/d)" dürfte dann
+     umbrechen, obwohl im Markup ausdrücklich &nbsp; steht. */
+  function teilen(el) {
+    var texte = [];
+    (function sammeln(n) {
+      for (var k = n.firstChild; k; k = k.nextSibling) {
+        if (k.nodeType === 3) { if (/\S/.test(k.data)) texte.push(k); }
+        else if (k.nodeType === 1) sammeln(k);
+      }
+    })(el);
+
+    var huellen = [];
+    for (var i = 0; i < texte.length; i++) {
+      var t = texte[i];
+      var stuecke = t.data.split(/([ \t\n\r]+)/);
+      var frag = document.createDocumentFragment();
+      for (var j = 0; j < stuecke.length; j++) {
+        var s = stuecke[j];
+        if (!s) continue;
+        if (/^[ \t\n\r]+$/.test(s)) {
+          /* Der Browser faltet Folgen von Leerraum ohnehin zu einem
+             Leerzeichen zusammen — hier wird dasselbe getan, damit
+             zwischen zwei Hüllen genau ein Leerzeichen steht. */
+          frag.appendChild(document.createTextNode(' '));
+          continue;
+        }
+        var aussen = document.createElement('span');
+        aussen.className = 'kar-zg';
+        var innen = document.createElement('span');
+        innen.className = 'kar-zg__i';
+        innen.appendChild(document.createTextNode(s));
+        aussen.appendChild(innen);
+        frag.appendChild(aussen);
+        huellen.push(aussen);
+      }
+      t.parentNode.replaceChild(frag, t);
+    }
+    if (!huellen.length) return null;
+    el.classList.add('kar-geteilt');
+    return huellen;
+  }
+
+  /* Gruppiert die Hüllen nach ihrer Höhenlage zu Zeilen und schreibt die
+     Zeilennummer als --z. Die Toleranz von 4 px fängt Rundung ab; echte
+     Zeilen liegen bei dieser Schriftgröße immer über 30 px auseinander. */
+  function zeilen(huellen) {
+    var vorige = null, z = -1;
+    for (var i = 0; i < huellen.length; i++) {
+      var o = huellen[i].offsetTop;
+      if (vorige === null || o - vorige > 4) { z++; vorige = o; }
+      huellen[i].style.setProperty('--z', z);
+    }
+  }
+
+  var geteilt = [];
+  var titel = wurzel.querySelectorAll('.kar-titel');
+  for (var i = 0; i < titel.length; i++) {
+    var h = teilen(titel[i]);
+    if (h) geteilt.push({ el: titel[i], huellen: h });
+  }
+  for (i = 0; i < geteilt.length; i++) zeilen(geteilt[i].huellen);
+
+  /* Der Umbruch kann sich noch zweimal ändern, nachdem oben gemessen wurde:
+     wenn die Webschrift nachlädt (bis dahin steht die Ersatzschrift, die
+     anders bricht) und wenn jemand das Fenster zieht. Neu gemessen wird nur
+     bei Überschriften, die noch nicht gelaufen sind — bei den übrigen wäre
+     es folgenlos, denn ihr Endzustand ist unabhängig vom Versatz. */
+  function neuMessen() {
+    for (var i = 0; i < geteilt.length; i++) {
+      if (!geteilt[i].el.classList.contains('ist-da')) zeilen(geteilt[i].huellen);
+    }
+  }
+  if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === 'function') {
+    document.fonts.ready.then(neuMessen);
+  }
+  var zaehler = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(zaehler);
+    zaehler = setTimeout(neuMessen, 150);
+  });
+
+  /* ---------------------------------------------------------------------
+     3  Der Versatz der Bandkarten
+
+     UMLAUFEND MODULO 8, NICHT NUR AUF DEM ERSTEN SATZ — und das ist eine
+     Korrektur, die ohne Nachrechnen falsch geblieben wäre:
+
+     Die Spur startet bei translateX(−33,3333 %), also um genau eine
+     Satzbreite (2752 px) nach links versetzt. Am linken Fensterrand steht
+     damit im Augenblick des Eintritts nicht die erste Karte von SATZ 1,
+     sondern die von SATZ 2. Bekämen nur die ersten acht Karten einen
+     eigenen Wert, liefe die Staffel auf Karten, die niemand sieht, während
+     die sichtbaren acht alle gleichzeitig aufträten.
+
+     Mit i % 8 trägt JEDER Satz dieselbe Staffel 0 … 7. Welcher Satz gerade
+     im Bild steht, ist damit gleichgültig — die Kette ist immer die
+     richtige. Die drei Sätze sind ohnehin wortgleiche Kopien.
+     --------------------------------------------------------------------- */
+  var bandkarten = wurzel.querySelectorAll('.kar-band__karte');
+  for (i = 0; i < bandkarten.length; i++) {
+    bandkarten[i].style.setProperty('--i', i % 8);
+  }
+
+  /* ---------------------------------------------------------------------
+     4  Der Auslöser
+
+     Beobachtet werden drei Arten von Zielen:
+       [data-stellen]  die Stellenliste — als GRUPPE, nicht die einzelne
+                       Kachel: sonst liefe der Versatz von 0,14 s gegen den
+                       Eintritt jeder einzelnen Kachel statt gegen den der
+                       Reihe.
+       .kar-band       der Behälter des Laufbands. Er löst den Auftritt der
+                       acht Karten UND den Anlauf der Spur zugleich aus —
+                       beides muss im selben Augenblick beginnen, sonst
+                       stimmt die Rechnung des Anlaufs nicht mehr.
+       [data-auf]      alles Übrige, jedes für sich.
+
+     Ein Zehntel des Elements reicht als Auslöser. Ein rootMargin von
+     −40 px am Fuß verhindert, dass etwas losläuft, das gerade erst mit
+     einem Bildpunkt in den Ausschnitt ragt.
+     --------------------------------------------------------------------- */
   var ziele = [];
   var liste = wurzel.querySelector('[data-stellen]');
   if (liste) ziele.push(liste);
+  var band = wurzel.querySelector('.kar-band');
+  if (band) ziele.push(band);
   Array.prototype.push.apply(ziele, wurzel.querySelectorAll('[data-auf]'));
 
-  /* Ein Zehntel des Elements reicht als Auslöser. Ein rootMargin von
-     −40px am Fuß verhindert, dass etwas losläuft, das gerade erst mit
-     einem Pixel in den Bildausschnitt ragt. */
   var beobachter = new IntersectionObserver(function (eintraege, selbst) {
     for (var i = 0; i < eintraege.length; i++) {
       if (!eintraege[i].isIntersecting) continue;
@@ -99,5 +252,5 @@
     }
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  for (var i = 0; i < ziele.length; i++) beobachter.observe(ziele[i]);
+  for (i = 0; i < ziele.length; i++) beobachter.observe(ziele[i]);
 })();

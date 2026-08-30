@@ -736,3 +736,65 @@ body.is-locked { overflow: hidden; }
   .kopfnav--links  { margin-right: 0.9rem; }
   .kopfnav--rechts { margin-left:  0.9rem; }
 }
+
+/* ============================================================================
+   FLAECHENVERLAEUFE — 30.08.2026, dritter Anlauf
+
+   Zweimal verworfen, beim dritten Mal hat der Kunde den Massstab genannt:
+   den Kasten der FAQ und den bei „Brauche ich Eigenkapital". Der ist
+   nachgerechnet, und damit ist der Fehler eindeutig:
+
+     FAQ-Kasten      #1E222D -> #2E3643, groesster Kanalunterschied 22,
+                     ueber rund 1100 px Kastenbreite
+                     = 0,020 Einheiten je Bildpunkt
+
+     erste Anlaeufe  Navy -> Weiss ueber  26 px  = 9,42  je Bildpunkt
+                                   ueber  96 px  = 2,55
+                                   ueber 240 px  = 1,02
+                                   ueber 600 px  = 0,41
+
+   Selbst der langgezogenste Versuch war noch ZWANZIGMAL steiler als das,
+   was der Kunde gut findet. Laenger ziehen reicht also nicht. Der Fehler
+   liegt darin, eine Blende ZWISCHEN zwei Abschnitte zu legen: zwischen
+   Navy und Weiss liegen 245 Einheiten, die sind auf keiner Strecke
+   unauffaellig unterzubringen, die eine Webseite hergibt.
+
+   DER RICHTIGE WEG: es gibt gar keine Blende. Jeder Abschnitt traegt
+   seinen Verlauf ueber die EIGENE volle Hoehe und ENDET AUF DER FARBE
+   SEINER NACHBARIN. Dann existiert die Naht nicht mehr, und weil ein
+   Abschnitt 700 bis 1000 px hoch ist, liegt die Aenderung von selbst im
+   Bereich des FAQ-Kastens.
+
+   DIE REGEL, an der jeder Verlauf gemessen wird:
+   hoechstens 0,03 Einheiten je Bildpunkt im staerksten Kanal.
+   Ueber 800 px sind das rund 24 Einheiten. Wer mehr braucht, laesst zwei
+   Farben ineinanderlaufen, die nicht ineinanderlaufen duerfen.
+
+   NAVY GEGEN HELL bekommt GAR KEINEN Uebergang — Entscheidung des Kunden
+   vom 30.08.2026, und sie ist richtig. 245 Einheiten bleiben 245
+   Einheiten; ueber 600 px sind das 0,41 je Bildpunkt, vierzehnmal zu
+   steil. Es gibt keine Strecke auf einer Webseite, auf der diese Distanz
+   unauffaellig wird. Dort steht eine saubere Kante, und das ist kein
+   Zugestaendnis, sondern die richtige Loesung.
+
+   Ein blassblauer Anlauf im hellen Abschnitt danach waere denkbar
+   gewesen; der Kunde will ihn ausdruecklich nicht. Nach einer Navyflaeche
+   kommt sauberes Weiss oder Creme.
+   ========================================================================= */
+:root {
+  --fl-navy900:   #0A192E;
+  --fl-navy900-b: #16283F;   /* 17 heller — Verlauf innerhalb der Familie   */
+  --fl-navy800:   #102949;
+  --fl-navy800-b: #1C3A5E;   /* 21 heller                                   */
+  --fl-creme:     #F7F3F0;
+  --fl-weiss:     #FFFFFF;
+}
+
+/* Eine Flaeche, die auf ihrer eigenen Farbe bleibt und nur atmet. */
+.fl-navy900 { background-image: linear-gradient(180deg, var(--fl-navy900), var(--fl-navy900-b)); }
+.fl-navy800 { background-image: linear-gradient(180deg, var(--fl-navy800), var(--fl-navy800-b)); }
+
+/* Eine Flaeche, die auf der Farbe ihrer Nachbarin endet. Erst diese
+   Bausteine machen die Naht ueberfluessig — sie ersetzen jede Blende. */
+.fl-creme-nach-weiss { background-image: linear-gradient(180deg, var(--fl-creme), var(--fl-weiss)); }
+.fl-weiss-nach-creme { background-image: linear-gradient(180deg, var(--fl-weiss), var(--fl-creme)); }

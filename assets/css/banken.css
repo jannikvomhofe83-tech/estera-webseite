@@ -66,10 +66,22 @@
 .banken {
   position: relative;
   z-index: 1;
-  /* Bruecke zwischen dem weissen CTA-Block darueber und dem warmen Grund
-     des Abschnitts „Die Vorteile" darunter (#FCFAF6). Dadurch wirkt die
-     Leiste als Uebergang, nicht als eigener Abschnitt. */
-  background: linear-gradient(180deg, var(--paper) 0%, #FCFAF6 100%);
+  /* 30.08.2026: REINES WEISS, kein eigener Verlauf mehr.
+     Hier stand `linear-gradient(180deg, var(--paper) 0%, #FCFAF6 100%)` —
+     die Leiste sollte als Bruecke zum warmen Grund darunter wirken. Das
+     Band ist aber nur rund 157 Punkte hoch: die 14 Einheiten bis zum Creme
+     der Musterwohnung ergaben dort 0,089 Einheiten je Bildpunkt, das
+     Dreifache der Regel von 0,03 (siehe base.css). Und weil das Band bei
+     #FCFAF6 endete, die Musterwohnung aber bei #F9F6F1 anfing, stand am
+     Fuss zusaetzlich eine Stufe von 5 Einheiten.
+
+     Die Bruecke schlaegt jetzt die Musterwohnung selbst: sie traegt
+     `fl-weiss-nach-creme` und faehrt ueber ihre eigenen rund 1030 Punkte
+     von Weiss auf Creme — 0,0145 Einheiten je Bildpunkt. Dieses Band steht
+     damit mitten in einer weissen Flaeche, die vom Ende von
+     #warum-immobilien bis zum Kopf der Musterwohnung durchlaeuft. Oben wie
+     unten gibt es keinen Farbunterschied mehr. */
+  background: var(--paper);
   border-top: 1px solid var(--line-soft);
   /* Die Reihe steht allein im Abschnitt, oben und unten derselbe Abstand.
      Auf Kundenwunsch hoeher gebaut als zuvor (war clamp(1.7rem, 3.6vh,

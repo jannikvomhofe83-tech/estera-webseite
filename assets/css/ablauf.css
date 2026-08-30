@@ -69,7 +69,10 @@
 
 .abl {
   /* --- Farben dieses Abschnitts ---------------------------------------- */
-  --abl-grund:      #F7F5F2;
+  /* 30.08.2026 von #F7F5F2 auf --fl-creme #F7F3F0 gezogen. Der Abschnitt
+     traegt jetzt `fl-creme-nach-weiss` und BEGINNT auf genau diesem Wert —
+     demselben, auf dem die Musterwohnung darueber endet. */
+  --abl-grund:      #F7F3F0;
   --abl-navy:       #102949;
   --abl-bronze:     #8A5A20;
   --abl-bronze-ic:  #8A5F2B;
@@ -78,6 +81,41 @@
   --abl-gold:       #A8874F;
   --abl-linie:      #E2E1E1;
   --abl-linie-warm: rgba(168, 135, 79, 0.30);
+
+  /* --- DIE KARTEN IN DER FARBE DER FAQ-KAESTEN (30.08.2026) -------------
+     Zweiter Anlauf. Am Vormittag standen die Karten in Navy #10294A; der
+     Kunde hat das verworfen und den Massstab selbst genannt: die Kaesten
+     der FAQ-Section. Die Werte sind deshalb NICHT nachempfunden, sondern
+     Zeichen fuer Zeichen aus faq.css uebernommen:
+
+       --faq-kasten-links   #1E222D
+       --faq-kasten-rechts  #2E3643
+       Richtung             waagerecht, 90deg, 0 % bis 100 %
+
+     Das ist ein entsaettigtes Anthrazit mit einem Hauch Blau, ausdruecklich
+     KEIN Navy. Die Werte stehen hier noch einmal als eigene Variablen und
+     nicht als `var(--faq-kasten-links)`: faq.css definiert die beiden auf
+     `.faq`, also auf einem anderen Abschnitt — von hier aus sind sie nicht
+     erreichbar. Wer den FAQ-Kasten umfaerbt, muss diese Zeilen mitziehen.
+
+     ALLE SCHRIFTFARBEN GEGEN DIE RECHTE, HELLERE KANTE #2E3643 GEMESSEN —
+     dort ist der Kontrast am schwaechsten, nicht in der Mitte:
+
+                             #1E222D  #2E3643
+       Nummer/Symbol #C9B08A   7,61     5,83   (--gold-soft)
+       Titel         #FFFFFF  15,89    12,17
+       Beschreibung  #C7CEDA  10,04     7,69   (--faq-schrift-leise)
+
+     VERWORFEN: der bisherige Goldton --wi-punkt #C0985C haelt auf der
+     hellen Kante nur 4,57:1 — 0,07 Reserve, das ist zu knapp. --gold
+     #A8874F faellt mit 3,62:1 ganz durch. */
+  --abl-karte-links:  #1E222D;
+  --abl-karte-rechts: #2E3643;
+  --abl-karte-grund:  linear-gradient(90deg, var(--abl-karte-links) 0%, var(--abl-karte-rechts) 100%);
+  --abl-karte-nr:     var(--gold-soft);
+  --abl-karte-titel:  #FFFFFF;
+  --abl-karte-text:   #C7CEDA;
+  --abl-karte-kante:  rgba(237, 241, 248, 0.16);
 
   /* Die Fassadenzeichnung. Sehr hell gehalten wie auf der Vorlage — sie ist
      Grund, nicht Bild. Wer sie kraeftiger will, aendert nur diese fuenf.
@@ -101,8 +139,20 @@
   --abl-fs-weiter:  clamp(1.04rem, 1.55vw, 1.42rem);
   --abl-fs-haus:    clamp(1.14rem, 1.73vw, 1.58rem);
 
-  /* Zeilenrhythmus der linken Liste: 107 px auf 1558 = 6,87vw */
+  /* Zeilenrhythmus der linken Liste: 107 px auf 1558 = 6,87vw.
+     Gehoert zur abgeloesten Schrittliste, siehe Vermerk dort. */
   --abl-rhythmus:   clamp(3.6rem, 6.87vw, 6.2rem);
+
+  /* --- DER KARTENSTAPEL (30.08.2026) -----------------------------------
+     Eine feste Kartenhoehe ist hier KEIN Schoenheitsfehler, sondern die
+     Voraussetzung: die Ueberdeckung ist --abl-versatz / --abl-karte-h, und
+     dieser Bruch stimmt nur, wenn alle sechs Karten gleich hoch sind.
+     --abl-versatz ist genau ein Zehntel davon -> 90 % Ueberdeckung.
+     Die Hoehen sind an den laengsten Text gemessen (Schritt 06, drei
+     Zeilen) und stehen je Breitenbereich unten noch einmal. */
+  --abl-karte-h:    clamp(13.6rem, 15.8vw, 15.7rem);
+  --abl-versatz:    calc(var(--abl-karte-h) / 10);
+  --abl-karte-luft: clamp(0.75rem, 1.15vw, 1.15rem);
 
   /* Klebehoehe der Buehne: Kopfleiste plus Abstand — dieselbe Rechnung wie
      bei .ue-zwei__halt in ueber.css. */
@@ -110,6 +160,11 @@
 
   position: relative;
   isolation: isolate;
+  /* NUR background-color, keine Kurzschreibweise: den Verlauf setzt die
+     Klasse `fl-creme-nach-weiss` aus base.css ueber `background-image`, und
+     ablauf.css wird nach base.css geladen. Der Farbwert ist der Rueckfall
+     und zugleich der Anfang des Verlaufs. */
+  background-color: var(--abl-grund);
   /* Oben knapp, weil die Section darueber bereits mit reichlich Luft endet —
      sonst steht hier der doppelte Abstand. Unten etwas mehr, dafuer beginnt
      die FAQ mit ihrem eigenen Vorlauf. */
@@ -125,46 +180,53 @@
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 }
 
-/* --- DER GRUND -------------------------------------------------------------
-   DREI Lagen, alle UNTER dem Inhalt und alle mit pointer-events: none.
-   Machart wortgleich aus referenzen.css (`.ref::after`) und
-   referenzobjekte.css (`.robj::before`): der Stein liegt als EIGENES Bild und
-   wird von einem deckenden Farbverlauf heruntergedaempft. NIEMALS `opacity`
-   am Element selbst — das naehme die Schrift mit.
+/* --- DER GRUND — 30.08.2026, DRITTER ANLAUF --------------------------------
+   ZWEI Lagen, beide UNTER dem Inhalt und beide mit pointer-events: none.
 
-     ::before      z-index 0 — der warme Grundton der Vorlage, volle Flaeche.
+     .abl          die Flaeche selbst, ueber `fl-creme-nach-weiss` aus
+                   base.css: sie beginnt auf dem Creme --fl-creme #F7F3F0,
+                   auf dem die Musterwohnung darueber endet, und laeuft
+                   ueber die volle Abschnittshoehe nach reinem Weiss, auf
+                   dem die FAQ darunter steht. Bei rund 1870 Punkten Hoehe
+                   sind das 0,0080 Einheiten je Bildpunkt.
      .abl__stein   z-index 1 — der Marmor. STEHT STILL, siehe unten.
-     ::after       z-index 2 — blendet oben und unten in reines Weiss aus,
-                   damit zu den weissen Abschnitten darueber und darunter
-                   keine harte Kante entsteht. Diese Lage MUSS ueber dem
-                   Stein liegen, sonst franst er an den Abschnittskanten aus.
      Inhalt        z-index 3
 
-   DIE STAERKE DES STEINS: rgba(...) mit 0.72 Deckung. Das ist NICHT
-   geschaetzt, sondern derselbe Wert, den der Nachbarabschnitt
-   „Musterwohnung" traegt (assets/css/referenzobjekte.css, `.robj::before`).
-   Kundenwunsch vom 25.08.2026: beide Abschnitte sollen den Marmor gleich
-   deutlich zeigen. Wer hier dreht, dreht dort mit.
+   WAS HIER BIS HEUTE STAND UND WARUM ES WEG IST
+   ::before trug den Grundton als DECKENDE Flaeche, ::after blendete oben
+   und unten je 110 Punkte in die Nachbarfarbe aus. Beides ist ersatzlos
+   entfernt:
+
+     ::before  haette den Verlauf der Section vollstaendig zugedeckt.
+     ::after   war eine Blende ZWISCHEN zwei Abschnitten — genau das
+               Verfahren, das der Kunde zweimal verworfen hat. Es wird
+               nicht mehr gebraucht: die Nachbarfarben stehen jetzt am
+               Anfang und am Ende des Abschnittsverlaufs selbst, die Naht
+               existiert nicht mehr. Siehe den Kopf von base.css.
+
+   DIE STAERKE DES STEINS — am 30.08.2026 auf Kundenwunsch („viel weniger")
+   deutlich zurueckgenommen und seither unveraendert:
+
+                              vorher        nachher
+     sichtbarer Anteil         0,28          0,10
+     Bildgroesse               cover         190 %
+     Spanne der Maserung      12 Stufen      4 Stufen
+     Kontrast der Maserung     1,114:1       1,036:1
+
+   Der Weg dahin ist heute ein anderer. Vorher lag ueber dem Stein ein
+   DECKENDER Schleier in der Grundfarbe (0,90); das ging, solange die
+   Flaeche eine einzige Farbe hatte. Jetzt laeuft sie von Creme nach Weiss,
+   und ein Schleier in fester Farbe haette den Verlauf zu neun Zehnteln
+   zugedeckt. Der Stein liegt deshalb als reines Bild mit `opacity: 0.10`
+   darueber — rechnerisch dasselbe Ergebnis, nur dass der Verlauf durchkommt:
+
+     vorher   0,90 * Grundton + 0,10 * Stein
+     jetzt    0,90 * Verlauf  + 0,10 * Stein
+
+   Vier Stufen Maserung sind ausserdem der Grund, warum der Stein am Fuss
+   des Abschnitts keine Ausblendung mehr braucht: eine Texturkante von vier
+   Einheiten ist unter der Sichtbarkeitsschwelle.
 -------------------------------------------------------------------------- */
-.abl::before,
-.abl::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.abl::before {
-  z-index: 0;
-  background: var(--abl-grund);
-}
-.abl::after {
-  z-index: 2;
-  background: linear-gradient(180deg,
-    #FFFFFF 0,
-    rgba(255, 255, 255, 0) 110px,
-    rgba(255, 255, 255, 0) calc(100% - 110px),
-    #FFFFFF 100%);
-}
 
 /* DER STEIN, der beim Rollen stehenbleibt.
    `position: sticky` mit voller Fensterhoehe, der negative Aussenabstand
@@ -179,9 +241,9 @@
   margin-bottom: -100vh;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(rgba(247, 245, 242, 0.72), rgba(247, 245, 242, 0.72)),
-    var(--abl-grund) url('../img/marble2.jpg') center / cover no-repeat;
+  /* Deckkraft statt Schleier — die Rechnung steht im Block darueber. */
+  opacity: 0.10;
+  background: url('../img/marble2.jpg') center / 190% no-repeat;
 }
 
 .abl__inner {
@@ -256,25 +318,179 @@
   top: var(--abl-klebe);
 }
 
-/* --- Die dreiteilige Buehne ------------------------------------------------
-   Spaltenanteile 1:1 aus der Vorlage. Bezogen auf deren Inhaltsbreite
-   (x 147 bis 1411 = 1264 px):
-     Liste 290 px, Haarlinie 1 px, Einzelheiten 358 px, Bildseite 331 px + Rest.
-   Als fr-Anteile: 0.90 / 1px / 1.12 / 1.30.
+/* --- Die Buehne: EINE Spalte ------------------------------------------------
+   Bis zum 30.08.2026 vormittags zweiteilig — links der Kartenstapel, rechts
+   ein gerahmtes Foto, das beim Rollen stehenblieb. Der Kunde hat die zweite
+   Spalte am Nachmittag ersatzlos gestrichen und den Stapel auf die volle
+   Breite gestellt. Jede Karte traegt jetzt ihr eigenes Bild.
+   Was hier entfaellt: grid-template-columns, column-gap und die Regel
+   .abl__spalte. Die Klebemechanik des Stapels ist davon NICHT beruehrt —
+   sie haengt an .abl__halt-karte, nicht an der Spaltenaufteilung.
 -------------------------------------------------------------------------- */
 .abl__buehne {
-  display: grid;
-  grid-template-columns:
-      minmax(0, 0.90fr)
-      1px
-      minmax(0, 1.12fr)
-      minmax(0, 1.30fr);
-  column-gap: clamp(1.4rem, 3.0vw, 3.4rem);
-  align-items: stretch;
+  display: block;
   margin-top: clamp(2.2rem, 6.4vw, 5.6rem);
 }
 
-.abl__spalte { min-width: 0; }
+/* ===========================================================================
+   DER KARTENSTAPEL
+   ---------------------------------------------------------------------------
+   DIE RECHNUNG, ausgeschrieben, damit sie nachvollziehbar bleibt.
+
+   Jede Karte liegt in einem eigenen `position: sticky`-Kasten
+   (.abl__halt-karte). Die Klebehoehen sind gestaffelt:
+
+       Karte 1   top = K
+       Karte 2   top = K + V
+       Karte 3   top = K + 2V        K = --abl-klebe   (Kopfleiste + Luft)
+       …                             V = --abl-versatz
+       Karte 6   top = K + 5V
+
+   Beim Rollen bleibt Karte 1 bei K stehen. Karte 2 laeuft weiter nach oben,
+   bis sie ihr eigenes K+V erreicht — in diesem Augenblick liegt ihre
+   Oberkante genau V unter der von Karte 1, und sie verdeckt Karte 1 bis auf
+   diesen Streifen. Sichtbar bleibt also
+
+       V / H  der vorigen Karte,  verdeckt sind  (H - V) / H.
+
+   Mit V = H / 10 sind das 10 % sichtbar und 90 % verdeckt — genau das, was
+   der Kunde verlangt hat. Deshalb haben alle sechs Karten DIESELBE feste
+   Hoehe H (--abl-karte-h); mit unterschiedlichen Hoehen waere die Quote bei
+   jeder Karte eine andere.
+
+   Warum spaetere Karten die frueheren verdecken und nicht umgekehrt:
+   `position: sticky` macht die Kaesten zu positionierten Elementen, und die
+   zeichnet der Browser in Dokumentreihenfolge uebereinander. Karte 6 liegt
+   damit von sich aus ganz oben. Kein z-index noetig.
+
+   Weg von Karte zu Karte: H + Luft - V. Der Fuss des Stapels traegt
+   zusaetzlich Polsterung, damit die sechste Karte noch eine Weile
+   stehenbleibt, bevor der Stapel den Abschnitt verlaesst.
+
+   KEIN `overflow` an .abl__stapel oder einem seiner Vorfahren — `sticky`
+   hoert sonst auf zu wirken. Derselbe Vermerk steht oben bei .abl.
+   =========================================================================== */
+.abl__stapel {
+  display: block;
+  margin: 0;
+  padding: 0 0 clamp(1rem, 9vh, 7rem);
+  list-style: none;
+}
+
+.abl__halt-karte { display: block; }
+.abl__halt-karte + .abl__halt-karte { margin-top: var(--abl-karte-luft); }
+
+.abl__karte {
+  display: grid;
+  align-content: start;
+  /* IM FLUSS (ohne Skript, bei reduzierter Bewegung) nur eine Mindesthoehe —
+     dann darf die Karte mitwachsen und nichts wird abgeschnitten. Die FESTE
+     Hoehe steht weiter unten und gilt nur im gestapelten Zustand, wo sie die
+     Voraussetzung der 90-Prozent-Rechnung ist. */
+  /* ZWEI SPALTEN: Bild links, Wort rechts — 30.08.2026, zweiter Anlauf.
+     Die Bildspalte ist genau `Kartenhoehe x 1,5` breit. Das ist kein
+     Augenmass: die sechs Bilder liegen im Verhaeltnis 3:2 quer, also
+     Breite = 1,5 x Hoehe. Fuellt das Bild die volle Kartenhoehe, deckt es
+     bei genau dieser Spaltenbreite sein eigenes Format — es wird nichts
+     beschnitten und nichts verzerrt, obwohl `object-fit: cover` steht.
+     `cover` bleibt trotzdem stehen: es faengt den Fall ab, dass ein
+     nachgeliefertes Bild doch nicht exakt 3:2 misst. */
+  grid-template-columns: calc(var(--abl-karte-h) * 1.5) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: var(--abl-karte-h);
+  /* KEIN Polster mehr an der Karte selbst — das Bild sitzt buendig in der
+     Ecke. Den Polster traegt jetzt die Wortspalte, siehe .abl__karte-wort. */
+  padding: 0;
+  border: 1px solid var(--abl-karte-kante);
+  border-radius: 14px;
+  /* Der Radius muss auch das Bild beschneiden. `clip` statt `hidden`: es
+     richtet keinen Rollbereich ein.
+     UNBEDENKLICH FUER DIE KLEBEMECHANIK — `position: sticky` scheitert an
+     `overflow` bei einem VORFAHREN. Der klebende Kasten ist
+     .abl__halt-karte, und der liegt UEBER dieser Karte, nicht darunter. */
+  overflow: clip;
+  /* DECKEND. Eine durchscheinende Karte wuerde die darunter liegende
+     durchschimmern lassen; der Stapel saehe dann nach Fehler aus.
+     Seit dem 30.08.2026 der Verlauf des FAQ-Kastens, waagerecht — die
+     Werte und die Kontrastrechnung stehen oben bei --abl-karte-links.
+     Die Kante bleibt: bei 90 Prozent Ueberdeckung sind von jeder Karte nur
+     rund zehn Prozent zu sehen, und zwei gleich gefaerbte Streifen
+     uebereinander waeren ohne Kante nicht auseinanderzuhalten. Sie steht
+     jetzt in einem hellen Grau statt in Gold, damit sie zum Anthrazit
+     passt. */
+  background: var(--abl-karte-grund);
+  box-shadow:
+      0 1px 2px rgba(16, 41, 73, 0.10),
+      0 16px 34px rgba(16, 41, 73, 0.18);
+}
+
+/* Die Bildspalte. Sie fuellt ihre Zelle vollstaendig. */
+.abl__karte-bild {
+  margin: 0;
+  min-width: 0;
+  /* Die Zelle ist so hoch wie die Karte; das Bild fuellt sie. */
+  align-self: stretch;
+  overflow: clip;
+}
+.abl__karte-bild picture { display: block; height: 100%; }
+.abl__karte-bild img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Die Wortspalte traegt den Polster, den vorher die Karte hatte. */
+.abl__karte-wort {
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(1.15rem, 1.75vw, 1.75rem) clamp(1.3rem, 2.0vw, 2.0rem);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DAS SYMBOL NEBEN DER NUMMER IST ENTFALLEN — 30.08.2026, ENTSCHEIDUNG.
+   Es sass rechts oben in der Karte und benannte den Schritt ein zweites
+   Mal, zeichenhaft. Seit jede Karte ein eigenes Bild traegt, ist genau
+   diese Aufgabe vergeben — und zwar besser: ein Foto sagt mehr als ein
+   Strichsymbol, und beide nebeneinander sind zwei Bilder fuer denselben
+   Gedanken in einer Karte, die nur zehn Prozent ihrer Hoehe zeigt.
+   Was bleibt, ist die NUMMER. Sie ist keine Verdopplung, sondern die
+   Ordnung: sie sagt, an welcher Stelle im Ablauf der Leser steht, und das
+   sagt weder Bild noch Titel.
+   Die Regeln .abl__karte-kopf und .abl__karte-ikon sind mit entfernt.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.abl__karte-nr {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-nr);
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.06em;
+  margin: 0;
+  color: var(--abl-karte-nr);      /* 5,83:1 an der hellsten Kartenstelle */
+}
+
+.abl__karte-titel {
+  margin-top: clamp(0.7rem, 1.1vw, 1.1rem);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.15vw, 2.05rem);
+  line-height: 1.08;
+  letter-spacing: -0.006em;
+  color: var(--abl-karte-titel);   /* 12,17:1 an der hellsten Kartenstelle */
+  text-wrap: balance;
+}
+
+.abl__karte-text {
+  margin-top: clamp(0.6rem, 0.95vw, 0.95rem);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--abl-fs-satz);
+  line-height: 1.5;
+  color: var(--abl-karte-text);    /* 7,69:1 an der hellsten Kartenstelle */
+  text-wrap: pretty;
+}
 
 /* Die senkrechte Haarlinie zwischen Liste und Einzelheiten. */
 .abl__trenner {
@@ -473,58 +689,26 @@
 .abl__weiter:hover .abl__pfeil { transform: translateX(5px); }
 .abl__weiter:focus-visible { outline: 1px solid var(--abl-gold); outline-offset: 6px; }
 
-/* --- Spalte 4: Bildseite und die zwei Zeilen ------------------------------ */
-.abl__spalte--haus {
-  position: relative;
-  display: grid;
-  align-content: end;
-  /* Die Bildseite reicht auf der Vorlage bis an den Fensterrand. Der Steg der
-     Inhaltsspalte wird deshalb nach rechts zurueckgenommen. Das Beschneiden
-     passiert HIER und nicht an der Section — dort wuerde `overflow` die
-     Klebemechanik zerstoeren. */
-  margin-right: calc(var(--gutter) * -1);
-  padding-right: var(--gutter);
-  min-height: clamp(20rem, 44vw, 46rem);
-  overflow: clip;
-}
+/* --- Der Abschluss unter dem Stapel ----------------------------------------
+   ERSATZLOS ENTFERNT AM 30.08.2026 (zweiter Anlauf): die ganze zweite
+   Spalte. Hier standen `.abl__spalte--haus`, `.abl__fenster`, `.abl__bild`,
+   `.abl__spalte--haus picture` und `.abl__fassade` — Bildfenster,
+   Passepartout und die aeltere, weich ausmaskierte Fassadenwaesche. Der
+   Kunde hat das Bild rechts gestrichen und den Stapel auf die volle Breite
+   gestellt.
 
-/* Reiner Rahmen ohne eigene Groesse — das <img> darin traegt Lage und Masse
-   ueber .abl__fassade (position: absolute, inset: 0). */
-.abl__spalte--haus picture { display: contents; }
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   FOTO STATT ZEICHNUNG — 26.08.2026
-   Kundenwunsch: „Da muss ja ein echtes Haus sein." Die Inline-SVG-Zeichnung
-   ist ersetzt durch <picture> mit assets/img/ablauf/ablauf-fassade-1
-   (webp zuerst, png als Ruecksturz; Quelle im Markup auskommentiert stehen
-   gelassen). Lage, Groesse und diese Regeln gelten unveraendert fuer beides.
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-.abl__fassade {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Weicher Auslauf an ALLEN VIER SEITEN — zwei gekreuzte Verlaeufe
-     (waagrecht x senkrecht), per `intersect` multipliziert. Kein Bildkasten
-     mit harter Kante, wie es die Vorlage referenz-neu-B.png zeigt. */
-  -webkit-mask-image:
-      linear-gradient(90deg, transparent 0, #000 24%, #000 88%, transparent 100%),
-      linear-gradient(180deg, transparent 0, #000 14%, #000 62%, transparent 97%);
-  mask-image:
-      linear-gradient(90deg, transparent 0, #000 24%, #000 88%, transparent 100%),
-      linear-gradient(180deg, transparent 0, #000 14%, #000 62%, transparent 97%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-  opacity: 0.78;
-}
-
-.abl__hausworte {
+   GEBLIEBEN sind die zwei Schlusszeilen mit ihrer goldenen Haarlinie. Sie
+   hiessen `.abl__hausworte`, weil sie in der Hausspalte standen; es gibt
+   kein Haus mehr, also heissen sie jetzt `.abl__schluss`. Sie stehen
+   mittig unter dem Stapel.
+-------------------------------------------------------------------------- */
+.abl__schluss {
   display: grid;
   justify-items: center;
   text-align: center;
-  padding-bottom: clamp(0.6rem, 2vw, 1.8rem);
+  /* Der Stapel endet mit seinem eigenen Polster; hier kommt nur der Abstand
+     dazu, der die Schlusszeilen als eigene Aussage abhebt. */
+  margin-top: clamp(1.6rem, 3.6vw, 3.2rem);
 }
 .abl__hausstrich {
   width: clamp(38px, 3.34vw, 52px);
@@ -542,71 +726,49 @@
 }
 
 /* ===========================================================================
-   MIT JAVASCRIPT
-   ablauf.js setzt [data-abl-bereit='true']. Erst ab dann wird gestapelt.
-   Ohne Skript greift nichts hiervon.
+   MIT JAVASCRIPT WIRD GESTAPELT
+   ablauf.js setzt [data-abl-bereit='true'] — und tut sonst nichts. Erst ab
+   dann kleben die Karten und das Bildfenster. OHNE Skript fehlt das
+   Attribut, die Kaesten bleiben `static`, und alle sechs Karten stehen
+   lesbar untereinander. Das ist Bedingung, nicht Kuer.
    =========================================================================== */
-.abl[data-abl-bereit='true'] .abl__panel {
-  grid-area: 1 / 1;
-  margin-top: 0;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.32s var(--ease-soft);
-}
-.abl[data-abl-bereit='true'] .abl__panel[data-abl-offen='true'] {
-  visibility: visible;
-  opacity: 1;
-}
+.abl[data-abl-bereit='true'] .abl__halt-karte { position: sticky; }
+
+/* Erst hier die FESTE Hoehe. Sie ist die Voraussetzung dafuer, dass
+   --abl-versatz wirklich ein Zehntel der Kartenhoehe ist. */
+.abl[data-abl-bereit='true'] .abl__karte { height: var(--abl-karte-h); }
+
+/* Die gestaffelten Klebehoehen. Als nth-child und nicht als Inline-Wert,
+   damit im Markup keine Rechengroesse steht. */
+.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(1) { top: var(--abl-klebe); }
+.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(2) { top: calc(var(--abl-klebe) + 1 * var(--abl-versatz)); }
+.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(3) { top: calc(var(--abl-klebe) + 2 * var(--abl-versatz)); }
+.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(4) { top: calc(var(--abl-klebe) + 3 * var(--abl-versatz)); }
+.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(5) { top: calc(var(--abl-klebe) + 4 * var(--abl-versatz)); }
+.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(6) { top: calc(var(--abl-klebe) + 5 * var(--abl-versatz)); }
 
 /* ===========================================================================
    BREITEN
    =========================================================================== */
 
-/* Ab hier passt die Bildseite nicht mehr sinnvoll neben zwei Textspalten.
-   Sie wandert unter den Abschnitt und wird zur ruhigen Grundlage; die
-   beiden Zeilen ruecken darunter. */
+/* Mittlere Fenster: die Karte bleibt zweispaltig, wird aber flacher —
+   ueber die volle Breite bricht der Beschreibungssatz frueher um. Mit der
+   Kartenhoehe schrumpft die Bildspalte automatisch mit, sie ist an sie
+   gebunden (Hoehe x 1,5). */
 @media (max-width: 1080px) {
-  .abl__buehne {
-    grid-template-columns: minmax(0, 0.92fr) 1px minmax(0, 1.28fr);
-    column-gap: clamp(1.2rem, 3.4vw, 2.8rem);
-  }
-  .abl__spalte--haus {
-    grid-column: 1 / -1;
-    margin: clamp(2.2rem, 5vw, 3.4rem) calc(var(--gutter) * -1) 0;
-    padding: 0 var(--gutter);
-    min-height: clamp(15rem, 30vw, 21rem);
-    align-content: end;
-  }
-  .abl__fassade {
-    -webkit-mask-image:
-        linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%),
-        linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 95%);
-    mask-image:
-        linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%),
-        linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 95%);
-    -webkit-mask-composite: source-in;
-    mask-composite: intersect;
-    opacity: 0.6;
-  }
+  .abl__stapel { padding-bottom: clamp(0.5rem, 4vh, 3rem); }
+  .abl { --abl-karte-h: clamp(11.6rem, 18vw, 13.4rem); }
 }
 
-/* Einspaltig. Die Schrittliste steht oben, darunter die Einzelheiten —
-   die Reihenfolge der Vorlage bleibt damit erhalten.
-   HIER KEINE KLEBEMECHANIK: auf dem Telefon steht alles untereinander und
-   wird normal gerollt. */
+/* Einspaltig: der Kartenstapel oben, das Bildfenster darunter.
+   DER STAPEL BLEIBT AUCH HIER EIN STAPEL. Er kostet kein Skript und keine
+   Rechenzeit — es ist reines `position: sticky` — und gerade auf dem Telefon
+   traegt die Form am besten. Was hier entfaellt, ist nur das Kleben des
+   Bildfensters; das steht ohnehin unter dem Stapel. */
 @media (max-width: 760px) {
   .abl { padding-bottom: clamp(2rem, 6vh, 3.4rem); }
 
-  .abl[data-abl-bereit='true'] .abl__lauf { height: auto; }
-  .abl[data-abl-bereit='true'] .abl__halt { position: static; }
-
-  .abl__buehne {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: clamp(1.8rem, 6vw, 2.6rem);
-    margin-top: clamp(1.8rem, 7vw, 3rem);
-  }
-  .abl__trenner { display: none; }
-
+  .abl__buehne { margin-top: clamp(1.8rem, 7vw, 3rem); }
   .abl {
     --abl-rhythmus: clamp(2.9rem, 12vw, 3.9rem);
     --abl-fs-h3: clamp(1.85rem, 9.4vw, 2.9rem);
@@ -626,14 +788,37 @@
   .abl__panel-text { max-width: none; }
   .abl__punkte li { grid-template-columns: 1.7rem minmax(0, 1fr); }
 
-  .abl__spalte--haus { min-height: 13rem; }
+  /* UNTER 760 STEHT DAS BILD OBEN, NICHT LINKS.
+     Nebeneinander ginge hier nicht mehr auf: die Bildspalte ist an die
+     Kartenhoehe gebunden (Hoehe x 1,5) und waere bei 390 px Fenster rund
+     300 Punkte breit — mehr als die Karte insgesamt hat. Also bricht die
+     Karte um: das Bild in voller Breite im Format 3:2 oben, der Text
+     darunter.
+     Die feste Kartenhoehe bleibt — sie ist die Voraussetzung der
+     90-Prozent-Rechnung. Sie ist hier die Summe aus Bildhoehe (zwei Drittel
+     der Kartenbreite) und Texthoehe und deshalb in vw gerechnet, nicht in
+     rem: die Bildhoehe waechst mit der Fensterbreite.
+     Gemessen am laengsten Satz (Schritt 04 und 06, vier Zeilen). */
+  .abl__karte {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .abl__karte-bild { aspect-ratio: 3 / 2; }
+  .abl { --abl-karte-h: clamp(20rem, 62vw + 8.6rem, 27rem); }
+  .abl__karte-titel { font-size: clamp(1.5rem, 6.6vw, 1.95rem); }
+  .abl__karte { border-radius: 12px; }
 }
 
 /* ===========================================================================
    BEWEGUNG ZURUECKGENOMMEN
-   Alles bleibt sichtbar und bedienbar, nur ohne Weg. Die Klebemechanik ist
-   davon NICHT betroffen — sie ist Layout, keine Bewegung: der Leser rollt
-   selbst, nichts laeuft von allein.
+   Alles bleibt sichtbar und bedienbar, nur ohne Weg.
+
+   AB DEM 30.08.2026 GEHOERT DER KARTENSTAPEL DAZU. Er ist zwar keine
+   Animation — es rollt niemand von allein, der Leser rollt selbst — aber er
+   verdeckt Gelesenes, und genau das ist fuer Menschen mit
+   Bewegungsempfindlichkeit die Zumutung. Hier stehen deshalb alle sechs
+   Karten untereinander, in voller Hoehe, nichts klebt und nichts ueberdeckt
+   etwas. Dasselbe Bild wie ohne Javascript. Bedingung, nicht Kuer.
    =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .abl *,
@@ -641,5 +826,77 @@
   .abl *::after {
     animation-duration: 0.001s !important;
     transition-duration: 0.001s !important;
+  }
+
+  .abl[data-abl-bereit='true'] .abl__halt-karte { position: static; }
+  .abl[data-abl-bereit='true'] .abl__karte { height: auto; }
+  .abl__stapel { padding-bottom: 0; }
+}
+
+/* ===========================================================================
+   DAS KARTENBILD WISCHT AUF — 30.08.2026
+   Eine Geste fuer diesen Abschnitt, und sie erklaert etwas: der Stapel
+   arbeitet von unten nach oben, also wischt auch jedes Bild in Leserichtung
+   von links auf. Der Text der Karte steht dabei die ganze Zeit — es blendet
+   nichts ein, was man lesen will.
+
+   AUSLOESER ist der IntersectionObserver aus assets/js/site.js: data-reveal
+   am <figure>, das Skript setzt einmal data-seen und beobachtet danach nicht
+   weiter. Kein Scroll-Horcher, kein requestAnimationFrame.
+
+   Der siteweite Einlauf (opacity + translateY aus leistungen.css) ist fuer
+   dieses Element abgeschaltet — er wuerde die Karte auseinanderziehen.
+
+   BEWEGT WIRD NUR `mask-position`. Kein `width`, kein `filter`.
+   OHNE JAVASCRIPT fehlt `.is-ready`, dann steht das Bild sofort und
+   vollstaendig. Bei `reduce` ebenso, siehe unten.
+   =========================================================================== */
+.abl__karte-bild[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.is-ready .abl__karte-bild[data-reveal] img {
+  /* DIE RECHNUNG, ausgeschrieben — beim ersten Versuch stand sie falsch
+     herum und der Wisch hat das Bild WEGgenommen statt es aufzudecken.
+
+       Maskenkasten  240 % der Bildbreite B, also 2,4B
+       Verlauf       von links: durchsichtig bis 45 %, deckend ab 55 %
+                     der deckende Teil ist 0,45 x 2,4B = 1,08 B breit, also
+                     BREITER als das Bild — Bedingung, sonst kann er es am
+                     Ende nicht ganz decken
+       Anfang  mask-position-x = 0 %    -> Kasten [0, 2,4B], deckend ab 1,32B
+                                           das Bild reicht nur bis B: nichts
+       Ende    mask-position-x = 100 %  -> Versatz 100 % x (B - 2,4B) = -1,4B
+                                           Kasten [-1,4B, B], deckend ab -0,08B
+                                           das ganze Bild liegt im Deckenden
+
+     Vorher standen 200 % und ein deckender Teil LINKS. Damit war das Bild am
+     Anfang zu 92 Prozent sichtbar und am Ende ganz weg — genau verkehrt. */
+  --abl-wisch: linear-gradient(to right,
+      rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 45%, #000 55%, #000 100%);
+  -webkit-mask-image: var(--abl-wisch);
+          mask-image: var(--abl-wisch);
+  -webkit-mask-size: 240% 100%;
+          mask-size: 240% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: 0% 0%;
+          mask-position: 0% 0%;
+}
+.is-ready .abl__karte-bild[data-seen='true'] img {
+  animation: abl-wisch 820ms var(--ease-soft) both;
+}
+@keyframes abl-wisch {
+  from { -webkit-mask-position: 0%   0%; mask-position: 0%   0%; }
+  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-ready .abl__karte-bild[data-reveal] img,
+  .is-ready .abl__karte-bild[data-seen='true'] img {
+    -webkit-mask-image: none;
+            mask-image: none;
+    animation: none;
   }
 }

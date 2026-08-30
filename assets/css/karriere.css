@@ -62,6 +62,55 @@
   --kar-rand: 24px;
   --kar-cap: none;
 
+  /* --- DER HELL/DUNKEL-RHYTHMUS — KUNDENWUNSCH 30.08.2026 -----------------
+     Wörtlich: „Der Hintergrund ist überall weiß. Das ist ziemlich
+     langweilig alles."
+
+     Die Ursache ist bekannt: der Kunde hatte vorher selbst verlangt, fast
+     alles auf Weiß zu stellen. Damit war der Wechsel hell/dunkel weg, der
+     den Rest der Website trägt. Zurückgedreht wird das NICHT — stattdessen
+     ist der Rhythmus neu gebaut, mit zwei Hellwerten statt einem:
+
+         Kopfbereich    Navy 900   (Video, unverändert)
+         Wer ist Estera Creme
+         Stimmen        WEISS      ← muss weiß bleiben, siehe unten
+         Angebot        NAVY 800   randlos über die volle Fensterbreite
+         Stellen        Creme
+         Fußbereich     Navy       (unverändert)
+
+     WARUM DER STIMMENABSCHNITT WEISS BLEIBT und nicht mitwechselt: die
+     Kantenmaske des Laufbands blendet dort die Karten gegen den
+     Abschnittsgrund aus. Der Kunde hat ausdrücklich einen WEISSEN Schleier
+     verlangt. Läge dort Creme, wäre es ein cremefarbener Schleier. Der
+     Abschnitt ist also nicht vergessen, er ist gebunden.
+
+     DER NAVY-ABSCHNITT IST „Deine Karriere, unser Angebot" — der einzige
+     ohne ein einziges Bild, also der, dem eine Farbfläche nichts wegnimmt.
+     Er ist zugleich die verlangte RANDLOSE FLÄCHE: die Farbe sitzt auf
+     dem <section>, der Text auf .kar-mitte darin, die Fläche läuft also
+     über die volle Fensterbreite und bricht die Kastenfolge auf. Ein
+     Mittel, zwei Anforderungen.
+
+     CREME: bis zum 30.08.2026 stand hier ein eigenes #FAF7F1, weil
+     base.css damals kein Creme führte. Seit dem Flächenverlauf-Block am
+     Ende von base.css gibt es dort --fl-creme (#F7F3F0), und der Verlauf
+     .fl-creme-nach-weiss startet auf genau diesem Wert. Zwei Cremetöne
+     nebeneinander wären genau die Art Unterschied, die der Kunde an den
+     Farbübergängen beanstandet hat — deshalb übernimmt die Seite den
+     gemeinsamen Wert. Warm, sehr hell, wenig Buntheit, 1,10:1 gegen
+     Weiß. */
+  --kar-creme: var(--fl-creme);
+
+  /* --- ABSTÄNDE: außen mehr, innen weniger -------------------------------
+     „Gleiche Abstände überall lesen sich als Aufzählung, nicht als
+     Gestaltung." Bis hierher lag zwischen den Abschnitten ungefähr so viel
+     Luft wie innerhalb — beides um die 30 bis 48 px. Jetzt sind die beiden
+     Rollen getrennt: zwischen den Abschnitten das Dreifache, innerhalb der
+     Blöcke enger als vorher. Die Blöcke rücken dadurch zusammen und
+     stehen als Gruppe, die Abschnitte treten auseinander. */
+  --kar-luft: 96px;      /* Abschnitt gegen Abschnitt */
+  --kar-eng:  32px;      /* innerhalb eines Blocks    */
+
   /* --- Die Inhaltsspalte --------------------------------------------------
      Kopfbereich und die Überschrift von Abschnitt 3 stehen in der Vorlage
      nicht im vollen Behälter, sondern in einer schmaleren Spalte:
@@ -301,6 +350,14 @@
    gelöst: bricht unsere Überschrift um, wächst der Abschnitt von selbst.
    =========================================================================== */
 
+/* Der Kopfbereich bleibt unverändert bei seiner gemessenen Höhe. Seine
+   Unterkante ist eine Navy-gegen-Hell-Naht und damit nach der
+   Entscheidung vom 30.08.2026 eine saubere Kante — es liegt kein Verlauf
+   darüber, und das Video darunter bleibt unangetastet. Ein Zwischenstand
+   dieses Tages hatte hier einen Navy-Fuß mit einer Blende darin; er ist
+   mit der Blende wieder entfallen.
+   background-color statt background: der Kopfbereich trägt zwar keine
+   .fl-Klasse, die Schreibweise bleibt aber in der ganzen Datei gleich. */
 .kar-kopf {
   position: relative;
   overflow: hidden;
@@ -309,7 +366,7 @@
   min-height: clamp(875.9px, calc(829.5px + 11.9vw), 920.8px);
   display: flex;
   flex-direction: column;
-  background: var(--navy-900);
+  background-color: var(--navy-900);
 }
 @media (min-width: 900px) {
   .kar-kopf { padding-top: 298px; min-height: 1013.7px; }
@@ -392,6 +449,41 @@
    Bildmarke, sondern die Wortmarke der Website. Sie steht deshalb mittig
    in einem Feld von exakt 105 px Höhe — dadurch beginnt die Sternreihe bei
    y = 422 wie gemessen, obwohl das Zeichen selbst flacher ist. */
+/* DIE WORTMARKE STEHT EINEN TICK TIEFER — KUNDENWUNSCH 30.08.2026.
+   „Die Wortmarke muss ein kleines Stueck weiter nach unten, naeher an die
+   Sterne." Ausdruecklich nur ein kleines Stueck.
+
+   GELOEST UEBER padding-top IM 105-PX-FELD, NICHT UEBER DEN ABSTAND DER
+   STERNE. Das Feld behaelt seine gemessenen 105 px, die Sternreihe ihren
+   gemessenen margin-top von 20 px und damit ihre Lage bei y = 423. Bewegt
+   hat sich einzig die Marke INNERHALB ihres Feldes: bei box-sizing:
+   border-box bleibt der Kasten 105 px hoch, der Inhaltskasten misst
+   105 − 24 = 81 px, und die mittig darin stehende Zeile rueckt um
+   (105 − 81) / 2 = 12 px nach unten.
+
+   Damit aendert sich KEINE einzige Lage ausser der der Marke selbst — die
+   Bauaufnahme der Vorlage (Sterne y 422, Kennzeile y 460, Ueberschrift
+   y 504) bleibt Zahl fuer Zahl stehen.
+
+   GEMESSEN AM BILDPUNKT, Unterkante der Wortmarken-Tinte gegen Oberkante
+   der Sternen-Tinte:
+
+       Fenster   vorher    nachher
+       1920      58,25     46,25
+       1440      58,25     46,25
+       1024      58,25     46,25
+        390      63,50     51,50
+
+   MITTIG BLEIBT MITTIG. padding-top wirkt nur senkrecht; die waagrechte
+   Lage ist unberuehrt. Nachgemessen an der echten Tinte, nicht am
+   Rechteck (das Rechteck luegt hier um die Sperrung des letzten
+   Buchstabens): Aussenmass +1,00 px, Tintenschwerpunkt −0,89 px gegen die
+   Mitte der Sternenreihe, auf 1920 / 1440 / 1024 gleich, bei 390 px
+   +0,75 / −0,65. Dass die beiden Masse in verschiedene Richtungen
+   zeigen, ist die Form der Buchstaben selbst — „ESTERA" beginnt mit dem
+   breiten E und endet mit dem nach rechts auslaufenden A. Beide Werte
+   liegen unter einem Bildpunkt; naeher als das laesst sich eine
+   Buchstabenfolge nicht zentrieren. */
 /* FLEX, nicht GRID — und das ist wichtig. .wordmark trägt in base.css
    `grid-column: 2` (dort sitzt sie im dreispaltigen Raster der Kopfleiste).
    In einem einspaltigen Grid legt dieser Wert eine implizite zweite Spalte
@@ -400,6 +492,7 @@
    angefasst werden müsste. */
 .kar-kopf__marke {
   height: 105px;
+  padding-top: 24px;           /* rueckt die Marke um 12 px nach unten */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -478,35 +571,250 @@
    der Faktor bleibt 3,4.
    =========================================================================== */
 
+/* --- FLÄCHENVERLÄUFE — DRITTE UND GÜLTIGE FASSUNG, 30.08.2026 ------------
+   Zwei Fassungen hat der Kunde verworfen. Die erste waren eigene
+   .kar-uebergang-Klassen, 96 px hoch, zweistufiger linear-gradient in
+   sRGB („eine absolute Vollkatastrophe, das tut in den Augen weh"). Die
+   zweite eine 240 px hohe Blende mit S-Kurve in Oklab. Beim dritten Mal
+   hat er den Maßstab genannt, an dem er misst — den Kasten der FAQ:
+
+       FAQ-Kasten   #1E222D → #2E3643, größter Kanalunterschied 22,
+                    über rund 1100 px Kastenbreite
+                    = 0,020 Einheiten je Bildpunkt
+
+       die Blenden  Navy → Weiß über  96 px = 2,55 je Bildpunkt
+                                über 240 px = 1,02
+                                über 600 px = 0,41
+
+   Selbst die längste Blende war noch zwanzigmal steiler als das, was er
+   gut findet. Länger ziehen reicht also nicht — der Denkfehler war,
+   überhaupt eine Blende ZWISCHEN zwei Abschnitte zu legen.
+
+   DIE REGEL, an der jetzt jeder Verlauf gemessen wird:
+   höchstens 0,03 Einheiten je Bildpunkt im stärksten Kanal.
+
+   DER RICHTIGE WEG: es gibt gar keine Blende. Ein Abschnitt trägt seinen
+   Verlauf über die EIGENE volle Höhe und endet auf der Farbe seiner
+   Nachbarin. Dann existiert die Naht nicht mehr, und weil ein Abschnitt
+   500 bis 1000 px hoch ist, liegt die Änderung von selbst im Bereich des
+   FAQ-Kastens. Die Bausteine stehen am Ende von base.css; diese Datei
+   erfindet keinen eigenen Verlauf mehr, sie setzt nur Klassen.
+
+   NAVY GEGEN HELL BEKOMMT GAR KEINEN ÜBERGANG. Zwischen #0A192E und Weiß
+   liegen 245 Einheiten; über 600 px sind das 0,41 je Bildpunkt,
+   vierzehnmal zu steil. Es gibt keine Strecke auf einer Webseite, auf der
+   diese Distanz unauffällig wird. Dort steht eine saubere Kante — nicht
+   als Zugeständnis, sondern als richtige Lösung. Auch ein blassblauer
+   Anlauf im hellen Abschnitt danach ist ausdrücklich nicht gewollt: nach
+   einer Navyfläche kommt sauberes Creme beziehungsweise Weiß.
+
+   WAS DAS AUF DIESER SEITE HEISST — fünf Nähte, genau EINE davon weich:
+
+       Kopf (Navy 900) → Wer ist Estera (Creme)   Kante, hart
+       Wer ist Estera (Creme) → Stimmen (Weiß)    VERLAUF, .fl-creme-nach-weiss
+       Stimmen (Weiß) → Angebot (Navy 800)        Kante, hart
+       Angebot (Navy 800) → Stellen (Creme)       Kante, hart
+       Stellen (Creme) → Fuß (Navy 900)           Kante, hart
+
+   Dass nur eine weich ist, ist kein Versäumnis, sondern die Folge der
+   Farbfolge: alle anderen stoßen an Navy. Dazu atmet die eine Navyfläche
+   der Seite in sich (.fl-navy800 am Angebot).
+
+   GEMESSEN AM GERENDERTEN BILD, 30.08.2026 (Einheiten je Bildpunkt im
+   stärksten Kanal, über die volle Abschnittshöhe; Prüfmaß 0,03):
+
+       Fenster   Wer ist Estera        Angebot
+                 .fl-creme-nach-weiss  .fl-navy800
+       1920            0,0241            0,0272
+       1440            0,0241            0,0273
+       1024            0,0275            0,0270
+        390            0,0176            0,0222
+
+   Über ein Fenster von nur 10 Bildpunkten gemessen stehen dort 0,055 bis
+   0,075. Das ist nicht die Gestaltung, sondern die 8-Bit-Quantisierung:
+   15 Einheiten auf 623 px MÜSSEN alle 41 px um eine ganze Einheit
+   springen, ein 10-Punkte-Fenster liest deshalb 0 oder 1. Der Maßstab des
+   Kunden — der FAQ-Kasten, 22 Einheiten auf 1100 px — verhält sich genau
+   so. Der aussagekräftige Wert ist der über die volle Strecke.
+
+   DER STIMMENABSCHNITT BLEIBT REINES WEISS und trägt selbst keinen
+   Verlauf. Die Kantenmaske des Laufbands blendet gegen diesen Grund aus;
+   läge dort auch nur der Ausläufer eines Cremeverlaufs, wäre es ein
+   cremefarbener Schleier statt des verlangten weißen. Der Verlauf davor
+   sitzt deshalb im Cremeabschnitt und ENDET auf Weiß — die Naht zum
+   Stimmenabschnitt existiert damit rechnerisch nicht mehr, und der
+   Stimmenabschnitt selbst ist von der ersten bis zur letzten Bildzeile
+   #FFFFFF.
+
+   DIE UNTERKANTE DES KOPFVIDEOS bleibt unangetastet und war es die ganze
+   Zeit: sie ist eine Navy-gegen-Hell-Kante und damit ohnehin hart.
+
+   ACHTUNG BEIM WEITERBAUEN: die .fl-Klassen setzen background-image.
+   karriere.css wird nach base.css geladen, also darf in den
+   Abschnittsregeln unten NICHT die Kurzform `background:` stehen — sie
+   würde das background-image wieder auf none setzen. Überall steht
+   deshalb `background-color:`. */
+
+
+/* „Wer ist Estera?" — DER EINE WEICHE ÜBERGANG DIESER SEITE.
+
+   Die Klasse .fl-creme-nach-weiss steht am <section> (siehe
+   karriere.html): der Abschnitt beginnt oben auf --fl-creme und endet
+   unten auf --fl-weiss, über seine EIGENE volle Höhe. Damit stößt seine
+   Unterkante auf exakt die Farbe des Stimmenabschnitts darunter — die
+   Naht existiert rechnerisch nicht mehr, und es liegt keine Blende
+   dazwischen.
+
+   OBERKANTE: keine Weichzeichnung. Darüber steht der Kopfbereich in
+   Navy 900; Navy gegen Hell bleibt nach der Entscheidung vom 30.08.2026
+   eine saubere Kante, und ein blassblauer Anlauf ist ausdrücklich nicht
+   gewollt. Der Abschnitt fängt sauber in Creme an.
+
+   DIE RECHNUNG ZUM PRÜFMASS 0,03 EINHEITEN JE BILDPUNKT:
+
+       #F7F3F0 → #FFFFFF, Kanäle R 8 · G 12 · B 15 — stärkster Kanal 15
+
+       Fenster   Abschnittshöhe   Einheiten je Bildpunkt
+       1920           623,5 px          0,024
+       1440           623,5 px          0,024
+       1024           546,3 px          0,027
+        390           837,5 px          0,018
+
+   Alle vier unter 0,03. Die knappste Lage ist 1024 px; damit sie es
+   bleibt, steht unten eine min-height von 500 px — 15 / 0,03 = 500 px ist
+   die Höhe, unter der dieser Verlauf zu steil würde. Sie greift auf
+   keinem geprüften Fenster ein und ist reine Absicherung gegen späteres
+   Kürzen des Abschnitts.
+
+   background-color, NICHT die Kurzform background: karriere.css wird nach
+   base.css geladen, und `background:` würde das background-image der
+   .fl-Klasse wieder auf none setzen. Die Farbe bleibt trotzdem stehen —
+   als Rückfall, wenn der Verlauf einmal nicht greift. */
 .kar-wer {
-  padding: 26.5px 0 47px;
-  background: var(--paper);
+  padding: var(--kar-luft) 0;
+  min-height: 500px;
+  background-color: var(--kar-creme);
 }
+/* Die 54/94 der Vorlage sind hier durch die groessere Abschnittsluft
+   ersetzt — siehe --kar-luft im Kopf der Datei. Der Wert bleibt als
+   Merkposten stehen, weil er der gemessene Wert der Vorlage ist. */
 @media (min-width: 900px) {
-  .kar-wer { padding: 54px 0 94px; }
+  .kar-wer { padding: var(--kar-luft) 0; }
+}
+
+/* --- ZWEI SPALTEN — ABWEICHUNG VON DER VORLAGE, KUNDENWUNSCH 30.08.2026 ---
+   Die Vorlage setzt diesen Abschnitt einspaltig und durchgehend mittig:
+   Etikett, Überschrift und Fließtext stehen zentriert in einer schmalen
+   Satzbreite von 707,1 px. Der Kunde will stattdessen den Text LINKS und
+   LINKSBÜNDIG und rechts daneben ein Bildfenster. Der Wortlaut bleibt
+   unangetastet, nur die Anordnung ändert sich.
+
+   WAS DAS AN DER BAUAUFNAHME ÄNDERT — und was nicht:
+     - Die vertikalen Abstände 46 (Etikett → Überschrift) und 48
+       (Überschrift → Text) bleiben auf den gemessenen Werten.
+     - Die Satzbreite 707,1 px bleibt als Deckel stehen, wirkt aber jetzt
+       nur noch unterhalb von 1024 px. Ab 1024 px begrenzt die linke
+       Spalte den Satz ohnehin auf weniger, und der Deckel würde die
+       Spalte nicht ausfüllen.
+     - Die Überschrift steht nicht mehr zentriert. `text-wrap: balance`
+       aus .kar-titel bleibt trotzdem sinnvoll: es verhindert eine
+       einzelne Schleppzeile, wenn „Wer ist Estera?" umbricht.
+
+   DIE GRENZE LIEGT BEI 1024 px, nicht bei den 992 px des Baukastens.
+   Unter 1024 px stünde die Textspalte in einer Breite, in der die 57 px
+   große Überschrift zwei- bis dreizeilig umbricht, während daneben ein
+   Bildfenster von unter 350 px stünde — beides zu schmal. Darunter stehen
+   die zwei Spalten deshalb untereinander, Text zuerst, Bild darunter.
+   Linksbündig bleibt der Text auch dort. */
+.kar-wer__raster {
+  display: grid;
+  gap: 40px;
+}
+@media (min-width: 1024px) {
+  .kar-wer__raster {
+    /* 1 : 0,9. Das Bildfenster liegt im Querformat 3:2 und ist damit von
+       Haus aus flach — eine schmale rechte Spalte ergäbe einen Streifen.
+       Bei 1250 px Behälter und 72 px Rinne stehen 620 px Text neben
+       558 px Bild (558 × 372). Damit sind Textblock und Bild fast gleich
+       hoch, und keine der beiden Spalten zieht den Abschnitt in die Länge. */
+    /* 0,82 : 1 — die BILDSPALTE IST JETZT DIE BREITERE. Geändert am
+       30.08.2026: die Aufnahme zeigt beide Geschäftsführer in ganzer
+       Figur von Kopf bis Schuh, und bei 558 px lasen sich die Figuren zu
+       klein. Enger schneiden ist ausdrücklich ausgeschlossen — die ganze
+       Figur ist gewollt —, also ist die Spaltenbreite das Mittel.
+       Bei 1250 px Behälter und 72 px Rinne: 531 px Text neben 647 px
+       Bild (647 × 431). Die Figuren gewinnen damit rund 16 % Höhe.
+       Der Text steht bei 531 px noch bei rund 73 Zeichen je Zeile. */
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    gap: 72px;
+    align-items: center;
+  }
 }
 
 .kar-wer__etikett {
-  text-align: center;
+  text-align: left;
   font-size: var(--kar-fs-fliess);
   line-height: var(--kar-lh-fliess);
 }
 
 /* 20 + 26 aus der Bauaufnahme (Abstand plus Zeilenabstand). */
-.kar-wer .kar-titel { margin-top: 46px; }
+.kar-wer .kar-titel { margin-top: var(--kar-eng); text-align: left; }
 
 /* Satzbreite 707,1 bei 1250 Behälter — bewusst breit gesetzt gegen die
    sehr große Überschrift. Die Vorlage kommt damit auf rund 95 Zeichen je
    Zeile. Absatzabstand 21 px, also genau eine Zeile. */
 .kar-wer__text {
   max-width: 707.1px;
-  margin: 48px auto 0;
+  margin: var(--kar-eng) 0 0;
   display: grid;
   gap: 21px;
-  text-align: center;
+  text-align: left;
   font-size: var(--kar-fs-fliess);
   line-height: var(--kar-lh-fliess);
   color: var(--ink-black);
+}
+
+/* --- DAS BILDFENSTER ------------------------------------------------------
+   Verhältnis 3:2 quer — das Maß der gelieferten Datei (3072 × 2048). Der
+   Rahmen steht im selben Verhältnis, es wird also nichts beschnitten.
+   `aspect-ratio` steht am RAHMEN, nicht am Bild: das Fenster hält sein Maß
+   dann auch, während das Bild noch lädt, und die Zeile springt nicht.
+
+   object-position: 50% 35% ist eine Absicherung, keine Wirkung im
+   Normalfall. Bei deckungsgleichem Verhältnis schneidet cover nichts weg.
+   Fiele das Fenster durch eine spätere Änderung einmal höher aus als 3:2,
+   griffe cover seitlich — und der Wert hält die Köpfe, die im oberen
+   Drittel sitzen, sicher im Bild statt sie oben abzuschneiden.
+
+   Zurückhaltend gerahmt: 12 px Radius und die Navy-Haarlinie des Projekts,
+   wie an den Stimmenkarten. KEIN Kasten in der Stärke der Stellenkarten —
+   den hat der Kunde ausdrücklich für die zwei Stellen verlangt; hier steht
+   ein einzelnes Foto, und eine kräftige Umrandung sähe wie ein
+   Passepartout aus. */
+.kar-wer__bild {
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-cool);
+}
+.kar-wer__bild picture { display: block; height: 100%; }
+.kar-wer__bild img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+}
+
+/* Untereinander: über die volle Behälterbreite wäre das Fenster bei 1023 px
+   ganze 1023 × 682 px groß und schöbe den Rest der Seite weit nach unten.
+   Gedeckelt auf 640 px Breite (640 × 427) und links gehalten, in der
+   Flucht des Textes darüber. Bei 390 px greift der Deckel nicht — dort ist
+   der Behälter mit 342 px ohnehin schmaler. */
+@media (max-width: 1023px) {
+  .kar-wer__bild { max-width: 640px; }
 }
 
 
@@ -532,10 +840,9 @@
    1. RICHTUNG. Die Bänder der Stellenseiten laufen nach links. Dieses
       läuft nach rechts — ausdrücklich, damit die beiden Seiten nicht wie
       dieselbe Schleife wirken.
-   2. Die Vorlagenbänder tragen Bilder ohne Randweichblende. Hier stehen
-      Karten; eine Weichblende an den Kanten gibt es aus demselben Grund
-      nicht — die Karte soll am Rand sauber abgeschnitten aussehen, nicht
-      ausgeblichen.
+   2. NACHTRAG 30.08.2026 — die Kantenmaske kam auf Kundenwunsch dazu.
+      Bis dahin lief das Band mit harten Kanten am Fensterrand; das steht
+      unten bei .kar-band ausführlich.
 
    DIE RECHNUNG FÜR DIE DAUER — nachrechnen, wenn Kartenbreite oder Abstand
    geändert werden, sonst stimmt das Tempo nicht mehr:
@@ -550,18 +857,123 @@
    um 8 px. Mit margin-right ist ein Drittel der Spur exakt eine Satzbreite.
    =========================================================================== */
 
+/* Weiß — gebunden, nicht vergessen: der Schleier des Laufbands blendet
+   gegen DIESEN Grund aus, und der Kunde hat einen weißen Schleier
+   verlangt. Begründung ausführlich im Farbblock oben.
+
+   DIESER ABSCHNITT TRÄGT KEINEN VERLAUF, und das ist Absicht, keine
+   Lücke: schon der Ausläufer eines Cremeverlaufs hier würde aus dem
+   weißen Schleier des Laufbands einen cremefarbenen machen. Der Grund ist
+   von der ersten bis zur letzten Bildzeile #FFFFFF.
+
+   Seine Oberkante braucht auch keinen: der Cremeabschnitt darüber trägt
+   .fl-creme-nach-weiss und ENDET auf genau diesem Weiß. Seine Unterkante
+   stößt an Navy 800 und bleibt nach der Entscheidung vom 30.08.2026 eine
+   saubere Kante. */
 .kar-stimmen {
-  padding: 26.5px 0 47px;
-  background: var(--paper);
+  padding: var(--kar-luft) 0;
+  background-color: var(--paper);
   overflow: hidden;            /* die Spur ist breiter als das Fenster */
 }
 @media (min-width: 900px) {
-  .kar-stimmen { padding: 54px 0 94px; }
+  .kar-stimmen { padding: var(--kar-luft) 0; }
 }
 
+/* --- DIE KANTENMASKE — KUNDENWUNSCH 30.08.2026 ----------------------------
+   Bis heute lief das Band mit harten Kanten am Fensterrand. Der Kunde will,
+   dass die Karten links aus einem weißen Schleier heraustreten und rechts
+   wieder hineinlaufen.
+
+   Gebaut als echte Kantenmaske nach der Bauart der Stellenseiten-Vorlage
+   (estate/bericht.md, Abschnitt 4.1, Band B):
+   mask-image: linear-gradient(90deg, transparent, #000 x%, #000 100−x%,
+   transparent).
+
+   WARUM HIER DIE MASKE GEHT UND IN stelle.css NICHT.
+   Dort ist sie durch einen aufliegenden Verlauf ersetzt, aus zwei Gründen
+   (stelle.css, Kommentar bei .stl-band--b::after): die Spur ist drei
+   Satzbreiten breit und wandert, und der Kasten trägt eine Navy-Fläche,
+   die mit weggemaskt würde. Beides trifft hier nicht zu:
+     - Die Maske liegt auf .kar-band, dem Behälter mit overflow: hidden.
+       Der ist genau fensterbreit und steht still; nur sein Inhalt wandert.
+       Der Schleier steht damit am Fensterrand, nicht am Bild.
+     - .kar-band trägt selbst KEINE Fläche. Was durch die ausgeblendeten
+       Kanten scheint, ist das weiße --paper von .kar-stimmen — also genau
+       der weiße Schleier, der gewünscht ist.
+
+   -webkit-mask-image steht daneben: ohne das Präfix greift die Maske in
+   Safari nicht.
+
+   DER GEWÄHLTE WERT: 30 % je Seite ab 768 px, 9 % darunter.
+
+   NACHGESCHÄRFT AM 30.08.2026. Zuerst standen hier 12 % je Seite. Das war
+   rechnerisch sauber (bei 1024 px blieben gut zwei Karten unangetastet),
+   dem Kunden aber zu schwach: der Schleier soll KRÄFTIGER sein und WEITER
+   ZUR MITTE reichen, die Karten sollen sichtbar aus dem Weiß heraustreten
+   und wieder hineinlaufen statt nur an der äußersten Kante auszufransen.
+   30 % ist der Wert, der in beiden genannten Spannen liegt (25–30 und
+   30–35). Gerechnet gegen die feste Kartenbreite von 320 px:
+
+       Fenster   Schleier je Seite   Mitte (voll)   ≙ Karten
+        1920      30 % = 576,0        768,0          2,4
+        1440      30 % = 432,0        576,0          1,8
+        1024      30 % = 307,2        409,6          1,3
+         390       9 % =  35,1        319,8          1,0
+
+   Dass bei 1440 und 1024 px keine zweite Karte mehr unangetastet steht,
+   ist ausdrücklich hingenommen — der Eindruck geht hier vor.
+
+   BEI 390 px BLEIBT ES BEI 9 %, und die Rechnung von vorhin gilt
+   unverändert weiter: 30 % je Seite wären dort ein Mittelteil von 156 px,
+   also nicht einmal eine halbe Karte. Es stünde NIE eine Karte
+   unangetastet da, jede wäre immer ausgeblichen. Mit 9 % misst der
+   Mittelteil 319,8 px und damit genau eine Kartenbreite — auf dem Telefon
+   steht immer genau eine Karte voll da, links und rechts läuft die
+   nächste in den Schleier.
+
+   DER VERLAUF IST NICHT GERADLINIG, sondern eine weiche S-Kurve
+   (0 → 0,10 → 0,50 → 0,90 → 1 auf den Vierteln des Schleiers). Zwei
+   Gründe, beide vom Kunden benannt:
+     - Am äußeren Rand bleibt es länger wirklich weiß. Der Schleier wirkt
+       dadurch KRÄFTIGER als eine gerade Rampe derselben Breite.
+     - Er wird FRÜHER VOLL DECKEND: ab drei Vierteln der Schleierbreite
+       liegt die Deckung schon bei 0,90. Rechnet man erst ab dort mit
+       „steht da", bleibt in der Mitte deutlich mehr stehen:
+       1920 → 1056 px (3,3 Karten), 1440 → 792 (2,5), 1024 → 563 (1,8),
+       390 → 337 (1,05).
+     - Und die Kurve läuft an beiden Enden flach aus, es gibt also keine
+       sichtbare Kante, an der der Verlauf anspringt.
+
+   BEI reduce IST DIE MASKE ABGESCHALTET — siehe Abschnitt 10. Dort bricht
+   das Band in eine stehende Gruppe um, und eine Kantenmaske würde die
+   äußeren Karten dieser Gruppe ausbleichen, obwohl sie gelesen werden
+   sollen. */
 .kar-band {
-  margin-top: 48px;
+  margin-top: var(--kar-eng);
   overflow: hidden;
+
+  --kar-schleier: 9%;
+  --kar-maske: linear-gradient(90deg,
+      rgba(0, 0, 0, 0)    0,
+      rgba(0, 0, 0, 0.10) calc(var(--kar-schleier) * 0.25),
+      rgba(0, 0, 0, 0.50) calc(var(--kar-schleier) * 0.5),
+      rgba(0, 0, 0, 0.90) calc(var(--kar-schleier) * 0.75),
+      rgba(0, 0, 0, 1)    var(--kar-schleier),
+      rgba(0, 0, 0, 1)    calc(100% - var(--kar-schleier)),
+      rgba(0, 0, 0, 0.90) calc(100% - var(--kar-schleier) * 0.75),
+      rgba(0, 0, 0, 0.50) calc(100% - var(--kar-schleier) * 0.5),
+      rgba(0, 0, 0, 0.10) calc(100% - var(--kar-schleier) * 0.25),
+      rgba(0, 0, 0, 0)    100%);
+
+  -webkit-mask-image: var(--kar-maske);
+          mask-image: var(--kar-maske);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+}
+@media (min-width: 768px) {
+  .kar-band { --kar-schleier: 30%; }
 }
 
 @keyframes kar-band {
@@ -655,9 +1067,82 @@
          +38 unten
    =========================================================================== */
 
+/* DIE RANDLOSE NAVY-FLÄCHE — SIE BLEIBT. Der Kunde hatte sie am
+   30.08.2026 zunächst zurückgenommen und sich noch am selben Tag wieder
+   umentschieden: „Hinter ‚Deine Karriere, unser Angebot' muss auch ein
+   Navyblau sein und auch ein Farbübergang." Der ursprüngliche Grund
+   trägt damit weiter: es ist der einzige Abschnitt ohne Bild, dem eine
+   Farbfläche nichts wegnimmt, und zugleich das Kapitelblatt vor den zwei
+   Stellen. Die Farbe sitzt am <section>, der Text in .kar-mitte — die
+   Fläche läuft über die volle Fensterbreite.
+
+   BEIDE KANTEN SIND HART, und das ist die Entscheidung vom 30.08.2026:
+   oben stößt Weiß an Navy 800, unten Navy 800 an Creme. Zwischen Navy
+   und Hell liegen rund 245 Einheiten; die sind auf keiner Strecke
+   unauffällig unterzubringen (über 600 px noch 0,41 je Bildpunkt gegen
+   ein Prüfmaß von 0,03). Dort steht eine saubere Kante.
+
+   DER „FARBÜBERGANG", den der Kunde für diese Fläche verlangt, ist
+   deshalb der Verlauf IN der Fläche: .fl-navy800 aus base.css lässt sie
+   von oben nach unten in der eigenen Farbfamilie atmen.
+
+   DIE AMPLITUDE IST HIER KLEINER ALS IN base.css, und das ist gerechnet,
+   nicht geschätzt. base.css setzt --fl-navy800-b auf #1C3A5E, also
+   21 Einheiten im stärksten Kanal; der Baustein ist für Abschnitte von
+   rund 800 px gedacht. Dieser Abschnitt misst 361,6 px (bei 390 px
+   Fenster 439,8), und 21 / 361,6 = 0,058 je Bildpunkt — fast das Doppelte
+   des Prüfmaßes. Der Wert unten hält die Richtung des Bausteins bei und
+   halbiert nur den Weg:
+
+       #102949 → #163153, Kanäle R 6 · G 8 · B 10 — stärkster Kanal 10
+       10 / 361,6 = 0,028 je Bildpunkt   (bei 390 px: 10 / 439,8 = 0,023)
+
+   Beides unter 0,03. Wer den Abschnitt einmal auf über 700 px zieht, kann
+   die Zeile streichen und den vollen Wert aus base.css nehmen. */
 .kar-angebot {
-  padding: 27px 0 0;
-  background: var(--paper);
+  padding: 104px 0;
+  background-color: var(--navy-800);
+  --fl-navy800-b: #163153;
+}
+/* Kontraste auf der Fläche, am dunkelsten UND am hellsten Ende gemessen —
+   der Verlauf läuft hinter der ganzen Textgruppe durch:
+
+                              auf #102949   auf #163153
+       Weiß                     14,63:1       13,14:1
+       Sand #D9B485              7,54:1        6,77:1
+       Weiß 82 % (Unterzeile)   10,22:1        9,34:1
+
+   Der Akzent steht hier in Sand statt im Blau der hellen Abschnitte: auf
+   Navy trägt Blau auf Blau nicht, und es ist zugleich die Stelle, an der
+   Sand als Handschrift zurückkommt. */
+.kar-angebot .kar-titel { color: var(--paper); }
+.kar-angebot .kar-akzent { color: var(--sand); }
+
+/* DER RAUTENPUNKT — Sand als Akzent, die Handschrift der Startseite.
+   Auf Navy misst Sand 7,55:1 und darf dort als Zeichen und Linie stehen
+   (base.css, Farbblock). Eine feine Sandlinie links und rechts, in der
+   Mitte die Raute: dasselbe Zeichen, das die Startseite über ihren
+   Abschnittsüberschriften führt und das dieser Seite bisher fehlte. */
+.kar-angebot__raute {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 28px;
+}
+.kar-angebot__raute::before,
+.kar-angebot__raute::after {
+  content: '';
+  width: 56px;
+  height: 1px;
+  background: var(--sand);
+  opacity: 0.55;
+}
+.kar-angebot__raute span {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: var(--sand);
 }
 .kar-angebot .kar-titel,
 .kar-angebot__unterzeile {
@@ -665,14 +1150,19 @@
   margin-inline: auto;
 }
 .kar-angebot__unterzeile {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
   font-size: var(--kar-fs-lead);
   line-height: var(--kar-lh-fliess);
   font-weight: 600;            /* Vorlage 700; Cormorant 600 ist hier der
                                   entsprechende Sprung gegen die 400 der
                                   Kartentexte */
-  color: var(--ink-black);
+  /* Weiß mit 82 % auf Navy: 10,22:1 am dunklen Ende der Fläche, 9,34:1
+     am hellen. Das --ink-black, das hier bis zum 30.08.2026 stand, ergab
+     auf der Navy-Fläche 1,3:1 und war nicht mehr zu lesen. Die Zeile
+     steht bewusst etwas zurück gegen die volle Überschrift daneben, aber
+     weit über der Anforderung. */
+  color: rgba(255, 255, 255, 0.82);
 }
 
 
@@ -716,14 +1206,31 @@
    iPhone-Kennung zeigt.
    =========================================================================== */
 
+/* Creme, glatt, ohne Verlauf — und beide Kanten hart. Oben stößt die
+   Navy-800-Fläche des Kapitelblatts an, unten das Navy 900 des
+   Fußbereichs; beides sind Navy-gegen-Hell-Nähte und bleiben nach der
+   Entscheidung vom 30.08.2026 saubere Kanten. Ein Verlauf innerhalb
+   dieser Fläche hätte auch keinen Nachbarn, auf dessen Farbe er enden
+   könnte — er wäre reine Zutat.
+
+   Dass hier kein Verlauf liegt, ist zugleich Voraussetzung für die zwei
+   Kästen: ihre weiße Fläche steht mit 1,10:1 gegen die Creme, und ihre
+   2-px-Randlinie rgba(16,41,73,0.55) mit 3,5:1 — beide Werte gelten nur,
+   solange der Grund ringsum eine einzige, gleichbleibende Farbe ist. Die
+   Kästen selbst — 468 px breit, Bild 416 px mit 24 px Luft ringsum —
+   sind unberührt. */
 .kar-stellen {
-  padding: 0 0 38px;
-  background: var(--paper);
+  padding: var(--kar-luft) 0;
+  background-color: var(--kar-creme);
 }
 
+/* 968 px = 2 × 468 Kasten + 32 Rinne. Stand vorher auf 872 (2 × 420 + 32)
+   und hätte die breiteren Kästen sonst wieder auf 420 zurückgedrückt —
+   die max-width der Liste ist die eigentliche Fessel, nicht die der
+   Karte. Mitgezogen mit der Verbreiterung aus Punkt 1. */
 .kar-liste {
-  max-width: 872px;
-  margin: 29px auto 0;
+  max-width: 968px;
+  margin: var(--kar-eng) auto 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -732,45 +1239,118 @@
 }
 
 /* DIE KARTE BEKOMMT EINEN KASTEN — ABWEICHUNG VON DER VORLAGE,
-   KUNDENWUNSCH VOM 29.08.2026.
+   KUNDENWUNSCH VOM 29.08.2026, NACHGESCHÄRFT AM 30.08.2026.
 
    In der Vorlage hat die Stellenkarte ausdrücklich KEINEN Kasten: kein
    Hintergrund, kein Rahmen, kein Schatten, sie steht nackt auf Weiß, und
    der einzige Radius im Inneren ist der des Bildes (bericht.md, 8.7 —
    „Wer eine Karte mit weißer Fläche und Schatten baut, macht ein anderes
-   Bild"). Genau so war sie bis heute gebaut.
+   Bild").
 
-   Der Kunde will die zwei Stellen jetzt ausdrücklich ALS KARTEN: eine
-   Umrandung um das Ganze, das Bild oben im Kasten, darunter im selben
-   Kasten Text und Knöpfe. Das ist also kein Versehen und kein
-   Messfehler — es ist eine gewollte Abweichung.
+   Der Kunde will die zwei Stellen ausdrücklich ALS KARTEN: eine Umrandung
+   um das GANZE, das Bild oben im Kasten, darunter im selben Kasten Text
+   und Knöpfe. Das ist also kein Versehen und kein Messfehler — es ist eine
+   gewollte Abweichung.
 
-   Ausgeführt in der Handschrift des Projekts und nicht als Schattenkarte:
-   eine Navy-Haarlinie (--line) und 12 px Radius, wie die Rezensionskarten
-   der Startseite. Kein Schatten, keine Füllfarbe.
+   WARUM DIESE STELLE AM 30.08. EIN ZWEITES MAL ANGEFASST WURDE.
+   Der erste Anlauf hat den Kasten baulich richtig gesetzt — 1 px --line um
+   das ganze <li>, Bild bündig innen — und trotzdem nicht das gezeigt, was
+   gemeint war. Der Kunde beschreibt den Stand so: „Das Bild geht, darunter
+   ein Kasten los." An der Aufnahme ist genau das nachzuvollziehen, und der
+   Grund ist rechnerisch:
 
-   FOLGE FÜR DAS BILD: sein eigener Radius von 8 px aus der Bauaufnahme
-   entfällt. Das Bild sitzt jetzt bündig oben im Kasten, und die oberen
-   Ecken kommen über overflow: hidden vom Kasten — zwei ineinander
-   liegende Radien sähen unsauber aus. */
+       --line ist rgba(16,41,73,0.16). Über weißem Papier ergibt das
+       #D9DDE2 und einen Kontrast von 1,36:1.
+
+   Bei 1 px Stärke ist das neben einem Foto schlicht nicht zu sehen. Die
+   dunkle Bildkante selbst wirkt als Abgrenzung, die Haarlinie daneben
+   verschwindet — sichtbar wird die Linie erst UNTER dem Bild, wo sie auf
+   Weiß gegen Weiß steht. Das Auge liest daraus: Foto, darunter beginnt ein
+   Kasten. Genau der Eindruck, den der Kunde beanstandet hat.
+
+   DIE ENTSCHEIDUNG: zwei zurückhaltende Mittel zusammen, kein Schatten.
+
+   1. RANDLINIE 2 px in rgba(16,41,73,0.55).
+      Gemessen: #7C899B, 3,55:1 gegen das weiße Papier außen und 3,25:1
+      gegen die Kartenfläche innen. Beide über 3:1, der Grenze für ein
+      nicht-textliches Zeichen — die Linie ist damit als Zeichen sicher
+      wahrnehmbar und nicht mehr nur zu erahnen. Sie läuft ohne
+      Unterbrechung um Bild UND Textteil; das Bild sitzt bündig innen, es
+      steht also kein Rand seitlich daneben, und der Kasten ist genau so
+      breit wie das Bild — beides ausdrücklich verlangt.
+
+   2. DIE KARTENFLÄCHE IST ABGESETZT — sie ist eine andere Fläche als die
+      Seite ringsum. Zusammen mit der Randlinie macht das den Unterschied
+      zwischen einem gezeichneten Umriss und einem KÖRPER, und genau das
+      trägt die Lesart „zwei Kästen".
+
+      NACHGEZOGEN AM 30.08.2026, ALS DER ABSCHNITT CREME BEKAM. Vorher
+      stand hier --paper-cool (#F3F5F8) auf weißem Papier: 1,09:1, die
+      Karte eine Spur DUNKLER als die Seite. Genau diese Fassung hat der
+      Kunde gelobt. Auf Creme (#FAF7F1) misst derselbe Ton nur noch
+      1,02:1 — die Karte wäre dort praktisch verschwunden, und mit ihr
+      der Kasten, um den es die ganze Zeit ging.
+
+      Jetzt steht die Karte auf WEISS und ist eine Spur HELLER als die
+      Seite. Der Abstand ist mit 1,07:1 fast derselbe wie die gelobten
+      1,09:1, nur mit umgekehrtem Vorzeichen — die Trennung trägt also
+      genauso weit. Alle Kontraste darin werden dabei besser statt
+      schlechter: Randlinie 3,55:1 statt 3,25, Fließtext 13,62:1 statt
+      12,47, die Kleinzeile in --gold-text 4,92:1 statt 4,69.
+      Ein warmer, dunklerer Ton wäre die andere Lösung gewesen; er hätte
+      die Kleinzeile auf 4,41:1 gedrückt und damit unter die Anforderung.
+
+   KEIN SCHLAGSCHATTEN — ausdrücklich ausgeschlossen und ohnehin richtig:
+   im ganzen Projekt kommt kein einziger Schatten vor, weder in base.css
+   noch in einer der Abschnittsdateien. Ein Schatten hier wäre das einzige
+   erhabene Element der Seite und fiele als Fremdkörper auf. Die zwei
+   gewählten Mittel bleiben flach und in der Palette.
+
+   DAS BILD IST EIN BILDFENSTER IM KASTEN — KUNDENWUNSCH 30.08.2026.
+   Vorher saß es bündig innen und füllte die Kastenbreite; es las sich
+   damit als „Bild mit einem Rahmen drum". Jetzt bekommt es ringsum
+   dieselbe Luft, die der Text darunter zum Rand hat — 24 px links,
+   rechts und oben, der seitliche Einzug von .kar-karte__inhalt.
+
+   DER KASTEN WÄCHST, DAS BILD BLEIBT. Ausdrücklich so verlangt, deshalb
+   ist die Rechnung hier festgehalten:
+
+       Bild 416 px + 2 × 24 px Luft + 2 × 2 px Rahmen = 468 px Kasten
+
+   max-width geht damit von 420 auf 468 px, die flex-basis von 320 auf
+   368 px — beides genau um die 48 px Luft plus die Rahmenstärke. Das Bild
+   misst bei 1024 px und darüber unverändert 416 px.
+
+   AUSNAHME BEI 390 px, und die ist unvermeidbar: dort ist der Kasten mit
+   342 px schon so breit wie der Behälter, er KANN nicht wachsen. Die
+   24 px Luft gehen deshalb vom Bild ab, es misst dort 290 statt 338 px.
+   Die Alternative wäre, das Bild am Rand kleben zu lassen — genau das,
+   was abgestellt werden sollte.
+
+   FOLGE FÜR DIE RADIEN: das Bild bekommt seinen eigenen Radius zurück
+   (12 px, der Projektwert), denn es liegt jetzt frei im Kasten und wird
+   nicht mehr von dessen overflow: hidden beschnitten. Der Kasten braucht
+   das overflow nun auch nicht mehr. */
 .kar-karte {
-  flex: 1 1 320px;
-  max-width: 420px;
+  flex: 1 1 368px;
+  max-width: 468px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  border: 1px solid var(--line);
+  padding: 24px 24px 0;
+  border: 2px solid rgba(16, 41, 73, 0.55);
   border-radius: 12px;
   background: var(--paper);
 }
 
 /* Bild bündig, Text und Knöpfe eingerückt. Der gemessene Abstand von 20 px
    zwischen Bild und erster Zeile steht jetzt als padding-top hier. */
+/* Die seitlichen 24 px sitzen jetzt am Kasten selbst — hier bleiben nur
+   der Abstand zum Bild darüber und der Fuß. */
 .kar-karte__inhalt {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px 24px 24px;
+  padding: 20px 0 24px;
 }
 @media (max-width: 767px) {
   .kar-karte { flex-basis: 100%; }
@@ -806,11 +1386,16 @@
 
    Der eigene Radius von 8 px aus der Bauaufnahme ist mit dem Kasten
    entfallen — Begründung oben bei .kar-karte. */
+/* Eigener Radius, seit das Bild frei im Kasten liegt (siehe .kar-karte).
+   display: block nimmt die Grundlinienlücke unter dem Bild weg, sonst
+   stünde unten ein paar Pixel mehr Luft als oben. */
 .kar-karte__bild {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  border-radius: 12px;
   background: var(--paper-cool);
 }
 .kar-karte picture { display: block; }
@@ -818,11 +1403,20 @@
 /* Abstände von oben nach unten wie gemessen: 20 · 10 · 20 · 26.
    Alle vier sind absolut, nicht mit der Kartenbreite skaliert — so hält es
    die Vorlage auch (die Größen sind ab 768 px fest). */
+/* SAND ALS AKZENT auf der Kleinzeile — bisher stand sie im selben
+   Schwarz wie alles andere in der Karte. Nicht --sand: der misst auf
+   heller Fläche 1,94:1 und ist als Schrift unlesbar. Für Sand als
+   SCHRIFT hält base.css --gold-text (#86693A) bereit; auf der
+   Kartenfläche #F3F5F8 sind das 4,60:1, also über der Anforderung.
+   Gesperrt und in Versalien, damit sie als Kleinzeile liest und nicht
+   als zu kleiner Fließtext. */
 .kar-karte__art {
   text-align: center;
+  color: var(--gold-text);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
   font-size: var(--kar-fs-lead);
   line-height: var(--kar-lh-fliess);
-  color: var(--ink-black);
 }
 .kar-karte__titel {
   margin-top: 10px;
@@ -899,8 +1493,14 @@
 .kar-knopf--voll:hover::before,
 .kar-knopf--voll:focus-visible::before { opacity: 1; }
 
+/* Durchsichtig wie in der Vorlage — der Knopf holt sich das Weiß der
+   Karte. Zwischenzeitlich stand hier ausdrücklich Weiß, weil die Karte
+   auf --paper-cool lag und der durchsichtige Knopf darin verschwunden
+   wäre; seit die Karte wieder weiß ist (siehe .kar-karte), ist die
+   Ausnahme hinfällig und der Knopf steht wieder auf dem Stand der
+   Vorlage. Schrift --ink-black auf Weiß: 13,62:1. */
 .kar-knopf--linie {
-  color: var(--ink-black);     /* 13,0:1 auf Weiß */
+  color: var(--ink-black);
   box-shadow: inset 0 0 0 2px var(--line);
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
@@ -908,74 +1508,414 @@
    Knopf hellt das nur die Schrift auf und SENKT damit den Kontrast — ein
    Überfahren, das die Lesbarkeit verschlechtert, wird nicht nachgebaut.
    An seiner Stelle dieselbe Zurückhaltung mit umgekehrtem Vorzeichen:
-   die Kante tritt hervor, derselbe Übergang von 0,3 s. */
+   die Kante tritt hervor, derselbe Übergang von 0,3 s.
+
+   Der Überfahrton steht wieder auf dem Alphawert der Vorlage, seit die
+   Karte weiß ist: er legt sich über Weiß und ergibt #F5F6F8. */
 .kar-knopf--linie:hover {
   box-shadow: inset 0 0 0 2px rgba(16, 41, 73, 0.30);
   background: rgba(16, 41, 73, 0.04);
 }
 
 
+
 /* ===========================================================================
-   9  BEWEGUNG
+   9  BEWEGUNG — VOLLSTÄNDIG NEU GEBAUT AM 30.08.2026
 
-   Vollständig aus bericht.md, Abschnitt 5. Was die Vorlage NICHT tut, ist
-   dabei genauso wichtig wie das, was sie tut:
+   KUNDENWUNSCH, wörtlich: „Ich will, dass du viel, viel, viel mehr
+   Animationen einbaust, also jetzt nicht nur so langweilige Animationen, wo
+   Bilder größer werden, wenn man draufgeht. Ich will wirklich besondere
+   Animationen." Und als Richtung sein eigenes Beispiel von der Startseite:
+   dort soll sich ein Haus beim Scrollen erst zeichnen und dann als Foto
+   entstehen.
 
-     - kein Parallaxe (die parallax-Hüllen im DOM bleiben durchgehend auf
-       transform: none — reine Baukastenhülle)
-     - nichts Klebendes, kein position: sticky auf der ganzen Seite
-     - keine bildlaufgekoppelte Bewegung überhaupt
-     - kein Weichzeichner, kein mix-blend-mode, kein backdrop-filter
-     - die Karte reagiert beim Überfahren NICHT, das Kartenbild auch nicht:
-       kein Zoom, keine Verschiebung. Nur die beiden Knöpfe reagieren, und
-       zwar sehr dezent. Diese Zurückhaltung ist charakteristisch.
+   WAS DAMIT GEMEINT IST — und was hier deshalb gebaut wurde: eine Bewegung,
+   die etwas ERKLÄRT, statt zu schmücken. Etwas, das ENTSTEHT, nicht etwas,
+   das größer wird. Jede der sechs Gesten unten hat eine Begründung, die
+   über „sieht hübsch aus" hinausgeht; steht dort keine, gehört die Geste
+   nicht auf diese Seite.
 
-   Es bleiben genau zwei Bewegungen, beide einmalig beim Eintritt, beide
-   über einen IntersectionObserver ausgelöst und nicht am Bildlauf hängend.
-   Die laufende Logoreihe (26,95 s, 42 px/s) entfällt mit der Reihe selbst.
+   WAS VORHER HIER STAND und warum es weg ist:
+     kar-zoom   scale(0.8) → 1 auf den Stellenkacheln. Das ist wörtlich das,
+                was der Kunde als „langweilig" benannt hat: etwas wird
+                größer. Ersetzt durch eine Kachel, die aus ihrer eigenen
+                Grundlinie aufsteht.
+     kar-auf    reine Deckkraft auf allem übrigen. Bleibt als Grundlage
+                erhalten (jetzt mit 22 px Weg darunter), trägt aber nicht
+                mehr die Überschriften — die haben ihre eigene Geste.
+
+   DIE SECHS GESTEN
+
+   1  DIE FÜNF STERNE LEUCHTEN NACHEINANDER AUF (Kopfbereich)
+      Fünf Sterne, die gemeinsam einblenden, sind eine Fläche. Fünf, die
+      nacheinander aufleuchten, sind eine Zählung — man sieht, dass es fünf
+      sind, ohne sie zu zählen. 0,09 s Versatz, jeder Stern dreht aus −55°
+      in seine Lage und wächst aus 0,35 auf. Das ist die einzige Stelle der
+      Seite, an der etwas größer wird, und sie ist es aus einem Grund: ein
+      Stern, der sich aufrichtet, ist die Geste, die zu einem Stern gehört.
+
+   2  ÜBERSCHRIFTEN SCHIEBEN SICH ZEILENWEISE HINTER EINER KANTE HERVOR
+      Die Leitgeste der ganzen Seite. Gemessen an der Vorlage fluid.glass
+      (Kladde `fluid/`, motion.json): translateY 200 % → 0 über 1,2 s in
+      cubic-bezier(.215,.61,.355,1), 0,1 s Versatz je Zeile. Die Werte sind
+      übernommen, nicht geschätzt.
+      Sie steht auf JEDER Überschrift dieser Seite — dadurch hat die Seite
+      EINE Handschrift statt fünf Einfällen. Die Zeilen werden von
+      karriere.js gefunden, nicht geraten: jedes Wort bekommt eine Hülle,
+      die Hüllen werden nach ihrer gemessenen Höhenlage zu Zeilen
+      gruppiert, und die Gruppe bestimmt den Versatz. Bricht die Zeile bei
+      1024 px anders um als bei 1920, stimmt der Versatz trotzdem.
+
+   3  DER BALKEN SCHREIBT SICH SELBST (Kennzeile im Kopfbereich)
+      Der Balken ist in dieser Datei ausdrücklich als „trocken auslaufender
+      Filzstift" gebaut (Abschnitt 3). Ein Filzstift, der von links nach
+      rechts fährt, ist genau die Bewegung, die zu diesem Bild gehört —
+      scaleX(0) → 1 mit dem Ursprung links. Die Wörter darauf blenden erst
+      danach ein (1,05 s), niemals vorher: die Kennzeile steht in Navy auf
+      Sand, und Navy auf noch nicht gezeichnetem Sand wäre unsichtbar.
+
+   4  DAS FOTO DER GESCHÄFTSFÜHRER ENTSTEHT (Abschnitt „Wer ist Estera?")
+      Die Geste, die der Kunde an seinem Hausbeispiel meint. Der Rahmen
+      wischt von oben nach unten auf (clip-path inset 0 0 100 % 0 → 0),
+      während das Bild darin aus −8 % nach oben nachzieht. Zwei Ebenen,
+      die sich gegeneinander bewegen — das Bild wirkt, als setzte es sich
+      im Rahmen ab, statt als würde es eingeblendet.
+      NACHGERECHNET, damit unten keine Lücke aufreißt: die sichtbare Kante
+      steht bei t · H, die Bildunterkante bei H − 0,08 (1 − t) H. Die
+      Bedingung t ≤ 1 − 0,08 (1 − t) ist für jedes t ≤ 1 erfüllt, die Kante
+      holt das Bild also nie ein. Deshalb braucht es hier KEINE Vergrößerung
+      als Sicherheitsreserve — das Bild bleibt in seinem Maßstab.
+
+   5  DIE STELLENKÄSTEN STEHEN AUS IHRER EIGENEN GRUNDLINIE AUF
+      Der Kasten wächst von seiner Unterkante nach oben (clip-path
+      inset 100 % 0 0 0 → 0), während Bild und Text darin aus 48 px
+      nachrücken. Die Kante steht dabei STILL — sie ist die Grundlinie, auf
+      der der Kasten steht, und nicht eine Kante, die mitfährt. Genau
+      dadurch liest es sich als Aufstehen und nicht als Einschieben.
+      0,14 s Versatz zwischen den beiden Kästen.
+
+   6  DAS LAUFBAND LÄUFT AN, STATT ZU RENNEN
+      Bis heute lief das Band vom ersten Bildpunkt an mit vollen 60 px/s —
+      auch dann, wenn es noch gar nicht im Bild war. Jetzt steht es still,
+      bis der Abschnitt eintritt, und beschleunigt dann aus dem Stand auf
+      seine 60 px/s.
+      DAS IST GERECHNET, NICHT GEFÜHLT. Die Spur trägt unverändert ihre
+      lineare Endlosbewegung mit 60 px/s. Die acht Karten darin bekommen
+      zusätzlich einen einmaligen Anlauf von +48 px auf 0 über 1,6 s in
+      cubic-bezier(0.25, 0.5, 0.5, 1). Diese Kurve hat am Anfang die
+      Steigung 2 und am Ende 0; die Anfangsgeschwindigkeit des Anlaufs ist
+      damit 2 · 48 / 1,6 = 60 px/s und zeigt GEGEN die Laufrichtung.
+      Beide Bewegungen zusammen ergeben:
+          t = 0     : −60 + 60 =  0 px/s   → das Band steht
+          t = 1,6 s : −60 +  0 = −60 px/s  → volle Reisegeschwindigkeit
+      Dazwischen steigt es stetig an. Das Band fährt also wirklich an,
+      statt anzuspringen.
+      DIE LAUFBANDWERTE SIND UNANGETASTET: 60 px/s, Satzbreite 2752 px,
+      45,8667 s je Umlauf, drei Sätze im DOM. Der Anlauf sitzt auf den
+      KARTEN, nicht auf der Spur — zwei verschiedene Elemente, deshalb
+      kommen sich die beiden transform nicht ins Gehege.
+      WARUM KEINE LÜCKE AM RAND ENTSTEHT: der Anlauf schiebt die Karten um
+      48 px nach rechts, und er läuft nur in den ersten 1,6 s. In dieser
+      Zeit steht die Spur nahe ihrem Startwert von −33,3333 % — sie deckt
+      dort nach links noch eine volle Satzbreite (2752 px) über den
+      Fensterrand hinaus. 48 px davon aufzubrauchen ist folgenlos.
+
+   ZUSÄTZLICH, klein und ohne eigene Nummer: der Rautenpunkt über „Deine
+   Karriere, unser Angebot" zieht seine beiden Sandlinien nach außen aus
+   der Raute heraus, und die Raute dreht sich dabei in ihre 45°. Das
+   Zeichen baut sich also aus seiner Mitte auf, statt fertig da zu stehen.
+
+   DIE GRENZEN, DIE NICHT VERHANDELBAR SIND — und wo sie hier stehen:
+
+   OHNE JAVASCRIPT IST ALLES SOFORT DA. Jede Regel dieses Abschnitts hängt
+   an [data-js='an'], und dieses Merkmal setzt ausschließlich karriere.js.
+   Fällt das Skript aus, gibt es keinen Zustand, in dem etwas unsichtbar
+   hängen bleibt — der Endzustand IST der Grundzustand, die Animation nimmt
+   ihn nur kurz weg. Das gilt auch für die Zeilenhüllen der Überschriften:
+   ohne Skript wird gar nicht erst geteilt, die Überschrift ist schlichter
+   Text.
+
+   BEI reduce STEHT ALLES SOFORT IM ENDZUSTAND. Zwei Sicherungen: erstens
+   steigt karriere.js in der ersten Zeile aus und setzt [data-js] nicht,
+   zweitens setzt Abschnitt 10 unten jeden Anfangszustand ausdrücklich
+   zurück — auch für den Fall, dass jemand die Einstellung NACH dem Laden
+   umstellt und die Wörter längst geteilt sind.
+
+   NUR transform, opacity und clip-path. Keine Bewegung auf width, height,
+   top, left, filter oder box-shadow — nichts davon kommt in diesem
+   Abschnitt vor. Kein requestAnimationFrame am Bildlauf: ausgelöst wird
+   über IntersectionObserver, gerechnet wird ausschließlich vom
+   Bewegungsdienst des Browsers.
    =========================================================================== */
 
-/* Kacheln der Stellenliste. Gemessene Werte der Vorlage:
-   opacity 0 → 1, scale(0.8) → 1, 0,8 s, cubic-bezier(.25,.46,.45,.94),
-   0,2 s Versatz zwischen Geschwistern. Keine Verschiebung nach oben. */
-@keyframes kar-zoom {
-  from { opacity: 0; transform: scale(0.8); }
-  to   { opacity: 1; transform: none; }
-}
-/* Textbausteine: reine Deckkraft, 266,667 ms, ease-in. */
-@keyframes kar-auf {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.kar {
+  /* Die Kurve der Vorlage fluid.glass — sie trägt jede Geste, die aus
+     einer Kante hervorkommt oder aufsteht. */
+  --kar-e-raus:  cubic-bezier(0.215, 0.61, 0.355, 1);
+  /* Weicher Anlauf für Flächen, die aufziehen. */
+  --kar-e-weich: cubic-bezier(0.33, 0, 0.15, 1);
+  /* Steigung 2 am Anfang, 0 am Ende — die Kurve des Bandanlaufs. Ihre
+     Herleitung steht oben unter Geste 6; wer sie ändert, muss den
+     Vorfaktor 48 px mitändern, sonst ruckt das Band beim Start. */
+  --kar-e-anlauf: cubic-bezier(0.25, 0.5, 0.5, 1);
 }
 
-/* Alles hängt an [data-js='an'], und dieses Merkmal setzt erst
-   karriere.js. Ohne Javascript steht damit jedes Element sofort sichtbar
-   da — es gibt keinen Zustand, in dem Inhalt unsichtbar hängen bleibt.
-   (Auch die Vorlage verhält sich so: ohne JS steht alles auf opacity 1.) */
-[data-js='an'] .kar-karte,
+
+/* --- Die Bewegungen ------------------------------------------------------- */
+
+/* Zeile hinter der Kante hervor — gemessene Werte der Vorlage. */
+@keyframes kar-zeile {
+  from { transform: translateY(200%); }
+  to   { transform: translateY(0); }
+}
+
+/* Der Grundfall für Text: aus 22 px aufkommen. Die reine Deckkraft von
+   vorher hatte keine Richtung; 22 px sind gerade genug, dass die Bewegung
+   eine Richtung bekommt, und wenig genug, dass sie nicht auffällt. */
+@keyframes kar-steigt {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Der Stern richtet sich auf. */
+@keyframes kar-stern {
+  from { opacity: 0; transform: rotate(-55deg) scale(0.35); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+/* Der Filzstift fährt von links nach rechts. */
+@keyframes kar-strich {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Die Raute dreht sich in ihre Lage. Der Endzustand MUSS rotate(45deg)
+   enthalten — das ist die Ruhelage aus Abschnitt 7, keine Zutat. */
+@keyframes kar-raute {
+  from { opacity: 0; transform: rotate(0deg) scale(0.2); }
+  to   { opacity: 1; transform: rotate(45deg) scale(1); }
+}
+
+/* Fläche zieht von oben nach unten auf. */
+@keyframes kar-blende {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* Das Bild zieht im Rahmen nach. Prozent, damit es an jeder Fensterbreite
+   denselben Anteil der Bildhöhe zurücklegt. */
+@keyframes kar-nach {
+  from { transform: translateY(-8%); }
+  to   { transform: translateY(0); }
+}
+
+/* Der Kasten wächst aus seiner Grundlinie. inset(100% 0 0 0) heißt: die
+   sichtbare Fläche ist auf die UNTERKANTE zusammengezogen. Sie wächst von
+   dort nach oben — die Kante steht still. */
+@keyframes kar-waechst {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* Was im Kasten steht, rückt nach. */
+@keyframes kar-hebt {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Die Bandkarte taucht aus ihrer Grundlinie auf. Bewusst OHNE transform —
+   das ist beim Band für den Anlauf vergeben. */
+@keyframes kar-taucht {
+  from { opacity: 0; clip-path: inset(100% 0 0 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+/* Der Anlauf des Bandes. Herleitung siehe Geste 6. */
+@keyframes kar-anlauf {
+  from { transform: translate3d(48px, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+
+/* --- Die Anfangszustände ---------------------------------------------------
+   ALLES hängt an [data-js='an']. Ohne Javascript existiert keine dieser
+   Regeln, und die Seite steht vollständig da. */
+
 [data-js='an'] [data-auf] { opacity: 0; }
 
-[data-js='an'] .kar-liste.ist-da .kar-karte {
-  animation: kar-zoom 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  animation-delay: calc(var(--i, 0) * 0.2s);
+/* Drei Bausteine geben ihre Bewegung an ihre Teile weiter und bleiben
+   deshalb selbst sichtbar — sonst blendete die Gruppe ein, während ihre
+   Teile noch einzeln kämen. */
+[data-js='an'] .kar-kopf__sterne,
+[data-js='an'] .kar-angebot__raute,
+[data-js='an'] .kar-geteilt { opacity: 1; }
+
+/* Das Bildfenster bringt seine eigene Geste mit.
+
+   DIE KANTE SITZT AUF <picture>, NICHT AUF <figure> — und das ist kein
+   Geschmack, sondern eine Notwendigkeit. Lag der clip-path auf dem
+   <figure>, meldete der IntersectionObserver das Fenster NIE als
+   eingetreten: Chromium rechnet den eigenen clip-path des Ziels in dessen
+   Schnittfläche ein, und eine auf null zusammengezogene Fläche schneidet
+   sich mit nichts. Das Bild blieb dadurch dauerhaft unsichtbar — genau der
+   Zustand, den es nicht geben darf. Beobachtet wird jetzt das <figure>
+   (ungeschnitten, volle Fläche), geschnitten wird das <picture> darin. */
+[data-js='an'] .kar-wer__bild { opacity: 1; }
+[data-js='an'] .kar-wer__bild picture { clip-path: inset(0 0 100% 0); }
+[data-js='an'] .kar-wer__bild img { transform: translateY(-8%); }
+
+[data-js='an'] .kar-kopf__sterne svg { opacity: 0; }
+
+[data-js='an'] .kar-kopf__kennzeile .kar-balken::before {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
 }
+
+[data-js='an'] .kar-angebot__raute::before { transform: scaleX(0); transform-origin: 100% 50%; }
+[data-js='an'] .kar-angebot__raute::after  { transform: scaleX(0); transform-origin: 0 50%; }
+[data-js='an'] .kar-angebot__raute span    { opacity: 0; transform: rotate(0deg) scale(0.2); }
+
+/* Die Zeilenhüllen setzt karriere.js. .kar-zg ist die Kante, .kar-zg__i das
+   Wort dahinter.
+
+   DIE KANTE IST EIN clip-path, KEIN overflow: hidden — und das ist der
+   Punkt, an dem diese Lösung steht oder fällt. Ein overflow: hidden auf
+   einem inline-block ändert dessen Grundlinie (die Grundlinie wird dann die
+   untere Randkante), und die ganze Überschrift verrutschte gegenüber dem
+   Zustand ohne Javascript. clip-path ändert an der Anordnung NICHTS.
+
+   Die negativen Werte sind Auslauf, kein Beschnitt: oben 100 % Luft für
+   Oberlängen und die kursive Akzentschrift, seitlich 0,4 em für deren
+   Überhang, unten 0,14 em unter die Grundlinie — tief genug, dass keine
+   Unterlänge (das g in „Angebot") angeschnitten wird, flach genug, dass die
+   Kante mit dem Zeilenfall zusammenfällt. */
+.kar-zg    { display: inline-block; clip-path: inset(-100% -0.4em -0.14em -0.4em); }
+.kar-zg__i { display: inline-block; }
+
+[data-js='an'] .kar-geteilt .kar-zg__i { transform: translateY(200%); }
+
+[data-js='an'] .kar-karte { clip-path: inset(100% 0 0 0); }
+[data-js='an'] .kar-karte > * { opacity: 0; transform: translateY(48px); }
+
+[data-js='an'] .kar-band__karte { opacity: 0; clip-path: inset(100% 0 0 0); }
+
+/* Das Band steht still, bis sein Abschnitt eintritt. animation-play-state
+   hält auch die Verzögerung an, die Rechnung des Anlaufs bleibt also
+   stimmig. Ohne Javascript greift diese Regel nicht und das Band läuft wie
+   bisher vom ersten Bildpunkt an. */
+[data-js='an'] .kar-band__spur { animation-play-state: paused; }
+
+
+/* --- Der Auslöser ----------------------------------------------------------
+   .ist-da setzt der IntersectionObserver in karriere.js, einmalig. */
+
 [data-js='an'] [data-auf].ist-da {
-  animation: kar-auf 266.667ms ease-in forwards;
+  animation: kar-steigt 0.85s var(--kar-e-raus) both;
 }
+
+/* Die drei Gruppen aus dem Grundzustand tragen selbst keine Bewegung. */
+[data-js='an'] .kar-kopf__sterne.ist-da,
+[data-js='an'] .kar-angebot__raute.ist-da,
+[data-js='an'] .kar-wer__bild.ist-da,
+[data-js='an'] .kar-geteilt.ist-da { animation: none; }
+
+/* 1 — die fünf Sterne, nacheinander. Der Vorlauf von 0,35 s lässt der
+   Wortmarke darüber ihren Auftritt. */
+[data-js='an'] .kar-kopf__sterne.ist-da svg {
+  animation: kar-stern 0.7s var(--kar-e-raus) both;
+}
+[data-js='an'] .kar-kopf__sterne.ist-da svg:nth-child(1) { animation-delay: 0.35s; }
+[data-js='an'] .kar-kopf__sterne.ist-da svg:nth-child(2) { animation-delay: 0.44s; }
+[data-js='an'] .kar-kopf__sterne.ist-da svg:nth-child(3) { animation-delay: 0.53s; }
+[data-js='an'] .kar-kopf__sterne.ist-da svg:nth-child(4) { animation-delay: 0.62s; }
+[data-js='an'] .kar-kopf__sterne.ist-da svg:nth-child(5) { animation-delay: 0.71s; }
+
+/* 2 — Überschriften zeilenweise. --z ist die Zeilennummer und kommt aus
+   karriere.js. */
+[data-js='an'] .kar-geteilt.ist-da .kar-zg__i {
+  animation: kar-zeile 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  animation-delay: calc(var(--z, 0) * 0.1s);
+}
+/* Im Kopfbereich läuft die Überschrift nach Wortmarke, Sternen und Balken —
+   die 0,7 s sind der Platz, den die drei davor brauchen. */
+[data-js='an'] .kar-kopf__titel.ist-da .kar-zg__i {
+  animation-delay: calc(0.7s + var(--z, 0) * 0.1s);
+}
+
+/* 3 — der Balken schreibt sich, die Wörter kommen danach. */
+[data-js='an'] .kar-kopf__kennzeile.ist-da .kar-balken::before {
+  animation: kar-strich 0.75s var(--kar-e-raus) 0.55s both;
+}
+[data-js='an'] .kar-kopf__kennzeile.ist-da { animation-delay: 1.05s; }
+
+/* Die Wortmarke eröffnet. */
+[data-js='an'] .kar-kopf__marke.ist-da { animation-delay: 0s; }
+
+/* 4 — das Foto entsteht. */
+[data-js='an'] .kar-wer__bild.ist-da picture {
+  animation: kar-blende 1.15s var(--kar-e-weich) both;
+}
+[data-js='an'] .kar-wer__bild.ist-da img {
+  animation: kar-nach 1.15s var(--kar-e-weich) both;
+}
+
+/* Der Rautenpunkt baut sich aus seiner Mitte auf. */
+[data-js='an'] .kar-angebot__raute.ist-da span {
+  animation: kar-raute 0.6s var(--kar-e-raus) both;
+}
+[data-js='an'] .kar-angebot__raute.ist-da::before,
+[data-js='an'] .kar-angebot__raute.ist-da::after {
+  animation: kar-strich 0.7s var(--kar-e-raus) 0.25s both;
+}
+
+/* 5 — die Stellenkästen stehen auf. Der Versatz von 0,14 s steckt als --i
+   im Markup (style="--i:0" bzw. 1) und war schon vorher dort. Beobachtet
+   wird die LISTE, nicht die einzelne Kachel — sonst liefe der Versatz gegen
+   den Eintritt jeder Kachel statt gegen den der Reihe. */
+[data-js='an'] .kar-liste.ist-da .kar-karte {
+  animation: kar-waechst 1s var(--kar-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.14s);
+}
+[data-js='an'] .kar-liste.ist-da .kar-karte > * {
+  animation: kar-hebt 1s var(--kar-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.14s + 0.08s);
+}
+
+/* 6 — das Band. --i setzt karriere.js, und zwar UMLAUFEND 0 … 7 auf allen
+   drei Sätzen: die Spur startet um eine Satzbreite versetzt, am linken
+   Fensterrand steht beim Eintritt also Satz 2 und nicht Satz 1 (ausführlich
+   in karriere.js an der Stelle). Jeder Satz trägt dieselbe Staffel, damit
+   ist es gleichgültig, welcher gerade im Bild ist.
+   Beide Bewegungen laufen auf DEMSELBEN Element, aber auf verschiedenen
+   Eigenschaften — kar-taucht auf clip-path und opacity, kar-anlauf auf
+   transform. Sie überschreiben sich deshalb nicht. */
+[data-js='an'] .kar-band.ist-da .kar-band__karte {
+  animation: kar-taucht 0.85s var(--kar-e-raus) both,
+             kar-anlauf 1.6s var(--kar-e-anlauf) both;
+  animation-delay: calc(var(--i, 0) * 0.07s), 0s;
+}
+[data-js='an'] .kar-band.ist-da .kar-band__spur { animation-play-state: running; }
 
 
 /* ===========================================================================
    10  RUHIGE DARSTELLUNG (prefers-reduced-motion: reduce)
 
-   Die Vorlage setzt das sauber um: getAnimations() liefert 0, alle Kacheln
-   stehen sofort auf opacity 1, die Einblendeskripte steigen in der ersten
-   Zeile aus.
+   BEI reduce IST ALLES SOFORT IM ENDZUSTAND. Keine Ausnahme.
 
-   Hier zusätzlich: DAS VIDEO STEHT STILL UND ZEIGT DAS STANDBILD.
-   Das Element wird ausgeblendet, darunter liegt dasselbe Standbild als
-   Hintergrund von .kar-kopf__grund — also kein zweiter Ladevorgang und
-   kein Loch. Diese Regel wirkt AUCH OHNE JAVASCRIPT. karriere.js hält das
-   Video zusätzlich an, damit es nicht unsichtbar weiterläuft.
+   Der erste und wichtigste Riegel steht in karriere.js: dort wird bei
+   „reduce" in der ersten Zeile ausgestiegen und [data-js] gar nicht erst
+   gesetzt. Damit greift keine einzige Regel aus Abschnitt 9.
+
+   Der zweite Riegel steht hier und ist für den Fall gebaut, dass jemand die
+   Einstellung NACH dem Laden umstellt: dann ist [data-js='an'] längst
+   gesetzt und die Wörter der Überschriften sind längst in ihre Hüllen
+   geteilt. Jeder Anfangszustand aus Abschnitt 9 wird unten ausdrücklich
+   zurückgenommen, und zwar auf denselben Endwert, den die Animation sonst
+   erreicht hätte.
+
+   Außerdem wie bisher: DAS VIDEO STEHT STILL UND ZEIGT DAS STANDBILD, und
+   das Laufband bricht in eine stehende, lesbare Gruppe um.
    =========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -990,6 +1930,17 @@
      Diese Regeln stehen im CSS und wirken deshalb AUCH OHNE JAVASCRIPT. */
   .kar-stimmen,
   .kar-band { overflow: visible; }
+
+  /* DIE KANTENMASKE FÄLLT HIER WEG. Sie gehört zur laufenden Fassung: dort
+     blendet sie aus, was gerade in den Rand hineinläuft. Steht das Band
+     still und bricht in eine Gruppe um, stünden die äußeren Karten JEDER
+     Zeile halb ausgeblichen da — und die sollen gelesen werden. Ohne Maske
+     stehen alle acht in voller Deckung. */
+  .kar-band {
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+
   .kar-band__spur {
     animation: none;
     transform: none;
@@ -1004,10 +1955,47 @@
   }
   .kar-band__karte--kopie { display: none; }
 
+  /* --- Jeder Anfangszustand aus Abschnitt 9, ausdrücklich zurückgenommen --- */
+  [data-js='an'] [data-auf],
+  [data-js='an'] .kar-kopf__sterne svg,
+  [data-js='an'] .kar-band__karte,
+  [data-js='an'] .kar-angebot__raute span,
+  [data-js='an'] .kar-wer__bild { opacity: 1; }
+
   [data-js='an'] .kar-karte,
-  [data-js='an'] [data-auf] { opacity: 1; }
+  [data-js='an'] .kar-band__karte,
+  [data-js='an'] .kar-wer__bild picture { clip-path: none; }
+
+  [data-js='an'] .kar-karte > *,
+  [data-js='an'] .kar-wer__bild img,
+  [data-js='an'] .kar-geteilt .kar-zg__i,
+  [data-js='an'] .kar-kopf__kennzeile .kar-balken::before,
+  [data-js='an'] .kar-angebot__raute::before,
+  [data-js='an'] .kar-angebot__raute::after { transform: none; }
+
+  /* Die Raute behält ihre 45° — die sind ihre Form, nicht ihre Bewegung. */
+  [data-js='an'] .kar-angebot__raute span { transform: rotate(45deg); }
+
+  /* Die Kante der Zeilenhüllen wird ganz aufgehoben; ohne Bewegung hat sie
+     keine Aufgabe mehr und könnte nur noch etwas anschneiden. */
+  .kar-zg { clip-path: none; }
+
+  [data-js='an'] .kar-band__spur { animation-play-state: running; }
+
+  /* Und keine einzige Animation läuft. */
+  [data-js='an'] [data-auf].ist-da,
+  [data-js='an'] .kar-kopf__sterne.ist-da svg,
+  [data-js='an'] .kar-geteilt.ist-da .kar-zg__i,
+  [data-js='an'] .kar-kopf__titel.ist-da .kar-zg__i,
+  [data-js='an'] .kar-kopf__kennzeile.ist-da .kar-balken::before,
+  [data-js='an'] .kar-wer__bild.ist-da picture,
+  [data-js='an'] .kar-wer__bild.ist-da img,
+  [data-js='an'] .kar-angebot__raute.ist-da span,
+  [data-js='an'] .kar-angebot__raute.ist-da::before,
+  [data-js='an'] .kar-angebot__raute.ist-da::after,
   [data-js='an'] .kar-liste.ist-da .kar-karte,
-  [data-js='an'] [data-auf].ist-da { animation: none; }
+  [data-js='an'] .kar-liste.ist-da .kar-karte > *,
+  [data-js='an'] .kar-band.ist-da .kar-band__karte { animation: none; }
 
   .kar-knopf,
   .kar-knopf--voll::before,

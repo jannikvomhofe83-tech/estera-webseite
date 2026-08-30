@@ -353,7 +353,18 @@ marker path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important
 }
 
 /* --- Einlauf beim Scrollen ------------------------------------------------ */
-[data-reveal] {
+/* AN `.is-ready` GEBUNDEN — 30.08.2026 nachgezogen.
+   Vorher stand hier `[data-reveal] { opacity: 0 }` unbedingt. Ohne
+   Javascript setzt aber niemand `data-seen`, und dann blieb JEDES so
+   ausgezeichnete Element dauerhaft unsichtbar — auf der Startseite unter
+   anderem der Kopf der Leistungen und die Kopfzeilen mehrerer Abschnitte.
+   `.is-ready` setzt assets/js/site.js als Erstes; die Klasse ist also der
+   Nachweis, dass ueberhaupt jemand da ist, der spaeter aufdeckt.
+   problem.css und seiten.css binden ihre eigenen Einlaeufe seit jeher so —
+   diese Regel hier war die Ausnahme.
+   Der Endzustand ist damit der Grundzustand; die Bewegung nimmt ihn nur
+   kurz weg. */
+.is-ready [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);

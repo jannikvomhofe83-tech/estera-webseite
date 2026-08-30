@@ -568,3 +568,72 @@
     visibility: visible;
   }
 }
+
+/* ===========================================================================
+   DIE KANTE ZUM FUSSBEREICH BLEIBT SAUBER — 30.08.2026, dritter Anlauf
+
+   Hier stand eine 100 Punkte hohe Blende, die das Weiss dieser Section ins
+   Navy des Fussbereichs zog. Sie ist ERSATZLOS entfernt, und das ist keine
+   Notloesung, sondern die richtige Antwort. Die Rechnung:
+
+     Navy #0A192E gegen Weiss    245 Einheiten Unterschied
+     ueber  100 px               2,45 Einheiten je Bildpunkt
+     ueber  240 px               1,02
+     ueber  600 px               0,41
+     Regel (siehe base.css)      0,03
+
+   Selbst ueber 600 Punkte waere die Blende noch VIERZEHNMAL zu steil. Es
+   gibt keine Strecke auf einer Webseite, auf der 245 Einheiten unauffaellig
+   werden — genau deshalb hat der Kunde die weiche Fassung zweimal
+   verworfen. An dieser Stelle steht eine saubere Kante.
+
+   Ein blassblauer Anlauf im Fussbereich waere denkbar gewesen; der Kunde
+   will ihn ausdruecklich nicht. Nach Weiss kommt Navy, ohne Zwischenschritt.
+
+   Diese Section bleibt damit von oben bis unten reines Weiss — und genau
+   darauf endet #ablauf darueber (`fl-creme-nach-weiss`). Nach oben gibt es
+   also keine Naht mehr; nach unten steht die Kante mit Absicht.
+   =========================================================================== */
+
+/* ===========================================================================
+   DIE KAESTEN SCHIEBEN AUS DER KANTE — 30.08.2026
+   Kundenwunsch: „nicht nur so langweilige Animationen". Also kein Einblenden
+   von unten, sondern die Geste, die zu einer Liste gehoert: jeder Kasten
+   waechst von links aus seiner eigenen Kante heraus, einer nach dem anderen.
+   Die Staffelung steht als --i im Markup (0 bis 4), 90 ms je Schritt.
+
+   BEWEGT WIRD NUR `clip-path`. Der Radius laeuft im `round`-Teil mit, sonst
+   waere der Kasten waehrend der Bewegung eckig.
+   Der Endzustand `inset(0)` beschneidet genau an der Kastenkante und aendert
+   nichts an der fertigen Darstellung — der Fokusrahmen liegt innen
+   (outline-offset ist negativ) und bleibt vollstaendig sichtbar.
+
+   AUSLOESER ist der IntersectionObserver aus site.js (data-reveal ->
+   data-seen, einmalig). Der siteweite Einlauf aus leistungen.css ist fuer
+   diese Kaesten abgeschaltet.
+   OHNE JAVASCRIPT und bei `reduce` stehen alle fuenf sofort.
+   =========================================================================== */
+.faq__liste[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.is-ready .faq__liste[data-reveal] .faq__punkt {
+  clip-path: inset(0 100% 0 0 round var(--faq-radius));
+}
+.is-ready .faq__liste[data-seen='true'] .faq__punkt {
+  animation: faq-auf 760ms var(--ease-soft) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+@keyframes faq-auf {
+  from { clip-path: inset(0 100% 0 0 round var(--faq-radius)); }
+  to   { clip-path: inset(0 0    0 0 round var(--faq-radius)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-ready .faq__liste[data-reveal] .faq__punkt,
+  .is-ready .faq__liste[data-seen='true'] .faq__punkt {
+    clip-path: none;
+    animation: none;
+  }
+}

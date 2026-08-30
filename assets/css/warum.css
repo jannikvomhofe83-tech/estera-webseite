@@ -59,7 +59,15 @@
      liegt Jost lokal vor — dieselbe Bauart, gleiche Anmutung. */
   --wi-sans: 'Jost', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
 
-  background: var(--wi-grund);
+  /* NUR background-color, KEINE Kurzschreibweise. Der Abschnitt traegt seit
+     dem 30.08.2026 die Klasse `fl-creme-nach-weiss` aus base.css: er beginnt
+     auf dem Creme seiner Nachbarin darueber (#F7F3F0, .ref) und endet auf
+     dem Weiss seiner Nachbarin darunter (.vtr). Die Klasse setzt
+     `background-image`; eine Kurzschreibweise hier wuerde sie ueberschreiben,
+     weil warum.css nach base.css geladen wird.
+     Der Farbwert bleibt als Rueckfall stehen und ist identisch mit dem
+     Anfang des Verlaufs, --fl-creme. */
+  background-color: var(--wi-grund);
   scroll-margin-top: calc(var(--header-h) + 1.5rem);
   padding: clamp(3rem, 6.5vh, 5rem) 0 clamp(3rem, 6.5vh, 5rem);
   overflow: clip;   /* nichts darf die Seite verbreitern */
@@ -84,9 +92,71 @@
   white-space: nowrap;
 }
 
-/* ---------------------------------------------------------------------------
-   2  KOPF
---------------------------------------------------------------------------- */
+/* ===========================================================================
+   2  KOPF — EIN KASTEN, 30.08.2026
+
+   Kundenwunsch woertlich: „das ist das Wichtigste und muss hervorgehoben
+   werden." Kleinzeile, Ueberschrift, Unterzeile und die Gegenueberstellung
+   KLASSISCH INVESTIEREN / MIT IMMOBILIE stehen deshalb ZUSAMMEN in einem
+   Kasten. Vorher waren es zwei getrennte helle Flaechen: der Kopf stand
+   frei auf dem Cremegrund, das Vergleichsband hatte seine eigene, um einen
+   Hauch hellere Karte (#FBF8F5 mit Haarlinie und weichem Schatten).
+
+   DIE FARBE IST NICHT NACHEMPFUNDEN, SIE IST UEBERNOMMEN.
+   `--faq-kasten-links: #1E222D` nach `--faq-kasten-rechts: #2E3643`,
+   waagerecht — Zeichen fuer Zeichen die Werte aus faq.css. Der Kunde hat
+   den Massstab selbst genannt: „kein blauer Kasten, aber in der gleichen
+   Farbe wie die Kaesten bei der FAQ-Section". Der FAQ-Ton ist ein
+   entsaettigtes Anthrazit mit einem Hauch Blau, ausdruecklich KEIN Navy;
+   --navy-800 #102949 waere deutlich blauer und waere der falsche Kasten.
+
+   Die Werte stehen hier noch einmal als eigene Variablen und nicht als
+   `var(--faq-kasten-links)`: faq.css definiert die beiden auf `.faq`, also
+   auf einem Abschnitt weiter unten in der Seite. Von hier aus sind sie
+   nicht erreichbar. Wer den FAQ-Kasten umfaerbt, muss diese drei Zeilen
+   mitziehen — deshalb steht der Verweis hier.
+
+   ---------------------------------------------------------------------
+   DIE SCHRIFT — jede Zeile gegen den TATSAECHLICHEN Grund gemessen
+   ---------------------------------------------------------------------
+   Der Kasten wird nach rechts heller. Massgeblich ist deshalb IMMER die
+   rechte Kante #2E3643, nicht der Mittelwert und erst recht nicht die
+   dunkle linke Seite. Gerechnet gegen alle drei Stellen:
+
+                                        #1E222D  #262C39  #2E3643
+     Ueberschrift    #FFFFFF             15,89    13,98    12,17
+     Marken/VS       #EDF1F8             14,02    12,34    10,75
+     Fliesstext      #C7CEDA             10,04     8,84     7,69
+     Kleinzeile      #C9B08A (gold-soft)  7,61     6,70     5,83
+
+   VERWORFEN, weil sie rechts reissen oder zu knapp stehen:
+     --gold      #A8874F   4,72  4,16  3,62  — unter der Schwelle
+     --wi-punkt  #C0985C   5,97  5,25  4,57  — 0,07 Reserve, zu knapp
+     --sand      #D9B485   8,18  7,20  6,27  — traegt, ist hier aber zu
+                                               warm neben dem Gold-Soft
+   Gewaehlt ist --gold-soft #C9B08A: es haelt die goldene Familie der
+   Seite und steht mit 5,83:1 an der hellsten Stelle sicher ueber 4,5.
+
+   Trennlinie und Kreisrand sind nichttextlich; sie stehen in
+   rgba(237,241,248,0.26) beziehungsweise 0.30 — Zeichnung, keine Aussage.
+   =========================================================================== */
+.wi__kopf {
+  /* Die Werte des FAQ-Kastens. Siehe den Vermerk darueber, warum sie hier
+     noch einmal stehen und nicht als var() aus faq.css geholt werden. */
+  --wi-kasten-links:  #1E222D;
+  --wi-kasten-rechts: #2E3643;
+
+  background: linear-gradient(90deg, var(--wi-kasten-links) 0%, var(--wi-kasten-rechts) 100%);
+  /* Derselbe Radius wie am abgeloesten Vergleichsband — der Kasten ist
+     jetzt groesser, der Radius bleibt der der Vorlage. */
+  border-radius: 20px;
+  padding: clamp(1.8rem, 3.4vw, 3.2rem) clamp(1.2rem, 2.6vw, 2.8rem) clamp(1.9rem, 3.6vw, 3.4rem);
+  /* Der Kasten steht auf hellem Grund und braucht keine Kante — 15,89:1
+     gegen Weiss traegt sich selbst. Ein weicher Schatten gibt ihm Hoehe,
+     wie beim abgeloesten Band. */
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.06), 0 18px 44px -18px rgba(16, 41, 73, 0.28);
+}
+
 /* Vorlage: mittig, Grundlinie y=40, Versalien, weite Sperrung, Serif. */
 .wi__eyebrow {
   font-family: var(--font-ui);
@@ -95,7 +165,9 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
   text-align: center;
-  color: var(--wi-gold);
+  /* Im Kasten, also hell. --wi-gold #86693A misst dort 1,6:1 und waere
+     unlesbar; --gold-soft haelt 5,83:1 an der hellsten Stelle. */
+  color: var(--gold-soft);
   margin: 0 0 clamp(0.5rem, 1vh, 0.9rem);
 }
 
@@ -113,7 +185,7 @@
   line-height: 1.12;
   letter-spacing: -0.012em;
   text-align: center;
-  color: var(--wi-navy);
+  color: #FFFFFF;              /* 12,17:1 an der hellsten Stelle des Kastens */
   text-wrap: balance;
   margin: 0;
 }
@@ -125,7 +197,7 @@
   font-size: clamp(0.98rem, 1.24vw, 1.19rem);   /* 19px bei 1536 */
   line-height: 1.6;
   text-align: center;
-  color: var(--wi-grau);
+  color: #C7CEDA;              /* 7,69:1 an der hellsten Stelle des Kastens */
   margin: clamp(0.6rem, 1.3vh, 1.05rem) auto 0;
   max-width: 46em;
 }
@@ -140,15 +212,57 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: start;
-  margin-top: clamp(1.4rem, 2.9vh, 2.3rem);     /* 30px bei 1024 Hoehe */
-  padding: clamp(1.5rem, 2.6vw, 2.5rem) clamp(1rem, 2vw, 2rem) clamp(1.6rem, 2.9vw, 2.75rem);
-  border-radius: 20px;
-  background: #FBF8F5;
-  border: 1px solid rgba(16, 41, 73, 0.06);
-  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.03), 0 10px 26px rgba(16, 41, 73, 0.035);
+  /* MEHR LUFT — 30.08.2026, Kundenwunsch: „Ansonsten finde ich das schon
+     sehr gut, aber da muss ein bisschen mehr Platz dazwischen sein."
+     Gemeint ist AUSDRUECKLICH NUR dieser eine Abstand, zwischen der
+     Unterzeile und der Gegenueberstellung. Von 2,3rem (36 px bei 1440) auf
+     3,8rem (61 px) — gut das Anderthalbfache. Damit steht die
+     Gegenueberstellung als eigener Teil im Kasten und klebt nicht mehr
+     unter der Unterzeile. Alle uebrigen Abstaende im Kopf sind unveraendert. */
+  margin-top: clamp(2.4rem, 5vh, 3.8rem);
+  /* SEIT DEM 30.08.2026 OHNE EIGENE FLAECHE. Das Band liegt jetzt IM
+     Kopfkasten (.wi__kopf); eine zweite Flaeche darin waere genau die
+     Mehrzahl von Kaesten, die der Kunde nicht will („alles in EINEM
+     Kasten"). Weggefallen sind deshalb: background #FBF8F5, die Haarlinie
+     rgba(16,41,73,0.06) und der weiche Schatten. Der seitliche Polster
+     faellt mit weg — den traegt jetzt der Kasten. Die Zweispaltigkeit
+     (grid-template-columns) bleibt unveraendert. */
+  padding: 0;
 }
 
-.wi__band-halb { text-align: center; }
+/* ===========================================================================
+   ZWEI WEISSE KAESTEN IM DUNKLEN KASTEN — 30.08.2026
+
+   Kundenwunsch, und er hat die Form ausdruecklich benannt: „wirklich nur
+   abgeschnitten auf den Text, sodass dort ein weisser Kasten noch mal drin
+   ist, der hervorgehoben wird." Also KEIN Band ueber die ganze Spaltenbreite,
+   sondern eine Flaeche, die nur so breit ist, wie ihr Inhalt sie braucht.
+
+   `width: fit-content` leistet genau das, und `margin-inline: auto` stellt
+   die so entstandene Flaeche mittig in ihre Spalte. Die Zeilenmasse der
+   beiden Haelften (22,4em links, 26em rechts) bleiben unangetastet — sie
+   bestimmen jetzt zugleich, wie breit der Kasten wird. `max-width: 100%`
+   ist die Sicherung fuer schmale Fenster: dort darf der Kasten nicht ueber
+   seine Spalte hinauswachsen.
+
+   Der senkrechte Strich zwischen den beiden bleibt.
+
+   MIT DEM WEISSEN GRUND KEHREN DIE URSPRUENGLICHEN SCHRIFTFARBEN ZURUECK.
+   Sie waren am Vormittag auf Hell gestellt worden, weil der Text direkt auf
+   dem Anthrazit stand; auf Weiss waeren sie unlesbar. Gemessen:
+
+     Fliesstext     --wi-grau  #5F6E85 auf #FFFFFF   5,26:1
+     Hervorhebung   --wi-navy  #102949 auf #FFFFFF  14,31:1
+   =========================================================================== */
+.wi__band-halb {
+  text-align: center;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: clamp(1.15rem, 1.8vw, 1.75rem) clamp(1.3rem, 2.1vw, 2rem) clamp(1.3rem, 2vw, 1.9rem);
+}
 
 /* Vorlage: Versalien, Serif, gesperrt, Navy, Versalhoehe 13px → 20px Grad. */
 .wi__band-marke {
@@ -157,7 +271,36 @@
   font-size: clamp(0.85rem, 1.3vw, 1.25rem);    /* 20px bei 1536 */
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--wi-navy);
+
+  /* ===== SANDETIKETT IM FORMAT DES HERO-KNOPFES — 30.08.2026 ============
+     Kundenwunsch: die beiden Kleinzeilen sollen aussehen wie der Knopf
+     „Erstgespräch vereinbaren" im Kopfbereich. Uebernommen sind von
+     `.btn--sand` die Flaeche (--sand #D9B485), die goldene Kante (--gold)
+     und der Knopfradius (--radius-btn, 8px). Die Masse sind kleiner: das
+     hier ist eine Kleinzeile, kein Knopf, und 48 Punkte Mindesthoehe waeren
+     hier ein zweiter Knopf mitten im Text.
+
+     ENTSCHIEDEN UND BEGRUENDET — NAVY STATT WEISS.
+     Der Hero-Knopf traegt WEISSE Schrift auf dieser Sandflaeche und misst
+     damit 1,94:1. Auf einem Knopf hat der Kunde das ausdruecklich so
+     gewollt; dort traegt die Bedienbarkeit ausserdem an Form, Groesse und
+     Lage mit. Hier steht eine Zeile, die GELESEN werden muss, und 1,94:1
+     ist dafuer weit unter jeder Schwelle. Es steht deshalb
+
+       --navy-800 #102949 auf --sand #D9B485    9,08:1
+
+     Die FLAECHE ist dieselbe wie am Knopf, und die traegt den
+     Wiedererkennungswert — die Schriftfarbe faellt daneben kaum auf.
+
+     NICHT MOEGLICH WAERE das Umgekehrte, also Sand als SCHRIFT auf dem
+     weissen Kasten: --sand misst dort 1,94:1, --sand-schrift #B0834A
+     3,39:1. Beide liegen unter 4,5. */
+  display: inline-block;
+  color: var(--navy-800);      /* 9,08:1 auf --sand */
+  background: var(--sand);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-btn);
+  padding: 0.42em 0.95em;
   margin: 0 0 clamp(1.1rem, 2.1vw, 1.95rem);
 }
 
@@ -168,7 +311,7 @@
   font-weight: 400;
   font-size: clamp(0.94rem, 1.24vw, 1.19rem);   /* 19px bei 1536 */
   line-height: 1.65;
-  color: var(--wi-grau);
+  color: var(--wi-grau);       /* 5,26:1 auf dem weissen Kasten */
   margin: 0 auto;
 }
 /* Die Umbrueche stehen so auf der Vorlage: links bricht die erste Zeile
@@ -179,11 +322,13 @@
 .wi__band-text + .wi__band-text { margin-top: 0.42em; }
 .wi__band-text b {
   font-weight: 500;
-  color: var(--wi-navy);
+  color: var(--wi-navy);       /* 14,31:1 auf dem weissen Kasten */
 }
 
-/* Trenner: senkrechte Haarlinie mit dem Kreis darauf.
-   Vorlage: Linie x=768 von y=205 bis y=345, Kreis Mittelpunkt y=281, r=36. */
+/* Trenner: nur noch die senkrechte Haarlinie. Der Kreis mit „VS", der auf
+   der Vorlage darauf sass (Mittelpunkt y=281, r=36), ist am 30.08.2026
+   entfallen. `place-items` und `position: relative` bleiben: die Linie liegt
+   absolut in diesem Kasten. */
 .wi__band-trenn {
   position: relative;
   align-self: stretch;
@@ -197,23 +342,9 @@
   transform: translateX(-50%);
   width: 2px; height: 100%;
 }
-.wi__band-vs {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width:  clamp(48px, 4.7vw, 72px);             /* 72px bei 1536 */
-  height: clamp(48px, 4.7vw, 72px);
-  border-radius: 50%;
-  border: 1px solid var(--wi-haar);
-  background: #FBF8F5;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.05rem, 1.82vw, 1.75rem);   /* 28px bei 1536 */
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--wi-navy);
-  margin: 0;
-}
+/* Die Regel fuer den VS-Kreis (.wi__band-vs) ist am 30.08.2026 ersatzlos
+   entfallen — Kundenwunsch: „nur der senkrechte Strich bleibt". Sie stand
+   hier mit Kreisdurchmesser, Radius, Rand, Flaeche und Schriftgrad. */
 
 /* ---------------------------------------------------------------------------
    4  ZWISCHENKOPF
@@ -330,9 +461,47 @@
        Anzeigebreite 305,9 -> Inhalt 288 breit, 288 hoch.
        Waagrecht auf die Ellipsenmitte 603 zentriert, gerechnet mit der
        Mitte des SICHTBAREN Inhalts bei 50,3 Prozent der Dateibreite. */
-  left: 36.23%;                 /* (603 - 154) / 1240 */
-  width: 24.67%;                /* 305,9 / 1240       */
-  top: -6.1%;                   /* -19,7 / 323        */
+  /* -- 30.08.2026: DAS ALTE HAUS -------------------------------------------
+     Getauscht auf das Haus, das frueher an dieser Stelle stand. Die Datei hat
+     ein anderes Seitenverhaeltnis als die vorige, deshalb sind die drei Werte
+     NEU GERECHNET — mit dem Ziel, dass die sichtbare Flaeche im Feld GENAU
+     dort liegt wie vorher. Nur so bleiben Punkte, Adern und Ring
+     unangetastet.
+
+     ZWEITE FASSUNG am selben Tag: die erste zeigte ein Stadtpalais. Der
+     Kunde: „nicht realistisch, das Haus sieht aus wie eine Villa, wie ein
+     Schloss. Es muss ja aussehen wie ein Wohngebaeude." Jetzt steht dort ein
+     Mehrfamilienhaus mit fuenf Geschossen, durchlaufenden Fensterfluchten
+     und Balkonen. Die Werte unten sind auf diese Datei nachgerechnet.
+
+     Gemessen wurde der Alphakanal-Rahmen beider Dateien (getbbox der
+     undurchsichtigen Bildpunkte), nicht die Dateikante:
+
+       haus.png       1254 x 1254   Rahmen x 40..1221   y  89..1182
+                      Anteile       x 0,03190..0,97368  y 0,07097..0,94258
+       haus-alt-1254  1254 x 1254   Rahmen x 58..1211   y 287..1159
+                      Anteile       x 0,04625..0,96571  y 0,22887..0,92424
+
+     Daraus die Lage der sichtbaren Flaeche in Feldeinheiten (Feld 1240 x 323):
+
+                        vorher                nachher
+       linke Kante      459,01                459,01     unveraendert
+       rechte Kante     747,11                747,11     unveraendert
+       Breite           288,10                288,10     unveraendert
+       Mitte waagrecht  603,06                603,06     = Ellipsenmitte 603
+       Sockelunterkante 268,64                268,64     unveraendert
+       Oberkante          2,01                 50,75
+       Hoehe            266,63                217,89
+
+     Breite und Standlinie stimmen also auf den Hundertstelpunkt. Die HOEHE
+     faellt kleiner aus, weil das Mehrfamilienhaus mit 1,32 : 1 breiter
+     gebaut ist als das vorige mit 1,08 : 1. Beides zugleich geht nicht;
+     massgebend ist die Breite, denn an ihr haengen die beiden Punkte und die
+     Adern. Waere die Hoehe angeglichen worden, waere das Haus 349 statt 288
+     breit geworden und haette die Adern ueberlaufen. */
+  left: 35.848%;                /* 444,52 / 1240  (vorher 36,23 %) */
+  width: 25.269%;               /* 313,34 / 1240  (vorher 24,67 %) */
+  top: -6.489%;                 /* -20,96 / 323   (vorher -6,1 %)  */
   z-index: 2;
 }
 /* Das Haus ist seit dem 25.08.2026 eine erzeugte Abbildung statt einer
@@ -341,6 +510,18 @@
    ist freigestellt und liegt direkt auf dem Navy. `object-fit: contain` haelt
    sie im Rahmen, ohne dass die Lage des Rahmens angetastet werden muesste. */
 .wi__haus picture { display: block; width: 100%; }
+/* Die Strichlage liegt deckungsgleich UEBER dem Foto. Beide Dateien haben
+   dieselbe Leinwand (1254 x 1254) und denselben Massstab; `inset: 0` reicht
+   deshalb aus, es ist nichts auszurichten. */
+.wi__haus-strich {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  /* GRUNDZUSTAND: unsichtbar. Ohne Javascript sieht man nur das Foto. */
+  opacity: 0;
+}
+.wi__haus-strich img { width: 100%; height: auto; display: block; }
 .wi__haus img { width: 100%; height: auto; }
 .wi__haus img { width: 100%; height: auto; object-fit: contain; }
 
@@ -374,12 +555,27 @@
 /* Das Schild. Feldeinheiten: 305 x 43, mittig, y 324..367. */
 .wi__schild {
   position: absolute;
-  left: 50%;
   transform: translateX(-50%);
   /* Pille aus der Vorlage: x 618..904, y 706..749 Bildpunkte — mal 1,058
      sind das 463..766 waagrecht und 277..323 senkrecht. Sie schliesst
      also buendig mit der Unterkante des Feldes ab. */
   top: 85.76%;                  /* 277 / 323  */
+  /* MITTIG UNTER DEM HAUS — 30.08.2026 nachgemessen und berichtigt.
+     Hier stand `left: 50%`. 50 Prozent sind die Mitte des FELDES, also
+     Feldeinheit 620. Das Haus steht aber nicht auf der Feldmitte, sondern
+     auf der ELLIPSENMITTE 603 — und der sichtbare Inhalt seiner Datei liegt
+     nochmals um 1,9 Einheiten anders als der Kasten des Bildes, weil der
+     Alphakanal nicht mittig sitzt (Rahmen x 58..1211 von 1254).
+     Am gerenderten Bild gemessen, Feldbreite 1240:
+
+       Mitte des Hausbildes   601,2 Feldeinheiten
+       Mitte des Hausinhalts  603,1     (Ellipsenmitte, aus dem Alphakanal)
+       Mitte der Pille        620,0  -> 18,8 Punkte zu weit rechts
+       nachher                603,1  ->  0,0
+
+     603,06 / 1240 = 48,634 %. `translateX(-50%)` bleibt und zentriert die
+     Pille auf diesem Punkt. */
+  left: 48.634%;
   width: 24.4%;                 /* 302,6 / 1240 */
   height: 14.09%;               /* 45,5 / 323 */
   z-index: 4;
@@ -412,7 +608,41 @@
      (x 308 -> 349 und 932 -> 891), sonst treffen sie die Karte nicht. */
   /* Kartenmass aus der Vorlage: 275 x 140 Bildpunkte, mal 1,058 sind
      291 x 148 Feldeinheiten. */
-  width: 23.47%;                /* 291 / 1240 */
+
+  /* -- 30.08.2026: VERBREITERUNG NACH AUSSEN --------------------------------
+     Der Kunde hat fotografiert, dass „WERTENTWICKLUNG" aus der Karte 04
+     herauslief. Gemessen (Range-Messung der tatsaechlichen Zeilenbreite
+     gegen die Innenbreite der Wortspalte):
+
+         Fensterbreite   Kartenbreite   Wortspalte   laengste Zeile   Luft
+         1920 / 1440         291,02       135,17         160,78      -23,88
+         1280                276,38       129,91         152,64      -22,73
+         1024                221,09       117,30         133,38      -16,08
+
+     Der Fehlbetrag ist bei jeder Breite dieselbe QUOTE der Feldbreite
+     (23,88 / 1240 = 1,93 %). Die Verbreiterung steht deshalb ebenfalls in
+     Prozent der Feldbreite (cqw) — dann traegt sie bei jeder Breite gleich.
+
+     WICHTIG: die Karte waechst NUR NACH AUSSEN, zum Fensterrand hin.
+     Karte 01/03 bekommt dafuer einen negativen `left`, ihre RECHTE Kante
+     bleibt bei 23,47 % stehen. Karte 02/04 behaelt ihren `left`, ihre
+     LINKE Kante bleibt bei 76,53 / 76,37 % stehen. Genau an diesen beiden
+     Kanten setzen die Verbindungslinien an — Punkt, Ansatz, Laenge und
+     Verlauf im Adern-SVG bleiben dadurch unberuehrt.
+
+     Die Hoehe bleibt bei 45,8 %.
+
+     Der `min()`-Ausdruck deckelt die Verbreiterung am verfuegbaren
+     Seitenrand: (100vw - Feldbreite) / 2 ist der Rand links wie rechts,
+     davon bleiben --wi-aus-rand Punkte Luft zum Fensterrand stehen.
+     Unterhalb von 1240 Fensterpunkten ist dieser Rand die 4vw-Polsterung
+     der Seite; darueber greift der Deckel nicht mehr.
+     `100cqw` ist die Breite von .wi__feld — die Karte liegt darin, also
+     rechnet cqw hier gegen das Feld. */
+  --wi-aus-rand: 14px;
+  --wi-aus: min(3.6cqw, max(0px, (100vw - 100cqw) / 2 - var(--wi-aus-rand)));
+
+  width: calc(23.47% + var(--wi-aus));   /* 291 / 1240 plus Verbreiterung */
   /* Am 25.08.2026 von 40 auf 46 Prozent erhoeht: bei „Wertentwicklung“ lief
      der Text aus der Karte. 46 Prozent von 385 sind 177 statt 154
      Feldeinheiten. Die BREITE bleibt unangetastet — sie haengt an den
@@ -439,9 +669,12 @@
 /* Lagen aus der Vorlage, bezogen auf deren Kartenrechteck (x 180, y 444):
    oben links 0/0, oben rechts 897/3, unten links 1/166, unten rechts 895/166
    Bildpunkte — mal 1,058 und in Prozent des Feldes. */
-.wi__karte--01 { left: 0;      top: 0; }
+/* Links waechst die Karte nach LINKS heraus (negativer left, rechte Kante
+   bleibt bei 23,47 %), rechts nach RECHTS (left bleibt, die Breite waechst).
+   So bleiben genau die beiden Kanten stehen, an denen die Adern ansetzen. */
+.wi__karte--01 { left: calc(0px - var(--wi-aus)); top: 0; }
 .wi__karte--02 { left: 76.53%; top: 0.99%; }
-.wi__karte--03 { left: 0;      top: 54.36%; }
+.wi__karte--03 { left: calc(0px - var(--wi-aus)); top: 54.36%; }
 .wi__karte--04 { left: 76.37%; top: 54.36%; }
 
 /* Der Navyrahmen markiert den angetippten Punkt — so wie auf der aktiven
@@ -706,7 +939,16 @@
   .wi__adern { display: none; }
 
   .wi__haus {
-    position: static;
+    /* `relative` statt `static` — die Strichlage darueber liegt absolut mit
+       `inset: 0` und braucht diesen Kasten als Bezug. Bei `static` rechnete
+       sie gegen den naechsten positionierten Vorfahren und lag schief
+       (gemessen bei 390 px: 350 x 759 statt 252 x 252).
+       Weil `relative` die Werte aus dem Grundsatz oben wieder wirksam
+       machen wuerde, sind `left` und `top` ausdruecklich zurueckgesetzt —
+       sonst verschoebe sich das Haus um 35,8 % nach rechts. */
+    position: relative;
+    left: auto;
+    top: auto;
     width: min(340px, 72%);
     margin: 0 auto;
   }
@@ -792,14 +1034,19 @@
     justify-items: center;
     padding: clamp(1.4rem, 5vw, 2rem) clamp(1rem, 4vw, 1.6rem);
   }
+  /* Einspaltig steht die Trennung nicht mehr senkrecht. Bis heute trug der
+     VS-Kreis diese Stelle; ohne ihn waere der Kasten hier ohne jede
+     Zaesur. Statt dessen eine WAAGERECHTE Haarlinie in derselben Farbe wie
+     die senkrechte — dasselbe Zeichen, nur gedreht. */
   .wi__band-trenn {
-    width: 100%;
-    height: auto;
-    padding: clamp(1rem, 4vw, 1.5rem) 0;
+    width: min(58%, 220px);
+    height: 1px;
+    padding: 0;
+    margin: clamp(1.6rem, 6vw, 2.4rem) auto;
+    background: rgba(237, 241, 248, 0.26);
   }
   .wi__band-linie { display: none; }
   .wi__band-marke { margin-bottom: clamp(0.8rem, 3vw, 1.2rem); }
-  .wi__band-vs { width: 54px; height: 54px; font-size: 1.15rem; }
 
   .wi__reiter ol { flex-wrap: wrap; gap: 0.2rem 0; padding-top: 0.9rem; }
   .wi__reiter li { flex: 1 1 46%; justify-content: flex-start; padding: 0.35rem 0; }
@@ -866,4 +1113,188 @@
   /* Ueber dem Haus (z-index 2), aber unter den Karten (3) und der Pille (4). */
   z-index: 2;
   pointer-events: none;
+}
+
+
+/* ===========================================================================
+   DIE ZEICHNUNG — „zeichnet sich das Haus zuerst und dann entsteht das"
+   30.08.2026, Kundenwunsch. Eine Geste fuer den ganzen Abschnitt, nicht fuenf.
+
+   ---------------------------------------------------------------------
+   WAS PASSIERT, IN DER REIHENFOLGE
+   ---------------------------------------------------------------------
+     0     ms   die vier Adern und der Ring beginnen sich zu ziehen,
+                jede Linie um 120 ms versetzt (--d aus site.js)
+     200   ms   ueber der Strichzeichnung des Hauses laeuft eine Maske mit
+                weicher Kante von unten nach oben — das Haus entsteht Zug
+                um Zug, von der Sockelplatte bis zum First
+     1450  ms   die Zeichnung steht. Das Foto blendet auf, die Striche
+                gehen weg — aus der Zeichnung wird das Gebaeude
+     1900  ms   die vier Kaesten und das Schild laufen nach, um 90 ms
+                gestaffelt
+     2550  ms   fertig, und dann steht es. Es laeuft EINMAL.
+
+   ---------------------------------------------------------------------
+   WARUM EINE MASKE UND KEIN PFAD
+   ---------------------------------------------------------------------
+   Ein echtes Nachzeichnen braucht Pfade und `stroke-dashoffset`. Die
+   Zeichnung liegt aber als Rasterbild vor (haus-strich.webp/.png), nicht
+   als SVG — es gibt also keine Pfade. Statt dessen laeuft eine Maske
+   darueber: `mask-position` wandert, die Kante wandert mit, und was hinter
+   ihr liegt, ist sichtbar. Fuer das Auge ist das dasselbe.
+
+   DIE RECHNUNG ZUR MASKE, damit sie am Anfang WIRKLICH nichts und am Ende
+   WIRKLICH alles zeigt:
+     Maskenkasten  340 % der Bildhoehe H, also 3,4H
+     Verlauf       von unten: deckend bis 34 %, durchsichtig ab 38 %
+                   der deckende Teil ist damit 0,34 x 3,4H = 1,156 H hoch,
+                   also HOEHER als das Bild — das ist die Bedingung, sonst
+                   kann er es am Ende nicht vollstaendig decken
+     Anfang  mask-position-y = 0 %    -> Kasten [0, 3,4H], deckend ab 2,244H
+                                         das Bild reicht nur bis H: nichts
+     Ende    mask-position-y = 100 %  -> Versatz 100 % x (H - 3,4H) = -2,4H
+                                         Kasten [-2,4H, H], deckend ab -0,156H
+                                         das ganze Bild liegt im Deckenden
+
+   HIER LAG EIN FEHLER, berichtigt am 30.08.2026. Zuerst standen 300 % und
+   eine Kante bei 31 %: der deckende Teil war damit 0,93 H hoch, also
+   NIEDRIGER als das Bild. Am Ende blieben die obersten sieben Prozent
+   ungezeichnet — genau der Dachfirst. Aufgefallen ist es nicht, weil die
+   Strichlage unmittelbar danach ausblendet und das Foto uebernimmt; die
+   Zeichnung lief aber nie ganz zu Ende. Die Bedingung lautet:
+   Kastenhoehe x Kantenanteil >= 1.
+
+   ---------------------------------------------------------------------
+   DIE DREI BEDINGUNGEN
+   ---------------------------------------------------------------------
+   OHNE JAVASCRIPT ist alles sofort da. Jeder Anfangszustand haengt an
+   `.is-ready`, und die Klasse setzt erst site.js. Ohne Skript steht das
+   Foto, die Strichlage ist unsichtbar (opacity 0 als Grundzustand), und
+   `stroke-dasharray: var(--len)` ist ungueltig, weil --len fehlt — die
+   Linien stehen also voll gezeichnet da.
+
+   NUR `transform`, `opacity` und `mask` — dazu `stroke-dashoffset`, das
+   fuer eine Linie das einzige Mittel ist. Keine Bewegung auf `width`,
+   `height`, `top`, `left`, `filter` oder `box-shadow`.
+
+   KEIN SCROLL-HORCHER. Der Ausloeser ist der IntersectionObserver, den
+   site.js ohnehin fuehrt; er setzt data-seen einmal und hoert dann auf.
+   Wer schnell durchscrollt, sieht die Geste trotzdem vollstaendig — sie
+   haengt nach dem Ausloesen nicht mehr am Scrollstand.
+
+   BEI `reduce` steht alles sofort im Endzustand, ohne Ausnahme. Der Block
+   dazu steht ganz unten in dieser Datei.
+   =========================================================================== */
+
+/* Das Feld holt sich nur den Ausloeser, nicht den siteweiten Einlauf.
+   leistungen.css setzt `[data-reveal] { opacity: 0; transform: translateY(16px) }`
+   fuer die ganze Seite — das waere genau das Einblenden, das der Kunde
+   langweilig findet. Hier abgeschaltet. */
+.wi__feld[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* --- Die Adern und der Ring ziehen sich ---------------------------------- */
+/* --len und --d schreibt site.js an jeden Pfad. Fehlen sie (kein Skript),
+   ist die Angabe ungueltig und die Linie steht fertig gezeichnet da. */
+.wi__adern path,
+.wi__ring-vorn path {
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+}
+.wi__feld[data-seen='true'] .wi__adern path,
+.wi__feld[data-seen='true'] .wi__ring-vorn path {
+  animation: wi-ader 1000ms var(--ease-soft) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+/* Die goldenen Anschlusspunkte setzen erst auf, wenn ihre Ader angekommen ist. */
+.is-ready .wi__adern circle { opacity: 0; }
+.is-ready .wi__feld[data-seen='true'] .wi__adern circle {
+  animation: wi-punkt 420ms var(--ease-soft) 900ms forwards;
+}
+
+/* --- Das Haus: erst die Zeichnung, dann das Gebaeude ---------------------- */
+.wi__haus-strich {
+  --wi-strich-maske: linear-gradient(to top,
+      #000 0, #000 34%, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: var(--wi-strich-maske);
+          mask-image: var(--wi-strich-maske);
+  -webkit-mask-size: 100% 340%;
+          mask-size: 100% 340%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: 0% 0%;
+          mask-position: 0% 0%;
+}
+/* Erst mit Skript verschwindet das Foto ueberhaupt. */
+.is-ready .wi__haus-foto { opacity: 0; }
+.is-ready .wi__haus-strich { opacity: 1; }
+
+.is-ready .wi__feld[data-seen='true'] .wi__haus-strich {
+  animation:
+    wi-strich-lauf 1250ms 200ms linear both,
+    wi-strich-weg   600ms 1450ms var(--ease-soft) forwards;
+}
+.is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
+  animation: wi-foto-ein 700ms 1450ms var(--ease-soft) both;
+}
+
+/* --- Die vier Kaesten und das Schild laufen nach -------------------------- */
+.is-ready .wi__karte,
+.is-ready .wi__schild { opacity: 0; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte,
+.is-ready .wi__feld[data-seen='true'] .wi__schild {
+  animation: wi-nachlauf 620ms var(--ease-soft) both;
+}
+.is-ready .wi__feld[data-seen='true'] .wi__schild            { animation-delay: 1900ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--01 { animation-delay: 1990ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--02 { animation-delay: 2080ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--03 { animation-delay: 2170ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--04 { animation-delay: 2260ms; }
+
+@keyframes wi-ader        { to   { stroke-dashoffset: 0; } }
+@keyframes wi-punkt       { from { opacity: 0; transform: scale(0.6); }
+                            to   { opacity: 1; transform: none; } }
+@keyframes wi-strich-lauf { from { -webkit-mask-position: 0% 0%;   mask-position: 0% 0%; }
+                            to   { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; } }
+@keyframes wi-strich-weg  { to   { opacity: 0; } }
+@keyframes wi-foto-ein    { from { opacity: 0; transform: scale(0.985); }
+                            to   { opacity: 1; transform: none; } }
+@keyframes wi-nachlauf    { from { opacity: 0; transform: translateY(12px); }
+                            to   { opacity: 1; transform: none; } }
+
+/* Der Punkt sitzt im SVG-Koordinatenfeld; ohne diese Zeile drehte die
+   Verkleinerung um die linke obere Ecke des ganzen Bildes statt um den
+   Punkt selbst. */
+.wi__adern circle { transform-box: fill-box; transform-origin: center; }
+
+/* ===========================================================================
+   OHNE BEWEGUNG — ALLES SOFORT IM ENDZUSTAND. KEINE AUSNAHME.
+   =========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .wi__adern path,
+  .wi__ring-vorn path {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .is-ready .wi__adern circle,
+  .is-ready .wi__feld[data-seen='true'] .wi__adern circle,
+  .is-ready .wi__karte,
+  .is-ready .wi__schild,
+  .is-ready .wi__feld[data-seen='true'] .wi__karte,
+  .is-ready .wi__feld[data-seen='true'] .wi__schild,
+  .is-ready .wi__haus-foto,
+  .is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .is-ready .wi__haus-strich,
+  .is-ready .wi__feld[data-seen='true'] .wi__haus-strich {
+    opacity: 0;
+    animation: none;
+  }
 }

@@ -25,10 +25,18 @@
    992 px); hier steht wie ueberall im Projekt clamp(), die Endwerte oben und
    unten treffen aber die gemessenen Stufen.
 
-   ES GIBT KEINE ANIMATION AUSSER DEN ZWEI LAUFBAENDERN.
-   Die Vorlage bewegt nichts weiter: kein Einfliegen, kein Parallax, keine
-   klebende Kopfleiste, kein gestalteter Hover. Wer hier Scroll-Animationen
-   einbaut, trifft den Charakter nicht.
+   BEWEGUNG — DIESER PUNKT HAT SICH AM 30.08.2026 GEDREHT.
+   Bis dahin stand hier: „Es gibt keine Animation ausser den zwei
+   Laufbaendern. Die Vorlage bewegt nichts weiter — wer hier
+   Scroll-Animationen einbaut, trifft den Charakter nicht." Das galt,
+   solange die Vorlage der Massstab war. Der Kunde hat am 30.08.2026
+   ausdruecklich das Gegenteil verlangt („viel, viel, viel mehr
+   Animationen ... wirklich besondere Animationen"), und damit tritt der
+   Charakter der Vorlage an dieser einen Stelle hinter den Auftrag zurueck.
+   Er bleibt aber der Massstab fuer das WIE: kein Zoom beim Ueberfahren,
+   pro Abschnitt genau eine tragende Geste, nichts lauter als noetig.
+   Was jetzt hier steht, warum und mit welchen Zahlen: siehe den Abschnitt
+   „Bewegung" am Ende dieser Datei.
    =========================================================================== */
 
 .stl {
@@ -37,8 +45,15 @@
      Trennlinie, ohne Schatten: #336079 (Leitfarbe), #FFFFFF, #EBECED.
      Hier: Navy als Leitfarbe, Weiss, Creme.                              */
   --stl-navy:  var(--navy-800);      /* #102949 */
-  --stl-weiss: #FFFFFF;
-  --stl-creme: var(--paper-cool);    /* #F3F5F8 */
+  --stl-weiss: var(--fl-weiss);      /* #FFFFFF */
+  --stl-creme: var(--fl-creme);      /* #F7F3F0 — der warme zweite Hellton
+                                        aus dem Flaechenblock von base.css.
+                                        Bis zum 30.08.2026 stand hier
+                                        --paper-cool (#F3F5F8); die beiden
+                                        Werte, zwischen denen die hellen
+                                        Abschnitte laufen, muessen dieselben
+                                        sein, die base.css fuer die
+                                        Flaechenverlaeufe nennt. */
 
   /* Schrift auf Navy. Reines Weiss fuer Ueberschriften, leicht
      zurueckgenommen fuer Fliesstext — beides misst gegen #102949 ueber
@@ -55,13 +70,21 @@
 
   /* --- Abschnittsluft ---------------------------------------------------
      Regelwert der Vorlage ist 100 px oben und unten (bei 1920, also
-     5,21 vw). Die uebrigen Werte sind ebenso gemessen.                   */
-  --stl-luft-100: clamp(48px, 5.21vw, 100px);
-  --stl-luft-109: clamp(56px, 5.68vw, 109px);  /* Abschnitte 8+9 zusammen */
-  --stl-luft-80:  clamp(40px, 4.17vw, 80px);
-  --stl-luft-70:  clamp(34px, 3.65vw, 70px);
-  --stl-luft-65:  clamp(32px, 3.39vw, 65px);
-  --stl-luft-60:  clamp(36px, 3.13vw, 60px);
+     5,21 vw). Die uebrigen Werte sind ebenso gemessen.
+
+     AUSSEN WEITER, INNEN ENGER — 30.08.2026.
+     Der Kunde nennt die beiden Stellenseiten langweilig. Ein messbarer
+     Anteil daran: aussen und innen stand ueberall dasselbe Mass, damit
+     liest sich die Seite als Aufzaehlung, nicht als Gestaltung. Die
+     Abschnittsluft steigt deshalb um Faktor 1,3 (Regelwert 100 -> 130 px
+     bei 1920), die Innenabstaende sinken im Gegenzug (Haken 40 -> 28,
+     Punkt 20 -> 16). Die Vorlagenzahl steht jeweils daneben.           */
+  --stl-luft-130: clamp(56px, 6.77vw, 130px);  /* Vorlage 100 (Regelwert) */
+  --stl-luft-104: clamp(48px, 5.42vw, 104px);  /* Vorlage 80              */
+  --stl-luft-91:  clamp(44px, 4.74vw, 91px);   /* Vorlage 70              */
+  --stl-luft-85:  clamp(40px, 4.43vw, 85px);   /* Vorlage 65              */
+  --stl-luft-60:  clamp(36px, 3.13vw, 60px);   /* Kopfbereich, unveraendert */
+
 
   /* --- Spaltenabstaende, gemessen --------------------------------------- */
   --stl-spalt-100: clamp(40px, 5.21vw, 100px);  /* Abschnitt 3            */
@@ -77,10 +100,21 @@
        20 px Kachel-/Punkttitel-> bis 1.49rem (24 px)
        20 px Fliesstext gross  -> bis 1.49rem (24 px)
        16 px Fliesstext        -> bis 1.19rem (19 px)
-       14 px Fliesstext klein  -> bis 1.04rem (17 px)                     */
+       14 px Fliesstext klein  -> bis 1.04rem (17 px)
+
+     GROESSERER SPRUNG UEBERSCHRIFT -> FLIESSTEXT, 30.08.2026.
+     Gemessen war der Abstand zwischen Abschnittsueberschrift und
+     Fliesstext hier 38 : 19 px = Faktor 2,0 — genau der Wert der Vorlage
+     (32 : 16). Der Kunde will mehr Unterschied. Die Ueberschriften
+     steigen deshalb, der Fliesstext bleibt, wo er ist (kleiner setzen
+     hiesse Lesbarkeit gegen Wirkung tauschen):
+       grosse Ueberschrift  57 -> 64 px   gegen 19 px Fliesstext = 3,4
+       Abschnittsueberschr. 38 -> 48 px   gegen 19 px Fliesstext = 2,5
+     3,4 ist der Faktor, mit dem die Vorlage bei ihrer groessten
+     Ueberschrift arbeitet (48 px gegen 14 px Fliesstext).              */
   --stl-t-h1:     clamp(1.75rem, 3.75vw, 4.50rem);
-  --stl-t-gross:  clamp(2.10rem, 2.97vw, 3.55rem);
-  --stl-t-h2:     clamp(1.75rem, 1.98vw, 2.38rem);
+  --stl-t-gross:  clamp(2.30rem, 3.33vw, 4.00rem);
+  --stl-t-h2:     clamp(1.95rem, 2.50vw, 3.00rem);
   --stl-t-punkt:  clamp(1.35rem, 1.36vw, 1.63rem);
   --stl-t-titel:  clamp(1.25rem, 1.24vw, 1.49rem);
   --stl-t-gross2: clamp(1.19rem, 1.24vw, 1.49rem);
@@ -110,7 +144,37 @@
   margin-inline: auto;
 }
 
-/* --- Abschnitte ------------------------------------------------------- */
+/* --- Abschnitte -------------------------------------------------------
+   DER FLAECHENRHYTHMUS DER SEITE — 30.08.2026, gemessen.
+
+   Am 29.08.2026 hatte der Kunde vier Abschnitte von der Leitfarbe auf
+   Weiss gezogen. Danach gemessen: Weiss 70,3 %, dunkel 29,6 %, und nach
+   Band B liefen 1607 px am Stueck hell bis zum Fuss; die laengste helle
+   Strecke ueberhaupt war 2015 px. Genau das meint der Kunde, wenn er die
+   Seite langweilig nennt — der Hell-Dunkel-Wechsel, der die uebrige
+   Website traegt, war weg.
+
+   Zurueckgedreht wird nicht. Statt dessen wechselt die Seite jetzt
+   siebenmal zwischen hell und dunkel, und die hellen Abschnitte laufen
+   dabei ueber ihre eigene Hoehe von einem Hellton in den anderen:
+
+     Kopf                Video + Navy-Schleier      Leuchtdichte 0,04
+     Was wir bieten      Weiss  -> Creme                         0,89
+     Band A              Fotos auf Creme                         0,20
+     Das macht dich aus  Creme  -> Weiss                         0,89
+     Band B              Fotos auf Navy                          0,14
+     Das erwartet dich   Weiss  -> Creme                         0,86
+     Abschluss           Navy-900                                0,02
+     Fuss                Navy-900 (unveraendert)                 0,01
+
+   Die beiden Laufbaender sind KEINE hellen Streifen: ihre Fotos sind am
+   Bildpunkt gemessen dunkel (0,20 und 0,14 gegen 0,89 der hellen
+   Flaechen). Sie tragen den Wechsel in der Seitenmitte mit, und deshalb
+   laeuft keine helle Strecke laenger als eine Bildschirmhoehe.
+
+   Die Kanten zwischen Navy und Hell bleiben hart — Entscheidung des
+   Kunden vom 30.08.2026, Begruendung im Verlaufsblock weiter unten.
+   Die Messwerte stehen im Bericht vom 30.08.2026.                       */
 .stl-abs { position: relative; }
 
 /* Jede Flaeche setzt ihre eigenen vier Textwerte. Damit tragen dieselben
@@ -128,24 +192,120 @@
   --stl-tx-leise: rgba(255, 255, 255, 0.74);  /*  8,3:1 */
   --stl-linie:    rgba(255, 255, 255, 0.20);
   --stl-zeichen:  var(--sand);                /*  7,55:1 auf Navy */
+  --stl-ziffer:   var(--sand);                /*  7,54:1 auf Navy */
 }
-.stl-abs--weiss {
-  background: var(--stl-weiss);
+/* EIN Tokensatz fuer alle hellen Abschnitte. Bis zum 30.08.2026 gab es
+   --weiss und --creme getrennt; seit die hellen Abschnitte ueber ihre
+   volle Hoehe von einem Hellton in den anderen laufen, gibt es keinen
+   Abschnitt mehr, der nur das eine oder nur das andere ist. Alle Werte
+   sind deshalb gegen den DUNKLEREN der beiden Toene gerechnet, also
+   gegen Creme #F7F3F0 — auf Weiss stehen sie durchweg besser.
+
+   background-color, NICHT background: die Kurzform wuerde das
+   Verlaufsbild der .fl-*-Klasse aus base.css loeschen. */
+.stl-abs--hell {
+  background-color: var(--stl-weiss);
   color: var(--ink-soft);
-  --stl-tx:       var(--navy-800);   /* 15,5:1 auf Weiss */
-  --stl-tx-weich: var(--ink-soft);   /*  6,54:1 */
-  --stl-tx-leise: var(--ink-mute);   /*  5,20:1 */
+  --stl-tx:       var(--navy-800);   /* 13,3:1 auf Creme, 15,5:1 auf Weiss */
+  --stl-tx-weich: var(--ink-soft);   /*  5,93:1 / 6,54:1 */
+  --stl-tx-leise: var(--ink-mute);   /*  4,69:1 / 5,20:1 */
   --stl-linie:    var(--line);       /* rgba(16,41,73,0.16) */
-  --stl-zeichen:  var(--gold);       /*  3,36:1 — Grafik, nicht Schrift */
+  --stl-zeichen:  var(--gold);       /*  3,05:1 — Grafik, nicht Schrift */
+  /* Die Ziffer ist SCHRIFT und braucht 4,5:1. Sand misst auf Weiss
+     1,94:1 und faellt damit aus; --gold-text traegt 4,65:1 auf Creme und
+     5,13:1 auf Weiss und ist im Farbblock von base.css genau dafuer
+     vorgesehen. */
+  --stl-ziffer:   var(--gold-text);
 }
-.stl-abs--creme {
-  background: var(--stl-creme);
-  color: var(--ink-soft);
-  --stl-tx:       var(--navy-800);
-  --stl-tx-weich: var(--ink-soft);
-  --stl-tx-leise: var(--ink-mute);
-  --stl-linie:    var(--line);
-  --stl-zeichen:  var(--gold);
+
+/* ===========================================================================
+   WEICHE FARBUEBERGAENGE — Kundenwunsch 30.08.2026, dritter Anlauf
+
+   HIER STEHT KEINE EIGENE RECHNUNG MEHR. Die vier Bausteine liegen in
+   base.css (.fl-navy900, .fl-navy800, .fl-creme-nach-weiss,
+   .fl-weiss-nach-creme), diese Datei setzt sie nur ein.
+
+   WAS DIE ZWEI VERWORFENEN ANLAEUFE FALSCH GEMACHT HABEN. Beide legten
+   eine BLENDE zwischen zwei Abschnitte — erst 96 px, dann 234 px hoch.
+   Der Kunde hat beide verworfen, und die Nachrechnung gibt ihm recht:
+   zwischen Navy und Weiss liegen rund 245 Einheiten, ueber 96 px sind das
+   2,55 Einheiten je Bildpunkt, ueber 234 px noch 1,05. Der Massstab, den
+   der Kunde nennt, ist der Kasten der FAQ: 22 Einheiten ueber 1100 px,
+   also 0,020 je Bildpunkt. Die zweite Blende war fuenfzigmal steiler.
+
+   DER WEG, DER TRAEGT: keine Blende. Jeder helle Abschnitt traegt seinen
+   Verlauf ueber die EIGENE volle Hoehe und endet auf der Farbe seiner
+   Nachbarin. Es gibt dann keine Naht, an der etwas weich werden muesste.
+   Auf dieser Seite:
+
+     Was wir bieten      Weiss  -> Creme   (.fl-weiss-nach-creme)
+     Band A              Creme            — der Grund beider Nachbarn
+     Das macht dich aus  Creme  -> Weiss   (.fl-creme-nach-weiss)
+     Band B              Navy             — bleibt, wie es war
+     Das erwartet dich   Weiss  -> Creme   (.fl-weiss-nach-creme)
+
+   Zwischen Creme (#F7F3F0) und Weiss liegen 15 Einheiten. Ueber 790 bis
+   1050 px Abschnittshoehe sind das 0,014 bis 0,019 Einheiten je
+   Bildpunkt — im Bereich des FAQ-Kastens und weit unter der Grenze von
+   0,03. Gemessen am gerenderten Bild, die Werte stehen im Bericht.
+
+   NAVY GEGEN HELL BEKOMMT GAR KEINEN UEBERGANG. Entscheidung des Kunden
+   vom 30.08.2026. 245 Einheiten sind auf keiner Strecke unauffaellig
+   unterzubringen; dort steht eine saubere Kante. Das betrifft auf diesen
+   Seiten: die Unterkante des Kopfvideos, die vier Kanten der beiden
+   Laufbaender und die Oberkante des Abschlusses.
+
+   WICHTIG FUER SPAETERE AENDERUNGEN: die hellen Abschnitte duerfen ihre
+   Flaeche nicht mehr ueber die Kurzform `background` setzen — die loescht
+   das Verlaufsbild aus base.css, weil base.css frueher geladen wird.
+   .stl-abs--hell setzt deshalb nur background-color als Rueckfall.
+   =========================================================================== */
+
+/* ===========================================================================
+   KLEINZEILE MIT ZIFFER — 30.08.2026
+
+   „Sand als Akzent zurueckholen — Kleinzeilen, Ziffern, feine
+   Trennlinien." Auf der Startseite ist das die Handschrift des Projekts;
+   auf den Stellenseiten fehlte sie fast ganz.
+
+   Aufbau: Ziffer — Haarstrich — Wort, alles in Versalien und gesperrt wie
+   der .kicker aus base.css. Die Ziffer und der Strich tragen den Akzent
+   (Sand auf Navy 7,54:1, --gold-text auf Weiss 5,13:1 und auf Creme
+   4,69:1), das Wort steht leise daneben.
+   Sand als Schrift auf Weiss waere 1,94:1 und ist deshalb dort nicht im
+   Einsatz — dafuer steht --gold-text im Farbblock von base.css.
+   =========================================================================== */
+.stl-kleinzeile {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.80rem, 0.86vw, 0.95rem);
+  line-height: 1.4;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--stl-tx-leise);
+  margin: 0 0 clamp(14px, 1.15vw, 22px);
+}
+.stl-kleinzeile--mitte { justify-content: center; }
+
+.stl-kleinzeile__num {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  flex: none;
+  color: var(--stl-ziffer);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+}
+/* Der Haarstrich hinter der Ziffer — dieselbe Farbe, halbe Deckkraft. */
+.stl-kleinzeile__num::after {
+  content: '';
+  width: clamp(20px, 1.7vw, 32px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 /* --- Ueberschriften ---------------------------------------------------
@@ -321,7 +481,7 @@
    Vorlage: zwei Spalten 575/575, Abstand 100 px. Innenabstand 65 oben,
    100 unten.
    =========================================================================== */
-.stl-bieten { padding: var(--stl-luft-65) 0 var(--stl-luft-100); }
+.stl-bieten { padding: var(--stl-luft-85) 0 var(--stl-luft-130); }
 
 .stl-zwei { display: grid; }
 .stl-zwei > * { min-width: 0; }
@@ -332,11 +492,28 @@
 
 /* Trennlinie unter der Ueberschrift. Vorlage: volle Spaltenbreite, 2 px
    stark, Feld 52 px hoch. Dort fast schwarz auf der Leitfarbe; hier in der
-   Haarlinienfarbe der jeweiligen Flaeche. */
+   Haarlinienfarbe der jeweiligen Flaeche.
+
+   FEINE TRENNLINIE STATT BALKEN — 30.08.2026. Aus dem 2 px starken
+   Balken ueber die volle Spaltenbreite wird eine Haarlinie mit einem
+   kurzen Akzentstueck in der Mitte: derselbe Sand- bzw. Goldstrich, den
+   die Startseite an ihren Abschnittsanfaengen fuehrt. */
 .stl-trenn {
-  height: 2px;
+  position: relative;
+  height: 1px;
+  width: min(100%, 520px);
   background: var(--stl-linie);
-  margin: 20px 0 30px;
+  margin: clamp(16px, 1.3vw, 24px) auto clamp(22px, 1.9vw, 36px);
+}
+.stl-trenn::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: clamp(48px, 4.2vw, 80px);
+  height: 3px;
+  transform: translateX(-50%);
+  background: var(--stl-zeichen);
 }
 
 /* Die sechs Punkte. Vorlage: Abstand zwischen den Punkten 40 px,
@@ -345,17 +522,31 @@
 
    ZWEI ABWEICHUNGEN, KUNDENWUNSCH VOM 29.08.2026:
    1. Die Punkte stehen MITTIG unter der Ueberschrift, nicht linksbuendig.
-      Zentriert wird das Paar aus Symbol und Text; der Text selbst bleibt
-      linksbuendig, damit umbrechende Punkte nicht ausfransen.
+      Zentriert wird die LISTE ALS BLOCK (width: fit-content, margin-inline:
+      auto), nicht jede Zeile fuer sich.
+      NACHGEBESSERT AM 30.08.2026: bis dahin war jede Zeile einzeln
+      zentriert. Die sechs Punkte sind unterschiedlich lang, also stand
+      jedes Haus an einer anderen Stelle — bei 1024 px war die Treppe ueber
+      52 px breit und las sich wie ein Versehen. Als Block zentriert stehen
+      alle Haeuser auf einer Senkrechten, und der Block sitzt weiter mittig
+      unter der Ueberschrift. Beides zusammen geht nicht.
    2. Aus dem gefuellten Kreis mit Haken wird ein HAUS als reine
       Strichzeichnung — dieselbe Handschrift wie die uebrigen Symbole des
       Projekts. Ohne Fuellung, weil auf Weiss eine Sandflaeche nur 1,94:1
       traegt und der Kreis dort ausfranst; die Strichzeichnung in Gold
       misst 3,36:1 und ist als Grafik damit ausreichend. */
-.stl-haken { display: grid; gap: 40px; }
+.stl-haken {
+  display: grid;
+  /* Vorlage 40 px. Enger seit dem 30.08.2026 — die Abschnittsluft aussen
+     ist im Gegenzug gestiegen (siehe Farbblock oben). */
+  gap: clamp(18px, 1.46vw, 28px);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
 .stl-haken li {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 12px;
   text-align: left;
@@ -382,9 +573,16 @@
    Bewusst LEER: kein Bild, kein Symbol, keine Flaeche, kein Verlauf. Nur
    eine Haarlinie und ein Radius, damit man sieht, dass hier etwas fehlt.
    Verhaeltnis 4:5 hochkant; es entspricht ungefaehr der Hoehe der linken
-   Spalte, damit die beiden Spalten zusammen stehen. */
+   Spalte, damit die beiden Spalten zusammen stehen.
+
+   VERHAELTNIS 1:1 SEIT DEM 30.08.2026. Es war 4:5 hochkant und
+   entsprach damit ungefaehr der Hoehe der linken Spalte. Seit die
+   Punktliste enger steht, ist die linke Spalte kuerzer — ein 4:5-Fenster
+   wuerde den Abschnitt allein in die Laenge ziehen und die helle Strecke
+   bis ans Ende von Band A ueber die Bildschirmhoehe treiben. Quadratisch
+   sitzt es wieder auf der Hoehe der Liste. */
 .stl-platz {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   width: 100%;
   border: 1px solid var(--stl-linie);
   border-radius: var(--radius-img);
@@ -432,7 +630,11 @@
   overflow: hidden;
   line-height: 0;               /* sonst setzt der Zeilenkasten eine Fuge */
 }
-.stl-band--a { --stl-band-h: 355px; --stl-band-dauer: 41.4333s; background: var(--stl-weiss); }
+/* Grundflaeche von Band A seit dem 30.08.2026 Creme statt Weiss — der
+   Abschnitt darueber ist Creme, damit gibt es dort keine Kante. Sichtbar
+   ist der Grund ohnehin nie: die Spur ist drei Satzbreiten (7455 px)
+   breit und deckt jede Fensterbreite lueckenlos. */
+.stl-band--a { --stl-band-h: 355px; --stl-band-dauer: 41.4333s; background: var(--fl-creme); }
 .stl-band--b { --stl-band-h: 277px; --stl-band-dauer: 45.6833s; background: var(--stl-navy); }
 
 /* Kantenmaske nur bei B. Die Vorlage setzt dort
@@ -471,9 +673,24 @@
 }
 .stl-band__satz { display: flex; flex: none; }
 
+/* DIE PHASE IST AM 30.08.2026 UM EINEN SATZ VERSCHOBEN WORDEN — von
+   0 → −33,3333 % auf −33,3333 % → −66,6667 %. Weg, Dauer und Tempo sind
+   dabei Zahl für Zahl dieselben (eine Satzbreite in derselben Zeit, also
+   unverändert 60,0 px/s), und weil alle drei Sätze wortgleiche Kopien
+   sind, ist auch das Bild in jedem Augenblick dasselbe.
+
+   WOZU DANN? Der Anlauf des Bandes (siehe Abschnitt „Bewegung" weiter
+   unten) schiebt die Sätze in den ersten 1,6 s um 48 px gegen die
+   Laufrichtung. In der alten Phase stand die Spur am Anfang bündig am
+   linken Rand des Kastens — die 48 px hätten dort eine sichtbare Lücke
+   aufgerissen. In der neuen Phase liegt vor UND hinter dem Fenster immer
+   mindestens eine volle Satzbreite (2486 bzw. 2741 px) Reserve; 48 px
+   davon aufzubrauchen ist folgenlos. Nachgerechnet für 1920 px Fenster:
+   die schmalste Deckung ist 2486 − 48 = 2438 px und damit größer als
+   jedes geprüfte Fenster. */
 @keyframes stl-lauf {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-33.33333%, 0, 0); }
+  from { transform: translate3d(-33.33333%, 0, 0); }
+  to   { transform: translate3d(-66.66667%, 0, 0); }
 }
 
 .stl-band__bild {
@@ -498,8 +715,11 @@
    zentriert, 70 px Luft darueber, 0 darunter), der zweite das Raster
    (3 Spalten a 395 px, Abstand 32 px, 100 px Luft darunter).
    Hier zu einem Abschnitt zusammengefasst, Masse unveraendert.
+   Er faengt auf Creme an — der Farbe, auf der „Was wir bieten" ueber Band
+   A hinweg endet — und laeuft ueber seine volle Hoehe nach Weiss, auf dem
+   Band B und „Das erwartet dich" ansetzen (.fl-creme-nach-weiss).
    =========================================================================== */
-.stl-macht { padding: var(--stl-luft-70) 0 var(--stl-luft-100); }
+.stl-macht { padding: var(--stl-luft-91) 0 var(--stl-luft-130); }
 
 .stl-macht__lead {
   text-align: center;
@@ -520,7 +740,7 @@
   column-gap: var(--stl-spalt-32);
   row-gap: var(--stl-spalt-32);
   align-items: stretch;
-  margin-top: clamp(40px, 3.65vw, 70px);
+  margin-top: clamp(36px, 3.13vw, 60px);   /* Vorlage 70 px */
 }
 /* Die sechs Merkmale stehen seit dem 29.08.2026 je in einer eigenen Karte
    (Kundenwunsch). Handschrift wie die Rezensionskarten der Startseite,
@@ -567,7 +787,13 @@
    Vorlage: Abschnitt 8 (79 px leer) + Abschnitt 9 (30 oben) = 109 oben,
    80 unten.
    =========================================================================== */
-.stl-erwartet { padding: var(--stl-luft-109) 0 var(--stl-luft-80); }
+/* Oben 104, unten 91 — als einziger Abschnitt WENIGER als der Regelwert
+   von 130. „Das erwartet dich" ist der laengste helle Abschnitt der
+   Seite und muss unter einer Bildschirmhoehe bleiben, sonst laeuft dort
+   wieder mehr als 1200 px am Stueck hell durch. Die Vorlage steht hier
+   bei 109 oben / 80 unten — auch mit 104/91 ist der Abschnitt noch
+   weiter als dort. */
+.stl-erwartet { padding: var(--stl-luft-104) 0 var(--stl-luft-91); }
 .stl-zwei--erwartet {
   grid-template-columns: 1fr 1fr;
   column-gap: var(--stl-spalt-56);
@@ -580,8 +806,8 @@
   grid-template-columns: 39px 1fr;
   column-gap: 31px;             /* Vorlage: Symbol x 335, Text x 405 */
   align-items: start;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line-soft);
+  padding: clamp(12px, 0.83vw, 16px) 0;   /* Vorlage 20 px, siehe Farbblock */
+  border-bottom: 1px solid var(--stl-linie);
 }
 .stl-punkt:first-child { padding-top: 0; }
 .stl-punkt__zeichen {
@@ -589,21 +815,51 @@
   place-items: center;
   width: 39px;
   height: 39px;
-  color: var(--navy-800);       /* Vorlage: Symbole in der Leitfarbe */
+  color: var(--stl-tx);         /* Vorlage: Symbole in der Leitfarbe */
 }
 .stl-punkt__zeichen svg { width: 39px; height: 39px; }
+
+/* Die Schrittziffer. Der Abschnitt beschreibt eine Reihenfolge — vom
+   Kennenlernen bis zum eigenstaendigen Aufbau —, und die Ziffer sagt das,
+   ohne ein Wort dazuzudichten. Sie traegt denselben Akzent wie die
+   Kleinzeilen: Sand auf Navy, --gold-text auf hell.
+
+   Sie steht UNTER dem Symbol in derselben 39-px-Spalte, nicht ueber der
+   Punktueberschrift. Dort kostet sie keine Zeile: die Textspalte ist mit
+   Ueberschrift und zwei Zeilen Fliesstext ohnehin hoeher als Symbol plus
+   Ziffer. Ueber der Ueberschrift haette dieselbe Ziffer den Abschnitt um
+   110 px verlaengert und die helle Strecke bis zum Abschluss ueber die
+   Bildschirmhoehe getrieben.
+
+   AUF DER BACK-OFFICE-SEITE STEHT SIE NICHT. Deren vier Punkte sind
+   keine Reihenfolge — der vierte ist „Persoenliche Begleitung" und
+   beschreibt keinen Schritt. Eine Nummerierung wuerde dort einen Ablauf
+   behaupten, den der Wording-Master fuer diese Stelle nicht hergibt. */
+.stl-punkt__marke {
+  display: grid;
+  justify-items: center;
+  row-gap: 6px;
+}
+.stl-punkt__num {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.72rem, 0.74vw, 0.82rem);
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: var(--stl-ziffer);
+}
 .stl-punkt__titel {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: var(--stl-t-titel);
   line-height: 1.25;
-  color: var(--navy-800);
+  color: var(--stl-tx);
   margin: 0 0 0.25rem;
 }
 .stl-punkt__text p {
   font-size: var(--stl-t-text);
   line-height: 1.6;
-  color: var(--ink-soft);       /* 6,54:1 auf Weiss */
+  color: var(--stl-tx-weich); /* 6,54:1 auf Weiss */
 }
 
 .stl-erwartet__schluss {
@@ -612,7 +868,7 @@
   font-weight: 400;
   font-size: var(--stl-t-gross2);
   line-height: 1.4;
-  color: var(--navy-800);
+  color: var(--stl-tx);
 }
 
 /* Die Vorlage stapelt hier zwei Bilder ohne Fuge (masonry-horizontal
@@ -642,8 +898,30 @@
    Innenabstand 80 oben / 70 unten. Links Ueberschrift, Fliesstext
    20 px / 30 px, Knopf. Rechts ein Medienfeld 597 x 299 (Verhaeltnis 2:1),
    Radius 4 px.
+   WIEDER AUF NAVY SEIT DEM 30.08.2026 — wie in der Vorlage. Der Kunde
+   hatte die Flaeche am 29.08. auf Weiss gezogen; danach endete die Seite
+   im Nichts, weil die letzten 1607 px bis zum Fuss durchgehend hell
+   waren. Auf Navy hat der Abschluss wieder eine Flaeche unter sich.
+   Die Haarlinie, die hier bis zum 30.08. den fehlenden Farbwechsel
+   ersetzt hat, ist damit ersatzlos entfallen — jetzt traegt wieder der
+   Wechsel selbst — als saubere Kante, siehe Verlaufsblock oben.
    =========================================================================== */
-.stl-schluss { padding: var(--stl-luft-80) 0 var(--stl-luft-70); }
+.stl-schluss {
+  /* NAVY-900 STATT NAVY-800 — und damit dieselbe Flaeche wie der Fuss
+     darunter. Zwischen Abschluss und Fuss gibt es dann gar keine Kante
+     mehr, und die Seite endet auf einer durchgehenden dunklen Flaeche.
+     Weiss darauf misst 16,9:1, Sand 9,08:1 — beides besser als auf
+     Navy-800.
+     Absichtlich OHNE .fl-navy900: dieser Baustein laeuft von #0A192E nach
+     #16283F, der Abschluss endete dann 17 Einheiten heller als der Fuss
+     darunter — genau die Kante, die er vermeiden soll. Erst wenn der Fuss
+     denselben Verlauf traegt, gehoert er hierher.
+     Die Oberkante gegen „Das erwartet dich" ist eine saubere Kante; 245
+     Einheiten zwischen Navy und Hell sind auf keiner Strecke weich zu
+     bekommen (siehe Verlaufsblock oben). */
+  background: var(--navy-900);
+  padding: var(--stl-luft-130) 0 var(--stl-luft-91);
+}
 .stl-zwei--schluss {
   grid-template-columns: 1fr 1fr;
   column-gap: var(--stl-spalt-56);
@@ -656,6 +934,17 @@
   line-height: 1.5;
   color: var(--stl-tx-weich);
   max-width: 46ch;
+}
+
+/* Der Knopf auf Navy ist der weisse Knopf des Projekts (.btn--weiss,
+   Navy darauf 15,5:1). Sein Ueberfahr-Zustand aus base.css kehrt sich zu
+   Navy-Flaeche um — auf einer Navy-Flaeche waere der Knopf damit weg.
+   Hier bleibt er sichtbar: durchsichtig mit weisser Haarlinie und weisser
+   Schrift (14,6:1). */
+.stl-abs--navy .btn--weiss:hover {
+  --btn-fg: #FFFFFF;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
 .stl-schluss__aktionen {
@@ -735,11 +1024,21 @@
 @media (max-width: 620px) {
   .stl-inner       { width: min(100% - 40px, 640px); }
   .stl-hero__inner { width: min(100% - 40px, 640px); }
-  .stl-raster      { grid-template-columns: 1fr; row-gap: 34px; }
-  .stl-haken       { gap: 28px; }
-  .stl-haken li    { grid-template-columns: 34px 1fr; }
-  .stl-haken__kreis { width: 34px; height: 34px; }
-  .stl-haken__kreis svg { width: 22px; height: 22px; }
+  /* Einspaltig stehen die sechs Kacheln untereinander, und „Das macht
+     dich aus" wird damit das laengste helle Stueck der ganzen Seite.
+     Mit den Werten der breiten Darstellung waren es gemessen 1233 px,
+     also mehr als eine Bildschirmhoehe am Stueck. Enger gesetzt —
+     Abstand 34 -> 16, Innenrand 20 -> 16, Symbolabstand 1,1 -> 0,65 rem,
+     Vorlauf des Rasters 36 -> 28 — sind es 1157 px. */
+  .stl-raster      { grid-template-columns: 1fr; row-gap: 16px; margin-top: 28px; }
+  .stl-kachel      { padding: 16px 20px; }
+  .stl-kachel__zeichen { margin-bottom: 0.65rem; }
+  /* Aufgeraeumt am 30.08.2026: hier standen noch drei Regeln aus dem
+     Zustand vor dem Kundenwunsch — grid-template-columns auf einem
+     Flex-Element (wirkungslos) und zweimal .stl-haken__kreis, den es seit
+     dem Tausch Haken -> Haus nicht mehr gibt. */
+  .stl-haken__zeichen     { width: 34px; height: 34px; }
+  .stl-haken__zeichen svg { width: 26px; height: 26px; }
   .stl-punkt       { grid-template-columns: 32px 1fr; column-gap: 18px; }
   .stl-punkt__zeichen, .stl-punkt__zeichen svg { width: 32px; height: 32px; }
   .stl-schluss__aktionen { gap: 1.1rem; }
@@ -747,10 +1046,421 @@
 }
 
 /* ===========================================================================
+   BEWEGUNG — NEU, 30.08.2026
+
+   BIS HEUTE HATTEN DIESE SEITEN GAR KEINE BEWEGUNG außer den zwei
+   Laufbändern. Oben im Kopf dieser Datei stand dazu: „Es gibt keine
+   Animation außer den zwei Laufbändern. Die Vorlage bewegt nichts weiter.
+   Wer hier Scroll-Animationen einbaut, trifft den Charakter nicht."
+
+   DIESER SATZ IST ÜBERHOLT, und zwar durch eine ausdrückliche Ansage des
+   Kunden: „Ich will, dass du viel, viel, viel mehr Animationen einbaust,
+   also jetzt nicht nur so langweilige Animationen, wo Bilder größer werden,
+   wenn man draufgeht. Ich will wirklich besondere Animationen." Der
+   Charakter der Vorlage tritt damit hinter den Auftrag zurück. Er bleibt
+   trotzdem der Maßstab für das WIE: keine Geste ist lauter als nötig, es
+   gibt keinen Zoom beim Überfahren, und pro Abschnitt trägt genau eine
+   Geste.
+
+   DIE FÜNF GESTEN
+
+   1  ÜBERSCHRIFTEN SCHIEBEN SICH ZEILENWEISE HINTER EINER KANTE HERVOR
+      Dieselbe Leitgeste wie auf karriere.html, mit denselben gemessenen
+      Werten der Vorlage fluid.glass (Kladde `fluid/`): translateY 200 % → 0
+      über 1,2 s in cubic-bezier(.215,.61,.355,1), 0,1 s Versatz je Zeile.
+      Dass Übersichtsseite und Stellenseiten dieselbe Geste tragen, ist der
+      Grund, warum sie beim Klick von der einen auf die andere wie eine
+      Website wirken und nicht wie zwei.
+      Die Zeilen findet stelle.js, indem es jedes Wort in eine Hülle setzt
+      und die Hüllen nach ihrer gemessenen Höhenlage gruppiert. Hier trägt
+      das mehr als drüben: „Prüfe, ob Estera zu deinem Weg passt" bricht je
+      nach Fensterbreite auf zwei bis vier Zeilen um.
+
+   2  DIE HÄUSER UND SYMBOLE ZEICHNEN SICH
+      Die Symbole der Seite sind reine Strichzeichnungen — sechs Häuser in
+      „Was wir bieten", sechs Zeichen in „Das macht dich aus", vier bis fünf
+      in „Das erwartet dich". Eine Strichzeichnung, die sich zeichnet, ist
+      keine Zutat, sondern das, was das Bild ohnehin behauptet.
+      Gebaut über stroke-dasharray/stroke-dashoffset mit der ECHTEN
+      Pfadlänge: stelle.js liest sie mit getTotalLength() vom Pfad selbst ab
+      und schreibt sie als --len. Geraten wird nichts — dasselbe Verfahren,
+      das site.js für die Grafiken der Startseite benutzt.
+      Innerhalb eines Symbols laufen die Striche 0,12 s versetzt, damit das
+      Haus wirklich gebaut wird: erst das Dach, dann die Wände, dann die Tür.
+
+   3  DIE ZIFFERN DER SCHRITTFOLGE LAUFEN AUS IHRER ZEILE HERAUS
+      „Das erwartet dich" beschreibt eine Reihenfolge, und die Ziffer sagt
+      das. Sie fährt deshalb hinter derselben Kante hervor wie die
+      Überschriften — erst wenn ihr Symbol fertig gezeichnet ist. Die fünf
+      Schritte bauen sich dadurch nacheinander auf, statt gemeinsam da zu
+      stehen.
+      AUF DER BACK-OFFICE-SEITE GIBT ES DIESE ZIFFERN NICHT (deren vier
+      Punkte sind keine Reihenfolge, siehe .stl-punkt__num weiter oben). Die
+      Regeln unten laufen dort ins Leere; die übrigen Gesten des Abschnitts
+      greifen unverändert.
+
+   4  DIE KACHELN STEHEN AUS IHRER EIGENEN GRUNDLINIE AUF
+      clip-path inset(100 % 0 0 0) → 0: die Kachel wächst von ihrer
+      Unterkante nach oben, während Symbol und Überschrift darin aus 26 px
+      nachrücken. Die Kante steht dabei STILL — sie ist die Grundlinie, auf
+      der die Kachel steht, nicht eine Kante, die mitfährt. Genau dadurch
+      liest es sich als Aufstehen und nicht als Einschieben.
+
+   5  DIE LAUFBÄNDER LAUFEN AN, STATT ZU RENNEN
+      Bis heute liefen beide Bänder vom ersten Bildpunkt an mit vollen
+      60 px/s — auch dann, wenn sie noch gar nicht im Bild waren. Jetzt
+      stehen sie still, bis ihr Abschnitt eintritt, und beschleunigen dann
+      aus dem Stand auf ihre 60 px/s.
+
+      DAS IST GERECHNET, NICHT GEFÜHLT. Die Spur trägt unverändert ihre
+      lineare Endlosbewegung. Die drei Sätze darin bekommen zusätzlich
+      einen einmaligen Anlauf von −48 px auf 0 über 1,6 s in
+      cubic-bezier(0.25, 0.5, 0.5, 1). Diese Kurve hat am Anfang die
+      Steigung 2 und am Ende 0; die Anfangsgeschwindigkeit des Anlaufs ist
+      damit 2 · 48 / 1,6 = 60 px/s und zeigt GEGEN die Laufrichtung:
+
+          t = 0     : −60 + 60 =  0 px/s   → das Band steht
+          t = 1,6 s : −60 +  0 = −60 px/s  → volle Reisegeschwindigkeit
+
+      Dazwischen steigt es stetig an. Das Band fährt also wirklich an,
+      statt anzuspringen.
+
+      DIE LAUFBANDWERTE SIND UNANGETASTET: 60,0 px/s, Satzbreite 2486 bzw.
+      2741 px, 41,4333 bzw. 45,6833 s je Umlauf, drei Sätze im DOM, gleiche
+      Geschwindigkeit auf jeder Fensterbreite. Der Anlauf sitzt auf
+      .stl-band__satz, die Endlosbewegung auf .stl-band__spur — zwei
+      verschiedene Elemente, deshalb kommen sich die beiden transform nicht
+      ins Gehege, und der Satz-transform komponiert sauber mit dem der
+      Spur.
+      Warum dafür die PHASE der Endlosbewegung verschoben wurde, steht oben
+      bei @keyframes stl-lauf.
+
+   DIE GRENZEN, DIE NICHT VERHANDELBAR SIND — und wo sie hier stehen:
+
+   OHNE JAVASCRIPT IST ALLES SOFORT DA. Jede Regel dieses Abschnitts hängt
+   an [data-stl-js], und dieses Merkmal setzt ausschließlich stelle.js.
+   Fällt das Skript aus, gibt es keinen Zustand, in dem etwas unsichtbar
+   hängen bleibt — der Endzustand IST der Grundzustand, die Animation nimmt
+   ihn nur kurz weg. Auch geteilt wird dann nicht, und die Bänder laufen wie
+   bisher vom ersten Bildpunkt an.
+
+   BEI reduce STEHT ALLES SOFORT IM ENDZUSTAND. Zwei Riegel: stelle.js
+   steigt vor dem Setzen des Merkmals aus, und der Abschnitt „Ruhige
+   Darstellung" unten nimmt jeden Anfangszustand ausdrücklich zurück — für
+   den Fall, dass jemand die Einstellung erst nach dem Laden umstellt.
+
+   NUR transform, opacity, clip-path — und stroke-dashoffset für die
+   Strichzeichnungen. Keine Bewegung auf width, height, top, left, filter
+   oder box-shadow. Kein requestAnimationFrame am Bildlauf: ausgelöst wird
+   über IntersectionObserver.
+   =========================================================================== */
+
+.stl {
+  /* Die Kurve der Vorlage fluid.glass — sie trägt jede Geste, die aus einer
+     Kante hervorkommt oder aufsteht. */
+  --stl-e-raus:   cubic-bezier(0.215, 0.61, 0.355, 1);
+  /* Weicher Anlauf für Flächen, die aufziehen. */
+  --stl-e-weich:  cubic-bezier(0.33, 0, 0.15, 1);
+  /* Steigung 2 am Anfang, 0 am Ende — die Kurve des Bandanlaufs. Wer sie
+     ändert, muss den Vorfaktor 48 px mitändern, sonst ruckt das Band beim
+     Start. Herleitung siehe Geste 5. */
+  --stl-e-anlauf: cubic-bezier(0.25, 0.5, 0.5, 1);
+}
+
+/* --- Die Bewegungen ------------------------------------------------------- */
+
+@keyframes stl-zeile {
+  from { transform: translateY(200%); }
+  to   { transform: translateY(0); }
+}
+@keyframes stl-steigt {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Der Strich zieht sich aus dem Nichts. --len ist die ECHTE Pfadlänge und
+   kommt aus stelle.js. */
+@keyframes stl-zieht {
+  from { stroke-dashoffset: var(--len, 100); }
+  to   { stroke-dashoffset: 0; }
+}
+/* Eine Linie wächst aus ihrer Mitte. */
+@keyframes stl-linie {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+/* Dieselbe Linie, aber mit dem Ausgleich, den .stl-trenn::before schon in
+   Ruhe trägt — translateX(-50 %) ist dort Lage, nicht Bewegung. */
+@keyframes stl-linie-mitte {
+  from { transform: translateX(-50%) scaleX(0); }
+  to   { transform: translateX(-50%) scaleX(1); }
+}
+/* Fläche zieht von oben nach unten auf. */
+@keyframes stl-blende {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+/* Das Bild zieht im Rahmen nach. Prozent, damit es auf jeder Fensterbreite
+   denselben Anteil der Bildhöhe zurücklegt.
+   NACHGERECHNET, damit unten keine Lücke aufreißt: die sichtbare Kante steht
+   bei t · H, die Bildunterkante bei H − 0,08 (1 − t) H. Die Bedingung
+   t ≤ 1 − 0,08 (1 − t) ist für jedes t ≤ 1 erfüllt — die Kante holt das Bild
+   also nie ein. Deshalb braucht es hier KEINE Vergrößerung als
+   Sicherheitsreserve; das Bild bleibt in seinem Maßstab. */
+@keyframes stl-nach {
+  from { transform: translateY(-8%); }
+  to   { transform: translateY(0); }
+}
+/* Der Kasten wächst aus seiner Grundlinie. inset(100% 0 0 0) heißt: die
+   sichtbare Fläche ist auf die UNTERKANTE zusammengezogen; sie wächst von
+   dort nach oben, und die Kante steht still. */
+@keyframes stl-waechst {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes stl-hebt {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Der Anlauf der Bänder. Herleitung siehe Geste 5. */
+@keyframes stl-anlauf {
+  from { transform: translate3d(-48px, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+
+/* --- Die Anfangszustände ---------------------------------------------------
+   ALLES hängt an [data-stl-js] (gesetzt von stelle.js auf <body class="stl">).
+   Ohne Javascript existiert keine dieser Regeln. */
+
+/* data-stl-auf setzt stelle.js auf die Bausteine, die einzeln aufkommen.
+   Bewusst per Skript und nicht im Markup: fällt das Skript aus, gibt es das
+   Merkmal gar nicht, und es kann nichts unsichtbar hängen bleiben. */
+[data-stl-js] [data-stl-auf] { opacity: 0; }
+
+/* Die Zeilenhüllen setzt stelle.js. .stl-zg ist die Kante, .stl-zg__i das
+   Wort dahinter.
+
+   DIE KANTE IST EIN clip-path, KEIN overflow: hidden. Ein overflow: hidden
+   auf einem inline-block ändert dessen Grundlinie (sie wird dann die untere
+   Randkante), und die ganze Überschrift verrutschte gegenüber dem Zustand
+   ohne Javascript. clip-path ändert an der Anordnung NICHTS.
+   Die negativen Werte sind Auslauf, kein Beschnitt: oben 100 % Luft für
+   Oberlängen, seitlich 0,4 em für Überhänge, unten 0,14 em unter die
+   Grundlinie — tief genug, dass keine Unterlänge angeschnitten wird. */
+.stl-zg    { display: inline-block; clip-path: inset(-100% -0.4em -0.14em -0.4em); }
+.stl-zg__i { display: inline-block; }
+
+[data-stl-js] .stl-geteilt { opacity: 1; }
+[data-stl-js] .stl-geteilt .stl-zg__i { transform: translateY(200%); }
+
+/* DIE ABSCHLUSSUEBERSCHRIFT WIRD ALS EINZIGE NICHT GETEILT — nachzulesen in
+   stelle.js, hier steht der Grund.
+
+   „Pruefe, ob Estera zu deinem beruflichen Schritt passt" traegt als
+   einzige Ueberschrift der Seite einen Unterstrich (.stl-h2--unterstrichen,
+   Sand auf Navy). text-decoration wird NICHT in atomare Inline-Kaesten
+   hineingegeben, und Worthuellen sind genau das (display: inline-block).
+   Nach einer Teilung zeichnete der Browser die Linie deshalb nur noch unter
+   den LEERZEICHEN zwischen den Woertern — eine Reihe kurzer Striche statt
+   einer durchgehenden Linie. Am Bildpunkt nachgeprueft, nicht vermutet.
+
+   ZWEI AUSWEGE WURDEN DURCHGESPIELT UND BEIDE VERWORFEN:
+   1. Die Linie zusaetzlich auf den Worthuellen nachziehen. Ergibt zwar
+      wieder eine durchgehende Linie im Endzustand — waehrend die Woerter
+      aber noch hinter ihrer Kante stehen, schwebt die Strichreihe der
+      Leerzeichen allein im Bild. Aufgenommen und angesehen: deutlich
+      sichtbar, und es liest sich als Fehler.
+   2. Die Linie der Ueberschrift abschalten und nur die Woerter
+      unterstreichen. Dann klafft an jedem Leerzeichen eine Luecke.
+
+   Der Unterstrich ist abgenommene Gestaltung, die Zeilengeste ist eine
+   Zutat. Also weicht die Zutat: diese eine Ueberschrift kommt als Ganzes
+   auf (stl-steigt), alle uebrigen vier tragen die Zeilengeste. 
+/* Die Ziffer bekommt dieselbe Kante. .stl-zi ist die Hülle, die stelle.js
+   um den Ziffernsatz legt. */
+[data-stl-js] .stl-punkt__num { clip-path: inset(-100% -0.4em -0.14em -0.4em); }
+[data-stl-js] .stl-punkt__num .stl-zi { display: inline-block; transform: translateY(200%); }
+
+/* Strichzeichnungen: --len setzt stelle.js aus der echten Pfadlänge. */
+[data-stl-js] .stl-zeichnet path {
+  stroke-dasharray: var(--len, 100);
+  stroke-dashoffset: var(--len, 100);
+}
+
+/* Trennlinie und ihr Akzentstück. */
+[data-stl-js] .stl-trenn { transform: scaleX(0); }
+[data-stl-js] .stl-trenn::before { transform: translateX(-50%) scaleX(0); }
+
+/* Kacheln, Punkte, Hakenzeilen. */
+[data-stl-js] .stl-kachel { clip-path: inset(100% 0 0 0); }
+[data-stl-js] .stl-kachel > * { opacity: 0; transform: translateY(26px); }
+[data-stl-js] .stl-haken__text { opacity: 0; transform: translateY(14px); }
+[data-stl-js] .stl-punkt__text { opacity: 0; transform: translateY(18px); }
+
+/* Das leere Bildfenster zieht seinen Rahmen auf.
+
+   AUSGELOEST WIRD ES VON SEINER SPALTE (.stl-zwei--bieten), NICHT VON SICH
+   SELBST. Laege der clip-path auf dem beobachteten Element, meldete der
+   IntersectionObserver es NIE als eingetreten: Chromium rechnet den eigenen
+   clip-path des Ziels in dessen Schnittflaeche ein, und eine auf null
+   zusammengezogene Flaeche schneidet sich mit nichts — der Rahmen bliebe
+   dauerhaft unsichtbar. Bei den zwei Bildfeldern loest das ein
+   Innenelement; hier gibt es keines (der Rahmen IST das Element), also
+   uebernimmt die Spalte. */
+[data-stl-js] .stl-platz { clip-path: inset(0 0 100% 0); }
+
+/* Die zwei Bildfelder.
+   DIE KANTE SITZT AUF DEM BEHÄLTER, DAS NACHZIEHEN AUF DEM BILD — und der
+   Behälter wird beobachtet, nicht das Bild. Läge der clip-path auf dem
+   beobachteten Element selbst, meldete der IntersectionObserver es NIE als
+   eingetreten: Chromium rechnet den eigenen clip-path des Ziels in dessen
+   Schnittfläche ein, und eine auf null zusammengezogene Fläche schneidet
+   sich mit nichts. Das Bild bliebe dauerhaft unsichtbar. */
+/* Diese drei geben ihre Bewegung an ihre Teile weiter (bzw. tragen sie
+   selbst als transform) und bleiben deshalb sichtbar — sonst blendete die
+   Gruppe ein, waehrend ihre Teile noch einzeln kaemen, und schlimmer: die
+   Regel „animation: none" weiter unten wuerde sie dauerhaft auf opacity 0
+   festnageln. */
+[data-stl-js] .stl-trenn,
+[data-stl-js] .stl-bilder,
+[data-stl-js] .stl-schluss__medium { opacity: 1; }
+/* DIE KANTE SITZT AUF <picture>, DAS NACHZIEHEN AUF <img> — beide Felder
+   sind so gebaut. Sie duerfen NICHT auf demselben Element liegen: zwei
+   animation-Kurzformen auf einem Element ueberschreiben sich, und die
+   zuerst genannte Bewegung fiele ersatzlos aus. */
+[data-stl-js] .stl-bilder picture,
+[data-stl-js] .stl-schluss__medium picture { clip-path: inset(0 0 100% 0); }
+[data-stl-js] .stl-bilder img,
+[data-stl-js] .stl-schluss__medium img { transform: translateY(-8%); }
+
+/* Die Bänder stehen still, bis ihr Abschnitt eintritt. animation-play-state
+   hält auch die Verzögerung an, die Rechnung des Anlaufs bleibt also
+   stimmig. */
+[data-stl-js] .stl-band__spur { animation-play-state: paused; }
+
+
+/* --- Der Auslöser ----------------------------------------------------------
+   .ist-da setzt der IntersectionObserver in stelle.js, einmalig. */
+
+[data-stl-js] [data-stl-auf].ist-da {
+  animation: stl-steigt 0.8s var(--stl-e-raus) both;
+}
+/* Die Bausteine, die ihre Bewegung an ihre Teile weitergeben, tragen selbst
+   keine. */
+[data-stl-js] .stl-geteilt.ist-da,
+[data-stl-js] .stl-trenn.ist-da,
+[data-stl-js] .stl-bilder.ist-da,
+[data-stl-js] .stl-schluss__medium.ist-da { animation: none; }
+
+/* 1 — Überschriften zeilenweise. --z ist die Zeilennummer aus stelle.js. */
+[data-stl-js] .stl-geteilt.ist-da .stl-zg__i {
+  animation: stl-zeile 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  animation-delay: calc(var(--z, 0) * 0.1s);
+}
+
+/* Der Kopfbereich läuft als Folge: Vorzeile, Überschrift, Unterzeile, Knopf.
+   Alle vier sind beim Laden im Bild, treten also im selben Augenblick ein —
+   die Reihenfolge steckt deshalb ausschließlich in den Verzögerungen. */
+[data-stl-js] .stl-hero__vor.ist-da   { animation-delay: 0.15s; }
+[data-stl-js] .stl-hero__h1.ist-da .stl-zg__i {
+  animation-delay: calc(0.3s + var(--z, 0) * 0.1s);
+}
+[data-stl-js] .stl-hero__unter.ist-da { animation-delay: 0.85s; }
+[data-stl-js] .stl-hero__btn.ist-da   { animation-delay: 1s; }
+
+/* Die Trennlinie wächst aus ihrer Mitte, das Akzentstück darauf danach. */
+[data-stl-js] .stl-trenn.ist-da {
+  animation: stl-linie 0.8s var(--stl-e-raus) both;
+}
+[data-stl-js] .stl-trenn.ist-da::before {
+  animation: stl-linie-mitte 0.55s var(--stl-e-raus) 0.35s both;
+}
+
+/* 2 — die Häuser in „Was wir bieten". Die Liste wird als GRUPPE beobachtet,
+   damit der Versatz gegen den Eintritt der Reihe läuft und nicht gegen den
+   jeder einzelnen Zeile. --i ist die Nummer der Zeile, --dz die des
+   Striches innerhalb des Symbols; beide setzt stelle.js. */
+[data-stl-js] .stl-haken.ist-da li .stl-zeichnet path {
+  animation: stl-zieht 0.9s var(--stl-e-weich) both;
+  animation-delay: calc(var(--i, 0) * 0.1s + var(--dz, 0) * 0.12s);
+}
+[data-stl-js] .stl-haken.ist-da .stl-haken__text {
+  animation: stl-steigt 0.7s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.2s);
+}
+
+/* Das leere Bildfenster daneben. */
+[data-stl-js] .stl-zwei--bieten.ist-da .stl-platz {
+  animation: stl-blende 0.9s var(--stl-e-weich) both;
+}
+
+/* 4 — die Kacheln in „Das macht dich aus". */
+[data-stl-js] .stl-raster.ist-da .stl-kachel {
+  animation: stl-waechst 0.9s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.09s);
+}
+[data-stl-js] .stl-raster.ist-da .stl-kachel > * {
+  animation: stl-hebt 0.9s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.09s + 0.08s);
+}
+[data-stl-js] .stl-raster.ist-da .stl-zeichnet path {
+  animation: stl-zieht 0.9s var(--stl-e-weich) both;
+  animation-delay: calc(var(--i, 0) * 0.09s + 0.25s + var(--dz, 0) * 0.12s);
+}
+
+/* 2 und 3 — die Schrittfolge in „Das erwartet dich". Erst zeichnet sich das
+   Symbol, dann läuft die Ziffer aus ihrer Zeile heraus, dann kommt der Text.
+   Der Schritt baut sich damit in derselben Reihenfolge auf, in der er
+   gelesen wird. */
+[data-stl-js] .stl-liste.ist-da .stl-zeichnet path {
+  animation: stl-zieht 0.9s var(--stl-e-weich) both;
+  animation-delay: calc(var(--i, 0) * 0.12s + var(--dz, 0) * 0.12s);
+}
+[data-stl-js] .stl-liste.ist-da .stl-punkt__num .stl-zi {
+  animation: stl-zeile 0.9s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.45s);
+}
+[data-stl-js] .stl-liste.ist-da .stl-punkt__text {
+  animation: stl-steigt 0.8s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.2s);
+}
+
+/* Die zwei Bildfelder entstehen. */
+[data-stl-js] .stl-bilder.ist-da picture,
+[data-stl-js] .stl-schluss__medium.ist-da picture {
+  animation: stl-blende 1.15s var(--stl-e-weich) both;
+}
+[data-stl-js] .stl-bilder.ist-da img,
+[data-stl-js] .stl-schluss__medium.ist-da img {
+  animation: stl-nach 1.15s var(--stl-e-weich) both;
+}
+
+/* 5 — die zwei Laufbänder fahren an. */
+[data-stl-js] .stl-band.ist-da .stl-band__spur { animation-play-state: running; }
+[data-stl-js] .stl-band.ist-da .stl-band__satz {
+  animation: stl-anlauf 1.6s var(--stl-e-anlauf) both;
+}
+
+/* ===========================================================================
    RUHIGE DARSTELLUNG (prefers-reduced-motion: reduce)
-   Die Baender stehen still und zeigen den ersten Satz. Das Kopfvideo wird
-   ausgeblendet, darunter steht das Standbild — ohne Javascript ist das
-   bereits der vollstaendige Weg; stelle.js haelt es zusaetzlich an.
+
+   BEI reduce STEHT ALLES SOFORT IM ENDZUSTAND. Keine Ausnahme.
+
+   Der erste und wichtigste Riegel steht in stelle.js: dort wird bei
+   „reduce" ausgestiegen, bevor [data-stl-js] gesetzt wird. Damit greift
+   keine einzige Regel aus dem Bewegungsabschnitt, es wird nichts geteilt,
+   es werden keine Pfadlaengen gesetzt und es wird nichts beobachtet.
+
+   Der zweite Riegel steht hier und ist fuer den Fall gebaut, dass jemand
+   die Einstellung NACH dem Laden umstellt: dann ist [data-stl-js] laengst
+   gesetzt und die Woerter sind laengst in ihre Huellen geteilt. Jeder
+   Anfangszustand wird unten ausdruecklich zurueckgenommen, und zwar auf
+   denselben Endwert, den die Animation sonst erreicht haette.
+
+   Wie bisher: die Baender stehen still und zeigen ihren Satz, das
+   Kopfvideo wird ausgeblendet und darunter steht das Standbild — ohne
+   Javascript ist das bereits der vollstaendige Weg; stelle.js haelt es
+   zusaetzlich an.
    =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .stl-band__spur {
@@ -759,4 +1469,63 @@
   }
   .stl-hero__video { display: none; }
   .stl-zurueck, .stl-hero__btn { transition: none; }
+
+  /* --- Jeder Anfangszustand des Bewegungsabschnitts, zurueckgenommen ------ */
+  [data-stl-js] [data-stl-auf],
+  [data-stl-js] .stl-haken__text,
+  [data-stl-js] .stl-punkt__text,
+  [data-stl-js] .stl-kachel > * { opacity: 1; }
+
+  [data-stl-js] .stl-kachel,
+  [data-stl-js] .stl-platz,
+  [data-stl-js] .stl-punkt__num,
+  [data-stl-js] .stl-bilder picture,
+  [data-stl-js] .stl-schluss__medium picture { clip-path: none; }
+
+  /* Die Kante der Zeilenhuellen wird ganz aufgehoben; ohne Bewegung hat sie
+     keine Aufgabe mehr und koennte nur noch etwas anschneiden. */
+  .stl-zg { clip-path: none; }
+
+  [data-stl-js] .stl-geteilt .stl-zg__i,
+  [data-stl-js] .stl-punkt__num .stl-zi,
+  [data-stl-js] .stl-haken__text,
+  [data-stl-js] .stl-punkt__text,
+  [data-stl-js] .stl-kachel > *,
+  [data-stl-js] .stl-trenn,
+  [data-stl-js] .stl-band__satz,
+  [data-stl-js] .stl-bilder img,
+  [data-stl-js] .stl-schluss__medium img { transform: none; }
+
+  /* Das Akzentstueck der Trennlinie behaelt seinen Ausgleich — der ist
+     seine Lage, nicht seine Bewegung. */
+  [data-stl-js] .stl-trenn::before { transform: translateX(-50%); }
+
+  /* Die Striche stehen fertig gezeichnet da. */
+  [data-stl-js] .stl-zeichnet path {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  [data-stl-js] .stl-band__spur { animation-play-state: running; }
+
+  /* Und keine einzige Animation laeuft. */
+  [data-stl-js] [data-stl-auf].ist-da,
+  [data-stl-js] .stl-geteilt.ist-da .stl-zg__i,
+  [data-stl-js] .stl-hero__h1.ist-da .stl-zg__i,
+  [data-stl-js] .stl-trenn.ist-da,
+  [data-stl-js] .stl-trenn.ist-da::before,
+  [data-stl-js] .stl-haken.ist-da li .stl-zeichnet path,
+  [data-stl-js] .stl-haken.ist-da .stl-haken__text,
+  [data-stl-js] .stl-zwei--bieten.ist-da .stl-platz,
+  [data-stl-js] .stl-raster.ist-da .stl-kachel,
+  [data-stl-js] .stl-raster.ist-da .stl-kachel > *,
+  [data-stl-js] .stl-raster.ist-da .stl-zeichnet path,
+  [data-stl-js] .stl-liste.ist-da .stl-zeichnet path,
+  [data-stl-js] .stl-liste.ist-da .stl-punkt__num .stl-zi,
+  [data-stl-js] .stl-liste.ist-da .stl-punkt__text,
+  [data-stl-js] .stl-bilder.ist-da picture,
+  [data-stl-js] .stl-bilder.ist-da img,
+  [data-stl-js] .stl-schluss__medium.ist-da picture,
+  [data-stl-js] .stl-schluss__medium.ist-da img,
+  [data-stl-js] .stl-band.ist-da .stl-band__satz { animation: none; }
 }

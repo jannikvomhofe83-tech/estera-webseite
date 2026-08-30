@@ -46,7 +46,12 @@
    =========================================================================== */
 
 .robj {
-  --r-grund:   #F9F6F1;
+  /* 30.08.2026 von #F9F6F1 auf --fl-creme #F7F3F0 gezogen (zwei Einheiten
+     im Rot-, eine im Gruen-, null im Blaukanal). Der Abschnitt traegt jetzt
+     `fl-weiss-nach-creme` und ENDET auf genau diesem Wert; #ablauf darunter
+     beginnt auf demselben. Zwei verschiedene Cremetoene haetten an der Naht
+     eine Stufe stehen lassen. */
+  --r-grund:   #F7F3F0;
   --r-navy:    #102949;
   --r-blau:    #3B4F6B;
   --r-gold-t:  #7F5923;
@@ -73,7 +78,16 @@
   --r-buehne-max: min(72.9vw, 1240px);
 
   position: relative;
-  background: var(--r-grund);
+  /* ===== DIE FLAECHE — 30.08.2026, dritter Anlauf ======================
+     Der Abschnitt traegt `fl-weiss-nach-creme` aus base.css: er beginnt auf
+     dem WEISS seiner Nachbarin darueber (die Bankenleiste) und endet auf
+     dem CREME seiner Nachbarin darunter (#ablauf). Ueber rund 1030 Punkte
+     Hoehe sind das 0,0145 Einheiten je Bildpunkt — im Bereich des
+     FAQ-Kastens (0,020) und unter der Regel von 0,03.
+     NUR background-color, keine Kurzschreibweise: die Klasse setzt
+     `background-image`, und referenzobjekte.css wird nach base.css
+     geladen. Der Farbwert ist der Rueckfall und das Ende des Verlaufs. */
+  background-color: var(--r-grund);
   /* Cormorant setzt Ziffern von Haus aus als Mediaevalziffern — „01" und
      „3 ZIMMER" haengen dann unter die Grundlinie. Die Vorlage zeigt beide
      auf Versalhoehe. */
@@ -101,27 +115,50 @@
    kommt sie effektiv nur zu einem knappen Zehntel durch. Gemessen wurde
    danach an der duenkelsten Ader unter jeder Zeile, nicht am Mittelton —
    der schwaechste Wert liegt bei 4,96:1 (Kicker, kleinster Grad). */
-.robj::before,
-.robj::after {
+/* Nur noch EINE Lage. Die zweite (.robj::after) ist am 30.08.2026 in die
+   Maske der ersten gewandert — siehe den Vermerk direkt darunter. */
+.robj::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
+/* 30.08.2026 UMGEBAUT — dieselbe Wirkung, aber ohne Farbschleier.
+
+   Bis heute lag der Stein unter einem DECKENDEN Schleier in der Grundfarbe:
+   0,72 flaechig (::before) und oben wie unten weitere 0,70 (::after). Das
+   ging, solange die Flaeche EINE Farbe hatte. Jetzt laeuft sie von Weiss
+   nach Creme — ein Schleier in einer festen Farbe haette den Verlauf
+   darunter zu 92 Prozent zugedeckt und die Flaeche wieder flach gemacht.
+
+   Stattdessen liegt der Stein jetzt als reines Bild mit `opacity` darueber.
+   Rechnerisch ist das dasselbe Ergebnis, nur dass der Verlauf durchkommt:
+
+     vorher   0,72 * Creme + 0,28 * Stein
+     jetzt    0,72 * Verlauf + 0,28 * Stein
+
+   Die zweite Lage (oben und unten schwaecher, in der Mitte voll) ist aus
+   einem Farbverlauf eine MASKE geworden. 0,28 * 0,30 = 0,084 an den Raendern
+   — exakt die 8,4 Prozent, die vorher aus 0,70 ueber 0,72 herauskamen.
+   Unter der Schrift steht der Stein damit unveraendert schwach. */
 .robj::before {
-  background:
-    linear-gradient(rgba(249, 246, 241, 0.72), rgba(249, 246, 241, 0.72)),
-    var(--r-grund) url('../img/marble2.jpg') center / cover no-repeat;
-}
-.robj::after {
-  background: linear-gradient(180deg,
-    rgba(249, 246, 241, 0.70) 0%,
-    rgba(249, 246, 241, 0.70) 21%,
-    rgba(249, 246, 241, 0)    31%,
-    rgba(249, 246, 241, 0)    58%,
-    rgba(249, 246, 241, 0.70) 67%,
-    rgba(249, 246, 241, 0.70) 100%);
+  opacity: 0.28;
+  background: url('../img/marble2.jpg') center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg,
+    rgba(0, 0, 0, 0.30) 0%,
+    rgba(0, 0, 0, 0.30) 21%,
+    #000 31%,
+    #000 58%,
+    rgba(0, 0, 0, 0.30) 67%,
+    rgba(0, 0, 0, 0.30) 100%);
+          mask-image: linear-gradient(180deg,
+    rgba(0, 0, 0, 0.30) 0%,
+    rgba(0, 0, 0, 0.30) 21%,
+    #000 31%,
+    #000 58%,
+    rgba(0, 0, 0, 0.30) 67%,
+    rgba(0, 0, 0, 0.30) 100%);
 }
 
 .robj__inner {
@@ -137,6 +174,11 @@
 .robj__head { text-align: center; }
 
 /* Vorlage: Versalhoehe 11 px, weit gesperrt. Cormorant, nicht Grotesk. */
+/* WIRD SEIT DEM 30.08.2026 NICHT MEHR VERWENDET. Die goldene Kleinzeile
+   ueber der Ueberschrift ist auf Kundenwunsch entfallen. Die Regel bleibt
+   stehen, weil dieser Kopf heute dreimal umgestellt wurde — der Wortlaut
+   ist zuletzt in die Ueberschrift gewandert. Wer sie endgueltig streichen
+   will, muss nur diesen Block loeschen; im Markup steht sie nicht mehr. */
 .robj__kicker {
   font-family: var(--font-ui);
   font-weight: 500;
@@ -152,7 +194,13 @@
 .robj__regel {
   width: clamp(44px, 4.2vw, 60px);
   height: 1px;
-  margin: clamp(0.7rem, 1.1vw, 1rem) auto 0;
+  /* 30.08.2026: Der Strich stand ZWISCHEN Kleinzeile und Ueberschrift und
+     hatte nur oben einen Abstand. Die Kleinzeile ist weg; er steht jetzt
+     UNTER der Ueberschrift und braucht beide Abstaende. Sie sind bewusst
+     ungleich: oben etwas mehr als unten, damit Strich und Unterzeile als
+     ein Fuss unter der Ueberschrift zusammenstehen und nicht als zwei
+     gleich weit entfernte Einzelteile. */
+  margin: clamp(1.1rem, 1.9vw, 1.75rem) auto clamp(0.85rem, 1.4vw, 1.3rem);
   fill: none;
   stroke: var(--r-gold-l);
   stroke-width: 1;
@@ -167,7 +215,10 @@
   line-height: 1.08;
   letter-spacing: -0.005em;
   color: var(--r-navy);
-  margin-top: clamp(1.5rem, 2.6vw, 2.4rem);
+  /* Steht seit dem 30.08.2026 als ERSTES im Kopf — die goldene Kleinzeile
+     darueber ist entfallen. Der Abstand nach oben traegt jetzt der Polster
+     des Abschnitts, nicht mehr diese Zeile. */
+  margin-top: 0;
   text-wrap: balance;
 }
 
@@ -177,7 +228,10 @@
   font-size: clamp(1.08rem, 1.66vw, 1.5rem);
   line-height: 1.45;
   color: var(--r-blau);
-  margin-top: clamp(0.5rem, 0.9vw, 0.85rem);
+  /* Kein eigener Abstand mehr: den setzt der Strich darueber. Zwei
+     Abstaende an derselben Stelle waeren genau die gleichmaessige Staffel,
+     die der Kunde beanstandet hat. */
+  margin-top: 0;
   text-wrap: balance;
 }
 
@@ -187,7 +241,17 @@
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: clamp(2.5rem, 4.4vw, 3.9rem);   /* Vorlage: 63 px */
+  /* GESTUFT, NICHT GLEICHMAESSIG — 30.08.2026.
+     Der Kunde: „vom Sinne her schon gut, gefaellt mir noch nicht hundert
+     Prozent." Der Befund am gerenderten Kopf: die drei Abstaende
+     Ueberschrift -> Strich -> Unterzeile -> Buehne standen bei 1,75 / 1,3 /
+     3,9rem und wirkten dadurch wie eine gleichmaessige Reihe von vier
+     Einzelteilen. Der Kopf ist aber EINE Gruppe, und die Buehne ist das
+     naechste Element — dieser Abstand muss deutlich der groesste sein.
+     Von 3,9 auf 5,4rem angehoben: das Verhaeltnis zum letzten Abstand
+     innerhalb des Kopfes steigt damit von 3,0 auf 4,2.
+     Vorlage: 63 px; die Vorlage kennt die Kleinzeile aber noch. */
+  margin-top: clamp(3.4rem, 6.1vw, 5.4rem);
 }
 
 .robj__mitte {
@@ -517,7 +581,7 @@
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background: rgba(249, 246, 241, 0.94);
+    background: rgba(247, 243, 240, 0.94);
     box-shadow: 0 1px 2px rgba(16, 41, 73, 0.12), 0 10px 24px -14px rgba(16, 41, 73, 0.5);
   }
   .robj__nav--zurueck { left: 14px; }
@@ -573,4 +637,53 @@
   .robj__nav:hover .robj__chev,
   .robj__link:hover .robj__pfeil,
   .robj__play:hover .robj__ring { transform: none; }
+}
+
+/* ===========================================================================
+   DER KOPF SCHIEBT HINTER EINER KANTE HERVOR — 30.08.2026
+
+   Eine Geste fuer diesen Abschnitt. Ueberschrift, Haarlinie und Unterzeile
+   stehen jeweils hinter einer waagrechten Kante und schieben sich darunter
+   hervor — nicht einblenden, sondern hervorkommen. Drei Stufen, 110 ms
+   auseinander, in der Reihenfolge, in der man liest.
+
+   TECHNIK: ein `clip-path`, das von `inset(100% 0 0 0)` (alles oberhalb der
+   Unterkante beschnitten) auf `inset(0)` laeuft, dazu ein kurzer Weg in
+   `transform: translateY`. Beides ist billig; es wird nichts umgebrochen
+   und nichts neu gemessen.
+   `overflow: hidden` am Abschnitt haelt nichts davon ab — der Beschnitt
+   sitzt am Element selbst.
+
+   AUSLOESER ist der IntersectionObserver aus site.js (data-reveal ->
+   data-seen, einmalig). Der siteweite Einlauf ist fuer diesen Kopf
+   abgeschaltet, er wuerde sich mit dem Beschnitt ueberlagern.
+   OHNE JAVASCRIPT und bei `reduce` steht der Kopf sofort vollstaendig.
+   =========================================================================== */
+.robj__head[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.is-ready .robj__head[data-reveal] > * {
+  clip-path: inset(105% 0 0 0);
+  transform: translateY(0.35em);
+}
+.is-ready .robj__head[data-seen='true'] > * {
+  animation: robj-kante 900ms var(--ease-soft) both;
+}
+.is-ready .robj__head[data-seen='true'] .robj__regel { animation-delay: 110ms; }
+.is-ready .robj__head[data-seen='true'] .robj__sub   { animation-delay: 220ms; }
+
+@keyframes robj-kante {
+  from { clip-path: inset(105% 0 0 0); transform: translateY(0.35em); }
+  to   { clip-path: inset(0 0 -35% 0); transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-ready .robj__head[data-reveal] > *,
+  .is-ready .robj__head[data-seen='true'] > * {
+    clip-path: none;
+    transform: none;
+    animation: none;
+  }
 }

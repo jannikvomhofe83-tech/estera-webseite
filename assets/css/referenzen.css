@@ -32,7 +32,17 @@
        --gold #A8874F (Sterne, Haarlinien)         3.16:1 — nichttextlich,
                                                    dort gelten 3:1
      ==================================================================== */
-  --rez-grund:    #F7F3EC;   /* Creme der Section und der Karten            */
+  /* 30.08.2026 von #F7F3EC auf #F7F3F0 gezogen — vier Einheiten im
+     Blaukanal. Grund: der Abschnitt darunter (#warum-immobilien) beginnt
+     auf --fl-creme #F7F3F0 und faehrt von dort ueber seine volle Hoehe nach
+     Weiss. Standen hier weiter #F7F3EC, blieb an der Naht eine Stufe von
+     vier Einheiten stehen — sichtbar wird sie kaum, aber die Regel aus
+     base.css misst Stufen, nicht Augenmass. Jetzt treffen zwei gleiche
+     Werte aufeinander und die Naht existiert nicht mehr.
+     Der Wert wirkt auch auf ueber-estera.html und
+     karriere-immobilienberater.html; dort steht der Abschnitt zwischen
+     denselben hellen Flaechen, vier Einheiten aendern daran nichts. */
+  --rez-grund:    #F7F3F0;   /* Creme der Section und der Karten            */
   --rez-linie:    rgba(168, 135, 79, 0.42);   /* Goldhaarlinie am Kartenrand */
   --rez-portraet: clamp(50px, 4vw, 58px);     /* Durchmesser des Kreises     */
   --rez-luft:     clamp(20px, 1.8vw, 30px);   /* Innenrand der Karte         */
@@ -76,7 +86,7 @@
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(247, 243, 236, 0.88), rgba(247, 243, 236, 0.88)),
+    linear-gradient(rgba(247, 243, 240, 0.88), rgba(247, 243, 240, 0.88)),
     var(--rez-grund) url('../img/marble2.jpg') center / cover no-repeat;
 }
 .ref__inner {
@@ -441,4 +451,57 @@
 @media (max-width: 699px) {
   .rez__pfeil { display: none; }   /* auf dem Telefon wird gewischt */
   .rez__karussell { gap: 0; }
+}
+
+/* ===========================================================================
+   DIE FUENF STERNE FUELLEN SICH — 30.08.2026
+
+   Eine Geste fuer diesen Abschnitt, und sie erklaert die Zahl daneben: die
+   fuenf goldenen Sterne im Google-Siegel decken sich von links nach rechts
+   auf, einer nach dem anderen, und enden auf „5,0 von 5 Sternen". Wer
+   hinsieht, hat die Bewertung gelesen, bevor er sie liest.
+
+   Sie laeuft NACH dem Kopf: `.ref__kopf` hat seinen eigenen Einlauf (0,9 s),
+   die Sterne setzen mit 500 ms Versatz nach.
+
+   DIE RECHNUNG ZUR MASKE — dieselbe wie beim Haus in warum.css:
+     Maskenkasten  240 % der Leistenbreite B
+     Verlauf       von links: durchsichtig bis 45 %, deckend ab 55 %
+                   deckender Teil damit 0,45 x 2,4B = 1,08 B — breiter als
+                   die Leiste, sonst deckt er sie am Ende nicht ganz
+     Anfang  mask-position-x   0 %  -> deckend ab 1,32B: kein Stern zu sehen
+     Ende    mask-position-x 100 %  -> Versatz -1,4B, deckend ab -0,08B:
+                                       alle fuenf stehen
+
+   BEWEGT WIRD NUR `mask-position`.
+   OHNE JAVASCRIPT fehlt `.is-ready` und alle fuenf Sterne stehen sofort;
+   bei `reduce` ebenso.
+   =========================================================================== */
+.is-ready .ref__kopf[data-reveal] .ref__siegel-sterne {
+  --ref-sterne-maske: linear-gradient(to right,
+      rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 45%, #000 55%, #000 100%);
+  -webkit-mask-image: var(--ref-sterne-maske);
+          mask-image: var(--ref-sterne-maske);
+  -webkit-mask-size: 240% 100%;
+          mask-size: 240% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: 0% 0%;
+          mask-position: 0% 0%;
+}
+.is-ready .ref__kopf[data-reveal][data-seen='true'] .ref__siegel-sterne {
+  animation: ref-sterne 1000ms 500ms var(--ease-soft) both;
+}
+@keyframes ref-sterne {
+  from { -webkit-mask-position: 0%   0%; mask-position: 0%   0%; }
+  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-ready .ref__kopf[data-reveal] .ref__siegel-sterne,
+  .is-ready .ref__kopf[data-reveal][data-seen='true'] .ref__siegel-sterne {
+    -webkit-mask-image: none;
+            mask-image: none;
+    animation: none;
+  }
 }

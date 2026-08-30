@@ -71,9 +71,17 @@
        werden. Das ist eine Zeile Arbeit — aber es ist eine Entscheidung des
        Kunden, keine des Entwicklers. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
+    <!-- 30.08.2026, Kundenwunsch: links „Vorteile · Leistungen · Ablauf",
+         rechts „Karriere · Kontakt". Damit ist „Ueber Estera" aus BEIDEN
+         Navigationen heraus; „Eigentumsaufbau" stand nie im Markup (siehe die
+         offene Rueckfrage darueber) und faellt damit still weg.
+         „Ablauf" zeigt auf #ablauf — das ist die Marke, die die Section
+         „Unser Ablauf" auf dieser Seite tatsaechlich traegt, im Markup
+         geprueft. -->
     <ul>
       <li><a href="#warum-immobilien">Vorteile</a></li>
       <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#ablauf">Ablauf</a></li>
     </ul>
   </nav>
 
@@ -102,8 +110,11 @@
        davor, Gold statt Navy. Es ist derselbe Platz, den vorher
        „Erstgespräch" hatte — nur der Name und das Ziel haben gewechselt. -->
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
+    <!-- 30.08.2026: „Ueber Estera" ist auf Kundenwunsch aus der Navigation
+         heraus. HINWEIS: ueber-estera.html bleibt vollstaendig bestehen und
+         ist weiter ueber ihre Adresse erreichbar — sie hat nur keinen
+         Eintrag mehr. Umgebaut wurde an der Seite nichts. -->
     <ul>
-      <li><a href="ueber-estera.html">Über Estera</a></li>
       <!-- Karriere ist seit dem 22.08.2026 keine eigene Seite mehr, sondern
            Abschnitt 4 von ueber-estera.html — Kundenwunsch: „eine Seite, die
            zwei Unterpunkte bleiben". karriere.html ist geloescht, _redirects
@@ -125,7 +136,7 @@
 <!-- =====================================================================
      HERO — Variante A: niedriges Bildband + eingelegter Kasten
      ===================================================================== -->
-<section class="heroA">
+<section class="heroA fl-navy900">
 
   <figure class="heroA__band" data-parallax>
     <!-- Das Standbild bleibt liegen: es traegt die Bildbeschreibung und ist
@@ -673,7 +684,7 @@
 
      TECHNIK: assets/css/warum.css und assets/js/warum.js.
      ===================================================================== -->
-<section class="wi" id="warum-immobilien" aria-labelledby="wi-titel">
+<section class="wi fl-creme-nach-weiss" id="warum-immobilien" aria-labelledby="wi-titel">
   <div class="wi__inner">
 
     <!-- ---------- 0  DIE FUENF ZEICHNUNGEN ----------
@@ -828,30 +839,52 @@
       </symbol>
     </svg>
 
-    <!-- ---------- 1  KOPF ---------- -->
-    <p class="wi__eyebrow">Warum Immobilien?</p>
-    <h2 class="wi__h2" id="wi-titel">Du baust Vermögen nicht nur mit deinem eigenen Geld auf.</h2>
-    <p class="wi__sub">Der Unterschied: Wie viel Kapital vom ersten Tag an für dich arbeitet.</p>
+    <!-- ---------- 1+2  KOPF UND VERGLEICHSBAND — EIN KASTEN ----------
+         30.08.2026, Kundenwunsch: „das ist das Wichtigste und muss
+         hervorgehoben werden." Kleinzeile, Ueberschrift, Unterzeile UND die
+         Gegenueberstellung stehen deshalb zusammen in EINEM Kasten, nicht
+         mehr in zwei getrennten Flaechen.
 
-    <!-- ---------- 2  VERGLEICHSBAND ---------- -->
-    <div class="wi__band">
-      <div class="wi__band-halb">
-        <p class="wi__band-marke">Klassisch investieren</p>
-        <p class="wi__band-text">Von deinem Brutto gehen <b>Steuern, Abgaben und laufende Ausgaben</b> ab.</p>
-        <p class="wi__band-text">Investiert wird nur, <b>was am Ende übrig bleibt.</b></p>
-      </div>
+         Die Farbe ist die des FAQ-Kastens, Zeichen fuer Zeichen aus
+         faq.css uebernommen: #1E222D nach #2E3643, waagerecht. Woertlich
+         der Kunde: „kein blauer Kasten, aber in der gleichen Farbe wie die
+         Kaesten bei der FAQ-Section". Das ist ein entsaettigtes Anthrazit
+         mit einem Hauch Blau — ausdruecklich kein Navy.
 
-      <div class="wi__band-trenn">
-        <svg class="wi__band-linie" viewBox="0 0 2 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path d="M1 0 V140" stroke="#D6CEC4" stroke-width="1" vector-effect="non-scaling-stroke"/>
-        </svg>
-        <p class="wi__band-vs"><span aria-hidden="true">vs</span><span class="wi__nur-vorlesen">im Vergleich zu</span></p>
-      </div>
+         Die Schrift darin ist hell; jede Farbe ist gegen die RECHTE,
+         hellere Seite des Verlaufs gemessen, siehe warum.css.
+         ---------------------------------------------------------------- -->
+    <div class="wi__kopf">
+      <p class="wi__eyebrow">Warum Immobilien?</p>
+      <h2 class="wi__h2" id="wi-titel">Du baust Vermögen nicht nur mit deinem eigenen Geld auf.</h2>
+      <p class="wi__sub">Der Unterschied: Wie viel Kapital vom ersten Tag an für dich arbeitet.</p>
 
-      <div class="wi__band-halb">
-        <p class="wi__band-marke">Mit Immobilie</p>
-        <p class="wi__band-text">Deine Bonität eröffnet dir den Zugang zu <b>Bankkapital.</b></p>
-        <p class="wi__band-text">So arbeitet von Beginn an <b>deutlich mehr Kapital</b> für dich.</p>
+      <div class="wi__band">
+        <div class="wi__band-halb">
+          <p class="wi__band-marke">Klassisch investieren</p>
+          <p class="wi__band-text">Von deinem Brutto gehen <b>Steuern, Abgaben und laufende Ausgaben</b> ab.</p>
+          <p class="wi__band-text">Investiert wird nur, <b>was am Ende übrig bleibt.</b></p>
+        </div>
+
+        <!-- 30.08.2026: Der Kreis mit „VS" ist auf Kundenwunsch vollstaendig
+             entfallen — Kreis UND Schrift. Es bleibt allein der senkrechte
+             Strich als Trennung.
+             Der Vorlesehinweis „im Vergleich zu" ist mitgegangen: er hing am
+             VS und beschrieb genau dieses Zeichen. Die Beziehung der beiden
+             Haelften steht weiterhin in den beiden Marken selbst
+             („Klassisch investieren" gegen „Mit Immobilie"), die als eigene
+             Absaetze vorgelesen werden. -->
+        <div class="wi__band-trenn">
+          <svg class="wi__band-linie" viewBox="0 0 2 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M1 0 V140" stroke="rgba(237,241,248,0.26)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+
+        <div class="wi__band-halb">
+          <p class="wi__band-marke">Mit Immobilie</p>
+          <p class="wi__band-text">Deine Bonität eröffnet dir den Zugang zu <b>Bankkapital.</b></p>
+          <p class="wi__band-text">So arbeitet von Beginn an <b>deutlich mehr Kapital</b> für dich.</p>
+        </div>
       </div>
     </div>
 
@@ -865,7 +898,16 @@
          die Adern in einem SVG mit genau diesem viewBox. Dadurch treffen
          Aderende und Kartenrand bei jeder Breite auf den Bildpunkt genau
          aufeinander. -->
-    <div class="wi__feld">
+    <!-- data-reveal holt sich den einmaligen Ausloeser aus assets/js/site.js:
+         der Beobachter setzt data-seen="true", sobald das Feld ins Bild
+         kommt, und hoert dann auf zu beobachten. Genau einmal, nicht bei
+         jedem Rollen. Der siteweite Einlauf (opacity/translateY aus
+         leistungen.css) ist fuer dieses Feld in warum.css abgeschaltet — es
+         soll sich nicht einblenden, sondern zeichnen.
+         data-lines an den beiden SVG laesst site.js die echte Pfadlaenge je
+         Linie in --len schreiben und je Linie einen Versatz in --d. Erst
+         damit laesst sich eine Linie sauber aufziehen. -->
+    <div class="wi__feld" data-reveal>
 
       <!-- Die Adern. Reine Schaugrafik, deshalb aria-hidden; die
            Zuordnung steht im Text der Karten. -->
@@ -887,7 +929,7 @@
              Baum und Gebaeude, ohne die Ellipse sichtbar zu beruehren
              (zuletzt sichtbar Vorlage 630/563 und 877/550 -> 476/126, 737/112) -->
       <svg class="wi__adern" viewBox="0 0 1240 323" fill="none" aria-hidden="true" focusable="false"
-           shape-rendering="geometricPrecision">
+           shape-rendering="geometricPrecision" data-lines>
         <g stroke="#0F2E52" stroke-width="2.4" stroke-linecap="round" fill="none">
           <path d="M303 58 H400 C450 58 468 92 476 126"/>
           <path d="M933 58 H836 C786 58 762 88 737 112"/>
@@ -909,9 +951,39 @@
         </g>
       </svg>
 
-      <!-- ---- Die Immobilie in der Mitte ---- -->
+      <!-- ---- Die Immobilie in der Mitte ----
+           30.08.2026: zurueck auf das ALTE HAUS — das klassische Stadthaus
+           mit Mansarddach und Gauben, das frueher an dieser Stelle stand.
+           Der Kunde wollte das moderne weisse Mehrfamilienhaus dort nicht.
+           Die Abbildung zeigt NUR Haus und Grundstueck: die aufgeschlagene
+           Grundbuchseite und der Schriftzug „DEINE IMMOBILIE" sind nicht mit
+           dabei.
+           Die vorige Fassung liegt unveraendert unter
+           assets/img/warum/haus.webp bzw. .png und ist der Rueckweg.
+           Datei 1254 x 1254 gegen hoechstens 314 CSS-Punkte Anzeigebreite —
+           Faktor 4,0, also auch bei doppelter Bildpunktdichte noch das
+           Doppelte. Der 2508er Urabzug liegt als haus-alt.webp/.png daneben. -->
+      <!-- DAS HAUS ZEICHNET SICH, DANN ENTSTEHT ES — 30.08.2026.
+           Kundenwunsch woertlich: „zeichnet sich das Haus zuerst und dann
+           entsteht das."
+
+           ZWEI LAGEN, deckungsgleich. haus-strich ist aus haus-alt-1254
+           gewonnen und liegt auf derselben Leinwand (1254 x 1254), im
+           gleichen Massstab und an derselben Stelle — es ist also nichts
+           auszurichten. Die Strichlage liegt ueber dem Foto.
+
+           Der Ablauf steht vollstaendig in warum.css unter „DIE ZEICHNUNG".
+           Kurz: eine Maske mit weicher Kante laeuft von unten nach oben ueber
+           die Striche, danach blendet das Foto auf und die Striche gehen weg.
+
+           OHNE JAVASCRIPT und bei ruhiger Darstellung steht sofort das Foto,
+           die Strichlage bleibt unsichtbar. Der Endzustand ist der
+           Grundzustand; die Bewegung nimmt ihn nur kurz weg. -->
       <div class="wi__haus">
-        <picture><source srcset="assets/img/warum/haus.webp?v=b24a" type="image/webp"><img src="assets/img/warum/haus.png?v=b24a" alt="Ein Mehrfamilienhaus auf einem begrünten Grundstück" width="1254" height="1254" loading="lazy" decoding="async"></picture>
+        <picture class="wi__haus-foto"><source srcset="assets/img/warum/haus-alt-1254.webp?v=b24a" type="image/webp"><img src="assets/img/warum/haus-alt-1254.png?v=b24a" alt="Ein klassisches Stadthaus mit Mansarddach und Gauben auf einem begrünten Grundstück" width="1254" height="1254" loading="lazy" decoding="async"></picture>
+        <span class="wi__haus-strich" aria-hidden="true">
+          <picture><source srcset="assets/img/warum/haus-strich.webp?v=b24a" type="image/webp"><img src="assets/img/warum/haus-strich.png?v=b24a" alt="" width="1254" height="1254" loading="lazy" decoding="async"></picture>
+        </span>
       </div>
 
       <!-- Der VORDERE Halbbogen des Rings. Er liegt ueber dem Haus und
@@ -920,7 +992,7 @@
            Dieselben Werte wie hinten (Mitte 603/241, rx 222, ry 66) und
            dieselbe Strichstaerke — sonst saehe man den Ansatz. -->
       <svg class="wi__ring-vorn" viewBox="0 0 1240 323" fill="none" aria-hidden="true" focusable="false"
-           shape-rendering="geometricPrecision">
+           shape-rendering="geometricPrecision" data-lines>
         <path d="M825 241 A222 66 0 0 1 381 241"
               stroke="#0F2E52" stroke-width="2.4" stroke-linecap="round" fill="none"/>
       </svg>
@@ -2245,7 +2317,7 @@
      Kaufinteressenten eine falsche Tatsachenbehauptung. Deshalb steht hier
      jetzt nur, was tatsaechlich vorliegt: die Aufnahme.
      ===================================================================== -->
-<section class="robj" id="referenzobjekte" data-robj aria-labelledby="robj-titel">
+<section class="robj fl-weiss-nach-creme" id="referenzobjekte" data-robj aria-labelledby="robj-titel">
   <!-- =====================================================================
        MUSTERWOHNUNG — neu gesetzt am 25.08.2026 nach der Bildvorlage
        Bilder/referenz-neu-A.png (1536 x 1024).
@@ -2284,22 +2356,33 @@
        ===================================================================== -->
   <div class="robj__inner">
 
-    <header class="robj__head">
-      <p class="robj__kicker">Musterwohnung</p>
+    <header class="robj__head" data-reveal>
+      <!-- 30.08.2026, dritte Runde. Der Kunde hat den Kopf selbst gesetzt:
+           die goldene Kleinzeile faellt ganz weg, die Ueberschrift heisst
+           jetzt „Ein Eindruck einer Musterwohnung" und traegt damit den
+           Wortlaut, der am Vormittag noch in der Kleinzeile stand.
+
+           Der GOLDENE STRICH BLEIBT und rueckt UNTER die Ueberschrift.
+           Grund: er war das einzige Zeichen, das den Kopf nach oben
+           abgeschlossen hat. Ohne Kleinzeile und ohne Strich stuende die
+           Ueberschrift ohne Anlauf auf der Flaeche und der Kopf waere
+           kopflastig — genau das Gefuehl, das der Kunde beschreibt („vom
+           Sinne her schon gut, gefaellt mir noch nicht hundert Prozent").
+           Unter der Ueberschrift bindet er Ueberschrift und Unterzeile zu
+           einer Gruppe und gibt dem Kopf seinen Fuss zurueck. Der Rest
+           bleibt, wie er war — kein Neubau. -->
+      <h2 class="robj__h2" id="robj-titel">Ein Eindruck einer Musterwohnung</h2>
       <svg class="robj__regel" viewBox="0 0 64 2" width="64" height="2" aria-hidden="true" focusable="false">
         <path d="M0 1H64" vector-effect="non-scaling-stroke"/>
       </svg>
-      <h2 class="robj__h2" id="robj-titel">Ein Eindruck, der bleibt.</h2>
       <p class="robj__sub">So kann sich sorgfältig ausgewählte Qualität anfühlen.</p>
     </header>
 
     <div class="robj__buehne">
 
-      <button class="robj__nav robj__nav--zurueck" type="button" data-robj-zurueck hidden aria-label="Vorherige Ansicht">
-        <svg class="robj__chev" viewBox="0 0 22 40" width="22" height="40" aria-hidden="true" focusable="false">
-          <path d="M16 3 5 20l11 17" vector-effect="non-scaling-stroke"/>
-        </svg>
-      </button>
+      <!-- Die beiden Blaetterpfeile sind am 30.08.2026 entfallen. Sie haben
+           zwischen den drei Ansichten geblaettert; es gibt nur noch eine.
+           Ihre Regeln (.robj__nav, .robj__chev) bleiben in der CSS liegen. -->
 
       <div class="robj__mitte">
 
@@ -2321,12 +2404,12 @@
                    preload="metadata"
                    poster="assets/video/referenz-wohnung.jpg"
                    width="1920" height="1080"
-                   aria-label="Rundgang durch die Musterwohnung — ohne Ton">
+                   aria-label="Aufnahme aus einer Wohnung — ohne Ton">
               <source src="assets/video/referenz-wohnung.webm" type="video/webm">
               <source src="assets/video/referenz-wohnung.mp4" type="video/mp4">
             </video>
 
-            <button class="robj__play" type="button" data-robj-play hidden aria-label="Rundgang abspielen">
+            <button class="robj__play" type="button" data-robj-play hidden aria-label="Aufnahme abspielen">
               <svg class="robj__playsvg" viewBox="0 0 108 100" width="108" height="100" aria-hidden="true" focusable="false">
                 <circle class="robj__ring" cx="57.5" cy="57" r="56.5" vector-effect="non-scaling-stroke"/>
                 <circle class="robj__scheibe" cx="68" cy="60" r="39"/>
@@ -2336,33 +2419,40 @@
           </div>
         </figure>
 
-        <!-- Die Karte wechselt mit den Punkten; aria-live meldet den Wechsel,
-             ohne den Fokus zu verschieben. -->
-        <div class="robj__karten" aria-live="polite">
+        <!-- 30.08.2026: EINE KARTE STATT DREI.
+             Die drei Umschaltpunkte unter dem Video sind auf Kundenwunsch
+             entfallen, damit auch die Ansichten 02 „Anflug" und 03
+             „Rundgang". Der KASTEN bleibt unveraendert: gleiche Klassen,
+             gleiche Breite (41 % / min. 300 px), gleiche Lage (left -6,6 %,
+             bottom 0), gleicher Radius, gleiche Flaeche, gleiche Schatten.
+             Nur der Inhalt ist jetzt EINE allgemeine Aussage.
+
+             Die Zeile im Goldton trug bisher die Ordnungszahl „01". Ohne
+             Reihe traegt eine Ordnungszahl nichts mehr; an ihrer Stelle
+             steht der Satzgedanke des Kunden. Die Zeile bleibt einzeilig,
+             deshalb bleibt auch die Kastenhoehe dieselbe.
+             Ueberschrift und Text sind Zeichen fuer Zeichen die der
+             bisherigen Karte 01 — die stand Wort fuer Wort auf der
+             Kundenvorlage und kommt ohne Rundgang, ohne Lage, ohne Zahl und
+             ohne Zimmerschnitt aus.
+             `aria-live` ist weg: es wechselt nichts mehr. -->
+        <div class="robj__karten">
+          <!-- 30.08.2026, zweite Fassung: „Raumgefuehl" ist auf ausdrueckliche
+               Ansage des Kunden heraus. An seiner Stelle steht jetzt „Der
+               Anspruch", und der Satz darunter greift die Gueterzeile aus dem
+               Kopf der Seite auf („Diskret ausgewaehlt. Strukturiert geprueft.
+               Langfristig begleitet.") — freigegebener Wortlaut, nichts
+               dazuerfunden. Keine Objektangabe, keine Zahl, kein Rundgang.
+               Beide Zeilen sind so lang wie die vorigen, damit der Kasten
+               seine Hoehe behaelt. -->
           <div class="robj__karte" data-robj-karte="0">
-            <span class="robj__nr">01</span>
-            <span class="robj__kt">Raumgefühl</span>
-            <span class="robj__kb">Ein privater Einblick in die Wirkung einer Immobilie.</span>
-          </div>
-          <div class="robj__karte" data-robj-karte="1" hidden>
-            <span class="robj__nr">02</span>
-            <span class="robj__kt">Anflug</span>
-            <span class="robj__kb">Der Blick über die Stadt, mit dem die Aufnahme beginnt.</span>
-          </div>
-          <div class="robj__karte" data-robj-karte="2" hidden>
-            <span class="robj__nr">03</span>
-            <span class="robj__kt">Rundgang</span>
-            <span class="robj__kb">Der Weg durch die Wohnung, Raum für Raum.</span>
+            <span class="robj__nr">So sieht es bei uns aus</span>
+            <span class="robj__kt">Der Anspruch</span>
+            <span class="robj__kb">Was diskret ausgewählt und geprüft wurde, sieht man.</span>
           </div>
         </div>
 
       </div>
-
-      <button class="robj__nav robj__nav--vor" type="button" data-robj-vor hidden aria-label="Nächste Ansicht">
-        <svg class="robj__chev" viewBox="0 0 22 40" width="22" height="40" aria-hidden="true" focusable="false">
-          <path d="m6 3 11 17L6 37" vector-effect="non-scaling-stroke"/>
-        </svg>
-      </button>
 
     </div>
 
@@ -2378,38 +2468,17 @@
       <span class="robj__mw">3 Zimmer</span>
     </p>
 
-    <p class="robj__linkzeile">
-      <button class="robj__link" type="button" data-robj-play>
-        Rundgang ansehen
-        <svg class="robj__pfeil" viewBox="0 0 46 14" width="46" height="14" aria-hidden="true" focusable="false">
-          <path d="M0 7h43m-7.5-6.2L42.8 7l-7.3 6.2" vector-effect="non-scaling-stroke"/>
-        </svg>
-      </button>
-    </p>
+    <!-- 30.08.2026 ENTFALLEN, beides auf Kundenwunsch und ersatzlos:
 
-    <div class="robj__punkte" role="group" aria-label="Ansicht wählen" hidden>
-      <button class="robj__punkt is-an" type="button" aria-current="true" data-robj-punkt="0">
-        <span class="robj__punkt-txt">Raumgefühl</span>
-        <svg viewBox="0 0 20 10" width="20" height="10" aria-hidden="true" focusable="false">
-          <rect class="robj__p-aus" x="5" y="0" width="10" height="10" rx="5"/>
-          <rect class="robj__p-an" x="0" y="0.5" width="20" height="9" rx="4.5"/>
-        </svg>
-      </button>
-      <button class="robj__punkt" type="button" data-robj-punkt="1">
-        <span class="robj__punkt-txt">Anflug</span>
-        <svg viewBox="0 0 20 10" width="20" height="10" aria-hidden="true" focusable="false">
-          <rect class="robj__p-aus" x="5" y="0" width="10" height="10" rx="5"/>
-          <rect class="robj__p-an" x="0" y="0.5" width="20" height="9" rx="4.5"/>
-        </svg>
-      </button>
-      <button class="robj__punkt" type="button" data-robj-punkt="2">
-        <span class="robj__punkt-txt">Rundgang</span>
-        <svg viewBox="0 0 20 10" width="20" height="10" aria-hidden="true" focusable="false">
-          <rect class="robj__p-aus" x="5" y="0" width="10" height="10" rx="5"/>
-          <rect class="robj__p-an" x="0" y="0.5" width="20" height="9" rx="4.5"/>
-        </svg>
-      </button>
-    </div>
+         · der Verweis „Rundgang ansehen" (.robj__linkzeile / .robj__link).
+           Es gibt keinen Rundgang. Der Verweis war ausserdem nur ein
+           zweiter Ausloeser fuer dasselbe Video — der gezeichnete
+           Abspielknopf mitten im Bild bleibt und tut genau das.
+         · die drei Umschaltpunkte (.robj__punkte). Es gibt nur noch eine
+           Ansicht.
+
+         Die Regeln zu beiden bleiben in assets/css/referenzobjekte.css
+         liegen; sie kosten nichts und sind der Rueckweg. -->
 
   </div>
 </section>
@@ -2478,7 +2547,7 @@
      Tastatur: die Schrittliste ist eine Reihe echter <button>, Pfeiltasten
      links/rechts und Pos1/Ende springen darin.
      ===================================================================== -->
-<section class="abl" id="ablauf" data-abl aria-labelledby="abl-titel">
+<section class="abl fl-creme-nach-weiss" id="ablauf" data-abl aria-labelledby="abl-titel">
 
   <!-- DER MARMOR. Eine eigene Lage, die AM FENSTER STEHENBLEIBT, solange man
        durch den Abschnitt rollt (position: sticky, volle Fensterhoehe, per
@@ -2509,552 +2578,182 @@
     </header>
   </div>
 
-  <!-- ---------- Die Laufstrecke ---------------------------------------------
-       MIT JAVASCRIPT ist dieser Kasten mehrere Fensterhoehen hoch. Die Buehne
-       darin bleibt stehen (position: sticky) und die Auswahl wandert beim
-       Rollen von Schritt zu Schritt weiter; Klicken bleibt daneben moeglich.
-       Die Hoehe setzt ablauf.js, weil sie die gemessene Buehnenhoehe braucht.
+  <!-- ---------- Der Kartenstapel und das Bildfenster -------------------------
+       NEU AM 30.08.2026 auf Kundenwunsch. Was hier bis dahin stand: links
+       eine Liste aus fuenf Schritten, daneben ein Einzelheitenblock, der
+       beim Rollen durchgeschaltet wurde, und rechts ein Foto als blasse
+       Hintergrundwaesche. Drei Aenderungen:
 
-       OHNE JAVASCRIPT traegt dieser Kasten keine Hoehe und die Buehne klebt
-       nicht. Sie steht dann einfach im Fluss, mit allen fuenf Beschreibungen
-       untereinander. Auf dem Telefon gilt dasselbe — dort waere eine
-       Klebemechanik nur im Weg.
+         · SECHS Schritte statt fuenf. Der sechste heisst „Betreuung" und
+           meint die Betreuung NACH dem Notartermin. Sein Wortlaut ist NICHT
+           erfunden, sondern aus dem zusammengesetzt, was auf dieser Seite
+           schon dazu steht: „persoenlicher Ansprechpartner" und „Betreuung
+           nach dem Kauf" — beides aus der <desc>-Beschreibung des Schaubilds
+           in Section #vorteile, dazu die Checkzeile „Nach dem Kauf betreuen"
+           aus dem bisherigen Schritt 05. Weil Schritt 06 das „darueber
+           hinaus" jetzt traegt, endet der Satz von Schritt 05 beim
+           Notartermin; gestrichen ist dort nur, nichts dazugekommen.
 
-       KEIN `overflow` auf diesem Kasten oder einem seiner Vorfahren.
-       `position: sticky` hoert auf zu wirken, sobald irgendein Vorfahre
-       `overflow` auf etwas anderes als `visible` setzt. Genau daran ist die
-       Klebemechanik in ueber.css schon einmal gescheitert; der Vermerk dazu
-       steht dort bei `.uab-band`. NICHT EINSETZEN.
+         · Die Schritte sind KARTEN und stapeln sich beim Rollen. Jede traegt
+           Nummer, Symbol, Titel und darunter die Beschreibung.
+
+         · Rechts steht ein ECHTES BILDFENSTER mit einem GANZEN Wohnhaus.
+
+       WIE DER STAPEL GEMACHT IST — ohne Rollhandler, ohne
+       requestAnimationFrame, nur `position: sticky`. Jede Karte liegt in
+       einem eigenen Kasten, und deren Klebehoehen sind gestaffelt:
+
+           Karte i bleibt stehen bei   --abl-klebe + i * --abl-versatz
+
+       Karte 02 bleibt also --abl-versatz Punkte TIEFER stehen als Karte 01
+       und verdeckt sie bis auf diesen schmalen Streifen. --abl-versatz ist
+       genau ein Zehntel der Kartenhoehe — daraus folgen die verlangten rund
+       90 Prozent Ueberdeckung. Spaetere Geschwister zeichnet der Browser von
+       sich aus ueber frueheren, deshalb liegt der Stapel richtig herum.
+       Die Rechnung steht ausgeschrieben in ablauf.css bei .abl__stapel.
+
+       OHNE JAVASCRIPT stehen alle sechs Karten lesbar untereinander: die
+       Klebemechanik haengt an [data-abl-bereit], und das setzt erst
+       assets/js/ablauf.js. Bei `prefers-reduced-motion: reduce` gilt
+       dasselbe — dort schaltet die CSS selbst auf `position: static`
+       zurueck. Beides ist Bedingung, nicht Kuer.
+
+       WAS AUS DEN ALTEN SCHRITTEN NICHT MITGEKOMMEN IST: die drei
+       Pruefpunkte mit Haken je Schritt. Der Kunde hat die Karte auf
+       Nummer, Titel, Symbol und Beschreibung festgelegt; fuenfzehn
+       zusaetzliche Zeilen haetten die Karten so hoch gemacht, dass ein
+       Stapel nicht mehr traegt. Die Wortlaute stehen vollstaendig in der
+       Versionsgeschichte (Stand vor dem 30.08.2026) und im Schaubild der
+       Section #vorteile, aus dem sie ohnehin stammen.
   ------------------------------------------------------------------------- -->
-  <div class="abl__lauf" data-abl-lauf>
-   <div class="abl__halt" data-abl-halt>
-    <div class="abl__inner">
+  <div class="abl__inner">
     <div class="abl__buehne">
 
-      <!-- SPALTE 1 — die fuenf Schritte -->
-      <div class="abl__spalte abl__spalte--liste">
-        <ul class="abl__liste">
-          <li class="abl__eintrag">
-            <button class="abl__schritt" type="button"
-                    id="abl-t-01"
-                    data-abl-zu="01"
-                    aria-controls="abl-p-01"
-                    aria-expanded="true"
-                    aria-current="step">
-              <span class="abl__schritt-nr">01</span>
-              <span class="abl__schritt-name">Erstgespräch</span>
-            </button>
-            <!-- Die Linie unter dem Eintrag. Ein SVG, zwei Zustaende: die
-                 graue Ruhelinie und darueber die navyfarbene Aktivlinie mit
-                 dem goldenen Punkt am Ende. Beide liegen deckungsgleich; nur
-                 die Deckkraft wechselt, deshalb springt nichts. -->
-            <svg class="abl__linie" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path class="abl__linie-ruhe" d="M0 7H300" stroke-width="1" vector-effect="non-scaling-stroke"/>
-              <path class="abl__linie-aktiv" d="M0 7H292" stroke-width="2" vector-effect="non-scaling-stroke"/>
-            </svg>
-            <svg class="abl__punkt-aktiv" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
-              <circle cx="7" cy="7" r="6"/>
-            </svg>
-          </li>
-          <li class="abl__eintrag">
-            <button class="abl__schritt" type="button"
-                    id="abl-t-02"
-                    data-abl-zu="02"
-                    aria-controls="abl-p-02"
-                    aria-expanded="false"
-                    >
-              <span class="abl__schritt-nr">02</span>
-              <span class="abl__schritt-name">Ersteinschätzung</span>
-            </button>
-            <!-- Die Linie unter dem Eintrag. Ein SVG, zwei Zustaende: die
-                 graue Ruhelinie und darueber die navyfarbene Aktivlinie mit
-                 dem goldenen Punkt am Ende. Beide liegen deckungsgleich; nur
-                 die Deckkraft wechselt, deshalb springt nichts. -->
-            <svg class="abl__linie" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path class="abl__linie-ruhe" d="M0 7H300" stroke-width="1" vector-effect="non-scaling-stroke"/>
-              <path class="abl__linie-aktiv" d="M0 7H292" stroke-width="2" vector-effect="non-scaling-stroke"/>
-            </svg>
-            <svg class="abl__punkt-aktiv" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
-              <circle cx="7" cy="7" r="6"/>
-            </svg>
-          </li>
-          <li class="abl__eintrag">
-            <button class="abl__schritt" type="button"
-                    id="abl-t-03"
-                    data-abl-zu="03"
-                    aria-controls="abl-p-03"
-                    aria-expanded="false"
-                    >
-              <span class="abl__schritt-nr">03</span>
-              <span class="abl__schritt-name">Objektauswahl</span>
-            </button>
-            <!-- Die Linie unter dem Eintrag. Ein SVG, zwei Zustaende: die
-                 graue Ruhelinie und darueber die navyfarbene Aktivlinie mit
-                 dem goldenen Punkt am Ende. Beide liegen deckungsgleich; nur
-                 die Deckkraft wechselt, deshalb springt nichts. -->
-            <svg class="abl__linie" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path class="abl__linie-ruhe" d="M0 7H300" stroke-width="1" vector-effect="non-scaling-stroke"/>
-              <path class="abl__linie-aktiv" d="M0 7H292" stroke-width="2" vector-effect="non-scaling-stroke"/>
-            </svg>
-            <svg class="abl__punkt-aktiv" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
-              <circle cx="7" cy="7" r="6"/>
-            </svg>
-          </li>
-          <li class="abl__eintrag">
-            <button class="abl__schritt" type="button"
-                    id="abl-t-04"
-                    data-abl-zu="04"
-                    aria-controls="abl-p-04"
-                    aria-expanded="false"
-                    >
-              <span class="abl__schritt-nr">04</span>
-              <span class="abl__schritt-name">Finanzierung</span>
-            </button>
-            <!-- Die Linie unter dem Eintrag. Ein SVG, zwei Zustaende: die
-                 graue Ruhelinie und darueber die navyfarbene Aktivlinie mit
-                 dem goldenen Punkt am Ende. Beide liegen deckungsgleich; nur
-                 die Deckkraft wechselt, deshalb springt nichts. -->
-            <svg class="abl__linie" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path class="abl__linie-ruhe" d="M0 7H300" stroke-width="1" vector-effect="non-scaling-stroke"/>
-              <path class="abl__linie-aktiv" d="M0 7H292" stroke-width="2" vector-effect="non-scaling-stroke"/>
-            </svg>
-            <svg class="abl__punkt-aktiv" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
-              <circle cx="7" cy="7" r="6"/>
-            </svg>
-          </li>
-          <li class="abl__eintrag">
-            <button class="abl__schritt" type="button"
-                    id="abl-t-05"
-                    data-abl-zu="05"
-                    aria-controls="abl-p-05"
-                    aria-expanded="false"
-                    >
-              <span class="abl__schritt-nr">05</span>
-              <span class="abl__schritt-name">Begleitung &amp; Notar</span>
-            </button>
-            <!-- Die Linie unter dem Eintrag. Ein SVG, zwei Zustaende: die
-                 graue Ruhelinie und darueber die navyfarbene Aktivlinie mit
-                 dem goldenen Punkt am Ende. Beide liegen deckungsgleich; nur
-                 die Deckkraft wechselt, deshalb springt nichts. -->
-            <svg class="abl__linie" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path class="abl__linie-ruhe" d="M0 7H300" stroke-width="1" vector-effect="non-scaling-stroke"/>
-              <path class="abl__linie-aktiv" d="M0 7H292" stroke-width="2" vector-effect="non-scaling-stroke"/>
-            </svg>
-            <svg class="abl__punkt-aktiv" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
-              <circle cx="7" cy="7" r="6"/>
-            </svg>
-          </li>
-        </ul>
-      </div>
+      <!-- SPALTE 1 — die sechs Schritte als Stapel.
+           <ol>, weil die Reihenfolge Teil der Aussage ist. -->
+      <ol class="abl__stapel">
+        <li class="abl__halt-karte">
+          <article class="abl__karte" aria-labelledby="abl-h-01">
+            <figure class="abl__karte-bild" data-reveal>
+              <picture>
+                <source type="image/webp" srcset="assets/img/ablauf/abl-01.webp?v=b24a">
+                <img src="assets/img/ablauf/abl-01.jpg?v=b24a" alt=""
+                     width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="abl__karte-wort">
+              <p class="abl__karte-nr">01</p>
+              <h3 class="abl__karte-titel" id="abl-h-01">Erstgespräch</h3>
+              <p class="abl__karte-text">Ziele, Situation und Erwartungen werden gemeinsam eingeordnet.</p>
+            </div>
+          </article>
+        </li>
+        <li class="abl__halt-karte">
+          <article class="abl__karte" aria-labelledby="abl-h-02">
+            <figure class="abl__karte-bild" data-reveal>
+              <picture>
+                <source type="image/webp" srcset="assets/img/ablauf/abl-02.webp?v=b24a">
+                <img src="assets/img/ablauf/abl-02.jpg?v=b24a" alt=""
+                     width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="abl__karte-wort">
+              <p class="abl__karte-nr">02</p>
+              <h3 class="abl__karte-titel" id="abl-h-02">Ersteinschätzung</h3>
+              <p class="abl__karte-text">Situation und Eignung werden offen eingeordnet — auch ein Nein ist möglich.</p>
+            </div>
+          </article>
+        </li>
+        <li class="abl__halt-karte">
+          <article class="abl__karte" aria-labelledby="abl-h-03">
+            <figure class="abl__karte-bild" data-reveal>
+              <picture>
+                <source type="image/webp" srcset="assets/img/ablauf/abl-03.webp?v=b24a">
+                <img src="assets/img/ablauf/abl-03.jpg?v=b24a" alt=""
+                     width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="abl__karte-wort">
+              <p class="abl__karte-nr">03</p>
+              <h3 class="abl__karte-titel" id="abl-h-03">Objektauswahl</h3>
+              <p class="abl__karte-text">Lage, Zustand und Wirtschaftlichkeit entscheiden über die Auswahl.</p>
+            </div>
+          </article>
+        </li>
+        <li class="abl__halt-karte">
+          <article class="abl__karte" aria-labelledby="abl-h-04">
+            <figure class="abl__karte-bild" data-reveal>
+              <picture>
+                <source type="image/webp" srcset="assets/img/ablauf/abl-04.webp?v=b24a">
+                <img src="assets/img/ablauf/abl-04.jpg?v=b24a" alt=""
+                     width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="abl__karte-wort">
+              <p class="abl__karte-nr">04</p>
+              <h3 class="abl__karte-titel" id="abl-h-04">Finanzierung</h3>
+              <p class="abl__karte-text">Die Unterlagen werden aufbereitet und im spezialisierten Netzwerk vorgeprüft.</p>
+            </div>
+          </article>
+        </li>
+        <li class="abl__halt-karte">
+          <article class="abl__karte" aria-labelledby="abl-h-05">
+            <figure class="abl__karte-bild" data-reveal>
+              <picture>
+                <source type="image/webp" srcset="assets/img/ablauf/abl-05.webp?v=b24a">
+                <img src="assets/img/ablauf/abl-05.jpg?v=b24a" alt=""
+                     width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="abl__karte-wort">
+              <p class="abl__karte-nr">05</p>
+              <h3 class="abl__karte-titel" id="abl-h-05">Begleitung &amp; Notar</h3>
+              <p class="abl__karte-text">Alle Beteiligten werden zusammengeführt — bis zum Notartermin.</p>
+            </div>
+          </article>
+        </li>
+        <li class="abl__halt-karte">
+          <article class="abl__karte" aria-labelledby="abl-h-06">
+            <figure class="abl__karte-bild" data-reveal>
+              <picture>
+                <source type="image/webp" srcset="assets/img/ablauf/abl-06.webp?v=b24a">
+                <img src="assets/img/ablauf/abl-06.jpg?v=b24a" alt=""
+                     width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="abl__karte-wort">
+              <p class="abl__karte-nr">06</p>
+              <h3 class="abl__karte-titel" id="abl-h-06">Betreuung</h3>
+              <p class="abl__karte-text">Nach dem Notartermin bleibt der persönliche Ansprechpartner — die Betreuung läuft weiter.</p>
+            </div>
+          </article>
+        </li>
+      </ol>
 
-      <!-- SPALTE 2 — die senkrechte Haarlinie der Vorlage -->
-      <div class="abl__trenner" aria-hidden="true"></div>
+      <!-- 30.08.2026, zweiter Anlauf: DIE ZWEITE SPALTE IST WEG.
+           Hier stand bis heute Mittag ein gerahmtes Foto eines Wohnhauses,
+           das neben dem Stapel stehenblieb. Der Kunde hat es ersatzlos
+           gestrichen — samt Rahmen und Passepartout — und dafuer den
+           Stapel auf die volle Breite gestellt. Jede Karte traegt jetzt ihr
+           eigenes Bild, siehe .abl__karte-bild.
 
-      <!-- SPALTE 3 — Einzelheiten zum gewaehlten Schritt -->
-      <div class="abl__spalte abl__spalte--detail">
-        <article class="abl__panel" id="abl-p-01" data-abl-panel="01" aria-labelledby="abl-h-01">
-          <p class="abl__kicker">Schritt 01</p>
-          <h3 class="abl__panel-titel" id="abl-h-01">Erstgespräch</h3>
-          <p class="abl__panel-text">Ziele, Situation und Erwartungen werden gemeinsam eingeordnet.</p>
-          <svg class="abl__panel-strich" viewBox="0 0 360 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0 .5H360" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <ul class="abl__punkte">
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Persönliche Ziele klären</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Rahmenbedingungen prüfen</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Potenzial realistisch bewerten</span>
-              </li>
-          </ul>
-            <button class="abl__weiter" type="button" data-abl-weiter="02">
-              <span>Nächster Schritt</span>
-              <svg class="abl__pfeil" width="34" height="12" viewBox="0 0 34 12" aria-hidden="true" focusable="false">
-                <path d="M0 6h31M26 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-        </article>
-        <article class="abl__panel" id="abl-p-02" data-abl-panel="02" aria-labelledby="abl-h-02">
-          <p class="abl__kicker">Schritt 02</p>
-          <h3 class="abl__panel-titel" id="abl-h-02">Ersteinschätzung</h3>
-          <p class="abl__panel-text">Situation und Eignung werden offen eingeordnet — auch ein Nein ist möglich.</p>
-          <svg class="abl__panel-strich" viewBox="0 0 360 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0 .5H360" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <ul class="abl__punkte">
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Gegenseitige Eignung prüfen</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Erste Einschätzung geben</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Auch ein Nein ist möglich</span>
-              </li>
-          </ul>
-            <button class="abl__weiter" type="button" data-abl-weiter="03">
-              <span>Nächster Schritt</span>
-              <svg class="abl__pfeil" width="34" height="12" viewBox="0 0 34 12" aria-hidden="true" focusable="false">
-                <path d="M0 6h31M26 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-        </article>
-        <article class="abl__panel" id="abl-p-03" data-abl-panel="03" aria-labelledby="abl-h-03">
-          <p class="abl__kicker">Schritt 03</p>
-          <h3 class="abl__panel-titel" id="abl-h-03">Objektauswahl</h3>
-          <p class="abl__panel-text">Lage, Zustand und Wirtschaftlichkeit entscheiden über die Auswahl.</p>
-          <svg class="abl__panel-strich" viewBox="0 0 360 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0 .5H360" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <ul class="abl__punkte">
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Lage und Markt bewerten</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Zustand prüfen</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Wirtschaftlich einordnen</span>
-              </li>
-          </ul>
-            <button class="abl__weiter" type="button" data-abl-weiter="04">
-              <span>Nächster Schritt</span>
-              <svg class="abl__pfeil" width="34" height="12" viewBox="0 0 34 12" aria-hidden="true" focusable="false">
-                <path d="M0 6h31M26 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-        </article>
-        <article class="abl__panel" id="abl-p-04" data-abl-panel="04" aria-labelledby="abl-h-04">
-          <p class="abl__kicker">Schritt 04</p>
-          <h3 class="abl__panel-titel" id="abl-h-04">Finanzierung</h3>
-          <p class="abl__panel-text">Die Unterlagen werden aufbereitet und im spezialisierten Netzwerk vorgeprüft.</p>
-          <svg class="abl__panel-strich" viewBox="0 0 360 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0 .5H360" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <ul class="abl__punkte">
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Unterlagen aufbereiten</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Im Netzwerk vorprüfen</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Entscheidung liegt bei den Banken</span>
-              </li>
-          </ul>
-            <button class="abl__weiter" type="button" data-abl-weiter="05">
-              <span>Nächster Schritt</span>
-              <svg class="abl__pfeil" width="34" height="12" viewBox="0 0 34 12" aria-hidden="true" focusable="false">
-                <path d="M0 6h31M26 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-        </article>
-        <article class="abl__panel" id="abl-p-05" data-abl-panel="05" aria-labelledby="abl-h-05">
-          <p class="abl__kicker">Schritt 05</p>
-          <h3 class="abl__panel-titel" id="abl-h-05">Begleitung &amp; Notar</h3>
-          <p class="abl__panel-text">Alle Beteiligten werden zusammengeführt — bis zum Notartermin und darüber hinaus.</p>
-          <svg class="abl__panel-strich" viewBox="0 0 360 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M0 .5H360" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <ul class="abl__punkte">
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Beteiligte zusammenführen</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Bis zum Notar begleiten</span>
-              </li>
-              <li>
-                <svg class="abl__haken" width="17" height="14" viewBox="0 0 17 14" aria-hidden="true" focusable="false">
-                  <path d="M1 7.4 5.8 12.2 16 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Nach dem Kauf betreuen</span>
-              </li>
-          </ul>
-            <a class="abl__weiter" href="kontakt.html">
-              <span>Erstgespräch vereinbaren</span>
-              <svg class="abl__pfeil" width="34" height="12" viewBox="0 0 34 12" aria-hidden="true" focusable="false">
-                <path d="M0 6h31M26 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-        </article>
-      </div>
-
-      <!-- SPALTE 4 — Fassade und die zwei Zeilen darunter.
-           Rechts sitzt jetzt ein FOTO (assets/img/ablauf/ablauf-fassade-1),
-           an derselben Stelle, in derselben Lage und Groesse wie zuvor die
-           Zeichnung. Sie ist Schmuck und deshalb aria-hidden; die beiden
-           Zeilen darunter sind echter Text. -->
-      <div class="abl__spalte abl__spalte--haus">
-        <!-- ERSETZT am 26.08.2026: Die gezeichnete Fassade (Inline-SVG) ist
-             durch das Foto einer Gruenderzeit-Fassade ersetzt worden
-             (Kundenwunsch: „da muss ja ein echtes Haus sein"). Die Zeichnung
-             bleibt hier zum Beleg auskommentiert stehen; die Regeln fuer
-             beides — Foto wie Zeichnung — stehen in ablauf.css.
-        <svg class="abl__fassade" viewBox="0 0 640 920" preserveAspectRatio="xMidYMax slice"
-             aria-hidden="true" focusable="false">
-        <g class="abl__fassade-zeichnung" fill="none" stroke-linecap="square" stroke-linejoin="miter">
-          <rect x="0" y="0" width="640" height="920" fill="var(--abl-fas-wand)"/>
-          <rect x="0" y="14" width="640" height="26" fill="var(--abl-fas-hell)"/>
-          <path d="M0 14H640M0 40H640M0 58H640" stroke="var(--abl-fas-linie)" stroke-width="1.6"/>
-          <rect x="6" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="24" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="42" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="60" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="78" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="96" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="114" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="132" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="150" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="168" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="186" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="204" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="222" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="240" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="258" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="276" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="294" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="312" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="330" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="348" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="366" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="384" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="402" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="420" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="438" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="456" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="474" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="492" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="510" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="528" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="546" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="564" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="582" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="600" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="618" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="636" y="42" width="9" height="12" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <rect x="0" y="296" width="640" height="14" fill="var(--abl-fas-hell)"/>
-          <path d="M0 296H640M0 310H640" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="0" y="518" width="640" height="14" fill="var(--abl-fas-hell)"/>
-          <path d="M0 518H640M0 532H640" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="0" y="740" width="640" height="14" fill="var(--abl-fas-hell)"/>
-          <path d="M0 740H640M0 754H640" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="0" y="900" width="640" height="20" fill="var(--abl-fas-hell)"/>
-          <path d="M0 900H640" stroke="var(--abl-fas-linie)" stroke-width="1.6"/>
-          <path d="M0 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M56 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M112 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M168 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M224 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M280 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M336 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M392 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M448 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M504 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M560 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M616 900V920" stroke="var(--abl-fas-linie)" stroke-width="1"/>
-          <path d="M20 82H140L80.0 46Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M20 82H140" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M22 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M128 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="27" y="102" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="36" y="108" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M80.0 108V258M36 171H124" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="22" y="258" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M180 82H300L240.0 46Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M180 82H300" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M182 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M288 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="187" y="102" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="196" y="108" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M240.0 108V258M196 171H284" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="182" y="258" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M340 82H460L400.0 46Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M340 82H460" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M342 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M448 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="347" y="102" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="356" y="108" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M400.0 108V258M356 171H444" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="342" y="258" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M500 82H620L560.0 46Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M500 82H620" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M502 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M608 84h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="507" y="102" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="516" y="108" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M560.0 108V258M516 171H604" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="502" y="258" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M20 304h120v-8a60.0 30 0 0 0 -120 0Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M22 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M128 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="27" y="324" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="36" y="330" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M80.0 330V480M36 393H124" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="22" y="480" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M180 304h120v-8a60.0 30 0 0 0 -120 0Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M182 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M288 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="187" y="324" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="196" y="330" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M240.0 330V480M196 393H284" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="182" y="480" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <rect x="170" y="490" width="140" height="8" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M174 498V544M306 498V544M174 544H306" stroke="var(--abl-fas-rahmen)" stroke-width="1.8"/>
-          <path d="M180 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M191 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M202 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M213 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M224 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M235 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M246 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M257 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M268 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M279 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M290 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M301 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M174 516H306" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M340 304h120v-8a60.0 30 0 0 0 -120 0Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M342 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M448 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="347" y="324" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="356" y="330" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M400.0 330V480M356 393H444" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="342" y="480" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <rect x="330" y="490" width="140" height="8" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M334 498V544M466 498V544M334 544H466" stroke="var(--abl-fas-rahmen)" stroke-width="1.8"/>
-          <path d="M340 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M351 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M362 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M373 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M384 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M395 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M406 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M417 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M428 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M439 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M450 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M461 500V542" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M334 516H466" stroke="var(--abl-fas-rahmen)" stroke-width="1.1"/>
-          <path d="M500 304h120v-8a60.0 30 0 0 0 -120 0Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M502 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M608 306h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="507" y="324" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="516" y="330" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M560.0 330V480M516 393H604" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="502" y="480" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M20 526H140L80.0 490Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M20 526H140" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M22 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M128 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="27" y="546" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="36" y="552" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M80.0 552V702M36 615H124" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="22" y="702" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M180 526H300L240.0 490Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M180 526H300" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M182 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M288 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="187" y="546" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="196" y="552" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M240.0 552V702M196 615H284" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="182" y="702" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M340 526H460L400.0 490Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M340 526H460" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M342 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M448 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="347" y="546" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="356" y="552" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M400.0 552V702M356 615H444" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="342" y="702" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M500 526H620L560.0 490Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M500 526H620" stroke="var(--abl-fas-linie)" stroke-width="1.5"/>
-          <path d="M502 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M608 528h10v22l-5 8-5-8Z" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <rect x="507" y="546" width="106" height="162" fill="none" stroke="var(--abl-fas-linie)" stroke-width="1.4"/>
-          <rect x="516" y="552" width="88" height="150" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M560.0 552V702M516 615H604" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="502" y="702" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <rect x="36" y="774" width="88" height="116" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M80.0 774V890M36 823H124" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="22" y="890" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <rect x="196" y="774" width="88" height="116" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M240.0 774V890M196 823H284" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="182" y="890" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <rect x="356" y="774" width="88" height="116" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M400.0 774V890M356 823H444" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="342" y="890" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <rect x="516" y="774" width="88" height="116" fill="var(--abl-fas-glas)" stroke="var(--abl-fas-rahmen)" stroke-width="2.4"/>
-          <path d="M560.0 774V890M516 823H604" stroke="var(--abl-fas-rahmen)" stroke-width="2"/>
-          <rect x="502" y="890" width="116" height="10" fill="var(--abl-fas-hell)" stroke="var(--abl-fas-linie)" stroke-width="1.3"/>
-          <path d="M14 58V900" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-          <path d="M626 58V900" stroke="var(--abl-fas-linie)" stroke-width="1.2"/>
-        </g>
+           DIE ZWEI SCHLUSSZEILEN BLEIBEN. „Ein Ansprechpartner. Vom Anfang
+           bis zum Notar." ist eine Aussage ueber den Ablauf und haftete
+           nicht am Bild; sie stand nur zufaellig in derselben Spalte.
+           Sie steht jetzt mittig UNTER dem Stapel und schliesst den
+           Abschnitt ab — dort, wo vorher nur Leerraum war.
+           Die goldene Haarlinie darueber ist mitgekommen. -->
+      <div class="abl__schluss">
+        <svg class="abl__hausstrich" width="52" height="1" viewBox="0 0 52 1" aria-hidden="true" focusable="false">
+          <path d="M0 .5H52" stroke="currentColor" stroke-width="1"/>
         </svg>
-        -->
-        <picture>
-          <source type="image/webp" srcset="assets/img/ablauf/ablauf-fassade-1.webp?v=b24a">
-          <img class="abl__fassade" src="assets/img/ablauf/ablauf-fassade-1.png?v=b24a"
-               width="2048" height="3072" alt="" aria-hidden="true"
-               loading="lazy" decoding="async">
-        </picture>
-        <div class="abl__hausworte">
-          <svg class="abl__hausstrich" width="52" height="1" viewBox="0 0 52 1" aria-hidden="true" focusable="false">
-            <path d="M0 .5H52" stroke="currentColor" stroke-width="1"/>
-          </svg>
-          <p class="abl__hauszeile">Ein Ansprechpartner.</p>
-          <p class="abl__hauszeile">Vom Anfang bis zum Notar.</p>
-        </div>
+        <p class="abl__hauszeile">Ein Ansprechpartner.</p>
+        <p class="abl__hauszeile">Vom Anfang bis zum Notar.</p>
       </div>
 
     </div>
-    </div>
-   </div>
   </div>
+
 
   <div class="abl__inner">
     <!-- =================================================================
@@ -3175,7 +2874,15 @@
       </symbol>
     </svg>
 
-    <div class="faq__liste">
+    <!-- data-reveal steht an der LISTE, nicht an den einzelnen Kaesten.
+         Grund, und der ist gemessen: die Kaesten tragen waehrend des
+         Einlaufs ein `clip-path`, das ihre sichtbare Flaeche auf null
+         setzt. Der IntersectionObserver rechnet die Beschneidung mit — ein
+         so beschnittener Kasten hat Verhaeltnis 0, erreicht die Schwelle
+         von 0,15 nie und bekaeme deshalb NIE data-seen. Er waere fuer immer
+         unsichtbar geblieben. Die Liste selbst ist unbeschnitten und loest
+         zuverlaessig aus; die Staffelung steht als --i an den Kaesten. -->
+    <div class="faq__liste" data-reveal>
 
       <!-- 1 von 5 — Quelle: Bilder/faq-inhalt-1.jpeg
            PRUEFEN: „dass auch ein Kauf ohne Eigenkapital moeglich ist"
@@ -3183,7 +2890,7 @@
            Vorbehalt „Je nach Einkommen und Bonitaet" im selben Satz, bleibt
            aber eine Aussage ueber die Kreditvergabe Dritter. Unveraendert
            uebernommen; Freigabe liegt beim Kunden. -->
-      <div class="faq__punkt">
+      <div class="faq__punkt" style="--i:0">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k1" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a1">
@@ -3204,7 +2911,7 @@
       </div>
 
       <!-- 2 von 5 — Quelle: Bilder/faq-inhalt-2.jpeg -->
-      <div class="faq__punkt">
+      <div class="faq__punkt" style="--i:1">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k2" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a2">
@@ -3229,7 +2936,7 @@
            nahe, dass nach dem Kauf weder Aufwand noch Risiko bleibt. Das ist
            die deutlichste der heiklen Stellen. Unveraendert uebernommen;
            Freigabe liegt beim Kunden. -->
-      <div class="faq__punkt">
+      <div class="faq__punkt" style="--i:2">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k3" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a3">
@@ -3253,7 +2960,7 @@
            oder weiteren Immobilie" ist eine Zeitaussage ueber einen Ablauf,
            der von Bank und Notar abhaengt. Der Vorbehalt steht im Satz davor.
            Unveraendert uebernommen; Freigabe liegt beim Kunden. -->
-      <div class="faq__punkt">
+      <div class="faq__punkt" style="--i:3">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k4" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a4">
@@ -3273,7 +2980,7 @@
       </div>
 
       <!-- 5 von 5 — Quelle: Bilder/faq-inhalt-5.jpeg -->
-      <div class="faq__punkt">
+      <div class="faq__punkt" style="--i:4">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k5" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a5">
@@ -3429,12 +3136,15 @@
     <ul class="menu__nav">
       <li><a class="menu__link" href="#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
       <li><a class="menu__link" href="#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <li><a class="menu__link" href="#ablauf"><span class="num">03</span> Ablauf</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
+    <!-- 30.08.2026 mit der Kopfleiste gleichgezogen: „Ueber Estera" heraus,
+         neu durchnummeriert. Beide Navigationen fuehren wieder genau
+         dieselben Punkte. -->
     <ul class="menu__nav">
-      <li><a class="menu__link" href="ueber-estera.html"><span class="num">01</span> Über Estera</a></li>
-      <li><a class="menu__link" href="karriere.html"><span class="num">02</span> Karriere</a></li>
-      <li><a class="menu__link" href="kontakt.html"><span class="num">03</span> Kontakt</a></li>
+      <li><a class="menu__link" href="karriere.html"><span class="num">01</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html"><span class="num">02</span> Kontakt</a></li>
     </ul>
 
     <aside class="menu__aside">
