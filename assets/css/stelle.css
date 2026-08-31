@@ -1109,7 +1109,12 @@
 .stl-folge {
   display: grid;
   align-content: start;
-  margin: clamp(18px, 1.5vw, 28px) 0 0;
+  /* MEHR LUFT ZUR UEBERSCHRIFT — 31.08.2026, Kundenwunsch: „zwischen ‚Das
+     erwartet dich' und Punkt Nummer 1 muss ein bisschen mehr Abstand
+     sein". 28 -> 52 px am oberen Deckel, unten 18 -> 32 px. Der Abstand
+     ist der einzige geaenderte Wert; Schriftgrade, Ziffern und die
+     Abstaende ZWISCHEN den Stufen bleiben unberuehrt. */
+  margin: clamp(32px, 2.9vw, 52px) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1720,9 +1725,36 @@
    IntersectionObserver, den stelle.js ohnehin schon hat.
    =========================================================================== */
 
-/* Die Lage. Deckt denselben Kasten wie <picture> und liegt in
-   Dokumentreihenfolge darueber — hinten zuerst, vorn zuletzt. */
-.stl-aus__lage { position: absolute; inset: 0; display: block; }
+/* Die Lage. Liegt in Dokumentreihenfolge ueber der vorigen — hinten
+   zuerst, vorn zuletzt.
+
+   SIE BEKOMMT DIE MASSREGELN DES BILDES, NICHT `inset: 0`, und daran haengt
+   die ganze Geometrie dieses Abschnitts. <figure> ist NICHT quadratisch (es
+   nimmt die Restbreite und die Resthoehe des Kastens, gemessen bei 1440 px
+   zum Beispiel 358 x 133), das Bild darin schon: es liegt mittig in einem
+   Quadrat von 133 x 133. Prozentwerte auf der Lage — clip-path-Einzuege,
+   transform-origin, translate — beziehen sich aber auf DIE LAGE. Steht sie
+   auf der Figurbreite, meint jedes gemessene Prozent etwas anderes als
+   gedacht, und zwar in jedem Kasten und auf jeder Fensterbreite etwas
+   anderes, weil die sechs Kaesten verschieden gross sind.
+
+   EINMAL GEBAUT UND IM BILD GESEHEN: der Haken zeichnete sich dadurch gar
+   nicht. Sein Wischer laeuft von 66 % auf 33 % Beschnitt rechts — auf der
+   358 px breiten Figur sind das 236 statt 88 Bildpunkte, und der Beschnitt
+   endete vor dem Bild, statt ueber es hinwegzulaufen.
+
+   Mit denselben vier Zeilen wie am Bild deckt die Lage genau dasselbe
+   Quadrat, und jeder gemessene Prozentwert stimmt. */
+.stl-aus__lage {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: block;
+  height: min(100%, 17rem);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+}
 
 /* Die zwei aufgelegten SVG.
 
@@ -1884,13 +1916,23 @@
    ein Haken besteht aus zwei Strichen, die BEIDE von links nach rechts
    laufen — der kurze abwaerts, der lange aufwaerts. Der Stift kommt also
    nie zurueck, und ein Wischer entlang x bildet den Weg des Stiftes ab.
-   Der Haken steht bei 37,0 bis 64,5 % der Bildbreite (gemessen: 486 bis
+   Der Haken steht bei 37,0 bis 64,6 % der Bildbreite (gemessen: 486 bis
    848 von 1312). Der Wischer laeuft deshalb von 66 % Beschnitt rechts auf
    33 % und nicht von 100 auf 0 — sonst waere die halbe Laufzeit Leerlauf,
-   bevor ueberhaupt etwas erscheint. */
+   bevor ueberhaupt etwas erscheint.
+
+   DIE LETZTEN 15 PROZENT DER LAUFZEIT OEFFNEN DEN BESCHNITT GANZ, und das
+   ist keine Zierde. Die Eintrittsgeste laeuft mit `both`, ihr Endwert
+   bleibt also an der Lage stehen — bei 33 % waere die Lage dauerhaft auf
+   die linken zwei Drittel beschnitten. Heute endet der Haken bei 64,6 %
+   und passt mit 2,4 % Luft hinein; wer den Haken einmal groesser zeichnen
+   laesst oder das Bild tauscht, saesse in der Falle. Nach dem Zeichnen ist
+   deshalb gar kein Beschnitt mehr da. Zu sehen ist von diesem letzten
+   Stueck nichts — rechts von 67 % steht in dieser Lage ohnehin nichts. */
 @keyframes stl-haken-zieht {
-  from { clip-path: inset(0 66% 0 0); }
-  to   { clip-path: inset(0 33% 0 0); }
+  0%   { clip-path: inset(0 66% 0 0); }
+  85%  { clip-path: inset(0 33% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
 }
 
 /* --- 05  BUCH MIT HUT — „Lust zu lernen" --------------------------------
