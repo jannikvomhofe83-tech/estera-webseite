@@ -143,7 +143,10 @@
       if (offen) karte.removeAttribute('data-offen');
       else karte.setAttribute('data-offen', '');
       knopf.setAttribute('aria-expanded', offen ? 'false' : 'true');
-      if (wort) wort.textContent = offen ? 'Vollständige Bewertung' : 'Weniger anzeigen';
+      /* WORDING 31.08.2026 — Wording-Dokument, Abschnitt 02, „LINK JE KARTE".
+         Vorher: "Vollständige Bewertung". Der zugeklappte Zustand steht im
+         HTML und muss dort denselben Wortlaut tragen. */
+      if (wort) wort.textContent = offen ? 'Bewertung vollständig lesen' : 'Weniger anzeigen';
       if (offen) knopfePruefenGleich();
     });
   });

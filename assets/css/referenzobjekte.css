@@ -251,7 +251,35 @@
      Von 3,9 auf 5,4rem angehoben: das Verhaeltnis zum letzten Abstand
      innerhalb des Kopfes steigt damit von 3,0 auf 4,2.
      Vorlage: 63 px; die Vorlage kennt die Kleinzeile aber noch. */
-  margin-top: clamp(3.4rem, 6.1vw, 5.4rem);
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     31.08.2026 — DAS VIDEO RUECKT AN DIE UEBERSCHRIFT HERAN.
+     Kundenwunsch: naeher an die Ueberschrift („Sorgfaeltig waehlen wir
+     fuer dich aus"). Gemeint ist der Kopf als Ganzes; die zitierte Zeile
+     ist dessen Unterzeile (.robj__sub) und damit sein unteres Ende.
+
+     Gemessen bei 1440 px, am gerenderten Abschnitt:
+
+                                          vorher   jetzt
+       margin-top an der Buehne            86,4     41,6 px
+       sichtbarer Abstand Unterzeile
+       bis Videokasten                     78,0     33,2 px
+
+     DIE STAFFELUNG DES KOPFES BLEIBT DABEI ERHALTEN, und das war die
+     Bedingung. Die beiden Abstaende INNERHALB des Kopfes messen bei
+     1440 px 12,5 px (Ueberschrift -> Strich) und 22,9 px (Strich ->
+     Unterzeile). Der Abstand zur Buehne ist mit 33,2 px weiterhin der
+     groesste von allen und liegt bei 1,45-mal dem letzten Abstand im
+     Kopf. Der Kopf bleibt damit als Gruppe lesbar; er faellt nicht in eine
+     gleichmaessige Reihe von vier Einzelteilen zurueck, was der Kunde am
+     30.08.2026 beanstandet hatte. Weiter herunter darf der Wert deshalb
+     nicht: bei rund 25 px waeren die vier Abstaende gleich.
+
+     WARUM DAS JETZT GEHT: bis zum 31.08.2026 hingen zwei Karten halb ueber
+     der unteren Videokante. Die Buehne war dadurch optisch schwerer und
+     brauchte oben mehr Luft, um nicht an den Kopf zu stossen. Ohne die
+     Karten steht dort nur noch der ruhige Videokasten.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  margin-top: clamp(1.6rem, 2.9vw, 2.6rem);
 }
 
 .robj__mitte {
@@ -356,163 +384,33 @@
 .robj__play:focus-visible .robj__scheibe { fill: #0A192E; }
 .robj__play:hover .robj__ring { stroke: var(--r-gold-l); transform: scale(1.04); }
 
-/* --- Die zwei Karten unten ------------------------------------------------- */
+/* ===========================================================================
+   DIE BEIDEN KARTEN SIND AM 31.08.2026 ERSATZLOS ENTFALLEN.
 
-/* Vorlage: 416 x 160 bei 1536, linke Kante 74 px links neben dem Rahmen,
-   Unterkante buendig mit dem Rahmen.
+   Kundenwunsch, woertlich: „Nur noch das Video ist zu sehen." Die Karten
+   hingen halb ueber der unteren Videokante und waren erst am selben Tag
+   eingebaut worden.
 
-   ===== ZWEITE KARTE RECHTS — 31.08.2026 ==================================
-   Kundenwunsch: eine zweite Karte unten rechts, spiegelbildlich zur
-   ersten, die RECHTS AUS DEM BILD HERAUSLAEUFT.
+   ENTFERNT sind die Regeln .robj__karten, .robj__karten > .robj__karte,
+   .robj__karte, .robj__karte--rechts, .robj__karte[hidden], .robj__nr,
+   .robj__kt und .robj__kb samt der ausgeschriebenen Rechnungen zur
+   Spiegelung (Ueberstand 6,6 %, flex-basis 36,2 %) und zum Schriftgrad der
+   Ueberschrift. Alles steht in der Versionsgeschichte, Stand vor dem
+   31.08.2026.
 
-   SPIEGELBILDLICH heisst hier genau das, Wert fuer Wert: dieselbe Breite
-   (41 % der Buehne), dieselbe Unterkante, derselbe Ueberstand (6,6 % der
-   Buehnenbreite) — nur nach der anderen Seite. Auch die Satzausrichtung
-   dreht mit: die linke Karte steht linksbuendig, die rechte
-   rechtsbuendig. Ohne diesen Wechsel saehen die beiden Karten gespiegelt
-   aus, ihr Inhalt aber nicht — die Symmetrie waere nur halb.
-
-   BEIDE KARTEN LIEGEN IN EINEM EINZIGEN KASTEN, und das ist kein Zufall.
-   Als zwei getrennte, absolut gesetzte Kaesten waren sie verschieden hoch:
-   „Deine Immobilie als Kapitalanlage" braucht zwei Zeilen, „Off-Market-
-   Objekt" eine. Bei gemeinsamer Unterkante lagen die Oberkanten dann 52 px
-   auseinander — gespiegelt ist daran nichts mehr. In EINEM Flexkasten mit
-   `align-items: stretch` sind beide so hoch wie die hoehere, und
-   `justify-content: flex-end` in der Karte haelt den Text unten an der
-   gemeinsamen Kante. Beide Kaesten stehen damit auf derselben Ober- UND
-   derselben Unterkante.
-
-   DASS SIE SICH NICHT TREFFEN, IST GERECHNET UND NICHT GESCHAETZT. Der
-   Kasten spannt von -6,6 % bis 106,6 % der Buehnenbreite, also ueber
-   113,2 %. Jede Karte nimmt davon 36,2 % (`flex-basis`), das sind genau
-   41 % der Buehne — der Wert der bisherigen einzelnen Karte, unveraendert.
-   Zwischen beiden bleiben 27,6 % des Kastens frei, bei 1240 px Buehne also
-   387 px. Der Umbruch bei 900 px greift lange vorher.
-
-   `overflow: hidden` am Abschnitt (.robj) beschneidet den Ueberstand
-   nicht: die Buehne ist auf min(72,9vw, 1240px) begrenzt, der Ueberstand
-   von 6,6 % bleibt also links wie rechts innerhalb des Fensters.
-   ========================================================================= */
-.robj__karten {
-  position: absolute;
-  z-index: 3;
-  left: -6.6%;
-  right: -6.6%;
-  bottom: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: clamp(1rem, 3vw, 3rem);
-}
-.robj__karten > .robj__karte {
-  flex: 0 1 36.2%;         /* = 41 % der Buehne, siehe die Rechnung oben */
-}
-.robj__karte--rechts { text-align: right; }
-
-/* Auch hier kein Strich mehr, aus demselben Grund wie am Videorahmen. Die
-   Karte traegt sich ueber ihre eigene, hellere Flaeche und die Schattenlagen;
-   auf dem Video steht sie damit klar, auf dem Cremegrund ebenso. */
-/* `flex` statt `block`: die Karten werden von ihrem Kasten auf gleiche
-   Hoehe gestreckt (siehe die Rechnung oben), und `justify-content:
-   flex-end` haelt den Text dabei unten. Die niedrigere Karte bekommt ihre
-   ueberzaehlige Hoehe also OBEN dazu, wo sie leer bleiben darf — nicht
-   unten, wo sie die Zeilen von der gemeinsamen Unterkante wegschoebe. */
-/* ===== DIE KARTEN HEBEN SICH AB — 31.08.2026 ==============================
-   Kundenwunsch: man soll sehen, dass es zwei Kaesten sind — „eine Umrandung
-   oder eine leichte farbliche Absetzung".
-
-   BEIDES ZUSAMMEN, und beides sehr zurueckhaltend:
-
-   1  EINE HAARLINIE in --r-gold, auf 34 Prozent Deckkraft. Auf der
-      Kartenflaeche #FAF7F3 misst sie 1,7:1 — sie ist Zeichnung, keine
-      Aussage, und WCAG 1.4.11 greift fuer sie nicht (die Karte ist kein
-      Bedienelement; sie liegt ausserdem zu grossen Teilen auf dem Video,
-      wo der Kontrast ohnehin von der Flaeche kommt).
-      Warum Gold und nicht Navy: der Abschnitt fuehrt die goldene Linie
-      bereits am Abspielknopf (.robj__ring, #A8874F). Eine navyfarbene
-      Kante waere ein zweites Zeichen fuer dieselbe Sache.
-
-   2  DIE FLAECHE WIRD EINE SPUR WAERMER: von --r-karte #FAF7F3 auf #F6F1EA.
-      Gegen den Cremegrund der Section (--r-grund #F7F3F0) war die alte
-      Karte praktisch nicht abgesetzt — beide liegen bei L = 0,955 gegen
-      0,952, ein Unterschied von 0,3 Prozent. Der neue Ton liegt bei
-      L = 0,918 und damit klar darunter, ohne schmutzig zu werden.
-
-   DIE SCHRIFTKONTRASTE SIND GEGEN DEN NEUEN, DUNKLEREN GRUND NACHGERECHNET
-   und halten alle:
-     Kennzeile      --r-gold-t #7F5923 auf #F6F1EA   5,66:1  (vorher 5,88)
-     Ueberschrift   --r-navy   #102949 auf #F6F1EA  13,73:1  (vorher 14,26)
-     Satz           --r-blau   #3B4F6B auf #F6F1EA   7,45:1  (vorher 7,74)
-
-   3  DER SCHATTEN wird eine Spur tiefer gesetzt, damit die Karte auch dort
-      als eigener Koerper liest, wo sie NEBEN dem Video auf dem Cremegrund
-      steht und die Flaeche allein wenig hergibt.
-   ========================================================================= */
-.robj__karte {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background: #F6F1EA;
-  border: 1px solid rgba(168, 135, 79, 0.34);
-  border-radius: 16px;
-  padding: clamp(1.1rem, 1.7vw, 1.6rem) clamp(1.2rem, 1.9vw, 1.75rem);
-  box-shadow:
-      0 1px 2px rgba(16, 41, 73, 0.10),
-      0 22px 46px -20px rgba(16, 41, 73, 0.32);
-}
-.robj__karte[hidden] { display: none; }
-
-.robj__nr {
-  display: block;
-  font-family: var(--font-ui);
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
-  letter-spacing: 0.06em;
-  color: var(--r-gold-t);            /* 5,66:1 auf #F6F1EA */
-  line-height: 1;
-}
-
-.robj__kt {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 400;
-  /* ===== GRAD AUF DIE LAENGERE DER BEIDEN UEBERSCHRIFTEN GESETZT =========
-     31.08.2026. Der Kunde verlangt, dass die rechte Karte GENAUSO VIELE
-     ZEILEN traegt wie die linke, also drei: Kennzeile, Ueberschrift, Satz.
-     „Deine Kapitalanlage-Immobilie" muss dafuer EINZEILIG stehen.
-
-     NACHGEMESSEN mit dem alten Wert clamp(1.55rem, 2.3vw, 2.05rem) —
-     benoetigte gegen verfuegbare Satzbreite in der Karte:
-        1920   397 gegen 452 px   passt
-        1440   397 gegen 375 px   passt NICHT, zweizeilig
-        1200   334 gegen 313 px   passt NICHT
-        1024   300 gegen 267 px   passt NICHT
-         940   300 gegen 242 px   passt NICHT
-     Unterhalb von 1200 px lag der Grad auf seinem unteren Anschlag von
-     1,55rem und ging nicht mehr mit; genau dort riss es am staerksten.
-
-     Die Kartenbreite folgt der Buehne, und die ist unterhalb von 1700 px
-     genau 72,9vw. Der noetige Grad ist damit ebenfalls ein fester Anteil
-     der Fensterbreite — gerechnet aus den vier Messpunkten: 2,13 / 2,16 /
-     2,16 / 2,15 vw. Gesetzt sind 2,02vw, also rund sechs Prozent Reserve.
-     Der obere Anschlag bleibt bei 2,05rem: ab 1700 px steht die Buehne auf
-     ihren 1240 px still, die Karte ist dann konstant 452 px breit innen
-     und die Zeile braucht 397.
-     Der untere Anschlag geht von 1,55rem auf 1,15rem — er darf erst unter
-     901 px greifen, und dort stapeln die Karten ohnehin. */
-  font-size: clamp(1.15rem, 2.02vw, 2.05rem);
-  line-height: 1.15;
-  color: var(--r-navy);
-  margin-top: clamp(0.55rem, 0.9vw, 0.85rem);
-}
-
-.robj__kb {
-  display: block;
-  font-family: var(--font-ui);
-  font-size: clamp(0.95rem, 1.16vw, 1.08rem);
-  line-height: 1.4;
-  color: var(--r-blau);              /* 7,45:1 auf #F6F1EA */
-  margin-top: clamp(0.3rem, 0.5vw, 0.5rem);
-}
+   MIT IHNEN IST DIE LETZTE GOLDZEICHNUNG UM DAS VIDEO WEG. Der Kunde
+   verlangt „ohne die Goldanimation" — keinen goldenen Rahmen, keine
+   aufziehende Goldlinie um das Video. Nachgemessen an den BERECHNETEN
+   Stilen des gerenderten Abschnitts (nicht nur an den Quelltexten) war das
+   einzige goldene Zeichen an dieser Stelle die Kartenkante
+   `1px solid rgba(168, 135, 79, 0.34)`. Sie faellt mit den Karten.
+   Nach dem Umbau traegt kein Element dieses Abschnitts mehr eine Kante,
+   eine Animation oder einen Verlauf in Gold um das Video: das Video sitzt
+   in einem WEISSEN Passepartout (.robj__rahmen, 8 px, kein Rand) mit zwei
+   Schattenlagen, und sonst steht dort nichts.
+   Der goldene Ring am Abspielknopf (.robj__ring) bleibt — er liegt IM
+   Video und ist die Bedienung, nicht sein Rahmen.
+   =========================================================================== */
 
 /* --- Pfeile links und rechts ---------------------------------------------- */
 
@@ -582,6 +480,13 @@
   stroke: var(--r-linie-w);
   stroke-width: 1;
 }
+
+/* DIE ZWEITE OBJEKTZEILE (.robj__meta--zwei) IST AM 31.08.2026 WIEDER
+   ENTFALLEN — noch am selben Tag, an dem sie eingebaut wurde. Der Kunde
+   hat die Angabe danach ganz umgestellt: „München / Altbau / 3 Zimmer —
+   das soll auch raus. Es soll nur stehen: 3er WG Konzept." Es gibt jetzt
+   nur noch EINE Zeile, und die traegt .robj__meta ohne Zusatz. */
+
 
 /* --- Verweis -------------------------------------------------------------- */
 
@@ -683,21 +588,10 @@
   .robj__chev { width: 14px; height: 26px; }
 }
 
-/* Die ueberlappenden Karten brauchen Breite. Darunter stehen sie unter dem
-   Video statt darauf — und zwar untereinander, in der Reihenfolge des
-   Markups: erst die linke, dann die rechte.
-   Die Rechtsbuendigkeit der zweiten Karte faellt hier weg: sie war die
-   Spiegelung einer Lage, die es einspaltig nicht mehr gibt. Untereinander
-   sollen beide Karten dieselbe linke Textkante haben. */
+/* Die Regeln zum Umbruch der beiden Karten sind am 31.08.2026 mit den
+   Karten entfallen (.robj__karten, .robj__karte--rechts). Uebrig bleibt,
+   was zur Buehne selbst gehoert. */
 @media (max-width: 900px) {
-  .robj__karten {
-    position: static;
-    flex-direction: column;
-    width: 100%;
-    margin-top: clamp(0.9rem, 2vw, 1.3rem);
-  }
-  .robj__karten > .robj__karte { flex: 0 0 auto; }
-  .robj__karte--rechts { text-align: left; }
   .robj__buehne { display: block; }
   .robj__mitte { width: 100%; }
   .robj__nav { top: auto; transform: none; }

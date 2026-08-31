@@ -1,0 +1,1687 @@
+/* ===========================================================================
+   ESTERA — Kontaktseite: Anliegen waehlen, Formular oeffnet sich
+   Markenkern: Diskret. Strukturiert. Langfristig.
+
+   WOZU DIESE DATEI
+   Das alte Kontaktformular ist am 31.08.2026 auf Kundenwunsch komplett
+   entfernt worden („Das Kontaktformular ist eine komplette Katastrophe.").
+   An seiner Stelle steht der Aufbau der Vorlage imperiaimmobilien.de/kontakt:
+   links eine Spalte mit Anliegen, rechts das Formular dazu.
+
+   WARUM EINE EIGENE DATEI UND NICHT seiten.css
+   seiten.css haengt an vier Seiten (kontakt, ueber-estera und beiden
+   Karriereseiten). An dreien davon wird parallel gearbeitet. Eine neue
+   Datei kann dort nichts umwerfen; jede Zeile hier wirkt ausschliesslich
+   unterhalb von .kf. Die Regeln fuer .sp-* in seiten.css bleiben
+   unveraendert stehen und tragen weiterhin den Seitenkopf und die
+   Kontaktdaten.
+
+   ALLE Farben, Schriften, Abstaende und Kurven kommen aus den Token in
+   base.css. Es wird kein einziger neuer Farbwert erfunden.
+   Knopfregeln (.btn, .btn--sand) werden hier NICHT angefasst — sie stehen
+   zentral in base.css.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   DER ERSTE ABSCHNITT DER SEITE
+   Seit dem 31.08.2026 ist der Seitenkopf entfernt und dieser Abschnitt ist
+   der erste im Dokument. Die Kopfleiste liegt absolut ueber dem Inhalt
+   (base.css, .site-header) und schiebt nichts nach unten — ohne diesen
+   Zuschlag laege die Ueberschrift unter der Navigation.
+   Genau derselbe Zuschlag, den vorher .sp-hero getragen hat.
+--------------------------------------------------------------------------- */
+.sp > .sp-band:first-of-type {
+  padding-top: calc(var(--header-h) + clamp(2.4rem, 7vh, 4.6rem));
+}
+
+/* Die Ueberschrift der Seite. Sie war bis zum 31.08.2026 eine H2 unter dem
+   Seitenkopf; seit dessen Wegfall ist sie die H1. Deshalb eine Stufe
+   groesser als .sp-kopf__h2, aber weiterhin unter der H1 der Startseite —
+   die bleibt der lauteste Moment der Website. */
+.kf-kopf__h1 {
+  font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+  max-width: 20ch;
+}
+.kf-kopf .sp-kopf__lead { margin-top: clamp(0.9rem, 2vh, 1.3rem); }
+
+/* ---------------------------------------------------------------------------
+   DER BAUKASTEN
+
+   .kf ist seit dem 31.08.2026 (zweite Runde) ein schlichtes <div> und kein
+   <fieldset> mehr. Der Grund steht im Markup: die drei Anliegen sind keine
+   Auswahl aus Radios mehr, sondern drei Verweise. Ein fieldset ohne
+   Bedienelemente waere eine leere Gruppe, und seine <legend> sagte einen
+   Namen fuer etwas an, das es nicht gibt.
+
+   ERSATZLOS ENTFALLEN SIND DAMIT
+     .kf__legende   die versteckte <legend> der Radiogruppe,
+     .kf__schalter  die drei 1 px grossen, durchsichtigen Radios,
+     .kf__raster    das zweispaltige Raster (links Wahl, rechts Buehne)
+                    samt seinem Umbruch unter 861 px,
+     der mitlaufende (sticky) Zustand der linken Spalte,
+     alle Regeln der Bauart
+         #kf-a1:checked ~ .kf__raster [for='kf-a1'] { background: … }
+         #kf-a1:checked ~ .kf__raster #kf-formular-2 { display: none; }
+     also der ganze Farbwechsel der gewaehlten Karte und die Entscheidung,
+     welches Formular sichtbar ist.
+
+   Was davon gebraucht wird, steht jetzt weiter unten unter .kf__voll — nur
+   eben in Navy und von Javascript geschaltet.
+--------------------------------------------------------------------------- */
+.kf {
+  margin: clamp(2.4rem, 5vh, 3.4rem) 0 0;
+  min-width: 0;
+}
+
+/* Der Abschnittskopf steht mittig ueber den mittigen Kacheln. Waere er
+   weiter linksbuendig, staende die Ueberschrift neben ihrer eigenen Auswahl
+   statt darueber. .sp-kopf kommt aus seiten.css und haengt auch an drei
+   anderen Seiten — deshalb wird dort nichts geaendert, sondern nur hier
+   unter .kf-kopf. */
+.kf-kopf {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+.kf-kopf__h1 { margin-inline: auto; }
+
+/* ---------------------------------------------------------------------------
+   DIE DREI KAESTEN — MITTIG, SO BREIT WIE IHR INHALT
+   Kundenwunsch vom 31.08.2026, woertlich: „Der Kasten bei den Fragen darf
+   nicht zu lang sein: nach dem Fragezeichen kommt ein Pfeil nach rechts, in
+   Weiss, da kann man draufdruecken, und dann ist der Kasten vorbei. Und das
+   muss mittig gesetzt werden."
+
+   DAS RASTER IST DER GANZE TRICK
+       grid-template-columns: minmax(0, max-content);
+       justify-content: center;
+   Eine einzige Spalte in der Breite ihres BREITESTEN Eintrags — nicht in der
+   Breite der Seite. Damit ist jeder Kasten so lang wie die laengste Frage
+   plus Pfeil und keinen Bildpunkt laenger, alle drei sind exakt gleich
+   breit, und die Spalte selbst steht mittig.
+   Gleich breit ist kein Selbstzweck: drei verschieden lange Kaesten unter
+   einer mittigen Ueberschrift lesen sich als Fehler. Die drei Fragen sind
+   ohnehin nur drei Zeichen auseinander, der Ausgleich faellt kaum auf.
+   minmax(0, …) statt max-content allein: sonst kann die Spalte auf einem
+   schmalen Fenster nicht mehr schrumpfen und die Seite laeuft waagerecht
+   ueber.
+
+   DASS MAN DRAUFDRUECKEN KANN, MUSS MAN IM RUHEZUSTAND SEHEN — nicht erst
+   beim Ueberfahren. Dafuer sorgen vier Dinge zugleich: die sichtbare Kante
+   (4,05:1 gegen Navy), die leicht aufgehellte Flaeche, der weisse Pfeil und
+   die Zeigerhand. Beim Ueberfahren und beim Tastaturfokus kippt der Kasten
+   dann auf Sand mit Navy-Schrift, und der Pfeil ruckt vier Bildpunkte nach
+   rechts.
+--------------------------------------------------------------------------- */
+.kf__wahl {
+  display: grid;
+  grid-template-columns: minmax(0, max-content);
+  justify-content: center;
+  gap: clamp(0.7rem, 1.8vh, 1.05rem);
+  min-width: 0;
+}
+.kf__wahl li {
+  display: grid;
+  min-width: 0;
+}
+
+/* Ein <a> und kein <div> mit Klickabfang: Tastaturbedienung, Fokusring und
+   das Verhalten im Kontextmenue kommen damit vom Browser. Ohne Javascript
+   springt er zu der Strecke, die dann offen auf der Seite steht.
+   width:100% laesst ihn die Spaltenbreite fuellen — die Spalte ist bereits
+   auf max-content gedeckelt, der Kasten wird davon also nicht laenger. */
+.kf__karte {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.1rem, 2.4vw, 1.8rem);
+  min-height: 64px;
+  padding: 0.85rem clamp(1.1rem, 1.9vw, 1.4rem);
+  background: rgba(255, 255, 255, 0.06);
+  /* 0.52 UND NICHT 0.42 — NACHGEMESSEN AM 31.08.2026, UND ZWAR GEGEN DEN FILM.
+     Hier stand 0.42, gemessen gegen die reine Navy-Flaeche: 4,04:1 gegen den
+     Grund und 3,46:1 gegen die Fuellung des Kastens, beides ueber der Grenze
+     von 3:1.
+     Seit der Film dahinter liegt, ist Navy aber nicht mehr der Grund. Der
+     Film wird zwischendurch REIN WEISS (siehe die Messung bei
+     .kf-film__schleier: 36 der 186 Einzelbilder enthalten Bildpunkte mit
+     rgb(255,255,255)). Unter dem Schleier ergibt das rgb(54, 66, 84) — und
+     auf diesem Grund ruecken Kante und Fuellung zusammen:
+         Kante 0.42 gegen den Grund          3,21:1   (haelt)
+         Kante 0.42 gegen die Fuellung       2,69:1   (REISST)
+     Die Richtlinie verlangt 3:1 fuer die Umrandung eines Bedienelements.
+     Streng gelesen genuegt eine Seite, und die Aussenseite haelt — aber eine
+     Kante, die nach innen verschwindet, ist eine halbe Kante.
+     Mit 0.52 traegt sie in JEDEM Einzelbild auf beiden Seiten:
+         hellstes Bild   Kante/Grund 4,06:1   Kante/Fuellung 3,40:1
+         dunkles Bild    Kante/Grund 5,51:1   Kante/Fuellung 4,72:1
+     Wer den Anteil wieder senkt, reisst zuerst die Innenseite: unter 0.46
+     liegt sie am hellsten Bild unter 3:1. */
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: var(--radius-btn);
+  color: #FFFFFF;      /* 17,63:1 auf Navy, 10,13:1 am hellsten Filmbild */
+  cursor: pointer;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease),
+              color 0.4s var(--ease);
+}
+.kf__karte__frage {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.75vw, 1.4rem);
+  line-height: 1.3;
+  letter-spacing: -0.004em;
+  color: inherit;
+}
+/* „Ein Pfeil nach rechts, in Weiss" — genau das, ohne Kreis und ohne
+   Plakette. Jede Zutat drumherum machte den Kasten laenger, und lang soll er
+   ausdruecklich nicht sein.
+   flex-shrink 0: sonst quetscht ihn eine lange Frage auf schmalen Fenstern
+   zu einem Strich. */
+.kf__karte__pfeil {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: inherit;
+  transition: transform 0.45s var(--ease);
+}
+.kf__karte__pfeil svg {
+  width: 26px;
+  height: 12px;
+}
+
+/* Ueberfahren und Tastaturfokus zeigen DASSELBE — wer mit der Tastatur
+   ankommt, sieht dieselbe Antwort wie mit der Maus.
+   Navy auf Sand misst 9,06:1. */
+.kf__karte:hover,
+.kf__karte:focus-visible {
+  background: var(--sand);
+  border-color: var(--sand);
+  color: var(--navy-900);
+}
+.kf__karte:hover .kf__karte__pfeil,
+.kf__karte:focus-visible .kf__karte__pfeil {
+  transform: translateX(4px);
+}
+/* Der Ring in Sand statt Gold: Gold misst auf Navy 5,24:1 und traegt,
+   Sand misst 9,06:1. Auf dem sandfarbenen Kasten selbst liegt der Ring
+   nicht auf — outline-offset haelt ihn drei Bildpunkte davon entfernt, also
+   auf dem Navy dahinter. */
+.kf__karte:focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   DIE BUEHNE
+   OHNE JAVASCRIPT steht sie hier auf der Seite und traegt alle drei
+   Strecken offen untereinander. Das ist die Grundstellung dieser Datei und
+   keine Notloesung: es gibt keine Regel, die ein Formular versteckt.
+
+   MIT JAVASCRIPT holt kontakt-funnel.js diesen Block beim Laden in das
+   Vollbild (siehe unten) und zeigt darin genau eine Strecke. Erst dort
+   greift .kf__buehne .kf__formular { display: none }.
+--------------------------------------------------------------------------- */
+.kf__buehne {
+  margin-top: clamp(2.4rem, 5vh, 3.4rem);
+  min-width: 0;
+}
+.kf__formular {
+  display: grid;
+  gap: clamp(1rem, 2.2vh, 1.4rem);
+}
+/* Ohne Javascript ist jedes Formular das Sprungziel des Pfeils seiner
+   Kachel. Ein <form> ist nicht von sich aus fokussierbar — tabindex="-1"
+   steht deshalb im Markup, damit der Sprung auch den Fokus mitnimmt und
+   nicht nur die Ansicht. Der Ring dabei waere hier nur Laerm: gesprungen
+   ist man auf einen ganzen Abschnitt, nicht auf ein Bedienelement. */
+.kf__formular:focus { outline: none; }
+/* Untereinander brauchen die drei Strecken eine erkennbare Grenze. Im
+   Vollbild steht immer nur eine — dort wird sie weiter unten abgeraeumt. */
+.kf__formular + .kf__formular {
+  margin-top: clamp(2.6rem, 6vh, 4rem);
+  padding-top: clamp(2.6rem, 6vh, 4rem);
+  border-top: 1px solid var(--line-soft);
+}
+/* ---------------------------------------------------------------------------
+   DER KOPF UEBER DEM FORMULAR IST NICHT MEHR ZU SEHEN
+   31.08.2026, Kundenwunsch woertlich: „Es steht einfach nur die Frage und
+   darunter die Antwortmöglichkeit oder das Textfeld, wo man selbst was
+   reinschreiben kann. Das war's. […] Jeder restliche Text soll einfach raus."
+
+   Die Ueberschrift ist deshalb weggeklappt und NICHT geloescht: sie ist der
+   Name des Dialogs (das <dialog> zeigt ueber aria-labelledby auf sie).
+   Ohne sie saegte Vorlesesoftware beim Oeffnen nur „Dialog" an und niemand
+   wuesste, welches der drei Formulare sich geoeffnet hat.
+   Dieselbe Technik wie bei .kf__fortschritt__ansage — 1 px, abgeschnitten,
+   aber im Baum. display:none oder visibility:hidden waeren hier falsch: sie
+   nehmen den Namen auch der Vorlesesoftware.
+--------------------------------------------------------------------------- */
+.kf__formular__kopf {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+/* Die alten Werte, falls der Kopf zurueckkommen soll:
+     padding-bottom: clamp(0.9rem, 2vh, 1.2rem);
+     border-bottom: 1px solid var(--line-soft);            */
+.kf__formular__kopf--sichtbar {
+  padding-bottom: clamp(0.9rem, 2vh, 1.2rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+.kf__formular__titel {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+  line-height: 1.2;
+  letter-spacing: -0.004em;
+  color: var(--ink-black);
+}
+.kf__formular__zeile {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* --- Felder --------------------------------------------------------------
+   Bewusst dieselbe Bauart wie in seiten.css (.sp-feld), damit sich das
+   Formular nicht wie ein Fremdkoerper anfuehlt. Die Regeln stehen hier
+   noch einmal unter eigenem Namen, statt .sp-feld zu ueberschreiben —
+   sonst wuerde eine Aenderung hier auf drei fremden Seiten landen.
+--------------------------------------------------------------------------- */
+.kf__reihe {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.4rem);
+}
+.kf__feld {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+.kf__feld > label {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);       /* 5.20:1 auf Weiss */
+}
+/* .kf__feld__zusatz trug das Wort „· optional" hinter den Beschriftungen der
+   freiwilligen Felder. Am 31.08.2026 ist es aus ALLEN Beschriftungen entfernt
+   worden („Jeder restliche Text soll raus. Ganz einfach gehalten, ohne großen
+   Schnickschnack."). Dass ein Feld Pflicht ist, sagt jetzt allein der Stern —
+   kein Stern heisst freiwillig.
+   Die Regel bleibt stehen, ohne dass sie derzeit an einem Element haengt: sie
+   ist zwei Zeilen gross, und wenn Estera das Wort zurueckhaben will, ist es
+   eine Aenderung im HTML statt zweier in zwei Dateien. */
+.kf__feld__zusatz {
+  letter-spacing: 0.1em;
+  color: var(--ink-mute);
+  text-transform: none;
+}
+
+/* JEDES Feld traegt eine erkennbare Umrandung. --line ist Navy bei 16 %
+   Deckung auf Weiss — das sind rund 1,7:1 gegen das Papier und damit
+   sichtbar, aber leise. Fuer die Umrandung eines Bedienelements verlangt
+   die Richtlinie 3:1; deshalb steht hier NICHT --line, sondern ein
+   dichterer Anteil derselben Farbe.
+
+   GEMESSEN, NICHT GESCHAETZT. Hier stand zuerst 0.42 — das ergab am
+   Bildpunkt 2,45:1 und lag damit unter der Anforderung. 0.55 misst
+   3,55:1 gegen den weissen Feldgrund. Wer den Wert wieder senkt, nimmt
+   dem Feld die erkennbare Kante; unter 0.50 wird die Anforderung
+   gerissen. */
+.kf__feld input,
+.kf__feld textarea {
+  /* 16 px Mindestgroesse: darunter zoomt iOS beim Antippen die ganze Seite. */
+  font-family: var(--font-ui);
+  font-size: 1.06rem;
+  line-height: 1.6;
+  color: var(--ink-black);
+  background: var(--paper);
+  border: 1px solid rgba(16, 41, 73, 0.55);
+  border-radius: var(--radius-btn);
+  padding: 0.72rem 0.9rem;
+  min-height: 48px;
+  width: 100%;
+  transition: border-color 0.35s var(--ease);
+}
+.kf__feld textarea {
+  min-height: 8.5rem;
+  resize: vertical;
+}
+
+/* --- die Auswahlliste ----------------------------------------------------
+   Ein echtes <select>. Es erbt dieselbe Kante, dieselbe Hoehe und dieselbe
+   Schrift wie die Eingabefelder, damit die Reihe nicht auseinanderfaellt.
+
+   appearance:none nimmt dem Browser den eigenen Pfeil weg; er wird als
+   Hintergrundbild neu gesetzt, weil der eingebaute je nach System eine
+   andere Farbe und Groesse hat und die Reihe dann uneinheitlich wirkt.
+   Der Pfeil ist ein data:-Bild und laedt nichts nach.
+   Bedienung, Tastatur und Vorlesesoftware bleiben davon unberuehrt — es
+   ist weiterhin ein natives <select>. ------------------------------------ */
+.kf__feld select {
+  font-family: var(--font-ui);
+  font-size: 1.06rem;
+  line-height: 1.6;
+  color: var(--ink-black);
+  background: var(--paper);
+  border: 1px solid rgba(16, 41, 73, 0.55);
+  border-radius: var(--radius-btn);
+  padding: 0.72rem 2.6rem 0.72rem 0.9rem;
+  min-height: 48px;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23102949' stroke-width='1.4'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  transition: border-color 0.35s var(--ease);
+}
+/* Solange „Bitte wählen" steht, ist die Zeile leiser gesetzt — sie ist
+   eine Aufforderung und noch keine Angabe. --ink-mute misst 5,20:1. */
+.kf__feld select:invalid { color: var(--ink-mute); }
+
+.kf__feld input:hover,
+.kf__feld textarea:hover,
+.kf__feld select:hover { border-color: var(--navy-600); }
+.kf__feld input:focus-visible,
+.kf__feld textarea:focus-visible,
+.kf__feld select:focus-visible {
+  border-color: var(--navy-800);
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* --- Fehlermeldung -------------------------------------------------------
+   Der Behaelter steht IMMER im Markup, auch leer, und ist ueber
+   aria-describedby mit seinem Feld verbunden. Erst dadurch liest die
+   Vorlesesoftware die Meldung ueberhaupt vor, wenn sie spaeter erscheint.
+
+   Ohne Javascript uebernimmt die Pruefung des Browsers (required); dann
+   bleibt dieser Behaelter leer und faellt mit :empty ganz aus dem Fluss.
+--------------------------------------------------------------------------- */
+.kf__fehler {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #8E2F1E;               /* 6.34:1 auf Weiss */
+}
+.kf__fehler:empty { display: none; }
+
+/* Ein Feld, das die Pruefung nicht bestanden hat, bekommt eine kraeftigere
+   Kante — nicht NUR eine andere Farbe, sondern auch mehr Staerke, damit
+   der Zustand nicht allein an der Farbe haengt. */
+.kf__feld input[aria-invalid='true'],
+.kf__feld textarea[aria-invalid='true'],
+.kf__feld select[aria-invalid='true'] {
+  border-color: #8E2F1E;
+  border-width: 2px;
+}
+
+/* --- Fuss des Formulars --------------------------------------------------
+   Der Absendeknopf benutzt die vorhandenen Klassen btn btn--sand aus
+   base.css. Hier steht KEINE Knopfregel — Farbe, Kante und Ueberfahren
+   kommen zentral aus base.css.
+--------------------------------------------------------------------------- */
+.kf__fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  margin-top: 0.2rem;
+}
+.kf__fuss__hinweis {
+  flex: 1 1 16rem;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-mute);       /* 5.20:1 auf Weiss */
+}
+
+/* HIER STANDEN .kf__datenschutz UND .kf__datenschutz .sp-offen — die Regeln
+   fuer den Vermerk „Formular noch nicht angebunden" unter jedem Formular.
+   Der Vermerk ist am 31.08.2026 auf Kundenwunsch aus dem Markup entfernt
+   worden („Das kann einfach raus."), also sind auch seine Regeln weg. Der
+   Sachverhalt steht als Kommentar im HTML bei Strecke 1.
+
+   DIESER KOMMENTAR WAR NICHT GESCHLOSSEN. Das schliessende Zeichenpaar
+   fehlte, und weil CSS-Kommentare nicht schachteln, lief er bis zum
+   naechsten weiter und verschluckte den ganzen Kopf des Abschnitts
+   „KONTAKTWEGE, MITTIG". Es ist keine Regel dabei verlorengegangen — der
+   verschluckte Teil war selbst nur Kommentar —, aber der naechste Absatz
+   haette es sein koennen. Geschlossen am 31.08.2026.
+
+   UND EINE WARNUNG, TEUER BEZAHLT: In diesem Kommentar stand beim Schliessen
+   zuerst das Zeichenpaar selbst als Beispiel, in schraege Anfuehrungszeichen
+   gesetzt. Ein CSS-Parser sieht keine Anfuehrungszeichen im Kommentar — er
+   hat dort geschlossen, den Rest dieses Absatzes als Regelwerk zu lesen
+   versucht und bei der Fehlersuche die NAECHSTE Regel mitgerissen. Das war
+   ausgerechnet `.kf-wege .sp-kopf`, also die Zentrierung der Ueberschrift
+   „Kontaktwege" — sie stand danach wieder linksbuendig, obwohl an ihr nichts
+   geaendert worden war. Gemessen: text-align kam als `start` heraus,
+   margin-inline als `0px`, und in document.styleSheets fehlte die Regel ganz.
+   In einem CSS-Kommentar darf das Zeichenpaar deshalb NIRGENDS vorkommen,
+   auch nicht als Zitat. */
+
+/* ---------------------------------------------------------------------------
+   KONTAKTWEGE, MITTIG
+   31.08.2026 auf Kundenwunsch: „Das passt, aber muss mittig stehen."
+
+   .sp-kopf und .sp-daten kommen aus seiten.css und haengen auch an
+   ueber-estera.html und den beiden Karriereseiten. Deshalb wird dort
+   nichts geaendert — die Zentrierung gilt ausschliesslich innerhalb von
+   .kf-wege und damit nur auf dieser Seite.
+
+   Die Datenliste bleibt eine echte <dl>. Sie wechselt nur von zwei Spalten
+   (Begriff neben Wert) auf eine Spalte mit Begriff ueber Wert: nebeneinander
+   laesst sich eine zweispaltige Liste nicht mittig setzen, ohne dass die
+   Werte an einer unsichtbaren Kante kleben und die Mitte schief wirkt.
+--------------------------------------------------------------------------- */
+.kf-wege .sp-kopf {
+  max-width: 68ch;
+  margin-inline: auto;
+  text-align: center;
+}
+.kf-wege .sp-daten {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 32rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.kf-wege .sp-daten dt {
+  padding-bottom: 0.15rem;
+  padding-right: 0;
+  border-top: 1px solid var(--line-soft);
+}
+.kf-wege .sp-daten dd {
+  padding-top: 0.15rem;
+  border-top: 0;
+}
+/* Der Verweis ist inline-flex und wuerde als Block sonst linksbuendig
+   sitzen — justify-content zieht ihn in die Mitte seiner Zelle. */
+.kf-wege .sp-daten dd a,
+.kf-wege .sp-daten dd .sp-offen {
+  justify-content: center;
+}
+/* Die erste Haarlinie faellt weg: direkt unter der Ueberschrift wirkt sie
+   wie ein zweiter Trennstrich. */
+.kf-wege .sp-daten dt:first-of-type { border-top: 0; }
+
+/* ---------------------------------------------------------------------------
+   SCHMALE FENSTER
+   Der Umbruch des zweispaltigen Rasters stand hier bis zum 31.08.2026:
+       @media (max-width: 860px) { .kf__raster { grid-template-columns: 1fr } }
+   Das Raster gibt es nicht mehr — Kacheln und Strecken stehen jetzt an
+   jeder Breite untereinander.
+--------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  /* Name und E-Mail nebeneinander lassen bei 390 px je rund 150 px uebrig.
+     Darin steht keine Adresse mehr lesbar. */
+  .kf__reihe { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------------------------------------------------------------------
+   WER KEINE BEWEGUNG SEHEN WILL, SIEHT KEINE
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .kf__karte,
+  .kf__karte::before,
+  .kf__feld input,
+  .kf__feld textarea {
+    transition: none;
+  }
+}
+
+/* ===========================================================================
+   DER FILM IM GRUND DER ANLIEGEN-SECTION
+   31.08.2026, Kundenwunsch: derselbe Film wie im Kopfbereich von
+   karriere.html. Dieselben Dateien, dieselbe Einbindung — nichts kopiert.
+
+   DIE SECTION WIRD DADURCH NICHT HOEHER. Der Film liegt absolut in ihr
+   (inset: 0) und traegt nichts zur Hoehe bei; die Hoehe machen weiterhin
+   Ueberschrift, Kacheln und die Luft von .sp-band. overflow:hidden schneidet
+   ab, was object-fit ueber die Kanten schiebt.
+
+   isolation: isolate macht die Section zu einem eigenen Stapelraum. Ohne sie
+   waere der z-index des Inhalts eine Aussage ueber die ganze Seite; so gilt
+   er nur hier. Das Popup ist davon unberuehrt — ein <dialog> mit showModal()
+   liegt in der obersten Ebene des Browsers und damit ueber allem, unabhaengig
+   von jeder Zahl.
+--------------------------------------------------------------------------- */
+.kf-band--blank {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Der Inhalt liegt ueber Film und Schleier. */
+.kf-band--blank > .sp-band__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* DAS STANDBILD STEHT ZWEIMAL: als poster am <video> und hier als
+   Hintergrundbild. Das zweite ist der wichtigere Fall — bei
+   prefers-reduced-motion wird das <video> ganz abgeraeumt, und ohne dieses
+   Bild bliebe eine leere Flaeche. Ebenso, wenn die Videodateien fehlen.
+   Darunter liegt Navy, damit selbst bei fehlendem Standbild nie Weiss
+   durchkommt. */
+.kf-film {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--navy-900);
+  background-image: url('../video/kar-hero-poster.jpg?v=b24a');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.kf-film__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------------------
+   DER SCHLEIER — GEMESSEN, NICHT GESCHAETZT
+
+   Weisse Schrift auf bewegtem Bild muss in JEDEM Einzelbild lesbar sein,
+   nicht im Mittel.
+
+   NEU GEMESSEN AM 31.08.2026 — UND DIE ALTE MESSUNG WAR ZU MILD.
+   Vorher stand hier eine Abtastung waehrend der Wiedergabe: 41 Proben,
+   39 verschiedene Einzelbilder, hellster Bildpunkt L = 0,9898 bei t = 5,9 s.
+   Abtasten heisst aber: Einzelbilder auslassen. Jetzt ist der Film mit
+   ffmpeg vollstaendig zerlegt worden — ALLE 186 Einzelbilder bei 24 B/s
+   ueber die vollen 7,75 s. Ergebnis:
+
+       mittlere Helligkeit ueber den Film    L = 0,15 bis 0,18
+       hoechstes 99,9-Prozent-Perzentil      L = 0,9987   (t = 5,92 s)
+       HELLSTER BILDPUNKT                    L = 1,0000 — rgb(255, 255, 255)
+       Einzelbilder mit solchen Bildpunkten  36 von 186, erstes bei t = 3,83 s
+
+   Der Film enthaelt also wirklich reines Weiss, in fast jedem fuenften
+   Einzelbild, und nicht erst ab t = 5,9 s, sondern schon ab 3,83 s. Der
+   frueher als „haerter als der echte Fall" bezeichnete Rechenfall IST der
+   echte Fall.
+
+   Bei rgba(10,25,46,0.82) ueber rgb(255,255,255):
+
+       Grund am Bildpunkt                        rgb(54, 66, 84)
+       #FFFFFF  (Ueberschrift, Fragen)           10,13:1
+       rgba(255,255,255,0.78)  (Vorzeile)         6,92:1
+       #FFFFFF auf der Kastenfuellung             8,48:1
+       rgba(255,255,255,0.52)  (Kastenkante)      4,06:1 gegen den Grund
+                                                  3,40:1 gegen die Fuellung
+
+   Alle ueber der Anforderung (4,5:1 fuer Text, 3:1 fuer die Umrandung eines
+   Bedienelements). Die Kastenkante stand bis zu dieser Messung auf 0.42 und
+   riss mit 2,69:1 gegen die eigene Fuellung — die Begruendung steht bei
+   .kf__karte.
+
+   WER DIE DECKUNG SENKT, REISST ZUERST DIE KASTENKANTE. Gemessen am hellsten
+   Einzelbild, Kante 0.52 gegen die Fuellung:
+       0.82  3,40:1     0.78  3,13:1     0.74  2,88:1  (reisst)
+   Die Vorzeile haelt laenger: 6,92:1 bei 0.82, unter 4,5:1 erst ab etwa 0.68.
+   0.76 ist damit die unterste Deckung, bei der noch alles traegt; 0.82 laesst
+   sechs Hundertstel Luft.
+
+   Eine Flaeche und kein Verlauf: bei einem Verlauf haengt die Lesbarkeit
+   davon ab, auf welcher Hoehe eine Zeile gerade steht — und die Kacheln
+   wandern mit der Fenstergroesse.
+--------------------------------------------------------------------------- */
+.kf-film__schleier {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: rgba(10, 25, 46, 0.82);
+}
+
+/* WER KEINE BEWEGUNG SEHEN WILL, SIEHT KEINE.
+   Das <video> wird abgeraeumt; das Standbild bleibt als Hintergrundbild von
+   .kf-film stehen, der Schleier darueber ebenfalls. Es entsteht keine leere
+   Flaeche und der Kontrast bleibt derselbe — das Standbild ist ein Bild aus
+   demselben Film.
+   Die Regel steht im CSS und wirkt deshalb AUCH OHNE JAVASCRIPT. */
+@media (prefers-reduced-motion: reduce) {
+  .kf-film__video { display: none; }
+}
+
+/* DIE FARBE IST RAUS — DER REST DER KLASSE BLEIBT.
+
+   ZUM NAMEN, BEVOR JEMAND STOLPERT: „blank" hiess einmal „blanko, weiss".
+   Der Abschnitt ist seit dem Nachmittag des 31.08.2026 Navy, der Name stimmt
+   also nicht mehr. Umbenannt wird er trotzdem nicht — die Klasse steht an
+   drei Stellen in dieser Datei und einer im HTML, und derselbe Kunde hat die
+   Farbe dieses Abschnitts an EINEM Tag zweimal geaendert. Ein Name, der
+   „weiss" behauptet und Navy meint, ist das kleinere Uebel als eine
+   Umbenennung, die beim naechsten Farbwunsch schon wieder falsch waere. Was
+   die Klasse WIRKLICH tut, steht ueber ihrer ersten Regel: sie macht den
+   Abschnitt zum Stapelraum fuer den Film und unterdrueckt die Haarlinie.
+
+   Hier stand am Vormittag des 31.08.2026 `background: #FFFFFF` auf
+   ausdruecklichen Kundenwunsch („ganz klassischer, ganz normaler weisser
+   Hintergrund"). Am Nachmittag hat derselbe Kunde beide Abschnitte dieser
+   Seite auf Navy gestellt. Die Zeile ist deshalb weg; der Ton kommt jetzt
+   aus `.sp-band--navy` (seiten.css, var(--navy-900)) — dieselbe Klasse, die
+   die dunklen Baender der uebrigen Seiten fuehren.
+
+   WAS BLEIBT, IST DIE HAARLINIE: `.sp-band + .sp-band` zieht zwischen zwei
+   gleichfarbigen Flaechen eine Trennlinie, weil sie sonst ineinanderlaufen.
+   Ueber diesem Abschnitt steht keine zweite Flaeche, sondern die
+   Kopfleiste — die Linie waere ein Strich ohne Anlass. */
+.sp-band + .kf-band--blank > .sp-band__inner {
+  border-top: 0;
+  padding-top: var(--sp-luft);
+  margin-top: 0;
+}
+
+/* ===========================================================================
+   DIE STRECKE — SCHRITT FUER SCHRITT
+   31.08.2026, Kundenwunsch: „Jeder einzelne Schritt soll genau gleich sein
+   wie hier bei Invenio." / „eins zu eins das gleiche Bewerbungsformular wie
+   bei Estate Anfrage."
+
+   UEBERNOMMEN IST DIE SCHRITTFOLGE, NICHT DIE ERSCHEINUNG. Kein Farbwert,
+   keine Rundung, kein Schatten und keine Schrift der beiden Vorlagen steht
+   hier. Alles unten kommt aus den Token in base.css und aus den Bauteilen,
+   die diese Datei fuer die Anliegen-Karten schon hatte — die Antwortkacheln
+   sind bewusst dieselbe Bauart wie .kf__karte, damit die rechte Spalte kein
+   zweites Formensystem aufmacht.
+
+   Knopfregeln stehen weiterhin NICHT hier. .btn traegt seit dem 31.08.2026
+   zentral in base.css die Sandflaeche mit weisser Schrift.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   FORTSCHRITT
+   Die Vorlagen schreiben ihn als „3 / 6" oben ueber den Schritt. Genauso
+   hier — aber aria-hidden: „3 / 6" wird je nach Vorlesesoftware als „drei
+   Schraegstrich sechs" oder gar nicht gelesen. Daneben liegt derselbe Stand
+   als ganzer Satz in einer aria-live-Region (.kf__fortschritt__ansage), die
+   nur fuer sie da ist.
+
+   Der ganze Block entsteht erst in kontakt-funnel.js. Ohne Javascript gibt
+   es keine Schritte, die zu zaehlen waeren — dann steht das Formular ganz
+   gewoehnlich am Stueck da.
+--------------------------------------------------------------------------- */
+/* DER ABSTAND NACH UNTEN — gemeldet am 31.08.2026: „zwischen dem
+   Fortschrittsbalken und den Texten darunter muss mehr Abstand sein. Auch bei
+   allen drei bitte."
+   Vorher gab es hier gar kein margin-bottom; den ganzen Abstand stellte
+   allein die Rasterluecke von .kf__formular — gemessen 19,8 px bei einem
+   900 px hohen Fenster. Jetzt kommen 40,5 px dazu, macht rund 60 px.
+   Der Wert steht an .kf__fortschritt und damit in allen drei Strecken und auf
+   jedem Schritt gleich. */
+.kf__fortschritt {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: clamp(0.2rem, 0.8vh, 0.5rem);
+  margin-bottom: clamp(1.8rem, 4.5vh, 3rem);
+}
+.kf__fortschritt__zahl {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);        /* 5.20:1 auf Weiss */
+}
+/* Eine Haarlinie, kein Balken. Zwei Bildpunkte reichen: die Zahl darueber
+   traegt die Auskunft, die Linie ist nur ihr Nachhall. */
+.kf__fortschritt__schiene {
+  height: 2px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.kf__fortschritt__balken {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+  transition: width 0.55s var(--ease);
+}
+/* Nur fuer die Vorlesesoftware. */
+.kf__fortschritt__ansage {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+/* Auf dem Absage-Bild gibt es keine ehrliche Zahl: wer dort landet, hat drei
+   von sechs Schritten hinter sich. visibility statt display — der Block
+   behaelt seinen Platz, damit unter ihm nichts hochrutscht. */
+.kf__fortschritt[data-still] .kf__fortschritt__zahl,
+.kf__fortschritt[data-still] .kf__fortschritt__schiene {
+  visibility: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   DIE BUEHNE DER SCHRITTE
+
+   GRUNDSTELLUNG = OHNE JAVASCRIPT. Die Schritte stehen untereinander, jeder
+   sichtbar, mit Luft dazwischen. Das ist ein gewoehnliches langes Formular
+   und vollstaendig bedienbar; die Pflichtangaben prueft der Browser.
+
+   ERST [data-funnel-aktiv] LEGT SIE UEBEREINANDER. Das Attribut setzt
+   kontakt-funnel.js, nachdem es fertig aufgebaut hat. Alle Schritte liegen
+   dann in DERSELBEN Rasterzelle (grid-area: 1 / 1).
+
+   DARAN HAENGT DIE ANTWORT AUF „DIE HOEHE DARF NICHT SPRINGEN": eine
+   Rasterzelle ist so hoch wie ihr hoechster Inhalt, immer. Es wird nichts
+   gemessen und keine Zahl gesetzt, die beim naechsten Umbruch falsch waere.
+   Der Preis ist sichtbare Luft unter den kurzen Schritten — die ist gewollt:
+   ein Formular, das bei jedem Klick um 200 px zuckt, ist unruhiger als eines
+   mit etwas Weissraum.
+
+   visibility:hidden und NICHT display:none fuer die ruhenden Schritte:
+   display:none nimmt ihnen den Platz, und die Buehne waere wieder so hoch
+   wie der laufende Schritt. visibility:hidden laesst den Platz stehen und
+   nimmt sie trotzdem aus der Tabreihenfolge UND aus dem Baum der
+   Vorlesesoftware.
+--------------------------------------------------------------------------- */
+.kf__stufen {
+  display: grid;
+  gap: clamp(1.8rem, 4vh, 2.6rem);
+  min-width: 0;
+}
+.kf__formular[data-funnel-aktiv] .kf__stufen {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+}
+.kf__formular[data-funnel-aktiv] .kf__stufe {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.kf__formular[data-funnel-aktiv] .kf__stufe[data-aktiv] {
+  visibility: visible;
+}
+
+/* Ein Schritt ist ein <fieldset>: die Frage steht in seiner <legend> und
+   wird damit vor jeder einzelnen Antwortkachel angesagt. Fieldset bringt
+   Rahmen, Innenabstand und eine implizite Mindestbreite mit — alles drei
+   muss weg, sonst laeuft die Spalte auf schmalen Fenstern waagerecht ueber. */
+.kf__stufe {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+/* legend bleibt legend (Vorlesesoftware), verhaelt sich aber wie eine
+   gewoehnliche Zeile. Ohne width:100% zieht sie sich in manchen Browsern auf
+   die Breite ihres Textes zusammen und der Umbruch wird unberechenbar. */
+.kf__stufe__legende {
+  display: block;
+  float: none;
+  width: 100%;
+  margin: 0 0 clamp(1rem, 2.2vh, 1.35rem);
+  padding: 0;
+}
+/* „…und die Frage mittig darunter" — Kundenwunsch vom 31.08.2026. Mittig
+   gesetzt sind die Frage und ihr Zusatz; die Antworten darunter bleiben
+   linksbuendig, weil eine Liste mit wechselnd langen Zeilen mittig gesetzt
+   an keiner Kante mehr ausgerichtet ist und schwerer zu ueberfliegen wird. */
+.kf__stufe__legende { text-align: center; }
+.kf__stufe__frage {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.3rem, 2.1vw, 1.72rem);
+  line-height: 1.24;
+  letter-spacing: -0.004em;
+  color: var(--ink-black);       /* 13.60:1 auf Weiss */
+  text-wrap: balance;
+}
+/* Der Fokus wandert beim Schrittwechsel hierher. Der Ring dabei ist
+   erwuenscht — er sagt dem, der mit der Tastatur arbeitet, wo er gelandet
+   ist. Nach einem Mausklick waere er nur Laerm, deshalb :focus-visible. */
+.kf__stufe__frage:focus:not(:focus-visible),
+.kf__ende__titel:focus:not(:focus-visible) {
+  outline: none;
+}
+/* „WICHTIG" auf der Invenio-Vorlage. Im HTML steht „Wichtig" — die Versalien
+   macht CSS, weil manche Vorlesesoftware durchgehend grossgeschriebene
+   Woerter buchstabiert. Als Anruf gesetzt und nicht als Ueberschrift: es ist
+   keine Frage, sondern die Schwelle vor den Fragen. */
+.kf__stufe__frage--ruf {
+  font-family: var(--font-ui);
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
+  font-weight: 500;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--navy-800);        /* 14.86:1 auf Weiss */
+}
+/* .kf__stufe__zusatz stand unter der Frage in Schritt 2 der beiden
+   Bewerbungsstrecken: „(Wenn in der Immobilienbranche, dann was genau?)" und
+   „(Wenn im Backoffice, dann was genau?)". Beide Zeilen sind am 31.08.2026
+   entfallen — der Kunde will im Popup „einfach nur die Frage und darunter die
+   Antwortmöglichkeit oder das Textfeld".
+   Die Regel bleibt aus demselben Grund stehen wie .kf__feld__zusatz: sie
+   kostet nichts und macht das Zurueckholen zu einer Zeile im HTML. */
+.kf__stufe__zusatz {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-mute);        /* 5.20:1 auf Weiss */
+}
+.kf__stufe__inhalt {
+  display: grid;
+  gap: clamp(0.9rem, 2vh, 1.25rem);
+  min-width: 0;
+}
+.kf__stufe__text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-soft);        /* 6.54:1 auf Weiss */
+}
+/* .kf__klein trug das Kleingedruckte unter den Kontaktdaten („* Wir behandeln
+   deine Kontaktdaten vertraulich (kein Spam)."). Die Zeile ist am 31.08.2026
+   gestrichen worden — „Jeder restliche Text soll einfach raus." Die Regel ist
+   mit ihr entfallen.
+   Auch dieser Kommentar war nicht geschlossen; siehe die Anmerkung weiter
+   oben bei .kf__datenschutz. Geschlossen am 31.08.2026. */
+
+/* Der Stern hinter einer Pflichtbeschriftung. Er ist aria-hidden; dass ein
+   Feld Pflicht ist, sagt der Vorlesesoftware das Attribut `required`. */
+.kf__feld__stern {
+  color: var(--gold-text);       /* 4.82:1 auf Weiss */
+  font-weight: 500;
+}
+/* Im Textfeld eines Schritts genuegen vier Zeilen. Die 8,5 rem aus
+   .kf__feld textarea stammen vom alten Nachrichtenfeld, das die letzte
+   Angabe des Formulars war — hier waere es Hoehe, die die ganze Buehne
+   mittraegt. */
+.kf__stufe .kf__feld textarea {
+  min-height: 6.5rem;
+}
+
+/* ---------------------------------------------------------------------------
+   ANTWORTKACHELN
+   Echte <input type="radio"> mit <label for>. Kein <div> mit Klickabfang:
+   Pfeiltasten, Leertaste, Gruppenansage und der Zustand „ausgewaehlt" kommen
+   damit vom Browser und nicht aus einem Skript. Faellt kontakt-funnel.js
+   aus, funktionieren die Kacheln unveraendert weiter.
+
+   Die Radios sind 1 px gross und durchsichtig, aber NICHT display:none —
+   ein ausgeblendetes Bedienelement ist nicht mehr fokussierbar.
+   Bauart und Farbwechsel sind dieselben wie bei den Anliegen-Karten links
+   (.kf__karte): Navy-Flaeche, weisse Schrift, Sandstrich am linken Rand, der
+   bei Auswahl zugleich BREITER wird — damit haengt der Zustand nicht allein
+   an der Farbe.
+--------------------------------------------------------------------------- */
+.kf__kacheln {
+  display: grid;
+  gap: clamp(0.55rem, 1.3vh, 0.8rem);
+  min-width: 0;
+}
+.kf__kachel {
+  position: relative;
+  min-width: 0;
+}
+.kf__kachel__radio {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+/* Die Beschriftung IST die Trefferflaeche. 56 px hoch, damit eine
+   Fingerkuppe sicher trifft.
+   Die Kante steht auf rgba(16,41,73,0.55) — derselbe Wert wie bei den
+   Eingabefeldern dieser Seite, dort gemessen mit 3,55:1 gegen Weiss. Die
+   Richtlinie verlangt 3:1 fuer die Umrandung eines Bedienelements. Wer den
+   Anteil unter 0.50 senkt, reisst sie. */
+.kf__kachel__label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 0.8rem 1.1rem 0.8rem 1.65rem;
+  background: var(--paper);
+  border: 1px solid rgba(16, 41, 73, 0.55);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-ui);
+  font-size: 1.08rem;
+  line-height: 1.4;
+  color: var(--ink-black);       /* 13.60:1 auf Weiss */
+  cursor: pointer;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease),
+              color 0.4s var(--ease);
+}
+.kf__kachel__label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: -1px;
+  width: 3px;
+  border-radius: var(--radius-btn) 0 0 var(--radius-btn);
+  background: var(--line-soft);
+  transition: background 0.4s var(--ease), width 0.4s var(--ease);
+}
+.kf__kachel__label:hover { border-color: var(--navy-600); }
+.kf__kachel__label:hover::before { background: var(--gold-soft); }
+
+/* Gewaehlt: Navy-Flaeche, weisse Schrift. Gemessen auf --navy-800 (#102949)
+   traegt Weiss 14,86:1. */
+.kf__kachel__radio:checked + .kf__kachel__label {
+  background: var(--navy-800);
+  border-color: var(--navy-800);
+  color: #FFFFFF;
+}
+.kf__kachel__radio:checked + .kf__kachel__label::before {
+  background: var(--sand);
+  width: 5px;
+}
+
+/* Der Radio ist unsichtbar, sein eigener Ring hilft niemandem — er wird an
+   die Kachel weitergereicht, die er schaltet. Derselbe Ring wie ueberall auf
+   der Seite (base.css :focus-visible). */
+.kf__kachel__radio:focus-visible + .kf__kachel__label {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+/* Rueckfall NUR fuer Browser ohne :focus-visible. Als schlichtes :focus
+   geschrieben bliebe der Ring nach jedem Mausklick auf der gewaehlten Kachel
+   stehen und saehe aus wie ein Fehler. */
+@supports not selector(:focus-visible) {
+  .kf__kachel__radio:focus + .kf__kachel__label {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   DAS DATEIFELD (Lebenslauf, freiwillig)
+   Gestrichelte Kante, weil hier etwas hinzugelegt und nicht getippt wird —
+   dieselbe Sprache wie beim Datenschutzvermerk darunter.
+   Der eingebaute Knopf des Browsers wird nur eingekleidet, nicht ersetzt:
+   ein nachgebauter Knopf verliert Tastaturbedienung und Beschriftung.
+--------------------------------------------------------------------------- */
+.kf__feld--datei input[type='file'] {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink-black);
+  background: var(--paper);
+  border: 1px dashed rgba(16, 41, 73, 0.55);
+  border-radius: var(--radius-btn);
+  padding: 0.7rem 0.9rem;
+  min-height: 48px;
+  width: 100%;
+  max-width: 100%;
+  cursor: pointer;
+}
+.kf__feld--datei input[type='file']::file-selector-button {
+  font: inherit;
+  margin-right: 0.9rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgba(16, 41, 73, 0.55);
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: var(--navy-800);
+  cursor: pointer;
+}
+.kf__feld--datei input[type='file']:hover { border-color: var(--navy-600); }
+.kf__feld--datei input[type='file']:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   DIE FUSSLEISTE DER STRECKE
+   Sie liegt AUSSERHALB der Buehne. Dadurch sitzt die Hauptaktion auf jedem
+   Schritt an derselben Stelle und wandert nicht mit der Laenge der Frage.
+   Auch sie entsteht erst in kontakt-funnel.js; ohne Javascript gibt es
+   nichts weiterzublaettern, dort steht am Ende des Formulars der
+   Absendeknopf, der im HTML im letzten Schritt liegt.
+--------------------------------------------------------------------------- */
+.kf__nav {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: clamp(0.8rem, 2vh, 1.2rem);
+}
+/* min-height haelt die Reihe starr. Ohne sie atmet sie mit ihrem Inhalt:
+   „Zurück" baut mit 45,8 px etwas anders als der Hauptknopf mit 48 px, und
+   die Fussleiste sprang beim Schritt von 1 auf 2 gemessen um 2 px. Die
+   Buehne darueber ist starr, die Seite darunter soll es auch sein. */
+.kf__nav__aktion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+  min-height: 50px;
+}
+/* Der Hauptknopf steht rechts — auch auf Schritt 1, wo links noch kein
+   „Zurück" steht. Sonst spraenge er beim zweiten Schritt quer durch die
+   Zeile. */
+.kf__nav .btn { margin-left: auto; }
+/* .btn traegt in base.css white-space:nowrap, weil die Knoepfe dort kurz
+   sind. „Weiter zum nächsten Schritt" ist es nicht: bei 390 px waere die
+   Zeile breiter als die Seite und die ganze Seite liefe waagerecht ueber.
+   Deshalb hier — und nur hier — umbrechbar. */
+.kf__nav .btn {
+  white-space: normal;
+  text-align: center;
+  max-width: 100%;
+}
+/* base.css setzt .btn auf display:inline-flex — das schlaegt die eingebaute
+   Regel des Browsers fuer [hidden] und der Knopf bliebe sichtbar. Deshalb
+   hier ausdruecklich. Betroffen ist der Wechsel „Weiter" -> „Absenden" auf
+   dem letzten Schritt. */
+.kf__nav .btn[hidden],
+.kf__zurueck[hidden] { display: none; }
+
+/* „Zurück" auf Schritt 1: unsichtbar, aber der Platz bleibt. Mit display:none
+   wuerde die Fussleiste beim naechsten Schritt um zwei Bildpunkte wachsen.
+   visibility nimmt den Knopf trotzdem aus Tabreihenfolge und Vorlesesoftware. */
+.kf__zurueck[data-still] { visibility: hidden; }
+
+/* Gesperrt, aber ansprechbar: kontakt-funnel.js setzt aria-disabled und
+   NICHT das Attribut `disabled`. Ein disabled Knopf ist nicht fokussierbar —
+   wer mit der Tastatur arbeitet, faende ihn nicht und erfuehre nie, warum es
+   nicht weitergeht. So bleibt er erreichbar, wird als „nicht verfuegbar"
+   angesagt, traegt ueber aria-describedby den Grund, und ein Druck darauf
+   springt zur fehlenden Angabe.
+   Die Beschriftung misst dabei 5,20:1 (--ink-mute auf Weiss) und damit MEHR
+   als im freigegebenen Zustand — Weiss auf Sand traegt 1,94:1, eine
+   Entscheidung des Kunden vom 24.08.2026. Die Kante steht auf demselben
+   Anteil wie bei den Eingabefeldern, gemessen 3,55:1. */
+.kf__nav .btn[aria-disabled='true'],
+.kf__nav .btn[aria-disabled='true']:hover {
+  background: var(--paper);
+  color: var(--ink-mute);
+  border-color: rgba(16, 41, 73, 0.55);
+  cursor: not-allowed;
+}
+
+/* Zurueck. Auf beiden Vorlagen gibt es ihn nicht — dort ist jeder Fehlklick
+   eine Sackgasse. Hier gibt es ihn, aber leise: er ist der Ausweg und nicht
+   das Angebot. Der Innenabstand bringt die Trefferflaeche ueber 44 px.
+   Die Klasse .kf__neu stand hier bis zum 31.08.2026 daneben: derselbe Knopf
+   in anderer Rolle, „Noch einmal von vorn" auf dem Absagebild. Beides ist
+   auf Kundenwunsch entfallen. */
+.kf__zurueck {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);        /* 5.20:1 auf Weiss */
+  padding: 0.75rem 0.15rem;
+  min-height: 44px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.kf__zurueck:hover {
+  color: var(--navy-800);
+  border-bottom-color: var(--gold);
+}
+
+/* DIE BEGRUENDUNG IST NUR NOCH FUER DIE VORLESESOFTWARE DA — 31.08.2026,
+   Kundenwunsch woertlich: „Dann das ‚Wähl eine Antwort, dann geht es weiter'
+   — das braucht es nicht."
+   Hier stand sie sichtbar unter der Fussleiste:
+       .kf__nav__grund { min-height: 1.6em; font-size: 0.98rem;
+                         line-height: 1.6; color: var(--ink-mute); }
+
+   Geloescht ist sie NICHT. Der Weiterknopf ist aria-disabled, und ein
+   gesperrtes Bedienelement ohne Begruendung ist eine Sackgasse fuer jeden,
+   der den Bildschirm nicht sieht; sie haengt ueber aria-describedby weiter
+   am Knopf. Dieselbe Wegklapptechnik wie bei .kf__fortschritt__ansage:
+   1 px gross, abgeschnitten, aber im Baum — NICHT display:none und NICHT
+   visibility:hidden, denn beides nimmt sie auch der Vorlesesoftware.
+
+   Nebenwirkung, die vorher eigens abgefangen werden musste: weil die Zeile
+   jetzt absolut steht, belegt sie keinen Platz mehr. Das min-height, das
+   ein Rucken der Fussleiste beim Auswaehlen verhindert hat, ist damit
+   gegenstandslos. */
+.kf__nav__grund {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Auf den Schlussbildern gibt es nichts mehr zu blaettern. visibility statt
+   display, damit die Seite darunter nicht hochrutscht. */
+.kf__nav[data-still] { visibility: hidden; }
+
+/* ---------------------------------------------------------------------------
+   SCHMALE FENSTER: DIE FUSSLEISTE STAPELT
+   GEMESSEN, NICHT VERMUTET. Bei 390 px passte „Weiter zum nächsten Schritt"
+   nicht mehr neben „Zurück" — die Reihe brach um, und die Fussleiste war auf
+   Schritt 1 genau 145 px hoch, auf allen folgenden Schritten mit dem kurzen
+   „Weiter" nur 84 px. Das sind 61 px Sprung, obwohl die Buehne darueber
+   starr steht.
+   Ab hier stehen die beiden deshalb IMMER untereinander: der Hauptknopf auf
+   ganzer Breite, „Zurück" darunter. Damit passt jede Beschriftung in eine
+   Zeile und alle Schritte sind gleich hoch. Ausserdem ist ein Knopf auf
+   ganzer Breite auf dem Telefon leichter zu treffen.
+
+   column-reverse und nicht column: im HTML steht „Zurück" zuerst, damit die
+   Tabreihenfolge vom Inhalt zum Ausweg und dann zur Hauptaktion laeuft. Zu
+   sehen sein soll der Hauptknopf trotzdem oben.
+
+   900 px und nicht 600: darueber ist die rechte Spalte breit genug (bei
+   901 px Fensterbreite rund 460 px, der laengste Knopf braucht 290).
+--------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .kf__nav__aktion {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  /* justify-content, nicht nur text-align: .btn ist in base.css ein
+     inline-flex. Auf ganzer Breite klebt sein Text sonst am linken Rand,
+     weil flex-start die Grundstellung ist. */
+  .kf__nav .btn {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .kf__zurueck { text-align: center; }
+}
+
+/* ---------------------------------------------------------------------------
+   DIE SCHLUSSBILDER
+   Danke und Absage. Sie stehen im HTML in <template> und werden von
+   kontakt-funnel.js eingehaengt — „Das hat geklappt!" darf nicht auf einer
+   Seite stehen, auf der nichts abgeschickt wurde.
+--------------------------------------------------------------------------- */
+.kf__ende__titel {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.004em;
+  color: var(--ink-black);
+  margin-bottom: clamp(1rem, 2.2vh, 1.35rem);
+  text-wrap: balance;
+}
+.kf__ende__firma {
+  margin-top: clamp(0.6rem, 1.6vh, 1rem);
+  font-family: var(--font-display);
+  font-size: 1.24rem;
+  color: var(--ink-black);
+}
+.kf__ende__tel {
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+/* Der Sandstrich am linken Rand — dasselbe Zeichen wie an der gewaehlten
+   Kachel, hier als Schlusspunkt. */
+.kf__stufe--ende {
+  padding-left: clamp(1rem, 2.4vw, 1.6rem);
+  border-left: 3px solid var(--sand);
+}
+/* Die zweite Schlussseite. Kein Sand am Rand wie beim Dankebild — sie ist
+   kein Erfolg, aber auch keine Absage mehr. Eine ruhige helle Linie. */
+.kf__stufe--absage { border-left-color: rgba(255, 255, 255, 0.28); }
+
+/* ---------------------------------------------------------------------------
+   WER KEINE BEWEGUNG SEHEN WILL, SIEHT KEINE
+   Ergaenzt die Liste weiter oben um die Bauteile der Strecke.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .kf__kachel__label,
+  .kf__kachel__label::before,
+  .kf__fortschritt__balken,
+  .kf__zurueck {
+    transition: none;
+  }
+}
+
+/* ===========================================================================
+   DAS VOLLBILD
+   31.08.2026, Kundenwunsch woertlich: „Aktuell öffnet es sich rechts daneben
+   und man kann es kaum lesen — es soll sich über den kompletten Bildschirm
+   öffnen. […] Der Bildschirm bekommt die Farbe Navy Blue und die
+   Schriftfarbe ist weiß."
+
+   ES IST EIN <dialog>, KEIN <div>
+   kontakt-funnel.js baut den Kasten und oeffnet ihn mit showModal(). Das ist
+   keine Bequemlichkeit, sondern die Stelle, an der ein selbstgebautes
+   Overlay fast immer etwas vergisst. Der Browser bringt von sich aus mit:
+     — die Fokusfalle: mit Tab kommt man nicht in die Seite dahinter,
+     — Esc schliesst,
+     — alles hinter dem Kasten ist fuer Vorlesesoftware und Zeigegeraet
+       stillgelegt (inert), ohne dass irgendwo aria-hidden gesetzt werden
+       muss,
+     — die oberste Ebene: der Kasten liegt ueber allem, auch ueber der
+       Kopfleiste mit ihrem z-index von 60. Kein Wettruesten um Zahlen.
+   Nachgebaut sind nur die drei Dinge, die der Browser NICHT mitbringt: der
+   Fokus zurueck auf den Pfeil, das Stilllegen des Rollstands dahinter und
+   der Klick auf die Flaeche ausserhalb.
+
+   ALLE FARBEN SIND GEMESSEN, NICHT GESCHAETZT. Der Grund ist --navy-900
+   (#0A192E) — derselbe Ton, den .sp-band--navy und der Kopfbereich der
+   Startseite tragen. Dagegen gerechnet:
+
+       #FFFFFF   Ueberschriften, Fragen, Feldinhalte      17,63:1
+       #C9CCD1   Fliesstext, Feldbeschriftungen           10,95:1
+       #A2A8B0   leise Zeilen (Zaehler, Grund, Zusatz)     7,36:1
+       --sand    Verweise, Sterne, Fokusring, Balken       9,06:1
+       #F0A99A   Fehlermeldungen und Fehlerkanten          9,11:1
+       rgba(255,255,255,0.42)  Feld- und Kachelkanten      4,05:1
+     Kanten gegen den Feldgrund rgba(255,255,255,0.06)     3,46:1
+     Navy auf --sand (gewaehlte Kachel)                    9,06:1
+
+   Die Anforderung liegt bei 4,5:1 fuer Text und 3:1 fuer die Umrandung
+   eines Bedienelements. Alles darueber.
+   Ausgenommen bleibt der Sandknopf selbst: Weiss auf Sand misst 1,94:1 und
+   ist eine ausdrueckliche Entscheidung des Kunden vom 24.08.2026, zentral
+   in base.css vermerkt. Hier wird sie nicht heimlich zurueckgenommen.
+   =========================================================================== */
+.kf__voll {
+  /* Ein <dialog> bringt eigene Browserstile mit: eine Breite nach Inhalt,
+     einen Rahmen, Innenabstand, automatische Raender und eine Hoehen- und
+     Breitengrenze von calc(100% - 6px). Alles davon muss weg, sonst ist es
+     kein Vollbild, sondern ein Kasten mit Rand. */
+  position: fixed;
+  inset: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;             /* gerollt wird innen, siehe .kf__voll__roll */
+  background: var(--navy-900);
+  color: #FFFFFF;
+}
+/* Falls der Browser doch einen Spalt Hintergrund zeigt, ist er Navy und
+   nicht das voreingestellte Halbschwarz. */
+.kf__voll::backdrop { background: var(--navy-900); }
+
+/* Der Ring aus base.css ist eine Goldhaarlinie — auf Navy misst Gold 5,24:1
+   und traegt, aber eine einzelne Linie geht auf dunklem Grund unter. Im
+   Vollbild deshalb zwei Bildpunkte in Sand (9,06:1). */
+.kf__voll :focus-visible,
+.kf__buehne :focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   ROLLEN
+   Der Kasten selbst rollt nicht, der Kanal darin schon. Auf einem Telefon im
+   Querformat ist ein Schritt regelmaessig hoeher als das Fenster — das ist
+   der Normalfall und nicht die Ausnahme.
+   overscroll-behavior: contain haelt die Rollbewegung im Kasten, wenn man an
+   seinem Ende ankommt; sonst rollt darunter die Seite weiter.
+   100dvh statt 100vh: auf dem Telefon rechnet vh mit der eingeklappten
+   Adressleiste, und das untere Stueck des Formulars laege dauerhaft unter
+   dem Bildschirmrand. Die 100% davor sind der Rueckfall fuer Browser, die
+   dvh nicht kennen.
+--------------------------------------------------------------------------- */
+.kf__voll__roll {
+  height: 100%;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.kf__voll__innen {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 0 var(--gutter) clamp(3rem, 9vh, 5.5rem);
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   DIE KOPFZEILE DES VOLLBILDS
+   Sie bleibt oben stehen (sticky), waehrend der Rest rollt. Ein
+   Schliessknopf, den man erst wieder heraufrollen muss, ist auf einem
+   langen Schritt kein Ausweg.
+--------------------------------------------------------------------------- */
+/* Links die Wortmarke, rechts der Schliessknopf. */
+.kf__voll__kopf {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.9rem, 2.4vh, 1.4rem) 0;
+  background: var(--navy-900);
+  /* GEMESSEN: mit rgba(255,255,255,0.16) trug die Linie 1,62:1 und war auf
+     Navy kaum auszumachen. 0.26 misst 2,25:1.
+     Eine reine Trennlinie ist kein Bedienelement und faellt nicht unter die
+     3:1 der Richtlinie — sichtbar sein soll sie trotzdem, sonst kann sie
+     gleich weg. */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+}
+/* DIE WORTMARKE MUSS HIER WEISS GESETZT WERDEN — SIE ERBT IHRE FARBE NICHT.
+   Gemeldeter Fehler vom 31.08.2026: „das Estera-Logo oben im Popup ist blau,
+   nicht weiss."
+   Nachgesehen in base.css: .wordmark__name traegt dort einen festen Wert
+   (var(--navy-800)) und .wordmark__sub einen eigenen. Beide erben also NICHT
+   vom `color: #FFFFFF` des Popups — das ist der ganze Fehler. base.css haelt
+   den hellen Zustand zwar bereit, aber nur unter .site-header--invert, und
+   diese Klasse gibt es hier nicht.
+   Gemessen gegen --navy-900:
+       #FFFFFF                  17,63:1
+       rgba(255,255,255,0.66)    8,17:1   (Unterzeile „Immobilien")
+   Gesetzt wird es AM POPUP und nicht an .wordmark: dieselbe Wortmarke steht
+   auf weissem Grund in der Kopfleiste und im Fuss und muesste dort navy
+   bleiben. */
+.kf__voll .wordmark__name { color: #FFFFFF; }
+.kf__voll .wordmark__sub  { color: rgba(255, 255, 255, 0.66); }
+
+/* Das Kreuz im Schliessknopf ist ein <svg> mit stroke="currentColor" — es
+   erbt vom Knopf und ist damit mitgefaerbt. Derselbe Fehler wie bei der
+   Wortmarke waere hier nur entstanden, wenn der Knopf keine eigene Farbe
+   traegt; er traegt eine. */
+.kf__voll__zu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 44px;             /* Trefferflaeche fuer eine Fingerkuppe */
+  padding: 0.5rem 0.2rem;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9CCD1;               /* 10,95:1 auf Navy */
+  border-bottom: 1px solid transparent;
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.kf__voll__zu:hover {
+  color: #FFFFFF;
+  border-bottom-color: var(--sand);
+}
+.kf__voll__zu svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------------------------------------------------------------------------
+   IM VOLLBILD STEHT GENAU EINE STRECKE
+   Ohne Javascript steht dieser Block auf der Seite und traegt alle drei
+   offen — deshalb versteckt erst diese Regel, und sie greift nur innerhalb
+   des Vollbilds.
+--------------------------------------------------------------------------- */
+.kf__voll .kf__formular { display: none; }
+.kf__voll .kf__formular[data-voll-aktiv] { display: grid; }
+/* Die Trennlinie zwischen zwei Strecken braucht es hier nicht — es steht
+   immer nur eine. */
+.kf__voll .kf__formular + .kf__formular {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.kf__voll .kf__buehne { margin-top: clamp(1.4rem, 3.5vh, 2.2rem); }
+
+/* ---------------------------------------------------------------------------
+   DIE SCHRIFTTOENE AUF NAVY
+   Die Bauteile darunter sind dieselben wie auf Weiss — nur ihre Toene
+   kehren sich um. Jeder Wert ist oben im Kopf dieser Datei gemessen.
+--------------------------------------------------------------------------- */
+.kf__buehne .kf__formular__titel,
+.kf__buehne .kf__stufe__frage,
+.kf__buehne .kf__ende__titel,
+.kf__buehne .kf__ende__firma {
+  color: #FFFFFF;                                    /* 17,63:1 */
+}
+.kf__buehne .kf__stufe__frage--ruf { color: var(--sand); }   /* 9,06:1 */
+
+.kf__buehne .kf__formular__zeile,
+.kf__buehne .kf__stufe__text,
+.kf__buehne .kf__ende__tel,
+.kf__buehne .kf__feld > label {
+  color: #C9CCD1;                                    /* 10,95:1 */
+}
+
+.kf__buehne .kf__stufe__zusatz,
+.kf__buehne .kf__feld__zusatz,
+.kf__buehne .kf__nav__grund,
+.kf__buehne .kf__fortschritt__zahl,
+.kf__buehne .kf__zurueck {
+  color: #A2A8B0;                                    /* 7,36:1 */
+}
+.kf__buehne .kf__feld__stern { color: var(--sand); }   /* 9,06:1 */
+
+/* .hl IST EINE HERVORHEBUNG UND KEIN VERWEIS.
+   base.css setzt sie als reinen Farbwechsel: `color: var(--accent)`, sonst
+   nichts. --accent ist ein Blau fuer weisses Papier und misst auf Navy 1,5:1
+   — deshalb muss der Ton hier umschlagen. Sand traegt 9,06:1.
+
+   WAS HIER ZUSAETZLICH STAND UND AM 31.08.2026 ENTFERNT WURDE:
+       border-bottom: 1px solid rgba(217, 180, 133, 0.5);
+       .kf__buehne .hl:hover { border-bottom-color: var(--sand); }
+   Der Kommentar daneben lautete „Verweise im Fliesstext (die
+   E-Mail-Adresse)" — das war der Irrtum. Im Popup steht kein Verweis mehr;
+   die einzige Stelle, die .hl traegt, ist der Betrag „2.500 €" auf der
+   Absageseite. Eine Unterstreichung samt Ueberfahrzustand macht aus einer
+   Hervorhebung optisch einen Verweis: gemessen sah der Betrag genauso aus
+   wie die E-Mail-Adresse im Abschnitt darunter, war aber nicht anklickbar.
+   Jetzt steht hier, was base.css auch tut — ein Farbwechsel und sonst
+   nichts. */
+.kf__buehne .hl { color: var(--sand); }              /* 9,06:1 */
+
+.kf__buehne .kf__formular__kopf { border-bottom-color: rgba(255, 255, 255, 0.16); }
+
+/* --- Fortschritt --------------------------------------------------------- */
+.kf__buehne .kf__fortschritt__schiene { background: rgba(255, 255, 255, 0.18); }
+.kf__buehne .kf__fortschritt__balken { background: var(--sand); }
+
+/* --- Felder ---------------------------------------------------------------
+   Ein leicht aufgehellter Grund statt einer weissen Flaeche: eine weisse
+   Eingabezeile auf Navy ist ein Loch im Bild und blendet. rgba(255,255,255,
+   0.06) ergibt am Bildpunkt #19273B; Weiss darauf misst 15,06:1, die Kante
+   3,46:1 gegen den Feldgrund und 4,05:1 gegen das Navy daneben.
+--------------------------------------------------------------------------- */
+.kf__buehne .kf__feld input,
+.kf__buehne .kf__feld textarea {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.kf__buehne .kf__feld input:hover,
+.kf__buehne .kf__feld textarea:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+}
+.kf__buehne .kf__feld input:focus-visible,
+.kf__buehne .kf__feld textarea:focus-visible {
+  border-color: #FFFFFF;
+  outline: 2px solid var(--sand);
+  outline-offset: 2px;
+}
+/* Was der Browser beim automatischen Ausfuellen einsetzt, ist ein helles
+   Gelb mit dunkler Schrift — auf Navy ein Fremdkoerper, und die Schrift
+   waere weiss auf hell. Der Innenschatten ist der einzige Weg, diese Flaeche
+   zu uebermalen; -webkit-text-fill-color der einzige, ihre Schrift zu
+   setzen. #16283F ist --fl-navy900-b aus base.css, Weiss darauf 14,97:1. */
+.kf__buehne .kf__feld input:-webkit-autofill,
+.kf__buehne .kf__feld input:-webkit-autofill:hover,
+.kf__buehne .kf__feld input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #FFFFFF;
+  -webkit-box-shadow: 0 0 0 1000px #16283F inset;
+  caret-color: #FFFFFF;
+}
+
+/* --- Dateifeld ----------------------------------------------------------- */
+.kf__buehne .kf__feld--datei input[type='file'] {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.kf__buehne .kf__feld--datei input[type='file']::file-selector-button {
+  background: transparent;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.kf__buehne .kf__feld--datei input[type='file']:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+}
+
+/* --- Antwortkacheln -------------------------------------------------------
+   Auf Weiss war die gewaehlte Kachel Navy mit weisser Schrift. Auf Navy
+   kehrt sich das um: Sand mit Navy-Schrift, 9,06:1. Eine Navy-Kachel auf
+   Navy waere kein Zustand, sondern ein Loch.
+--------------------------------------------------------------------------- */
+.kf__buehne .kf__kachel__label {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.42);           /* 4,05:1 */
+  color: #FFFFFF;                                    /* 17,63:1 */
+}
+.kf__buehne .kf__kachel__label::before { background: rgba(255, 255, 255, 0.22); }
+.kf__buehne .kf__kachel__label:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #FFFFFF;
+}
+.kf__buehne .kf__kachel__label:hover::before { background: var(--sand); }
+
+.kf__buehne .kf__kachel__radio:checked + .kf__kachel__label {
+  background: var(--sand);
+  border-color: var(--sand);
+  color: var(--navy-900);                            /* 9,06:1 */
+}
+.kf__buehne .kf__kachel__radio:checked + .kf__kachel__label::before {
+  background: var(--navy-900);
+  width: 5px;
+}
+.kf__buehne .kf__kachel__radio:focus-visible + .kf__kachel__label {
+  outline: 2px solid var(--sand);
+  outline-offset: 3px;
+}
+@supports not selector(:focus-visible) {
+  .kf__buehne .kf__kachel__radio:focus + .kf__kachel__label {
+    outline: 2px solid var(--sand);
+    outline-offset: 3px;
+  }
+}
+
+/* --- Fussleiste -----------------------------------------------------------
+   Der freigegebene Hauptknopf bleibt der Sandknopf aus base.css, unangetastet.
+   Der gesperrte war auf Weiss eine weisse Flaeche — hier waere das ein
+   Leuchtfeld. Stattdessen ein Umriss: Schrift 7,36:1, Kante 4,05:1.
+--------------------------------------------------------------------------- */
+.kf__buehne .kf__nav .btn[aria-disabled='true'],
+.kf__buehne .kf__nav .btn[aria-disabled='true']:hover {
+  background: transparent;
+  color: #A2A8B0;
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.kf__buehne .kf__zurueck:hover {
+  color: #FFFFFF;
+  border-bottom-color: var(--sand);
+}
+
+/* --- Fehler ---------------------------------------------------------------
+   #8E2F1E traegt auf Weiss 6,34:1 und auf Navy nur 2,16:1 — als Schrift
+   unlesbar und als Kante unter der Anforderung. Derselbe Rotton, so weit
+   aufgehellt, dass er auf Navy 9,11:1 misst. Er ist NEU: einen Fehlerton
+   fuer dunklen Grund gab es im Projekt noch nicht, weil es bis heute keinen
+   dunklen Formulargrund gab.
+--------------------------------------------------------------------------- */
+.kf__buehne .kf__fehler { color: #F0A99A; }
+.kf__buehne .kf__feld input[aria-invalid='true'],
+.kf__buehne .kf__feld textarea[aria-invalid='true'] {
+  border-color: #F0A99A;
+  border-width: 2px;
+}
+
+/* --- Datenschutzvermerk und Platzhalterplaketten -------------------------- */
+/* Hier standen die dunklen Toene fuer .kf__datenschutz und die Plaketten
+   darin. Beides ist am 31.08.2026 mit dem Vermerk aus dem Markup entfallen. */
+
+/* --- Schlussbilder -------------------------------------------------------- */
+.kf__buehne .kf__stufe--ende { border-left-color: var(--sand); }
+/* (auf Weiss, also ohne Javascript-Vollbild) */
+.kf__stufe--absage { border-left-color: var(--line); }
+
+/* ---------------------------------------------------------------------------
+   WER KEINE BEWEGUNG SEHEN WILL, SIEHT KEINE
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .kf__karte,
+  .kf__karte::before,
+  .kf__karte__pfeil,
+  .kf__voll__zu {
+    transition: none;
+  }
+}
+
+/* ===========================================================================
+   „SO ERREICHST DU ESTERA" AUF NAVY
+   31.08.2026, Kundenwunsch: beide Abschnitte dieser Seite in Navy.
+
+   Der Abschnitt traegt jetzt .sp-band--navy aus seiten.css. Damit stimmen
+   Ueberschrift, Kicker und Fliesstext bereits — seiten.css kehrt sie in
+   dunklen Baendern von sich aus um:
+       .display / .sp-kopf__h2   #FFFFFF                    17,63:1
+       .kicker                   rgba(200,172,122,0.9)       6,74:1
+       Fliesstext                rgba(255,255,255,0.78)     10,95:1
+       .sp-offen                 --gold-soft auf Schleier    7,13:1
+
+   Was seiten.css NICHT umkehrt, ist die Datenliste .sp-daten — sie ist fuer
+   weisses Papier gebaut und stuende hier mit:
+       dt  --ink-mute  auf Navy   3,40:1   (unter der Grenze von 4,5:1)
+       dd  --ink-black auf Navy   1,30:1   (praktisch unsichtbar)
+       a   --navy-800  auf Navy   1,19:1   (unsichtbar)
+       Haarlinien --line-soft     unsichtbar
+   Die vier Werte werden hier umgekehrt — und NUR hier, unter .kf-wege:
+   dieselbe Liste haengt auch an ueber-estera.html und den beiden
+   Karriereseiten, wo sie auf Weiss steht und stimmt. seiten.css bleibt
+   unangetastet.
+   =========================================================================== */
+.kf-wege .sp-daten dt {
+  color: rgba(255, 255, 255, 0.72);      /* 9,51:1 gegen --navy-900 */
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+.kf-wege .sp-daten dd {
+  color: #FFFFFF;                        /* 17,63:1 */
+}
+.kf-wege .sp-daten dd a {
+  color: var(--sand);                    /* 9,06:1 */
+  border-bottom-color: rgba(217, 180, 133, 0.5);
+}
+.kf-wege .sp-daten dd a:hover {
+  color: #FFFFFF;
+  border-bottom-color: var(--sand);
+}
+/* Die erste Haarlinie faellt weiterhin weg — direkt unter der Ueberschrift
+   wirkt sie wie ein zweiter Trennstrich. Die Regel steht schon weiter oben;
+   hier muss nur der Ton der uebrigen Linien mit. */
+.kf-wege .sp-daten dt:first-of-type { border-top: 0; }
+
+/* Zwei Navy-Flaechen hintereinander laufen ineinander. seiten.css zieht die
+   Haarlinie nur zwischen zwei HELLEN Baendern (`:not(.sp-band--navy)`) —
+   zwischen diesen beiden fehlt sie deshalb. Hier ist das richtig so: die
+   beiden Abschnitte gehoeren zusammen und sollen als eine dunkle Flaeche
+   gelesen werden, aus der die drei Kaesten und die Kontaktwege
+   herausstehen. */

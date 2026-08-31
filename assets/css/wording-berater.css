@@ -1,0 +1,69 @@
+/* ===========================================================================
+   WORDING-BERATER.CSS — gehoert ALLEIN karriere-immobilienberater.html
+   31.08.2026
+
+   EINE Regel. Sie ist keine Gestaltung, sondern eine Reparatur.
+
+   DAS BILD IM ABSCHLUSSABSCHNITT WAR NICHT ZU SEHEN. Der Kunde hat das
+   mehrfach gemeldet („da ist immer noch kein Bild"), und es stimmte: das
+   Feld stand mit den richtigen Massen an der richtigen Stelle, die Datei
+   kam mit 200 vom Server, das <img> war vollstaendig geladen
+   (naturalWidth 1536) — und gemalt wurde trotzdem nichts. Nachgemessen
+   mit einem Ausschnitt genau ueber dem Bildfeld: reines Navy, an JEDER
+   Breite.
+
+     Breite   ohne diese Regel        mit dieser Regel
+     1920     leer  (1,2 kB Flaeche)  Bild  (204 kB)
+     1440     leer  (1,1 kB)          Bild  (207 kB)
+     1024     leer  (0,9 kB)          Bild  (139 kB)
+      899     leer  (1,7 kB)          Bild  (277 kB)
+      390     leer  (0,6 kB)          Bild  ( 84 kB)
+
+   DIE URSACHE: <picture> ist ein INLINE-Kasten, und die Auftrittsbewegung
+   legt darauf
+     [data-stl-js] /* Die Regel `.stl-schluss__medium picture { display: block }` stand bis zum
+   31.08.2026 hier UND in der Schwesterdatei der anderen Stellenseite — beide
+   Agenten hatten denselben Fehler unabhaengig voneinander gefunden. Sie steht
+   jetzt EINMAL in stelle.css und gilt damit fuer beide Seiten; die Begruendung
+   samt Messwerten steht dort. Hier ist sie ersatzlos entfallen, damit nicht
+   drei Stellen dieselbe Zeile fuehren. */
+   samt der Endlage `inset(0 0 0%)`. Der Bezugskasten von clip-path ist bei
+   einem Inline-Element aber nicht die Flaeche des Bildes, sondern die
+   seiner Zeilenfragmente — und das <img> darin ist ein Blockkasten, der in
+   keinem dieser Fragmente liegt. Der Zuschnitt schneidet damit alles weg,
+   auch im „offenen" Zustand. Ein Blockkasten hat den Bezug, den die
+   Bewegung meint.
+
+   WARUM DAS KEINE NEUE GESTALTUNG IST: das zweite Bildfeld derselben Seite
+   (.stl-bilder in „Das erwartet dich") traegt dieselbe Bewegung und ist
+   deshalb zu sehen, weil stelle.css ihm `picture, img { display: block }`
+   mitgibt. Hier fehlte genau diese Zeile. Uebernommen ist also der Wert,
+   den das Schwesterfeld im Projekt bereits fuehrt. Am Aussehen aendert er
+   sonst nichts: die Masse des Feldes sind mit und ohne die Regel auf den
+   Bildpunkt dieselben (604 x 302 bei 1440), und den Zeilenabstand, den ein
+   Inline-Kasten unter dem Bild liesse, faengt .stl-schluss__medium mit
+   `line-height: 0` ohnehin ab.
+
+   WARUM NICHT IN STELLE.CSS: die gehoert BEIDEN Stellenseiten gemeinsam,
+   und an der zweiten arbeitet parallel jemand anderes. Diese Datei gehoert
+   dieser Seite allein.
+   HINWEIS AN ESTERA: karriere-backoffice.html ist an dieser Stelle gleich
+   gebaut und hat damit sehr wahrscheinlich denselben Fehler. Sobald beide
+   Seiten in einer Hand sind, gehoert diese eine Zeile nach stelle.css zu
+   .stl-schluss__medium — dann ist sie an einer Stelle statt an zweien.
+
+   Hoehe und Ausschnitt bleiben, wie stelle.css sie setzt: `width: 100%`,
+   `height: auto`, `aspect-ratio: 597 / 299`, `object-fit: cover`. Kein
+   `height: 100%` — die Hoehe kommt aus dem Seitenverhaeltnis und traegt
+   deshalb auch, wenn die Spalten unter 992 px untereinander stehen.
+   `align-self` braucht es nicht: der Abschluss bleibt in beiden Faellen
+   ein Raster (.stl-zwei--schluss), und Rasterfelder dehnen sich von
+   selbst — nachgemessen bei 899 und 390.
+   =========================================================================== */
+
+/* Die Regel `.stl-schluss__medium picture { display: block }` stand bis zum
+   31.08.2026 hier UND in der Schwesterdatei der anderen Stellenseite — beide
+   Agenten hatten denselben Fehler unabhaengig voneinander gefunden. Sie steht
+   jetzt EINMAL in stelle.css und gilt damit fuer beide Seiten; die Begruendung
+   samt Messwerten steht dort. Hier ist sie ersatzlos entfallen, damit nicht
+   drei Stellen dieselbe Zeile fuehren. */

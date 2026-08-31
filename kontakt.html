@@ -7,7 +7,13 @@
 <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
      Vorher: "Kennenlernen und gegenseitige Prüfung: was im Erstgespräch passiert, wie der weitere Ablauf aussieht und wie Sie Estera erreichen."
      VON ESTERA BESTAETIGEN LASSEN. -->
-<meta name="description" content="Was im Erstgespräch passiert, wie es danach weitergeht und wie du Estera erreichst.">
+<!-- NACHGEZOGEN 31.08.2026: Die Seite beschreibt nicht mehr den Ablauf des
+     Erstgespraechs — der Abschnitt ist beim Umbau entfallen. Die alte
+     Beschreibung haette etwas angekuendigt, was auf der Seite nicht mehr
+     steht.
+     Vorher: "Was im Erstgespräch passiert, wie es danach weitergeht und wie du Estera erreichst."
+     VON ESTERA BESTAETIGEN LASSEN. -->
+<meta name="description" content="Wähl dein Anliegen und schreib Estera: Kapitalanlage-Immobilie, Vertriebspartner oder Back-Office. Dazu die Kontaktwege.">
 <meta name="robots" content="noindex, nofollow">
 
 <link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -17,16 +23,65 @@
 <link rel="stylesheet" href="assets/css/base.css?v=b24a">
 <link rel="stylesheet" href="assets/css/schluss.css?v=b24a">
 <link rel="stylesheet" href="assets/css/seiten.css?v=b24a">
+<link rel="stylesheet" href="assets/css/kontakt.css?v=b24a">
+
+<!-- OHNE JAVASCRIPT BLEIBT NICHTS UNSICHTBAR HAENGEN
+     base.css setzt [data-anim] und seiten.css setzt [data-reveal] auf
+     opacity:0 und wartet darauf, dass site.js sie wieder aufdeckt. Laeuft
+     kein Javascript, bleibt beides dauerhaft durchsichtig — die Seite waere
+     leer.
+     Diese Seite muss ohne Javascript vollstaendig bedienbar sein, deshalb
+     nimmt der Block das hier zurueck. Er steht in <noscript> und wirkt
+     ausschliesslich dann, wenn Javascript abgeschaltet ist; mit Javascript
+     wird er vom Browser gar nicht erst angewandt.
+     base.css und seiten.css bleiben dabei unangetastet. -->
+<noscript>
+  <style>
+    [data-anim], [data-reveal] { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
 </head>
 <body>
 
-<header class="site-header" data-header>
+<!-- site-header--invert, ergaenzt am 31.08.2026: der erste Abschnitt der
+     Seite ist seit dieser Aenderung Navy, und die Kopfleiste liegt absolut
+     darueber (base.css, .site-header schiebt nichts nach unten). Ohne diese
+     Klasse staende die Navigation in --navy-800 auf --navy-900 — gemessen
+     1,19:1, also praktisch unsichtbar.
+     Die Klasse ist keine Erfindung fuer diese Seite: base.css haelt den
+     hellen Zustand der Leiste seit jeher bereit, weil sie auf der Startseite
+     ueber dem dunklen Bildband steht. Gemessen gegen --navy-900:
+         Verweise rgba(255,255,255,0.86)   13,20:1
+         Kontakt-Verweis #FFFFFF           17,63:1
+         Wortmarke #FFFFFF                 17,63:1
+     Beim Herunterrollen setzt site.js zusaetzlich .site-header--sticky; dann
+     traegt der weisse Balken und base.css stellt alles von selbst auf Navy
+     zurueck. -->
+<header class="site-header site-header--invert" data-header>
 
+  <!-- KOPFLEISTE UMSORTIERT 31.08.2026 — Kundenwunsch.
+       Vorher:  links Vorteile · Leistungen · Ablauf
+                rechts Karriere · Kontakt
+       Jetzt:   links Vorteile · Leistungen
+                rechts Ablauf · Karriere · Kontakt
+       „Ablauf" ist von links nach rechts gewandert und steht dort VOR
+       „Karriere". „Kontakt" bleibt der abgesetzte Punkt ganz aussen
+       (.kopfnav__cta) und traegt auf dieser Seite aria-current="page".
+
+       Die Beschriftung der rechten Leiste heisst weiterhin „Seiten",
+       obwohl „Ablauf" ein Abschnitt der Startseite ist und keine eigene
+       Seite. Ein genauerer Name waere „Weiteres" — geaendert wird er hier
+       aber nicht, weil dieselbe Leiste wortgleich auf allen anderen
+       Seiten steht und an dreien davon gerade gearbeitet wird. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
-      <li><a href="variante-a.html#warum-immobilien">Vorteile</a></li>
-      <li><a href="variante-a.html#leistungen">Leistungen</a></li>
-      <li><a href="variante-a.html#ablauf">Ablauf</a></li>
+      <!-- UMBENANNT 31.08.2026, damit die Punkte heissen wie die Abschnitte,
+           auf die sie zeigen. Auf allen uebrigen Seiten ist es bereits so.
+             #warum-immobilien   „Vorteile"    -> „Warum Immobilien"
+             #leistungen         „Leistungen"  -> „Warum Estera"
+           Ziel und Reihenfolge bleiben unveraendert. -->
+      <li><a href="variante-a.html#warum-immobilien">Warum Immobilien</a></li>
+      <li><a href="variante-a.html#leistungen">Warum Estera</a></li>
     </ul>
   </nav>
 
@@ -37,6 +92,7 @@
 
   <nav class="kopfnav kopfnav--rechts" aria-label="Seiten">
     <ul>
+      <li><a href="variante-a.html#ablauf">Ablauf</a></li>
       <!-- Karriere ist seit dem 22.08.2026 keine eigene Seite mehr, sondern
            Abschnitt 4 von ueber-estera.html. karriere.html ist geloescht;
            _redirects leitet die alte Adresse dorthin um. -->
@@ -53,244 +109,1254 @@
 
 <main class="sp">
 
-<!-- =====================================================================
-     SEITENKOPF   (Masterbriefing S.5 „Erstgespraech: Was im ersten Termin
-     passiert und wie der weitere Prozess aussieht" + S.9 Schritt 1)
+<!-- ENTFERNT 31.08.2026 auf Kundenwunsch, ersatzlos.
+     Hier stand der Seitenkopf mit der Ueberschrift
+         "Erst reden. Dann entscheiden."
+     und darunter
+         "Passt eine Kapitalanlageimmobilie zu dir? Das klaeren wir zuerst.
+          Vielleicht ist ein anderer Schritt sinnvoller. Erst danach schauen
+          wir uns Objekte an."
+     Dazu der Kicker „Kontakt" und die Goldlinie.
 
-     Diese Seite hat zwei Auftraege des Briefings zusammengelegt, weil der
-     Kunde am 22.08.2026 „Erstgespräch" in der Navigation durch „Kontakt"
-     ersetzt hat: den Erstgespraechs-Inhalt (S.5, S.9) und die
-     Kontaktangaben (S.5, „Sekundaere Bereiche").
-     Die Ueberschrift ist die Beschreibung des Erstgespraechs aus S.9,
-     wortgleich.
+     FOLGE FUER DIE GLIEDERUNG: Mit dem Seitenkopf ist die einzige H1 der
+     Seite verschwunden. Eine Seite ohne H1 hat keine Ueberschrift erster
+     Ordnung — Vorlesesoftware und Suchmaschinen verlieren damit den
+     Einstieg. Deshalb ist „Worum geht es bei dir?" von H2 auf H1
+     hochgezogen worden; sie ist jetzt die Ueberschrift der Seite.
      ===================================================================== -->
-<section class="sp-hero">
-  <div class="sp-hero__inner">
-    <p class="kicker sp-hero__kicker" data-anim style="--d:60">Kontakt</p>
-    <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-         Vorher: "Kennenlernen und gegenseitige Prüfung."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-         „Kennenlernen. Und gegenseitig pruefen." benannte den Vorgang;
-         die neue Zeile sagt dem Leser, was er davon hat: er redet zuerst und
-         entscheidet danach. Vier Woerter. Die Gegenseitigkeit steht
-         unveraendert im Abschnitt „Worueber wir reden" („Passt Estera zu dir?
-         Und du zu Estera?") — sie geht also nicht verloren.
-         Vorher: "Kennenlernen. Und gegenseitig prüfen."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <h1 class="display sp-hero__h1" data-anim style="--d:140">
-      Erst reden.
-      <span class="accent">Dann entscheiden.</span>
-    </h1>
-    <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-         Vorher: "Das Erstgespräch klärt zuerst, ob eine Kapitalanlageimmobilie überhaupt zu Ihrer Situation passt – oder ob aktuell ein anderer Schritt vernünftiger wäre. Erst danach sprechen wir über Objekte."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-         Nur das Fuellwort „gerade" faellt weg. Die Einschraenkung „Vielleicht"
-         bleibt ausdruecklich stehen — sie macht aus der Aussage eine
-         Moeglichkeit und keine Zusage.
-         Vorher: "Passt eine Kapitalanlageimmobilie zu dir? Das klären wir zuerst. Vielleicht ist ein anderer Schritt gerade sinnvoller. Erst danach schauen wir uns Objekte an."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <p class="lead sp-hero__lead" data-anim style="--d:240">
-      Passt eine Kapitalanlageimmobilie zu dir? Das klären wir zuerst.
-      Vielleicht ist ein anderer Schritt sinnvoller. Erst danach schauen
-      wir uns <span class="hl">Objekte</span> an.
-    </p>
-    <span class="rule-gold" data-anim style="--d:320" aria-hidden="true"></span>
+<!-- =====================================================================
+     ANLIEGEN WAEHLEN — FORMULAR OEFFNET SICH
+
+     UMBAU 31.08.2026, KUNDENWUNSCH
+     Wortlaut des Kunden: „Das Kontaktformular ist eine komplette
+     Katastrophe. Das kannst du erst mal komplett entfernen. Dann will ich,
+     dass es eins zu eins so aufgebaut ist wie bei Imperia."
+     Und zum Umfang: „Es muss diese Seite nicht so umfangreich sein, es
+     gibt wirklich nur diese drei Auswahlmoeglichkeiten."
+
+     WAS AN DIESER STELLE STAND UND ENTFERNT WURDE
+       — das alte Formular (ein Feldsatz fuer alle, Knopf dauerhaft
+         gesperrt),
+       — der Abschnitt „Worueber wir reden" (vier Punkte),
+       — der Abschnitt „Vom Erstgespraech bis zum Notar" (sechs Schritte),
+       — der Abschnitt „Was diese Seite bewusst offenlaesst".
+     Die drei Abschnitte sind nicht verloren: der Ablauf ist die eigene
+     Inszenierung auf der Startseite, dort steht er vollstaendig.
+     Die alte Fassung liegt als SICHER-kontakt-vorher.html in der Kladde.
+
+     DIE VORLAGE, NACHGESEHEN AM 31.08.2026
+     imperiaimmobilien.de/karriere/ hat KEIN Formular — nur „Wer wir sind"
+     und „Offene Stellen". Gefunden wurde es auf der Kontaktseite derselben
+     Domain. Deren Bauart:
+       links eine schmale Spalte mit sieben Karten (Unverbindliches
+       Telefonat, Finanzierungsanfrage, Bautraeger, Vertriebspartner,
+       Restnutzungsdauergutachten, Presseanfragen, Allgemeine Anfrage),
+       jede Karte mit Titel und einem Erklaersatz;
+       rechts, auf ganzer Resthoehe, das Formular zur gewaehlten Karte;
+       auf schmalen Fenstern werden die Karten zu Pillen ueber dem
+       Formular.
+     Uebernommen ist ausschliesslich diese Bauart. Kein Wort und kein Bild
+     von dort steht auf dieser Seite; die sieben Anliegen sind hier drei,
+     wie vom Kunden vorgegeben.
+
+     WIE DAS UMSCHALTEN FRUEHER FUNKTIONIERTE — UND WARUM NICHT MEHR
+     Bis zum 31.08.2026 waren die drei Anliegen eine echte Radiogruppe, und
+     der Geschwisterselektor
+         #kf-a1:checked ~ .kf__raster #kf-formular-1 { display: grid; }
+     entschied ohne eine Zeile Javascript, welches Formular rechts steht.
+     Das war die richtige Loesung, solange „umschalten" hiess: eine von drei
+     Spalten sichtbar machen.
+
+     Es heisst jetzt etwas anderes. Der Kunde hat am selben Tag nachgelegt:
+     die Strecke soll sich ueber den ganzen Bildschirm oeffnen, in Navy, mit
+     weisser Schrift. Ein Vollbild braucht mehr, als CSS geben kann — den
+     Fokus hineinlenken und beim Schliessen zurueck, die Seite dahinter
+     stilllegen und an derselben Stelle wieder freigeben, Esc abfangen. Die
+     Radios sind deshalb entfallen; an ihrer Stelle stehen drei gewoehnliche
+     Verweise, die ohne Javascript zu den Formularen springen und mit
+     Javascript das Vollbild oeffnen. Die ausfuehrliche Begruendung steht
+     unten an den Kacheln.
+
+     WAS SICH SONST AM 31.08.2026 GEAENDERT HAT
+     Aus dem einen Feldsatz je Anliegen ist eine mehrstufige Strecke
+     geworden (Kundenwunsch, die Begruendung steht ueber den Strecken).
+     Dafuer kam assets/js/kontakt-funnel.js dazu.
+     assets/js/kontakt.js ist damit entfallen. Es hat die Fehlermeldungen der
+     alten Felder freundlicher gemacht — diese Felder gibt es nicht mehr. Es
+     haette nur noch `novalidate` gesetzt und damit die Pruefung des Browsers
+     abgeschaltet, ohne selbst etwas zu pruefen. Die Datei liegt weiterhin
+     unter assets/js/ und wird von keiner Seite mehr eingebunden; sie kann
+     geloescht werden.
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DAS ZIEL FEHLT — action IST LEER
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     Nachgesehen wurde, was das alte Formular tat: es hatte KEIN action,
+     KEIN method, keinen Dienst, kein mailto. Der Knopf war type="button"
+     und disabled, onsubmit gab false zurueck. Es gab also nie einen
+     Empfaenger, der sich uebernehmen liesse.
+     Deshalb steht hier action="" — die Anfrage geht nirgendwohin. Vor dem
+     Livegang MUSS eingetragen werden:
+       1  Empfaenger und Versandweg (Postfach, Dienst oder eigener
+          Endpunkt) in action und method,
+       2  Datenschutzerklaerung (datenschutz.html) samt Einwilligungstext,
+       3  Schutz gegen automatisierte Eintraege.
+     Solange 1 fehlt, sagt der Vermerk unter jedem Knopf das auch dem
+     Besucher.
+     ===================================================================== -->
+<!-- ZWEIMAL AN EINEM TAG GEAENDERT — DAS IST KEIN VERSEHEN.
+     Der Grund dieses Abschnitts hat am 31.08.2026 zwei Ansagen desselben
+     Kunden bekommen, und die zweite hebt die erste auf.
+
+     VORMITTAGS, woertlich: „Mach den Hintergrund bei der Section ‚Worum
+     geht es bei dir' auch in einem ganz klassischen, ganz normalen weissen
+     Hintergrund."  Davor trug der Abschnitt `sp-band--cool`
+     (var(--paper-cool), ein kuehler Cremeton). Umgesetzt wurde das mit der
+     eigenen Klasse `kf-band--blank`: Reinweiss, und ohne die Haarlinie, die
+     `.sp-band + .sp-band` sonst zwischen zwei weisse Flaechen zieht.
+
+     NACHMITTAGS, woertlich: „Ausserdem will ich, dass du beide Sections —
+     ‚Worum geht es bei dir' und ‚So erreichst du Estera' — mit Navy-Blue
+     als Hintergrundfarbe machst."
+
+     Damit ist Weiss ueberholt. Der Abschnitt traegt jetzt `sp-band--navy`
+     aus seiten.css — dieselbe Klasse und denselben Ton (var(--navy-900)),
+     den die dunklen Baender der uebrigen Seiten fuehren. Es wird kein
+     eigener Navy-Wert erfunden und seiten.css nicht angefasst.
+     `kf-band--blank` steht in kontakt.css noch, aber ohne Farbe: die
+     Haarlinienunterdrueckung wird weiterhin gebraucht, die weisse Flaeche
+     nicht mehr. -->
+<section class="sp-band sp-band--navy kf-band--blank" aria-labelledby="ko-h-anliegen">
+
+  <!-- =====================================================================
+       DER FILM IM GRUND — 31.08.2026, Kundenwunsch woertlich:
+       „Bei ‚Kontakt' soll auf der Section ‚Worum geht es bei dir' im
+        Hintergrund das gleiche Video eingefügt werden, das auch für die
+        Hero-Section bei Karriere verwendet wird."
+
+       ES IST DERSELBE FILM, DIESELBEN DATEIEN. Nichts ist kopiert oder neu
+       geschnitten: assets/video/kar-hero.* liegen bereits im Projekt und
+       werden von karriere.html ebenso ausgeliefert. Dieselbe Einbindung,
+       dieselbe Reihenfolge der Quellen (webm vor mp4 — der Browser nimmt die
+       erste, die er kann, und webm ist die kleinere Datei).
+
+       DER NAVY-GRUND BLEIBT. Der Film liegt DARUNTER, nicht an seiner
+       Stelle: die Flaeche traegt weiterhin var(--navy-900) aus
+       .sp-band--navy, und ueber dem Film liegt ein Schleier in derselben
+       Farbe. Weisse Schrift auf bewegtem Bild ist sonst an der falschen
+       Stelle des Films nicht mehr lesbar — und lesbar muss sie in JEDEM
+       Einzelbild sein, nicht im Mittel. Wie stark der Schleier sein muss,
+       ist am hellsten Bild des Films gemessen; die Zahlen stehen in
+       kontakt.css bei .kf-film__schleier.
+
+       DAS STANDBILD TRAEGT DEN GRUND, WENN DER FILM NICHT LAEUFT. Es steht
+       zweimal: als poster am <video> und als Hintergrundbild des Kastens
+       darum. Das zweite ist der wichtigere Fall — bei
+       prefers-reduced-motion wird das <video> ganz abgeraeumt, und ohne das
+       Hintergrundbild bliebe dann eine leere Flaeche. Ebenso, wenn die
+       Videodateien fehlen oder der Browser sie nicht kann.
+
+       ES IST SCHMUCK, KEIN INHALT: aria-hidden am Kasten, tabindex="-1" am
+       Film, kein Ton, keine Bedienelemente. Vorlesesoftware und
+       Tabreihenfolge kennen ihn nicht.
+       ===================================================================== -->
+  <div class="kf-film" aria-hidden="true">
+    <video class="kf-film__video"
+           autoplay muted loop playsinline preload="auto"
+           poster="assets/video/kar-hero-poster.jpg?v=b24a"
+           width="1920" height="1080"
+           tabindex="-1">
+      <source src="assets/video/kar-hero.webm?v=b24a" type="video/webm">
+      <source src="assets/video/kar-hero.mp4?v=b24a" type="video/mp4">
+    </video>
+    <span class="kf-film__schleier"></span>
   </div>
-</section>
 
-
-<!-- =====================================================================
-     WAS IM ERSTGESPRAECH PASSIERT   (Masterbriefing S.9, Schritt 1)
-
-     Vier Fragen, alle aus dem Briefing. Sie stehen bewusst als FRAGEN und
-     nicht als Leistungsversprechen: das Erstgespraech ist laut Briefing
-     eine gegenseitige Pruefung, kein Verkaufstermin.
-     ===================================================================== -->
-<section class="sp-band" aria-labelledby="ko-h-erst">
   <div class="sp-band__inner">
-    <div class="sp-kopf" data-reveal>
-      <p class="kicker">Der erste Termin</p>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Worüber im Erstgespräch gesprochen wird"
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <h2 class="display sp-kopf__h2" id="ko-h-erst">Worüber wir reden</h2>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Passt Estera zu Ihnen – und passen Sie zum Ansatz von Estera? Beide Richtungen gehören zu diesem Termin."
+    <!-- Der Kicker „Dein Anliegen" ist am 31.08.2026 auf Kundenwunsch
+         entfallen. Es bleiben Ueberschrift und eine Zeile.
+         H1, nicht H2: seit der Seitenkopf entfernt ist, ist dies die
+         Ueberschrift erster Ordnung der Seite. -->
+    <div class="sp-kopf kf-kopf">
+      <h1 class="display kf-kopf__h1" id="ko-h-anliegen">Worum geht es bei dir?</h1>
+      <!-- NACHGEZOGEN 31.08.2026 (zweite Runde): das Formular oeffnet sich
+           nicht mehr daneben, sondern ueber der ganzen Seite. Der Satz haette
+           sonst auf etwas gezeigt, was es nicht mehr gibt.
+           Vorher: "Wähl dein Anliegen. Das passende Formular öffnet sich daneben."
            VON ESTERA BESTAETIGEN LASSEN. -->
       <p class="sp-kopf__lead">
-        Passt Estera zu dir? Und du zu Estera? Beides gehört zu diesem Termin.
+        Wähl dein Anliegen. Das passende Formular öffnet sich.
       </p>
     </div>
 
-    <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-         Vorher: "Welche Ziele und Erwartungen bestehen."
-         Vorher: "Welche zeitlichen Vorstellungen es gibt."
-         Vorher: "Ob eine Kapitalanlageimmobilie grundsätzlich sinnvoll ist – oder ob aktuell ein anderer Schritt vernünftiger wäre."
-         Vorher: "Wie die Zusammenarbeit weitergeht, wenn beide Seiten zusammenpassen."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <ul class="sp-punkte" data-reveal>
-      <li>Deine Ziele und Erwartungen.</li>
-      <li>Dein Zeitrahmen.</li>
-      <li>Ob eine Kapitalanlageimmobilie zu dir passt.</li>
-      <li>Wie es weitergeht, wenn beide wollen.</li>
-    </ul>
-  </div>
-</section>
+    <!-- =====================================================================
+         DIE DREI ANLIEGEN — MITTIG, MIT FRAGE UND PFEIL
+
+         UMBAU 31.08.2026, ZWEITE RUNDE — KUNDENWUNSCH, WOERTLICH
+         „In der Section ‚Worum geht es bei dir?' wählt man sein Anliegen —
+          und dann sind ‚Kapitalanlage', ‚Vertriebspartner',
+          ‚Back-Office-Manager' mittig in der Section. Wenn man dann in einem
+          dieser Kästen einen Pfeil nach rechts drückt, öffnet sich das
+          komplette Kontaktformular eins zu eins so wie bei den Referenzen
+          […] es soll sich über den kompletten Bildschirm öffnen. […] Der
+          Bildschirm bekommt die Farbe Navy Blue und die Schriftfarbe ist
+          weiß."
+         „Und in den einzelnen Kästen soll immer eine Frage stehen:
+          Du willst in Immobilien investieren? / Du willst Vertriebspartner
+          werden? / Du willst Back-Office-Manager werden?"
+
+         WAS HIER VORHER STAND
+         Ein zweispaltiges Raster: links die drei Kaesten in einer schmalen
+         Spalte, rechts die Strecke. Die Kaesten trugen nur ihre Bezeichnung,
+         keine Frage und keinen Pfeil. Umgeschaltet wurde ueber drei
+         versteckte <input type="radio"> und den Geschwisterselektor
+             #kf-a1:checked ~ .kf__raster #kf-formular-1 { display: grid; }
+         Der Kommentar dazu lautete: „Das ist reines CSS. Es gibt keinen
+         Zustand, den ein Skript halten muesste, und keinen Klickabfang."
+
+         WARUM DIE RADIOS WEG SIND
+         Sie hatten genau eine Aufgabe: bestimmen, welches der drei Formulare
+         in der rechten Spalte sichtbar ist. Diese Spalte gibt es nicht mehr.
+         Die Wahl faellt jetzt mit dem Druck auf den Pfeil, und was danach
+         geschieht — ein Vollbild oeffnen, den Fokus hineinlenken, die Seite
+         dahinter stilllegen, sie beim Schliessen an derselben Stelle wieder
+         freigeben — kann CSS nicht.
+         Ein Radio, der nichts mehr schaltet, waere ein leeres Bedienelement
+         im Tabfluss: Vorlesesoftware sagt „Auswahl, 1 von 3" an, und es
+         passiert nichts. Deshalb stehen hier jetzt drei gewoehnliche
+         Verweise.
+
+         UND OHNE JAVASCRIPT?
+         Genau deshalb sind es <a href="#kf-formular-1"> und keine <button>.
+         Ohne Javascript gibt es kein Vollbild — dann stehen die drei
+         Strecken offen untereinander auf der Seite (gleich unten), und der
+         Pfeil ist ein gewoehnlicher Sprungverweis dorthin. Kein toter Knopf.
+         Mit Javascript faengt kontakt-funnel.js den Druck ab und oeffnet das
+         Vollbild; der Verweis bekommt dann aria-haspopup="dialog" und
+         aria-expanded.
+
+         DIE GANZE KACHEL IST DER VERWEIS, nicht nur der Pfeil. Der Kunde
+         beschreibt den Pfeil als das, was man drueckt — er ist deshalb
+         deutlich gesetzt und wandert beim Ueberfahren nach rechts. Die
+         Trefferflaeche ist trotzdem der ganze Kasten: ein 40 px grosser
+         Pfeil waere auf dem Telefon die schlechtere Haelfte derselben
+         Handlung, und zwei Tabstopps je Kachel waeren einer zu viel.
+         ===================================================================== -->
+    <div class="kf" data-kontakt>
+
+      <!-- Eine Liste und kein Stapel <div>: Vorlesesoftware sagt „Liste mit
+           3 Eintraegen" an. Man weiss damit vor dem ersten Eintrag, wie viel
+           zur Wahl steht. -->
+      <!-- NUR NOCH DIE FRAGE — 31.08.2026, zweite Ansage des Kunden:
+           „Der Kasten bei den Fragen darf nicht zu lang sein: nach dem
+            Fragezeichen kommt ein Pfeil nach rechts, in Weiss, da kann man
+            draufdruecken, und dann ist der Kasten vorbei."
+
+           WAS DAFUER WEG IST: die Oberzeile mit der Bezeichnung
+           („Kapitalanlage-Immobilie", „Vertriebspartner",
+           „Back-Office-Manager"). Sie stand bis eben klein ueber der Frage.
+           Der Kunde nennt jetzt nur noch die Frage, und jede zweite Zeile
+           macht den Kasten hoeher — „nicht zu lang" meint sichtbar auch das.
+           Verloren ist die Bezeichnung nicht: sie steht als Ueberschrift
+           ueber der Strecke, die sich oeffnet („Erstgespräch anfragen", „Als
+           Vertriebspartner bewerben", „Als Back-Office-Manager bewerben").
+
+           WARUM <a href> UND NICHT <button>
+           Ohne Javascript gibt es kein Popup. Dann stehen die drei Strecken
+           offen auf der Seite, und der Verweis springt zu der, die gemeint
+           ist — ein <button type="button"> waere dort ein Knopf, der nichts
+           tut. Es ist damit ein echtes Bedienelement mit Tastaturbedienung
+           und keine Attrappe aus <div> mit Klickabfang. Laeuft Javascript,
+           faengt kontakt-funnel.js den Druck ab, setzt aria-haspopup="dialog"
+           und aria-expanded und oeffnet das Vollbild.
+
+           Eine Liste und kein Stapel <div>: Vorlesesoftware sagt „Liste mit
+           3 Eintraegen" an, und man weiss vor dem ersten Eintrag, wie viel
+           zur Wahl steht. -->
+      <ul class="kf__wahl">
+
+        <li>
+          <a class="kf__karte" href="#kf-formular-1" data-oeffnet="kf-formular-1">
+            <span class="kf__karte__frage">Du willst in Immobilien investieren?</span>
+            <span class="kf__karte__pfeil" aria-hidden="true">
+              <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M0 6h24M18.5 1 24 6l-5.5 5"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="kf__karte" href="#kf-formular-2" data-oeffnet="kf-formular-2">
+            <span class="kf__karte__frage">Du willst Vertriebspartner werden?</span>
+            <span class="kf__karte__pfeil" aria-hidden="true">
+              <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M0 6h24M18.5 1 24 6l-5.5 5"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="kf__karte" href="#kf-formular-3" data-oeffnet="kf-formular-3">
+            <span class="kf__karte__frage">Du willst Back-Office-Manager werden?</span>
+            <span class="kf__karte__pfeil" aria-hidden="true">
+              <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M0 6h24M18.5 1 24 6l-5.5 5"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+      </ul>
 
 
-<!-- =====================================================================
-     DER WEITERE ABLAUF   (Masterbriefing S.7 Punkt 3 und S.9, Schritte 1-6)
+      <!-- ---------- DIE DREI STRECKEN ----------
 
-     Sechs Schritte, gekuerzt. Auf der Startseite ist der Ablauf eine
-     eigene Inszenierung — hier steht er nur, damit der Besucher vor dem
-     ersten Termin weiss, worauf er sich einlaesst. Deshalb ruhig und
-     senkrecht, nicht als zweite Auffuehrung.
-     ===================================================================== -->
-<section class="sp-band sp-band--cool" aria-labelledby="ko-h-ablauf">
-  <div class="sp-band__inner">
-    <div class="sp-kopf" data-reveal>
-      <p class="kicker">Ablauf</p>
-      <h2 class="display sp-kopf__h2" id="ko-h-ablauf">Vom Erstgespräch bis zum Notar</h2>
+           WO SIE STEHEN, HAENGT AN JAVASCRIPT
+           Im HTML stehen sie hier, unter den drei Kacheln, offen und
+           ausfuellbar. Ohne Javascript bleibt es dabei: drei lange
+           Formulare untereinander, jedes ueber den Pfeil seiner Kachel
+           erreichbar (der Pfeil ist dann ein Sprungverweis auf die id).
+           Mit Javascript holt kontakt-funnel.js diesen ganzen Block beim
+           Laden in ein Vollbild ueber der Seite und zeigt darin genau die
+           Strecke, deren Pfeil gedrueckt wurde. Verschoben, nicht kopiert —
+           die Formulare behalten dabei jede Eingabe.
+
+
+           UMBAU 31.08.2026 — KUNDENWUNSCH, WOERTLICH
+           „Für das Bewerbungsformular bei der Kontaktseite will ich, dass
+            du eins zu eins das gleiche Bewerbungsformular nimmst wie bei
+            Estate Anfrage. […] Man geht dann auf ‚Vertriebspartner' und
+            dann werden einem die Fragen gestellt und die Angaben muss man
+            machen."
+           „Das Bewerbungsformular bei Kapitalanlage Immobilie soll 1:1 so
+            sein wie hier bei Invenio. […] Jeder einzelne Schritt soll
+            genau gleich sein wie hier bei Invenio."
+
+           Aus den drei Einseiten-Formularen sind damit drei mehrstufige
+           Strecken geworden. Die Fragen, ihre Reihenfolge und ihr Wortlaut
+           stammen aus den beiden Vorlagen; Farben, Schriften, Kanten und
+           Abstaende NICHT — die kommen unveraendert aus base.css und
+           kontakt.css. Von Invenio und Estate Anfrage ist kein Bild, kein
+           Farbwert und keine Kurve uebernommen.
+
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           WAS HIER VORHER STAND — UND WARUM DER EINWAND BLEIBT
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           Alle drei Anliegen hatten denselben Feldsatz auf einer Seite:
+           Name, E-Mail, Telefon, genau ein Zusatzfeld je Anliegen und eine
+           Nachricht. Der Kommentar daneben lautete wortgleich:
+               „Alle drei haben denselben Feldsatz: Name, E-Mail, Telefon,
+                Nachricht. Bewusst KEINE Zusatzfelder je Anliegen — jedes
+                Feld mehr kostet Anfragen, und Angaben zu Einkommen,
+                Vermoegen oder Eigenkapital haben in einer Erstanfrage
+                nichts verloren. Das ist eine Kontaktaufnahme, keine
+                Selbstauskunft."
+           Und an den drei Zusatzfeldern stand:
+               „BEWUSST NICHT GEFRAGT: Einkommen, Vermoegen, Eigenkapital."
+           Genau diese Zurueckhaltung hebt der Kunde auf: die Vorlage
+           Invenio fragt Nettoeinkommen und Eigenkapital ab, und er will
+           sie 1:1. Der Einwand bleibt hier stehen, damit spaeter niemand
+           raetselt, warum die Seite ihre eigene Regel bricht.
+           VOR DEM LIVEGANG ZWINGEND: Einkommen und Eigenkapital sind
+           Angaben zur wirtschaftlichen Lage. Sie brauchen in der
+           Datenschutzerklaerung einen eigenen Absatz und einen Zweck, der
+           sie traegt — sonst ist die Erhebung nicht zu rechtfertigen.
+
+           Die alten Felder im Einzelnen, falls sie zurueckgeholt werden
+           sollen:
+             1  Kapitalanlage-Immobilie: Auswahlliste „Wie schnell möchtest
+                du starten?" mit „So bald wie möglich" · „Dieses Jahr" ·
+                „Erst mal informieren", dazu ein Nachrichtenfeld.
+             2  Vertriebspartner: Textfeld „Woher kommst du fachlich?",
+                dazu ein Nachrichtenfeld.
+             3  Back-Office-Manager: Textfeld „Ab wann könntest du
+                anfangen?", dazu ein Nachrichtenfeld.
+           Alle drei trugen darueber Name, E-Mail und Telefon (optional)
+           und darunter den Knopf „Anfrage senden".
+
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           WIE DIE STRECKE GEBAUT IST — UND WARUM SIE OHNE JAVASCRIPT HAELT
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           Jeder Schritt ist ein <fieldset data-stufe> mit der Frage in der
+           <legend>. Im HTML stehen alle Schritte SICHTBAR untereinander —
+           hier gibt es kein display:none und kein hidden. Ohne Javascript
+           ist das schlicht ein langes, gewoehnliches Formular: jede Frage
+           lesbar, jedes Feld erreichbar, der Absendeknopf am Ende, und die
+           Pflichtangaben prueft der Browser selbst ueber `required`.
+           Erst assets/js/kontakt-funnel.js faltet die Schritte zur Strecke
+           zusammen, setzt Fortschritt, „Weiter" und „Zurück" davor und
+           blendet alles ausser dem laufenden Schritt aus.
+
+           Die beiden Schlussbilder (Danke, Absage) stehen in <template>.
+           Ein <template> ist im Browser vollstaendig inert — es rendert
+           nicht, auch ohne CSS und ohne Javascript. Das ist hier kein
+           Verstecken, sondern die richtige Ablage: „Das hat geklappt!"
+           darf nicht auf einer Seite stehen, auf der nichts abgeschickt
+           wurde. Das Skript holt sie erst dann hervor, wenn sie dran sind.
+
+           DIE HOEHE SPRINGT NICHT. Mit Javascript liegen alle Schritte in
+           DERSELBEN Rasterzelle uebereinander (kontakt.css, .kf__stufen
+           unter [data-funnel-aktiv]). Damit ist die Buehne immer so hoch
+           wie ihr hoechster Schritt, und beim Weiterklicken bewegt sich
+           kein Bildpunkt. Die ruhenden Schritte tragen visibility:hidden —
+           das nimmt sie aus der Tabreihenfolge UND aus dem Baum der
+           Vorlesesoftware, laesst sie aber weiter Platz belegen. Genau das
+           wird hier gebraucht.
+
+           DIE ZAEHLUNG. Invenio zeigt „1 / 8" und ueberspringt dabei die 4
+           (die Zaehlung geht von 3 auf 5). Hier wird lueckenlos gezaehlt.
+           Beide Strecken haben fuenf Schritte zum Ausfuellen und ein
+           Schlussbild, also „1 / 6" bis „6 / 6" — dieselbe Sechs, die auch
+           Estate Anfrage anzeigt. Das Absage-Bild traegt keine Nummer: wer
+           dort landet, hat drei Schritte hinter sich und nicht sechs; eine
+           „6 / 6" waere schlicht falsch.
+           ----------------------------------------------------------- -->
+      <div class="kf__buehne">
+
+        <!-- ==============================================================
+             1 — KAPITALANLAGE-IMMOBILIE          Vorlage: Invenio
+             invenio-realestate.de/retargeting-v2
+
+             enctype fehlt hier bewusst: diese Strecke laedt keine Datei
+             hoch. Bei den beiden Bewerbungen unten steht es, weil dort ein
+             Lebenslauf angehaengt werden kann.
+             ============================================================== -->
+        <form class="kf__formular" id="kf-formular-1" data-funnel tabindex="-1"
+              action="" method="post" aria-labelledby="kf-t1">
+          <input type="hidden" name="anliegen" value="Kapitalanlage-Immobilie">
+
+          <div class="kf__formular__kopf">
+            <!-- DIESE UEBERSCHRIFT IST NICHT MEHR ZU SEHEN — SIE IST NUR NOCH
+                   DER NAME DES DIALOGS.
+                   Kundenwunsch vom 31.08.2026, woertlich: „Im Popup ist viel zu
+                   viel Text. Es steht einfach nur die Frage und darunter die
+                   Antwortmöglichkeit oder das Textfeld. Das war's."
+                   Damit ist eine Ueberschrift mit dem Anliegennamen ueber dem
+                   Formular ausgeschlossen. Frueher stand sie sichtbar da; das
+                   war eine Lesart eines abgebrochenen Satzes von ihm („ist hier
+                   oben im blauen Geschriebenen ganz normalerweise geschrieben,
+                   was …"), also eine Annahme — und die hat er mit dem Satz oben
+                   aufgehoben.
+
+                   GELOESCHT WIRD SIE TROTZDEM NICHT, sondern nur weggeklappt
+                   (kontakt.css, .kf__formular__kopf). Das <dialog> zeigt ueber
+                   aria-labelledby auf sie: ohne sie sagte Vorlesesoftware beim
+                   Oeffnen nur „Dialog" an, und niemand wuesste, welches der
+                   drei Formulare sich geoeffnet hat.
+                   Frueherer sichtbarer Wortlaut, in dieser Reihenfolge:
+                     1. „Erstgespräch anfragen"
+                     2. „Kapitalanlage-Immobilie"
+                   VON ESTERA BESTAETIGEN LASSEN. -->
+              <h3 class="kf__formular__titel" id="kf-t1">Kapitalanlage-Immobilie</h3>
+          </div>
+
+          <div class="kf__stufen" data-funnel-stufen>
+
+            <!-- ===== DER VERPFLICHTUNGSSCHRITT IST RAUS — 31.08.2026 =====
+                 Kundenwunsch, woertlich: „Wenn ich auf ‚Du willst in
+                 Immobilien investieren' klicke, will ich einfach nur die erste
+                 Frage weglassen — ‚Ja ich habe ernsthaftes Interesse' kannst
+                 du weglassen. Die braucht man nicht."
+
+                 Hier stand Schritt 1 der Invenio-Vorlage, wortgleich:
+                   Ueberschrift: WICHTIG
+                   Text: „Da wir eine hohe Nachfrage und eine sehr begrenzte
+                          Anzahl an exklusiven Objekten haben, können wir nur
+                          ernsthafte Interessenten bedienen. Beantworte uns
+                          dafür bitte 4 kurze Fragen."
+                   Eine Wahlkachel: „Ja, ich habe ernsthaftes Interesse"
+                   Knopf: „Weiter zum nächsten Schritt"
+                 Technisch: ein fieldset mit data-weiter="Weiter zum nächsten
+                 Schritt" und der Radiogruppe name="ernsthaftes-interesse"
+                 (id="f1-ernst").
+
+                 Er war eine Huerde vor dem Formular und hat nichts erfragt,
+                 was in die Anfrage eingeht. Die Strecke faengt jetzt mit der
+                 ersten echten Frage an und zaehlt lueckenlos von 1 bis 5.
+                 Mit ihm ist auch die einzige Stelle entfallen, an der eine
+                 Wahlkachel ohne Frage darueber stand.
+                 ======================================================== -->
+
+            <!-- ===== Schritt 1 von 5 — berufliche Situation =====
+                 War bis zum 31.08.2026 Schritt 2. Seit der Verpflichtungsschritt
+                 darueber entfallen ist (siehe oben), faengt die Strecke hier an.
+                 Die Zaehlung im Popup ist lueckenlos: 1 von 5 bis 5 von 5. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Wie sieht deine derzeitige berufliche Situation aus?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-beruf-1"
+                           name="berufliche-situation" value="Angestellt" required>
+                    <label class="kf__kachel__label" for="f1-beruf-1">Angestellt</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-beruf-2"
+                           name="berufliche-situation" value="Beamter">
+                    <label class="kf__kachel__label" for="f1-beruf-2">Beamter</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-beruf-3"
+                           name="berufliche-situation" value="Selbstständig">
+                    <label class="kf__kachel__label" for="f1-beruf-3">Selbstständig</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-beruf-4"
+                           name="berufliche-situation" value="Sonstiges">
+                    <label class="kf__kachel__label" for="f1-beruf-4">Sonstiges</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 2 von 5 — Nettoeinkommen =====
+                 HIER VERZWEIGT DIE STRECKE. „2.000-2.500€" fuehrt nicht weiter,
+                 sondern auf das zweite Schlussbild (data-sprung="absage" am
+                 Radio). Die anderen drei Antworten laufen durch zum
+                 Eigenkapital.
+
+                 DIESE STELLE HAT AM 31.08.2026 ZWEI ANSAGEN BEKOMMEN, UND DIE
+                 ZWEITE HOLT DIE ERSTE ZURUECK. Zwischenzeitlich stand hier der
+                 Vermerk, der Kunde habe die Verzweigung gestrichen und das
+                 Radio trage kein data-sprung mehr — das war eine zu weit
+                 gefasste Lesart seines Satzes „Was soll denn das? Das soll
+                 absolut nicht rein." Abgelehnt hat er den WORTLAUT der
+                 Absageseite, nicht die Verzweigung. Er hat danach selbst einen
+                 neuen Wortlaut diktiert (steht unten am Schlussbild) und die
+                 Verzweigung damit ausdruecklich behalten.
+                 Der Vermerk war also falsch — das Radio traegt data-sprung
+                 durchgehend. Er steht hier nur noch als Warnung: wer den Zweig
+                 kappt, nimmt der Seite eine Antwort, die der Kunde selbst
+                 geschrieben hat.
+
+                 Die Spannen sind so geschrieben wie auf der Vorlage
+                 (Bindestrich, kein Abstand vor dem Eurozeichen). Typografisch
+                 richtig waere „2.000–2.500 €" mit Halbgeviert und geschuetztem
+                 Abstand. Geaendert wird es nicht, weil der Kunde „genau
+                 gleich" verlangt hat — auf ein Wort von Estera ist es eine
+                 Zeile Arbeit.
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Wie hoch ist dein monatliches Nettoeinkommen?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-netto-1"
+                           name="nettoeinkommen" value="2.000-2.500€"
+                           data-sprung="absage" required>
+                    <label class="kf__kachel__label" for="f1-netto-1">2.000-2.500€</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-netto-2"
+                           name="nettoeinkommen" value="2.500-5.000€">
+                    <label class="kf__kachel__label" for="f1-netto-2">2.500-5.000€</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-netto-3"
+                           name="nettoeinkommen" value="5.000-7.500€">
+                    <label class="kf__kachel__label" for="f1-netto-3">5.000-7.500€</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-netto-4"
+                           name="nettoeinkommen" value="Über 7.500€">
+                    <label class="kf__kachel__label" for="f1-netto-4">Über 7.500€</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 3 von 5 — Eigenkapital =====
+                 Auf der Vorlage traegt dieser Schritt die Nummer 5: die
+                 Zaehlung springt dort von 3 auf 5, die 4 kommt in keinem
+                 Zweig vor. Hier ist es Schritt 3 von 5 — lueckenlos, und um
+                 eins nach vorn gerueckt, seit der Verpflichtungsschritt
+                 entfallen ist. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Wie viel Eigenkapital steht dir zur Verfügung?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-ek-1"
+                           name="eigenkapital" value="10.000-15.000€" required>
+                    <label class="kf__kachel__label" for="f1-ek-1">10.000-15.000€</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-ek-2"
+                           name="eigenkapital" value="15.000-50.000€">
+                    <label class="kf__kachel__label" for="f1-ek-2">15.000-50.000€</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-ek-3"
+                           name="eigenkapital" value="50.000-100.000€">
+                    <label class="kf__kachel__label" for="f1-ek-3">50.000-100.000€</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f1-ek-4"
+                           name="eigenkapital" value="Über 100.000€">
+                    <label class="kf__kachel__label" for="f1-ek-4">Über 100.000€</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 4 von 5 — Kontaktdaten =====
+                 Alle drei Angaben sind Pflicht, so wie auf der Vorlage.
+                 Telefon und E-Mail stehen ab 600 px nebeneinander — das ist
+                 kein Selbstzweck: es macht diesen Schritt flacher, und die
+                 Buehne ist immer so hoch wie ihr hoechster Schritt.
+
+                 Der Stern hinter der Beschriftung ist aria-hidden. Dass ein
+                 Feld Pflicht ist, sagt der Vorlesesoftware das Attribut
+                 `required`; ein vorgelesenes „Stern" waere Doppelung. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Kontaktdaten</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <p class="kf__feld">
+                  <label for="f1-name">Name <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                  <input type="text" id="f1-name" name="name" autocomplete="name"
+                         required aria-describedby="f1-name-f">
+                  <span class="kf__fehler" id="f1-name-f" role="alert"></span>
+                </p>
+
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f1-tel">Deine beste Telefonnummer <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="tel" id="f1-tel" name="telefon" autocomplete="tel"
+                           required aria-describedby="f1-tel-f">
+                    <span class="kf__fehler" id="f1-tel-f" role="alert"></span>
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f1-mail">Deine beste E-Mail <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="email" id="f1-mail" name="email" autocomplete="email"
+                           required aria-describedby="f1-mail-f">
+                    <span class="kf__fehler" id="f1-mail-f" role="alert"></span>
+                  </p>
+                </div>
+
+                <!-- Der Absendeknopf steht IM Schritt, damit er ohne
+                     Javascript am Ende des langen Formulars sitzt, wo er
+                     hingehoert. Mit Javascript holt ihn das Skript in die
+                     Fussleiste, wo sonst „Weiter" steht — dadurch springt
+                     die Hauptaktion beim Schrittwechsel nicht.
+                     Nur `btn`: die Sandflaeche mit weisser Schrift kommt
+                     seit dem 31.08.2026 zentral aus base.css. -->
+                <button class="btn" type="submit" data-funnel-senden>Absenden</button>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schlussbilder =====
+                 In <template>, siehe die lange Begruendung oben. -->
+            <template data-funnel-ende="danke">
+              <div class="kf__stufe kf__stufe--ende">
+                <h4 class="kf__ende__titel" data-frage tabindex="-1">Das hat geklappt!</h4>
+                <div class="kf__stufe__inhalt">
+                  <p class="kf__stufe__text">
+                    Einer unserer Experten schaut sich nun deine Angaben an und
+                    meldet sich persönlich bei dir.
+                  </p>
+                  <!-- GEKUERZT 31.08.2026. Entfallen ist die Zeile
+                       „Deine Angaben sind bei uns eingegangen!" — sie sagt
+                       dasselbe wie die Ueberschrift „Das hat geklappt!"
+                       darueber. -->
+                  <!-- GESTRICHEN 31.08.2026 — „Jeder restliche Text soll
+                       einfach raus." Entfallen sind hier drei Zeilen:
+                         „Du kannst dir deine Immobilie auch vorrangig sichern.
+                          Ruf uns dafür am besten direkt an."   (Vorlage)
+                         die Plakette „Telefonnummer folgt von Estera"
+                         die Firmierung „Estera GmbH"
+                       Zum Anruf auffordern ohne Nummer daneben war ohnehin
+                       eine leere Geste. Sobald Estera eine Rufnummer liefert,
+                       gehoeren die ersten beiden zurueck — so stehen sie auf
+                       der Vorlage. -->
+                </div>
+              </div>
+            </template>
+
+            <!-- ===== DIE ZWEITE SCHLUSSSEITE — NEU GESCHRIEBEN 31.08.2026 =====
+                 Sie erscheint nur aus einem Zweig: „2.000-2.500€" in Schritt 2
+                 (data-sprung="absage" am Radio). Alle anderen Antworten laufen
+                 durch bis zu den Kontaktdaten.
+
+                 DER WORTLAUT DER VORLAGE IST GESTRICHEN. Er lautete:
+                     „Das hat leider nicht geklappt …"
+                     „Wir haben anhand deiner Angaben keine passende Immobilie
+                      gefunden."
+                     „Wenn sich deine Situation ändert, meld dich gern wieder.
+                      Du erreichst Estera jederzeit per E-Mail."
+                 Der Kunde dazu: „‚Wir haben anhand der Angaben keine passende
+                 Immobilie gefunden' — was soll denn das? Das soll absolut
+                 nicht rein."
+
+                 DER NEUE WORTLAUT IST SEINER, woertlich diktiert: „Für eine
+                 Immobilieninvestition empfehlen wir ein Nettoeinkommen ab
+                 2.500 € — das 2.500 € ist hervorgehoben — damit es finanziell
+                 entspannt und sinnvoll für dich funktioniert. Der richtige
+                 Zeitpunkt kommt, und wenn es so weit ist, sind wir für dich
+                 da." Gesetzt ist er als zwei Saetze; an den Woertern ist nichts
+                 geaendert, nur die Satzzeichen sind gesetzt.
+
+                 DER UNTERSCHIED IST DER TON: die alte Seite wies ab, diese
+                 vertagt. Kein „leider", kein „nicht geklappt", keine Absage im
+                 Wortlaut.
+
+                 Die Hervorhebung ist `.hl` — die Auszeichnung, die das Projekt
+                 fuer betonte Woerter im Fliesstext ohnehin fuehrt (base.css).
+                 Auf Navy traegt sie Sand, 9,06:1.
+
+                 KEINE SCHRITTNUMMER: wer hier landet, hat zwei von fuenf
+                 Schritten hinter sich. „5 / 5" waere gelogen. Das Skript
+                 blendet den Zaehler auf dieser Seite aus (data-still).
+                 KEINE SACKGASSE: die Fussleiste behaelt hier ihren
+                 Zurueck-Knopf, sodass die Antwort aenderbar bleibt; dazu der
+                 Schliessknopf oben. -->
+            <template data-funnel-ende="absage">
+              <div class="kf__stufe kf__stufe--ende kf__stufe--absage">
+                <h4 class="kf__ende__titel" data-frage tabindex="-1">Der richtige Zeitpunkt kommt</h4>
+                <div class="kf__stufe__inhalt">
+                  <p class="kf__stufe__text">
+                    Für eine Immobilieninvestition empfehlen wir ein
+                    Nettoeinkommen ab <span class="hl">2.500 €</span>, damit es
+                    finanziell entspannt und sinnvoll für dich funktioniert.
+                  </p>
+                  <p class="kf__stufe__text">
+                    Der richtige Zeitpunkt kommt — und wenn es so weit ist, sind
+                    wir für dich da.
+                  </p>
+                </div>
+              </div>
+            </template>
+
+          </div>
+
+          <!-- DER HINWEIS STEHT JETZT DAUERHAFT, NICHT NUR AM ENDE.
+               Er stand vorher unter dem Absendeknopf und war damit erst auf
+               der letzten Seite des Formulars zu sehen. In einer Strecke
+               waere er dort vier Schritte lang unsichtbar — und ausgerechnet
+               das Schlussbild sagt „Deine Angaben sind bei uns eingegangen!",
+               was ohne Empfaenger nicht stimmt. Deshalb steht er ausserhalb
+               der Buehne und ist auf JEDEM Schritt sichtbar, auch auf dem
+               Schlussbild. Wer den Empfaenger eintraegt, nimmt diesen Block
+               weg; ab dann sendet die Strecke wirklich, das Skript prueft
+               dafuer nur, ob `action` gefuellt ist.
+
+               Wortlaut unveraendert aus dem alten Formular. Entfallen ist
+               allein der zweite, gleichlautende Vermerk unter dem Knopf:
+                   „Der Empfänger für diese Anfrage ist noch nicht
+                    eingetragen. Bis dahin erreichst du Estera per E-Mail." -->
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+               DIESES FORMULAR SENDET NICHTS — action IST LEER
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+               Der Vorbehalt stand bis zum 31.08.2026 SICHTBAR unter jedem
+               Formular. Kundenwunsch, woertlich: „‚Das Formular kann noch
+               nicht angebunden werden' — das kann einfach raus."
+               Wortlaut, damit er zurueckholbar ist:
+                   Plakette: „Formular noch nicht angebunden"
+                   „Dieses Formular ist eine Ansichtsfassung. Es versendet
+                    nichts und speichert nichts. Die Anbindung fehlt noch,
+                    ebenso die Datenschutzerklärung. Bis dahin erreichst du
+                    Estera zuverlässig per E-Mail."
+
+               DER SACHVERHALT IST UNVERAENDERT, NUR NICHT MEHR ZU LESEN.
+               action="" heisst: die Anfrage geht nirgendwohin. Das Skript
+               zeigt in diesem Fall das Dankebild, damit die Strecke
+               vollstaendig vorfuehrbar ist — versendet wird nichts.
+               VOR DEM LIVEGANG ZWINGEND:
+                 1  Empfaenger und Versandweg in action und method,
+                 2  Datenschutzerklaerung samt Einwilligung, darin ein eigener
+                    Absatz zu Einkommen und Eigenkapital,
+                 3  Schutz gegen automatisierte Eintraege.
+               Sobald action gefuellt ist, laesst kontakt-funnel.js das
+               Formular von selbst wirklich absenden (siehe absenden()). -->
+        </form>
+
+        <!-- ==============================================================
+             2 — VERTRIEBSPARTNER            Vorlage: Estate Anfrage
+             estateanfrage-karriere.de/bewerbung-immobilien-setter
+
+             enctype="multipart/form-data": diese Strecke kann einen
+             Lebenslauf mitschicken. Ohne diese Angabe uebertraegt ein
+             Formular nur den Dateinamen und nicht die Datei — und das faellt
+             erst auf, wenn der Empfaenger eingetragen ist und die ersten
+             Bewerbungen leer ankommen.
+             ============================================================== -->
+        <form class="kf__formular" id="kf-formular-2" data-funnel tabindex="-1"
+              action="" method="post" enctype="multipart/form-data"
+              aria-labelledby="kf-t2">
+          <input type="hidden" name="anliegen" value="Vertriebspartner">
+
+          <div class="kf__formular__kopf">
+            <!-- Nicht mehr zu sehen, nur noch der Name des Dialogs — die
+                   ausfuehrliche Begruendung steht bei Strecke 1.
+                   Frueherer sichtbarer Wortlaut: „Als Vertriebspartner bewerben".
+                   VON ESTERA BESTAETIGEN LASSEN. -->
+              <h3 class="kf__formular__titel" id="kf-t2">Vertriebspartner</h3>
+          </div>
+
+          <div class="kf__stufen" data-funnel-stufen>
+
+            <!-- ===== Schritt 1 — Erfahrung ===== -->
+            <!-- data-weiter: „Weiter" steht so auf der Vorlage. Als
+                 Attribut, damit ohne CSS kein Streuwort auf der Seite steht. -->
+            <fieldset class="kf__stufe" data-stufe data-weiter="Weiter">
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Hast du bereits Erfahrung in der Immobilienbranche?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f2-erf-ja"
+                           name="erfahrung" value="Ja" required>
+                    <label class="kf__kachel__label" for="f2-erf-ja">Ja</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f2-erf-nein"
+                           name="erfahrung" value="Nein">
+                    <label class="kf__kachel__label" for="f2-erf-nein">Nein</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 2 von 6 — bisherige Erfahrungen =====
+
+                 ZWEI VON DREI FELDERN SIND SEIT DEM 31.08.2026 PFLICHT —
+                 Kundenwunsch, woertlich: „Bei ‚Welche beruflichen Erfahrungen
+                 hast du bis jetzt gemacht?': ‚Wo war deine letzte Stelle'
+                 bleibt freiwillig, ‚In welchem Bereich warst du tätig?' und
+                 ‚Welche Aufgaben hattest du?' sind Pflicht."
+                 Vorher waren alle drei freiwillig, so wie auf der Vorlage
+                 (Estate Anfrage). Die Vorlage weicht damit ab — der Kunde hat
+                 es ausdruecklich anders gewollt.
+
+                 Die letzte Stelle bleibt freiwillig, und das ist mehr als eine
+                 Formalie: wer noch in der Ausbildung steckt oder gerade aus
+                 der Schule kommt, hat keine. Ein Pflichtfeld waere fuer ihn
+                 eine Sperre, und die Frage darueber will genau diese Leute
+                 auch erreichen.
+
+                 WIE MAN SIEHT, WELCHES FELD PFLICHT IST: am Stern hinter der
+                 Beschriftung, so wie ueberall sonst auf dieser Seite. Kein
+                 Stern heisst freiwillig.
+                 ENTFALLEN IST DAFUER DER ZUSATZ „· optional" hinter allen drei
+                 Beschriftungen. Er stammte nicht vom Kunden und nicht von der
+                 Vorlage, sondern war eine eigene Zutat, und der Kunde hat zum
+                 Popup gesagt: „Jeder restliche Text soll raus. Ganz einfach
+                 gehalten, ohne großen Schnickschnack." Zwei Zeichen fuer
+                 dasselbe (Stern hier, Wort dort) sind genau der Schnickschnack.
+
+                 EBENFALLS ENTFALLEN — dieselbe Ansage — ist die Zeile unter der
+                 Frage. Sie lautete wortgleich wie auf der Vorlage:
+                     „(Wenn in der Immobilienbranche, dann was genau?)"
+                 Sie erklaerte die Frage, statt sie zu stellen. Zurueckholbar
+                 ist sie ueber <span class="kf__stufe__zusatz"> in der Legende.
+
+                 Letzte Stelle und Bereich stehen ab 600 px nebeneinander.
+                 Das ist Hoehe, die dieser Schritt der ganzen Buehne
+                 aufzwingen wuerde — sie ist immer so hoch wie ihr hoechster
+                 Schritt.
+
+                 Die beiden neuen Pflichtfelder bekommen je einen leeren
+                 Fehlerbehaelter und aria-describedby. Ohne ihn haette
+                 kontakt-funnel.js keine Stelle, an die es seine Meldung
+                 schreiben kann, und die Vorlesesoftware liest sie nie vor. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Welche beruflichen Erfahrungen hast du bis jetzt gemacht?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f2-stelle">Wo war deine letzte Stelle?</label>
+                    <input type="text" id="f2-stelle" name="letzte-stelle"
+                           autocomplete="organization">
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f2-bereich">In welchem Bereich warst du tätig? <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="text" id="f2-bereich" name="bereich"
+                           required aria-describedby="f2-bereich-f">
+                    <span class="kf__fehler" id="f2-bereich-f" role="alert"></span>
+                  </p>
+                </div>
+                <p class="kf__feld">
+                  <label for="f2-aufgaben">Welche Aufgaben hattest du? <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                  <textarea id="f2-aufgaben" name="aufgaben" rows="4"
+                            required aria-describedby="f2-aufgaben-f"></textarea>
+                  <span class="kf__fehler" id="f2-aufgaben-f" role="alert"></span>
+                </p>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 3 — Schulabschluss =====
+                 Die Vorlage sagt nicht, ob das Feld Pflicht ist. Hier ist es
+                 Pflicht: ein Schritt, der aus einer einzigen Frage besteht
+                 und den man ohne Antwort ueberspringen kann, ist kein
+                 Schritt. Geprueft wird nur, DASS etwas dasteht — nicht, ob
+                 es eine Jahreszahl ist. „2016", „Realschule 2016" und „noch
+                 in der Ausbildung" sind alle drei brauchbare Antworten, und
+                 eine Jahrespruefung wuerde die letzten beiden abweisen.
+                 VON ESTERA BESTAETIGEN LASSEN.
+                 inputmode="numeric" holt auf dem Telefon die Zifferntastatur
+                 nach vorn, ohne Buchstaben zu verbieten. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Wann hast du deinen Schulabschluss gemacht?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <p class="kf__feld">
+                  <label for="f2-abschluss">Jahr des Abschlusses <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                  <input type="text" id="f2-abschluss" name="schulabschluss"
+                         inputmode="numeric" required aria-describedby="f2-abschluss-f">
+                  <span class="kf__fehler" id="f2-abschluss-f" role="alert"></span>
+                </p>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 4 — Startzeitpunkt ===== -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Ab wann könntest du starten?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f2-start-1"
+                           name="startzeitpunkt" value="Ab sofort" required>
+                    <label class="kf__kachel__label" for="f2-start-1">Ab sofort</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f2-start-2"
+                           name="startzeitpunkt" value="Innerhalb 1-2 Monaten">
+                    <label class="kf__kachel__label" for="f2-start-2">Innerhalb 1-2 Monaten</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f2-start-3"
+                           name="startzeitpunkt" value="In 3 Monaten">
+                    <label class="kf__kachel__label" for="f2-start-3">In 3 Monaten</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 5 — Kontaktdaten =====
+                 „(Letzter Schritt)" steht auf der Vorlage neben der
+                 Ueberschrift. Hier ist es der Zusatz in der Legende.
+                 accept schlaegt dem Dateiwaehler die ueblichen Formate vor,
+                 verbietet aber nichts — accept ist ein Vorschlag, keine
+                 Sperre. Wer eine Datei anhaengt, die niemand oeffnen kann,
+                 ist damit besser bedient als jemand, dessen Lebenslauf als
+                 .pages nicht auswaehlbar waere. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Kontaktdaten</span>
+                <!-- „(Letzter Schritt)" stand hier bis zum 31.08.2026, so wie
+                     auf der Vorlage. Gestrichen: „Jeder restliche Text soll
+                     einfach raus." Der Fortschrittsbalken sagt dasselbe. -->
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f2-vorname">Vorname <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="text" id="f2-vorname" name="vorname"
+                           autocomplete="given-name" required aria-describedby="f2-vorname-f">
+                    <span class="kf__fehler" id="f2-vorname-f" role="alert"></span>
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f2-nachname">Nachname <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="text" id="f2-nachname" name="nachname"
+                           autocomplete="family-name" required aria-describedby="f2-nachname-f">
+                    <span class="kf__fehler" id="f2-nachname-f" role="alert"></span>
+                  </p>
+                </div>
+
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f2-tel">Telefon <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="tel" id="f2-tel" name="telefon" autocomplete="tel"
+                           required aria-describedby="f2-tel-f">
+                    <span class="kf__fehler" id="f2-tel-f" role="alert"></span>
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f2-mail">E-Mail <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="email" id="f2-mail" name="email" autocomplete="email"
+                           required aria-describedby="f2-mail-f">
+                    <span class="kf__fehler" id="f2-mail-f" role="alert"></span>
+                  </p>
+                </div>
+
+                <!-- Der Zusatz „· optional" hinter der Beschriftung ist am
+                     31.08.2026 entfallen („Jeder restliche Text soll raus.").
+                     Dass das Feld freiwillig ist, sagt hier das FEHLEN des
+                     Sterns: die vier Felder darueber tragen ihn, dieses nicht. -->
+                <p class="kf__feld kf__feld--datei">
+                  <label for="f2-lebenslauf">Lebenslauf hochladen</label>
+                  <input type="file" id="f2-lebenslauf" name="lebenslauf"
+                         accept=".pdf,.doc,.docx,.rtf,.odt,application/pdf">
+                </p>
+
+                <button class="btn" type="submit" data-funnel-senden>Kontaktdaten übermitteln</button>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schlussbild =====
+                 Die Vorlage nennt hier nur „Danke" und keinen Wortlaut. Der
+                 Text ist deshalb meiner, in der Du-Anrede der uebrigen Seite
+                 und ohne Versprechen, das niemand halten kann — kein „binnen
+                 24 Stunden", solange nicht feststeht, wer antwortet.
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <template data-funnel-ende="danke">
+              <div class="kf__stufe kf__stufe--ende">
+                <h4 class="kf__ende__titel" data-frage tabindex="-1">Das hat geklappt!</h4>
+                <div class="kf__stufe__inhalt">
+                  <p class="kf__stufe__text">
+                    Wir sehen uns deine Bewerbung in Ruhe an und melden uns
+                    persönlich bei dir.
+                  </p>
+                  <!-- GEKUERZT 31.08.2026. Entfallen: „Deine Bewerbung ist bei
+                       uns eingegangen." (sagt dasselbe wie die Ueberschrift)
+                       und der Nachsatz „— auch dann, wenn es diesmal nicht
+                       passt." -->
+                  <!-- Die Plakette „Telefonnummer folgt von Estera" und die
+                       Firmierung „Estera GmbH" sind am 31.08.2026 entfallen,
+                       wie bei Strecke 1. -->
+                </div>
+              </div>
+            </template>
+
+          </div>
+
+          <!-- action ist leer, es wird nichts versendet. Der ausfuehrliche
+               Vorbehalt und die Liste vor dem Livegang stehen bei Strecke 1. -->
+        </form>
+
+        <!-- ==============================================================
+             3 — BACK-OFFICE-MANAGER         Vorlage: Estate Anfrage
+
+             Dieselbe Strecke wie bei den Vertriebspartnern, Schritt fuer
+             Schritt. Umformuliert ist nur, was auf eine Stelle im Backoffice
+             nicht passt: die Frage nach Erfahrung in der Immobilienbranche
+             und der Zusatz in Schritt 2. Beide Aenderungen stammen von mir
+             und nicht vom Kunden — sie sind unten einzeln vermerkt.
+             ============================================================== -->
+        <form class="kf__formular" id="kf-formular-3" data-funnel tabindex="-1"
+              action="" method="post" enctype="multipart/form-data"
+              aria-labelledby="kf-t3">
+          <input type="hidden" name="anliegen" value="Back-Office-Manager">
+
+          <div class="kf__formular__kopf">
+            <!-- Nicht mehr zu sehen, nur noch der Name des Dialogs — die
+                   ausfuehrliche Begruendung steht bei Strecke 1.
+                   Frueherer sichtbarer Wortlaut: „Als Back-Office-Manager bewerben".
+                   VON ESTERA BESTAETIGEN LASSEN. -->
+              <h3 class="kf__formular__titel" id="kf-t3">Back-Office-Manager</h3>
+          </div>
+
+          <div class="kf__stufen" data-funnel-stufen>
+
+            <!-- ===== Schritt 1 — Erfahrung =====
+                 Vorlage: „Hast du bereits Erfahrung in der
+                 Immobilienbranche?" Fuer eine Stelle im Backoffice ist das
+                 die falsche Frage — sie wuerde die passendsten Bewerbungen
+                 mit „Nein" beginnen lassen. Gefragt wird deshalb nach dem,
+                 was die Stelle braucht.
+                 VON ESTERA BESTAETIGEN LASSEN. -->
+            <!-- data-weiter: „Weiter" steht so auf der Vorlage. Als
+                 Attribut, damit ohne CSS kein Streuwort auf der Seite steht. -->
+            <fieldset class="kf__stufe" data-stufe data-weiter="Weiter">
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Hast du bereits Erfahrung im Backoffice oder in der Sachbearbeitung?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f3-erf-ja"
+                           name="erfahrung" value="Ja" required>
+                    <label class="kf__kachel__label" for="f3-erf-ja">Ja</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f3-erf-nein"
+                           name="erfahrung" value="Nein">
+                    <label class="kf__kachel__label" for="f3-erf-nein">Nein</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 2 von 6 — bisherige Erfahrungen =====
+                 DIESELBE AENDERUNG WIE IN STRECKE 2, aus demselben Grund: der
+                 Kunde hat „In welchem Bereich warst du tätig?" und „Welche
+                 Aufgaben hattest du?" zu Pflichtangaben gemacht, „Wo war deine
+                 letzte Stelle" bleibt freiwillig. Er hat dabei die FRAGE
+                 genannt („Bei ‚Welche beruflichen Erfahrungen hast du bis jetzt
+                 gemacht?'") und nicht eine der drei Strecken — und diese Frage
+                 steht wortgleich in Strecke 2 und Strecke 3. Zwei gleiche
+                 Fragen mit verschiedenen Pflichten waeren fuer den Bewerber
+                 nicht zu erklaeren.
+                 Die ausfuehrliche Begruendung steht bei Strecke 2.
+                 VON ESTERA BESTAETIGEN LASSEN, dass es fuer beide Strecken gilt.
+
+                 ENTFALLEN, wie in Strecke 2: der Zusatz „· optional" hinter den
+                 drei Beschriftungen und die Zeile unter der Frage. Sie lautete
+                     „(Wenn im Backoffice, dann was genau?)"
+                 und war sinngemaess von der Vorlage („Wenn in der
+                 Immobilienbranche, dann was genau?") auf das Backoffice
+                 gezogen — also ohnehin nicht der Wortlaut des Kunden. -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Welche beruflichen Erfahrungen hast du bis jetzt gemacht?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f3-stelle">Wo war deine letzte Stelle?</label>
+                    <input type="text" id="f3-stelle" name="letzte-stelle"
+                           autocomplete="organization">
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f3-bereich">In welchem Bereich warst du tätig? <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="text" id="f3-bereich" name="bereich"
+                           required aria-describedby="f3-bereich-f">
+                    <span class="kf__fehler" id="f3-bereich-f" role="alert"></span>
+                  </p>
+                </div>
+                <p class="kf__feld">
+                  <label for="f3-aufgaben">Welche Aufgaben hattest du? <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                  <textarea id="f3-aufgaben" name="aufgaben" rows="4"
+                            required aria-describedby="f3-aufgaben-f"></textarea>
+                  <span class="kf__fehler" id="f3-aufgaben-f" role="alert"></span>
+                </p>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 3 — Schulabschluss ===== -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Wann hast du deinen Schulabschluss gemacht?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <p class="kf__feld">
+                  <label for="f3-abschluss">Jahr des Abschlusses <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                  <input type="text" id="f3-abschluss" name="schulabschluss"
+                         inputmode="numeric" required aria-describedby="f3-abschluss-f">
+                  <span class="kf__fehler" id="f3-abschluss-f" role="alert"></span>
+                </p>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 4 — Startzeitpunkt ===== -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Ab wann könntest du starten?</span>
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__kacheln">
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f3-start-1"
+                           name="startzeitpunkt" value="Ab sofort" required>
+                    <label class="kf__kachel__label" for="f3-start-1">Ab sofort</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f3-start-2"
+                           name="startzeitpunkt" value="Innerhalb 1-2 Monaten">
+                    <label class="kf__kachel__label" for="f3-start-2">Innerhalb 1-2 Monaten</label>
+                  </div>
+                  <div class="kf__kachel">
+                    <input class="kf__kachel__radio" type="radio" id="f3-start-3"
+                           name="startzeitpunkt" value="In 3 Monaten">
+                    <label class="kf__kachel__label" for="f3-start-3">In 3 Monaten</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ===== Schritt 5 — Kontaktdaten ===== -->
+            <fieldset class="kf__stufe" data-stufe>
+              <legend class="kf__stufe__legende">
+                <span class="kf__stufe__frage" data-frage tabindex="-1">Kontaktdaten</span>
+                <!-- „(Letzter Schritt)" stand hier bis zum 31.08.2026, so wie
+                     auf der Vorlage. Gestrichen: „Jeder restliche Text soll
+                     einfach raus." Der Fortschrittsbalken sagt dasselbe. -->
+              </legend>
+              <div class="kf__stufe__inhalt">
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f3-vorname">Vorname <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="text" id="f3-vorname" name="vorname"
+                           autocomplete="given-name" required aria-describedby="f3-vorname-f">
+                    <span class="kf__fehler" id="f3-vorname-f" role="alert"></span>
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f3-nachname">Nachname <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="text" id="f3-nachname" name="nachname"
+                           autocomplete="family-name" required aria-describedby="f3-nachname-f">
+                    <span class="kf__fehler" id="f3-nachname-f" role="alert"></span>
+                  </p>
+                </div>
+
+                <div class="kf__reihe">
+                  <p class="kf__feld">
+                    <label for="f3-tel">Telefon <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="tel" id="f3-tel" name="telefon" autocomplete="tel"
+                           required aria-describedby="f3-tel-f">
+                    <span class="kf__fehler" id="f3-tel-f" role="alert"></span>
+                  </p>
+                  <p class="kf__feld">
+                    <label for="f3-mail">E-Mail <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <input type="email" id="f3-mail" name="email" autocomplete="email"
+                           required aria-describedby="f3-mail-f">
+                    <span class="kf__fehler" id="f3-mail-f" role="alert"></span>
+                  </p>
+                </div>
+
+                <!-- „· optional" entfallen, wie bei Strecke 2. -->
+                <p class="kf__feld kf__feld--datei">
+                  <label for="f3-lebenslauf">Lebenslauf hochladen</label>
+                  <input type="file" id="f3-lebenslauf" name="lebenslauf"
+                         accept=".pdf,.doc,.docx,.rtf,.odt,application/pdf">
+                </p>
+
+                <button class="btn" type="submit" data-funnel-senden>Kontaktdaten übermitteln</button>
+              </div>
+            </fieldset>
+
+            <!-- Wortlaut wie bei den Vertriebspartnern; er stammt nicht aus
+                 der Vorlage. VON ESTERA BESTAETIGEN LASSEN. -->
+            <template data-funnel-ende="danke">
+              <div class="kf__stufe kf__stufe--ende">
+                <h4 class="kf__ende__titel" data-frage tabindex="-1">Das hat geklappt!</h4>
+                <div class="kf__stufe__inhalt">
+                  <p class="kf__stufe__text">
+                    Wir sehen uns deine Bewerbung in Ruhe an und melden uns
+                    persönlich bei dir.
+                  </p>
+                  <!-- GEKUERZT 31.08.2026. Entfallen: „Deine Bewerbung ist bei
+                       uns eingegangen." (sagt dasselbe wie die Ueberschrift)
+                       und der Nachsatz „— auch dann, wenn es diesmal nicht
+                       passt." -->
+                  <!-- Die Plakette „Telefonnummer folgt von Estera" und die
+                       Firmierung „Estera GmbH" sind am 31.08.2026 entfallen,
+                       wie bei Strecke 1. -->
+                </div>
+              </div>
+            </template>
+
+          </div>
+
+          <!-- action ist leer, es wird nichts versendet. Der ausfuehrliche
+               Vorbehalt und die Liste vor dem Livegang stehen bei Strecke 1. -->
+        </form>
+
+      </div>
     </div>
-
-    <div class="sp-schritte" data-reveal>
-      <div class="sp-schritt">
-        <span class="sp-schritt__nr" aria-hidden="true">01</span>
-        <div>
-          <h3 class="sp-schritt__titel">Erstgespräch</h3>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Kennenlernen und gegenseitige Prüfung: Ziele, Erwartungen, zeitliche Vorstellungen – und ob eine Kapitalanlageimmobilie überhaupt der richtige Schritt ist."
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <p class="sp-schritt__text">
-            Wir lernen uns kennen. Es geht um deine Ziele und deine Zeit.
-          </p>
-        </div>
-      </div>
-
-      <div class="sp-schritt">
-        <span class="sp-schritt__nr" aria-hidden="true">02</span>
-        <div>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Ersteinschätzung"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <h3 class="sp-schritt__titel">Deine Lage</h3>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Eine erste strukturierte Einordnung: finanzielle Ausgangssituation, mögliche Finanzierbarkeit, Ziele, gewünschte Regionen oder Objekteigenschaften und persönliche Präferenzen."
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <p class="sp-schritt__text">
-            Wir ordnen deine Lage ein. Dazu gehören deine Finanzen und deine
-            Ziele. Auch Region und Wünsche zählen.
-          </p>
-        </div>
-      </div>
-
-      <div class="sp-schritt">
-        <span class="sp-schritt__nr" aria-hidden="true">03</span>
-        <div>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Passende Objektsuche"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <h3 class="sp-schritt__titel">Die Suche</h3>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Nicht irgendein verfügbares Objekt, sondern eine Kapitalanlageimmobilie, die zur Situation, zur Finanzierung und zu den eingebrachten Präferenzen passt."
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <p class="sp-schritt__text">
-            Wir suchen gezielt. Die Immobilie muss zu dir passen.
-          </p>
-        </div>
-      </div>
-
-      <div class="sp-schritt">
-        <span class="sp-schritt__nr" aria-hidden="true">04</span>
-        <div>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Objektvorstellung"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <h3 class="sp-schritt__titel">Die Zahlen</h3>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Die konkreten Zahlen, Daten und Fakten: Lage, Objekt, Kaufpreis, Miete, Kosten, Finanzierungsszenario und die relevanten Unterlagen. Hier wird auch verständlich, woraus sich Ihr eigener finanzieller Beitrag ergeben kann."
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <p class="sp-schritt__text">
-            Du bekommst alle Zahlen. Lage, Kaufpreis, Miete, Kosten und
-            Unterlagen. Du siehst auch deinen eigenen Beitrag.
-          </p>
-        </div>
-      </div>
-
-      <div class="sp-schritt">
-        <span class="sp-schritt__nr" aria-hidden="true">05</span>
-        <div>
-          <h3 class="sp-schritt__titel">Finanzierung</h3>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Über ein spezialisiertes Netzwerk wird die Finanzierung im aktuellen Marktumfeld geprüft und strukturiert."
-               Der Bankenvermerk dahinter bleibt Wort fuer Wort stehen.
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <p class="sp-schritt__text">
-            Unser Netzwerk prüft deine Finanzierung. Die endgültige Entscheidung
-            und die Kondition liegen bei den jeweiligen Finanzierungspartnern.
-          </p>
-        </div>
-      </div>
-
-      <div class="sp-schritt">
-        <span class="sp-schritt__nr" aria-hidden="true">06</span>
-        <div>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Notar und Begleitung"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <h3 class="sp-schritt__titel">Zum Notar</h3>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Nach erfolgreicher Finanzierung begleitet Estera die nächsten Schritte bis zum Notartermin und hält den Ablauf strukturiert."
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <p class="sp-schritt__text">
-            Danach begleiten wir dich zum Notar. Wir behalten den Ablauf im
-            Blick.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================================
-     WAS BEWUSST OFFENBLEIBT   (Masterbriefing S.11)
-
-     Dieser Abschnitt ist der ehrlichste der ganzen Seite und deshalb der
-     dunkle Moment. Das Briefing verlangt ihn ausdruecklich: die Website
-     soll NICHT so tun, als koenne sie Finanzierbarkeit, Eigenanteil oder
-     Steuerwirkung im Voraus beantworten. „Ohne kuenstliche Verknappung
-     oder leere FOMO-Claims" (S.11) — also ohne „nur noch wenige Plaetze"
-     und ohne Countdown.
-     ===================================================================== -->
-<section class="sp-band sp-band--navy" aria-labelledby="ko-h-offen">
-  <div class="sp-band__inner sp-zwei">
-    <div data-reveal>
-      <p class="kicker">Ehrlich gesagt</p>
-      <p class="sp-zitat" id="ko-h-offen">Was diese Seite bewusst offenlässt.</p>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Diese Punkte werden erst anhand der realen Situation und eines konkreten Objekts sinnvoll. Genau dafür gibt es das Erstgespräch."
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <p class="sp-vorbehalt">
-        Das klärt sich erst an deinem Fall. Und an einem echten Objekt. Dafür
-        gibt es das Erstgespräch.
-      </p>
-    </div>
-
-    <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-         Vorher: "Die konkrete Finanzierbarkeit und das notwendige Eigenkapital."
-         Vorher: "Der tatsächliche eigene monatliche Beitrag."
-         Vorher: "Die individuelle steuerliche Wirkung."
-         Vorher: "Konkrete Objekt- und Bankkonditionen."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <ul class="sp-punkte" data-reveal>
-      <li>Was finanzierbar ist und wie viel Eigenkapital du brauchst.</li>
-      <li>Dein monatlicher Beitrag.</li>
-      <li>Was bei deinen Steuern passiert.</li>
-      <li>Objekt- und Bankkonditionen.</li>
-    </ul>
   </div>
 </section>
 
@@ -305,17 +1371,27 @@
      Beides steht nicht im Briefing und ist deshalb nicht erfunden. Eine
      falsche Rufnummer auf einer Kontaktseite ist der teuerste denkbare
      Platzhalter: sie kostet genau die Anfragen, fuer die die Seite gebaut
-     wurde.
+     wurde. Die Platzhalter bleiben beim Umbau am 31.08.2026 unveraendert
+     stehen; es ist nichts dazuerfunden worden.
      Die E-Mail-Adresse ist die, die auch in der Fusszeile der Startseite
      steht. Sie stammt aus dem bestehenden Projekt, NICHT aus dem
      Briefing — Estera sollte sie bestaetigen.
      ===================================================================== -->
-<section class="sp-band" aria-labelledby="ko-h-wege">
+<!-- MITTIG GESETZT 31.08.2026 — Kundenwunsch: „Das passt, aber muss
+     mittig stehen." Betrifft die Ueberschrift und die drei Kontaktwege
+     darunter. Die Zentrierung steht in kontakt.css unter .kf-wege;
+     seiten.css bleibt unangetastet, weil .sp-kopf und .sp-daten auch auf
+     drei anderen Seiten haengen. -->
+<!-- AUCH DIESER ABSCHNITT AUF NAVY — 31.08.2026, Kundenwunsch woertlich:
+     „beide Sections — ‚Worum geht es bei dir' und ‚So erreichst du Estera'
+     — mit Navy-Blue als Hintergrundfarbe."
+     Dieselbe Klasse wie oben. Die Datenliste darunter (.sp-daten aus
+     seiten.css) ist fuer weisses Papier gebaut; ihre Toene werden in
+     kontakt.css unter .kf-wege umgekehrt — und NUR dort, weil dieselbe
+     Liste auch auf ueber-estera.html und den beiden Karriereseiten haengt. -->
+<section class="sp-band sp-band--navy kf-wege" aria-labelledby="ko-h-wege">
   <div class="sp-band__inner">
     <div class="sp-kopf" data-reveal>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "So erreichen Sie Estera"
-           VON ESTERA BESTAETIGEN LASSEN. -->
       <p class="kicker">So erreichst du Estera</p>
       <h2 class="display sp-kopf__h2" id="ko-h-wege">Kontaktwege</h2>
     </div>
@@ -333,107 +1409,26 @@
       <dt>Firmierung</dt>
       <dd>Estera GmbH</dd>
     </dl>
+
+    <!-- ENTFERNT 31.08.2026 auf Kundenwunsch. Der Hinweis lautete:
+         "Kapitalanlageimmobilien sind langfristige Investitionen.
+          Wertentwicklung, Vermietbarkeit und steuerliche Wirkung haengen vom
+          Einzelfall ab und koennen nicht zugesichert werden. Diese Website
+          ersetzt keine steuerliche, rechtliche oder finanzielle Beratung."
+
+         Er ordnete die Aussagen der Seite ein (Wertentwicklung und
+         steuerliche Wirkung haengen vom Einzelfall ab).
+
+         GEPRUEFT AM 31.08.2026: Derselbe Hinweis steht WORTGLEICH weiterhin
+         im Fussbereich dieser Seite (<p class="fuss__risiko">, siehe unten).
+         Er ist also nicht von der Seite verschwunden, sondern nur aus dem
+         Hauptteil — auf jeder Seite des Projekts steht er unveraendert im
+         Fuss. Damit ist die Entfernung an dieser Stelle unkritisch.
+         VOR DEM LIVEGANG MIT ESTERA KLAEREN, ob er zusaetzlich naeher am
+         Formular stehen muss. -->
   </div>
 </section>
 
-
-<!-- =====================================================================
-     FORMULAR   (Masterbriefing S.5: „Terminmoeglichkeit")
-
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     DIESES FORMULAR SENDET NICHTS — UND DAS IST ABSICHT
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     Kein action, kein fremder Dienst, kein Datenversand, kein Skript, das
-     im Hintergrund etwas abschickt. onsubmit gibt false zurueck, damit
-     auch die Eingabetaste nichts ausloest, und die Schaltflaeche ist
-     gesperrt.
-
-     Der Grund ist nicht technisch, sondern rechtlich: solange keine
-     Datenschutzerklaerung vorliegt und kein Empfaenger abgestimmt ist,
-     darf hier nichts abfliessen. Ein Formular, das Namen und Rufnummern
-     entgegennimmt, ohne dass jemand sagen kann, wohin sie gehen und wie
-     lange sie liegen, ist ein Datenschutzverstoss mit Anlauf.
-
-     ZUM ANSCHLIESSEN SPAETER NOETIG:
-       1  Datenschutzerklaerung (datenschutz.html) und Einwilligungstext,
-       2  Empfaenger und Verarbeitungszweck,
-       3  ein Versandweg, der zu 1 und 2 passt,
-       4  Schutz gegen automatisierte Eintraege.
-     Erst danach action, method und ein aktiver Absendeknopf.
-     ===================================================================== -->
-<section class="sp-band sp-band--cool" aria-labelledby="ko-h-form">
-  <div class="sp-band__inner">
-    <div class="sp-kopf" data-reveal>
-      <p class="kicker">Termin</p>
-      <h2 class="display sp-kopf__h2" id="ko-h-form">Erstgespräch anfragen</h2>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Ein paar Angaben genügen. Alles Weitere klärt das Gespräch."
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <p class="sp-kopf__lead">
-        Schreib kurz. Den Rest klärt das Gespräch.
-      </p>
-    </div>
-
-    <div class="sp-luecke" data-reveal>
-      <span class="sp-offen">Formular noch nicht angebunden</span>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Dieses Formular ist eine Ansichtsfassung. Es versendet nichts und speichert nichts – die Anbindung fehlt noch, ebenso die Datenschutzerklärung. Bis dahin erreichen Sie Estera zuverlässig per E-Mail."
-           Nur Anrede und Satzgrenze geaendert. Es faellt KEIN Wort weg: aus dem
-           Gedankenstrich wird ein Punkt, aus "erreichen Sie" wird "erreichst du".
-           Der Hinweis bleibt inhaltlich unveraendert scharf.
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <p>
-        Dieses Formular ist eine Ansichtsfassung. Es versendet nichts und
-        speichert nichts. Die Anbindung fehlt noch, ebenso die
-        Datenschutzerklärung. Bis dahin erreichst du Estera zuverlässig per
-        <a class="hl" href="mailto:info@estera.immobilien">E-Mail</a>.
-      </p>
-    </div>
-
-    <form class="sp-form" data-reveal onsubmit="return false;" novalidate>
-      <div class="sp-form__reihe">
-        <p class="sp-feld">
-          <label for="ko-name">Name</label>
-          <input type="text" id="ko-name" name="name" autocomplete="name">
-        </p>
-        <p class="sp-feld">
-          <label for="ko-mail">E-Mail</label>
-          <input type="email" id="ko-mail" name="email" autocomplete="email">
-        </p>
-      </div>
-
-      <p class="sp-feld">
-        <label for="ko-tel">Telefon <span aria-hidden="true">·</span> optional</label>
-        <input type="tel" id="ko-tel" name="telefon" autocomplete="tel">
-      </p>
-
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Ihre Nachricht"
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <p class="sp-feld">
-        <label for="ko-text">Deine Nachricht</label>
-        <textarea id="ko-text" name="nachricht" rows="6"></textarea>
-      </p>
-
-      <div class="sp-form__fuss">
-        <button class="btn" type="button" disabled aria-describedby="ko-form-hinweis">
-          Anfrage senden
-        </button>
-        <p class="sp-form__hinweis" id="ko-form-hinweis">
-          Absenden ist deaktiviert, solange die Datenschutzerklärung und der
-          Versandweg fehlen.
-        </p>
-      </div>
-    </form>
-
-    <p class="sp-vorbehalt" data-reveal>
-      Kapitalanlageimmobilien sind langfristige Investitionen. Wertentwicklung,
-      Vermietbarkeit und steuerliche Wirkung hängen vom Einzelfall ab und können
-      nicht zugesichert werden. Diese Website ersetzt keine steuerliche,
-      rechtliche oder finanzielle Beratung.
-    </p>
-  </div>
-</section>
 
 </main>
 
@@ -500,16 +1495,33 @@
   </div>
 
   <div class="menu__body">
+    <!-- KLAPPMENUE, NACHGEZOGEN 31.08.2026 — Kundenwunsch, dieselbe
+         Umsortierung wie in der Kopfleiste.
+
+         Die beiden Gruppen folgen jetzt der Zweiteilung der Leiste:
+           „Auf der Startseite"  = was links neben der Wortmarke steht,
+           „Seiten"              = was rechts davon steht.
+         Deshalb ist „Ablauf" mit in die zweite Gruppe gewandert und traegt
+         dort die 01; Karriere und Kontakt ruecken auf 02 und 03. Die
+         Nummern sind in beiden Gruppen neu vergeben.
+
+         Die Gesamtreihenfolge bleibt dabei unveraendert
+         Vorteile, Leistungen, Ablauf, Karriere, Kontakt — es verschiebt
+         sich ausschliesslich die Gruppengrenze.
+         „Ablauf" verweist weiterhin auf den Abschnitt der Startseite; nur
+         der Gruppentitel darueber heisst „Seiten". -->
     <p class="menu__gruppe">Auf der Startseite</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="variante-a.html#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
-      <li><a class="menu__link" href="variante-a.html#leistungen"><span class="num">02</span> Leistungen</a></li>
-      <li><a class="menu__link" href="variante-a.html#ablauf"><span class="num">03</span> Ablauf</a></li>
+      <!-- Dieselbe Umbenennung wie in der Kopfleiste, 31.08.2026.
+           Vorher: „Vorteile" und „Leistungen". -->
+      <li><a class="menu__link" href="variante-a.html#warum-immobilien"><span class="num">01</span> Warum Immobilien</a></li>
+      <li><a class="menu__link" href="variante-a.html#leistungen"><span class="num">02</span> Warum Estera</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="karriere.html"><span class="num">01</span> Karriere</a></li>
-      <li><a class="menu__link" href="kontakt.html" aria-current="page"><span class="num">02</span> Kontakt</a></li>
+      <li><a class="menu__link" href="variante-a.html#ablauf"><span class="num">01</span> Ablauf</a></li>
+      <li><a class="menu__link" href="karriere.html"><span class="num">02</span> Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html" aria-current="page"><span class="num">03</span> Kontakt</a></li>
     </ul>
 
     <aside class="menu__aside">
@@ -541,5 +1553,24 @@
 </nav>
 
 <script src="assets/js/site.js?v=b24a"></script>
+<!-- kontakt-funnel.js tut zweierlei: es schiebt die drei Strecken beim Laden
+     in ein <dialog> und oeffnet darin die, deren Kasten gedrueckt wurde; und
+     es faltet die Schritte INNERHALB einer Strecke zur Folge zusammen.
+     Das Umschalten zwischen den Anliegen lief bis zum 31.08.2026 ueber CSS
+     (:checked an drei versteckten Radios). Seit der Kunde das Vollbild
+     verlangt hat, geht das nicht mehr — die Begruendung steht oben an den
+     Kaesten.
+     FAELLT DIE DATEI AUS, ist die Seite nicht kaputt: dann steht jede der
+     drei Strecken als ein langes, gewoehnliches Formular offen auf der Seite,
+     die drei Kaesten sind gewoehnliche Sprungverweise dorthin, und die
+     Pflichtangaben prueft der Browser selbst ueber `required`.
+
+     ERSETZT assets/js/kontakt.js (bis 31.08.2026 hier eingebunden). Das alte
+     Skript hat die Fehlermeldungen der alten Felder freundlicher gemacht;
+     diese Felder gibt es nicht mehr. Waere es stehen geblieben, haette es
+     nur noch `novalidate` gesetzt — also die Pruefung des Browsers
+     abgeschaltet, ohne selbst zu pruefen. Die Datei liegt unveraendert unter
+     assets/js/kontakt.js und wird von keiner Seite mehr geladen. -->
+<script src="assets/js/kontakt-funnel.js?v=b24a"></script>
 </body>
 </html>

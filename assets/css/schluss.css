@@ -428,6 +428,20 @@
   grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr));
   gap: clamp(2rem, 5vw, 4rem);
 }
+/* WORTMARKE MITTIG UEBER DER ANKERZEILE — 31.08.2026, Kundenwunsch:
+   „Estera Immobilien muss mittig ueber Diskret. Strukturiert.
+   Langfristig. stehen."
+   Betrifft nur diesen einen Block; die beiden Spalten daneben (Kontakt,
+   Rechtliches) bleiben linksbuendig. `align-items: center` statt eines
+   `text-align` auf der Wortmarke selbst, weil sie ein Flexelement ist
+   und `text-align` sie nicht bewegt haette. */
+.fuss__marke {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.fuss__marke .wordmark { align-items: center; }
 .fuss__marke .wordmark__name { color: #fff; }
 .fuss__marke .wordmark__sub  { color: rgba(255, 255, 255, 0.45); }
 .fuss__anker {
@@ -541,9 +555,16 @@
      entfallen; er steht jetzt frei in der Flaeche.
      Seit die Platzhalterzeile entfallen ist, steht die Schaltflaeche allein
      in der Zeile — dann gehoert sie in die Mitte, nicht an den rechten Rand. */
+  /* SPALTE STATT ZEILE — 31.08.2026. Solange der Abschnitt nur aus dem
+     Knopf bestand, war eine Zeile richtig. Seit das Wording-Dokument
+     Kleinzeile, Ueberschrift, Text und Kleingedrucktes dazustellt, stehen
+     fuenf Bausteine untereinander; in einer Zeile stuenden sie nebeneinander
+     und der Abschnitt waere unlesbar. Mittig bleibt alles. */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 /* Der Knopf im CTA-Block etwas hoeher als der Standardknopf der Seite — er
@@ -593,4 +614,131 @@
 .cta .btn {
   min-height: 3.6rem;
   padding-inline: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+/* ===========================================================================
+   DER ABSCHLUSS-CTA HAT SEIT DEM 31.08.2026 EINEN TEXT
+
+   Bis dahin stand in .cta__inner allein die Schaltflaeche — der Wortlaut
+   fehlte, und der Vermerk im HTML hat ausdruecklich darauf gewartet. Das
+   Wording-Dokument liefert ihn in Abschnitt 09.
+
+   KEIN NEUER STIL. Jede der vier Zeilen uebernimmt die Werte des Bausteins,
+   der dieselbe Rolle anderswo auf der Seite spielt:
+     .cta__eyebrow  <- .abl__eyebrow   (Kleinzeile ueber einer Ueberschrift)
+     .cta__h2       <- .abl__titel     (Abschnittsueberschrift)
+     .cta__text     <- .abl__sub       (Unterzeile)
+     .cta__micro    <- .wi__hinweis    (Kleingedrucktes unter einem Knopf)
+   Die Werte stehen hier ausgeschrieben statt als Verweis, weil die
+   Abschnitte eigene Farbraeume haben und ein @extend in CSS nicht existiert.
+   =========================================================================== */
+.cta__eyebrow {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.74rem, 0.94vw, 0.92rem);
+  letter-spacing: 0.30em;
+  text-indent: 0.30em;               /* Sperrung hinter dem letzten Zeichen */
+  text-transform: uppercase;
+  color: var(--gold-text, #86693A);
+}
+.cta__h2 {
+  margin: clamp(1.05rem, 1.8vw, 1.75rem) 0 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.93vw, 2.82rem);
+  line-height: 1.1;
+  letter-spacing: -0.004em;
+  color: var(--navy-800);
+  text-wrap: balance;
+}
+.cta__text {
+  max-width: 52rem;
+  margin: clamp(0.9rem, 1.7vw, 1.5rem) auto clamp(1.6rem, 3vw, 2.4rem);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.12vw, 1.12rem);
+  line-height: 1.55;
+  color: var(--ink-mute);
+  text-wrap: pretty;
+}
+.cta__micro {
+  margin: clamp(0.9rem, 1.9vh, 1.4rem) 0 0;
+  font-family: var(--font-ui);
+  font-size: clamp(0.78rem, 0.86vw, 0.86rem);
+  line-height: 1.6;
+  color: var(--ink-mute);
+}
+
+/* ===========================================================================
+   ABSCHLUSS-CTA ZWEISPALTIG — 31.08.2026
+
+   Kundenwunsch: „Der Text auf der linken Seite der Section, auf der rechten
+   Seite ein Bild." Der Abschnitt stand bis dahin mittig in einer Spalte;
+   die Regeln dafuer stehen unveraendert darueber und gelten weiter, sobald
+   die Spalten unter 900 px wieder untereinander stehen.
+
+   Das Raster liegt an .cta__inner. Der Text bekommt die groessere Haelfte —
+   er traegt Ueberschrift, Absatz, Knopf und Kleinzeile, das Bild nur sich
+   selbst. Mittig ausgerichtet, damit das Bild neben dem Textblock steht und
+   nicht daneben haengt.
+   =========================================================================== */
+@media (min-width: 900px) {
+  .cta__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
+    column-gap: clamp(2rem, 4.5vw, 4.5rem);
+    align-items: center;
+    text-align: left;
+  }
+  /* Mittig war richtig, solange alles untereinander stand. Neben einem Bild
+     liest sich linksbuendiger Satz besser, und der Knopf steht dann unter
+     dem Textanfang statt in der Luft. */
+  .cta__wort { text-align: left; }
+  .cta__text { margin-inline: 0; }
+}
+
+.cta__bild {
+  margin: 0;
+  /* Dasselbe Passepartout wie beim Bildfenster im Ablauf: ein schmaler
+     heller Rand, damit das Bild auf dem Papiergrund nicht ausfranst. */
+  border-radius: var(--radius-img, 14px);
+  overflow: hidden;
+  background: var(--navy-800);
+}
+.cta__bild picture,
+.cta__bild img {
+  display: block;
+  width: 100%;
+}
+/* KEIN `height: 100%` — 31.08.2026 sofort nach dem Einbau korrigiert.
+   Im Raster hatte die Figur eine Zeilenhoehe, untereinander nicht: dort
+   loeste sich die Prozenthoehe in nichts auf, und das Bild stand bei 899
+   und 390 px mit 0 x 0 auf der Seite. Die Hoehe kommt jetzt ueberall aus
+   dem Seitenverhaeltnis am Bild selbst. */
+.cta__bild img {
+  /* `height: auto` ist NICHT verzichtbar: das <img> traegt die Masse als
+     Attribute (1536 x 1024), und die schlagen als benutzte Hoehe durch —
+     `aspect-ratio` kommt gegen eine gesetzte Hoehe nicht an. Ohne diese
+     Zeile stand das Bild an jeder Breite 1024 px hoch. */
+  height: auto;
+  /* Ausschnitt statt Verzerrung: das Seitenverhaeltnis der Spalte weicht je
+     nach Fensterbreite vom Dateiformat 3:2 ab. */
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+}
+@media (max-width: 899px) {
+  /* Untereinander: das Bild sitzt unter dem Text und braucht Abstand nach
+     oben, den es im Raster nicht brauchte.
+
+     `align-self: stretch` ist der Grund, warum es ueberhaupt zu sehen ist.
+     .cta__inner ist unterhalb 900 px eine Flexspalte mit `align-items:
+     center`; darin schrumpft die Figur auf ihren Inhalt, und ein Bild mit
+     `width: 100%` von einer geschrumpften Huelle ist genau 0 px breit.
+     Gemessen: 0 x 0 bei 899 und bei 390. */
+  .cta__bild {
+    align-self: stretch;
+    width: 100%;
+    margin-top: clamp(1.6rem, 4vw, 2.6rem);
+  }
 }

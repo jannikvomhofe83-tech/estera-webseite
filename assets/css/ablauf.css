@@ -54,17 +54,89 @@
      goldene Haarlinien       #A8874F    3.09:1   — reine Zeichnung, kein Text
      graue Ruhelinie          #E2E1E1              — reine Zeichnung
 
+   ZULETZT NACHGEMESSEN AM 31.08.2026, nach dem Verkleinern der linken
+   Spalte — nicht gegen den Mittelton, sondern gegen den HELLSTEN
+   Bildpunkt, den der Marmor unter jeder Zeile tatsaechlich zeigt (das ist
+   der unguenstigste Fall, weil die Schrift dunkel ist).
+
+   DAS VERFAHREN, damit es wiederholbar ist: jede Zeile wird einzeln auf
+   `visibility: hidden` gestellt — der Platz bleibt, die Zeichen
+   verschwinden — und der Streifen darunter aufgenommen. Weil der Marmor
+   am Fenster KLEBT (.abl__stein, `position: sticky`) und die Zeile
+   darunter durchrollt, steht unter derselben Zeile je nach Rollstand ein
+   anderer Grund; gemessen wird deshalb an sechs Rollstaenden je Zeile und
+   der schlechteste Wert behalten. Vier Fensterbreiten, 368 Streifen:
+
+                            1920     1440     1024      390
+     Eyebrow  #8A5A20      5,39     5,39     5,39     5,39
+     H2       #102949     13,50    13,50    13,50    13,47
+     Unterz.  #5A6879      5,28     5,28     5,28     5,25
+     Nummer   #8A5A20      5,47     5,48     5,48     5,44
+     Titel    #102949     13,71    13,71    13,60    13,50
+     Satz     #5A6879      5,33     5,33     5,33     5,29
+     Schluss  #102949     14,37    14,37    14,29    14,40
+
+   Der schwaechste Wert der ganzen Section ist damit 5,25:1 (Unterzeile,
+   390 px) und liegt deutlich ueber der Schwelle von 4,5:1. Die Farben
+   sind beim Verkleinern NICHT angefasst worden; der Schriftgrad aendert
+   den Kontrast nicht. Wer den Marmor kraeftiger stellt (.abl__stein,
+   opacity 0.10), muss hier neu messen.
+
    Der Sandton #D9B485 kommt hier NICHT vor. base.css haelt fest: Sand als
    Schrift auf hellem Grund misst 1.94:1 und traegt dort nichts; als Flaeche
    braeuchte er eine Kante. Die Vorlage setzt an diesen Stellen ohnehin einen
    tieferen Bronzeton, und genau der steht hier.
 
    ---------------------------------------------------------------------------
-   OHNE JAVASCRIPT
-   Die Grundregeln zeigen ALLE fuenf Beschreibungen untereinander, und die
-   Buehne klebt nicht. Erst ablauf.js setzt [data-abl-bereit] auf die Section;
-   ab dann greifen die Regeln fuer den festen Infokasten und die Laufstrecke.
-   Faellt das Skript aus, bleibt eine vollstaendig lesbare Liste stehen.
+   DIE BEDINGUNG, DIE DIESER ABSCHNITT TRAGEN MUSS — 31.08.2026.
+   Der Kunde: „Bei unserem Ablauf muss man alle Punkte auf einen Blick
+   sehen. Das heisst, du musst die Schriftgroesse einfach verkleinern."
+
+   Daraus wird eine pruefbare Zahl: bei 1440 x 900 muessen der Kopf des
+   Abschnitts (Eyebrow, Ueberschrift, Unterzeile) und ALLE SECHS SCHRITTE
+   gleichzeitig und UNVERDECKT im Fenster stehen. Unverdeckt heisst: unter
+   der festen Kopfleiste der Seite. Sie ist `position: fixed`, 103,5 px
+   hoch und mit rgba(255,255,255,0.88) plus Weichzeichner praktisch
+   deckend — von 900 Punkten bleiben also 796,5 nutzbar. Wer nur gegen die
+   volle Fensterhoehe rechnet, misst sich die Bedingung schoen: die
+   Ueberschrift steht dann zur Haelfte hinter der Leiste.
+
+   Nachgemessen (Oberkante Eyebrow bis Unterkante Schritt 06):
+
+                    Leiste   nutzbar   vorher   nachher   Reserve
+       1920 x 900    103,5     796,5   1022,2     780,4      16,1
+       1520 x 900    103,5     796,5   1010,0     778,9      17,6
+       1440 x 900    103,5     796,5    988,7     763,2      33,3
+       1280 x 900    102,4     797,6    880,0     697,3     100,3
+       1024 x 900     81,9     818,1    730,0     637,7     180,4
+
+   Der knappste Fall ist NICHT 1440, sondern 1600 und breiter: dort steht
+   der Kopf auf seinen Hoechstwerten, waehrend die nutzbare Hoehe dieselbe
+   bleibt. Wer etwas hinzufuegt, prueft dort zuerst.
+
+   Bei 390 px gilt die Bedingung ausdruecklich NICHT; dort wird gerollt.
+   Die Grade der linken Spalte sind auf dem Telefon deshalb unveraendert
+   geblieben — der Block unter 760 px stellt sie eigens zurueck.
+
+   DIE VIER HEBEL, in der Reihenfolge, in der sie gezogen wurden:
+     1. der Satz je Schritt      21,6 -> 17,0 px    (−21 %)
+     2. das Polster je Schritt   27,4 -> 16,7 px je Seite, und es misst
+                                 seither in vh statt vw — Begruendung an
+                                 der Regel .abl__stufe
+     3. der Titel je Schritt     28,1 -> 22,7 px    (−19 %)
+     4. die Ziffer               22,2 -> 17,6 px    (−21 %)
+   Kein Wort gekuerzt, kein Schritt weggelassen, kein Kasten eingefuehrt.
+
+   DIE UNTERGRENZE HAELT: Fliesstext faellt an keiner Fensterbreite unter
+   15,0 px (Untergrenzwert 0,94rem des clamp, greift ab rund 1275 px) und
+   steht auf dem Telefon bei 16,0 px. 14 px waeren die Schwelle.
+
+   ---------------------------------------------------------------------------
+   OHNE JAVASCRIPT — seit dem 31.08.2026 ist das kein Sonderfall mehr.
+   Dieser Abschnitt hat kein Skript und keine Bewegung. assets/js/ablauf.js
+   ist ausgehaengt, der Kartenstapel und der Bildwisch sind entfernt. Ohne
+   Skript, mit Skript und bei `prefers-reduced-motion: reduce` steht hier
+   Zeichen fuer Zeichen dasselbe Bild.
    =========================================================================== */
 
 .abl {
@@ -82,40 +154,17 @@
   --abl-linie:      #E2E1E1;
   --abl-linie-warm: rgba(168, 135, 79, 0.30);
 
-  /* --- DIE KARTEN IN DER FARBE DER FAQ-KAESTEN (30.08.2026) -------------
-     Zweiter Anlauf. Am Vormittag standen die Karten in Navy #10294A; der
-     Kunde hat das verworfen und den Massstab selbst genannt: die Kaesten
-     der FAQ-Section. Die Werte sind deshalb NICHT nachempfunden, sondern
-     Zeichen fuer Zeichen aus faq.css uebernommen:
-
-       --faq-kasten-links   #1E222D
-       --faq-kasten-rechts  #2E3643
-       Richtung             waagerecht, 90deg, 0 % bis 100 %
-
-     Das ist ein entsaettigtes Anthrazit mit einem Hauch Blau, ausdruecklich
-     KEIN Navy. Die Werte stehen hier noch einmal als eigene Variablen und
-     nicht als `var(--faq-kasten-links)`: faq.css definiert die beiden auf
-     `.faq`, also auf einem anderen Abschnitt — von hier aus sind sie nicht
-     erreichbar. Wer den FAQ-Kasten umfaerbt, muss diese Zeilen mitziehen.
-
-     ALLE SCHRIFTFARBEN GEGEN DIE RECHTE, HELLERE KANTE #2E3643 GEMESSEN —
-     dort ist der Kontrast am schwaechsten, nicht in der Mitte:
-
-                             #1E222D  #2E3643
-       Nummer/Symbol #C9B08A   7,61     5,83   (--gold-soft)
-       Titel         #FFFFFF  15,89    12,17
-       Beschreibung  #C7CEDA  10,04     7,69   (--faq-schrift-leise)
-
-     VERWORFEN: der bisherige Goldton --wi-punkt #C0985C haelt auf der
-     hellen Kante nur 4,57:1 — 0,07 Reserve, das ist zu knapp. --gold
-     #A8874F faellt mit 3,62:1 ganz durch. */
-  --abl-karte-links:  #1E222D;
-  --abl-karte-rechts: #2E3643;
-  --abl-karte-grund:  linear-gradient(90deg, var(--abl-karte-links) 0%, var(--abl-karte-rechts) 100%);
-  --abl-karte-nr:     var(--gold-soft);
-  --abl-karte-titel:  #FFFFFF;
-  --abl-karte-text:   #C7CEDA;
-  --abl-karte-kante:  rgba(237, 241, 248, 0.16);
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DIE KARTENFARBEN SIND AM 31.08.2026 ENTFALLEN. Hier standen
+     --abl-karte-links/-rechts/-grund/-nr/-titel/-text/-kante: der
+     waagerechte Anthrazitverlauf der FAQ-Kaesten und die vier
+     Schriftfarben darauf, jede mit ihrer Kontrastrechnung gegen die
+     hellere rechte Kartenkante. Es gibt keine Karten mehr — die Schritte
+     stehen jetzt auf dem Grund des Abschnitts, und dafuer gelten die
+     Farben oben (--abl-bronze, --abl-navy, --abl-text), die alle gegen
+     genau diesen Grund gemessen sind.
+     Die Werte stehen vollstaendig in der Versionsgeschichte.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
   /* Die Fassadenzeichnung. Sehr hell gehalten wie auf der Vorlage — sie ist
      Grund, nicht Bild. Wer sie kraeftiger will, aendert nur diese fuenf.
@@ -131,32 +180,40 @@
   --abl-fs-h2:      clamp(2.05rem, 3.89vw, 3.55rem);
   --abl-fs-sub:     clamp(1.06rem, 1.60vw, 1.46rem);
   --abl-fs-name:    clamp(1.10rem, 1.66vw, 1.52rem);
-  --abl-fs-nr:      clamp(1.02rem, 1.54vw, 1.42rem);
-  --abl-fs-kicker:  clamp(0.80rem, 1.07vw, 0.98rem);
-  --abl-fs-h3:      clamp(1.90rem, 4.15vw, 3.75rem);
-  --abl-fs-satz:    clamp(1.02rem, 1.50vw, 1.38rem);
-  --abl-fs-punkt:   clamp(1.00rem, 1.46vw, 1.34rem);
-  --abl-fs-weiter:  clamp(1.04rem, 1.55vw, 1.42rem);
+  /* ZWEI GRADE KLEINER GESTELLT AM 31.08.2026 — Kundenwunsch, woertlich:
+     „Bei unserem Ablauf muss man alle Punkte auf einen Blick sehen. Das
+     heisst, du musst die Schriftgroesse einfach verkleinern. Die Groesse
+     des Bildes ist gut."
+     Betroffen sind AUSSCHLIESSLICH die Grade der linken Spalte. Kopf,
+     Unterzeile und Schlusszeilen stehen unveraendert, das Bildfenster
+     ebenfalls (siehe .abl__saeule).
+
+                          vorher 1440    nachher 1440    Abnahme
+       Ziffer               22,2 px         17,6 px       −21 %
+       Titel je Schritt     28,1 px         22,7 px       −19 %
+       Satz je Schritt      21,6 px         17,0 px       −21 %
+
+     Die 14-px-Schwelle fuer Fliesstext ist an KEINER Fensterbreite
+     unterschritten: der Satz misst 17,6 px bei 1920, 17,0 bei 1440,
+     15,0 bei 1024 und 16,0 auf dem Telefon (eigener Wert im Block
+     unter 760 px, dort unveraendert). Der Untergrenzwert 0,94rem des
+     clamp ist genau diese Sicherung — er greift ab rund 1275 px
+     Fensterbreite und haelt den Satz bei 15,0 px fest. */
+  --abl-fs-nr:      clamp(0.94rem, 1.22vw, 1.18rem);
+  --abl-fs-satz:    clamp(0.94rem, 1.18vw, 1.10rem);
   --abl-fs-haus:    clamp(1.14rem, 1.73vw, 1.58rem);
 
-  /* Zeilenrhythmus der linken Liste: 107 px auf 1558 = 6,87vw.
-     Gehoert zur abgeloesten Schrittliste, siehe Vermerk dort. */
-  --abl-rhythmus:   clamp(3.6rem, 6.87vw, 6.2rem);
 
-  /* --- DER KARTENSTAPEL (30.08.2026) -----------------------------------
-     Eine feste Kartenhoehe ist hier KEIN Schoenheitsfehler, sondern die
-     Voraussetzung: die Ueberdeckung ist --abl-versatz / --abl-karte-h, und
-     dieser Bruch stimmt nur, wenn alle sechs Karten gleich hoch sind.
-     --abl-versatz ist genau ein Zehntel davon -> 90 % Ueberdeckung.
-     Die Hoehen sind an den laengsten Text gemessen (Schritt 06, drei
-     Zeilen) und stehen je Breitenbereich unten noch einmal. */
-  --abl-karte-h:    clamp(13.6rem, 15.8vw, 15.7rem);
-  --abl-versatz:    calc(var(--abl-karte-h) / 10);
-  --abl-karte-luft: clamp(0.75rem, 1.15vw, 1.15rem);
-
-  /* Klebehoehe der Buehne: Kopfleiste plus Abstand — dieselbe Rechnung wie
-     bei .ue-zwei__halt in ueber.css. */
-  --abl-klebe:      calc(var(--header-h) + clamp(1rem, 3vh, 2.5rem));
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ENTFALLEN AM 31.08.2026 mit dem Kartenstapel: --abl-karte-h,
+     --abl-versatz, --abl-karte-luft und --abl-klebe. Die ersten drei
+     trugen die 90-Prozent-Rechnung, die vierte die Klebehoehe unter der
+     Kopfleiste. Es klebt nichts mehr.
+     Ebenfalls entfallen: --abl-rhythmus (Zeilenrhythmus der ersten,
+     laengst abgeloesten Schrittliste), --abl-fs-kicker, --abl-fs-h3,
+     --abl-fs-punkt und --abl-fs-weiter — alle vier gehoerten zum
+     Einzelheitenblock, den es seit dem 30.08.2026 nicht mehr gibt.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
   position: relative;
   isolation: isolate;
@@ -253,7 +310,8 @@
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-.abl__lauf { position: relative; z-index: 3; }
+/* .abl__lauf ist am 31.08.2026 entfallen — es war die Laufstrecke der
+   Klebebuehne, die es nicht mehr gibt. */
 
 /* --- Kopf ----------------------------------------------------------------- */
 .abl__kopf {
@@ -296,7 +354,11 @@
 }
 
 .abl__sub {
-  margin-top: clamp(0.7rem, 1.6vw, 1.5rem);
+  /* MEHR LUFT ZUR UEBERSCHRIFT — 31.08.2026, Kundenwunsch: „zwischen ‚Du
+     gehst sechs Schritte' und ‚Vom ersten Gespraech bis lange nach dem
+     Notar' ein bisschen mehr Abstand". 1,5 -> 2,2rem, bei 1440 also
+     23 -> 32 px. */
+  margin-top: clamp(1.1rem, 2.3vw, 2.2rem);
   font-family: var(--font-ui);
   font-weight: 400;
   font-size: var(--abl-fs-sub);
@@ -305,410 +367,456 @@
   text-wrap: balance;
 }
 
-/* --- Laufstrecke und Klebebuehne -------------------------------------------
-   Ohne Skript sind beide wirkungslos: .abl__lauf hat keine Hoehe, .abl__halt
-   klebt nicht. Die Hoehe der Strecke setzt ablauf.js als --abl-strecke,
-   weil sie die gemessene Buehnenhoehe braucht.
--------------------------------------------------------------------------- */
-.abl[data-abl-bereit='true'] .abl__lauf {
-  height: var(--abl-strecke, auto);
-}
-.abl[data-abl-bereit='true'] .abl__halt {
-  position: sticky;
-  top: var(--abl-klebe);
-}
-
-/* --- Die Buehne: EINE Spalte ------------------------------------------------
-   Bis zum 30.08.2026 vormittags zweiteilig — links der Kartenstapel, rechts
-   ein gerahmtes Foto, das beim Rollen stehenblieb. Der Kunde hat die zweite
-   Spalte am Nachmittag ersatzlos gestrichen und den Stapel auf die volle
-   Breite gestellt. Jede Karte traegt jetzt ihr eigenes Bild.
-   Was hier entfaellt: grid-template-columns, column-gap und die Regel
-   .abl__spalte. Die Klebemechanik des Stapels ist davon NICHT beruehrt —
-   sie haengt an .abl__halt-karte, nicht an der Spaltenaufteilung.
--------------------------------------------------------------------------- */
-.abl__buehne {
-  display: block;
-  margin-top: clamp(2.2rem, 6.4vw, 5.6rem);
-}
-
 /* ===========================================================================
-   DER KARTENSTAPEL
+   DIE BUEHNE — ZWEISPALTIG UND RUHIG, 31.08.2026
+
+   Kundenwunsch:
+
+       linke Haelfte                    rechte Haelfte
+       die Schritte, einfach            EIN grosses Bild,
+       untereinander gelistet           ueber die volle Hoehe
+
    ---------------------------------------------------------------------------
-   DIE RECHNUNG, ausgeschrieben, damit sie nachvollziehbar bleibt.
+   WAS AN DIESER STELLE ERSATZLOS ENTFERNT IST — alles auf Ansage:
 
-   Jede Karte liegt in einem eigenen `position: sticky`-Kasten
-   (.abl__halt-karte). Die Klebehoehen sind gestaffelt:
+     · DIE KLEBEBUEHNE UND DER KARTENSTAPEL. Regeln .abl__lauf, .abl__halt,
+       .abl__halt-karte, .abl__stapel, .abl__karte und alle .abl__karte-*
+       samt der ausgeschriebenen Rechnung „Versatz = Kartenhoehe / 10 ->
+       90 Prozent Ueberdeckung" und den sechs gestaffelten Klebehoehen
+       .abl[data-abl-bereit] .abl__stapel > li:nth-child(n).
+     · DER BILDWISCH. `@keyframes abl-wisch` und der ganze Block
+       .abl__karte-bild[data-reveal] / [data-seen] — die goldene Geste, mit
+       der jedes Kartenbild beim Hereinrollen von links aufgedeckt wurde.
+       Der Kunde verlangt sie ausdruecklich nicht mehr.
+     · DIE ALTE SCHRITTLISTE UND DER EINZELHEITENBLOCK aus der ersten
+       Fassung vom 25.08.2026: .abl__liste, .abl__eintrag, .abl__schritt,
+       .abl__schritt-nr, .abl__schritt-name, .abl__linie, .abl__linie-ruhe,
+       .abl__linie-aktiv, .abl__punkt-aktiv, .abl__trenner,
+       .abl__spalte--detail, .abl__panel, .abl__kicker, .abl__panel-titel,
+       .abl__panel-text, .abl__panel-strich, .abl__punkte, .abl__haken,
+       .abl__weiter, .abl__pfeil. Sie waren seit dem 30.08.2026 unbenutzt
+       und liefen ins Leere; nachgezaehlt am Markup, null Vorkommen.
 
-       Karte 1   top = K
-       Karte 2   top = K + V
-       Karte 3   top = K + 2V        K = --abl-klebe   (Kopfleiste + Luft)
-       …                             V = --abl-versatz
-       Karte 6   top = K + 5V
+   Alles steht vollstaendig in der Versionsgeschichte.
 
-   Beim Rollen bleibt Karte 1 bei K stehen. Karte 2 laeuft weiter nach oben,
-   bis sie ihr eigenes K+V erreicht — in diesem Augenblick liegt ihre
-   Oberkante genau V unter der von Karte 1, und sie verdeckt Karte 1 bis auf
-   diesen Streifen. Sichtbar bleibt also
+   ---------------------------------------------------------------------------
+   ES BEWEGT SICH IN DIESEM ABSCHNITT NICHTS MEHR.
+   Kein `position: sticky` an einem Inhalt, keine Animation, kein
+   `data-reveal`, kein Javascript. Ohne Skript, mit Skript und bei
+   `prefers-reduced-motion: reduce` steht hier Zeichen fuer Zeichen
+   dasselbe Bild. Der Marmorgrund (.abl__stein) bleibt als einzige
+   klebende Lage — er ist Grund und kein Inhalt, und er steht STILL,
+   waehrend man rollt; genau dafuer klebt er.
 
-       V / H  der vorigen Karte,  verdeckt sind  (H - V) / H.
-
-   Mit V = H / 10 sind das 10 % sichtbar und 90 % verdeckt — genau das, was
-   der Kunde verlangt hat. Deshalb haben alle sechs Karten DIESELBE feste
-   Hoehe H (--abl-karte-h); mit unterschiedlichen Hoehen waere die Quote bei
-   jeder Karte eine andere.
-
-   Warum spaetere Karten die frueheren verdecken und nicht umgekehrt:
-   `position: sticky` macht die Kaesten zu positionierten Elementen, und die
-   zeichnet der Browser in Dokumentreihenfolge uebereinander. Karte 6 liegt
-   damit von sich aus ganz oben. Kein z-index noetig.
-
-   Weg von Karte zu Karte: H + Luft - V. Der Fuss des Stapels traegt
-   zusaetzlich Polsterung, damit die sechste Karte noch eine Weile
-   stehenbleibt, bevor der Stapel den Abschnitt verlaesst.
-
-   KEIN `overflow` an .abl__stapel oder einem seiner Vorfahren — `sticky`
-   hoert sonst auf zu wirken. Derselbe Vermerk steht oben bei .abl.
+   ---------------------------------------------------------------------------
+   DAS SPALTENVERHAELTNIS
+   Links 1fr, rechts 0,68fr. Bei 1520 px Inhaltsbreite und 4,4 rem Spalte
+   sind das rund 830 px fuer die Schritte und 565 px fuer das Bild. Das
+   Bild ist 2048 x 3072, also 2:3; bei 565 px Breite deckt es 848 px Hoehe
+   im eigenen Format. Die Schrittspalte misst bei 1440 px rund 830 px Hoehe
+   — das Bild wird also nur um wenige Prozent beschnitten und nicht auf ein
+   Drittel gequetscht. `object-fit: cover` bleibt trotzdem stehen: es faengt
+   die Faelle ab, in denen die Liste laenger oder kuerzer ausfaellt.
    =========================================================================== */
-.abl__stapel {
-  display: block;
+.abl__buehne {
+  display: grid;
+  /* DIE BILDHOEHE IST JETZT DAS MASS, NICHT DIE SPALTENBREITE —
+     31.08.2026. Der Kunde hat die Groesse zweimal korrigiert und beim
+     dritten Mal genau beschrieben, was er meint:
+
+       „Das Bild ist mittig zu den sechs Punkten, aber kleiner. Es muss
+        nicht von Punkt 01 bis Punkt 06 gehen. Es startet zwischen Punkt
+        01 und 02 und endet zwischen Punkt 05 und 06."
+
+     Das sind vier von sechs Schritten, also rund 67 Prozent der
+     Listenhoehe. Die Liste misst 615 px bei 1440 und 622 px bei 1920 —
+     Zielhoehe also rund 410 px. Ueber die Spaltenbreite war das nicht zu
+     treffen: sie bestimmt die Breite, und die Hoehe folgt erst ueber das
+     Seitenverhaeltnis. Deshalb steht die HOEHE jetzt fest und die Breite
+     ergibt sich; die Spalte nimmt nur noch, was das Bild braucht. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* Die Schrittfolge sitzt mittig zur Bildhoehe — 31.08.2026. Seit die
+     Schrift kleiner ist und das Bild wieder gross, ist die linke Spalte
+     rund 270 px kuerzer als die rechte. Oben ausgerichtet stand darunter
+     ein leeres Feld in dieser Hoehe; mittig gesetzt verteilt es sich auf
+     beide Seiten und die zwei Spalten lesen sich als ein Block. */
+  /* OBEN AUSRICHTEN, NICHT MITTIG — 31.08.2026, Kundenwunsch woertlich:
+     „Du darfst nicht das Bild und den Text als eine Einheit sehen, sondern
+     du musst beides getrennt verschieben koennen."
+     Mit `center` hing das Bild an der Mitte der Schrittliste: jede Zeile
+     mehr in der Liste schob das Bild nach oben, jede Aenderung an der
+     Bildhoehe schob es nach unten. Genau das war der Grund, warum sich
+     beim letzten Versuch beides zugleich bewegt hat.
+     Mit `start` haengen beide Spalten oben ein und tragen ihren Vorlauf
+     selbst — die Liste in .abl__folge, das Bild in .abl__saeule. Erst
+     dadurch sind sie getrennt einstellbar.
+
+     NACHGEZOGEN, gleicher Tag: `stretch` statt `start`. Der Kunde hat die
+     Bildhoehe danach genau bestimmt — „Das Bild beginnt auf Hoehe von
+     Punkt 01 und endet bei Punkt 06, auf Hoehe des Satzes ‚Auch danach
+     bleiben wir fuer dich erreichbar'." Das ist exakt die Hoehe der
+     Schrittliste. Mit `stretch` nimmt die Bildspalte diese Hoehe von
+     selbst an, an jeder Breite und bei jeder Zeilenzahl; jede feste Zahl
+     waere spaetestens beim naechsten Wortwechsel wieder falsch.
+     DAMIT DAS STIMMT, traegt den Vorlauf jetzt die BUEHNE und nicht mehr
+     die Liste — sonst begaenne das Bild ueber Punkt 01 statt auf seiner
+     Hoehe. */
+  align-items: stretch;
+  column-gap: clamp(2rem, 4.4vw, 4.4rem);
+  /* WAS HIER STAND UND WARUM ES WEG IST: eine zweite, spaetere
+     `align-items: start`-Zeile. Sie stammte aus dem Zwischenstand, in dem
+     das Bildfenster noch ueber die volle Listenhoehe lief und die Liste
+     buendig an seiner Oberkante beginnen sollte. Seit das Bild kleiner
+     ist und mittig zu den sechs Punkten steht (Regel darueber), war sie
+     nur noch die Zeile, die das `center` unwirksam machte. */
+  /* VON 5,6rem AUF 2,5rem — 31.08.2026, und der Grund ist gerechnet.
+     Ueber dem Abschnitt liegt die feste Kopfleiste der Seite
+     (.site-header, `position: fixed`, 103,5 px hoch, Grund
+     rgba(255,255,255,0.88) mit Weichzeichner — also deckend). Von den
+     900 Punkten Fensterhoehe bleiben damit 796,5 uebrig, in denen
+     Ueberschrift und sechs Schritte GLEICHZEITIG und UNVERDECKT stehen
+     muessen. Bei 89,6 px Vorlauf war die Spanne 860,9 px: alle sechs
+     Schritte im Fenster, aber die Ueberschrift zur Haelfte hinter der
+     Leiste. Das ist kein „auf einen Blick".
+     Der Vorlauf ist der groesste Posten, der weder Schrift noch Bild ist,
+     deshalb faellt er zuerst. 40 px bleiben ein deutlicher Absatz — die
+     Unterzeile bringt oberhalb ihre eigenen 23 px mit.
+     NACHGEBESSERT 31.08.2026: der Kunde will die Schritte und das Bild
+     „einen Tick weiter nach unten", damit der Kopfblock nicht auf der
+     Liste klebt. 2,5 -> 4,1rem, bei 1440 also 40 -> 63 px. Die Rechnung
+     oben bleibt gueltig: 796,5 px nutzbare Fensterhoehe minus 63 px
+     Vorlauf traegt die sechs Schritte weiterhin ohne Abschneiden, weil
+     die Schriftgroessen seit dem 31.08. kleiner sind.
+
+     NOCH EINMAL NACHGELEGT, gleicher Tag: „Zwischen Punkt 01 und der
+     Ueberschrift muss ein bisschen mehr Platz sein — setz die Punkte ein
+     bisschen tiefer." 4,1 -> 5,4rem, bei 1440 also 63 -> 83 px.
+
+     Seit dem Wechsel auf `stretch` traegt dieser Wert AUCH den Vorlauf,
+     der bis dahin an .abl__folge hing (46 px bei 1440). 5,4 + 2,9 =
+     8,3rem; gemessen bleiben es dieselben rund 130 px Abstand zwischen
+     Unterzeile und Punkt 01 wie zuvor. */
+  margin-top: clamp(4.5rem, 8.9vw, 8.3rem);
+}
+
+/* --- LINKE HAELFTE: die sechs Schritte -------------------------------------
+   Eine schlichte <ol>. Kein Raster ueber die ganze Spalte, keine Karten,
+   keine Flaechen — die Schritte stehen auf dem Grund des Abschnitts.
+
+   ZWEI SPALTEN JE SCHRITT: die Nummer, daneben Titel und Satz. Die
+   Nummernspalte ist FEST breit und nicht `auto`. Sonst waere sie so breit
+   wie die breiteste Ziffernfolge, und weil alle sechs zweistellig sind
+   waere das zwar gleich — aber bei einer nachgelieferten siebten Zeile
+   nicht mehr, und dann verspringt die Textkante aller Zeilen.
+   `font-variant-numeric: tabular-nums` haelt die Ziffern ausserdem auf
+   gleicher Laufweite.
+
+   DIE HAARLINIE UNTER JEDEM SCHRITT ist aus der Kundenvorlage vom
+   25.08.2026 (dort „Unter jedem Eintrag eine Haarlinie"). Sie ordnet die
+   sechs Zeilen, ohne eine Flaeche zu brauchen. Nach dem letzten Schritt
+   steht keine — eine Linie am Ende der Liste wuerde etwas abtrennen, das
+   nicht mehr kommt.
+-------------------------------------------------------------------------- */
+.abl__folge {
+  display: grid;
+  align-content: start;
   margin: 0;
-  padding: 0 0 clamp(1rem, 9vh, 7rem);
+  /* VORLAUF DER LISTE — 31.08.2026, Kundenwunsch: „Setz Punkt 01 mitsamt
+     den restlichen Punkten weiter nach unten, sodass zwischen der Subline
+     und den Punkten links mehr Abstand ist."
+     Der Wert wirkt NUR auf die linke Spalte. Das Bild rechts hat seinen
+     eigenen Vorlauf und bleibt davon unberuehrt — das ist der ganze Sinn
+     der Trennung eine Regel weiter oben.
+     Der Wert steht seit der Umstellung auf `stretch` an der BUEHNE, nicht
+     mehr hier — siehe dort. Die Liste beginnt wieder ohne eigenen
+     Vorlauf, damit Punkt 01 und die Oberkante des Bildes auf derselben
+     Hoehe liegen. */
+  padding: 0;
   list-style: none;
 }
 
-.abl__halt-karte { display: block; }
-.abl__halt-karte + .abl__halt-karte { margin-top: var(--abl-karte-luft); }
-
-.abl__karte {
+.abl__stufe {
   display: grid;
-  align-content: start;
-  /* IM FLUSS (ohne Skript, bei reduzierter Bewegung) nur eine Mindesthoehe —
-     dann darf die Karte mitwachsen und nichts wird abgeschnitten. Die FESTE
-     Hoehe steht weiter unten und gilt nur im gestapelten Zustand, wo sie die
-     Voraussetzung der 90-Prozent-Rechnung ist. */
-  /* ZWEI SPALTEN: Bild links, Wort rechts — 30.08.2026, zweiter Anlauf.
-     Die Bildspalte ist genau `Kartenhoehe x 1,5` breit. Das ist kein
-     Augenmass: die sechs Bilder liegen im Verhaeltnis 3:2 quer, also
-     Breite = 1,5 x Hoehe. Fuellt das Bild die volle Kartenhoehe, deckt es
-     bei genau dieser Spaltenbreite sein eigenes Format — es wird nichts
-     beschnitten und nichts verzerrt, obwohl `object-fit: cover` steht.
-     `cover` bleibt trotzdem stehen: es faengt den Fall ab, dass ein
-     nachgeliefertes Bild doch nicht exakt 3:2 misst. */
-  grid-template-columns: calc(var(--abl-karte-h) * 1.5) minmax(0, 1fr);
-  align-items: stretch;
-  min-height: var(--abl-karte-h);
-  /* KEIN Polster mehr an der Karte selbst — das Bild sitzt buendig in der
-     Ecke. Den Polster traegt jetzt die Wortspalte, siehe .abl__karte-wort. */
-  padding: 0;
-  border: 1px solid var(--abl-karte-kante);
-  border-radius: 14px;
-  /* Der Radius muss auch das Bild beschneiden. `clip` statt `hidden`: es
-     richtet keinen Rollbereich ein.
-     UNBEDENKLICH FUER DIE KLEBEMECHANIK — `position: sticky` scheitert an
-     `overflow` bei einem VORFAHREN. Der klebende Kasten ist
-     .abl__halt-karte, und der liegt UEBER dieser Karte, nicht darunter. */
-  overflow: clip;
-  /* DECKEND. Eine durchscheinende Karte wuerde die darunter liegende
-     durchschimmern lassen; der Stapel saehe dann nach Fehler aus.
-     Seit dem 30.08.2026 der Verlauf des FAQ-Kastens, waagerecht — die
-     Werte und die Kontrastrechnung stehen oben bei --abl-karte-links.
-     Die Kante bleibt: bei 90 Prozent Ueberdeckung sind von jeder Karte nur
-     rund zehn Prozent zu sehen, und zwei gleich gefaerbte Streifen
-     uebereinander waeren ohne Kante nicht auseinanderzuhalten. Sie steht
-     jetzt in einem hellen Grau statt in Gold, damit sie zum Anthrazit
-     passt. */
-  background: var(--abl-karte-grund);
+  /* Die Ziffernspalte ist am 31.08.2026 mit der Ziffer geschrumpft — von
+     3,6vw auf 2,7vw, bei 1440 also von 51,8 auf 38,9 px. Bliebe sie breit,
+     stuende die 17,6-px-Ziffer in einer Spalte, die dreimal so breit ist
+     wie sie selbst, und die Textkante ruecke ohne Grund nach rechts. */
+  grid-template-columns: clamp(2.0rem, 2.7vw, 2.6rem) minmax(0, 1fr);
+  column-gap: clamp(0.7rem, 1.15vw, 1.15rem);
+  align-items: start;
+  /* HAARLINIEN ENTFERNT 31.08.2026 — Kundenwunsch: „Du kannst sogar die
+     Striche dazwischen weglassen." Ohne sie muss die Fuge selbst trennen,
+     deshalb mehr Polster als in der Linienfassung. Die Ziffer uebernimmt
+     die Gliederung, die vorher die Linie geleistet hat.
+
+     DIESER WERT IST DER STELLKNOPF DER EIN-BLICK-BEDINGUNG. Sie lautet:
+     Ueberschrift und alle sechs Schritte stehen bei 1440 x 900
+     GLEICHZEITIG und UNVERDECKT im Fenster. Die feste Kopfleiste der
+     Seite nimmt davon 103,5 px, es bleiben 796,5 nutzbar; Abschnittskopf
+     und Vorlauf zur Buehne belegen davon rund 254 px, fuer die sechs
+     Schritte bleiben also rund 540. Jeder Punkt Polster zaehlt darin
+     ZEHNFACH: fuenf Fugen, zwei Seiten (der erste Schritt hat oben
+     keinen, der letzte unten keinen). Nach dem Schriftgrad ist das der
+     groesste Hebel des Abschnitts — wer hier aufdreht, kippt die
+     Bedingung. Belegt:
+
+         Deckel     Polster 1440    Spanne 1440    Spanne 1920
+         1,70rem       27,2 px         884,8          898,7
+         1,55rem       24,8 px         860,9          874,8
+         1,30rem       20,8 px         804,7          822,0   (zu hoch)
+
+     ES MISST DESHALB IN vh UND NICHT IN vw. Die Bedingung ist eine
+     Bedingung an die FENSTERHOEHE, nicht an die Fensterbreite: „alles auf
+     einen Blick" heisst, dass die Liste in die Hoehe passt, die das
+     Fenster hergibt. Eine Breitenformel weiss davon nichts — sie stellt
+     auf einem 1920 x 900 grossen Fenster (flach) dasselbe Polster wie auf
+     einem 1920 x 1440 grossen (hoch), und genau auf dem flachen laeuft es
+     ueber. 1,85vh dagegen atmet mit dem Platz, den es tatsaechlich gibt:
+
+         Fensterhoehe     Polster     Fuge zwischen zwei Schritten
+              700          13,6 px             27,2 px   (untere Schranke)
+              900          16,7 px             33,3 px
+             1080          20,0 px             40,0 px
+             1124 und mehr 20,8 px             41,6 px   (Deckel)
+
+     Der Deckel 1,3rem haelt die Fuge nach oben an: mehr als 41,6 px
+     zwischen zwei Zeilen faellt auseinander. Die untere Schranke 0,85rem
+     haelt sie nach unten: unter 13,6 px je Seite laufen die sechs Zeilen
+     ohne Haarlinien zu einem Block zusammen. */
+  padding-block: clamp(0.85rem, 1.85vh, 1.3rem);
+}
+/* Der erste Schritt braucht oben keinen Polster — die Buehne bringt ihren
+   eigenen Abstand zum Kopf mit. */
+.abl__stufe:first-child { padding-top: 0; }
+.abl__stufe:last-child { padding-bottom: 0; }
+
+.abl__stufe-nr {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--abl-fs-nr);
+  line-height: 1.28;                 /* auf die Grundlinie des Titels */
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--abl-bronze);          /* #8A5A20 — 5,41:1 auf dem Grund */
+}
+
+.abl__stufe-wort { min-width: 0; }
+
+.abl__stufe-titel {
+  margin: 0;
+  font-family: var(--font-display);
+  /* KRAEFTIGER — 31.08.2026, Kundenwunsch: „Die einzelnen Headlines der
+     Punkte muessen dicker geschrieben werden, sodass man klar erkennt,
+     dass das die Headlines sind."
+     300 -> 600. Beides sind echte Schnittdateien von Cormorant Garamond
+     (fonts.css, latin und latin-ext), kein vom Browser gerechnetes Fett.
+     Der Absatz darunter bleibt auf seinem Wert; der Unterschied zwischen
+     Name und Satz betraegt damit 300 Stufen statt keiner. */
+  font-weight: 600;
+  /* EIGENER GRAD, nicht --abl-fs-name. Der stammt aus der Kundenvorlage
+     vom 25.08.2026, wo der Schrittname in einer schmalen linken Spalte
+     NEBEN einem grossen Einzelheitenblock stand und deshalb klein bleiben
+     musste (25,8 px bei 1558). Hier ist der Name das Hauptwort der Zeile
+     und braucht einen eigenen Wert.
+
+     AM 31.08.2026 VON 1,95vw AUF 1,58vw ZURUECKGENOMMEN — bei 1440 px von
+     28,1 auf 22,7 px. Das VERHAELTNIS zum Satz bleibt dabei erhalten und
+     ist der Grund, warum es genau dieser Wert ist: 22,7 zu 17,0 sind
+     1,34 — vorher waren es 28,1 zu 21,6, also 1,30. Der Titel bleibt
+     also so deutlich Titel wie zuvor, er ist nur kleiner. Waere er
+     proportional weniger geschrumpft, stuende er als schwerster
+     Gegenstand allein in einer sonst leiser gewordenen Spalte. */
+  font-size: clamp(1.16rem, 1.58vw, 1.42rem);
+  line-height: 1.14;
+  letter-spacing: -0.004em;
+  color: var(--abl-navy);            /* #102949 — 13,44:1 auf dem Grund */
+  text-wrap: balance;
+}
+
+.abl__stufe-text {
+  /* Von 0,62vw auf 0,40vw, bei 1440 also von 8,9 auf 5,8 px. Titel und
+     Satz gehoeren zusammen; ruecken sie enger, liest sich der Schritt als
+     EINE Einheit und die Fuge zum naechsten Schritt wird deutlicher —
+     obwohl auch die kleiner geworden ist. */
+  margin: clamp(0.24rem, 0.40vw, 0.38rem) 0 0;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--abl-fs-satz);
+  line-height: 1.5;
+  color: var(--abl-text);            /* #5A6879 — 5,23:1 auf dem Grund */
+  text-wrap: pretty;
+  max-width: 44em;
+}
+
+/* --- RECHTE HAELFTE: EIN Bild ueber die volle Hoehe ------------------------
+   DIE WAHL DES BILDES ist im Markup begruendet: es ist das Bild, das bis
+   zum 30.08.2026 mittags schon einmal an dieser Stelle stand
+   (assets/img/ablauf/ablauf-fassade-1, 2048 x 3072), das einzige
+   hochformatige des Abschnitts und das einzige, das ein ganzes Wohnhaus
+   zeigt.
+
+   WIE ES DIE VOLLE HOEHE FUELLT, ohne dass irgendwo eine Hoehe gerechnet
+   werden muesste: die Figur ist ein Rasterkind und wird von
+   `align-items: stretch` auf die Zeilenhoehe gezogen — und die gibt die
+   Schrittliste vor. Das Bild liegt darin ABSOLUT und fuellt sie mit
+   `object-fit: cover`. Ohne das Absolute muesste die Figur eine definite
+   Hoehe haben, damit `height: 100%` am Bild etwas bedeutet; so braucht sie
+   keine.
+
+   `min-height` ist nur die Sicherung fuer den Fall, dass die Liste einmal
+   kuerzer ausfaellt als das Bild breit ist — dann bliebe sonst ein sehr
+   flacher Streifen stehen.
+
+   Kein Rahmen, kein Passepartout, keine goldene Kante. Der Kunde hat den
+   gerahmten Kasten am 30.08.2026 gestrichen; er kommt nicht zurueck. Es
+   bleibt der Eckenradius der Seite und eine sehr zurueckhaltende
+   Schattenlage, damit das helle Bild auf dem hellen Grund nicht
+   ausfranst.
+-------------------------------------------------------------------------- */
+.abl__saeule {
+  /* Die Breite des Passepartouts. Ein fester Wert waere bei 1920 zu duenn
+     und bei 390 zu dick; als clamp waechst er mit. Die Musterwohnung
+     darueber steht bei 8 px auf 1240 px Bildbreite — dasselbe Verhaeltnis
+     ergibt hier bei 499 px Fensterbreite rund 3 px, das waere zu wenig, um
+     als Rahmen zu lesen. Das Bildfenster ist schmaler als das Video,
+     also braucht es anteilig mehr Rand, nicht weniger. */
+  --abl-pp: clamp(7px, 0.62vw, 11px);
+
+  position: relative;
+  margin: 0;
+  /* DIE FIGUR HAELT IHRE FORM SELBST — bis zum 31.08.2026 hing sie an der
+     Schrittliste (`align-items: stretch` an der Buehne, Zeilenhoehe = Hoehe
+     der Liste). Seit die Liste kleiner geschrieben ist, waere das Bild
+     jede gesparte Zeile mitgeschrumpft; deshalb steht die Form hier.
+
+     DER WERT IST EINGEMESSEN, nicht gewaehlt: 0,688 ist das schmalste
+     Breiten-zu-Hoehen-Verhaeltnis, in dem das Fenster vor dem Umbau
+     tatsaechlich stand (1081 px: 374,5 x 544,9 = 0,6873; 1440 px:
+     498,9 x 718,5 = 0,6944; 1600 px und breiter: 522,0 x 745,5 = 0,7002).
+     Der Bildausschnitt bleibt damit der bisherige — 0,688 gegen das
+     Dateiformat 0,667 sind drei Prozent, die `object-fit: cover` an den
+     Seiten wegnimmt; vorher waren es vier.
+
+     Die HOEHE gibt seit dem Nachtrag die Regel darunter vor (Kundenwunsch:
+     „Das Bild ist mittig zu den sechs Punkten, aber kleiner."); das
+     Verhaeltnis hier rechnet daraus die Breite. */
+  /* HOEHE UND BREITE UNABHAENGIG — 31.08.2026, dritte Korrektur.
+     Vorher stand `aspect-ratio` und die Breite folgte der Hoehe; bei 416
+     px Hoehe blieben davon 286 px Breite, und das war dem Kunden viel zu
+     schmal: „Du hast es winzig klein gemacht. Mache es deutlich groesser,
+     sodass es die rechte Haelfte bedeckt."
+     Die HOEHE hatte er ausdruecklich als richtig bezeichnet, sie bleibt
+     also. Deshalb kein Seitenverhaeltnis mehr: die Breite kommt aus der
+     Spalte (halbe Buehne), die Hoehe steht fest, und `object-fit: cover`
+     am Bild darin nimmt den Ueberschuss oben und unten weg. Aus dem
+     Hochformat wird damit ein waagrechter Ausschnitt der Fassade. */
+  /* Einen Tick hoeher — 31.08.2026, letzte Korrektur des Kunden.
+     28,5vw -> 32vw, Deckel 26 -> 29rem. Bei 1440 also 410 -> 461 px,
+     bei 1920 416 -> 464 px. Breite und Lage bleiben unberuehrt: die
+     Breite haengt an der Spalte, die Oberkante am Aussenabstand. */
+  /* NOCH EINEN TICK HOEHER — 31.08.2026, Kundenwunsch: „Das Bild, das
+     rechts zu sehen ist, darf noch ein bisschen hoeher werden."
+     32vw -> 34,5vw, Deckel 29 -> 31rem. Bei 1440 also 461 -> 497 px.
+     Breite und Lage bleiben wie zuvor unberuehrt — sie kommen aus der
+     Rasterspalte, nicht aus diesem Wert. */
+  /* LAENGER, NICHT HOEHER GESETZT — 31.08.2026, Kundenwunsch woertlich:
+     „Du sollst es nicht hoeher an der Position setzen, sondern einfach
+     laenger ziehen, also in die Hoehe laenger ziehen."
+     Der Vorlauf darueber haelt die Oberkante an ihrem Platz — sie lag
+     unter der mittigen Ausrichtung bei 139 px (1920), 132 px (1440) und
+     136 px (1200) unter der Oberkante der Buehne, also im Mittel bei
+     8,5rem. Genau dieser Wert steht jetzt fest; das Bild waechst dadurch
+     ausschliesslich nach UNTEN.
+     Hoehe 31 -> 35rem: bei 1440 von 496 auf 560 px. Die Unterkante liegt
+     damit bei 136 + 560 = 696 px und bleibt innerhalb der 729 px hohen
+     Schrittliste — das Bild reicht also weiterhin von zwischen Punkt 01
+     und 02 bis zwischen Punkt 05 und 06.
+     Die BREITE ist unberuehrt: sie kommt aus der Rasterspalte. */
+  /* KEINE EIGENE HOEHE MEHR — 31.08.2026, letzte Ansage des Kunden:
+     „Das Bild beginnt auf Hoehe von Punkt 01 und endet bei Punkt 06."
+     Die Hoehe kommt seitdem aus der Rasterzeile (`align-items: stretch`
+     an der Buehne), also aus der Schrittliste selbst. Vorher stand hier
+     erst ein Seitenverhaeltnis, dann eine feste Hoehe und zuletzt ein
+     eigener Vorlauf von 8,5rem — alle drei mussten bei jeder Aenderung an
+     Text oder Schriftgrad nachgerechnet werden. Jetzt nicht mehr.
+     Die BREITE ist unberuehrt und kommt weiter aus der Rasterspalte; der
+     Kunde hat sie ausdruecklich als richtig bezeichnet. */
+  margin-top: 0;
+  height: auto;
+  min-height: 0;
+  min-height: 0;
+  /* Einen Tick tiefer, wie gewuenscht. */
+  margin-top: clamp(0.8rem, 2.2vw, 2rem);
+  padding: var(--abl-pp);
+  /* DAS PASSEPARTOUT IST WEISS, NICHT GOLD. Der Kunde hat den Goldrahmen
+     an der Musterwohnung ausdruecklich abbestellt, und hier gilt dasselbe:
+     „Ohne Goldrahmen und ohne Goldanimation." Weiss ist ausserdem die
+     Loesung, die dieser Seite schon gehoert — .robj__rahmen macht es
+     genauso, und aus demselben Grund: eine FLAECHE kann nicht
+     ungleichmaessig dick sein, eine 1-px-Linie mit Radius schon (an den
+     vier Rundungen verteilt sie sich auf zwei Geraetepixel und liest sich
+     dort duenner). Der Kunde hatte genau das am 25.08.2026 beanstandet. */
+  background: #FFFFFF;
+  border-radius: 16px;
+  /* Enger Kontaktschatten fuer die Kante, weiter fuer die Hoehe — dieselbe
+     Sprache wie --r-schatten in referenzobjekte.css. Er ist es, der das
+     weisse Passepartout auf dem hellen Grund ueberhaupt als eigenen Koerper
+     zeigt. */
   box-shadow:
       0 1px 2px rgba(16, 41, 73, 0.10),
-      0 16px 34px rgba(16, 41, 73, 0.18);
+      0 3px 8px -2px rgba(16, 41, 73, 0.11),
+      0 30px 60px -28px rgba(16, 41, 73, 0.28);
 }
 
-/* Die Bildspalte. Sie fuellt ihre Zelle vollstaendig. */
-.abl__karte-bild {
-  margin: 0;
-  min-width: 0;
-  /* Die Zelle ist so hoch wie die Karte; das Bild fuellt sie. */
-  align-self: stretch;
+/* DAS BILD LIEGT IM FENSTER, NICHT DAHINTER.
+   `inset: var(--abl-pp)` statt `inset: 0`: das Bild endet an der
+   Innenkante des Passepartouts, nicht an der Aussenkante des Rahmens.
+   Sonst laege es unter dem weissen Rand und das Fenster waere kein Fenster.
+   Der Radius innen ist kleiner als aussen — 9 gegen 16 px, also ungefaehr
+   die Differenz der Rahmenbreite. Zwei gleiche Radien saehen an der
+   Rundung wie ein Fehler aus. */
+.abl__saeule picture {
+  position: absolute;
+  inset: var(--abl-pp);
+  display: block;
+  border-radius: 9px;
   overflow: clip;
+  background: #EFEBE6;               /* der Platz, bevor das Bild da ist */
 }
-.abl__karte-bild picture { display: block; height: 100%; }
-.abl__karte-bild img {
+/* KEINE MASKE, KEIN VERLAUF, KEINE ANIMATION. Das Bild steht sofort und
+   vollstaendig; es blendet nicht ein, es wischt nicht auf und es laeuft
+   nirgends weich aus. Der Kunde: „nicht integriert in den Hintergrund,
+   sondern ganz normal als Bildfenster."
+
+   ZUM BESCHNITT: `object-fit: cover` fuellt das Fenster. Wie viel es dabei
+   wegnimmt, ist nachgerechnet — die Datei ist 2048 x 3072, also 0,667
+   breit zu hoch; das Fenster misst bei 1440 px Fensterbreite 499 x 718 px
+   innen, also 0,695. Der Unterschied betraegt vier Prozent, und die
+   nimmt cover an den Seiten weg. Das Bild ist damit praktisch
+   unbeschnitten. `object-position: center 42%` legt den Schnitt eine Spur
+   nach oben, damit die Fensterreihen mittig stehen. */
+.abl__saeule img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 42%;
 }
 
-/* Die Wortspalte traegt den Polster, den vorher die Karte hatte. */
-.abl__karte-wort {
-  display: grid;
-  align-content: start;
-  min-width: 0;
-  padding: clamp(1.15rem, 1.75vw, 1.75rem) clamp(1.3rem, 2.0vw, 2.0rem);
-}
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   DAS SYMBOL NEBEN DER NUMMER IST ENTFALLEN — 30.08.2026, ENTSCHEIDUNG.
-   Es sass rechts oben in der Karte und benannte den Schritt ein zweites
-   Mal, zeichenhaft. Seit jede Karte ein eigenes Bild traegt, ist genau
-   diese Aufgabe vergeben — und zwar besser: ein Foto sagt mehr als ein
-   Strichsymbol, und beide nebeneinander sind zwei Bilder fuer denselben
-   Gedanken in einer Karte, die nur zehn Prozent ihrer Hoehe zeigt.
-   Was bleibt, ist die NUMMER. Sie ist keine Verdopplung, sondern die
-   Ordnung: sie sagt, an welcher Stelle im Ablauf der Leser steht, und das
-   sagt weder Bild noch Titel.
-   Die Regeln .abl__karte-kopf und .abl__karte-ikon sind mit entfernt.
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-.abl__karte-nr {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--abl-fs-nr);
-  line-height: 1;
-  font-variant-numeric: lining-nums tabular-nums;
-  letter-spacing: 0.06em;
-  margin: 0;
-  color: var(--abl-karte-nr);      /* 5,83:1 an der hellsten Kartenstelle */
-}
-
-.abl__karte-titel {
-  margin-top: clamp(0.7rem, 1.1vw, 1.1rem);
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.5rem, 2.15vw, 2.05rem);
-  line-height: 1.08;
-  letter-spacing: -0.006em;
-  color: var(--abl-karte-titel);   /* 12,17:1 an der hellsten Kartenstelle */
-  text-wrap: balance;
-}
-
-.abl__karte-text {
-  margin-top: clamp(0.6rem, 0.95vw, 0.95rem);
-  font-family: var(--font-ui);
-  font-weight: 400;
-  font-size: var(--abl-fs-satz);
-  line-height: 1.5;
-  color: var(--abl-karte-text);    /* 7,69:1 an der hellsten Kartenstelle */
-  text-wrap: pretty;
-}
-
-/* Die senkrechte Haarlinie zwischen Liste und Einzelheiten. */
-.abl__trenner {
-  width: 1px;
-  background: var(--abl-linie-warm);
-}
-
-/* --- Spalte 1: die fuenf Schritte ---------------------------------------- */
-.abl__liste { display: grid; }
-
-.abl__eintrag {
-  position: relative;
-  /* Der Rhythmus der Vorlage: 107 px von Eintrag zu Eintrag. Die letzte
-     Zeile traegt ihn nicht mehr mit, sonst steht unten ein Loch. */
-  padding-bottom: calc(var(--abl-rhythmus) - clamp(1.9rem, 2.6vw, 2.4rem));
-}
-.abl__eintrag:last-child { padding-bottom: 0; }
-
-.abl__schritt {
-  display: grid;
-  grid-template-columns: clamp(3.6rem, 4.3vw, 4.3rem) minmax(0, 1fr);
-  align-items: baseline;
-  width: 100%;
-  text-align: left;
-  padding: 0.15em 0 0.28em;
-  color: inherit;
-  transition: color 0.34s var(--ease);
-}
-
-.abl__schritt-nr {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--abl-fs-nr);
-  line-height: 1;
-  font-variant-numeric: lining-nums tabular-nums;
-  color: var(--abl-bronze);
-}
-
-.abl__schritt-name {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--abl-fs-name);
-  line-height: 1.15;
-  color: var(--abl-name);
-  transition: color 0.34s var(--ease);
-}
-
-/* Der gewaehlte Eintrag steht in Navy — auf der Vorlage der einzige
-   Unterschied in der Schrift; alles Weitere macht die Linie darunter. */
-.abl__schritt[aria-expanded='true'] .abl__schritt-name { color: var(--abl-navy); }
-
-.abl__schritt:hover .abl__schritt-name { color: var(--abl-navy); }
-.abl__schritt:focus-visible { outline: 1px solid var(--abl-gold); outline-offset: 6px; }
-
-/* Die Linie unter dem Eintrag: 15..18 px unter der Textkante, Laenge bis
-   x 437 der Vorlage — also volle Spaltenbreite. */
-.abl__linie {
-  display: block;
-  width: 100%;
-  height: 14px;
-  margin-top: clamp(0.5rem, 0.96vw, 0.9rem);
-  overflow: visible;
-}
-.abl__linie-ruhe {
-  stroke: var(--abl-linie);
-  transition: stroke 0.34s var(--ease);
-}
-.abl__linie-aktiv {
-  stroke: var(--abl-navy);
-  opacity: 0;
-  transition: opacity 0.34s var(--ease);
-}
-.abl__schritt[aria-expanded='true'] + .abl__linie .abl__linie-aktiv { opacity: 1; }
-
-/* Der gefuellte goldene Punkt am rechten Ende der Aktivlinie. Er sitzt auf
-   der Linienmitte, deshalb dieselbe Rechnung wie oben plus halbe Linienhoehe. */
-.abl__punkt-aktiv {
-  position: absolute;
-  right: 0;
-  bottom: calc(var(--abl-rhythmus) - clamp(1.9rem, 2.6vw, 2.4rem) + 0.5px);
-  width: 13px; height: 13px;
-  transform: translate(0, 6.5px);
-  fill: var(--abl-gold);
-  opacity: 0;
-  transition: opacity 0.34s var(--ease);
-  pointer-events: none;
-}
-.abl__eintrag:last-child .abl__punkt-aktiv { bottom: 0.5px; }
-.abl__eintrag:has(.abl__schritt[aria-expanded='true']) .abl__punkt-aktiv { opacity: 1; }
-
-/* --- Spalte 3: Einzelheiten ------------------------------------------------
-   OHNE SKRIPT stehen die fuenf Beschreibungen untereinander.
-   MIT SKRIPT liegen sie alle in DERSELBEN Rasterzelle (1 / 1). Daraus folgt
-   genau das, was der Kunde verlangt hat:
-     — die Oberkante des Infoblocks liegt bei JEDEM Schritt auf demselben
-       Bildpunkt, weil alle fuenf an derselben Zellenkante beginnen;
-     — die Hoehe des Kastens ist konstant, weil das Raster sich nach der
-       hoechsten Beschreibung richtet und die anderen nicht kleiner machen;
-     — beim Wechsel wird nur der Inhalt getauscht, der Kasten bleibt stehen.
-   Das Ausgeblendete steht auf visibility: hidden — nicht auf display: none.
-   Nur so bleibt es fuer die Hoehenrechnung des Rasters erhalten.
--------------------------------------------------------------------------- */
-.abl__spalte--detail { display: grid; align-content: start; }
-
-.abl__panel + .abl__panel { margin-top: clamp(2.4rem, 5vw, 4rem); }
-
-.abl__kicker {
-  font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: var(--abl-fs-kicker);
-  line-height: 1;
-  letter-spacing: 0.26em;
-  text-indent: 0.26em;
-  text-transform: uppercase;
-  /* Auf der Vorlage stehen hier VERSALZIFFERN. Cormorant setzt von Haus aus
-     Mediaevalziffern; ohne diese Zeile stuende die „01" einen Kopf kleiner
-     als die Versalien daneben. */
-  font-variant-numeric: lining-nums;
-  color: var(--abl-bronze);
-}
-
-.abl__panel-titel {
-  margin-top: clamp(1.1rem, 1.8vw, 1.8rem);
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: var(--abl-fs-h3);
-  line-height: 1.02;
-  letter-spacing: -0.006em;
-  color: var(--abl-navy);
-  text-wrap: balance;
-}
-
-.abl__panel-text {
-  margin-top: clamp(1.0rem, 1.7vw, 1.7rem);
-  font-family: var(--font-ui);
-  font-weight: 400;
-  font-size: var(--abl-fs-satz);
-  line-height: 1.5;
-  color: var(--abl-text);
-  max-width: 30ch;
-}
-
-.abl__panel-strich {
-  display: block;
-  width: 100%;
-  height: 1px;
-  margin-top: clamp(1.3rem, 2.4vw, 2.4rem);
-  color: var(--abl-gold);
-}
-
-.abl__punkte {
-  display: grid;
-  /* 46 px Abstand auf 1558 = 2,95vw */
-  row-gap: clamp(0.72rem, 1.55vw, 1.42rem);
-  margin-top: clamp(1.5rem, 2.8vw, 2.75rem);
-}
-
-.abl__punkte li {
-  display: grid;
-  /* Haken bei x 546, Text bei x 584 — 38 px Spalte auf 1558 = 2,44vw */
-  grid-template-columns: clamp(1.9rem, 2.44vw, 2.4rem) minmax(0, 1fr);
-  align-items: baseline;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--abl-fs-punkt);
-  line-height: 1.3;
-  color: var(--abl-name);
-}
-
-.abl__haken {
-  width: clamp(13px, 1.1vw, 17px);
-  height: auto;
-  align-self: center;
-  transform: translateY(0.06em);
-  color: var(--abl-bronze-ic);
-}
-
-.abl__weiter {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(0.9rem, 1.7vw, 1.6rem);
-  justify-self: start;
-  margin-top: clamp(1.8rem, 4.2vw, 3.9rem);
-  padding: 0.3em 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--abl-fs-weiter);
-  line-height: 1.2;
-  color: var(--abl-navy);
-}
-.abl__pfeil {
-  width: clamp(26px, 2.2vw, 34px);
-  height: auto;
-  transition: transform 0.34s var(--ease);
-}
-.abl__weiter:hover .abl__pfeil { transform: translateX(5px); }
-.abl__weiter:focus-visible { outline: 1px solid var(--abl-gold); outline-offset: 6px; }
-
-/* --- Der Abschluss unter dem Stapel ----------------------------------------
-   ERSATZLOS ENTFERNT AM 30.08.2026 (zweiter Anlauf): die ganze zweite
-   Spalte. Hier standen `.abl__spalte--haus`, `.abl__fenster`, `.abl__bild`,
-   `.abl__spalte--haus picture` und `.abl__fassade` — Bildfenster,
-   Passepartout und die aeltere, weich ausmaskierte Fassadenwaesche. Der
-   Kunde hat das Bild rechts gestrichen und den Stapel auf die volle Breite
-   gestellt.
-
-   GEBLIEBEN sind die zwei Schlusszeilen mit ihrer goldenen Haarlinie. Sie
-   hiessen `.abl__hausworte`, weil sie in der Hausspalte standen; es gibt
-   kein Haus mehr, also heissen sie jetzt `.abl__schluss`. Sie stehen
-   mittig unter dem Stapel.
+/* --- Der Abschluss unter der Buehne ----------------------------------------
+   Die zwei Schlusszeilen mit ihrer goldenen Haarlinie. Sie hiessen bis zum
+   30.08.2026 `.abl__hausworte`, weil sie in der Bildspalte standen; sie
+   heissen seither `.abl__schluss` und stehen mittig unter der ganzen
+   Buehne. Am 31.08.2026 hat der Abschnitt wieder eine Bildspalte bekommen —
+   die Zeilen bleiben trotzdem, wo sie sind: sie sind eine Aussage ueber den
+   Ablauf und haengen an keiner der beiden Spalten.
 -------------------------------------------------------------------------- */
 .abl__schluss {
   display: grid;
   justify-items: center;
   text-align: center;
-  /* Der Stapel endet mit seinem eigenen Polster; hier kommt nur der Abstand
-     dazu, der die Schlusszeilen als eigene Aussage abhebt. */
-  margin-top: clamp(1.6rem, 3.6vw, 3.2rem);
+  margin-top: clamp(2rem, 4.2vw, 3.6rem);
 }
 .abl__hausstrich {
   width: clamp(38px, 3.34vw, 52px);
@@ -721,104 +829,146 @@
   font-weight: 400;
   font-size: var(--abl-fs-haus);
   line-height: 1.34;
-  color: var(--abl-navy);
+  color: var(--abl-navy);            /* #102949 — 13,44:1 auf dem Grund */
   text-wrap: balance;
 }
-
-/* ===========================================================================
-   MIT JAVASCRIPT WIRD GESTAPELT
-   ablauf.js setzt [data-abl-bereit='true'] — und tut sonst nichts. Erst ab
-   dann kleben die Karten und das Bildfenster. OHNE Skript fehlt das
-   Attribut, die Kaesten bleiben `static`, und alle sechs Karten stehen
-   lesbar untereinander. Das ist Bedingung, nicht Kuer.
-   =========================================================================== */
-.abl[data-abl-bereit='true'] .abl__halt-karte { position: sticky; }
-
-/* Erst hier die FESTE Hoehe. Sie ist die Voraussetzung dafuer, dass
-   --abl-versatz wirklich ein Zehntel der Kartenhoehe ist. */
-.abl[data-abl-bereit='true'] .abl__karte { height: var(--abl-karte-h); }
-
-/* Die gestaffelten Klebehoehen. Als nth-child und nicht als Inline-Wert,
-   damit im Markup keine Rechengroesse steht. */
-.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(1) { top: var(--abl-klebe); }
-.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(2) { top: calc(var(--abl-klebe) + 1 * var(--abl-versatz)); }
-.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(3) { top: calc(var(--abl-klebe) + 2 * var(--abl-versatz)); }
-.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(4) { top: calc(var(--abl-klebe) + 3 * var(--abl-versatz)); }
-.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(5) { top: calc(var(--abl-klebe) + 4 * var(--abl-versatz)); }
-.abl[data-abl-bereit='true'] .abl__stapel > li:nth-child(6) { top: calc(var(--abl-klebe) + 5 * var(--abl-versatz)); }
 
 /* ===========================================================================
    BREITEN
    =========================================================================== */
 
-/* Mittlere Fenster: die Karte bleibt zweispaltig, wird aber flacher —
-   ueber die volle Breite bricht der Beschreibungssatz frueher um. Mit der
-   Kartenhoehe schrumpft die Bildspalte automatisch mit, sie ist an sie
-   gebunden (Hoehe x 1,5). */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ENTFERNT AM 31.08.2026, weil es nichts mehr gibt, worauf es sich bezieht:
+     · der Block „MIT JAVASCRIPT WIRD GESTAPELT" — .abl[data-abl-bereit]
+       an .abl__halt-karte, an .abl__karte und die sechs gestaffelten
+       Klebehoehen ueber :nth-child(1..6).
+     · die Kartenregeln in den Breiten (Kartenhoehe je Fensterbereich,
+       Umbruch der Karte auf Bild-oben unter 760 px).
+   Alles steht in der Versionsgeschichte.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* Mittlere Fenster: die Bildspalte darf schmaler werden, damit den
+   Schritten die Satzbreite bleibt. Von 0,68fr auf 0,58fr — bei 1024 px
+   Fenster sind das 346 statt 380 px fuer das Bild und 596 statt 562 px
+   fuer die Schritte. */
 @media (max-width: 1080px) {
-  .abl__stapel { padding-bottom: clamp(0.5rem, 4vh, 3rem); }
-  .abl { --abl-karte-h: clamp(11.6rem, 18vw, 13.4rem); }
-}
-
-/* Einspaltig: der Kartenstapel oben, das Bildfenster darunter.
-   DER STAPEL BLEIBT AUCH HIER EIN STAPEL. Er kostet kein Skript und keine
-   Rechenzeit — es ist reines `position: sticky` — und gerade auf dem Telefon
-   traegt die Form am besten. Was hier entfaellt, ist nur das Kleben des
-   Bildfensters; das steht ohnehin unter dem Stapel. */
-@media (max-width: 760px) {
-  .abl { padding-bottom: clamp(2rem, 6vh, 3.4rem); }
-
-  .abl__buehne { margin-top: clamp(1.8rem, 7vw, 3rem); }
-  .abl {
-    --abl-rhythmus: clamp(2.9rem, 12vw, 3.9rem);
-    --abl-fs-h3: clamp(1.85rem, 9.4vw, 2.9rem);
-    --abl-fs-h2: clamp(1.72rem, 8.4vw, 2.6rem);
-    --abl-fs-name: clamp(1.06rem, 4.6vw, 1.34rem);
-    --abl-fs-nr: clamp(1.0rem, 4.3vw, 1.26rem);
-    --abl-fs-sub: clamp(1.0rem, 4.1vw, 1.2rem);
-    --abl-fs-satz: clamp(1.0rem, 4.1vw, 1.2rem);
-    --abl-fs-punkt: clamp(1.0rem, 4.1vw, 1.2rem);
-    --abl-fs-weiter: clamp(1.04rem, 4.3vw, 1.24rem);
-    --abl-fs-haus: clamp(1.1rem, 4.7vw, 1.36rem);
-    --abl-fs-eyebrow: clamp(0.82rem, 3.4vw, 0.96rem);
-    --abl-fs-kicker: clamp(0.76rem, 3.1vw, 0.9rem);
+  .abl__buehne {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    column-gap: clamp(1.6rem, 3.4vw, 3rem);
   }
-
-  .abl__schritt { grid-template-columns: 2.9rem minmax(0, 1fr); }
-  .abl__panel-text { max-width: none; }
-  .abl__punkte li { grid-template-columns: 1.7rem minmax(0, 1fr); }
-
-  /* UNTER 760 STEHT DAS BILD OBEN, NICHT LINKS.
-     Nebeneinander ginge hier nicht mehr auf: die Bildspalte ist an die
-     Kartenhoehe gebunden (Hoehe x 1,5) und waere bei 390 px Fenster rund
-     300 Punkte breit — mehr als die Karte insgesamt hat. Also bricht die
-     Karte um: das Bild in voller Breite im Format 3:2 oben, der Text
-     darunter.
-     Die feste Kartenhoehe bleibt — sie ist die Voraussetzung der
-     90-Prozent-Rechnung. Sie ist hier die Summe aus Bildhoehe (zwei Drittel
-     der Kartenbreite) und Texthoehe und deshalb in vw gerechnet, nicht in
-     rem: die Bildhoehe waechst mit der Fensterbreite.
-     Gemessen am laengsten Satz (Schritt 04 und 06, vier Zeilen). */
-  .abl__karte {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
-  }
-  .abl__karte-bild { aspect-ratio: 3 / 2; }
-  .abl { --abl-karte-h: clamp(20rem, 62vw + 8.6rem, 27rem); }
-  .abl__karte-titel { font-size: clamp(1.5rem, 6.6vw, 1.95rem); }
-  .abl__karte { border-radius: 12px; }
+  /* HIER STAND EIN BODEN FUER DIE BILDHOEHE (`min-height` um 33rem) aus dem
+     Zwischenstand, in dem das Fenster ueber die volle Listenhoehe lief. Er
+     ist weg: die Hoehe kommt jetzt aus der Grundregel (clamp ueber vw) und
+     soll in diesem Band ebenso kleiner ausfallen wie darueber. Der Boden
+     haette sie bei 1024 px auf 533 px hochgezogen — ein Drittel mehr, als
+     der Kunde bestellt hat. */
 }
 
 /* ===========================================================================
-   BEWEGUNG ZURUECKGENOMMEN
-   Alles bleibt sichtbar und bedienbar, nur ohne Weg.
+   UNTER 900 px: EINE SPALTE — UND DAS BILD STEHT UNTEN.
 
-   AB DEM 30.08.2026 GEHOERT DER KARTENSTAPEL DAZU. Er ist zwar keine
-   Animation — es rollt niemand von allein, der Leser rollt selbst — aber er
-   verdeckt Gelesenes, und genau das ist fuer Menschen mit
-   Bewegungsempfindlichkeit die Zumutung. Hier stehen deshalb alle sechs
-   Karten untereinander, in voller Hoehe, nichts klebt und nichts ueberdeckt
-   etwas. Dasselbe Bild wie ohne Javascript. Bedingung, nicht Kuer.
+   DIE ENTSCHEIDUNG UND IHR GRUND.
+   Das Bild ist 2:3 hoch. Ueber die volle Breite eines 390-px-Fensters
+   gestellt waere es 585 Punkte hoch — deutlich mehr als eine halbe
+   Telefonseite. Stuende es OBEN, laege genau dieses Bild zwischen der
+   Ueberschrift „Du gehst sechs Schritte. Wir gehen mit." und dem ersten
+   Schritt: der Leser bekaeme die Ankuendigung, danach eine Bildschirmhoehe
+   Fassade, und erst dann das, was angekuendigt war. Der Abschnitt handelt
+   von den sechs Schritten, nicht vom Haus.
+   UNTEN schliesst das Bild den Abschnitt ab — zusammen mit den beiden
+   Schlusszeilen, die ohnehin darunter stehen. Es ist dort Ausklang und
+   nicht Hindernis. Dieselbe Ueberlegung wie in der zweispaltigen Fassung,
+   nur gedreht: dort steht es NEBEN den Schritten und haelt sie nicht auf.
+
+   Die Reihenfolge muss dafuer nicht gedreht werden — im Markup steht die
+   Liste ohnehin vor der Figur. Das ist auch die richtige Vorlesereihenfolge.
+
+   DAS FORMAT WIRD DABEI BESCHNITTEN: 4:3 statt 2:3. Bei 390 px sind das
+   293 statt 585 Punkte Hoehe. `object-fit: cover` nimmt den Ausschnitt aus
+   der Mitte, `object-position: center 42%` haelt dabei die Fensterreihen im
+   Bild und schneidet unten mehr weg als oben.
+   =========================================================================== */
+@media (max-width: 900px) {
+  /* EINSPALTIG: der feste Vorlauf des Bildes (8,5rem) und der Vorlauf der
+     Liste gelten nur nebeneinander. Untereinander stehen beide sonst als
+     doppelte Luecke im Fluss. 31.08.2026. */
+  /* EINSPALTIG: untereinander gibt es keine gemeinsame Zeilenhoehe mehr,
+     das Bild braucht hier wieder ein eigenes Mass. 31.08.2026. */
+  .abl__saeule { margin-top: clamp(1.4rem, 4vw, 2.2rem); height: clamp(15rem, 52vw, 22rem); }
+
+  .abl__buehne {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(1.8rem, 5vw, 2.8rem);
+    margin-top: clamp(1.8rem, 7vw, 3rem);
+  }
+  .abl__saeule {
+    aspect-ratio: 4 / 3;
+    /* `height: auto` MUSS HIER STEHEN. In der Breite gibt eine feste
+       Hoehe das Mass und das Verhaeltnis rechnet die Breite daraus; in
+       einer Spalte ist es umgekehrt — die Breite ist die volle
+       Spaltenbreite, die Hoehe folgt. Bliebe die feste Hoehe stehen,
+       ergaebe 4:3 daraus eine Breite von 363 px in einer 342 px breiten
+       Spalte, und die Seite laeuft bei 390 px um 39 Punkte waagrecht
+       ueber. Nachgemessen: mit `auto` ist der Ueberlauf null. */
+    height: auto;
+    min-height: 0;
+    /* Der Rahmen darf hier eine Spur schmaler stehen — er ist bei 390 px
+       sonst ein Vierzigstel der Bildbreite. */
+    --abl-pp: 7px;
+    border-radius: 13px;
+  }
+  .abl__saeule picture { border-radius: 7px; }
+}
+
+@media (max-width: 760px) {
+  .abl { padding-bottom: clamp(2rem, 6vh, 3.4rem); }
+
+  .abl {
+    --abl-fs-h2: clamp(1.72rem, 8.4vw, 2.6rem);
+    --abl-fs-name: clamp(1.10rem, 4.6vw, 1.34rem);
+    --abl-fs-nr: clamp(1.0rem, 4.3vw, 1.26rem);
+    --abl-fs-sub: clamp(1.0rem, 4.1vw, 1.2rem);
+    --abl-fs-satz: clamp(1.0rem, 4.1vw, 1.2rem);
+    --abl-fs-haus: clamp(1.1rem, 4.7vw, 1.36rem);
+    --abl-fs-eyebrow: clamp(0.82rem, 3.4vw, 0.96rem);
+  }
+
+  /* Die Nummernspalte darf schmaler stehen; bei 390 px sind 2,6rem sonst
+     ein Fuenftel der Zeilenbreite. */
+  .abl__stufe {
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    column-gap: 0.8rem;
+    /* AUF DEM TELEFON BLEIBT DER RHYTHMUS, WIE ER WAR — 18,4 px je Seite,
+       Zeichen fuer Zeichen der Wert vom 31.08.2026 vor dem Umbau.
+       Die engeren Abstaende oben sind fuer die BREITE gerechnet: dort
+       muessen Ueberschrift und sechs Schritte gleichzeitig im Fenster
+       stehen. Hier darf gerollt werden (ausdruecklich), und die
+       Mindestwerte der neuen clamps wuerden die Liste ohne Gewinn
+       zusammenziehen. */
+    padding-block: clamp(1.15rem, 4.4vw, 1.75rem);
+  }
+  /* Aus demselben Grund: der Abstand zwischen Titel und Satz bleibt bei
+     6,4 px stehen. */
+  .abl__stufe-text { margin-top: clamp(0.4rem, 1.6vw, 0.62rem); }
+  /* Derselbe Abstand zum Satz wie in der Breite: ein Drittel darueber.
+     Bei 390 px sind das 22,9 px Titel gegen 16,0 px Satz. */
+  .abl__stufe-titel { font-size: clamp(1.24rem, 5.9vw, 1.62rem); }
+}
+
+/* ===========================================================================
+   BEWEGUNG ZURUECKGENOMMEN — UND ZWAR VOLLSTAENDIG.
+
+   IN DIESEM ABSCHNITT BEWEGT SICH SEIT DEM 31.08.2026 NICHTS MEHR: kein
+   Kartenstapel, kein Bildwisch, kein `data-reveal`, kein Javascript. Was
+   hier steht, ist deshalb nur noch die Sicherung — falls einmal jemand
+   einen Uebergang ergaenzt, ohne an diese Stelle zu denken.
+
+   ENTFERNT sind mit den Karten:
+     · .abl[data-abl-bereit] .abl__halt-karte { position: static }
+       und die Ruecknahme der festen Kartenhoehe — beides ohne Gegenstand.
+     · der ganze Block „DAS KARTENBILD WISCHT AUF" samt `@keyframes
+       abl-wisch` und seiner Ruecknahme bei `reduce`. Das war die
+       Goldanimation, die der Kunde ausdruecklich nicht mehr will.
    =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .abl *,
@@ -827,76 +977,12 @@
     animation-duration: 0.001s !important;
     transition-duration: 0.001s !important;
   }
-
-  .abl[data-abl-bereit='true'] .abl__halt-karte { position: static; }
-  .abl[data-abl-bereit='true'] .abl__karte { height: auto; }
-  .abl__stapel { padding-bottom: 0; }
 }
 
-/* ===========================================================================
-   DAS KARTENBILD WISCHT AUF — 30.08.2026
-   Eine Geste fuer diesen Abschnitt, und sie erklaert etwas: der Stapel
-   arbeitet von unten nach oben, also wischt auch jedes Bild in Leserichtung
-   von links auf. Der Text der Karte steht dabei die ganze Zeit — es blendet
-   nichts ein, was man lesen will.
-
-   AUSLOESER ist der IntersectionObserver aus assets/js/site.js: data-reveal
-   am <figure>, das Skript setzt einmal data-seen und beobachtet danach nicht
-   weiter. Kein Scroll-Horcher, kein requestAnimationFrame.
-
-   Der siteweite Einlauf (opacity + translateY aus leistungen.css) ist fuer
-   dieses Element abgeschaltet — er wuerde die Karte auseinanderziehen.
-
-   BEWEGT WIRD NUR `mask-position`. Kein `width`, kein `filter`.
-   OHNE JAVASCRIPT fehlt `.is-ready`, dann steht das Bild sofort und
-   vollstaendig. Bei `reduce` ebenso, siehe unten.
-   =========================================================================== */
-.abl__karte-bild[data-reveal] {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-.is-ready .abl__karte-bild[data-reveal] img {
-  /* DIE RECHNUNG, ausgeschrieben — beim ersten Versuch stand sie falsch
-     herum und der Wisch hat das Bild WEGgenommen statt es aufzudecken.
-
-       Maskenkasten  240 % der Bildbreite B, also 2,4B
-       Verlauf       von links: durchsichtig bis 45 %, deckend ab 55 %
-                     der deckende Teil ist 0,45 x 2,4B = 1,08 B breit, also
-                     BREITER als das Bild — Bedingung, sonst kann er es am
-                     Ende nicht ganz decken
-       Anfang  mask-position-x = 0 %    -> Kasten [0, 2,4B], deckend ab 1,32B
-                                           das Bild reicht nur bis B: nichts
-       Ende    mask-position-x = 100 %  -> Versatz 100 % x (B - 2,4B) = -1,4B
-                                           Kasten [-1,4B, B], deckend ab -0,08B
-                                           das ganze Bild liegt im Deckenden
-
-     Vorher standen 200 % und ein deckender Teil LINKS. Damit war das Bild am
-     Anfang zu 92 Prozent sichtbar und am Ende ganz weg — genau verkehrt. */
-  --abl-wisch: linear-gradient(to right,
-      rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 45%, #000 55%, #000 100%);
-  -webkit-mask-image: var(--abl-wisch);
-          mask-image: var(--abl-wisch);
-  -webkit-mask-size: 240% 100%;
-          mask-size: 240% 100%;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: 0% 0%;
-          mask-position: 0% 0%;
-}
-.is-ready .abl__karte-bild[data-seen='true'] img {
-  animation: abl-wisch 820ms var(--ease-soft) both;
-}
-@keyframes abl-wisch {
-  from { -webkit-mask-position: 0%   0%; mask-position: 0%   0%; }
-  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .is-ready .abl__karte-bild[data-reveal] img,
-  .is-ready .abl__karte-bild[data-seen='true'] img {
-    -webkit-mask-image: none;
-            mask-image: none;
-    animation: none;
-  }
+/* KNOPF UNTER DEN SCHLUSSZEILEN — 31.08.2026, Kundenwunsch.
+   Mittig, mit Abstand zur letzten Zeile. Die Farbe kommt aus base.css
+   (Sandflaeche, weisse Schrift); hier steht nur die Lage. */
+.abl__hausknopf {
+  margin: clamp(1.4rem, 3vw, 2.4rem) 0 0;
+  text-align: center;
 }

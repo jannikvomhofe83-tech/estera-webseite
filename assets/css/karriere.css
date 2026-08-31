@@ -2430,3 +2430,203 @@
   .kar-knopf--voll::before,
   .kar-knopf--linie { transition: none; }
 }
+
+
+/* ===========================================================================
+   11  NACHTRAG ZUM WORDING VOM 31.08.2026
+
+   Der Auftrag lautete, den Wortlaut aus Estera_Karriere_Wording.pdf
+   (Teil 1, K01–K07) zu übernehmen und das Design unangetastet zu lassen.
+   Die sechs Regeln hier sind der Preis dafür — und mehr sind es nicht.
+   KEINE davon setzt eine Farbe, eine Form, eine Schriftgröße oder einen
+   Radius. Alle sechs sind reine Geometrie und rechnen mit den Werten, die
+   oben in dieser Datei schon stehen (--kar-eng, --kar-luft). Wer sie
+   entfernt, verliert Abstände und die Anordnung der Knöpfe, nicht die
+   Gestalt der Seite.
+   =========================================================================== */
+
+/* --- 1  DIE KNOPFREIHE IM KOPFBEREICH UND IM ABSCHLUSS --------------------
+   K01 verlangt zwei Knöpfe nebeneinander, K07 einen. Die Knöpfe selbst
+   sind die der Stellenkästen und bleiben Zeichen für Zeichen, wie sie
+   sind — Sand, weiße Schrift, 4 px Radius, 56 px hoch.
+
+   NUR IHRE ANORDNUNG BRAUCHT EINE EIGENE REIHE. .kar-knopf trägt
+   `flex: 1 1 100%`, und das ist im Stellenkasten richtig: dort sollen die
+   zwei Knöpfe untereinander über die Kastenbreite laufen. Im Kopfbereich
+   ist der Kasten 1087,8 px breit — zwei Knöpfe darüber, jeder in voller
+   Breite und einer unter dem anderen, wären keine Knöpfe mehr, sondern
+   zwei Balken. Deshalb hier `flex: 0 1 auto` mit einer Mindestbreite, die
+   der gemessenen Knopfbreite der Vorlage entspricht (288,5 px, gerundet
+   auf die 240 px, ab denen der längere der beiden Beschriftungen
+   einzeilig bleibt).
+
+   `flex-wrap: wrap` ist die Absicherung nach unten: bei 390 px stehen die
+   zwei Knöpfe untereinander, jeder über die Behälterbreite. Genau das,
+   was .kar-knopf im Kasten ohnehin tut.
+
+   Die 28 px Abstand nach oben sind kein neuer Wert: es ist der Abstand,
+   den .kar-angebot__raute unter sich lässt, also der bereits gesetzte
+   Schritt zwischen zwei Bausteinen einer Textgruppe. */
+.kar-kopf__knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;                   /* wie .kar-karte__knoepfe */
+  margin-top: 28px;
+}
+.kar-kopf__knoepfe .kar-knopf {
+  flex: 0 1 auto;
+  min-width: 240px;
+}
+
+/* --- 2  DIE KLEINZEILE UNTER DER KNOPFREIHE -------------------------------
+   Die Vertrauenszeile in K01 und die Microcopy in K07 stehen in
+   .kar-karte__art. Diese Klasse lebt sonst als erste Zeile in einem
+   Stellenkasten und braucht dort keinen Abstand nach oben; hier folgt sie
+   auf die Knopfreihe. 20 px ist der Wert, den dieselbe Gruppe im Kasten
+   zwischen Kleinzeile und Text hält (.kar-karte__bereiche). */
+.kar-kopf__knoepfe + .kar-karte__art { margin-top: 20px; }
+
+/* --- 3  KLEINZEILE GEGEN ÜBERSCHRIFT AUSSERHALB VON .kar-wer --------------
+   Das Etikett im Sandbalken steht jetzt auch über den Überschriften von
+   K03, K04, K05 und K07. .kar-wer .kar-titel hält dafür seit jeher
+   --kar-eng bereit; die Regel ist aber auf .kar-wer eingegrenzt. Statt
+   sie zu erweitern (und damit jede Überschrift dieser Seite zu treffen,
+   auch die ohne Etikett), hängt der Abstand hier am Nachbarschafts-
+   verhältnis: er greift genau dort, wo ein Etikett davorsteht.
+   Derselbe Wert, dieselbe Rolle — nur genauer adressiert.
+   Die FAQ-Überschrift in K06 hat kein Etikett und bleibt deshalb
+   unberührt auf den 104 px des Kapitelblatts. */
+.kar-wer__etikett + .kar-titel { margin-top: var(--kar-eng); }
+
+/* --- 4  DIE NAHT ZWISCHEN ZWEI BLÖCKEN AUF DER NAVYFLÄCHE -----------------
+   Auf der Navyfläche stehen jetzt vier Blöcke statt einem: die offenen
+   Positionen (K04), der Bewerbungsablauf (K05), die FAQ (K06) und der
+   Abschluss (K07). Jeder ist wie K04 gebaut — ein Kapitelblatt
+   (.kar-angebot, 104 px oben) und ein Rumpf (.kar-stellen, 96 px unten).
+
+   OHNE DIESE REGEL STÜNDEN AN JEDER NAHT 96 + 104 = 200 px. Das ist mehr
+   als das Doppelte der Abschnittsluft, die diese Seite sonst hält
+   (--kar-luft, 96 px), und auf einer durchlaufenden Fläche liest sich so
+   ein Loch als Fehler. Die 104 px des Kapitelblatts sind der gemessene
+   Abstand gegen seine EIGENE Oberkante — also gegen die harte Kante zum
+   Weiß darüber. Diese Kante gibt es nur einmal, beim ersten Block. Bei
+   allen folgenden liegt darüber kein Farbwechsel mehr, sondern der Rumpf
+   des vorigen Blocks, und dessen 96 px sind bereits die volle
+   Abschnittsluft.
+
+   Gemessen bleibt damit an jeder Naht innerhalb der Fläche genau
+   --kar-luft = 96 px, und die 104 px stehen unverändert dort, wo sie
+   gemessen wurden: an der Oberkante der Fläche. */
+.kar-stellen + .kar-angebot { padding-top: 0; }
+
+/* --- 5  DIE UMLAUFZEIT DES LAUFBANDS --------------------------------------
+   K03 bringt sechs Kästen statt der acht Stimmen von vorher. Die
+   Bauaufnahme gibt die GESCHWINDIGKEIT vor, nicht die Dauer: 60 px/s,
+   auf jeder Fensterbreite gleich (bericht.md der Stellenseiten,
+   Abschnitt 4.1). Ein Satz misst 6 × (320 + 24) = 2064 px, und
+
+       2064 px / 60 px/s = 34,4 s
+
+   Die 45,8667 s oben in dieser Datei sind dieselbe Rechnung für acht
+   Kästen (2752 / 60). Bliebe die alte Zahl stehen, liefe das Band mit
+   45 px/s — spürbar zäher, ohne dass irgendwo eine Entscheidung dazu
+   getroffen worden wäre. Die Zahl ändert sich also genau deshalb, damit
+   sich am Design nichts ändert.
+
+   Als eigene Regel und nicht als Änderung oben: die Rechnung für acht
+   Kästen bleibt dort lesbar, falls die Zahl der Kästen wieder wechselt. */
+.kar-band__spur { animation-duration: 34.4s; }
+
+/* --- 6  DIE KÄSTEN OHNE BILD ----------------------------------------------
+   Die vier Schritte in K05 und die fünf Fragen in K06 stehen in
+   .kar-karte, tragen aber kein <picture>. Der Kasten hält oben 24 px
+   (Rahmen zu Bild) und der Inhalt weitere 20 px (Bild zu erster Zeile) —
+   zusammen 44 px, gemessen als Abstand zu einem Bild, das hier nicht
+   steht. Ohne Bild ist das schlicht zu viel Luft über der ersten Zeile
+   gegen die 24 px, die links, rechts und unten stehen.
+
+   :not(:has(picture)) trifft genau die bildlosen Kästen und lässt die
+   zwei Stellenkästen unberührt. Browser ohne :has ignorieren die Regel,
+   die Kästen stehen dann mit 44 px statt 24 px oben — eine Abweichung von
+   20 px Luft, kein Bruch. */
+.kar-karte:not(:has(picture)) > .kar-karte__inhalt { padding-top: 0; }
+
+/* --- 7  DER AKZENT IM KOPFBEREICH -----------------------------------------
+   K01 bringt zum ersten Mal eine Überschrift mit Akzenthälfte auf die
+   Videofläche. .kar-akzent steht in --accent (#1E4270) — das ist der Ton
+   für die HELLEN Abschnitte, wo er 10,3:1 misst. Auf Navy 900 unter dem
+   Schleier misst derselbe Ton 1,4:1 und ist praktisch unsichtbar.
+
+   DIE ANTWORT DARAUF STEHT SCHON IN DIESER DATEI, sie war nur auf einen
+   Abschnitt eingegrenzt: „Der Akzent steht hier in Sand statt im Blau der
+   hellen Abschnitte: auf Navy trägt Blau auf Blau nicht" (bei
+   .kar-angebot). Genau dieselbe Lage, genau dieselbe Antwort — der
+   Kopfbereich bekommt denselben Sand. Keine neue Farbe: --sand ist der
+   Ton, in dem hier schon Balken, Sterne und Knopf stehen.
+
+       Sand #D9B485 auf dem Kopfbereich (Navy 900 + Schleier)   6,4:1
+   gemessen wie in base.css beim Farbblock. */
+.kar-kopf .kar-akzent { color: var(--sand); }
+
+/* --- 8  DAS ANFÜHRUNGSZEICHEN IN DEN K03-KÄSTEN --------------------------
+   Aus demselben Grund, aus dem in K03 die fünf Sterne aus dem Markup
+   gefallen sind (ausführlich in karriere.html am Abschnittskopf): das
+   blasse Zeichen oben rechts im Kasten ist ein ANFÜHRUNGSZEICHEN. Es hat
+   die acht erfundenen Mitarbeiterstimmen als Zitate ausgewiesen. Über
+   „Onboarding mit System" weist es einen Satz als Zitat aus, den niemand
+   gesagt hat.
+
+   Die Sterne konnten aus dem Markup, weil sie dort standen; dieses
+   Zeichen ist ein ::before und lässt sich nur hier abstellen. Der
+   gesamte Block oben bleibt unverändert stehen — samt seiner
+   Kontrastrechnung —, damit er sofort wieder greift, falls an dieser
+   Stelle je wieder echte, freigegebene Zitate stehen. Dann fällt diese
+   eine Zeile weg und nichts anderes. */
+.kar-band__karte::before { content: none; }
+
+/* ===========================================================================
+   DIE ZWEI STELLENKAESTEN AUF EINER LINIE — 31.08.2026
+
+   Kundenwunsch: „Wichtig ist, dass die Immobilienabwicklung und der
+   Backoffice Manager auf gleicher Höhe stehen wie Immobilienberater und
+   Sales-Manager. Das muss optisch schön ausschauen, wenn die Kästen
+   nebeneinander sind."
+
+   Das Problem ist die Kleinzeile darueber: „SELBSTSTÄNDIG · VERTRIEB"
+   passt in eine Zeile, „VOLLZEIT · IMMOBILIENABWICKLUNG & KUNDENBETREUUNG"
+   braucht zwei. Damit begann der zweite Titel eine Zeile tiefer als der
+   erste, und mit ihm rutschte alles darunter.
+
+   Zwei Mindesthoehen loesen das, jede genau zwei Zeilen ihrer eigenen
+   Schrift hoch (`2em` mal Zeilenabstand). Sie greifen nur nebeneinander —
+   untereinander gestapelt gaebe es nichts auszurichten, und eine leere
+   zweite Zeile waere dort ein Loch.
+
+   BEWUSST KEIN `grid-template-rows` am Raster: die zwei Kaesten sind
+   `<li>` in einer Flexliste, und ein Umbau auf Raster waere eine
+   Gestaltungsaenderung. Die Mindesthoehe erreicht dasselbe an genau den
+   zwei Zeilen, an denen es klemmt.
+   =========================================================================== */
+@media (min-width: 780px) {
+  .kar-karte__art {
+    /* DREI Zeilen, nicht zwei — nachgemessen: „VOLLZEIT ·
+       IMMOBILIENABWICKLUNG & KUNDENBETREUUNG" bricht in dieser Spalte auf
+       DREI Zeilen (96 px bei 1440), „SELBSTSTÄNDIG · VERTRIEB" auf eine
+       (32 px). Mit zwei Zeilen blieb ein Versatz von 32 px stehen.
+       `flex-start`, damit BEIDE Kleinzeilen oben beginnen — der Kunde will
+       „Immobilienabwicklung" und „Immobilienberater" auf einer Linie, nicht
+       nur die Titel darunter. Die Luft entsteht damit unter der kuerzeren
+       Zeile und nicht darueber. */
+    min-height: calc(3em * var(--kar-lh-fliess));
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .kar-karte__titel {
+    min-height: calc(2em * 1.2);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}

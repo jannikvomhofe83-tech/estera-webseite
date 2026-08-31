@@ -3,8 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Immobilienberater (m/w/d) — Karriere bei Estera</title>
-<meta name="description" content="Estera sucht Immobilienberater für den Vertrieb von Kapitalanlagen. Ausgewählte Objekte, koordinierte Finanzierung, klare Prozesse und persönliche Begleitung.">
+<!-- STELLENBEZEICHNUNG 31.08.2026 — Kundenansage, heute zweimal
+     ausdruecklich und zuletzt NACH der Uebernahme des Wording-Dokuments:
+     die Stelle heisst „Immobilienberater / Sales-Manager (m/w/d)".
+     Das Wording-Dokument schreibt an derselben Stelle
+     „Immobilienberater / Vertriebspartner (m/w/d)" — der Kunde sticht das
+     Dokument hier, deshalb steht ueberall auf dieser Seite die
+     Kundenfassung. Betroffen sind <title>, Beschreibung und die H1.
+     Vorher: "Immobilienberater (m/w/d) — Karriere bei Estera" -->
+<title>Immobilienberater / Sales-Manager (m/w/d) — Karriere bei Estera</title>
+<!-- BESCHREIBUNG NACHGEZOGEN 31.08.2026 — sie beschrieb noch den alten
+     Wortlaut. Der neue Satz ist die Unterzeile des Wording-Dokuments (V01)
+     auf Suchmaschinenlaenge gekuerzt.
+     Vorher: "Estera sucht Immobilienberater für den Vertrieb von
+     Kapitalanlagen. Ausgewählte Objekte, koordinierte Finanzierung, klare
+     Prozesse und persönliche Begleitung." -->
+<meta name="description" content="Immobilienberater / Sales-Manager (m/w/d) bei Estera: Du führst Interessenten vom ersten Gespräch bis zur fundierten Kaufentscheidung.">
 <!-- Wie alle Seiten dieses Standes: in Abstimmung, gehoert nicht in eine
      Suchmaschine. Vor dem Livegang zu entfernen. -->
 <meta name="robots" content="noindex, nofollow">
@@ -36,6 +50,17 @@
 <link rel="stylesheet" href="assets/css/schluss.css?v=b24a">
 <link rel="stylesheet" href="assets/css/seiten.css?v=b24a">
 <link rel="stylesheet" href="assets/css/stelle.css?v=b24a">
+<!-- DIE EINZIGE EIGENE ZEILE CSS DIESER SEITE, und sie ist eine Reparatur,
+     keine Gestaltung: das Bild im Abschlussabschnitt wurde an KEINER
+     Breite gemalt, obwohl es geladen war und sein Feld die richtigen
+     Masse hatte — sein <picture> ist ein Inline-Kasten, und darauf
+     schneidet die Auftrittsbewegung (clip-path) das Bild vollstaendig
+     weg. Genau deshalb hat das Kunde mehrfach „da ist immer noch kein
+     Bild" gemeldet. Messwerte, Gegenprobe und die Begruendung, warum das
+     keine neue Gestaltung ist, stehen in der Datei.
+     Sie gehoert dieser Seite allein — stelle.css bleibt unberuehrt, weil
+     sich beide Stellenseiten sie teilen. -->
+<link rel="stylesheet" href="assets/css/wording-berater.css?v=b24a">
 </head>
 <body class="stl">
 
@@ -59,7 +84,7 @@
 <header class="site-header site-header--invert" data-header>
 
   <!-- NAVIGATION UMSORTIERT 31.08.2026 (Kundenwunsch):
-       links   Vorteile · Leistungen
+       links   Warum Immobilien · Warum Estera
        rechts  Ablauf · Karriere · Kontakt (Kontakt abgesetzt, .kopfnav__cta)
        „Ablauf" stand bis heute LINKS und ist nach rechts vor „Karriere"
        gewandert. Sonst hat sich an den Punkten nichts geaendert.
@@ -76,8 +101,12 @@
        <section class="abl" id="ablauf">. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
-      <li><a href="variante-a.html?v=b24a#warum-immobilien">Vorteile</a></li>
-      <li><a href="variante-a.html?v=b24a#leistungen">Leistungen</a></li>
+      <!-- BENENNUNG 31.08.2026, Kundenwunsch. Die Ziele sind unveraendert,
+           nur die Beschriftung sagt jetzt, was den Leser dort erwartet.
+           Vorher: „Vorteile" (#warum-immobilien) und „Leistungen"
+           (#leistungen). Dieselben zwei Namen stehen im Klappmenue. -->
+      <li><a href="variante-a.html?v=b24a#warum-immobilien">Warum Immobilien</a></li>
+      <li><a href="variante-a.html?v=b24a#leistungen">Warum Estera</a></li>
     </ul>
   </nav>
 
@@ -140,26 +169,67 @@
   </div>
   <div class="stl-hero__schleier" aria-hidden="true"></div>
 
+  <!-- WORDING AUS DEM DOKUMENT, BAUSTEIN V01 — 31.08.2026.
+       Der Kopfbereich behaelt seine vier Plaetze: Vorzeile, H1, Unterzeile,
+       EIN Knopf. Ausgetauscht sind nur die Textknoten.
+
+       DAS DOKUMENT BRINGT MEHR ALS HIERHIN PASST. Was keinen Platz hat,
+       steht darunter im Kommentar und ist gemeldet — dafuer einen zweiten
+       Knopf oder zusaetzliche Zeilen zu bauen waere neues Design, und genau
+       das hat der Kunde abgelehnt.
+
+       DIE H1 BLEIBT DIE STELLENBEZEICHNUNG. Das Dokument setzt an diese
+       Stelle einen Satz und schiebt die Bezeichnung in die Vorzeile; der
+       Kunde hat heute zweimal ausdruecklich die Bezeichnung als
+       Seitenueberschrift verlangt. Fuer eine Stellenanzeige ist das
+       ohnehin die richtige H1 — sie ist das, wonach gesucht wird.
+
+       Vorher stand hier:
+         Vorzeile   "Wir suchen dich"
+         H1         "Immobilienberater (m/w/d)"
+         Unterzeile "Du hilfst Menschen beim Kauf einer Kapitalanlage. Wir
+                     geben dir klare Abläufe und geprüfte Objekte. Wir
+                     stehen an deiner Seite."
+         Knopf      "Jetzt bewerben"
+       Und davor, aus den zwei Durchgaengen vom 30.08.2026:
+         "Du willst Menschen beim Aufbau von Eigentum begleiten und
+          gleichzeitig eine langfristige Vertriebsperspektive entwickeln?
+          Bei Estera erhältst du klare Prozesse, ausgewählte Immobilien und
+          persönliche Unterstützung."
+         "Du hilfst Menschen beim Aufbau von Eigentum. Wir geben dir klare
+          Abläufe. Wir geben dir ausgewählte Immobilien. Wir stehen an
+          deiner Seite." -->
   <div class="stl-hero__inner">
-    <p class="stl-hero__vor">Wir suchen dich</p>
-    <h1 class="stl-hero__h1">Immobilienberater&nbsp;(m/w/d)</h1>
-    <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-         Vorher: "Du willst Menschen beim Aufbau von Eigentum begleiten und
-         gleichzeitig eine langfristige Vertriebsperspektive entwickeln? Bei
-         Estera erhältst du klare Prozesse, ausgewählte Immobilien und
-         persönliche Unterstützung."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-         Zweimal „Wir geben dir" hintereinander war eine Wiederholung; die
-         Substantivierung „Aufbau" ist aufgeloest. Vier Saetze auf drei.
-         Vorher: "Du hilfst Menschen beim Aufbau von Eigentum. Wir geben dir klare Abläufe. Wir geben dir ausgewählte Immobilien. Wir stehen an deiner Seite."
-         VON ESTERA BESTAETIGEN LASSEN. -->
+    <p class="stl-hero__vor">Selbstständig · Vertrieb</p>
+    <h1 class="stl-hero__h1">Immobilienberater / Sales-Manager&nbsp;(m/w/d)</h1>
     <p class="stl-hero__unter">
-      Du hilfst Menschen beim Kauf einer Kapitalanlage. Wir geben dir klare
-      Abläufe und geprüfte Objekte. Wir stehen an deiner Seite.
+      Du führst Interessenten vom ersten Gespräch bis zur fundierten
+      Kaufentscheidung. Wir geben dir ausgewählte Kapitalanlageimmobilien,
+      verständliche Unterlagen, klare Abläufe und ein Team, das Finanzierung
+      und Abwicklung mit dir zusammenführt.
     </p>
-    <a class="btn stl-hero__btn" href="kontakt.html?v=b24a">Jetzt bewerben</a>
+    <a class="btn stl-hero__btn" href="kontakt.html?v=b24a">Als Immobilienberater bewerben</a>
   </div>
+
+  <!-- AUS V01 NICHT UEBERNOMMEN, WEIL DER KOPFBEREICH DAFUER KEINEN PLATZ
+       HAT — woertlich aufbewahrt, im Bericht gemeldet:
+
+       Ueberschriftsatz des Dokuments (steht dort ueber der Unterzeile, die
+       H1 traegt hier die Stellenbezeichnung):
+         „Berate Menschen bei einer Entscheidung, die ihr Vermögen über
+          Jahrzehnte prägt."
+
+       Zweiter Knopf neben dem Bewerbungsknopf:
+         „Rolle kennenlernen" — er zeigte im Dokument auf einen eigenen
+         Rollen-Abschnitt (V02), den diese Seite nicht hat.
+
+       Mikrozeile unter den Knoepfen:
+         „Kurzbewerbung · ohne Anschreiben"
+
+       Vertrauenszeile darunter:
+         „Anspruchsvolle Beratung. Klare Prozesse. Leistung mit
+          Perspektive." -->
+
 </section>
 
 <!-- Die schwarze Logoleiste der Vorlage (Abschnitt 2) ENTFAELLT: es gibt
@@ -184,23 +254,35 @@
         (viewBox 0 0 24 24, stroke-width 1.1, runde Enden).
      d) Rechts steht vorerst ein LEERES BILDFENSTER statt des Fliesstextes.
 
-     Inhalt: die sechs Punkte aus dem Wording-Master, „Warum
-     Vertriebspartner mit Estera arbeiten", woertlich. Die dazugehoerigen
-     Erlaeuterungen des Masters standen bis zum 29.08.2026 in der rechten
-     Spalte und sind mit Aenderung (d) entfallen. Sie sind nicht verloren,
-     sondern stehen weiter unten in diesem Abschnitt als Kommentar — wer
-     die Spalte wieder mit Text belegen will, findet sie dort woertlich.
-     Die Personenangabe der Vorlage (rundes Bild, Name, Rolle) entfaellt:
-     es gibt keinen freigegebenen Ansprechpartner fuer diese Stelle, und
-     erfunden wird nichts.
+     WORDING AUS DEM DOKUMENT, BAUSTEIN V05 „Was dich bei Estera erwartet"
+     — 31.08.2026. Aufbau, Flaeche, Haussymbole, Trennlinie und das leere
+     Bildfenster bleiben unberuehrt; ausgetauscht sind nur die Textknoten.
+     Sechs Punkte im Markup, sechs Punkte im Dokument — Zahl passt.
+
+     JEDER PUNKT HAT GENAU EINE ZEILE, und dabei bleibt es. Das Dokument
+     gibt zu jedem der sechs Punkte zusaetzlich einen erklaerenden Satz;
+     die Liste hat dafuer keinen Platz, und ein zweiter Textknoten je Punkt
+     waere ein neuer Baustein. Die sechs Saetze stehen deshalb woertlich im
+     Kommentar unter der Liste und sind im Bericht gemeldet.
+
+     Die Personenangabe der Vorlage (rundes Bild, Name, Rolle) entfaellt
+     weiterhin: es gibt keinen freigegebenen Ansprechpartner fuer diese
+     Stelle, und erfunden wird nichts.
      ===================================================================== -->
 <section class="stl-abs stl-abs--hell stl-bieten fl-weiss-nach-creme" id="angebot" aria-labelledby="t-bieten">
   <div class="stl-inner stl-zwei stl-zwei--bieten">
 
     <div class="stl-bieten__links">
+      <!-- WORDING ERSETZT 31.08.2026 — Dokument V05.
+           Vorher Kleinzeile:   "01 Dein Rahmen"
+           Vorher Ueberschrift: "Was wir bieten"
+           Die Ziffer bleibt 01: die vier Kleinzeilen dieser Seite zaehlen
+           ihre Abschnitte durch, und an der Zahl der Abschnitte hat sich
+           nichts geaendert. -->
       <p class="stl-kleinzeile stl-kleinzeile--mitte">
-        <span class="stl-kleinzeile__num">01</span>Dein Rahmen</p>
-      <h2 class="stl-h2 stl-h2--mitte" id="t-bieten">Was wir bieten</h2>
+        <span class="stl-kleinzeile__num">01</span>Dein System</p>
+      <h2 class="stl-h2 stl-h2--mitte" id="t-bieten">Ein Umfeld, das dich stärker
+         macht – nicht austauschbar.</h2>
       <div class="stl-trenn" aria-hidden="true"></div>
 
       <ul class="stl-haken">
@@ -208,48 +290,90 @@
           <span class="stl-haken__zeichen" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
           </span>
-          <span class="stl-haken__text">Ausgewählte Immobilien</span>
+          <!-- WORDING ERSETZT 31.08.2026 — Dokument V05, Punkt 1.
+               Vorher: "Ausgewählte Immobilien" -->
+          <span class="stl-haken__text">Ausgewählte Kapitalanlageimmobilien</span>
         </li>
         <li>
           <span class="stl-haken__zeichen" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
           </span>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Finanzierung als Teil des Prozesses"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <span class="stl-haken__text">Finanzierung inklusive</span>
+          <!-- WORDING ERSETZT 31.08.2026 — Dokument V05, Punkt 2.
+               Vorher: "Finanzierung inklusive"
+                davor: "Finanzierung als Teil des Prozesses" -->
+          <span class="stl-haken__text">Verständliche Unterlagen</span>
         </li>
         <li>
           <span class="stl-haken__zeichen" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
           </span>
-          <span class="stl-haken__text">Klare Vertriebsunterlagen</span>
+          <!-- WORDING ERSETZT 31.08.2026 — Dokument V05, Punkt 3.
+               Vorher: "Klare Vertriebsunterlagen" -->
+          <span class="stl-haken__text">Operative Unterstützung</span>
         </li>
         <li>
           <span class="stl-haken__zeichen" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
           </span>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Persönliche Begleitung"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <span class="stl-haken__text">Wir begleiten dich</span>
+          <!-- WORDING ERSETZT 31.08.2026 — Dokument V05, Punkt 4.
+               Vorher: "Wir begleiten dich"
+                davor: "Persönliche Begleitung" -->
+          <span class="stl-haken__text">Klarer Beratungsprozess</span>
         </li>
         <li>
           <span class="stl-haken__zeichen" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
           </span>
-          <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-               Vorher: "Langfristige Kundenbeziehung"
-               VON ESTERA BESTAETIGEN LASSEN. -->
-          <span class="stl-haken__text">Langfristige Kunden</span>
+          <!-- WORDING ERSETZT 31.08.2026 — Dokument V05, Punkt 5.
+               Vorher: "Langfristige Kunden"
+                davor: "Langfristige Kundenbeziehung" -->
+          <span class="stl-haken__text">Training und direktes Feedback</span>
         </li>
         <li>
           <span class="stl-haken__zeichen" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11 12 4.2 20.6 11"></path><path d="M5.9 9.7v10.1h12.2V9.7"></path><path d="M10.1 19.8v-5.1h3.8v5.1"></path></svg>
           </span>
-          <span class="stl-haken__text">Attraktive Verdienstperspektive</span>
+          <!-- WORDING ERSETZT 31.08.2026 — Dokument V05, Punkt 6.
+               Vorher: "Attraktive Verdienstperspektive"
+               Die alte Zeile war eine Verdienstaussage. Das Dokument nennt
+               an dieser Stelle keine, und der Kunde hat Zahlen und Zusagen
+               ausdruecklich ausgenommen — sie kommt nicht zurueck. -->
+          <span class="stl-haken__text">Unternehmerische Perspektive</span>
         </li>
       </ul>
+
+      <!-- DIE SECHS ERKLAERSAETZE AUS V05 — sie haben in dieser Liste
+           keinen Platz (je Punkt genau eine Zeile) und stehen deshalb hier
+           woertlich. Reihenfolge wie die Punkte darueber:
+
+           1 Ausgewählte Kapitalanlageimmobilien
+             Du arbeitest nicht mit beliebigen Angeboten, sondern mit
+             Objekten, die intern eingeordnet und nachvollziehbar aufbereitet
+             werden.
+
+           2 Verständliche Unterlagen
+             Objekt, Finanzierung und wirtschaftliche Eckdaten werden so
+             vorbereitet, dass du Beratung klar und professionell führen
+             kannst.
+
+           3 Operative Unterstützung
+             Finanzierung und Abwicklung werden im Team zusammengeführt,
+             damit du dich auf Gespräch, Entscheidung und Kundenbeziehung
+             konzentrieren kannst.
+
+           4 Klarer Beratungsprozess
+             Ein wiederholbarer Ablauf gibt dir Orientierung und lässt
+             gleichzeitig genug Raum für den individuellen Kunden.
+
+           5 Training und direktes Feedback
+             Du arbeitest regelmäßig an Fachwissen, Gesprächsführung,
+             Einwandbehandlung, Dokumentation und deiner persönlichen
+             Wirkung.
+
+           6 Unternehmerische Perspektive
+             Mit wachsender Qualität kannst du mehr Verantwortung
+             übernehmen, deinen Kundenbestand ausbauen und die Entwicklung
+             von Estera mitprägen. -->
     </div>
 
     <!-- LEERES BILDFENSTER, Kundenwunsch vom 29.08.2026.
@@ -418,24 +542,50 @@
      ===================================================================== -->
 <section class="stl-abs stl-abs--hell stl-macht fl-creme-nach-weiss" id="profil" aria-labelledby="t-macht">
   <div class="stl-inner">
+    <!-- WORDING ERSETZT 31.08.2026 — Dokument V04 „Das bringst du mit".
+         Vorher Kleinzeile:   "02 Deine Haltung"
+         Vorher Ueberschrift: "Das macht dich aus" -->
     <p class="stl-kleinzeile stl-kleinzeile--mitte">
-      <span class="stl-kleinzeile__num">02</span>Deine Haltung</p>
-    <h2 class="stl-h2-gross" id="t-macht">Das macht dich aus</h2>
-    <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-         Vorher: "Vertrauen entsteht durch Haltung."
-         VON ESTERA BESTAETIGEN LASSEN. -->
-    <p class="stl-macht__lead">Haltung entscheidet.</p>
+      <span class="stl-kleinzeile__num">02</span>Dein Profil</p>
+    <h2 class="stl-h2-gross" id="t-macht">Wir suchen keine fertige Schablone.
+       Wir suchen Substanz und Entwicklungspotenzial.</h2>
+    <!-- DIE FUEHRUNGSZEILE TRAEGT JETZT DEN VORERFAHRUNGS-HINWEIS AUS V04.
+         Das Dokument stellt ihn dort unter die sechs Punkte; diese Seite
+         hat unter dem Raster keinen Platz und darueber genau einen. Er
+         steht deshalb hier — und liest sich an dieser Stelle sogar
+         schluessig: erst wer passt, dann woran man es erkennt. Sein
+         letzter Halbsatz („Qualität, Lernfähigkeit und Haltung") uebergibt
+         direkt an die sechs Kaesten.
+         Vorher: "Haltung entscheidet."
+          davor: "Vertrauen entsteht durch Haltung." -->
+    <p class="stl-macht__lead">Besonders passend sind Hintergründe aus
+       Finanzberatung, Versicherungen, Finanzierung, Immobilien oder
+       beratungsintensivem Vertrieb. Ein vorhandenes Netzwerk kann den Einstieg
+       erleichtern. Entscheidend bleiben Qualität, Lernfähigkeit und
+       Haltung.</p>
 
-    <!-- Die Reihenfolge im Markup ist die des Wording-Masters. Welcher
-         Kasten wie gross wird, entscheidet allein die CSS ueber
-         nth-child — im Markup steht keine Rastergroesse. -->
+    <!-- Die Reihenfolge im Markup ist die des Dokuments. Welcher Kasten wie
+         gross wird, entscheidet allein die CSS ueber nth-child — im Markup
+         steht keine Rastergroesse.
+
+         DIE SECHS GRAFIKEN SIND NEU VERTEILT, NICHT NEU GEZEICHNET. Kein
+         Bild ist ausgetauscht, keins ist dazugekommen, keins ist weg, und
+         ihre Zerlegung in Ebenen samt allen Bewegungen ist unberuehrt.
+         Verschoben ist nur, welches Symbol neben welchem Wort steht:
+           Waage    aus Kasten 3 nach Kasten 2  (abwaegen und fuehren)
+           Buch     aus Kasten 5 nach Kasten 3  (lernen)
+           Schloss  aus Kasten 2 nach Kasten 5  (Verantwortung)
+         Sprechblasen (1), Blatt mit Haken (4) und Sanduhr (6) stehen, wo
+         sie standen. -->
+
     <ul class="stl-aus">
       <li class="stl-aus__kasten">
-        <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-             Die Merkmalzeilen waren schwere Substantivketten. Vier Woerter auf zwei.
-             Vorher: "Verbindliche und klare Kommunikation"
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <h3 class="stl-aus__titel">Klare Worte</h3>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 1.
+             Die Sprechblasen bleiben in ihrem Kasten: beide Male geht es
+             ums Reden.
+             Vorher: "Klare Worte"
+              davor: "Verbindliche und klare Kommunikation" -->
+        <h3 class="stl-aus__titel">Kommunikationsstärke</h3>
         <span class="stl-aus__strich" aria-hidden="true"></span>
         <figure class="stl-aus__bild stl-aus__bild--reden">
           <span class="stl-aus__lage stl-aus__lage--hinten">
@@ -451,64 +601,34 @@
             </picture>
           </span>
         </figure>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Du kommunizierst verständlich und übernimmst Verantwortung
-             für eine saubere Begleitung."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p class="stl-aus__text">Du redest klar und verständlich. Du stehst zu
-           deinem Wort.</p>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 1.
+             Vorher: "Du redest klar und verständlich. Du stehst zu deinem
+                      Wort."
+              davor: "Du kommunizierst verständlich und übernimmst
+                      Verantwortung für eine saubere Begleitung." -->
+        <p class="stl-aus__text">Du hörst genau hin, stellst gute Fragen und
+           erklärst komplexe Zusammenhänge so, dass Menschen sie wirklich
+           verstehen.</p>
       </li>
       <li class="stl-aus__kasten">
-        <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-             „Verantwortungsbewusster" war das laengste Wort der Seite.
-             Vorher: "Verantwortungsbewusster Umgang mit Kundendaten"
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <h3 class="stl-aus__titel">Sorgsam mit Daten</h3>
-        <span class="stl-aus__strich" aria-hidden="true"></span>
-        <figure class="stl-aus__bild stl-aus__bild--schloss">
-          <span class="stl-aus__lage stl-aus__lage--schild">
-            <picture>
-              <source srcset="assets/img/stelle/teil/schloss-schild.webp?v=b24a" type="image/webp">
-              <img src="assets/img/stelle/teil/schloss-schild.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
-            </picture>
-          </span>
-          <span class="stl-aus__lage stl-aus__lage--buegel">
-            <picture>
-              <source srcset="assets/img/stelle/teil/schloss-buegel.webp?v=b24a" type="image/webp">
-              <img src="assets/img/stelle/teil/schloss-buegel.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
-            </picture>
-          </span>
-          <span class="stl-aus__lage stl-aus__lage--koerper">
-            <picture>
-              <source srcset="assets/img/stelle/teil/schloss-koerper.webp?v=b24a" type="image/webp">
-              <img src="assets/img/stelle/teil/schloss-koerper.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
-            </picture>
-          </span>
-        </figure>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Ein verantwortungsvoller Umgang mit Kunden und ihren Daten
-             gehört zu jedem Schritt der Zusammenarbeit."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-             „sorgsam" steht jetzt in der Ueberschrift darueber und faellt hier
-             weg, damit es nicht zweimal in demselben Kasten steht.
-             Vorher: "Du gehst sorgsam mit Kunden um. Du schützt ihre Daten."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p class="stl-aus__text">Du behandelst Kunden fair. Du schützt
-           ihre Daten.</p>
-      </li>
-      <li class="stl-aus__kasten">
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Keine pauschalen Steuer-, Finanzierungs- oder Renditeversprechen"
-             Hier ausnahmsweise auch eine Ueberschrift: sie trug die Verneinung
-             „Keine", und die Verneinung sollte in eine positive Aussage
-             derselben Bedeutung gedreht werden.
-             NACHTRAG 30.08.2026: die Verneinung ist ABSICHTLICH wieder drin.
-             "Ehrliche Aussagen zu Steuern und Rendite" war die kuerzere Fassung,
-             benannte das Verbot aber nicht mehr. Das ist eine Auflagenzeile, kein
-             Werbesatz — sie darf nicht weicher werden als das Original.
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <h3 class="stl-aus__titel">Keine Versprechen zu Steuern und Rendite</h3>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 2.
+             HIER STAND BIS HEUTE DAS SCHLOSS; es ist in Kasten 5 gewandert,
+             wo es die Verantwortung traegt. An seine Stelle kommt die
+             WAAGE aus Kasten 3: dieser Punkt handelt vom Abwaegen und vom
+             Fuehren einer Entscheidung.
+             Vorher Ueberschrift: "Sorgsam mit Daten"
+                  davor (30.08.): "Verantwortungsbewusster Umgang mit
+                                   Kundendaten"
+             Vorher Text: "Du behandelst Kunden fair. Du schützt ihre
+                           Daten."
+                  davor: "Du gehst sorgsam mit Kunden um. Du schützt ihre
+                          Daten."
+                  davor: "Ein verantwortungsvoller Umgang mit Kunden und
+                          ihren Daten gehört zu jedem Schritt der
+                          Zusammenarbeit."
+             Der Datenschutzgedanke faellt damit aus V04 heraus — das
+             Dokument fuehrt ihn dort nicht mehr. IM BERICHT VERMERKT. -->
+        <h3 class="stl-aus__titel">Beratungs- und Vertriebsorientierung</h3>
         <span class="stl-aus__strich" aria-hidden="true"></span>
         <figure class="stl-aus__bild stl-aus__bild--waage">
           <span class="stl-aus__lage stl-aus__lage--balken">
@@ -524,47 +644,32 @@
             </picture>
           </span>
         </figure>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Unrealistische Rendite- oder Steuerversprechen passen
-             nicht zu Estera."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p class="stl-aus__text">Du bleibst bei den Fakten.</p>
+        <p class="stl-aus__text">Du verstehst Beratung als klar geführten Prozess
+           und kannst eine gute Entscheidung konsequent bis zum Abschluss
+           begleiten.</p>
       </li>
       <li class="stl-aus__kasten">
-        <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-             „Nachhalten" und „Dokumentation" sind Bueroworte; die Zeile sagt
-             dasselbe in zwei Woertern.
-             Vorher: "Konsequentes Nachhalten und saubere Dokumentation"
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <h3 class="stl-aus__titel">Sauber dokumentiert</h3>
-        <span class="stl-aus__strich" aria-hidden="true"></span>
-        <figure class="stl-aus__bild stl-aus__bild--blatt">
-          <span class="stl-aus__lage stl-aus__lage--grund">
-            <picture>
-              <source srcset="assets/img/stelle/teil/blatt-grund.webp?v=b24a" type="image/webp">
-              <img src="assets/img/stelle/teil/blatt-grund.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async">
-            </picture>
-          </span>
-          <span class="stl-aus__lage stl-aus__lage--haken">
-            <picture>
-              <source srcset="assets/img/stelle/teil/blatt-haken.webp?v=b24a" type="image/webp">
-              <img src="assets/img/stelle/teil/blatt-haken.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async">
-            </picture>
-          </span>
-        </figure>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Du arbeitest mit nachvollziehbaren Informationen und einem
-             strukturierten Ablauf statt mit unstrukturierten Einzelaktionen."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p class="stl-aus__text">Du hältst jeden Fall sauber nach. Du folgst dem
-           Ablauf.</p>
-      </li>
-      <li class="stl-aus__kasten">
-        <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-             Sieben Woerter mit Komma auf drei ohne Komma.
-             Vorher: "Bereitschaft, Prozesse und fachliche Grundlagen zu lernen"
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <h3 class="stl-aus__titel">Lust zu lernen</h3>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 3.
+             HIER STAND BIS HEUTE DIE WAAGE; sie ist in Kasten 2 gewandert.
+             An ihre Stelle kommt das BUCH MIT HUT aus Kasten 5 — es bleibt
+             damit beim Lernen, nur das Feld ist ein anderes, weil das
+             Dokument die Punkte anders ordnet.
+
+             UND HIER STEHT DER EINZIGE PUNKT DER SEITE, DER MIT DEM
+             DOKUMENT ERSATZLOS ENTFAELLT — woertlich aufbewahrt:
+             Ueberschrift: "Keine Versprechen zu Steuern und Rendite"
+                  davor:   "Keine pauschalen Steuer-, Finanzierungs- oder
+                            Renditeversprechen"
+                  Zwischenfassung, verworfen: "Ehrliche Aussagen zu Steuern
+                            und Rendite"
+             Text:         "Du bleibst bei den Fakten."
+                  davor:   "Unrealistische Rendite- oder Steuerversprechen
+                            passen nicht zu Estera."
+             Das war eine Auflagenzeile, kein Werbesatz. Das Dokument fuehrt
+             sie in V04 nicht mehr; den Gedanken deckt der Pflichthinweis im
+             Abschlussabschnitt ab. IM BERICHT GEMELDET, damit Estera es
+             gegenprueft. -->
+        <h3 class="stl-aus__titel">Lern- und Leistungsbereitschaft</h3>
         <span class="stl-aus__strich" aria-hidden="true"></span>
         <figure class="stl-aus__bild stl-aus__bild--buch">
           <span class="stl-aus__lage stl-aus__lage--buch">
@@ -592,25 +697,91 @@
                   fill="#F3EBDD" stroke="#DCC79E" stroke-width="0.45"/>
           </svg>
         </figure>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Erfahrung ist hilfreich, aber nicht in jedem Fall zwingend —
-             wichtiger sind Lernbereitschaft und Verbindlichkeit."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p class="stl-aus__text">Du willst dazulernen. Das wiegt schwerer als
-           Erfahrung.</p>
+        <p class="stl-aus__text">Du willst fachlich schnell besser werden,
+           bereitest dich vor und setzt Feedback sichtbar in deiner Arbeit
+           um.</p>
       </li>
       <li class="stl-aus__kasten">
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Langfristiges Denken statt kurzfristiger Abschlussorientierung"
-             Hier ausnahmsweise auch eine Ueberschrift: sie trug die Verneinung
-             „statt", und die Verneinung sollte in eine positive Aussage
-             derselben Bedeutung gedreht werden.
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-             Vier Woerter auf zwei; das Verb steht jetzt vorn.
-             Vorher: "Langfristiges Denken und Handeln"
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <h3 class="stl-aus__titel">Langfristig denken</h3>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 4.
+             Das Blatt mit dem Haken bleibt in seinem Kasten: Struktur und
+             Nachhalten stehen im Dokument an derselben Stelle.
+             Vorher: "Sauber dokumentiert"
+              davor: "Konsequentes Nachhalten und saubere Dokumentation" -->
+        <h3 class="stl-aus__titel">Struktur und Zielorientierung</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild stl-aus__bild--blatt">
+          <span class="stl-aus__lage stl-aus__lage--grund">
+            <picture>
+              <source srcset="assets/img/stelle/teil/blatt-grund.webp?v=b24a" type="image/webp">
+              <img src="assets/img/stelle/teil/blatt-grund.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="stl-aus__lage stl-aus__lage--haken">
+            <picture>
+              <source srcset="assets/img/stelle/teil/blatt-haken.webp?v=b24a" type="image/webp">
+              <img src="assets/img/stelle/teil/blatt-haken.png?v=b24a" alt="" width="1312" height="1199" loading="lazy" decoding="async">
+            </picture>
+          </span>
+        </figure>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 4.
+             Vorher: "Du hältst jeden Fall sauber nach. Du folgst dem
+                      Ablauf."
+              davor: "Du arbeitest mit nachvollziehbaren Informationen und
+                      einem strukturierten Ablauf statt mit
+                      unstrukturierten Einzelaktionen." -->
+        <p class="stl-aus__text">Du führst Gespräche, Nachfasspunkte und
+           Dokumentation konsequent und verlierst auch bei mehreren Fällen
+           nicht den Überblick.</p>
+      </li>
+      <li class="stl-aus__kasten">
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 5.
+             HIER STAND BIS HEUTE DAS BUCH; es ist in Kasten 3 gewandert,
+             wo das Dokument das Lernen jetzt fuehrt. An seine Stelle kommt
+             das SCHLOSS aus Kasten 2: dieser Punkt handelt vom
+             Verantwortung-Uebernehmen.
+             Vorher Ueberschrift: "Lust zu lernen"
+                  davor (30.08.): "Bereitschaft, Prozesse und fachliche
+                                   Grundlagen zu lernen"
+             Vorher Text: "Du willst dazulernen. Das wiegt schwerer als
+                           Erfahrung."
+                  davor: "Erfahrung ist hilfreich, aber nicht in jedem Fall
+                          zwingend — wichtiger sind Lernbereitschaft und
+                          Verbindlichkeit." -->
+        <h3 class="stl-aus__titel">Reflexion und Eigenverantwortung</h3>
+        <span class="stl-aus__strich" aria-hidden="true"></span>
+        <figure class="stl-aus__bild stl-aus__bild--schloss">
+          <span class="stl-aus__lage stl-aus__lage--schild">
+            <picture>
+              <source srcset="assets/img/stelle/teil/schloss-schild.webp?v=b24a" type="image/webp">
+              <img src="assets/img/stelle/teil/schloss-schild.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="stl-aus__lage stl-aus__lage--buegel">
+            <picture>
+              <source srcset="assets/img/stelle/teil/schloss-buegel.webp?v=b24a" type="image/webp">
+              <img src="assets/img/stelle/teil/schloss-buegel.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="stl-aus__lage stl-aus__lage--koerper">
+            <picture>
+              <source srcset="assets/img/stelle/teil/schloss-koerper.webp?v=b24a" type="image/webp">
+              <img src="assets/img/stelle/teil/schloss-koerper.png?v=b24a" alt="" width="1024" height="1536" loading="lazy" decoding="async">
+            </picture>
+          </span>
+        </figure>
+        <p class="stl-aus__text">Du suchst Ursachen nicht bei anderen, sondern
+           prüfst dein Vorgehen und übernimmst Verantwortung für deine
+           Ergebnisse.</p>
+      </li>
+      <li class="stl-aus__kasten">
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 6.
+             Die Sanduhr bleibt in ihrem Kasten: beide Male geht es um das
+             lange Ende statt um den schnellen Abschluss.
+             Vorher: "Langfristig denken"
+              davor: "Langfristiges Denken und Handeln"
+              davor: "Langfristiges Denken statt kurzfristiger
+                      Abschlussorientierung" -->
+        <h3 class="stl-aus__titel">Verlässlichkeit und Haltung</h3>
         <span class="stl-aus__strich" aria-hidden="true"></span>
         <figure class="stl-aus__bild stl-aus__bild--sand">
           <span class="stl-aus__lage stl-aus__lage--sand-glas">
@@ -652,11 +823,13 @@
             <ellipse class="stl-aus__korn" style="--k: 6" cx="49.7" cy="49" rx="1.5" ry="1.9" fill="#F2D4AE"/>
           </svg>
         </figure>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-             Vorher: "Die Zusammenarbeit endet nicht beim Notar. Kurzfristiger
-             Abschlussdruck passt nicht dazu."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p class="stl-aus__text">Du denkst weiter als bis zum Notar.</p>
+        <!-- WORDING ERSETZT 31.08.2026 — Dokument V04, Punkt 6.
+             Vorher: "Du denkst weiter als bis zum Notar."
+              davor: "Die Zusammenarbeit endet nicht beim Notar.
+                      Kurzfristiger Abschlussdruck passt nicht dazu." -->
+        <p class="stl-aus__text">Du machst nur Zusagen, die du halten kannst,
+           gehst respektvoll mit Kunden um und denkst nicht in schnellen
+           Einmalabschlüssen.</p>
       </li>
     </ul>
   </div>
@@ -711,10 +884,23 @@
      zwischen den Punkten duenne Trennlinien. Rechts zwei Bilder
      597 x 355, direkt uebereinander OHNE Abstand.
 
-     Inhalt: die fuenf Schritte aus „So laeuft die Partnerschaft ab"
-     (Wording-Master), woertlich, dazu dessen Abschlusszeile. Die Vorlage
-     hat sechs Punkte, der Master gibt fuenf her — also fuenf. Nicht
-     gefuellt.
+     WORDING AUS DEM DOKUMENT, BAUSTEIN V06 „Deine Einarbeitung" —
+     31.08.2026. Aufbau, Masse, Schriftgrade, Bronzeziffer und das Bild
+     rechts sind unberuehrt; ausgetauscht sind nur die Textknoten.
+
+     DIE LISTE HAT FUENF PLAETZE, DAS DOKUMENT NENNT SECHS SCHRITTE. Es
+     kommt kein sechster Platz dazu — das waere neuer Aufbau. Uebernommen
+     sind die fuenf, die den Bogen tragen: Orientierung, Wissen, Training,
+     begleitete Praxis, eigene Verantwortung. Ausgelassen ist der
+     Zwischenschritt „Erste eigene Fälle", weil ihn die begleitete Praxis
+     davor und die eigene Verantwortung danach einklammern. Sein Wortlaut
+     steht woertlich im Kommentar unter der Liste, gemeldet ist er auch.
+
+     DIE SCHRITTTITEL STEHEN IN NORMALSCHREIBUNG, obwohl das Dokument sie
+     in Versalien setzt. Versalien sind dort die Schreibweise ALLER
+     Etiketten. .stl-stufe__titel ist die Antiqua der Seite in gemischter
+     Schreibung — sie auf Versalien zu ziehen waere eine Gestaltungs-
+     aenderung, und das Design bleibt. Der Wortlaut ist unveraendert.
 
 GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
      Erst fiel die Stapelanimation, dann fielen die Kaesten selbst:
@@ -758,74 +944,113 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
   <div class="stl-inner stl-zwei stl-zwei--erwartet">
 
     <div class="stl-erwartet__links">
+      <!-- WORDING ERSETZT 31.08.2026 — Dokument V06.
+           Vorher Kleinzeile:   "03 Dein Einstieg"
+           Vorher Ueberschrift: "Das erwartet dich" -->
       <p class="stl-kleinzeile">
-        <span class="stl-kleinzeile__num">03</span>Dein Einstieg</p>
-      <h2 class="stl-h2" id="t-erwartet">Das erwartet dich</h2>
+        <span class="stl-kleinzeile__num">03</span>Onboarding mit System</p>
+      <h2 class="stl-h2" id="t-erwartet">Du startest nicht allein. Du wirst
+         Schritt für Schritt sicher.</h2>
 
       <ol class="stl-folge">
         <li class="stl-stufe">
           <p class="stl-stufe__nr">01</p>
           <div class="stl-stufe__wort">
-            <h3 class="stl-stufe__titel">Kennenlernen</h3>
-            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                 Vorher: "Wir sprechen über deinen Hintergrund, deine Ziele und
-                 deine bisherige Erfahrung."
-                 VON ESTERA BESTAETIGEN LASSEN. -->
-            <p class="stl-stufe__text">Wir sprechen über dich und deine Ziele.</p>
+            <!-- WORDING ERSETZT 31.08.2026 — Dokument V06, Schritt 01.
+                 Vorher Titel: "Kennenlernen"
+                 Vorher Text:  "Wir sprechen über dich und deine Ziele."
+                       davor:  "Wir sprechen über deinen Hintergrund, deine
+                                Ziele und deine bisherige Erfahrung." -->
+            <h3 class="stl-stufe__titel">Orientierung</h3>
+            <p class="stl-stufe__text">Du lernst Estera, unser
+             Leistungsversprechen, unsere Zielkunden und die Standards kennen, an
+             denen jede Beratung gemessen wird.</p>
           </div>
         </li>
         <li class="stl-stufe">
           <p class="stl-stufe__nr">02</p>
           <div class="stl-stufe__wort">
-            <h3 class="stl-stufe__titel">Eignung prüfen</h3>
-            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                 Vorher: "Wir prüfen gemeinsam, ob Arbeitsweise, Qualitätsanspruch
-                 und Zielgruppe zusammenpassen."
-                 VON ESTERA BESTAETIGEN LASSEN. -->
-            <p class="stl-stufe__text">Passen wir zusammen? Das klären wir gemeinsam.</p>
+            <!-- WORDING ERSETZT 31.08.2026 — Dokument V06, Schritt 02.
+                 Vorher Titel: "Eignung prüfen"
+                 Vorher Text:  "Passen wir zusammen? Das klären wir
+                                gemeinsam."
+                       davor:  "Wir prüfen gemeinsam, ob Arbeitsweise,
+                                Qualitätsanspruch und Zielgruppe
+                                zusammenpassen." -->
+            <h3 class="stl-stufe__titel">Produkt- und Prozesswissen</h3>
+            <p class="stl-stufe__text">Du verstehst unsere Objekte, Berechnungen,
+             Finanzierungslogik, steuerlichen Grundlagen und den gesamten Weg vom
+             Erstgespräch bis nach dem Kauf.</p>
           </div>
         </li>
         <li class="stl-stufe">
           <p class="stl-stufe__nr">03</p>
           <div class="stl-stufe__wort">
-            <h3 class="stl-stufe__titel">Onboarding</h3>
-            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                 Vorher: "Du lernst Angebot, Prozesse, Zielgruppen, Gesprächsführung
-                 und rechtliche Kommunikationsgrenzen kennen."
-                 VON ESTERA BESTAETIGEN LASSEN. -->
-            <p class="stl-stufe__text">Wir arbeiten dich ein. Du lernst Angebot und
-             Abläufe kennen.</p>
+            <!-- WORDING ERSETZT 31.08.2026 — Dokument V06, Schritt 03.
+                 Vorher Titel: "Onboarding"
+                 Vorher Text:  "Wir arbeiten dich ein. Du lernst Angebot und
+                                Abläufe kennen."
+                       davor:  "Du lernst Angebot, Prozesse, Zielgruppen,
+                                Gesprächsführung und rechtliche
+                                Kommunikationsgrenzen kennen." -->
+            <h3 class="stl-stufe__titel">Gesprächssystem</h3>
+            <p class="stl-stufe__text">Du trainierst Gesprächsstruktur,
+             Bedarfsanalyse, verständliche Erklärung, Einwandbehandlung, Abschluss
+             und saubere Dokumentation.</p>
           </div>
         </li>
         <li class="stl-stufe">
           <p class="stl-stufe__nr">04</p>
           <div class="stl-stufe__wort">
-            <h3 class="stl-stufe__titel">Erste Kundenfälle</h3>
-            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                 Vorher: "Bei den ersten Fällen wirst du eng begleitet und erhältst
-                 Unterstützung bei Einordnung, Objekt und Prozess."
-                 VON ESTERA BESTAETIGEN LASSEN. -->
-            <p class="stl-stufe__text">Bei deinen ersten Fällen sind wir dabei.</p>
+            <!-- WORDING ERSETZT 31.08.2026 — Dokument V06, Schritt 04.
+                 Vorher Titel: "Erste Kundenfälle"
+                 Vorher Text:  "Bei deinen ersten Fällen sind wir dabei."
+                       davor:  "Bei den ersten Fällen wirst du eng begleitet
+                                und erhältst Unterstützung bei Einordnung,
+                                Objekt und Prozess." -->
+            <h3 class="stl-stufe__titel">Begleitete Praxis</h3>
+            <p class="stl-stufe__text">Du beobachtest reale Gespräche, wertest sie
+             mit uns aus und übernimmst anschließend klar abgegrenzte Teile des
+             Beratungsprozesses.</p>
           </div>
         </li>
         <li class="stl-stufe">
           <p class="stl-stufe__nr">05</p>
           <div class="stl-stufe__wort">
-            <h3 class="stl-stufe__titel">Eigenständiger Aufbau</h3>
-            <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-                 Vorher: "Mit zunehmender Erfahrung übernimmst du mehr Verantwortung
-                 und entwickelst deinen eigenen Kundenbestand."
-                 VON ESTERA BESTAETIGEN LASSEN. -->
-            <p class="stl-stufe__text">Du übernimmst mehr. Du baust deinen eigenen
-             Kundenbestand auf.</p>
+            <!-- WORDING ERSETZT 31.08.2026 — Dokument V06, Schritt 06.
+                 Der fuenfte Platz traegt den SECHSTEN Schritt des Dokuments:
+                 die Liste endet hier, und sie muss mit der Eigenstaendigkeit
+                 enden — so war es auch vorher.
+                 Vorher Titel: "Eigenständiger Aufbau"
+                 Vorher Text:  "Du übernimmst mehr. Du baust deinen eigenen
+                                Kundenbestand auf."
+                       davor:  "Mit zunehmender Erfahrung übernimmst du mehr
+                                Verantwortung und entwickelst deinen eigenen
+                                Kundenbestand." -->
+            <h3 class="stl-stufe__titel">Eigene Verantwortung</h3>
+            <p class="stl-stufe__text">Sobald Qualität und Sicherheit stimmen,
+             führst du deine Fälle eigenständig und entwickelst im regelmäßigen
+             Feedback deine nächste Leistungsstufe.</p>
           </div>
         </li>
       </ol>
 
-      <!-- DIE ABSCHLUSSZEILE IST AM 31.08.2026 ENTFALLEN — Kundenwunsch,
-           ersatzlos. Sie lautete „Klare Prozesse. Echte Hilfe. Du kannst
-           wachsen." und stand woertlich im Wording-Master. Die Regel
-           .stl-erwartet__schluss ist mit ihr aus stelle.css raus. -->
+      <!-- AUS V06 NICHT UEBERNOMMEN — woertlich aufbewahrt, im Bericht
+           gemeldet:
+
+           Der ausgelassene fuenfte Schritt des Dokuments:
+             „Erste eigene Fälle — Du führst erste Gespräche und Fälle mit
+              festem Sparringspartner. Vorbereitung und Nachbesprechung
+              machen deinen Fortschritt messbar."
+
+           Die Bruecken- bzw. Abschlusszeile unter der Liste:
+             „Unser Ziel ist nicht, dich schnell allein zu lassen. Unser
+              Ziel ist, dich schnell gut zu machen."
+           Fuer sie gibt es hier keinen Platz mehr: an dieser Stelle stand
+           bis zum 31.08.2026 die Zeile „Klare Prozesse. Echte Hilfe. Du
+           kannst wachsen.", die der Kunde ersatzlos streichen liess — mit
+           ihr ist die Regel .stl-erwartet__schluss aus stelle.css
+           verschwunden. Sie zurueckzuholen waere neues Design. -->
     </div>
 
     <!-- EIN Bild, Kundenwunsch vom 29.08.2026.
@@ -872,40 +1097,219 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
   <div class="stl-inner stl-zwei stl-zwei--schluss">
 
     <div class="stl-schluss__links">
+      <!-- WORDING ERSETZT 31.08.2026 — Dokument V11 (Abschluss).
+           Vorher Kleinzeile:   "04 Dein nächster Schritt"
+           Vorher Ueberschrift: "Passt Estera zu deinem nächsten Schritt?"
+                davor (30.08.): "Prüfe, ob Estera zu deinem nächsten
+                                 beruflichen Schritt passt."
+           Vorher Text: "Bewirb dich. Das erste Gespräch ist unverbindlich.
+                         Wir reden offen über deinen Weg bei uns."
+                davor: "Bewirb dich für ein unverbindliches Kennenlernen. Wir
+                        sprechen offen über Erwartungen, Voraussetzungen,
+                        Zusammenarbeit und deine Entwicklungsmöglichkeiten."
+           Vorher Knopf: "Jetzt bewerben" -->
       <p class="stl-kleinzeile">
-        <span class="stl-kleinzeile__num">04</span>Dein nächster Schritt</p>
-      <!-- WORDING GEAENDERT 30.08.2026 — Kundenwunsch, zweiter Durchgang.
-           Aus der Aufforderung wird eine Frage an den Leser. Zehn Woerter auf
-           sechs, Komma und Nebensatz fallen weg. „beruflich" steckt schon in
-           der Kleinzeile darueber („Dein naechster Schritt").
-           Vorher: "Prüfe, ob Estera zu deinem nächsten beruflichen Schritt passt."
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <h2 class="stl-h2 stl-h2--unterstrichen" id="t-schluss">Passt Estera zu deinem
-         nächsten Schritt?</h2>
-      <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
-           Vorher: "Bewirb dich für ein unverbindliches Kennenlernen. Wir
-           sprechen offen über Erwartungen, Voraussetzungen, Zusammenarbeit und deine
-           Entwicklungsmöglichkeiten."
-           VON ESTERA BESTAETIGEN LASSEN. -->
-      <p class="stl-schluss__text">Bewirb dich. Das erste Gespräch ist unverbindlich.
-         Wir reden offen über deinen Weg bei uns.</p>
+        <span class="stl-kleinzeile__num">04</span>Bereit für deine nächste Stufe?</p>
+      <h2 class="stl-h2 stl-h2--unterstrichen" id="t-schluss">Wenn du ein Umfeld
+         suchst, das deinen Anspruch nicht bremst, sondern größer macht, sollten
+         wir sprechen.</h2>
+      <p class="stl-schluss__text">Bring deine Ambition mit. Wir zeigen dir das
+         System, die Standards und die Verantwortung, an denen du wachsen
+         kannst.</p>
       <div class="stl-schluss__aktionen">
-        <a class="btn" href="kontakt.html?v=b24a">Jetzt bewerben</a>
+        <a class="btn" href="kontakt.html?v=b24a">Als Immobilienberater bewerben</a>
+        <!-- „Zurück zur Übersicht" ist kein Wording, sondern Navigation und
+             steht deshalb nicht im Dokument: diese Seite haengt unter
+             karriere.html und braucht den Weg zurueck. Sie bleibt. -->
         <a class="stl-zurueck" href="karriere.html?v=b24a">Zurück zur Übersicht</a>
       </div>
-      <p class="stl-schluss__hinweis">Keine Einkommensgarantie. Die tatsächliche Entwicklung
-         hängt insbesondere von Erfahrung, Einsatz, Qualifikation und Vertriebserfolg ab.</p>
+      <!-- DIE LEISE ZEILE TRAEGT DEN PFLICHTHINWEIS AUS V07, NICHT DIE
+           MIKROZEILE AUS V11 — bewusst, und im Bericht gemeldet.
+           Es gibt hier genau EINEN solchen Platz. V07 („Vergütung und
+           Perspektive") hat in diesem Aufbau keinen eigenen Abschnitt; sein
+           Pflichthinweis ist aber der einzige Rechtshinweis, den das
+           Dokument fuer diese Rolle vorsieht, und bis heute stand an genau
+           dieser Stelle der entsprechende Satz der alten Fassung. Ihn gegen
+           eine Werbezeile zu tauschen waere ein Rueckschritt.
+           Die Mikrozeile aus V11, die damit keinen Platz hat:
+             „Selbstständig · leistungsbezogen · langfristig gedacht"
+           Vorher stand hier: "Keine Einkommensgarantie. Die tatsächliche
+             Entwicklung hängt insbesondere von Erfahrung, Einsatz,
+             Qualifikation und Vertriebserfolg ab." -->
+      <p class="stl-schluss__hinweis">Die Tätigkeit erfolgt selbstständig. Es
+         bestehen kein Fixgehalt und keine Garantie für Umsätze oder
+         Einkommen.</p>
     </div>
 
     <figure class="stl-schluss__medium">
+      <!-- KEIN `loading="lazy"` MEHR — 31.08.2026, nachgemessen.
+           Der Kunde hat mehrfach gemeldet, dass an dieser Stelle kein Bild
+           zu sehen ist. Das Bildfenster steht da (604 x 302 bei 1440, in
+           der rechten Haelfte, Deckkraft 1), aber der Browser hat die Datei
+           in einem von zwei Messlaeufen NIE angefordert: `currentSrc` leer,
+           naturalWidth 0, keine einzige Netzanfrage. Erst beim echten
+           Rollen mit dem Mausrad lud sie.
+           Zwei Dinge treffen hier aufeinander: die Datei haengt am Ende
+           einer 5000 px langen Seite, und das Feld wird beim Einlauf ueber
+           `clip-path` aufgezogen. Wer per Sprungmarke, wiederhergestelltem
+           Rollstand oder sehr schnellem Rollen dort ankommt, bekommt vom
+           traegen Laden womoeglich nichts mehr. Fuer EIN Bild, das den
+           Abschluss der Seite traegt, ist das der falsche Handel. -->
       <picture>
         <source srcset="assets/img/karriere/kar-beratung.webp?v=b24a" type="image/webp">
-        <img src="assets/img/karriere/kar-beratung.png?v=b24a" alt="Beratungssituation am Besprechungstisch" loading="lazy" decoding="async" width="1536" height="1024">
+        <img src="assets/img/karriere/kar-beratung.png?v=b24a" alt="Beratungssituation am Besprechungstisch" decoding="async" width="1536" height="1024">
       </picture>
     </figure>
 
   </div>
 </section>
+
+<!-- =====================================================================
+     WAS DAS WORDING-DOKUMENT SONST NOCH ENTHAELT — UND WAS AUF DIESER
+     SEITE KEINEN ORT HAT
+     31.08.2026. Der Kunde hat den Aufbau dieser Seite ausdruecklich so
+     bestaetigt, wie er ist: Kopfbereich, „Was wir bieten", Laufband,
+     „Das macht dich aus", Laufband, „Das erwartet dich", Abschluss.
+     Fuer sechs der elf Dokumentbausteine gibt es darin keinen Abschnitt.
+     Sie sind hier woertlich aufbewahrt und im Bericht aufgelistet, damit
+     Estera sieht, was das Dokument fuehrt und was auf der Seite steht.
+     WER SIE SICHTBAR MACHEN WILL, BRAUCHT NEUE ABSCHNITTE — und genau die
+     hat der Kunde abgelehnt.
+
+     ---------------------------------------------------------------------
+     V02 — WORUM ES IN DEINER ROLLE WIRKLICH GEHT
+     Vorzeile:     Deine Aufgabe
+     Ueberschrift: Du verkaufst nicht einfach eine Immobilie. Du schaffst
+                   Klarheit.
+     Für viele Kunden ist eine Kapitalanlageimmobilie eine der größten
+     finanziellen Entscheidungen ihres Lebens. Deine Aufgabe ist es, ihre
+     Ausgangslage zu verstehen, komplexe Zusammenhänge einfach zu erklären
+     und sie strukturiert zu einer Entscheidung zu führen, die sie
+     nachvollziehen können.
+     Du arbeitest verbindlich, zielorientiert und abschlussstark – aber nie
+     über Druck. Denn nachhaltiger Vertrieb entsteht dort, wo Kompetenz,
+     Klarheit und Vertrauen zusammenkommen.
+     Leitgedanke: Du bist nicht der Lauteste im Raum. Du bist die Person,
+     nach deren Gespräch die Entscheidung klarer ist.
+
+     ---------------------------------------------------------------------
+     V03 — DEINE AUFGABEN
+     Vorzeile:     Dein Verantwortungsbereich
+     Ueberschrift: Du führst den Beratungsprozess – vom ersten Kontakt bis
+                   über den Kauf hinaus.
+     1 Erstgespräch und Einordnung — Du verstehst die aktuelle Situation,
+       Ziele, Erwartungen und Entscheidungsfähigkeit des Interessenten.
+     2 Bedarf und Strategie — Du ordnest ein, welche Form der Kapitalanlage
+       und welcher finanzielle Rahmen grundsätzlich zum Kunden passen.
+     3 Objekt und Zahlen — Du stellst ausgewählte Objekte verständlich vor
+       und übersetzt Finanzierung, Kosten und Wirtschaftlichkeit in klare
+       Aussagen.
+     4 Entscheidung und Abschluss — Du führst offene Fragen zusammen,
+       sprichst Unsicherheiten an und begleitest den Kunden verbindlich bis
+       zur Kaufentscheidung.
+     5 Koordination im Team — Du bringst Finanzierung und Abwicklung
+       frühzeitig zusammen und hältst alle relevanten Informationen sauber
+       dokumentiert.
+     6 Beziehung nach dem Kauf — Du bleibst ansprechbar, denkst langfristig
+       und entwickelst aus guter Beratung vertrauensvolle
+       Kundenbeziehungen.
+
+     ---------------------------------------------------------------------
+     V07 — VERGUETUNG UND PERSPEKTIVE
+     Vorzeile:     Leistung, die sich lohnt
+     Ueberschrift: Deine Vergütung wächst mit dem Wert, den du schaffst.
+     Als selbstständiger Vertriebspartner arbeitest du in einem
+     erfolgsbezogenen Vergütungsmodell mit transparenten, schriftlich
+     geregelten Konditionen. Wie dein Anteil aufgebaut ist, welche
+     Leistungen enthalten sind und wann Vergütungen fällig werden, klären
+     wir offen, bevor wir zusammenarbeiten.
+     Transparent — Du kennst die Berechnungsgrundlage, Fälligkeit und
+       Bedingungen deiner Vergütung vor dem Start.
+     Leistungsbezogen — Dein Einkommen richtet sich nach deiner Leistung
+       und dem tatsächlich realisierten Geschäft.
+     Skalierbar — Mit wachsender Beratungsqualität, Verantwortung und einem
+       stärkeren Kundenbestand steigt dein unternehmerisches Potenzial.
+     Seriös — Wir arbeiten ohne Einkommensgarantien, künstliche
+       Statussymbole oder Versprechen, die niemand belastbar halten kann.
+     DER PFLICHTHINWEIS AUS V07 IST DAS EINZIGE STUECK DIESES BAUSTEINS,
+     DAS AUF DER SEITE STEHT — als leise Zeile im Abschlussabschnitt.
+     ANWEISUNG AN ESTERA AUS DEM DOKUMENT, KEIN SEITENTEXT: Verguetungs-
+     modell, Berechnungsgrundlage, Faelligkeit und die Frage, welche
+     Leistungen enthalten sind, muessen vor Veroeffentlichung intern
+     freigegeben werden.
+
+     ---------------------------------------------------------------------
+     V08 — FUER WEN DIE ROLLE PASST, UND FUER WEN NICHT
+     (Das Dokument gibt diesem Baustein weder Vorzeile noch Ueberschrift,
+      nur die beiden Spaltentitel.)
+     Das passt zu dir, wenn ...
+       du Menschen ehrlich beraten und gleichzeitig klar zum Abschluss
+         führen kannst
+       du fachlich lernen und persönlich wachsen willst
+       du Verantwortung, Struktur und verbindliche Standards schätzt
+       du langfristige Kundenbeziehungen wichtiger findest als schnelle
+         Einmalabschlüsse
+       du unternehmerisch denkst und deine Ergebnisse selbst mitgestalten
+         willst
+     Das passt nicht zu dir, wenn ...
+       du nur die schnellste Provision suchst
+       du Druck mit guter Gesprächsführung verwechselst
+       du Vorbereitung und Dokumentation für Nebensache hältst
+       du Feedback abwehrst oder Verantwortung regelmäßig weitergibst
+       du ein garantiertes Einkommen ohne eigenes Leistungsrisiko erwartest
+
+     ---------------------------------------------------------------------
+     V09 — BEWERBUNGSPROZESS
+     Vorzeile:     Dein Einstieg
+     Ueberschrift: In vier Schritten wissen beide Seiten, woran sie sind.
+     01 Kurzbewerbung — Du beantwortest wenige Fragen zu Erfahrung,
+        Motivation und Ziel. Ein Anschreiben brauchst du nicht.
+     02 Persönliches Gespräch — Wir sprechen über deinen bisherigen Weg,
+        deinen Anspruch, das Partnermodell und unsere gegenseitigen
+        Erwartungen.
+     03 Beratungssituation — Wir bearbeiten gemeinsam einen realistischen
+        Kundenfall. Uns interessieren Struktur, Verständlichkeit, Haltung
+        und Lernfähigkeit – nicht auswendig gelernte Verkaufssätze.
+     04 Partnerschaft und Startplan — Wenn es auf beiden Seiten passt,
+        klären wir Vertrag, Vergütung, Onboarding und den konkreten Start.
+     Knopf:  Jetzt als Immobilienberater bewerben
+     Zeile:  Kurzbewerbung · ohne Anschreiben · klare Rückmeldung
+
+     ---------------------------------------------------------------------
+     V10 — FAQ FUER IMMOBILIENBERATER
+     (Auch hier gibt das Dokument weder Vorzeile noch Ueberschrift, nur die
+      sechs Fragen. Ein Aufklapper existiert auf dieser Seite ohnehin
+      nicht — die Ziehharmonika haengt an faq.css und gehoert der
+      Startseite.)
+     Bin ich angestellt oder selbstständig? — Die Rolle ist als
+       selbstständige Vertriebspartnerschaft vorgesehen. Die vertraglichen
+       Konditionen, Zuständigkeiten und Vergütung werden vor dem Start
+       transparent und schriftlich festgehalten.
+     Brauche ich Erfahrung im Immobilienvertrieb? — Erfahrung ist
+       hilfreich, aber nicht in jedem Fall Voraussetzung. Besonders
+       relevant sind Beratungskompetenz, Vertriebsverständnis,
+       Zahlenaffinität, Verbindlichkeit und die Bereitschaft, unser Fach-
+       und Prozesswissen intensiv zu lernen.
+     Muss ich ein eigenes Kundennetzwerk mitbringen? — Ein bestehendes
+       Netzwerk kann den Einstieg beschleunigen.
+       ANWEISUNG AN ESTERA, KEIN SEITENTEXT: Ob und in welchem Umfang
+       Kontakte oder Termine bereitgestellt werden, muss vor
+       Veroeffentlichung vereinbart werden.
+     Wie werde ich fachlich eingearbeitet? — Du durchläufst ein
+       strukturiertes Onboarding zu Zielkunden, Objekten,
+       Wirtschaftlichkeit, Finanzierung, steuerlichen Grundlagen,
+       Gesprächsführung und interner Abwicklung. Erste Fälle führst du
+       begleitet.
+     Wie hoch kann mein Einkommen sein? — Dein Einkommen hängt unter
+       anderem von Aktivität, Beratungsqualität, realisierten Käufen und
+       dem vertraglich vereinbarten Vergütungsmodell ab. Deshalb
+       kommunizieren wir keine pauschale Einkommensgarantie, sondern legen
+       die Berechnung offen.
+     Was passiert nach dem Verkauf? — Die Kundenbeziehung endet nicht mit
+       der Unterschrift. Du bleibst ansprechbar und arbeitest mit dem Team
+       zusammen, das Übergabe, Vermietung, Verwaltung und weitere Schritte
+       koordiniert – soweit diese Leistungen konkret vereinbart sind.
+     ===================================================================== -->
 
 </main>
 
@@ -997,8 +1401,10 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
          eigenmaechtig umbenannt worden. -->
     <p class="menu__gruppe">Auf der Startseite</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
-      <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <!-- BENENNUNG 31.08.2026, Kundenwunsch — wortgleich mit der
+           Kopfleiste. Vorher: „Vorteile" und „Leistungen". -->
+      <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Warum Immobilien</a></li>
+      <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Warum Estera</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">

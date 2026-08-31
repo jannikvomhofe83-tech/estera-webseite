@@ -75,22 +75,30 @@
 
      LINIEN UND KONTUREN (Schwelle 3:1)
      Kastenkontur, S-Zuege              --navy-400  #4C6A93   5.54:1
-     Haken der Stichpunkte              --navy-400  #4C6A93   5.54:1
      Die beiden senkrechten Pfeile      --navy-600  #1E4270  10.15:1
-     Die sechs Symbole                  --navy-600  #1E4270  10.15:1
+     Haken der Stichpunkte              --gold      #A8874F   3.36:1
+     Die sechs Symbole                  --gold      #A8874F   3.36:1
 
-   KEIN GOLD MEHR. Bis Runde 3 trugen der Estera-Kasten, die Pfeile und die
-   Symbole Gold. Der Kunde hat es abbestellt („der Rest ist alles blau").
-   Zur Erinnerung fuer den Fall, dass es zurueckkommt: --gold #A8874F misst
-   auf Weiss nur 3.36:1 — als Linie zulaessig, als Schrift nicht; goldene
-   Schrift braucht --gold-text #86693A (5.13:1).
+   DAS GOLD IST AM 31.08.2026 ZURUECKGEKOMMEN — auf ausdrueckliche Ansage
+   des Kunden und nur an zwei Stellen: an den vierzig Haken und an den sechs
+   Symbolen. „Unsere Akzentfarbe ist die Farbe, die die CTA-Buttons haben,
+   diese goldene Farbe. … und die Icons in den Kästen auch." Alles Uebrige
+   bleibt blau, wie in Runde 3 verlangt: Konturen, S-Zuege, die zwei Pfeile,
+   die Wortmarke und jede Schrift.
+   ES BLEIBT DABEI, DASS --gold KEINE SCHRIFT TRAEGT. 3.36:1 reicht fuer
+   eine Zeichnung (Schwelle 3:1), nicht fuer Text (4.5:1); goldene Schrift
+   braucht --gold-text #86693A (5.13:1). Die Wahl zwischen beiden Toenen ist
+   bei --wn-akzent begruendet.
 
    ZWEI BLAUTOENE UND NICHT EINER: --navy-400 traegt die Flaeche der Grafik
-   (sechs Kastenkonturen, vier lange S-Zuege, zweiunddreissig Haken). Wuerde
-   das alles in --navy-600 stehen, waere die Zeichnung ein Gitter statt einer
-   Andeutung. Die zwei Pfeile und die sechs Symbole tragen den dunkleren Ton,
-   weil sie einzeln stehen und Bedeutung haben: der Weg und das, was in jedem
-   Kasten geschieht.
+   (sechs Kastenkonturen, vier lange S-Zuege). Wuerde das alles in --navy-600
+   stehen, waere die Zeichnung ein Gitter statt einer Andeutung. Die zwei
+   Pfeile tragen den dunkleren Ton, weil sie einzeln stehen und Bedeutung
+   haben: sie zeigen den Weg.
+   Die vierzig Haken und die sechs Symbole standen bis zum 31.08.2026
+   ebenfalls in diesen beiden Blautoenen (--navy-400 und --navy-600); sie
+   tragen seither das Akzentgold. Die Begruendung und die Messwerte stehen
+   bei --wn-akzent.
 
    ===== DER HINTERGRUND ====================================================
    Das vollflaechige Gebaeudefoto und der weisse Schleier darueber sind am
@@ -198,14 +206,84 @@
    =========================================================================== */
 
 
-/* --- Kopf ---------------------------------------------------------------- */
+/* --- Kopf ----------------------------------------------------------------
+   DER KOPF HAT SEIT DEM 31.08.2026 DREI ZEILEN
+
+   Bis dahin stand hier allein die Ueberschrift. Das Wording-Dokument gibt in
+   Abschnitt 05 („Warum Estera?") einen Eyebrow und eine Unterzeile dazu, und
+   der Kunde hat den Wortlaut eins zu eins verlangt.
+
+   KEIN NEUER STIL. Beide Zeilen uebernehmen die Werte des Bausteins, der
+   dieselbe Rolle im Ablauf spielt — genauso, wie es der Abschluss-CTA am
+   selben Tag gemacht hat:
+     .wahl__eyebrow  <- .abl__eyebrow   (Kleinzeile ueber einer Ueberschrift)
+     .wahl__sub      <- .abl__sub       (Unterzeile)
+   Die Werte stehen hier AUSGESCHRIEBEN und nicht als Verweis: ein @extend
+   gibt es in CSS nicht, und --abl-fs-eyebrow, --abl-bronze und --abl-text
+   sind auf .abl gesetzt und ausserhalb davon nicht zu haben.
+
+   DIE ZWEI FARBEN SIND GEGEN DIESEN GRUND NACHGERECHNET, nicht aus dem
+   Ablauf abgeschrieben — dort liegen sie auf Creme, hier auf reinem Weiss
+   (WCAG 2.1, Relative Luminanz, Schwelle 4.5:1 fuer Text):
+     Eyebrow    #8A5A20   5.61:1 auf #FFFFFF
+     Unterzeile #5A6879   5.61:1 auf #FFFFFF
+
+   ZUR GROESSE DES EYEBROWS, und das ist eine bewusste Abweichung von der
+   15-px-Untergrenze, die in dieser Section sonst ueberall gilt: bei 1024 px
+   Fenster steht er auf 14.4 px, bei 390 px auf 13.3 px. Das ist der Wert des
+   Ablauf-Eyebrows, Zeichen fuer Zeichen. Eine Kleinzeile ist auf dieser
+   Seite ueberall so gross — sie hier einzeln anzuheben hiesse, zwei
+   Eyebrows derselben Seite verschieden gross zu setzen. Die Untergrenze
+   gilt der Zeichnung, deren Schrift mit ihr skaliert; der Eyebrow skaliert
+   mit dem Fenster und steht in Versalien mit 0.30em Sperrung, was ihn
+   optisch groesser traegt als seinen Kegel.
+-------------------------------------------------------------------------- */
 .wahl__head {
+  display: grid;
+  justify-items: center;
   text-align: center;
 }
+
+.wahl__eyebrow {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.90rem, 1.26vw, 1.16rem);
+  line-height: 1;
+  /* Die letzte Sperrung haengt rechts als Leerraum an; sie wird
+     ausgeglichen, damit die Zeile wirklich mittig steht und nicht um ein
+     halbes Zeichen nach links versetzt wirkt. */
+  letter-spacing: 0.30em;
+  text-indent: 0.30em;
+  text-transform: uppercase;
+  color: #8A5A20;
+}
+
 .wahl__h2 {
+  margin: clamp(1.05rem, 1.8vw, 1.75rem) 0 0;
   font-size: clamp(1.85rem, 2.9vw, 3.15rem);
   line-height: 1.06;
   color: var(--navy-800);
+  text-wrap: balance;
+}
+
+.wahl__sub {
+  max-width: 44rem;
+  margin: clamp(1.1rem, 2.3vw, 2.2rem) 0 0;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(1.06rem, 1.60vw, 1.46rem);
+  line-height: 1.45;
+  color: #5A6879;
+  text-wrap: balance;
+}
+
+/* Dieselbe Stufe wie im Ablauf (dort @media max-width 760). Ohne sie stuende
+   die Unterzeile auf dem Telefon in Schreibtischgroesse und braeuchte vier
+   Zeilen. */
+@media (max-width: 760px) {
+  .wahl__eyebrow { font-size: clamp(0.82rem, 3.4vw, 0.96rem); }
+  .wahl__sub     { font-size: clamp(1.0rem, 4.1vw, 1.2rem); }
 }
 
 
@@ -219,8 +297,33 @@
   /* ===== Farben, alle aus der Palette in assets/css/base.css ==============
      „Der Rest ist alles blau" — schwarz ist nur die Wortmarke. Die
      gemessenen Kontraste stehen im Kopf dieser Datei.                      */
-  --wn-kontur: var(--navy-400);      /* Kastenkontur, S-Zuege, Haken        */
-  --wn-weg: var(--navy-600);         /* die zwei Pfeile und die Symbole     */
+  --wn-kontur: var(--navy-400);      /* Kastenkontur und S-Zuege            */
+  --wn-weg: var(--navy-600);         /* die zwei Pfeile                     */
+  /* ===== DIE AKZENTFARBE — 31.08.2026, Kundenwunsch =====================
+     Woertlich: „Die Häkchen vor den Punkten sollen immer in unserer
+     Akzentfarbe gemacht werden. Unsere Akzentfarbe ist die Farbe, die die
+     CTA-Buttons haben, diese goldene Farbe. Diese Farbe soll jedes einzelne
+     Häkchen bekommen — und die Icons in den Kästen auch."
+
+     WELCHER DER DREI GOLDTOENE. Der Sand-Knopf der Seite hat die Flaeche
+     --sand #D9B485 und die Kante --gold #A8874F; fuer Schrift gibt es
+     --gold-text #86693A. Gemessen gegen den Kastengrund (reines Weiss,
+     WCAG 2.1, Relative Luminanz):
+       --sand      #D9B485   1.94:1   fuer eine Haarlinie viel zu schwach
+       --gold      #A8874F   3.36:1   ueber der Schwelle 3:1
+       --gold-text #86693A   5.13:1   auch als Schrift zulaessig
+     Haken und Symbole sind ZEICHNUNG und keine Schrift; fuer sie gilt die
+     Schwelle 3:1 (WCAG 1.4.11), nicht 4.5:1. Genommen ist deshalb --gold —
+     es ist buchstaeblich die Farbe der Knopfkante, die der Kunde meint, und
+     die Seite fuehrt diesen Ton ohnehin als ihre Linienfarbe.
+
+     WAS DAS FUER DIE STRICHSTAERKEN HEISST: 3.36:1 laesst nur 0.36
+     Reserve ueber der Schwelle. Wer die Haken oder die Symbole duenner
+     macht oder verkleinert, faellt darunter — die Werte 2.2 im 20er-Raster
+     des Hakens und 1.1 im 24er-Raster der Symbole sind deshalb nicht mehr
+     frei. Und --gold darf in dieser Grafik NIE Schrift tragen; dafuer
+     stuende --gold-text bereit. */
+  --wn-akzent: var(--gold);          /* Haken und Symbole                   */
   --wn-flaeche: var(--paper);        /* Fuellung der sechs Kaesten          */
   --wn-titel: var(--navy-800);       /* Titel in den Kaesten                */
   --wn-punkt: var(--ink-soft);       /* Stichpunkte in den Kaesten          */
@@ -228,9 +331,9 @@
 
   /* ===== Strichstaerke ===================================================
      Angegeben in SVG-Einheiten, nicht in Bildschirmpixeln — sie skaliert
-     also mit der Zeichnung. Die breite Zeichnung ist 1200 Einheiten breit
-     und wird zwischen rund 900 und 1100 px dargestellt; 1.25 Einheiten
-     landen damit zwischen 0.94 und 1.15 px, also praktisch immer auf der
+     also mit der Zeichnung. Die breite Zeichnung ist 1304 Einheiten breit
+     und wird zwischen 1151 und 1240 px dargestellt; 1.25 Einheiten landen
+     damit zwischen 1.10 und 1.19 px, also praktisch immer auf der
      1-px-Haarlinie der Vorlage.
 
      WARUM NICHT vector-effect: non-scaling-stroke, das exakt 1 px liefern
@@ -252,14 +355,31 @@
   --wn-kasten-dauer: 0.44s; /* Kasten blendet ein und laeuft hoch           */
   --wn-zug-dauer: 0.6s;     /* Ersatzwert, falls das Skript nicht misst     */
 
-  /* Nicht breiter als 1100 px. Das ist keine Geschmacksfrage: die Schrift
-     steht in SVG-Einheiten und skaliert mit der Zeichnung, die Stichpunkte
-     duerfen aber weder unter 12 px fallen noch ueber 16 px steigen. Zwischen
-     dem Umschaltpunkt (rund 903 px Zeichnungsbreite) und dieser Obergrenze
-     liegt ein Faktor von 1.22 — genau das Fenster, das die 17 Einheiten der
-     Stichpunkte von 12.8 auf 15.6 px bringt. Waere die Zeichnung breiter,
-     muesste der Umschaltpunkt mitwandern. */
-  max-width: min(1100px, 100%);
+  /* ===== VON 1100 AUF 1320 px — 31.08.2026 ==============================
+     Nicht breiter als die viewBox der breiten Zeichnung. Das ist keine
+     Geschmacksfrage, sondern die Kehrseite des groesseren Rasters: die
+     Schrift steht in SVG-Einheiten und skaliert mit der Zeichnung, also
+     bestimmt das Verhaeltnis von Darstellungsbreite zu viewBox-Breite die
+     Schriftgroesse in Bildpunkten.
+
+     Die viewBox ist am 31.08.2026 von 1200 auf 1304 Einheiten gewachsen,
+     weil die Stichpunkte des Wording-Dokuments laenger sind (die Rechnung
+     steht im Markup, bei der Netzgrafik). Bliebe die Obergrenze bei
+     1100 px, kaemen die 17 Einheiten der Stichpunkte nur noch als 14.3 px
+     an — unter der Untergrenze von 15 px.
+
+     WARUM 1240 UND NICHT 1304. Bei 1304 px stuende die Zeichnung im
+     Massstab 1 und die Kaesten auf vollen 336 Bildpunkten. Der Kunde hat
+     am 31.08.2026 genau das beanstandet: „Ausserdem sind die Kästen jetzt
+     zu groß geworden." Bei 1240 px ist der Massstab 0.951, die Kaesten
+     stehen auf 319 Bildpunkten und die Stichpunkte auf 16.2 px — deutlich
+     ueber der Untergrenze. Weiter herunter geht es nicht sinnvoll: bei
+     1150 px waere die Untergrenze erreicht und jede Reserve weg.
+
+     1240 px PASSEN: .wahl__inner ist hoechstens 1520 px breit und haelt bei
+     grossen Fenstern 4.2rem (67.2 px) Seitenabstand, es bleiben also
+     1385.6 px. Wer .wahl__inner enger stellt, muss hier mitziehen. */
+  max-width: min(1240px, 100%);
   margin: clamp(0.4rem, 1.4vh, 1.2rem) auto 0;
   /* Bezug fuer die drei unsichtbaren Marken, siehe .wnetz__marke. */
   position: relative;
@@ -275,13 +395,17 @@
    Prozent einer absolut gesetzten Box beziehen sich auf die Hoehe von
    .wnetz, und die ist die Hoehe der gerade eingeblendeten Zeichnung.
 
-   Die Werte, hergeleitet aus den viewBox-Koordinaten:
-     breit  (1200 x 995)   Stufe 1  Mitte des Off-Market-Kastens  164/995
-                           Stufe 2  Mitte des Trabantenfeldes     547/995
-                           Stufe 3  Oberkante des Zielkastens     796/995
-     schmal (400 x 2300)   Stufe 1  Mitte des Off-Market-Kastens  160/2300
-                           Stufe 2  Hoehe der Wortmarke           440/2300
-                           Stufe 3  Mitte des Zielkastens        2186/2300
+   Die Werte, hergeleitet aus den viewBox-Koordinaten. Am 31.08.2026 sind
+   beide Zeichnungen gewachsen; die Marken sind mitgewandert. Sie stehen
+   weiterhin an derselben STELLE DER ZEICHNUNG wie vorher, nur ist die
+   Zeichnung hoeher geworden, und deshalb aendern sich die Prozentwerte:
+     breit  (1304 x 1080)  Stufe 1  Mitte des Off-Market-Kastens  192/1080
+                           Stufe 2  Mittelhoehe der Trabanten     544/1080
+                           Stufe 3  gut ein Zeilenmass unter der
+                                    Oberkante des Zielkastens     884/1080
+     schmal (380 x 2578)   Stufe 1  Mitte des Off-Market-Kastens  188/2578
+                           Stufe 2  Hoehe der Wortmarke           509/2578
+                           Stufe 3  Mitte des Zielkastens        2465/2578
 -------------------------------------------------------------------------- */
 .wnetz__marke {
   position: absolute;
@@ -290,13 +414,13 @@
   height: 1px;
   pointer-events: none;
 }
-.wnetz__marke--1 { top: 16.5%; }
-.wnetz__marke--2 { top: 55%; }
-.wnetz__marke--3 { top: 80%; }
+.wnetz__marke--1 { top: 17.8%; }
+.wnetz__marke--2 { top: 50.4%; }
+.wnetz__marke--3 { top: 82%; }
 
 /* Das Sprite traegt die Kastenform, den Haken der Stichpunkte und die sechs
    Symbole. Einmal abgelegt, per <use> geholt: die Kastenform zwoelfmal, die
-   Symbole je zweimal, der Haken zweiunddreissigmal. */
+   Symbole je zweimal, der Haken vierzigmal. */
 .wnetz__sprite {
   position: absolute;
   width: 0;
@@ -323,24 +447,95 @@
 
 
 /* --- Die Kaesten ----------------------------------------------------------
-   EINE Form fuer alle sechs, alle gleich gross: 280 zu 280, also ein echtes
-   Quadrat, mit einem 45-Grad-Schnitt von 34 Einheiten an jeder Ecke — die
-   rund 12 Prozent der Kantenlaenge aus der Vorlage.
+   EINE Form fuer alle sechs. Die fuenf quadratischen sind gleich gross und
+   ein echtes Quadrat, mit einem 45-Grad-Schnitt von 12 Prozent der
+   Kantenlaenge an jeder Ecke — so wie in der Vorlage.
 
-   DIE GROESSE IST GERECHNET, NICHT GEWAEHLT. In den Kasten muessen
-   uebereinander: 30 Luft, ein Symbol von 40, 14 Luft, ein zweizeiliger Titel
-   von 50, 16 Luft, vier Stichpunktzeilen von je 22 (macht 88) und wieder
-   Luft. Das sind rund 244 Einheiten Inhalt; mit gleichem Rand oben und unten
-   kommt man auf 280. Die breiteste Stichpunktzeile („Persoenlicher
-   Ansprechpartner") misst mit Haken 219 Einheiten und passt damit in die
-   240 Einheiten zwischen den Innenraendern. Wer die Zeilen verlaengert oder
-   die Schrift vergroessert, muss den Kasten mitwachsen lassen — quadratisch
-   bleiben muss er in jedem Fall, das ist die Vorgabe des Kunden.
+   ===== VON 280 UEBER 344 AUF 336 EINHEITEN — 31.08.2026 ===================
+   Gerechnet und nicht gewaehlt, und QUADRATISCH: „die muessen mehr viereckig
+   sein" ist Kundenvorgabe aus Runde 2 und steht ueber jeder Platznot. Alle
+   fuenf sind gleich gross.
+
+   AUSLOESER IST DER WORTLAUT. Das Wording-Dokument (Abschnitt 05) bringt
+   deutlich laengere Stichpunkte und in einem Kasten fuenf statt vier.
+   Nachgemessen im Browser mit getComputedTextLength() bei 17 Einheiten:
+     laengster ALTER Punkt   "Du hast einen festen Kontakt"     193 Einh.
+     laengster NEUER Punkt   "Ausgewählte Objekte statt
+                              unübersichtlicher Suche"          340 Einh.
+   Im 280er-Kasten lagen zwischen Textanfang und Innenrand 228 Einheiten.
+   Neun der zwanzig neuen Punkte haetten dort nicht gestanden.
+
+   DIE BREITE FOLGT DEM LAENGSTEN EINZEILIGEN PUNKT UND SONST NICHTS. Das ist
+   die Antwort auf die Kundenbeanstandung vom 31.08.2026 („Ausserdem sind die
+   Kästen jetzt zu groß geworden"): der erste Anlauf stand auf 344, weil dort
+   noch eine feste Innenkante gerechnet wurde. Jetzt gilt
+     Kastenseite = laengste einzeilige Zeile + Haken samt Vorlauf + 2 x Rand
+                 = 271.2 + 20 + 2 x 22.4 = 336
+   Groesser ist nicht noetig, kleiner ginge nur um den Preis von fuenf
+   weiteren umgebrochenen Punkten: unter 271 Einheiten liegt eine Traube von
+   fuenf Zeilen zwischen 262.8 und 271.2, und darunter kommt lange nichts.
+   24 Einheiten Ersparnis waeren fuenf zusaetzliche Umbrueche wert gewesen —
+   sie sind es nicht.
+
+   VIER DER ZWANZIG PUNKTE STEHEN AUF ZWEI ZEILEN (303 bis 340 Einheiten).
+   Gekuerzt oder umformuliert ist keiner.
+
+   IN DER HOEHE zaehlt: Symbol 40, 30 bis zur ersten Titelgrundlinie, 27 je
+   weiterer Titelzeile, dann der IMMER GLEICHE Abstand von 54 Einheiten von
+   der LETZTEN Titelgrundlinie zur ersten Stichpunktgrundlinie, danach 28 von
+   Punkt zu Punkt und 22 innerhalb eines umgebrochenen Punktes. Der hoechste
+   Block ist „Finanzierung" mit 257 Einheiten, der niedrigste „Langfristige
+   Begleitung" mit 213. Beide passen in 336, und beide stehen SENKRECHT
+   MITTIG — nicht oben angeklebt.
+
+   WER DIE ZEILEN VERLAENGERT ODER DIE SCHRIFT VERGROESSERT, muss den Kasten
+   mitwachsen lassen UND die Obergrenze von .wnetz sowie den Umschaltpunkt
+   nachrechnen: beide haengen daran, dass die kleinste Schrift nirgends
+   unter 15 px faellt.
+
+   ===== DREI REGELN FUER DAS INNERE, alle drei am 31.08.2026 auf
+   ausdrueckliche Kundenbeanstandung =======================================
+   Kundenwortlaut: „der Abstand muss bei jedem gleich sein. Die Auflistung
+   mittig unter der Ueberschrift, und immer der gleiche Abstand zwischen der
+   jeweiligen Headline und den darunter aufgelisteten Punkten."
+
+   1. DER ABSTAND TITEL -> ERSTER PUNKT WIRD AB DER LETZTEN TITELZEILE
+      GEMESSEN und ist in allen fuenf Kaesten derselbe: 54 Einheiten. Vorher
+      begannen die Stichpunkte auf einer FESTEN Hoehe im Kasten; unter einem
+      einzeiligen Titel klaffte dadurch eine Zeilenhoehe mehr Luft als unter
+      einem zweizeiligen. Genau das hat der Kunde gesehen. Ein zweizeiliger
+      Titel schiebt seine Liste jetzt um genau eine Zeilenhoehe nach unten,
+      die Luecke bleibt gleich.
+
+   2. DER STICHPUNKTBLOCK STEHT MITTIG IM KASTEN. Seine Breite gibt die
+      laengste Zeile DIESES Kastens vor (Haken plus Vorlauf plus Zeile), und
+      dieser Block wird zentriert. Die Zeilen darin bleiben linksbuendig mit
+      ihrem Haken davor — eine Aufzaehlung, deren Zeilen einzeln zentriert
+      sind, ist keine Aufzaehlung mehr. Am staerksten wirkt das bei „Objekt
+      und Zahlen", dessen fuenf sehr kurze Woerter vorher weit links an einer
+      fremden Kante klebten.
+
+   3. SYMBOL, TITEL UND LISTE SIND EINE GRUPPE, und die Gruppe steht
+      SENKRECHT MITTIG im Quadrat. Deshalb sitzt das Symbol nicht in allen
+      fuenf Kaesten auf derselben Hoehe — der Preis dafuer, dass unten keine
+      leere Flaeche stehenbleibt. Die Rasterpunkte rechnet
+      scratchpad/lst/bau.py aus; getippt ist keine einzige Koordinate.
 --------------------------------------------------------------------------- */
 .wnetz__kasten {
   fill: var(--wn-flaeche);
   stroke: var(--wn-kontur);
   stroke-width: var(--wn-strich);
+}
+/* DIE KONTUR DARF NICHT MITWACHSEN. Das <symbol> rechnet in seinem eigenen
+   Koordinatensystem (280 zu 280); ein <use> auf 336 zu 336 dehnt alles darin
+   um den Faktor 1.2 — auch die Strichstaerke. Aus 1.25 Einheiten waeren
+   1.5 geworden, und aus der Haarlinie der Vorlage eine gezogene Kante. Der
+   Kehrwert stellt sie zurueck.
+   Das gilt fuer beide Anordnungen, weil die Kaesten dort gleich gross sind.
+   Der quere Zielkasten hat sein eigenes Symbol und seinen eigenen Massstab;
+   er ist deshalb ausgenommen. */
+.wnetz__kasten:not(.wnetz__kasten--quer) {
+  stroke-width: calc(var(--wn-strich) / 1.2);
 }
 /* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
    weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
@@ -367,12 +562,23 @@
    kuerzeren Kante — ein gedehntes <use> des quadratischen Symbols haette den
    Schnitt mitgedehnt und ihn aus der Familie fallen lassen.
 
+   IN DER BREITEN ANORDNUNG IST ER AM 31.08.2026 UNVERAENDERT GEBLIEBEN,
+   waehrend die fuenf anderen Kaesten gewachsen sind. Das ist Absicht: sein
+   Wortlaut hat sich als einziger nicht geaendert, also gab es nichts
+   anzupassen. Zwischen den beiden unteren Trabanten bleiben ihm weiterhin
+   46 Einheiten Luft auf jeder Seite — genau so viel wie vorher. Er steht
+   dort im Massstab 1 und braucht deshalb keinen Ausgleich der
+   Strichstaerke.
+
    ZUR STRICHSTAERKE IN DER SCHMALEN ANORDNUNG: dort steht dasselbe Symbol auf
-   360 zu 180, also im Massstab 0.72. Eine Strichstaerke von 1.25 im
-   Symbolraum kaeme dort nur als 0.9 Einheiten an. Der Kehrwert gleicht das
-   aus, damit die Kontur so stark bleibt wie an jedem anderen Kasten. */
+   356 zu 178, also im Massstab 0.712. Eine Strichstaerke von 1.25 im
+   Symbolraum kaeme dort nur als 0.89 Einheiten an. Der Kehrwert gleicht das
+   aus, damit die Kontur so stark bleibt wie an jedem anderen Kasten.
+   (Bis zum 31.08.2026 stand er dort auf 360 zu 180, Massstab 0.72; mit der
+   von 400 auf 380 Einheiten geschrumpften viewBox ist er anteilig gleich
+   breit geblieben.) */
 .wnetz__bild--schmal .wnetz__kasten--quer {
-  stroke-width: calc(var(--wn-strich) / 0.72);
+  stroke-width: calc(var(--wn-strich) / 0.712);
 }
 
 
@@ -414,7 +620,7 @@
    hier, bei Massstab 0.9 also rund 1.6 px. Sie sind damit bewusst eine Spur
    staerker als die Haarlinien — ein Symbol muss auf 36 px lesbar bleiben.
 --------------------------------------------------------------------------- */
-.wnetz__symbol { color: var(--wn-weg); }
+.wnetz__symbol { color: var(--wn-akzent); }
 
 
 /* --- Die Wortmarke in der Mitte -------------------------------------------
@@ -473,14 +679,24 @@
 
 /* --- Titel und Stichpunkte in den Kaesten ---------------------------------
    Schrift im SVG skaliert mit der Zeichnung. Die kleinste Groesse sind die
-   Stichpunkte und die Erklaerzeilen mit 17 Einheiten. Am Umschaltpunkt
-   (rund 903 px Zeichnungsbreite, Massstab 0.75) sind das 12.8 px, bei voller
-   Breite (1100 px, Massstab 0.92) 15.6 px, auf dem Telefon 14.9 px. Alles
-   ueber der Untergrenze von 12 px.
+   Stichpunkte und die Erklaerzeilen mit 17 Einheiten.
+
+   DIE UNTERGRENZE IST AM 31.08.2026 VON 12 AUF 15 px ANGEHOBEN, und daran
+   haengt seither die halbe Geometrie dieses Abschnitts. Gemessen, nicht
+   gerechnet, an den vier Fensterbreiten, nach denen gefragt wird:
+     1920 px   Zeichnung 1240 px, Massstab 0.951   ->  16.2 px
+     1440 px   Zeichnung 1240 px, Massstab 0.951   ->  16.2 px
+     1280 px   Zeichnung 1178 px, Massstab 0.903   ->  15.4 px  (schmalstes
+                                                                 breites)
+     1024 px   schmale Kette, 430 px auf 380 Einh. ->  19.2 px
+      390 px   schmale Kette, 350 px auf 380 Einh. ->  15.7 px
+   Die Schriftgroessen selbst sind UNVERAENDERT geblieben — 17 fuer die
+   Stichpunkte, 23 fuer die Titel, 41 fuer die Wortmarke. Angepasst sind nur
+   die Masse der Zeichnung um sie herum.
 
    Kundenwunsch aus Runde 3: „die einzelnen Unterpunkte … in den Kasten
-   rein." Sie standen vorher darunter. Der Wortlaut ist woertlich der der
-   frueheren Leistungskarten; erfunden ist nichts.
+   rein." Sie standen vorher darunter. Der Wortlaut kommt seit dem
+   31.08.2026 Zeichen fuer Zeichen aus dem Wording-Dokument des Kunden.
 --------------------------------------------------------------------------- */
 .wnetz__wort {
   font-family: var(--font-display);
@@ -488,11 +704,12 @@
   font-size: 23px;
   fill: var(--wn-titel);
 }
-/* Die Zeile unter „Off-Market" und die unter „Kapitalanlage", beide im
-   Kasten. „Off-Market" ist Fachjargon; der Kunde verlangt Verstaendlichkeit
-   ohne Vorwissen. Beide Zeilen sind woertlich die, die schon in der vorigen
-   Fassung unter der jeweiligen Karte standen — keine neuen Formulierungen,
-   keine Zusage. */
+/* Die Zeile unter „Kapitalanlage", im Zielkasten.
+   DIE ZWEITE STELLE, AN DER DIESE KLASSE STAND, IST AM 31.08.2026
+   ENTFALLEN: die zweizeilige Erklaerzeile im obersten Kasten. Das
+   Wording-Dokument gibt diesem Kasten drei Stichpunkte und keine
+   Erklaerzeile. Die Klasse bleibt, weil der Zielkasten sie weiter braucht;
+   der Vermerk zum entfallenen Wortlaut steht im Markup. */
 .wnetz__wort--erklaerung {
   font-family: var(--font-ui);
   font-size: 17px;
@@ -511,61 +728,107 @@
    Aufteilung auf zwei Ebenen ist rein typografisch, weil der Satz als eine
    Zeile eine unlesbare Bandwurmzeile waere.
 
-   In der schmalen Anordnung sind beide Groessen eine Stufe kleiner. Grund:
-   der quere Kasten steht dort auf 360 statt 500 Einheiten, die Ueberschrift
-   braucht aber eine Zeile — mit 23 Einheiten waere sie 324 breit und passte
-   nicht zwischen die Innenraender. Bei 20 Einheiten sind es 282, und in
-   Bildschirmpixeln bleibt sie mit 17.5 px sogar groesser als in der breiten
-   Anordnung bei kleinen Fenstern. Die Unterzeile faellt auf 15 Einheiten,
-   das sind auf dem Telefon 13.1 px und damit ueber der Untergrenze.
+   SEIN WORTLAUT IST AM 31.08.2026 ALS EINZIGER IM ABSCHNITT STEHEN
+   GEBLIEBEN. Das Wording-Dokument gibt in Abschnitt 05 als
+   ERGEBNIS-HEADLINE „DEINE IMMOBILIE ALS KAPITALANLAGE" und als
+   ERGEBNIS-TEXT „Du denkst in Jahrzehnten. Du baust heute vor." vor — beides
+   stand hier bereits Zeichen fuer Zeichen so.
+
+   In der schmalen Anordnung ist die UEBERSCHRIFT eine Stufe kleiner. Grund:
+   der quere Kasten steht dort auf 356 statt 500 Einheiten, die Ueberschrift
+   braucht aber eine Zeile — mit 23 Einheiten waere sie 308 breit und liesse
+   ihr nur 24 Einheiten Rand auf jeder Seite. Bei 20 Einheiten sind es 268
+   und der Rand betraegt 44. Die UNTERZEILE steht seit dem 31.08.2026 auch
+   dort auf 17 Einheiten; die Begruendung steht im Block „SCHMALE FENSTER".
 -------------------------------------------------------------------------- */
 .wnetz__wort--ziel    { font-size: 23px; }
 .wnetz__wort--zielsub { font-size: 17px; }
-/* Der Haken im helleren Blau der Konturen und nicht im dunkleren der
-   Symbole: zweiunddreissig dunkle Haken wuerden schwerer wiegen als die
-   sechs Symbole, um die es geht. */
-.wnetz__haken { color: var(--wn-kontur); }
+/* Haken und Symbole tragen denselben Ton — den Akzent der Seite. Bis zum
+   31.08.2026 stand hier eine andere Ueberlegung: der Haken im helleren
+   Blau der Konturen, damit vierzig dunkle Haken nicht schwerer wiegen als
+   die sechs Symbole. Die Abstufung ist mit der einen Akzentfarbe
+   hinfaellig; der Kunde will beides in Gold, und Gold ist ohnehin leichter
+   als beide Blautoene. */
+.wnetz__haken { color: var(--wn-akzent); }
 
 
 /* ===========================================================================
    SCHMALE FENSTER
-   Bis 980 px gilt die Anordnung der Vorlage, darunter die senkrechte Kette:
-   Off-Market, die Wortmarke, die vier Leistungen untereinander,
-   Kapitalanlage.
+   Bis 1259 px gilt die Anordnung der Vorlage, darunter die senkrechte Kette:
+   die Off-Market-Objekte, die Wortmarke, die vier Leistungen untereinander,
+   die Kapitalanlage.
 
-   WARUM GENAU DORT: die breite Zeichnung wird beim Verkleinern nicht
-   umgebrochen, sondern skaliert — mit ihr die Schrift. Bei 981 px Fenster
-   bleiben nach den Seitenabstaenden rund 903 px fuer 1200 Einheiten, also
-   Massstab 0.75. Die kleinste Schrift sind die Stichpunkte mit 17 Einheiten;
-   sie landen damit bei 12.8 px, der Kastentitel bei 17.3 px. 12 px ist die
-   gesetzte Untergrenze — eine Stufe tiefer waere sie unterschritten, und
-   genau da wird umgeschaltet.
+   ===== DER UMSCHALTPUNKT IST AM 31.08.2026 VON 980 AUF 1259 px GEWANDERT ==
+   Das ist die unangenehmste Folge des laengeren Wortlauts, und sie ist
+   gerechnet:
+
+   Die breite Zeichnung wird beim Verkleinern nicht umgebrochen, sondern
+   skaliert — mit ihr die Schrift. Die kleinste Schrift sind die Stichpunkte
+   mit 17 Einheiten; sie duerfen nirgends unter 15 px fallen. Daraus folgt
+   ein Mindestmassstab von 15/17 = 0.8824 und damit eine Mindestbreite der
+   Zeichnung von 0.8824 x 1304 = 1150.6 px.
+   Verfuegbar sind (Fensterbreite minus zweimal 4vw Seitenabstand), also
+   0.92 x Fensterbreite. 1150.6 / 0.92 = 1251 px Fenster. Der Umschaltpunkt
+   liegt mit 1259 px eine Handbreit darueber, damit an der Kante keine
+   Rundung entscheidet.
+   Der naechste uebliche Bildschirm darueber ist 1280 px; dort steht die
+   Zeichnung auf 1177.6 px, also im Massstab 0.903, und die Stichpunkte auf
+   15.4 px.
+
+   DAS WAR VORHER NICHT ANDERS — es fiel nur nicht auf. Mit dem alten
+   Umschaltpunkt von 980 px standen die Stichpunkte bei 1024 px Fenster auf
+   12.8 px. Die damalige Untergrenze war 12 px; sie ist auf 15 px angehoben
+   worden, und damit war der alte Punkt in jedem Fall zu tief.
+
+   WAS DAS KOSTET: Fenster zwischen 1024 und 1259 px sehen jetzt die
+   senkrechte Kette statt der Vorlage. Das ist der Preis dafuer, dass der
+   volle Wortlaut lesbar bleibt; die Alternative waere Schrift unter 15 px
+   oder ein gekuerzter Wortlaut, und beides ist ausgeschlossen.
 
    Umgeklappt wird die ANORDNUNG, nicht der Massstab: die schmale Zeichnung
-   hat ihre eigene viewBox (400 Einheiten breit statt 1200) und damit auf dem
+   hat ihre eigene viewBox (380 Einheiten breit statt 1304) und damit auf dem
    Telefon dieselbe Schriftgroesse in Pixeln wie am Schreibtisch. Genau das
    war die Vorgabe — die Grafik darf auf dem Telefon nicht bloss verkleinert
    werden, und sie darf keine waagerechte Rollflaeche erzeugen.
 
-   DIE 430 px SIND EINE OBERGRENZE, keine Breite. Auf dem Telefon greift die
-   100 % daneben (bei 390 px Fenster bleiben 350 px). Auf einem Tablett im
-   Hochformat wuerde die Kette sonst mitwachsen und ihre Schrift ueber 20 px
-   treiben — eine senkrechte Kette wird nicht besser, wenn man sie aufblaest.
+   DIE VIEWBOX DER SCHMALEN ZEICHNUNG IST DABEI GESCHRUMPFT, von 400 auf 380.
+   Auf dem Telefon steht sie auf festen 350 px (390 px Fenster minus zweimal
+   20 px Seitenabstand); ihr Massstab ist also 350 geteilt durch die
+   viewBox-Breite. Bei 400 waren das 0.875 und die Stichpunkte 14.9 px — schon
+   bisher unter 15. Bei 380 sind es 0.921 und 15.7 px.
+
+   DIE 400 px SIND EINE OBERGRENZE, keine Breite. Auf dem Telefon greift die
+   100 % daneben. Auf einem Tablett im Hochformat wuerde die Kette sonst
+   mitwachsen und ihre Schrift ueber 20 px treiben — eine senkrechte Kette
+   wird nicht besser, wenn man sie aufblaest.
+   VON 430 AUF 400 px, 31.08.2026: an dieser Obergrenze haengt auch die
+   Groesse der Kaesten. Bei 430 px stuenden sie in der Kette auf 380
+   Bildpunkten und waeren damit GROESSER als in der breiten Anordnung
+   (319 px) — genau das, was der Kunde beanstandet hat. Bei 400 px sind es
+   354 px, und die Stichpunkte stehen dort auf 17.9 px.
    =========================================================================== */
-@media (max-width: 980px) {
+@media (max-width: 1259px) {
   .wnetz__bild--breit  { display: none; }
   .wnetz__bild--schmal { display: block; }
-  .wnetz { max-width: min(430px, 100%); }
+  .wnetz { max-width: min(400px, 100%); }
 
   /* Siehe die Begruendung bei .wnetz__wort--ziel. */
-  .wnetz__wort--ziel    { font-size: 20px; }
-  .wnetz__wort--zielsub { font-size: 15px; }
+  .wnetz__wort--ziel { font-size: 20px; }
+
+  /* DIE UNTERZEILE DES ZIELKASTENS STAND HIER BIS ZUM 31.08.2026 AUF 15
+     EINHEITEN. Bei 380 Einheiten viewBox und 350 px Darstellung waeren das
+     13.8 px gewesen, also unter der Untergrenze. Sie steht jetzt auf
+     denselben 17 Einheiten wie ueberall sonst — 15.7 px auf dem Telefon.
+     Platz ist dafuer da: die laengere der beiden Zeilen misst bei 17
+     Einheiten 173 Einheiten, der Kasten haelt 356 und laesst ihr 92 auf
+     jeder Seite. */
+  .wnetz__wort--zielsub { font-size: 17px; }
 
   /* Die Kette ist viel hoeher als das Feld; die Marken sitzen entsprechend
      anders. Siehe die Herleitung bei .wnetz__marke. */
-  .wnetz__marke--1 { top: 7%; }
-  .wnetz__marke--2 { top: 19%; }
-  .wnetz__marke--3 { top: 95%; }
+  .wnetz__marke--1 { top: 7.3%; }
+  .wnetz__marke--2 { top: 19.7%; }
+  .wnetz__marke--3 { top: 95.6%; }
 }
 
 

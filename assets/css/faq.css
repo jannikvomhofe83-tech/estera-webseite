@@ -637,3 +637,29 @@
     animation: none;
   }
 }
+
+/* UNTERZEILE UNTER „Häufige Fragen – klar beantwortet." — 31.08.2026.
+   Das Wording-Dokument (Abschnitt 08) gibt sie vor; bis dahin stand unter
+   der Ueberschrift nichts. Keine neue Gestaltung: Grad, Zeilenabstand und
+   Farbe sind die von .abl__sub, dem Gegenstueck im Abschnitt darueber —
+   dieselbe Rolle, deshalb dieselben Werte. */
+.faq__sub {
+  /* DIREKT UNTER DIE UEBERSCHRIFT — 31.08.2026, Kundenwunsch: „Das muss
+     direkt unter die Headline ‚Häufige Fragen – klar beantwortet.'"
+     Die Ueberschrift traegt unter sich --faq-kopfluft (68 px bei 1440); die
+     Unterzeile stand deshalb einen ganzen Kopfabstand tiefer und klebte
+     dafuer an der Liste — gemessen 68 px oben, 0 px unten. Der negative
+     Wert hebt genau diesen einen Abstand auf und setzt an seine Stelle die
+     Zeilenluft; die 68 px wandern nach UNTEN, wo sie hingehoeren.
+     Mittig und im Satzspiegel begrenzt, weil die Ueberschrift darueber
+     ebenfalls mittig steht. */
+  margin: calc(var(--faq-kopfluft) * -1 + clamp(0.55rem, 1.1vw, 0.95rem)) auto var(--faq-kopfluft);
+  max-width: 46rem;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.12vw, 1.12rem);
+  line-height: 1.45;
+  color: var(--ink-mute);
+  text-wrap: balance;
+}

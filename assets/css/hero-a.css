@@ -609,7 +609,25 @@
      Mit dem Wegfall der Kleinzeile sitzt seine Oberkante jetzt genau am
      Innenabstand des Kastens statt darunter — das ist die Folge davon,
      dass ueber ihm nichts mehr steht, und nicht eine eigene Entscheidung. */
-  margin-top: calc(-1 * var(--h1-zeile));
+  /* HOEHER — 31.08.2026, Kundenwunsch: „Du kannst das Bild wieder einen
+     Tick nach oben verschieben." Mit dem Wortlaut aus dem Wording-Dokument
+     ist die Ueberschrift wieder ZWEIZEILIG; der Zug um eine Zeile liess das
+     Bild deshalb eine Zeile zu tief beginnen. Zwei Zeilen ist derselbe
+     Gedanke wie am 24.08.: „zieh das Bild um die Hoehe der Ueberschrift
+     nach oben, damit es nicht erst unter ihr beginnt."
+     Vorher: calc(-1 * var(--h1-zeile)) */
+  margin-top: calc(-2 * var(--h1-zeile));
+}
+
+/* Die Kleinzeile sitzt seit dem 31.08. IM Bildblock (Begruendung steht im
+   HTML). Damit ist sie kein Rasterkind des Kastens mehr — Spaltenzuweisung
+   und rechter Innenabstand von oben gehen ins Leere und werden hier
+   zurueckgenommen. Mittig bleibt sie, denn mittig ueber dem Bild war sie
+   auch vorher. */
+.heroA__figure .heroA__eyebrow {
+  grid-column: auto;
+  padding-right: 0;
+  margin-bottom: 14px;
 }
 .heroA__figure > div {
   position: relative;
@@ -655,7 +673,56 @@
 
    Falls das Bild spaeter doch wieder an das Band herangeholt werden soll:
    erst den Schleier zurueckholen, dann den Filter — in dieser Reihenfolge,
-   der Schleier allein reicht meistens. */
+   der Schleier allein reicht meistens.
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   DRITTE STUFE — 31.08.2026: DAS BILD WIRD WIEDER LEICHT ABGEDUNKELT.
+   Kundenwortlaut: „ein ganz kleiner Ticken, nicht viel, aber das Bild muss
+   ein bisschen abgedunkelt werden."
+
+   DER ALTE FILTER VOM 24.08. KOMMT NICHT ZURUECK, und das ist wichtig. Er
+   stand auf `saturate(0.24) contrast(1.12) brightness(0.76)`, dazu der
+   Navy-Schleier mit 0,28 bis 0,35 Deckkraft — zusammen hat er die
+   Helligkeit um mehr als ein Drittel genommen und dem Bild die Farbe
+   ausgetrieben. Genau das hat der Kunde am 30.08. abbestellt. „Ein ganz
+   kleiner Ticken" ist etwas anderes.
+
+   GESETZT IST DESHALB NUR `brightness(0.94)` — eine Stufe, kein Filterpaar:
+     · KEINE Entsaettigung. `saturate` bleibt weg; die Farbe ist genau die,
+       die der Kunde zurueckhaben wollte.
+     · KEIN Kontrast. `contrast` bleibt weg.
+     · KEIN Farbschleier. Der Navy-Schleier oben bleibt entfernt; er faerbt,
+       er dunkelt nicht nur.
+   Es ist also dieselbe Aufnahme in derselben Farbe, nur sechs Prozent
+   dunkler.
+
+   GEMESSEN am gerenderten Bildkasten bei 1440 px, ueber alle 455 x 364
+   Bildpunkte gemittelt (Leuchtdichte nach 0,2126 R + 0,7152 G + 0,0722 B):
+
+                      mittlere Helligkeit   Mittel R / G / B
+       vorher              134,4 von 255    121,7 / 137,2 / 144,2
+       jetzt               126,4 von 255    114,5 / 129,1 / 135,7
+       Unterschied          -8,0  (-5,9 %)
+
+     zum Vergleich, was NICHT gilt:
+       Fassung 24.08.        rund  91        (Filter samt Schleier)
+       urspruenglich         rund 137        (Messung vom 30.08.)
+
+   Der Rahmen, den der Kunde genannt hat, war 0,93 bis 0,95. 0,94 liegt in
+   der Mitte. Wer nachbessern will, aendert NUR diese eine Zahl.
+
+   ZUR SCHRIFT: auf diesem Bild steht keine. Die Ueberschrift und alle
+   Zeilen des Kopfbereichs liegen neben dem Bild auf dem Navyband, nicht
+   darauf — die Abdunklung beruehrt keinen Kontrastwert. Nachgeprueft am
+   Markup: der Bildkasten enthaelt nur das <img>; das <figcaption> ist seit
+   dem 24.08.2026 aus dem Markup entfernt.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Zweite Stufe der Abdunklung — 31.08.2026, der Kunde wollte nach
+   0.94 „noch ein bisschen dunkler". Weiterhin NUR Helligkeit, keine
+   Entsaettigung und kein Farbschleier — die waren am 24.08. drin und
+   sind am 30.08. auf Kundenwunsch entfernt worden.
+   Mittlere Helligkeit des gerenderten Bildes: 161 bei 0.94. */
+.heroA__figure img { filter: brightness(0.86); }
 .heroA__panel:hover .heroA__figure img { transform: scale(1.055); }
 /* SCHLAEFT seit dem 24.08.2026. Die Bildunterschrift „Auswahl vor Angebot"
    ist auf Kundenwunsch aus dem Markup entfernt; diese Regeln greifen damit

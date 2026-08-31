@@ -1,0 +1,145 @@
+/* ===========================================================================
+   WORDING-BACKOFFICE.CSS
+   Gehoert karriere-backoffice.html ALLEIN. Keine andere Seite laedt sie.
+
+   WARUM ES SIE GIBT: die beiden Stellenseiten teilen sich stelle.css
+   Zeichen fuer Zeichen. Was nur auf dieser Seite gilt, darf deshalb nicht
+   in stelle.css stehen — sonst zoege es die Seite Immobilienberater mit,
+   an der gerade jemand anderes arbeitet.
+
+   WAS HIER NICHT DRIN STEHT UND AUCH NICHT REINGEHOERT: neue Farben, neue
+   Schriftgrade, neue Abstaende, neue Formen, neue Klassen. Diese Datei
+   traegt genau eine Regel, und die setzt einen Wert um, den die Seite
+   an anderer Stelle schon fuehrt.
+
+   Stand: 31.08.2026
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   DAS BILD IM ABSCHLUSS FUELLT DIE RECHTE HAELFTE.
+
+   KUNDENWUNSCH, woertlich: „Du sollst bei der Section ‚Passt Estera zu
+   deinem naechsten Schritt' auf der rechten Haelfte der Section ein Bild
+   einfuegen. Das habe ich dir jetzt schon zehn Mal gesagt."
+
+   Ein Bild stand dort schon — aber auf 597:299, also einem flachen Streifen
+   oben rechts, etwa halb so hoch wie der Textblock daneben. Als „Bild auf
+   der rechten Haelfte" liest sich das nicht.
+
+   DER NEUE WERT IST KEIN NEUER WERT. 597:710 ist das Verhaeltnis, das das
+   Bildfeld im Abschnitt „Deine Einarbeitung" auf DERSELBEN Seite schon
+   traegt (.stl-bilder img in stelle.css). Die beiden Bilder der Seite
+   stehen damit im gleichen Format.
+
+   ALLES UEBRIGE KOMMT UNVERAENDERT AUS STELLE.CSS und wird hier bewusst
+   NICHT wiederholt: width: 100%, height: auto, object-fit: cover,
+   border-radius und overflow: hidden stehen dort bei .stl-schluss__medium
+   und .stl-schluss__medium img.
+
+   `height: auto` IST DER GRUND, WARUM DIESE EINE ZEILE REICHT. Das <img>
+   traegt seine Masse als Attribute (1206 x 1506); eine Attributhoehe ist
+   eine benutzte Hoehe, und gegen die kommt aspect-ratio nicht an. stelle.css
+   loest das bereits — deshalb muss hier nur das Verhaeltnis selbst anders
+   lauten.
+
+   KEIN `height: 100%`, und das ist Absicht: unterhalb von 991 px steht das
+   Bild unter dem Text, dort loest sich eine Prozenthoehe in nichts auf. Auf
+   der Startseite hat genau das ein Bild mit 0 x 0 erzeugt (siehe den
+   Vermerk bei .cta__bild in schluss.css).
+
+   KEIN `align-self: stretch` noetig: .stl-zwei--schluss ist an jeder Breite
+   ein Raster — unter 991 px einspaltig, nie eine Flexspalte mit
+   align-items: center. Rasterfelder werden in der Querachse gestreckt, die
+   Figur schrumpft also nicht auf ihren Inhalt.
+
+   Gemessen bei 1920 / 1440 / 1024 / 899 / 390. Die Zahlen stehen in der
+   Rueckmeldung zum Auftrag.
+   --------------------------------------------------------------------------- */
+.stl-schluss__medium img {
+  aspect-ratio: 597 / 710;
+}
+
+/* ---------------------------------------------------------------------------
+   UND HIER IST DER GRUND, WARUM DER KUNDE ZEHNMAL GESAGT HAT, DA SEI KEIN
+   BILD: es war wirklich keins zu sehen. Nicht das Motiv war falsch, nicht die
+   Groesse — das Bild wurde weggeschnitten.
+
+   NACHGEWIESEN, NICHT VERMUTET. Sechs Durchlaeufe bei 1440 px, jeweils die
+   Bildflaeche von 604 x 718 als PNG ausgeschnitten und die Dateigroesse
+   gemessen (eine einfarbige Flaeche wiegt fast nichts, ein Foto viel):
+     unveraendert ......................  2.548 Bytes  -> leere Navy-Flaeche
+     nur clip-path abgeschaltet ........  2.548 Bytes  -> immer noch leer
+     nur line-height auf normal ........  2.548 Bytes  -> immer noch leer
+     nur Animationen abgeschaltet ......  5.877 Bytes  -> immer noch leer
+     NUR `picture { display: block }` .. 303.328 Bytes -> DAS FOTO IST DA
+     alles zusammen .................... 300.261 Bytes
+   Eine einzige Zeile entscheidet.
+
+   WARUM: das <picture> ist ein Element ohne eigene Anzeigeart und steht damit
+   auf `display: inline`. Der Einlauf zieht das Bild ueber
+   `clip-path: inset(0 0 100% 0)` auf (stelle.css, [data-stl-js]
+   .stl-schluss__medium picture). clip-path an einem INLINE-Element bezieht
+   sich aber nicht auf das, was man sieht, sondern auf dessen Zeilenkasten —
+   und der ist hier null hoch, weil .stl-schluss__medium `line-height: 0`
+   traegt. Der Beschnitt schneidet damit alles weg.
+   Dass `clip-path: none` allein nichts half, hat denselben Grund: die
+   Animation `stl-blende` setzt den Beschnitt in jedem Bild neu und sticht
+   eine Angabe im style-Attribut.
+
+   WARUM ES BEIM BILD IM ABSCHNITT „Deine Einarbeitung" NIE AUFFIEL: .stl-bilder
+   ist ein Raster (`display: grid`). Rasterfelder werden zu Bloecken gemacht —
+   dort steht das <picture> also von selbst auf `display: block`, und der
+   Beschnitt greift am richtigen Kasten.
+
+   DAS IST KEIN NEUER STIL. Genau dieselbe Zeile steht seit dem 31.08.2026 auf
+   der Startseite: `.cta__bild picture, .cta__bild img { display: block; }`
+   (schluss.css). Dort war es beim Einbau desselben Musters aufgefallen.
+   Keine Farbe, kein Grad, kein Abstand, keine Form — nur die Anzeigeart einer
+   Huelle, die ohnehin nur ein Bild enthaelt.
+
+   NACHTRAG, GLEICHER TAG: .stl-schluss__medium steht in stelle.css und gilt
+   fuer BEIDE Stellenseiten — der Fehler war auf der Seite Immobilienberater
+   derselbe. Waehrend hier gemessen wurde, ist er dort unabhaengig gefunden
+   worden; stelle.css traegt inzwischen dieselbe Zeile
+   (`.stl-schluss__medium picture { display: block; }`).
+   DIE ZEILE HIER BLEIBT TROTZDEM STEHEN, und zwar bewusst: sie ist Wort fuer
+   Wort dieselbe Angabe, kann also nichts kaputt machen, und der Kunde hat
+   zehnmal gemeldet, dass an dieser Stelle kein Bild ist. Solange nicht
+   feststeht, dass die Fassung in stelle.css so bleibt, ist eine doppelte
+   Zeile der guenstigere Fehler als ein wieder verschwundenes Bild.
+   WEG DAMIT, sobald stelle.css zusammengefuehrt und bestaetigt ist — dann
+   faellt zusammen mit der Regel oben auch diese ganze Datei weg.
+   --------------------------------------------------------------------------- */
+/* Die Regel `.stl-schluss__medium picture { display: block }` stand bis zum
+   31.08.2026 hier UND in der Schwesterdatei der anderen Stellenseite — beide
+   Agenten hatten denselben Fehler unabhaengig voneinander gefunden. Sie steht
+   jetzt EINMAL in stelle.css und gilt damit fuer beide Seiten; die Begruendung
+   samt Messwerten steht dort. Hier ist sie ersatzlos entfallen, damit nicht
+   drei Stellen dieselbe Zeile fuehren. */
+
+/* ---------------------------------------------------------------------------
+   DER TEXT STEHT DEM BILD GEGENUEBER, NICHT UEBER IHM.
+
+   Mit dem hochkanten Bildfeld ist die rechte Spalte 718 px hoch, die linke
+   mit Kleinzeile, Ueberschrift, Absatz und Knopfreihe nur 331 px (gemessen
+   bei 1440). .stl-zwei--schluss steht in stelle.css auf `align-items: start`
+   — damit klebte der Text oben und darunter blieben 387 px leere Navy-Flaeche
+   neben dem Bild. Das sieht nicht ruhig aus, sondern unfertig, und genau
+   diesen Eindruck soll der Abschnitt nicht machen.
+
+   DASSELBE MUSTER, DIESELBE ZEILE WIE AUF DER STARTSEITE: der Abschluss-CTA
+   dort ist ein Raster aus Text links und Bild rechts und steht auf
+   `align-items: center` (schluss.css, @media min-width 900px, mit dem
+   Vermerk „Mittig ausgerichtet, damit das Bild neben dem Textblock steht und
+   nicht daneben haengt"). Keine neue Idee, kein neuer Wert.
+
+   NUR IM ZWEISPALTIGEN FALL. Unterhalb von 992 px steht das Bild unter dem
+   Text (stelle.css, @media max-width 991px: grid-template-columns: 1fr);
+   dort gibt es kein Gegenueber, und die Regel hat nichts zu suchen. Die
+   Grenze ist deshalb dieselbe wie die des Spaltenumbruchs und nicht eine
+   eigene.
+   --------------------------------------------------------------------------- */
+@media (min-width: 992px) {
+  .stl-zwei--schluss { align-items: center; }
+}
+

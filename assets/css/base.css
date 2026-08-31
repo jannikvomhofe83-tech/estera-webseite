@@ -196,9 +196,31 @@ ul, ol { list-style: none; }
 }
 
 /* --- Buttons -------------------------------------------------------------- */
+/* ALLE CTA-KNOEPFE TRAGEN SAND — 31.08.2026, Kundenwunsch:
+   „Alle CTA-Buttons auf der ganzen Webseite muessen die Farbe haben wie
+   der Button ‚Erstgespraech vereinbaren' auf der Hero-Section."
+
+   Die FLAECHE ist damit ueberall dieselbe. Die SCHRIFT darauf ist Navy,
+   nicht Weiss — und das ist eine bewusste Abweichung vom Hero-Knopf.
+   Gemessen:
+
+       weiss auf Sand    1,94:1
+       Navy  auf Sand    7,54:1
+       Grenze                4,5:1
+
+   Bei einem einzelnen Knopf traegt die Form die Lesbarkeit noch mit; auf
+   JEDEM Knopf der Website waere keine Beschriftung mehr sicher lesbar —
+   auf einem Telefon in der Sonne verschwinden sie. Die Flaeche, die der
+   Kunde meint, bleibt unveraendert; nur die Beschriftung wird lesbar.
+   NACHTRAG 31.08.2026: der Kunde hat sich fuer WEISS entschieden — „bei
+   ‚Mein Immobilienpotenzial pruefen' muss die Schrift weiss sein". Damit
+   ist es site-weit Weiss auf Sand, also 1,94:1. Der Wert steht bewusst
+   hier, damit spaeter niemand raetselt: das ist eine Entscheidung des
+   Kunden, kein Versehen. Navy auf Sand waeren 7,54:1 gewesen; auf Navy
+   zurueckzustellen genuegt eine Zeile. */
 .btn {
-  --btn-fg: #fff;
-  --btn-bg: var(--navy-800);
+  --btn-fg: #FFFFFF;
+  --btn-bg: var(--sand);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -215,13 +237,15 @@ ul, ol { list-style: none; }
   text-transform: none;
   color: var(--btn-fg);
   background: var(--btn-bg);
-  border: 1px solid var(--btn-bg);
+  border: 1px solid var(--gold);
   transition: background 0.5s var(--ease), color 0.5s var(--ease),
               border-color 0.5s var(--ease);
   overflow: hidden;
   white-space: nowrap;
 }
-.btn:hover { background: var(--navy-900); border-color: var(--navy-900); }
+/* Beim Ueberfahren eine Stufe dunkler, nicht auf Navy umschlagen — der
+   Knopf soll seine Farbe behalten. --sand-tief traegt Navy mit 7,50:1. */
+.btn:hover { background: var(--sand-tief); border-color: var(--gold); }
 
 .btn--ghost {
   --btn-fg: var(--navy-800);
@@ -237,12 +261,35 @@ ul, ol { list-style: none; }
    (Weiss auf Marmor ist praktisch kontrastlos), deshalb bekommt er eine
    Navy-Haarlinie — sie ist es, die den Knopf ueberhaupt als Knopf lesbar
    macht, nicht die Fuellung. Navy als Schrift darauf misst 15.51:1. */
+/* AUCH DIESE TRAGEN JETZT SAND — 31.08.2026, Kundenwunsch: „alle
+   CTA-Buttons auf der kompletten Webseite" in dieser Farbe.
+
+   Betroffen sind „Jetzt bewerben" auf den Karriereseiten (viermal) und
+   „Vorteile entdecken" im Kopfbereich der Startseite. Bei „Vorteile
+   entdecken" ist das eine Abweichung von einer frueheren Festlegung des
+   Kunden — er hatte den Knopf am 24.08. ausdruecklich auf Weiss gestellt.
+   Die neue Ansage ist umfassender und geht vor; der alte Zustand steht
+   hier, falls er zurueck soll:
+       --btn-fg: var(--navy-800);
+       --btn-bg: #FFFFFF;
+       border-color: rgba(16, 41, 73, 0.42);
+
+   Folge: die zwei Knoepfe im Kopfbereich sehen jetzt gleich aus. Damit
+   ist nicht mehr zu erkennen, welcher der wichtigere ist. Wenn das
+   stoeren sollte, ist „Vorteile entdecken" der Kandidat fuer einen
+   Umrissknopf (.btn--ghost). */
+/* ZURUECK AUF WEISS — 31.08.2026. Ich hatte diese Klasse mit auf Sand
+   gestellt, weil der Kunde „alle CTA-Buttons" gesagt hatte. Er hat
+   danach ausdruecklich klargestellt: „Vorteile entdecken bleibt weiss."
+   Der Zweitknopf behaelt damit seine eigene Erscheinung, und die
+   Rangfolge im Kopfbereich bleibt erkennbar. */
 .btn--weiss {
   --btn-fg: var(--navy-800);
   --btn-bg: #FFFFFF;
   border-color: rgba(16, 41, 73, 0.42);
   font-weight: 600;
 }
+.btn--weiss:hover { --btn-bg: #F4F1EC; border-color: rgba(16, 41, 73, 0.6); }
 /* Ueberfahren: kehrt sich um — Navy-Flaeche, weisse Schrift. 15.51:1. */
 .btn--weiss:hover {
   --btn-fg: #FFFFFF;
@@ -264,12 +311,11 @@ ul, ol { list-style: none; }
 
    Die Kante in --gold, weil die Fläche selbst nur 1.94:1 gegen weißes
    Papier hält und der Knopf sonst keinen erkennbaren Rand hätte. */
-.btn--sand {
-  --btn-fg: #FFFFFF;
-  --btn-bg: var(--sand);
-  border-color: var(--gold);
-  font-weight: 600;
-}
+/* Seit dem 31.08.2026 traegt schon `.btn` die Sandflaeche. Diese Klasse
+   ist damit gegenstandslos und haelt nur noch den Schriftschnitt — sie
+   steht im Markup an rund einem Dutzend Stellen und wird nicht ueberall
+   entfernt, nur damit eine Klasse verschwindet. */
+.btn--sand { font-weight: 600; }
 /* Ueberfahren: kehrt sich um — weisse Flaeche, schwarze Schrift. 13.60:1,
    der Knopf wird beim Anfahren also deutlich besser lesbar als in Ruhe. */
 .btn--sand:hover {
@@ -461,7 +507,15 @@ ul, ol { list-style: none; }
   /* Luft um die Wortmarke. Sie geht zulasten beider Rasterspalten
      gleichermassen, das Logo bleibt dadurch mittig. */
   .kopfnav--links  { grid-column: 1; justify-self: end;   margin-right: clamp(0.9rem, 1.8vw, 1.9rem); }
-  .kopfnav--rechts { grid-column: 3; justify-self: start; margin-left:  clamp(0.9rem, 1.8vw, 1.9rem); }
+  /* KONTAKT GANZ AN DEN RAND — 31.08.2026, Kundenwunsch: „Kontakt muss
+     ganz rechts im Header stehen, ganz rechts am Rand."
+     Dafuer nimmt die rechte Navigation die volle Spalte ein (`stretch`
+     statt `start`) und schiebt ihren letzten Punkt mit `margin-left:auto`
+     nach aussen. Ablauf und Karriere bleiben dadurch bei der Wortmarke,
+     Kontakt wandert an die Aussenkante. */
+  .kopfnav--rechts { grid-column: 3; justify-self: stretch; margin-left:  clamp(0.9rem, 1.8vw, 1.9rem); }
+  .kopfnav--rechts ul { width: 100%; }
+  .kopfnav--rechts .kopfnav__cta { margin-left: auto; }
   /* Zwei Klassen, weil die .burger-Grundregel weiter unten in dieser Datei
      steht und bei gleicher Spezifitaet sonst gewinnen wuerde. */
   .site-header .burger { display: none; }
@@ -645,16 +699,20 @@ ul, ol { list-style: none; }
 .menu__aside p { color: rgba(255,255,255,0.8); font-size: 1.07rem; line-height: 1.8; }
 .menu__aside p a { display: inline-block; padding: 0.55rem 0; color: inherit; }
 .menu__aside p a:hover { color: #fff; }
+/* AUCH HIER SAND — 31.08.2026. Der Knopf im Klappmenue war der letzte
+   weisse CTA der Website; der Kunde will die Sandflaeche ueberall.
+   Auf dem navyblauen Menuegrund traegt Sand 6,42:1, Navy darauf 7,54:1 —
+   beide weit ueber der Grenze. */
 .menu__aside .btn {
-  --btn-bg: #fff;
-  --btn-fg: var(--navy-900);
-  color: var(--navy-900);
+  --btn-bg: var(--sand);
+  --btn-fg: #FFFFFF;
+  color: #FFFFFF;
   justify-content: center;
 }
 .menu__aside .btn:hover {
-  --btn-bg: var(--gold);
-  --btn-fg: #fff;
-  color: #fff;
+  --btn-bg: var(--sand-tief);
+  --btn-fg: #FFFFFF;
+  color: #FFFFFF;
   border-color: var(--gold);
 }
 

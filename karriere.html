@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Karriere bei Estera — offene Stellen</title>
-<meta name="description" content="Estera sucht Verstärkung: Immobilienberater für den Vertrieb von Kapitalanlagen und einen Back-Office-Manager für Immobilienabwicklung und After Sales.">
+<!-- WORDING 31.08.2026 — Estera_Karriere_Wording.pdf, Teil 1 (K01–K07).
+     Titel und Beschreibung ziehen mit dem Seitentext mit, sonst
+     verspricht das Suchergebnis etwas anderes als die Seite haelt.
+     Die Beschreibung ist die Subline aus K01, gekuerzt auf Anrisslaenge.
+     Vorher: <title>Karriere bei Estera — offene Stellen</title>
+     Vorher: description "Estera sucht Verstärkung: Immobilienberater für den Vertrieb von Kapitalanlagen und einen Back-Office-Manager für Immobilienabwicklung und After Sales." -->
+<title>Karriere bei Estera — offene Positionen</title>
+<meta name="description" content="Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du baust an einem neuen Standard für Kapitalanlageimmobilien mit – und entwickelst dich dabei fachlich, persönlich und unternehmerisch weiter.">
 <!-- Wie die Startseite: die Seite ist in Abstimmung und gehoert nicht in
      eine Suchmaschine. Vor dem Livegang zu entfernen. -->
 <meta name="robots" content="noindex, nofollow">
@@ -113,8 +119,8 @@
        <section class="abl" id="ablauf">. -->
   <nav class="kopfnav kopfnav--links" aria-label="Abschnitte dieser Seite">
     <ul>
-      <li><a href="variante-a.html?v=b24a#warum-immobilien">Vorteile</a></li>
-      <li><a href="variante-a.html?v=b24a#leistungen">Leistungen</a></li>
+      <li><a href="variante-a.html?v=b24a#warum-immobilien">Warum Immobilien</a></li>
+      <li><a href="variante-a.html?v=b24a#leistungen">Warum Estera</a></li>
     </ul>
   </nav>
 
@@ -230,12 +236,63 @@
            festgelegt. Der Balken ist auf dunklem Grund in Sand mit
            Navy-Schrift (9,08:1); Navy auf Navy waere unsichtbar.
            Begruendung steht in karriere.css beim Balken. -->
+      <!-- WORDING ERSETZT 31.08.2026 — Estera_Karriere_Wording.pdf, K01.
+           Die Kennzeile traegt jetzt die Eyebrow des Dokuments. Rolle und
+           Machart bleiben unveraendert: derselbe Sandbalken, dieselbe
+           Sperrung, dieselbe Stelle im Stapel — nur der Wortlaut wechselt.
+           Vorher: "Baue dir etwas Eigenes auf" -->
       <p class="kar-kopf__kennzeile" data-auf>
-        <span class="kar-balken kar-balken--hell">Baue dir etwas Eigenes auf</span>
+        <span class="kar-balken kar-balken--hell">KARRIERE BEI ESTERA</span>
       </p>
 
       <!-- 4 — Ueberschrift. Vorlage: 48 / 56,68 px, eine Zeile, weiss. -->
-      <h1 class="kar-titel kar-kopf__titel" id="kar-kopf-titel" data-auf>Starte deine Karriere bei Estera</h1>
+      <!-- WORDING ERSETZT 31.08.2026 — K01 HEADLINE.
+           Die Akzentregel der Seite bleibt gewahrt: die zweite Haelfte
+           steht kursiv UND in der Akzentfarbe (auf Navy in Sand). Der
+           Schnittpunkt sitzt am Relativsatz, damit der Akzent einen
+           geschlossenen Sinnabschnitt traegt und nicht mitten im Satz
+           einsetzt.
+           Vorher: "Starte deine Karriere bei Estera" -->
+      <h1 class="kar-titel kar-kopf__titel" id="kar-kopf-titel" data-auf>Baue mit uns die Immobilienberatung, <span class="kar-akzent">an der sich die Branche künftig misst.</span></h1>
+
+      <!-- WORDING NEU 31.08.2026 — K01 SUBLINE.
+           Der Kopfbereich hatte bisher keine Unterzeile; das Dokument
+           verlangt eine. Statt eine neue Gestaltung zu erfinden, steht
+           hier die Klasse, die auf dieser Seite schon genau diese Rolle
+           spielt — die Unterzeile des Kapitelblatts auf Navy
+           (.kar-angebot__unterzeile: Weiss 82 %, mittig, Leadgroesse).
+           Der Grund ist hier derselbe Navy, die Kontrastrechnung gilt
+           unveraendert. -->
+      <p class="kar-angebot__unterzeile" data-auf>Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du baust an einem neuen Standard für Kapitalanlageimmobilien mit – und entwickelst dich dabei fachlich, persönlich und unternehmerisch weiter.</p>
+
+      <!-- WORDING NEU 31.08.2026 — K01 CTAs.
+           HIERMIT FAELLT EINE FRUEHERE ENTSCHEIDUNG: der Kommentar oben am
+           Abschnitt haelt fest, dass die Vorlage im Kopfbereich KEINE
+           Knoepfe hat. Das Wording-Dokument schreibt zwei vor, einen
+           primaeren und einen sekundaeren; der Kundenwunsch ist juenger
+           als die Bauaufnahme und geht vor. Der Vermerk oben bleibt
+           trotzdem stehen, damit die Herkunft der alten Entscheidung
+           nachvollziehbar ist.
+           Die zwei Knoepfe sind die der Stellenkarten, unveraendert:
+           .kar-knopf--voll (Sand) und .kar-knopf--linie. Nur die Reihe
+           darum ist neu und steht am Ende von karriere.css begruendet —
+           ohne sie zwaenge .kar-knopf { flex: 1 1 100% } beide Knoepfe
+           ueber die volle Spaltenbreite von 1087 px untereinander.
+           Ziel des zweiten Knopfes ist ueber-estera.html: „Estera
+           kennenlernen" ist genau diese Seite. -->
+      <p class="kar-kopf__knoepfe" data-auf>
+        <a class="kar-knopf kar-knopf--voll" href="#kar-angebot-titel">Offene Positionen ansehen</a>
+        <a class="kar-knopf kar-knopf--linie" href="ueber-estera.html?v=b24a">Estera kennenlernen</a>
+      </p>
+
+      <!-- WORDING NEU 31.08.2026 — K01 VERTRAUENSZEILE.
+           Auch dafuer gab es bisher kein Element. Sie steht in der
+           Kleinzeile der Seite (.kar-karte__art: Sand, Versalien,
+           gesperrt) — die einzige Rolle „kurze Zeile auf Navy", die
+           diese Seite schon kennt. Der Wortlaut steht in Satzschreibung
+           im Markup; die Versalien macht die CSS, wie an jeder anderen
+           Kleinzeile dieser Seite auch. -->
+      <p class="kar-karte__art" data-auf>Hoher Anspruch. Direkte Verantwortung. Gemeinsames Wachstum.</p>
 
       <!-- HIER STAND IN DER VORLAGE DIE LAUFENDE LOGOREIHE.
            Sie entfaellt vorerst ausdruecklich. Kommen Partnerlogos dazu,
@@ -300,14 +357,19 @@
 
       <div class="kar-wer__spalte">
 
+        <!-- WORDING ERSETZT 31.08.2026 — Estera_Karriere_Wording.pdf, K02.
+             Vorher: "Estera in Kürze" -->
         <p class="kar-wer__etikett" data-auf>
-          <span class="kar-balken">Estera in Kürze</span>
+          <span class="kar-balken">MEHR ALS EIN ARBEITSPLATZ</span>
         </p>
 
         <!-- Akzentregel der Vorlage, konsequent auf jeder Ueberschrift: die
              zweite Haelfte steht kursiv UND in der Akzentfarbe — nie nur
              eins von beidem (bericht.md, Abschnitt 8.3). -->
-        <h2 class="kar-titel" id="kar-wer-titel" data-auf>Wer ist <span class="kar-akzent">Estera</span>?</h2>
+        <!-- WORDING ERSETZT 31.08.2026 — K02 HEADLINE. Die Akzentregel
+             bleibt: zweite Haelfte kursiv und in der Akzentfarbe.
+             Vorher: "Wer ist <span class=\"kar-akzent\">Estera</span>?" -->
+        <h2 class="kar-titel" id="kar-wer-titel" data-auf>Ein Umfeld, in dem aus Ambition <span class="kar-akzent">echte Entwicklung wird.</span></h2>
 
         <!-- PLATZHALTER — Freigabe von Estera steht aus. -->
         <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch. Passiv und
@@ -339,11 +401,41 @@
              liegt als eigene Datei vor), die zwei Kernsaetze auf 600.
              Damit ist der Absatz als Ganzes spuerbar kraeftiger UND hat
              innen noch eine Rangfolge. -->
+        <!-- WORDING ERSETZT 31.08.2026 — Estera_Karriere_Wording.pdf, K02.
+             DAMIT IST DER PLATZHALTER ABGELOEST. Der Text darueber war
+             ausdruecklich vorlaeufig („PLATZHALTER — Freigabe von Estera
+             steht aus"); der Wortlaut kommt jetzt vom Kunden selbst und
+             ist damit freigegeben. Die drei Vermerke „VON ESTERA
+             BESTAETIGEN LASSEN" darueber sind erledigt und bleiben nur
+             als Verlauf stehen.
+
+             DREI ABSAETZE STATT ZWEI, und das ist kein neuer Baustein:
+             das Dokument liefert TEXT, VERTIEFUNG und LEITGEDANKE als
+             drei Bloecke derselben Rolle. Sie stehen deshalb als drei
+             Absaetze im selben Satzkasten — dessen `gap: 21px` ist genau
+             eine Zeile und traegt den dritten so wie den zweiten.
+
+             DER LEITGEDANKE STEHT IM <strong> DES ABSATZKASTENS.
+             Das Dokument bezeichnet ihn als hervorgehobene Zeile. Die
+             Hervorhebung, die diese Seite dafuer kennt, ist die Stufe 600
+             gegen die 500 des Absatzes (.kar-wer__text strong) — dieselbe,
+             die bis heute die zwei Kernsaetze getragen hat. Eine neue
+             Auszeichnung waere hier eine neue Gestaltung gewesen.
+
+             Vorher: "<strong>Wir helfen Menschen beim Kauf einer Kapitalanlage.</strong> Wir suchen das passende Objekt. Wir bereiten die Finanzierung vor. Nach dem Kauf bleiben wir Ansprechpartner."
+             Vorher: "<strong>Daran arbeitest du mit.</strong> Wir denken in zehn Jahren." -->
         <div class="kar-wer__text" data-auf>
-          <p><strong>Wir helfen Menschen beim Kauf einer Kapitalanlage.</strong>
-             Wir suchen das passende Objekt. Wir bereiten die Finanzierung vor.
-             Nach dem Kauf bleiben wir Ansprechpartner.</p>
-          <p><strong>Daran arbeitest du mit.</strong> Wir denken in zehn Jahren.</p>
+          <p>Wir bauen Estera nicht auf Größe um jeden Preis, sondern auf Qualität,
+             die wachsen kann. Dafür brauchen wir Menschen, die Verantwortung nicht
+             nur wollen, sondern tragen. Menschen, die hohe Standards als Chance
+             verstehen, direktes Feedback nutzen und gemeinsam etwas aufbauen
+             möchten, das Bestand hat.</p>
+          <p>Du bekommst bei uns keine vorgefertigte Laufbahn, in die du dich
+             einordnen musst. Du bekommst klare Erwartungen, starke Prozesse und die
+             Möglichkeit, dir mit wachsender Kompetenz mehr Verantwortung zu
+             erarbeiten.</p>
+          <p><strong>Wir wollen der Ort sein, an dem starke Menschen ihre nächste
+             Stufe erreichen.</strong></p>
         </div>
 
         <!-- DIE GOLDENE TRENNLINIE — 31.08.2026, Kundenwunsch: „nicht ganz
@@ -378,7 +470,8 @@
 
 
 <!-- =====================================================================
-     ENTDECKE, WAS UNSERE MITARBEITER SAGEN
+     WAS DICH BEI ESTERA WEITERBRINGT  (K03)
+     bis 31.08.2026: „Entdecke, was unsere Mitarbeiter sagen"
 
      Nachtrag vom 29.08.2026, Kundenwunsch. Dieser Abschnitt steht NICHT in
      der Bauaufnahme der Vorlage — er ist eine Ergaenzung und als solche
@@ -401,12 +494,58 @@
      Deshalb steht in keiner Karte ein Name, kein Initialenkreis und kein
      Datum — nichts, was eine bestimmte Person behauptet. Keine Zahl, kein
      Gehalt, keine Zusage steht darin.
+
+     DER PLATZHALTER IST AM 31.08.2026 ABGELOEST — und zwar durch K03 des
+     Wording-Dokuments. Das Dokument kennt keinen Stimmenabschnitt; es
+     kennt an dieser Stelle sechs Kaesten aus Titel und Text, also genau
+     die Bauform, die hier schon stand. Der Abschnitt behaelt deshalb
+     Laufband, Kastenmass, Rahmen, Radius, Kantenmaske und Laufrichtung —
+     nur der Inhalt wechselt von erfundenen Zitaten zu den sechs Punkten
+     „Was dich bei Estera weiterbringt".
+     Damit ist zugleich das rechtliche Risiko weg, das oben steht: es
+     werden keine Mitarbeiteraussagen mehr behauptet.
+
+     ACHT KAESTEN VORHER, SECHS NACHHER. Die zwei ueberzaehligen sind
+     ersatzlos gestrichen (Titel der gestrichenen: „Kurze Wege" und
+     „Persönliche Ziele" — ihre Rolle deckt K03 mit „Direktes Feedback"
+     und „Entwicklung mit Richtung" ab). Alle drei Durchlaeufe der Spur
+     tragen dieselben sechs, sonst waere der Umlauf nicht mehr nahtlos.
+
+     DIE FUENF STERNE SIND AUS DEN KAESTEN RAUS. Sie waren das Zeichen
+     einer Bewertung und gehoerten zu den Zitaten. Ueber einem Kasten wie
+     „Onboarding mit System" behaupten sie eine Note, die niemand
+     vergeben hat — dasselbe Problem, das der Absatz darueber fuer die
+     erfundenen Zitate beschreibt. Sonst ist an den Kaesten nichts
+     geaendert. Im Kopfbereich bleiben die fuenf Sterne unangetastet:
+     dort stehen sie ohne Text daneben und sind reine Zierde.
+
+     DIE UMLAUFZEIT IST NACHGEZOGEN. Sechs statt acht Kaesten sind
+     6 × 344 = 2064 px je Satz; bei den gemessenen 60 px/s der Vorlage
+     sind das 34,4 s statt 45,8667 s. Die Zahl aendert sich, die
+     GESCHWINDIGKEIT bleibt exakt dieselbe — sonst waere das Band
+     langsamer geworden. Die Regel steht am Ende von karriere.css.
      ===================================================================== -->
 <!-- OHNE Uebergangsklasse, und das ist Absicht: die Kantenmaske des
      Laufbands blendet gegen den Grund DIESES Abschnitts aus. Laege hier
      auch nur die Spitze eines Creme-Verlaufs, waere es ein cremefarbener
      Schleier statt des verlangten weissen. Beide Kanten liegen deshalb
      bei den Nachbarn (.kar-wer unten, .kar-angebot oben). -->
+<!-- =====================================================================
+     ZURUECKGEHOLT AM 31.08.2026 — Kundenwunsch woertlich: „Bei ‚Dein
+     Umfeld' steht jetzt ‚Du sollst hier nicht nur funktionieren'. Das war
+     doch die Trust-Section mit den Zitaten der Mitarbeiter. Die soll ganz
+     normal wieder zurück, so wie sie war."
+
+     Bei der Uebernahme des Wording-Dokuments war dieser Abschnitt zu K03
+     („Was dich bei Estera weiterbringt", sechs Kaesten) umgebaut worden.
+     Das war zu weit gegriffen: der Kunde wollte Woerter ersetzt haben, wo
+     sie stehen — keinen Abschnitt umwidmen. Der Abschnitt steht deshalb
+     wieder Zeichen fuer Zeichen so da, wie er vor der Umstellung war,
+     samt Sternen, Anfuehrungszeichen und dem laufenden Band.
+
+     K03 des Dokuments hat damit auf dieser Seite KEINEN Ort mehr.
+     DEM KUNDEN GEGENUEBER FESTGEHALTEN.
+     ===================================================================== -->
 <section class="kar-stimmen" aria-labelledby="kar-stimmen-titel">
 
   <div class="kar-mitte">
@@ -609,13 +748,28 @@
      karriere.css bei .kar-navy. -->
 <div class="kar-navy fl-navy800">
 
-<section class="kar-angebot" aria-labelledby="kar-angebot-titel">
+<section class="kar-angebot" id="offene-positionen" aria-labelledby="kar-angebot-titel">
   <div class="kar-mitte">
     <!-- Rautenpunkt: Sand als Akzent, wie ueber den Abschnitts-
          ueberschriften der Startseite. aria-hidden, weil das Zeichen
          rein schmueckend ist und vorgelesen nichts beitraegt. -->
     <p class="kar-angebot__raute" aria-hidden="true" data-auf><span></span></p>
-    <h2 class="kar-titel" id="kar-angebot-titel" data-auf>Deine Karriere, <span class="kar-akzent">unser Angebot</span></h2>
+
+    <!-- WORDING NEU 31.08.2026 — K04 EYEBROW. Das Kapitelblatt hatte
+         bisher nur die Raute als Zeichen ueber der Ueberschrift; das
+         Dokument verlangt zusaetzlich eine Kleinzeile. Sie steht in der
+         Sandvariante des Balkens (.kar-balken--hell) — auf Navy traegt
+         Navy auf Navy nicht, und genau dafuer ist die Variante da. Die
+         Raute bleibt: dieselbe Paarung aus Zierde und Kleinzeile wie im
+         Kopfbereich, wo die fuenf Sterne ueber dem Balken stehen. -->
+    <p class="kar-wer__etikett" data-auf>
+      <span class="kar-balken kar-balken--hell">FINDE DEINE ROLLE</span>
+    </p>
+
+    <!-- WORDING ERSETZT 31.08.2026 — K04 HEADLINE.
+         Vorher: "Deine Karriere, <span class=\"kar-akzent\">unser Angebot</span>" -->
+    <h2 class="kar-titel" id="kar-angebot-titel" data-auf>Zwei Rollen. <span class="kar-akzent">Ein gemeinsamer Anspruch.</span></h2>
+
     <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch.
          Vorher: "Zwei Stellen sind ausgeschrieben. Sieh dir an, worum es geht — und melde dich, wenn es passt."
          VON ESTERA BESTAETIGEN LASSEN. -->
@@ -624,7 +778,10 @@
          Leser jetzt direkt an. Ein Satz weniger.
          Vorher: "Zwei Stellen sind frei. Vielleicht ist deine dabei. Sieh sie dir an. Passt es? Dann melde dich."
          VON ESTERA BESTAETIGEN LASSEN. -->
-    <p class="kar-angebot__unterzeile" data-auf>Zwei Stellen sind frei. Sieh sie dir an. Passt eine zu dir? Dann melde dich.</p>
+    <!-- UNTERZEILE GESTRICHEN 31.08.2026 — K04 sieht keine vor. Die Zeile
+         ist nicht durch eine andere ersetzt, sondern ersatzlos raus; sie
+         haette dieselbe Aussage doppelt gebracht wie die Ueberschrift.
+         Vorher: "Zwei Stellen sind frei. Sieh sie dir an. Passt eine zu dir? Dann melde dich." -->
   </div>
 </section>
 
@@ -651,12 +808,57 @@
                alt="Aufgeräumter Schreibtisch mit Laptop und Ledermappe vor einem Bürofenster">
         </picture>
         <div class="kar-karte__inhalt">
-          <p class="kar-karte__art">Vollzeit (m/w/d)</p>
-          <h3 class="kar-karte__titel">Immobilienberater</h3>
-          <p class="kar-karte__bereiche">Bereiche: Vertrieb, Kapitalanlagen</p>
+          <!-- WORDING ERSETZT 31.08.2026 — K04, Karte 1.
+               Vorher (Kleinzeile): "Vollzeit (m/w/d)"
+               Die Rolle ist laut Dokument selbststaendig, nicht in
+               Vollzeit angestellt — die alte Kleinzeile war damit
+               sachlich falsch geworden und nicht nur anders formuliert. -->
+          <p class="kar-karte__art">SELBSTSTÄNDIG · VERTRIEB</p>
+          <!-- STELLENBEZEICHNUNG GEAENDERT 31.08.2026 — Kundenwunsch woertlich:
+         „bei Immobilienberater steht: Immobilienberater / Sales-Manager".
+         Vorher: "Immobilienberater" -->
+          <!-- WORDING ERSETZT 31.08.2026 — K04. Das Dokument benennt die
+               Rolle anders; der Kundenwunsch vom Vormittag ist damit
+               ueberholt und der neuere geht vor.
+               Vorher: "Immobilienberater / Sales-Manager" -->
+          <!-- STELLENBEZEICHNUNG UND KNOPF, 31.08.2026 — Kundenwunsch,
+               nach der Uebernahme des Wording-Dokuments ausdruecklich
+               nachgeschaerft: „Da soll stehen: Immobilienberater,
+               Sales-Manager" und „Wir brauchen den Mehr-erfahren-Knopf
+               wieder zurueck, damit man auf den jeweiligen Job kommt."
+               Das Dokument schreibt „Immobilienberater / Vertriebspartner
+               (m/w/d)" und „Stelle ansehen →"; der Kunde hat beides
+               danach anders angesagt. Die juengere Ansage gilt. -->
+          <h3 class="kar-karte__titel">Immobilienberater / Sales-Manager (m/w/d)</h3>
+          <!-- WORDING ERSETZT 31.08.2026 — K04. Aus der Bereichsliste ist
+               ein Satz geworden; die Klasse traegt beides, sie setzt nur
+               mittig in Weiss 82 %.
+               Vorher: "Bereiche: Vertrieb, Kapitalanlagen" -->
+          <p class="kar-karte__bereiche">Du führst Interessenten von der ersten Einordnung bis zur fundierten Kaufentscheidung – mit klaren Prozessen, ausgewählten Kapitalanlageimmobilien und operativer Unterstützung.</p>
+          <!-- EIN VERWEIS STATT ZWEI KNOEPFEN — 31.08.2026, K04.
+               Das Dokument nennt je Karte genau einen Verweis. Der
+               ueberzaehlige zweite ist gestrichen; geblieben ist der
+               Vollflaechenknopf, weil er der primaere der beiden war und
+               das Ziel des Dokuments („Stelle ansehen") die Detailseite
+               ist — nicht mehr das Kontaktformular. Die Bewerbung selbst
+               steht auf der Detailseite.
+               Vorher: <a class="kar-knopf kar-knopf--voll" href="kontakt.html">Jetzt bewerben</a>
+               Vorher: <a class="kar-knopf kar-knopf--linie" href="karriere-immobilienberater.html">Mehr erfahren</a>
+               Der Pfeil steht so im Dokument und bleibt im sichtbaren
+               Text; das aria-label sagt stattdessen aus, WELCHE Stelle
+               gemeint ist — zwei Verweise mit gleichem Text waeren im
+               Vorlesegeraet sonst nicht auseinanderzuhalten. -->
           <p class="kar-karte__knoepfe">
-            <a class="kar-knopf kar-knopf--voll" href="kontakt.html" aria-label="Als Immobilienberater bewerben">Jetzt bewerben</a>
-            <a class="kar-knopf kar-knopf--linie" href="karriere-immobilienberater.html" aria-label="Mehr über die Stelle Immobilienberater erfahren">Mehr erfahren</a>
+            <!-- ZWEI KNOEPFE, 31.08.2026 — Kundenwunsch woertlich: „Du
+                 brauchst zwei CTA-Buttons bei den zwei Rollen jeweils —
+                 jetzt bewerben und mehr erfahren."
+                 Das Wording-Dokument nennt an dieser Stelle nur einen
+                 („Stelle ansehen →"); auf einen zusammengezogen hatte die
+                 Karte den Weg zur Bewerbung verloren. Beide Knoepfe sind
+                 die, die vor der Umstellung dastanden — voller Knopf zur
+                 Bewerbung, Linienknopf zur Stellenseite. -->
+            <a class="kar-knopf kar-knopf--voll" href="kontakt.html?v=b24a" aria-label="Als Immobilienberater / Sales-Manager bewerben">Jetzt bewerben</a>
+            <a class="kar-knopf kar-knopf--linie" href="karriere-immobilienberater.html?v=b24a" aria-label="Mehr erfahren über die Stelle Immobilienberater / Sales-Manager">Mehr erfahren</a>
           </p>
         </div>
       </li>
@@ -671,12 +873,19 @@
                alt="Mitarbeiterin aus dem Back Office am Laptop an ihrem Arbeitsplatz">
         </picture>
         <div class="kar-karte__inhalt">
-          <p class="kar-karte__art">Vollzeit (m/w/d)</p>
-          <h3 class="kar-karte__titel">Back-Office-Manager</h3>
-          <p class="kar-karte__bereiche">Bereiche: Immobilienabwicklung, After Sales</p>
+          <!-- WORDING ERSETZT 31.08.2026 — K04, Karte 2. Gleiche Machart
+               wie Karte 1, gleiche Begruendung fuer den einen Verweis.
+               Vorher (Kleinzeile): "Vollzeit (m/w/d)"
+               Vorher (Titel):      "Back-Office-Manager"
+               Vorher (Text):       "Bereiche: Immobilienabwicklung, After Sales"
+               Vorher: <a class="kar-knopf kar-knopf--voll" href="kontakt.html">Jetzt bewerben</a>
+               Vorher: <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html">Mehr erfahren</a> -->
+          <p class="kar-karte__art">VOLLZEIT · IMMOBILIENABWICKLUNG &amp; KUNDENBETREUUNG</p>
+          <h3 class="kar-karte__titel">Backoffice Manager (m/w/d)</h3>
+          <p class="kar-karte__bereiche">Du hältst Unterlagen, Fristen und Beteiligte zusammen und sorgst dafür, dass jeder Kauf von der Reservierung bis nach dem Notartermin sauber begleitet wird.</p>
           <p class="kar-karte__knoepfe">
-            <a class="kar-knopf kar-knopf--voll" href="kontakt.html" aria-label="Als Back-Office-Manager bewerben">Jetzt bewerben</a>
-            <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html" aria-label="Mehr über die Stelle Back-Office-Manager erfahren">Mehr erfahren</a>
+            <a class="kar-knopf kar-knopf--voll" href="kontakt.html?v=b24a" aria-label="Als Backoffice Manager bewerben">Jetzt bewerben</a>
+            <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html?v=b24a" aria-label="Mehr erfahren über die Stelle Backoffice Manager">Mehr erfahren</a>
           </p>
         </div>
       </li>
@@ -684,6 +893,84 @@
     </ul>
   </div>
 </section>
+
+
+<!-- =====================================================================
+     ENTFALLEN AM 31.08.2026 auf Kundenwunsch: der Abschnitt „KLARER
+     PROZESS / Schnell genug für Momentum." samt den vier Schritten der
+     Bewerbung (K05 des Wording-Dokuments). Woertlich: „Also klarer Prozess
+     kommt dann hier raus."
+     Der vollstaendige Wortlaut steht in K05 des Dokuments; wieder aufbauen
+     laesst er sich aus der Versionsgeschichte dieses Tages.
+     ===================================================================== -->
+
+<section class="kar-angebot" aria-labelledby="kar-faq-titel">
+  <div class="kar-mitte">
+    <h2 class="kar-titel" id="kar-faq-titel" data-auf>FAQ zur <span class="kar-akzent">Karriere bei Estera</span></h2>
+  </div>
+</section>
+
+<section class="kar-stellen" aria-label="Haeufige Fragen zur Karriere bei Estera">
+  <div class="kar-mitte">
+    <ul class="kar-liste" data-auf>
+
+      <li class="kar-karte" style="--i:0">
+        <div class="kar-karte__inhalt">
+          <h3 class="kar-karte__titel">Muss ich bereits aus der Immobilienbranche kommen?</h3>
+          <p class="kar-karte__bereiche">Nicht zwingend. Für beide Rollen zählt relevante Erfahrung, aber ebenso entscheidend sind Lernfähigkeit, Verlässlichkeit und der Anspruch, sich tief in das Thema einzuarbeiten. Welche Vorerfahrung konkret hilfreich ist, steht auf der jeweiligen Stellenseite.</p>
+        </div>
+      </li>
+
+      <li class="kar-karte" style="--i:1">
+        <div class="kar-karte__inhalt">
+          <h3 class="kar-karte__titel">Sind auch Quereinsteiger willkommen?</h3>
+          <p class="kar-karte__bereiche">Ja, wenn deine bisherigen Erfahrungen zur Rolle passen. Im Vertrieb können das zum Beispiel Beratung, Finanzierung, Versicherungen oder anspruchsvoller Verkauf sein. Im Backoffice helfen Erfahrungen aus Kundenservice, Sachbearbeitung, Finanzierung oder Immobilienabwicklung.</p>
+        </div>
+      </li>
+
+      <li class="kar-karte" style="--i:2">
+        <div class="kar-karte__inhalt">
+          <!-- NACHSATZ DES DOKUMENTS BEWUSST NICHT UEBERNOMMEN.
+               Im Wording-Dokument steht hinter dieser Antwort noch der
+               Satz, eine konkrete Frist solle erst veroeffentlicht
+               werden, wenn sie im Alltag auch gehalten wird. Das ist
+               eine Anweisung AN Estera und kein Seitentext — auf der
+               Seite gelesen wuerde er den Besucher verwirren. Er steht
+               deshalb hier und nicht im Markup.
+               WAS DARAUS FOLGT: sobald Estera eine Frist zusagen kann
+               („innerhalb von X Werktagen"), gehoert sie in die Antwort
+               oben. Vorher nicht. -->
+          <h3 class="kar-karte__titel">Wie schnell bekomme ich eine Rückmeldung?</h3>
+          <p class="kar-karte__bereiche">Wir melden uns zeitnah nach Eingang deiner Bewerbung und sagen dir transparent, ob wir den Prozess gemeinsam fortsetzen.</p>
+        </div>
+      </li>
+
+      <li class="kar-karte" style="--i:3">
+        <div class="kar-karte__inhalt">
+          <h3 class="kar-karte__titel">Wie läuft die Einarbeitung ab?</h3>
+          <p class="kar-karte__bereiche">Du startest mit einem klaren Plan, lernst Leistung, Prozesse und Werkzeuge kennen und übernimmst Verantwortung schrittweise. Die Detailseiten zeigen den Ablauf je Rolle.</p>
+        </div>
+      </li>
+
+      <li class="kar-karte" style="--i:4">
+        <div class="kar-karte__inhalt">
+          <h3 class="kar-karte__titel">Kann ich remote arbeiten?</h3>
+          <p class="kar-karte__bereiche">Das hängt von der Rolle und der Einarbeitungsphase ab. Die konkreten Präsenz- und Remote-Regelungen werden vor dem ersten Gespräch transparent ausgewiesen.</p>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     ENTFALLEN AM 31.08.2026 auf Kundenwunsch: der Abschluss-CTA „DEIN
+     NÄCHSTER SCHRITT / Du suchst nicht irgendeinen nächsten Job." samt
+     Knopf und Kleinzeile (K07 des Wording-Dokuments). Woertlich: „Nach FAQ
+     endet es. Dein nächster Schritt kann auch raus."
+     Die Seite endet damit nach den haeufigen Fragen.
+     ===================================================================== -->
 
 </div><!-- /.kar-navy — Ende der durchlaufenden Navyflaeche -->
 
@@ -780,8 +1067,8 @@
          eigenmaechtig umbenannt worden. -->
     <p class="menu__gruppe">Auf der Startseite</p>
     <ul class="menu__nav">
-      <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Vorteile</a></li>
-      <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Leistungen</a></li>
+      <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Warum Immobilien</a></li>
+      <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Warum Estera</a></li>
     </ul>
     <p class="menu__gruppe">Seiten</p>
     <ul class="menu__nav">

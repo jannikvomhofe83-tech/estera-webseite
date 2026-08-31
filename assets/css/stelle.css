@@ -2547,3 +2547,61 @@
   [data-stl-js] .stl-schluss__medium.ist-da img,
   [data-stl-js] .stl-band.ist-da .stl-band__satz { animation: none; }
 }
+
+/* ===========================================================================
+   „DEIN SYSTEM" / „DEIN ARBEITSUMFELD" — EINSPALTIG UND MITTIG, 31.08.2026
+
+   Kundenwunsch woertlich: „Bei dieser Section haben wir kein passendes
+   Bild. Das bedeutet: Entferne das Bildfenster und packe den Text mittig
+   in die Section."
+
+   Der Abschnitt stand seit dem 29.08. zweispaltig: links der Text, rechts
+   ein LEERES Bildfenster (.stl-platz, quadratisch, nur Kontur). Das war
+   damals Absicht — man sollte sehen, dass ein Bild fehlt. Ein Bild ist
+   seither nicht gekommen, und der leere Rahmen wirkt inzwischen wie ein
+   Fehler statt wie ein Platzhalter.
+
+   DIE AENDERUNG STEHT BEWUSST IN DER CSS, NICHT IM MARKUP. Das <div> mit
+   der Beschreibung, wie das Bild einmal einzusetzen ist (Verhaeltnis 4:5,
+   mindestens 1150 x 1438 px, Motiv ohne Gesichter), bleibt samt seinem
+   Vermerk im HTML stehen. Kommt das Bild, faellt hier ein Block weg und
+   der Abschnitt ist wieder zweispaltig — ohne dass jemand die Vorgaben
+   neu zusammensuchen muss.
+
+   Der Satzspiegel ist auf 68ch begrenzt: ueber die volle Breite von
+   1180 px waeren es rund 150 Zeichen je Zeile, das liest niemand mehr.
+   =========================================================================== */
+.stl-zwei--bieten { grid-template-columns: minmax(0, 1fr); }
+.stl-zwei--bieten .stl-platz { display: none; }
+.stl-zwei--bieten > *:not(.stl-platz) {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+.stl-zwei--bieten .stl-h2,
+.stl-zwei--bieten .stl-kleinzeile,
+.stl-zwei--bieten .stl-prosa-w,
+.stl-zwei--bieten .stl-macht__lead { text-align: center; }
+
+/* ===========================================================================
+   DER EIGENTLICHE GRUND, WARUM DAS ABSCHLUSSBILD UNSICHTBAR WAR — 31.08.2026
+
+   `<picture>` ist ein INLINE-Kasten. Die Auftrittsbewegung legt ein
+   `clip-path` darauf (siehe `[data-stl-js] .stl-schluss__medium picture`).
+   Bei einem Inline-Element ist der Bezugskasten eines Zuschnitts die
+   Flaeche seiner Zeilenfragmente — das `<img>` darin ist aber ein
+   Blockkasten und liegt in keinem davon. Der Zuschnitt schneidet deshalb
+   ALLES weg, auch im vollstaendig geoeffneten Zustand.
+
+   Gemessen ueber dem Bildfeld: vorher 0,6 bis 1,7 kB Bildinhalt (also
+   leer), danach 84 bis 277 kB. An JEDER Breite, von 390 bis 1920.
+
+   Das Schwesterfeld .stl-bilder hatte das Problem nie, weil es weiter oben
+   in dieser Datei `picture { display: block }` mitbekommt. Am Abschlussfeld
+   fehlte genau diese eine Zeile. Sie steht hier und damit auf BEIDEN
+   Stellenseiten — nicht in einer seitenweisen Datei, denn beide Seiten
+   sind gleich gebaut und hatten denselben Fehler.
+
+   Zusammen mit dem entfernten `loading="lazy"` am selben Bild (Vermerk im
+   HTML) sind das zwei voneinander unabhaengige Ursachen fuer dasselbe
+   Symptom gewesen. Beide muessen behoben bleiben. */
+.stl-schluss__medium picture { display: block; }

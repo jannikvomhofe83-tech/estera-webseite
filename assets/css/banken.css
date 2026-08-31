@@ -1,256 +1,33 @@
 /* ===========================================================================
-   BANKEN-LEISTE  —  schmales Zwischenband zwischen „Leistungen" und
-   „Die Vorteile von Kapitalanlagen"
+   BANKEN-LEISTE — DIESE DATEI IST LEER, UND ZWAR ABSICHTLICH.
 
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   ANSICHTSFASSUNG — VOR VEROEFFENTLICHUNG DURCH ESTERA ZU KLAEREN
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Die hier gezeigten Zeichen sind fremde Marken. Fuer jedes Institut
-   braucht es vor der Veroeffentlichung (1) den Nachweis, dass eine
-   Zusammenarbeit tatsaechlich besteht, und (2) die schriftliche Erlaubnis,
-   das Logo zu verwenden. Liegt beides nicht vor, ist die Leiste zu
-   entfernen — Markup, Stylesheet, Skript und Bilddateien.
+   Die Banken-Leiste auf der Startseite ist am 31.08.2026 auf Kundenwunsch
+   ERSATZLOS entfallen. Kundenwortlaut: „Dafuer gibt es auch keinen Ersatz,
+   die muss komplett raus."
 
-   Der frueher sichtbare Hinweis unter der Leiste ist auf ausdruecklichen
-   Kundenwunsch entfallen. Damit tragen nur noch dieser Kopf und der
-   HTML-Kommentar am Abschnitt den Vermerk; beide bleiben stehen.
-   Die Leiste enthaelt bewusst keinerlei sichtbaren Text — keine
-   Ueberschrift, keine Zeile, die eine Zusammenarbeit behauptet.
+   Damit sind entfernt:
+     · die <section class="banken"> aus variante-a.html
+     · der <link> auf diese Datei im Kopf von variante-a.html
+     · der <script> auf assets/js/banken.js am Seitenende
+     · saemtliche Regeln, die hier standen
 
-   NUR WORT-BILD-FASSUNGEN (Kundenwunsch). Blosse Bildzeichen sind
-   entfernt: das rote „S" der Sparkasse ist durch die Marke „S Sparkasse"
-   ersetzt, das reine V-Zeichen der Volksbank (frueher volksbank.svg) ist
-   ersatzlos entfallen. Es laufen deshalb nur noch VIER Logos — Volksbank
-   und Raiffeisenbank fallen unter dieselbe Wortmarke.
+   WAS HIER STAND (rund 13 kB): .banken, .banken__band, .banken__lauf,
+   .banken__spur, .banken__feld, .banken__logo samt der Einzelmasse je
+   Institut, der Kantenmaske links und rechts, dem Laufwerk in reinem CSS
+   und der Ruhelage bei `prefers-reduced-motion: reduce`. Alles steht
+   vollstaendig in der Versionsgeschichte, Stand vor dem 31.08.2026.
 
-   HERKUNFT DER DATEIEN   (alle abgerufen am 17.08.2026)
-   ---------------------------------------------------------------------
-   sparkasse.svg
-     Wikimedia Commons, „File:Logo der Deutschen Sparkassen.svg"
-     Angabe dort: CC BY-SA 4.0, Quelle https://www.sparkasse.de/ ,
-     Marke geschuetzt.
-     GEAENDERT: Commons fuehrt die Negativfassung in Weiss (fuer roten
-     Grund). Fuer den hellen Grund dieser Seite sind die elf weissen
-     Fuellungen auf Sparkassenrot #EE0000 gesetzt — dieselbe Farbe, die
-     Commons in File:Sparkasse.svg fuer das Bildzeichen verwendet. Die
-     Geometrie ist unveraendert, die Fuellungen in den <mask>-Bloecken
-     bleiben weiss. Die gueltige Positivdatei ist beim Institut
-     anzufordern.
+   NICHT GELOESCHT sind die BILDDATEIEN in assets/img/banken/ — sie liegen
+   unveraendert im Ordner.
 
-   commerzbank.svg
-     Wikimedia Commons, „File:Commerzbank (2009).svg"
-     https://commons.wikimedia.org/wiki/File:Commerzbank_(2009).svg
-     Angabe dort: Public domain (Schoepfungshoehe), Marke geschuetzt.
+   DIE DATEI BLEIBT LIEGEN und wird nicht geloescht: sie ist der Rueckweg,
+   und ein Verweis aus einer alten Arbeitskopie laeuft so ins Leere statt
+   in einen Fehler 404.
 
-   volksbanken-raiffeisenbanken.svg
-     Wikimedia Commons, „File:Logo des Bundesverband der Deutschen
-     Volksbanken und Raiffeisenbanken e.V. (BVR).svg"
-     Angabe dort: CC BY-SA 4.0, Urheber BVR, Quelle https://www.vr.de/
-     STEHT HIER STELLVERTRETEND FUER „RAIFFEISENBANK": in Deutschland
-     fuehren Volksbanken und Raiffeisenbanken dasselbe Zeichen; eine
-     eigenstaendige Wortbildmarke „Raiffeisenbank" gibt es nicht. Sobald
-     das tatsaechliche Institut benannt ist, gehoert hier dessen Logo hin.
-
-   schwaebisch-hall.svg
-     Wikimedia Commons, „File:Bausparkasse Schwäbisch Hall logo.svg"
-     Angabe dort: Public domain (Schoepfungshoehe), Marke geschuetzt.
-     Urspruengliche Quelle laut Dateiseite: Geschaeftsbericht 2007 der
-     Bausparkasse Schwaebisch Hall.
-
-   Der Kunde nennt „meine Volksbank". Das ist moeglicherweise nicht die
-   Marke „Volksbank" allgemein, sondern das Institut „meine Volksbank
-   Raiffeisenbank eG". Wenn ja, muss dessen eigenes Logo beim Institut
-   angefordert werden; die Datei hier passt dann nicht.
+   WER SIE ZURUECKHOLT, HOLT EINE PFLICHT MIT: die Logos sind fremde
+   Marken. Je Institut sind ein Nachweis der Zusammenarbeit UND eine
+   schriftliche Erlaubnis zur Logoverwendung noetig. Der vollstaendige
+   Vermerk mit Herkunft und Lizenz jeder Datei steht in der
+   Versionsgeschichte von variante-a.html an der Stelle, wo die Section
+   stand.
    =========================================================================== */
-
-.banken {
-  position: relative;
-  z-index: 1;
-  /* 30.08.2026: REINES WEISS, kein eigener Verlauf mehr.
-     Hier stand `linear-gradient(180deg, var(--paper) 0%, #FCFAF6 100%)` —
-     die Leiste sollte als Bruecke zum warmen Grund darunter wirken. Das
-     Band ist aber nur rund 157 Punkte hoch: die 14 Einheiten bis zum Creme
-     der Musterwohnung ergaben dort 0,089 Einheiten je Bildpunkt, das
-     Dreifache der Regel von 0,03 (siehe base.css). Und weil das Band bei
-     #FCFAF6 endete, die Musterwohnung aber bei #F9F6F1 anfing, stand am
-     Fuss zusaetzlich eine Stufe von 5 Einheiten.
-
-     Die Bruecke schlaegt jetzt die Musterwohnung selbst: sie traegt
-     `fl-weiss-nach-creme` und faehrt ueber ihre eigenen rund 1030 Punkte
-     von Weiss auf Creme — 0,0145 Einheiten je Bildpunkt. Dieses Band steht
-     damit mitten in einer weissen Flaeche, die vom Ende von
-     #warum-immobilien bis zum Kopf der Musterwohnung durchlaeuft. Oben wie
-     unten gibt es keinen Farbunterschied mehr. */
-  background: var(--paper);
-  border-top: 1px solid var(--line-soft);
-  /* Die Reihe steht allein im Abschnitt, oben und unten derselbe Abstand.
-     Auf Kundenwunsch hoeher gebaut als zuvor (war clamp(1.7rem, 3.6vh,
-     2.6rem)), damit die Logos groesser stehen koennen und das Band nicht
-     gequetscht wirkt. */
-  padding: clamp(2.6rem, 6vh, 4.2rem) 0;
-
-  /* GLEICHE KAESTCHENHOEHE fuer alle Logos, dazu je Logo ein Faktor --f,
-     der die Hoehe nachzieht (Werte und Begruendung weiter unten).
-     Auf Kundenwunsch von clamp(26px, 2.3vw, 34px) heraufgesetzt. */
-  --bk-h: clamp(34px, 3.3vw, 50px);
-  /* LUFTIGER ABSTAND — auf Kundenwunsch deutlich vergroessert
-     (war clamp(1.6rem, 2.6vw, 2.6rem)). Er bleibt ueberall gleich, auch
-     an der Nahtstelle zwischen Original und Klon; siehe `.banken__spur`. */
-  --bk-abstand: clamp(2.6rem, 4.8vw, 5rem);
-}
-
-/* --- Die laufende Reihe ---------------------------------------------------- */
-.banken__band {
-  position: relative;
-  overflow: hidden;
-  /* Weicher Auslauf links und rechts: die Logos laufen in die Flaeche
-     hinein, statt an einer Kante abgeschnitten zu werden. */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 clamp(48px, 7vw, 120px), #000 calc(100% - clamp(48px, 7vw, 120px)), transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 clamp(48px, 7vw, 120px), #000 calc(100% - clamp(48px, 7vw, 120px)), transparent 100%);
-}
-/* Ohne Javascript bleibt die Reihe stehen und laesst sich seitlich schieben —
-   es geht kein Logo verloren. */
-.banken__band:not([data-laeuft]) { overflow-x: auto; scrollbar-width: none; }
-.banken__band:not([data-laeuft])::-webkit-scrollbar { display: none; }
-
-.banken__lauf {
-  --dauer: 40s;
-  display: flex;
-  width: max-content;
-}
-/* Laeuft nach RECHTS: von -50 % (die geklonte zweite Spur steht dann im
-   Bild) auf 0. Beide Spuren sind identisch und der Weg entspricht exakt
-   einer Spurbreite — am Umschlagpunkt sieht das Bild deshalb genauso aus
-   wie am Anfang, es gibt keinen Sprung an der Naht.
-   Damit das aufgeht, muss die einzelne Spur mindestens so breit sein wie
-   das Band. Dafuer wiederholt `assets/js/banken.js` die Logofolge so oft,
-   bis das erreicht ist. */
-[data-laeuft] .banken__lauf {
-  animation: banken-lauf var(--dauer) linear infinite;
-}
-@keyframes banken-lauf {
-  from { transform: translate3d(-50%, 0, 0); }
-  to   { transform: translate3d(0, 0, 0); }
-}
-
-.banken__spur {
-  display: flex;
-  align-items: center;
-  gap: var(--bk-abstand);
-  /* Seitlich je die halbe Luecke. An der Nahtstelle zwischen Original und
-     Klon entsteht dadurch genau derselbe Abstand wie zwischen zwei Logos
-     innerhalb einer Spur — sonst waere der Umlauf an der Naht sichtbar. */
-  padding: 0 calc(var(--bk-abstand) / 2);
-  margin: 0;
-  list-style: none;
-}
-
-.banken__feld {
-  flex: 0 0 auto;
-  height: var(--bk-h);          /* fuer alle gleich */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hoehe gesetzt, Breite frei: das Seitenverhaeltnis bleibt erhalten und
-   zwischen den Zeichen steht wirklich der eingestellte Abstand — kein
-   leerer Rahmen, der die Luecken optisch aufblaeht. */
-.banken__logo {
-  height: calc(var(--bk-h) * var(--f, 1));
-  width: auto;
-  max-width: none;
-  object-fit: contain;
-  /* FASSUNG (b), gewaehlt: Originalfarben. Zwischenzeitlich standen die
-     Logos gedaempft (saturate 0.78, opacity 0.9); der Kunde will sie
-     kraeftig — deshalb kein Filter und keine verringerte Deckkraft. */
-}
-
-/* FEINKORREKTUR JE LOGO
-   Alle vier Zeichen sind jetzt Wort-Bild-Marken, aber unterschiedlich
-   gebaut: je mehr Schrift neben dem Zeichen steht, desto breiter wird das
-   Logo — und desto niedriger muss es stehen, damit es die anderen nicht
-   erschlaegt. Massstab ist nicht die Zahl, sondern die Grosse der
-   Buchstaben und die Flaeche, die das Logo im Band einnimmt.
-
-     Seitenverh.  Faktor   gerendert bei --bk-h 50 (Fenster 1512)
-     -----------------------------------------------------------------
-     Sparkasse    3.5:1     0.94    47 x 163   kompakteste Marke: wenig
-                                               Schrift, deshalb darf sie
-                                               am hoechsten stehen
-     Commerzbank  5.5:1     0.74    37 x 202   grosse Versalien, wirkt
-                                               schon niedriger schwer
-     Volksbanken  5.9:1     0.74    37 x 216   zweizeilig, die Hoehe
-     Raiffeisen-                               teilt sich auf zwei
-     banken                                    Zeilen — braucht deshalb
-                                               dieselbe Hoehe wie die
-                                               einzeilige Commerzbank
-     Schwaebisch  7.6:1     0.58    29 x 220   breiteste Marke, dazu die
-     Hall                                      Claimzeile darunter
-   Die Breiten liegen damit zwischen 163 und 220 px, die Buchstabenhoehen
-   dicht beieinander.
-
-   Warum nicht nach Flaeche gerechnet: Ein Versuch, die eingefaerbte
-   Flaeche je Logo gleich gross zu machen, wurde verworfen. Die Marken
-   von Volksbanken Raiffeisenbanken und Schwaebisch Hall enthalten
-   grosse Vollflaechen (blauer Kasten, gelber Kasten). Nach Flaeche
-   gerechnet muessten sie 20 bis 25 Prozent kleiner stehen — dann sind
-   ihre Schriftzuege sichtbar kleiner als „COMMERZBANK" daneben, und die
-   Reihe wirkt ungleich. Das Auge misst hier die Buchstaben, nicht die
-   Farbflaeche. Die Flaechenmessung ergibt in der jetzigen Einstellung
-   rund -32 % fuer Sparkasse und Commerzbank gegenueber +32 % fuer die
-   beiden Kastenmarken; das ist gewollt. */
-.banken__logo[data-logo="sparkasse"]      { --f: 0.94; }
-.banken__logo[data-logo="commerzbank"]    { --f: 0.74; }
-.banken__logo[data-logo="vr"]             { --f: 0.74; }
-.banken__logo[data-logo="schwaebischhall"]{ --f: 0.58; }
-
-/* ---------------------------------------------------------------------------
-   VERWORFENE FASSUNG (a): alle Zeichen einfarbig in Navy/Graublau.
-   Sie ist nur ueber `data-fassung="navy"` am Abschnitt zu sehen und im
-   Auslieferungszustand nicht aktiv. Der Screenshot liegt beim Kunden
-   (banken-navy.png), die gewaehlte Fassung als banken-farbig.png.
-
-   Drei Gruende gegen sie:
-     1  Die Kastenlogos bestehen aus farbiger Flaeche mit ausgespartem
-        Zeichen. Einfarbig gerechnet verliert Schwaebisch Hall seine
-        Binnenzeichnung — aus gelbem Kasten mit roten Steinen wird ein
-        blauer Block mit dunklen Balken, die Claimzeile verschwindet fast.
-     2  Die Umrechnung faellt je Logo verschieden aus: das Sparkassen-S
-        kommt hellgrau heraus, „COMMERZBANK" bleibt fast schwarz. Die
-        Reihe wirkt dadurch weniger einheitlich, nicht mehr.
-     3  Die Markenrichtlinien der Institute untersagen das Umfaerben ihrer
-        Logos. Das waere hier besonders heikel, weil die Erlaubnis zur
-        Logoverwendung ohnehin noch aussteht.
-   Der Kunde hat die farbige Fassung ausserdem ausdruecklich bestaetigt
-   und noch kraeftigere Farben verlangt.
---------------------------------------------------------------------------- */
-.banken[data-fassung="navy"] .banken__logo {
-  filter: grayscale(1) brightness(0.45) sepia(1) hue-rotate(176deg) saturate(2.4);
-  opacity: 0.92;
-}
-
-/* Unter der Leiste stand eine kleine Zeile in Goldschrift („Ansichtsfassung:
-   Diese Logos stehen hier zur Ansicht …"). Der Kunde hat ihre Entfernung
-   ausdruecklich angewiesen; sie ist ersatzlos entfallen, dazu die Regel
-   `.banken__hinweis`. Der Vermerk zur Rechtelage steht seitdem nur noch im
-   HTML-Kommentar am Anfang des Abschnitts und im Kopf dieser Datei — beide
-   duerfen nicht geloescht werden, solange die Leiste steht. */
-
-@media (max-width: 900px) {
-  .banken {
-    --bk-h: 34px;
-    --bk-abstand: 2.6rem;
-    padding: clamp(1.8rem, 4vh, 2.6rem) 0;
-  }
-  .banken__band {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-  }
-}
-
-/* Ohne Bewegung: die Reihe steht still und bleibt seitlich scrollbar. */
-@media (prefers-reduced-motion: reduce) {
-  .banken__lauf { animation: none !important; }
-  .banken__band { overflow-x: auto; }
-}

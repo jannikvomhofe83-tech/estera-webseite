@@ -578,60 +578,83 @@
 /* ===========================================================================
    3b  DIE ZAESUR ZWISCHEN DEN KAESTEN UND DEM ZWISCHENKOPF — 31.08.2026
 
-   Kundenwunsch, woertlich: zwischen den beiden Kaesten und „Deine Vorteile
-   zum Vermoegen" sei es zu eng; dort solle mehr Abstand und danach eine
-   feine goldene Linie als Zaesur stehen.
+   Kundenwunsch in drei Schritten am selben Tag; hier steht der Endstand,
+   die beiden Zwischenstaende stehen darunter, damit niemand sie
+   versehentlich wiederherstellt.
 
    ---------------------------------------------------------------------------
-   1  DER ABSTAND. Er steht jetzt an ZWEI Stellen, und das ist Absicht: die
-      Linie soll nicht an einem der beiden Nachbarn kleben, sondern frei
-      dazwischen liegen.
+   1  DER ABSTAND — GLEICH GROSS OBEN UND UNTEN.
 
-        ueber der Linie   clamp(3.4rem, 7.6vh, 5.8rem)   (hier)
-        unter der Linie   clamp(2.6rem, 6.4vh, 4.6rem)   (an .wi__h3, unveraendert)
+      Kundenwortlaut: „Es darf sogar noch einen Ticken mehr Platz sein
+      zwischen ‚Deine Vorteile zum Vermoegen' und ‚Klassisch investieren' /
+      ‚Mit Immobilie'." Dazu die Vorgabe, dass die Linie MITTIG in der
+      Luecke sitzt — „sonst wirkt sie einer der beiden Seiten zugeschlagen".
 
-      Gemessen bei 1440 x 900: vorher standen zwischen der Unterkante des
-      Kastenpaars und der Versalhoehe des Zwischenkopfes 57,6 px reiner
-      Abstand (6,4vh). Jetzt sind es 68,4 + 57,6 = 126,0 px mit der Linie
-      auf 68,4 px — also 2,2-mal so viel Luft wie vorher.
-      Oben bewusst mehr als unten: die Linie schliesst die Kaesten ab und
-      leitet den Kopf ein; ein groesserer Abstand nach oben und ein
-      kleinerer nach unten bindet sie an das, was danach kommt.
+      Beide Seiten tragen deshalb DENSELBEN Wert:
+
+          clamp(4.5rem, 10.1vh, 7.7rem)
+
+      oben an .wi__zaesur, unten an .wi__h3. Er ist der Wert von heute
+      frueh plus ein Drittel (7,6vh -> 10,13vh, gerundet auf 10,1).
+
+      Gemessen bei 1440 x 893, am gerenderten Abschnitt:
+
+                                  Ausgangslage   erste Fassung   jetzt
+        ueber der Linie                 —            67,9         90,2 px
+        unter der Linie              57,6            57,1         90,2 px
+        Luecke insgesamt             57,6           125,0        180,4 px
+
+      Die Ausgangslage kannte die Linie noch nicht; dort standen die
+      57,6 px als einziger Abstand zwischen Kaesten und Ueberschrift.
 
    ---------------------------------------------------------------------------
-   2  DIE LINIE IST UEBERNOMMEN, NICHT NACHEMPFUNDEN.
+   2  DIE LINIE LAEUFT DURCH UND ENDET BEIDSEITIG BUENDIG.
 
-      Vorbild ist `.vtr__linie` in assets/css/vertrauen.css — die Linie
-      zwischen dem Knopf „Mein Immobilienpotenzial pruefen" (Ende dieses
-      Abschnitts) und „Dein Weg zur eigenen Immobilie". Uebernommen sind
-      alle fuenf Groessen, Zeichen fuer Zeichen:
+      Kundenwortlaut: „Der goldene Strich darf ruhig durchgezogen sein. Auf
+      der linken Seite passt er, da schliesst er ab und endet auf der
+      gleichen Hoehe wie die Kaesten. Rechts verlaeuft er und wird zu weiss
+      — aber er muss rechts genauso weitergehen wie auf der linken Seite."
+
+      Also: volle Breite der Kaestenreihe, beidseitig buendig, KEINE
+      Ausblendung, gleichmaessige Staerke ueber die ganze Laenge.
+
+      DAS GEHT HIER OHNE JEDE RECHNUNG. Die Linie steht als Blockelement im
+      Fluss in .wi__inner, und .wi__band — die Reihe der beiden Kaesten —
+      steht ebenfalls dort. Beide bekommen damit dieselbe Inhaltskante,
+      links wie rechts, bei jeder Fensterbreite. Kein `position`, kein
+      `width`, kein `margin-inline`: waere eines davon noetig, waere die
+      Buendigkeit geschaetzt statt gegeben.
+      Nachgemessen sind trotzdem alle vier Kanten, die Werte stehen im
+      Bericht vom 31.08.2026.
+
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      VERWORFEN, ERSTE FASSUNG VOM SELBEN TAG: die Linie war Zeichen fuer
+      Zeichen von `.vtr__linie` uebernommen, samt deren Ausblendung nach
+      rechts (deckend bis 52 %, ab 78 % weg; unter 1024 px 72 % / 96 %).
+      Der Kunde hat genau diese Ausblendung beanstandet. Sie gehoert dort
+      hin und nur dort: .vtr__linie blendet aus, WEIL sie sonst in das
+      ueberhaengende Fassadenfoto liefe („Diese Linie darf nicht in das
+      Bild rechts hineinlaufen"). Hier steht rechts kein Bild, also gibt es
+      auch keinen Grund auszublenden.
+      DIE BEIDEN LINIEN SIND DAMIT NICHT MEHR DIESELBE ZEICHNUNG:
+      .vtr__linie blendet weiter aus, diese hier laeuft durch. Wer die eine
+      anfasst, darf die andere NICHT mitziehen.
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      GEBLIEBEN sind Farbe, Staerke und Deckkraft der Vorlage — das linke
+      Ende hat dem Kunden ausdruecklich gefallen („Auf der linken Seite
+      passt er"), und genau dieses Aussehen traegt die Linie jetzt ueber
+      ihre ganze Laenge:
 
         Farbe        var(--gold)  #A8874F
         Staerke      height: 1px
         Deckkraft    opacity: 0.75
-        Breite       die Inhaltskante des Abschnitts
-                     (dort ueber left/right = --vtr-pad-x, hier von selbst,
-                      weil das Element im Fluss in .wi__inner steht)
-        Ausblendung  deckend 0 %..52 %, ab 78 % ganz weg
-                     unter 1024 px: 72 % / 96 %
-
-      DER UNTERSCHIED IM AUFBAU ist nur die Lage: .vtr__linie liegt absolut,
-      weil sie auf der Oberkante eines ueberhaengenden Fotos sitzen muss.
-      Hier gibt es kein Foto; die Linie steht im Fluss und braucht deshalb
-      weder `position` noch left/right. An Farbe, Staerke, Breite und
-      Ausblendung aendert das nichts.
-
-      WARUM DIE AUSBLENDUNG HIER MITKOMMT, obwohl rechts kein Foto steht:
-      der Kunde hat die Linie als Vorbild BENANNT. Eine Linie, die hier
-      durchliefe und dort ausblendet, waeren zwei verschiedene Zeichen fuer
-      dieselbe Sache. Die Ausblendung ist die Handschrift dieser Seite und
-      steht ausserdem am zweiten Ende weich statt hart abgeschnitten.
 
       FARBE: --gold #A8874F misst 3,36:1 auf Weiss. Nichttextlich, also
       greift die Schwelle von 4,5:1 nicht — als Zeichnung ist die Linie
-      klar sichtbar. Der Verlauf laeuft in der DECKKRAFT, nicht in der
-      Farbe; die Steilheitsregel von 0,03 Farbeinheiten je Bildpunkt aus
-      base.css ist damit nicht beruehrt.
+      klar sichtbar. Es ist eine Flaeche in EINER Farbe, kein Verlauf; die
+      Steilheitsregel von 0,03 Farbeinheiten je Bildpunkt aus base.css ist
+      damit gar nicht beruehrt.
 
       KEINE BEWEGUNG. Die Linie steht sofort und vollstaendig — ohne
       Javascript wie mit, bei `prefers-reduced-motion: reduce` wie ohne.
@@ -640,22 +663,9 @@
 .wi__zaesur {
   display: block;
   height: 1px;
-  margin: clamp(3.4rem, 7.6vh, 5.8rem) 0 0;
-  background: linear-gradient(90deg,
-      var(--gold) 0%,
-      var(--gold) 52%,
-      rgba(168, 135, 79, 0) 78%);
+  margin: clamp(4.5rem, 10.1vh, 7.7rem) 0 0;
+  background: var(--gold);
   opacity: 0.75;
-}
-/* Dieselbe Staffel wie bei .vtr__linie: unter 1024 px darf die Linie
-   weiter laufen, endet aber weiterhin weich. */
-@media (max-width: 1023px) {
-  .wi__zaesur {
-    background: linear-gradient(90deg,
-        var(--gold) 0%,
-        var(--gold) 72%,
-        rgba(168, 135, 79, 0) 96%);
-  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -670,7 +680,12 @@
   text-align: center;
   color: var(--wi-navy);
   text-wrap: balance;
-  margin: clamp(2.6rem, 6.4vh, 4.6rem) 0 0;     /* Vorlage: 380 → 452 */
+  /* Der Abstand UNTER der goldenen Zaesur. Er ist seit dem 31.08.2026
+     wortgleich mit dem Abstand darueber (.wi__zaesur) — der Kunde will
+     die Linie mittig in der Luecke stehen haben. Die Rechnung steht
+     dort. Der alte Wert clamp(2.6rem, 6.4vh, 4.6rem) stammte aus der
+     Vorlage (380 → 452) und kannte die Linie noch nicht. */
+  margin: clamp(4.5rem, 10.1vh, 7.7rem) 0 0;
 }
 .wi__h3sub {
   font-family: var(--wi-sans);
@@ -1262,13 +1277,26 @@
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3.2rem);
   margin-top: clamp(1.6rem, 3.6vh, 2.6rem);
-  /* DIE HAARLINIE IST HIERHER GEZOGEN. Sie sass an `.wi__reiter ol` und
-     trennte die Tafel von der Fusszeile — mit den Reitern waere sie
-     ersatzlos verschwunden und die Fusszeile haette ohne Absetzung an der
-     Tafel geklebt. Es ist dieselbe Linie in derselben Farbe an derselben
-     Stelle; sie haengt nur an einem anderen Element. Wer sie nicht will,
-     loescht diese zwei Zeilen. */
-  border-top: 1px solid var(--wi-haar);
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DIE HAARLINIE IST AM 31.08.2026 ERSATZLOS ENTFALLEN.
+     Kundenwortlaut zum Strich zwischen der Tafel („01 · BANKKAPITAL …")
+     und dem Knopf „Mein Immobilienpotenzial pruefen": „Der muss dort nicht
+     sein."
+     Was hier stand: `border-top: 1px solid var(--wi-haar);` — der Rest der
+     Reiterzeile, die am 30.08.2026 entfallen war; die Linie war damals auf
+     dieses Element gezogen worden, damit die Fusszeile nicht an der Tafel
+     klebt.
+
+     NICHT VERWECHSELN mit den beiden goldenen Linien, die BLEIBEN:
+       · .wi__zaesur ueber „Deine Vorteile zum Vermoegen" — durchgezogen,
+         beidseitig buendig, siehe Abschnitt 3b weiter oben.
+       · .vtr__linie in vertrauen.css, unter dem frueheren Zitatband — sie
+         blendet nach rechts aus, damit sie nicht in das Foto laeuft.
+
+     DER ABSTAND BLEIBT, WIE ER WAR: `padding-top` steht unveraendert
+     weiter. Ohne ihn ruecke der Knopf um bis zu 1,8rem an die Tafel heran
+     — der Kunde hat den Strich beanstandet, nicht den Abstand.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   padding-top: clamp(0.9rem, 1.9vw, 1.8rem);
 }
 
@@ -1315,17 +1343,24 @@
   min-height: clamp(50px, 4.04vw, 62px);        /* 62px bei 1536 */
   padding: 0 clamp(1.2rem, 1.63vw, 1.56rem);
   border-radius: 10px;
-  background: var(--wi-navy-tief);
+  /* SAND STATT NAVY — 31.08.2026, Kundenwunsch: „alle CTA-Buttons auf der
+     kompletten Webseite" in der Farbe des Hero-Knopfes. Dieser Knopf
+     traegt eine eigene Klasse und wurde deshalb von der zentralen
+     Aenderung in base.css nicht erfasst — der Kunde hat ihn zweimal
+     nachgemeldet.
+     Schrift Navy statt Weiss: weiss auf Sand misst 1,94:1, Navy 7,54:1. */
+  background: var(--sand);
   color: #FFFFFF;
+  border: 1px solid var(--gold);
   font-family: var(--wi-sans);
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(1rem, 1.24vw, 1.19rem);      /* 19px bei 1536 */
   line-height: 1.2;
-  box-shadow: 0 1px 2px rgba(11, 44, 87, 0.16), 0 10px 22px rgba(11, 44, 87, 0.16);
+  box-shadow: none;
   transition: background-color 0.18s var(--ease);
 }
 .wi__knopf svg { width: clamp(20px, 1.69vw, 26px); height: auto; flex: 0 0 auto; }
-.wi__knopf:hover { background: #0E3768; }
+.wi__knopf:hover { background: var(--sand-tief); }
 
 /* Zwischen 1001 und 1240 Punkten ist das Feld schmaler als seine Vollbreite.
    Weil alle Masse darin in cqw stehen, schrumpft dort auch die Schrift mit.
@@ -1726,4 +1761,84 @@
     opacity: 0;
     animation: none;
   }
+}
+
+/* ===========================================================================
+   DREI STICHPUNKTE JE VERGLEICHSKASTEN — 31.08.2026
+
+   Das Wording-Dokument (Abschnitt 03, Kasten „UMSETZUNG") schreibt vor:
+   „In beiden Karten exakt drei gleich hohe Stichpunkt-Zeilen verwenden."
+   Bis dahin standen dort zwei fortlaufende Saetze.
+
+   KEINE NEUE GESTALTUNG. Schriftfamilie, Grad, Zeilenabstand und Farbe
+   kommen unveraendert aus .wi__band-text — die <li> tragen diese Klasse
+   selbst. Hier steht nur, was eine Liste zusaetzlich braucht: der
+   Aufzaehlungspunkt, der Einzug und die Abstaende zwischen den Zeilen.
+   Der Punkt ist derselbe Sandton wie die Marke darueber; er ist Zeichnung,
+   kein Text, und faellt damit nicht unter die Kontrastschwelle.
+
+   „gleich hohe Zeilen" ist keine feste Hoehe: die drei Punkte sind kurz
+   genug, um bei jeder Breite einzeilig zu bleiben, und stehen damit von
+   selbst im gleichen Raster. Eine erzwungene Hoehe wuerde bei langem Text
+   abschneiden — das waere schlechter als eine Zeile Umbruch.
+   =========================================================================== */
+.wi__band-text--titel {
+  margin-bottom: clamp(0.7rem, 1.15vw, 0.95rem);
+}
+.wi__band-liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wi__band-liste > li {
+  position: relative;
+  padding-left: 1.05em;
+}
+.wi__band-liste > li + li {
+  margin-top: 0.42em;          /* derselbe Wert wie .wi__band-text + .wi__band-text */
+}
+.wi__band-liste > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  /* Auf der Mitte der ersten Zeile: halbe Zeilenhoehe minus halber Punkt. */
+  top: calc(0.8em - 2px);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--sand);
+  opacity: 0.85;
+}
+
+/* ===========================================================================
+   ZWEI ZEILEN, DIE DAS WORDING-DOKUMENT VOM 31.08.2026 VERLANGT
+
+   Beide sind KEINE neue Gestaltung, sondern nehmen Werte, die im Abschnitt
+   schon stehen. Neu ist nur, dass sie an dieser Stelle auftauchen.
+   =========================================================================== */
+
+/* Die Kleinzeile ueber „Vier Kräfte arbeiten für deinen Vermögensaufbau."
+   („EYEBROW" im Dokument, Abschnitt 04). Sie ist dieselbe .wi__eyebrow wie
+   am Kopf des Abschnitts; hier braucht sie nur den Abstand nach unten, denn
+   dort traegt ihn die Kopfgruppe. Der Wert ist der Abstand, den .wi__h3
+   ohnehin von seinem Vorgaenger haelt — die Zeile schiebt sich damit in die
+   vorhandene Luecke, ohne den Abschnitt laenger zu machen. */
+.wi__eyebrow--feld {
+  margin: 0 0 clamp(0.7rem, 1.15vw, 1.0rem);
+}
+
+/* Die Zeile unter dem Knopf („CTA-MICROCOPY", Abschnitt 04).
+   Masse aus .wi__hinweis, dem Fachhinweis am Fuss desselben Abschnitts —
+   dieselbe Rolle, dieselbe Groesse. Nur der Satzspiegel ist enger: der
+   Fachhinweis laeuft ueber 68rem, diese Zeile gehoert optisch zum Knopf und
+   soll nicht breiter stehen als der Text darueber. */
+.wi__knopf-hinweis {
+  max-width: 44rem;
+  margin: clamp(0.9rem, 1.9vh, 1.4rem) auto 0;
+  font-family: var(--wi-sans, var(--font-ui));
+  font-size: clamp(0.78rem, 0.86vw, 0.86rem);
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--ink-mute);
 }
