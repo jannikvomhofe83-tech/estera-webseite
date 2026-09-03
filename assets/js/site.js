@@ -106,18 +106,48 @@
   /* --- Aufdecken beim Scrollen -------------------------------------------- */
   var reveals = document.querySelectorAll('[data-reveal]');
   if (reveals.length) {
+    var gesehen = function (el) { el.setAttribute('data-seen', 'true'); };
     if (!('IntersectionObserver' in window)) {
       // Ohne Observer sofort zeigen — nichts darf unsichtbar hängen bleiben
-      Array.prototype.forEach.call(reveals, function (el) { el.setAttribute('data-seen', 'true'); });
+      Array.prototype.forEach.call(reveals, gesehen);
     } else {
+      /* OPTIMIERUNGSBRIEFING 01.09.2026, P0: „Alle Inhalte müssen auch bei
+         schnellem Scrollen sofort zuverlässig sichtbar sein. Animationen
+         kürzer, früher und ohne lange Delays auslösen."
+         Vorher loeste der Beobachter erst aus, wenn 15 Prozent des Elements
+         12 Prozent OBERHALB der Fensterunterkante standen — ein hoher Kasten
+         blieb dadurch lange leer, obwohl er schon halb im Bild war. Jetzt
+         genuegt der erste Bildpunkt, und die Zone reicht 10 Prozent UNTER
+         das Fenster: der Inhalt steht, bevor er ins Bild rollt. */
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
-          e.target.setAttribute('data-seen', 'true');
+          gesehen(e.target);
           io.unobserve(e.target);
         });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+      }, { rootMargin: '0px 0px 10% 0px', threshold: 0 });
       Array.prototype.forEach.call(reveals, function (el) { io.observe(el); });
+
+      /* SICHERHEITSNETZ. Der Beobachter rechnet nur an Bildwechseln; wer
+         sehr schnell rollt oder per Sprungmarke landet, kann an ihm vorbei.
+         Deshalb prueft jeder Rollvorgang (gedrosselt) selbst nach, was
+         oberhalb der Fensterunterkante liegt, und deckt es auf. Sind alle
+         aufgedeckt, haengt sich der Lauscher aus. */
+      var offen = Array.prototype.slice.call(reveals), ticket = 0;
+      var nachsehen = function () {
+        ticket = 0;
+        var grenze = window.innerHeight * 1.1;
+        offen = offen.filter(function (el) {
+          if (el.getAttribute('data-seen') === 'true') return false;
+          if (el.getBoundingClientRect().top < grenze) { gesehen(el); io.unobserve(el); return false; }
+          return true;
+        });
+        if (!offen.length) window.removeEventListener('scroll', anfordern);
+      };
+      var anfordern = function () { if (!ticket) ticket = requestAnimationFrame(nachsehen); };
+      window.addEventListener('scroll', anfordern, { passive: true });
+      window.addEventListener('pageshow', anfordern);
+      setTimeout(nachsehen, 400);
     }
   }
 
@@ -145,7 +175,7 @@
         zeigen();
         obs.disconnect();
       });
-    }, { threshold: 0.25 });
+    }, { rootMargin: '0px 0px 10% 0px', threshold: 0 });   // frueher, Briefing 01.09.2026
     obs.observe(svg);
   });
 
@@ -331,7 +361,7 @@
         zeigen();
         beob.disconnect();
       });
-    }, { rootMargin: '0px 0px -18% 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px 10% 0px', threshold: 0 });   // frueher, Briefing 01.09.2026
     beob.observe(block);
   });
 

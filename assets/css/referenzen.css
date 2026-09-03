@@ -47,7 +47,13 @@
   --rez-portraet: clamp(50px, 4vw, 58px);     /* Durchmesser des Kreises     */
   --rez-luft:     clamp(20px, 1.8vw, 30px);   /* Innenrand der Karte         */
   --rez-abstand:  clamp(16px, 1.5vw, 24px);   /* Abstand zwischen den Karten */
-  --rez-zeilen:   4;         /* sichtbare Zeilen, bevor der Aufklapper greift */
+  /* VON 4 AUF 3 — 01.09.2026, Optimierungsbriefing, Abschnitt 04: „Pro
+     Karte weniger sichtbare Zeilen verwenden, damit die Karten nicht hoeher
+     werden." Die Schrift des Auszugs ist von 14,4 auf 17,6 px gewachsen,
+     der Zeilenabstand von 1,62 auf 1,7; vier Zeilen davon waeren 120 statt
+     93 px. Drei Zeilen sind 90 px — die Karte bleibt gleich hoch.
+     Gemessen vorher/nachher steht im Bericht vom 01.09.2026. */
+  --rez-zeilen:   3;         /* sichtbare Zeilen, bevor der Aufklapper greift */
 
   /* Hoehe der Kurve. Sie MUSS kleiner bleiben als der untere Innenabstand
      der Hero-Section (hero-a.css) — sonst legt sich die Kurve auf deren
@@ -193,12 +199,13 @@
 /* Einlauf: sichtbar ist der Ausgangszustand, ausgeblendet wird erst, wenn
    site.js `is-ready` gesetzt hat. Ohne Javascript steht der Kopf sofort da.
    Dieselbe Umkehr wie in schluss.css. */
+/* 0,85 s -> 0,5 s, 16 -> 14 px — Optimierungsbriefing 01.09.2026, P0. */
 .ref__kopf[data-reveal] { opacity: 1; transform: none; }
-.is-ready .ref__kopf[data-reveal] { opacity: 0; transform: translateY(16px); }
+.is-ready .ref__kopf[data-reveal] { opacity: 0; transform: translateY(14px); }
 .is-ready .ref__kopf[data-reveal][data-seen='true'] {
   opacity: 1;
   transform: none;
-  transition: opacity 0.85s var(--ease-soft), transform 0.85s var(--ease-soft);
+  transition: opacity 0.5s var(--ease-soft), transform 0.5s var(--ease-soft);
 }
 
 /* ---------------------------------------------------------------------------
@@ -260,7 +267,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  transition: transform 0.62s var(--ease-soft);
+  transition: transform 0.6s var(--ease-soft);
 }
 @media (prefers-reduced-motion: reduce) {
   .rez__spur { transition: none; }
@@ -343,10 +350,16 @@
    misst rezensionen.js je Karte und blendet den Knopf danach ein oder aus.
    Die Beschneidung haengt an [data-rez-bereit]: ohne Javascript stehen alle
    Texte vollstaendig da und es gibt keinen toten Knopf. */
+/* GROESSER — 01.09.2026, Optimierungsbriefing, Abschnitt 04 („Schriftgroesse
+   und Zeilenabstand der Auszuege erhoehen") und Abschnitt 19 („kein
+   Fliesstext unter 16 px"). Vorher clamp(0.9rem, 0.96vw, 0.97rem) — bei
+   1440 waren das 14,4 px, unter der Marke. Jetzt 16 px als Untergrenze,
+   17,6 px ab 1440, Zeilenabstand 1,7. Dass die Karte dabei nicht hoeher
+   wird, traegt --rez-zeilen (oben). */
 .rez__text p {
   font-family: var(--font-ui);
-  font-size: clamp(0.9rem, 0.96vw, 0.97rem);
-  line-height: 1.62;
+  font-size: clamp(1rem, 1.1vw, 1.1rem);
+  line-height: 1.7;
   color: var(--ink-mute);
   text-wrap: pretty;
 }
@@ -368,7 +381,9 @@
   margin-top: clamp(10px, 1.2vh, 14px);
   padding: 2px 1px;
   font-family: var(--font-ui);
-  font-size: clamp(0.86rem, 0.92vw, 0.93rem);
+  /* 13,8 -> 15,4 px bei 1440 — Optimierungsbriefing 01.09.2026, Abschnitt
+     19: keine Kartenzeile unter 15 px. */
+  font-size: clamp(0.94rem, 1vw, 1rem);
   font-weight: 500;
   color: var(--gold-text);          /* 4.53:1 auf dem Cremegrund */
   border-bottom: 1px solid var(--rez-linie);
@@ -402,7 +417,8 @@
   gap: 0.5em;
   margin-top: clamp(10px, 1.2vh, 14px);
   font-family: var(--font-ui);
-  font-size: clamp(0.84rem, 0.9vw, 0.9rem);
+  /* 13,4 -> 15 px — Optimierungsbriefing 01.09.2026, Abschnitt 19. */
+  font-size: clamp(0.94rem, 0.98vw, 0.98rem);
   color: var(--ink-mute);
 }
 .rez__quelle .rez__g { width: 17px; height: 17px; }
@@ -442,7 +458,9 @@
    rezensionen.js anhand derselben Grenzen — sie stehen dort noch einmal.
 --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .ref { --rez-zeilen: 5; }
+  /* 5 -> 4 mit der groesseren Schrift (01.09.2026): vier Zeilen zu 16 px
+     und 1,7 sind 109 px, vorher fuenf zu 14,4 und 1,62 waren 117. */
+  .ref { --rez-zeilen: 4; }
 }
 /* 699 und nicht 700: rezensionen.js schaltet bei `innerWidth < 700` auf EINE
    Karte je Seite. Stuende hier 700, waeren bei genau 700 px die Pfeile schon
@@ -499,8 +517,11 @@
 .is-ready .ref__kopf[data-reveal] .ref__siegel-sterne {
   transform-origin: 50% 50%;
 }
+/* 900 ms nach 500 ms -> 500 ms nach 150 ms — Optimierungsbriefing
+   01.09.2026, P0. Die Geste (gross herein, auf ihr Mass zusammenfallen)
+   bleibt; sie ist nach 650 statt 1400 ms vorbei. */
 .is-ready .ref__kopf[data-reveal][data-seen='true'] .ref__siegel-sterne {
-  animation: ref-sterne 900ms 500ms var(--ease-soft) both;
+  animation: ref-sterne 500ms 150ms var(--ease-soft) both;
 }
 @keyframes ref-sterne {
   from { transform: scale(2.6); opacity: 0.1; }
@@ -508,9 +529,24 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Auch der Kopf selbst: sein Startzustand oben (0,3,0) schlaegt die
+     siteweite Ruhe-Regel in leistungen.css. Bei `reduce` ist er sofort da
+     — 01.09.2026, Optimierungsbriefing P0. */
+  .is-ready .ref__kopf[data-reveal] { opacity: 1; transform: none; transition: none; }
   .is-ready .ref__kopf[data-reveal][data-seen='true'] .ref__siegel-sterne {
     animation: none;
     transform: none;
     opacity: 1;
   }
+}
+
+/* MOBIL, 01.09.2026 — Briefing 19: Trefferflaechen. „Bewertung vollständig
+   lesen" war 29 px hoch; der Daumen braucht 44. Padding statt Zeilenabstand,
+   damit die Zeile nicht auseinanderrueckt. Die Karussellpunkte bekommen
+   ueber einen unsichtbaren Rand eine 24-px-Trefferflaeche, ohne groesser
+   auszusehen. */
+@media (max-width: 899px) {
+  .rez__mehr { min-height: 44px; padding-block: 0.6rem; }
+  .rez__punkt { position: relative; }
+  .rez__punkt::after { content: ''; position: absolute; inset: -9px; }
 }

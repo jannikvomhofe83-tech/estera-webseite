@@ -438,6 +438,37 @@
              Stufe erreichen.</strong></p>
         </div>
 
+        <!-- UNTERSTUETZENDES BILD — 01.09.2026, Optimierungsbriefing,
+             Abschnitt 11, DESIGN „Mehr als ein Arbeitsplatz kompakter":
+             „Textblock breiter beziehungsweise naeher an ein
+             unterstuetzendes Bild oder Designelement ruecken."
+
+             NICHT DAS BILD DER GESCHAEFTSFUEHRER. Das hat der Kunde am
+             31.08.2026 herausnehmen lassen, und dabei bleibt es. Hier
+             steht kar-zusammenarbeit aus dem Bestand: Haende ueber einem
+             Grundriss, kein Gesicht, keine erfundene Person — das Motiv
+             zu „gemeinsam etwas aufbauen, das Bestand hat" aus dem Text
+             daneben. Die Datei misst 1254 × 1254 px und wird hoechstens
+             520 px breit gezeigt (Faktor 2,4).
+
+             Es steht RECHTS NEBEN dem Text, nicht darunter — das Bild darf
+             den Abschnitt nicht hoeher machen (Regel bei .kar-wer__bild in
+             karriere.css). Unter 900 px, wo es keine Zweispalte gibt,
+             blendet die CSS es aus; loading="lazy", weil es weit unter dem
+             ersten Bildschirm steht.
+
+             Die Klasse .kar-wer__bild samt Rahmen, Radius und Einblendgeste
+             lag seit dem 31.08.2026 ungenutzt in karriere.css bereit —
+             genau fuer diesen Fall. Kein neuer Baustein. -->
+        <figure class="kar-wer__bild" data-auf>
+          <picture>
+            <source srcset="assets/img/karriere/kar-zusammenarbeit.webp?v=b24a" type="image/webp">
+            <img src="assets/img/karriere/kar-zusammenarbeit.png?v=b24a"
+                 width="1254" height="1254" loading="lazy" decoding="async"
+                 alt="Mehrere Personen am runden Tisch beugen sich über einen Grundriss und Notizbücher">
+          </picture>
+        </figure>
+
         <!-- DIE GOLDENE TRENNLINIE — 31.08.2026, Kundenwunsch: „nicht ganz
              nach rechts und ganz links, sondern nicht die ganze Breite."
              Also eine kurze, mittige Linie zwischen „Wer ist Estera?" und
@@ -799,13 +830,30 @@
            erzeugen hiesse, eine Person zu erfinden, die es nicht gibt —
            auf einer Stellenseite ist das heikel. Sobald es eine echte
            Aufnahme gibt, wird sie getauscht. -->
-      <li class="kar-karte" style="--i:0">
+      <!-- BILD GETAUSCHT 01.09.2026 — Optimierungsbriefing, Abschnitt 12,
+           DESIGN „Bild der Vertriebsrolle ersetzen": „Ein hochwertiges
+           Bild verwenden, das Beratung, Ambition und unternehmerische
+           Arbeit vermittelt. Kein generisches leeres Buero."
+           stelle-berater war genau das: ein leerer Schreibtisch mit
+           zugeklapptem Laptop. Jetzt kar-beratung aus dem Bestand — ein
+           Beratungsgespraech am Tisch, Tablet, Unterlagen mit Zahlen,
+           zwei Gespraechspartner ohne Gesicht (also weiterhin keine
+           erfundene Person). Datei 1536 × 1024, angezeigt 416 px breit,
+           Faktor 3,7. Es gibt keinen Bildgenerator-Schluessel; unter den
+           vorhandenen Motiven ist das das einzige, das BERATUNG zeigt —
+           kar-zusammenarbeit (Haende ueber Plaenen) zeigt Zusammenarbeit
+           und stuetzt deshalb „Mehr als ein Arbeitsplatz".
+           Vorher: <source srcset="assets/img/karriere/stelle-berater.webp?v=b24a" type="image/webp">
+                   <img class="kar-karte__bild" src="assets/img/karriere/stelle-berater.jpg?v=b24a" width="1024" height="1280" loading="lazy" decoding="async" alt="Aufgeräumter Schreibtisch mit Laptop und Ledermappe vor einem Bürofenster">
+           Die Klasse --klick macht die ganze Karte klickbar (Briefing
+           Abschnitt 19; Bauart in karriere.css und karriere.js). -->
+      <li class="kar-karte kar-karte--klick" style="--i:0">
         <picture>
-          <source srcset="assets/img/karriere/stelle-berater.webp?v=b24a" type="image/webp">
+          <source srcset="assets/img/karriere/kar-beratung.webp?v=b24a" type="image/webp">
           <img class="kar-karte__bild"
-               src="assets/img/karriere/stelle-berater.jpg?v=b24a"
-               width="1024" height="1280" loading="lazy" decoding="async"
-               alt="Aufgeräumter Schreibtisch mit Laptop und Ledermappe vor einem Bürofenster">
+               src="assets/img/karriere/kar-beratung.png?v=b24a"
+               width="1536" height="1024" loading="lazy" decoding="async"
+               alt="Beratungsgespräch am Tisch: ein Berater zeigt auf ein Tablet, gegenüber ein Kunde mit gefalteten Händen, davor Unterlagen mit Auswertungen">
         </picture>
         <div class="kar-karte__inhalt">
           <!-- WORDING ERSETZT 31.08.2026 — K04, Karte 1.
@@ -813,7 +861,10 @@
                Die Rolle ist laut Dokument selbststaendig, nicht in
                Vollzeit angestellt — die alte Kleinzeile war damit
                sachlich falsch geworden und nicht nur anders formuliert. -->
-          <p class="kar-karte__art">SELBSTSTÄNDIG · VERTRIEB</p>
+          <!-- WORDING ERSETZT 01.09.2026 — Optimierungsbriefing, Abschnitt 12,
+               AENDERN Label der Vertriebsrolle.
+               Vorher: "SELBSTSTÄNDIG · VERTRIEB" -->
+          <p class="kar-karte__art">SELBSTSTÄNDIG · UNTERNEHMERISCH</p>
           <!-- STELLENBEZEICHNUNG GEAENDERT 31.08.2026 — Kundenwunsch woertlich:
          „bei Immobilienberater steht: Immobilienberater / Sales-Manager".
          Vorher: "Immobilienberater" -->
@@ -829,7 +880,12 @@
                Das Dokument schreibt „Immobilienberater / Vertriebspartner
                (m/w/d)" und „Stelle ansehen →"; der Kunde hat beides
                danach anders angesagt. Die juengere Ansage gilt. -->
-          <h3 class="kar-karte__titel">Immobilienberater / Sales-Manager (m/w/d)</h3>
+          <!-- SCHREIBWEISE 01.09.2026 — Optimierungsbriefing, Abschnitt 12,
+               BEIBEHALTEN Rollenbezeichnung: das Briefing schreibt
+               „Immobilienberater / Sales Manager (m/w/d)" ohne Bindestrich.
+               Es ist das juengste Kundendokument und geht vor.
+               Vorher: "Immobilienberater / Sales-Manager (m/w/d)" -->
+          <h3 class="kar-karte__titel">Immobilienberater / Sales Manager (m/w/d)</h3>
           <!-- WORDING ERSETZT 31.08.2026 — K04. Aus der Bereichsliste ist
                ein Satz geworden; die Klasse traegt beides, sie setzt nur
                mittig in Weiss 82 %.
@@ -857,17 +913,26 @@
                  Karte den Weg zur Bewerbung verloren. Beide Knoepfe sind
                  die, die vor der Umstellung dastanden — voller Knopf zur
                  Bewerbung, Linienknopf zur Stellenseite. -->
-            <a class="kar-knopf kar-knopf--voll" href="kontakt.html?v=b24a" aria-label="Als Immobilienberater / Sales-Manager bewerben">Jetzt bewerben</a>
-            <a class="kar-knopf kar-knopf--linie" href="karriere-immobilienberater.html?v=b24a" aria-label="Mehr erfahren über die Stelle Immobilienberater / Sales-Manager">Mehr erfahren</a>
+            <!-- aria-label 01.09.2026 an die Schreibweise „Sales Manager" angepasst.
+                 Vorher: aria-label="Als Immobilienberater / Sales-Manager bewerben"
+                         aria-label="Mehr erfahren über die Stelle Immobilienberater / Sales-Manager"
+                 data-karte-ziel markiert den Verweis, den karriere.js bei
+                 einem Klick auf die Kartenflaeche ausloest (Briefing 19). -->
+            <a class="kar-knopf kar-knopf--voll" href="kontakt.html?v=b24a" aria-label="Als Immobilienberater / Sales Manager bewerben">Jetzt bewerben</a>
+            <a class="kar-knopf kar-knopf--linie" href="karriere-immobilienberater.html?v=b24a" aria-label="Mehr erfahren über die Stelle Immobilienberater / Sales Manager" data-karte-ziel>Mehr erfahren</a>
           </p>
         </div>
       </li>
 
-      <!-- KARTE 2 — Back-Office-Manager. Echte Aufnahme des Kunden. -->
-      <li class="kar-karte" style="--i:1">
+      <!-- KARTE 2 — Back-Office-Manager. Echte Aufnahme des Kunden.
+           01.09.2026: --klick wie Karte 1; das Bild traegt --oben, weil
+           das Hochformat im flacheren 4:3-Fenster (Briefing Abschnitt 12)
+           oben angeschnitten werden muss, damit der Kopf im Bild bleibt —
+           Rechnung in karriere.css bei .kar-karte__bild--oben. -->
+      <li class="kar-karte kar-karte--klick" style="--i:1">
         <picture>
           <source srcset="assets/img/karriere/stelle-backoffice.webp?v=b24a" type="image/webp">
-          <img class="kar-karte__bild"
+          <img class="kar-karte__bild kar-karte__bild--oben"
                src="assets/img/karriere/stelle-backoffice.jpg?v=b24a"
                width="1206" height="1506" loading="lazy" decoding="async"
                alt="Mitarbeiterin aus dem Back Office am Laptop an ihrem Arbeitsplatz">
@@ -885,7 +950,7 @@
           <p class="kar-karte__bereiche">Du hältst Unterlagen, Fristen und Beteiligte zusammen und sorgst dafür, dass jeder Kauf von der Reservierung bis nach dem Notartermin sauber begleitet wird.</p>
           <p class="kar-karte__knoepfe">
             <a class="kar-knopf kar-knopf--voll" href="kontakt.html?v=b24a" aria-label="Als Backoffice Manager bewerben">Jetzt bewerben</a>
-            <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html?v=b24a" aria-label="Mehr erfahren über die Stelle Backoffice Manager">Mehr erfahren</a>
+            <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html?v=b24a" aria-label="Mehr erfahren über die Stelle Backoffice Manager" data-karte-ziel>Mehr erfahren</a>
           </p>
         </div>
       </li>
@@ -998,8 +1063,14 @@
       <p class="fuss__titel">Kontakt</p>
       <div class="fuss__liste">
         <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
-        <span>Telefon — folgt</span>
-        <span>Anschrift — folgt</span>
+        <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing, P0 „Footer-Platzhalter":
+             „'Telefon - folgt', 'Anschrift - folgt' und vergleichbare
+             Platzhalter vollstaendig entfernen. Sichtbar bleiben die
+             E-Mail-Adresse und die Links zu Impressum, Datenschutz,
+             Cookie-Einstellungen und Erstinformation. Die Anschrift wird
+             ausschliesslich im Impressum vollstaendig gefuehrt."
+             Vorher: <span>Telefon — folgt</span>
+                     <span>Anschrift — folgt</span> -->
         <a href="partner.html">Für Partner</a>
       </div>
     </div>
@@ -1025,7 +1096,8 @@
 
   <div class="fuss__unten">
     <span>© 2026 Estera GmbH</span>
-    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
+    <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing P0, Platzhalter:
+         <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span> -->
   </div>
 </footer>
 
@@ -1113,11 +1185,14 @@
 <!-- faq.js ist seit dem Neubau nicht mehr eingebunden: die Seite hat
      keinen Aufklapper mehr. Die Datei selbst ist unveraendert und wird von
      den anderen Seiten weiter benutzt.
-     karriere.js gehoert allein dieser Seite und macht genau zwei Dinge:
-     die Einblendung beim Eintritt und das Anhalten des Kopfvideos bei
-     prefers-reduced-motion. Faellt es aus, steht die Seite vollstaendig
-     da — die Einblendregeln haengen an [data-js='an'], und dieses Merkmal
-     setzt erst diese Datei. -->
+     karriere.js gehoert allein dieser Seite und macht genau drei Dinge:
+     die Einblendung beim Eintritt (seit 01.09.2026 mit Sicherheitsnetz
+     beim Rollen, Briefing P0), das Anhalten des Kopfvideos bei
+     prefers-reduced-motion und den Klick auf die ganze Stellenkarte
+     (Briefing 19). Faellt es aus, steht die Seite vollstaendig da — die
+     Einblendregeln haengen an [data-js='an'], und dieses Merkmal setzt
+     erst diese Datei; die Knoepfe in den Karten sind gewoehnliche
+     Verweise und gehen auch ohne Skript. -->
 <script src="assets/js/karriere.js?v=b24a"></script>
 </body>
 </html>

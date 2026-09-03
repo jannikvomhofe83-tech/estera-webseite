@@ -56,6 +56,14 @@
     schalter.forEach(function (s) {
       var an = s.getAttribute('data-wi-punkt') === nr;
       s.setAttribute('aria-expanded', an ? 'true' : 'false');
+      /* Die gewaehlte Karte ist auch fuer Vorlesesoftware die aktuelle —
+         01.09.2026, Optimierungsbriefing, Abschnitt 05 („Aktiver Zustand
+         der ausgewaehlten Karte klar markieren", tastaturbedienbar).
+         aria-expanded sagt, dass sie etwas geoeffnet hat; aria-current
+         sagt, dass sie die gewaehlte von vieren ist. Beides zusammen ist
+         das, was der Navyrahmen sichtbar macht. */
+      if (an) { s.setAttribute('aria-current', 'true'); }
+      else if (s.classList.contains('wi__karte')) { s.removeAttribute('aria-current'); }
       /* Die goldene Marke im Reiterband folgt dem angetippten Punkt.
          Steht keiner offen, bleibt sie wie auf der ruhenden Vorlage
          unter dem ersten Reiter stehen. */
@@ -71,10 +79,37 @@
     else { wi.removeAttribute('data-wi-offen'); }
   }
 
+  /* Nach dem Antippen muss die Tafel auch zu SEHEN sein — 01.09.2026,
+     Optimierungsbriefing, Abschnitt 05: „Beim Klick wird der zugehoerige
+     Detailbereich direkt unterhalb eingeblendet beziehungsweise
+     angesprungen." Am Schreibtisch steht die Tafel unmittelbar unter dem
+     Feld und ist ohnehin im Bild; dann passiert hier nichts. Auf dem
+     Telefon stehen die vier Karten untereinander, und wer die erste
+     antippt, hat die Tafel drei Karten weiter unten — dann rollt die Seite
+     so weit, dass die Tafel ganz im Fenster steht. `nearest` statt
+     `start`: es wird nur so weit gerollt wie noetig, nichts springt an den
+     Fensterrand. Bei angeforderter Ruhe ohne weiche Bewegung. */
+  function tafelZeigen(nr) {
+    var tafel = null;
+    texte.forEach(function (t) { if (t.getAttribute('data-wi-text') === nr) tafel = t; });
+    if (!tafel) return;
+    var r = tafel.getBoundingClientRect();
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    if (r.top >= 0 && r.bottom <= h) return;
+    var kopf = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+    if (r.height + kopf < h) {
+      tafel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    } else {
+      tafel.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  }
+
   schalter.forEach(function (s) {
     s.addEventListener('click', function (e) {
       e.preventDefault();
-      zeigen(s.getAttribute('data-wi-punkt'));
+      var nr = s.getAttribute('data-wi-punkt');
+      zeigen(nr);
+      tafelZeigen(nr);
     });
   });
 

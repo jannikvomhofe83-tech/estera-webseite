@@ -56,6 +56,10 @@
    Schrittliste, die beim Eintritt einmal aufsteigt — mehr nicht.
    Kein Rollhorcher, kein requestAnimationFrame, keine Messung, keine
    Neurechnung bei Groessenaenderung.
+   NACHTRAG 01.09.2026 (P0, Optimierungsbriefing 02): unten haengt jetzt
+   EIN gedrosselter Rollhorcher — das Sicherheitsnetz, das nur nachsieht,
+   ob ein Ziel oberhalb der Vorlaufkante noch ohne `ist-da` steht. Er
+   animiert nichts und fuehrt nichts am Rollweg entlang; Begruendung dort.
    Das einzige verbliebene `sticky` der Seite ist das Bildfeld rechts
    (.stl-bilder); auch dort ist [data-stl-js] nur der Schalter, der dafuer
    sorgt, dass ohne Javascript nichts klebt.
@@ -279,7 +283,16 @@
     for (var k = 0; k < kinder.length; k++) kinder[k].style.setProperty('--i', k);
   }
   versatz('.stl-haken',  ':scope > li');
-  versatz('.stl-aus',    ':scope > .stl-aus__kasten');
+  /* SEIT DEM 01.09.2026 GIBT ES ZWEI .stl-aus JE SEITE: das versetzte
+     Raster in „Dein Profil" und die sechs Kaesten in „Dein System" /
+     „Dein Arbeitsumfeld" (.stl-aus--system). versatz() nimmt nur die
+     ERSTE Gruppe — die zweite bekaeme kein --i und ihre Kaesten kaemen
+     alle im selben Augenblick. Deshalb hier ueber alle Gruppen. */
+  var ausGruppen = alle('.stl-aus');
+  for (i = 0; i < ausGruppen.length; i++) {
+    var ausKinder = ausGruppen[i].querySelectorAll(':scope > .stl-aus__kasten');
+    for (var a = 0; a < ausKinder.length; a++) ausKinder[a].style.setProperty('--i', a);
+  }
   /* Bei der Schrittliste sitzt --i auf dem <li>: Ziffer, Titel und Satz
      liegen darin und erben ihn von dort. */
   versatz('.stl-folge',  ':scope > .stl-stufe');
@@ -305,19 +318,62 @@
      .stl-platz in stelle.css). */
   Array.prototype.push.apply(ziele, alle('.stl-haken, .stl-aus, .stl-folge, .stl-band, .stl-zwei--bieten'));
 
-  /* Ein Zehntel des Elements reicht als Ausloeser. Ein rootMargin von
-     −40 px am Fuss verhindert, dass etwas losläuft, das gerade erst mit
-     einem Bildpunkt in den Ausschnitt ragt. Die zwei Laufbaender sind mit
-     355 bzw. 277 px flach und liegen quer ueber die volle Breite; ein
-     Zehntel ihrer Flaeche ist erreicht, sobald ein schmaler Streifen im
-     Bild steht. */
+  /* P0 — 01.09.2026, Optimierungsbriefing, Abschnitt 02: „Inhalte dürfen
+     nie dauerhaft mit opacity: 0 verbleiben."
+
+     BIS HEUTE: threshold 0.1 und rootMargin −40 px am Fuss. Das hiess: ein
+     Element lief erst los, wenn ein Zehntel davon 40 px INNERHALB des
+     Fensters stand. Bei einem 700 px hohen Raster sind das 110 px — wer
+     schnell rollt, hat den Abschnitt schon halb im Bild, bevor irgendetwas
+     erscheint, und wer per Sprungmarke landet, sieht weisse Flaeche.
+
+     JETZT: threshold 0 und 160 px VORLAUF nach unten. Ein Element gilt als
+     eingetreten, sobald sein erster Bildpunkt 160 px unter der Fensterkante
+     steht — es ist also schon da, wenn es ins Bild kommt. */
   var beobachter = new IntersectionObserver(function (eintraege, selbst) {
     for (var k = 0; k < eintraege.length; k++) {
       if (!eintraege[k].isIntersecting) continue;
       eintraege[k].target.classList.add('ist-da');
       selbst.unobserve(eintraege[k].target);
     }
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 160px 0px' });
 
   for (i = 0; i < ziele.length; i++) beobachter.observe(ziele[i]);
+
+  /* DAS SICHERHEITSNETZ — ebenfalls P0.
+     Der IntersectionObserver meldet asynchron, und es gibt Faelle, in
+     denen seine Meldung zu spaet kommt oder ausbleibt: sehr schnelles
+     Rollen, ein wiederhergestellter Rollstand, eine Sprungmarke, ein
+     Element mit eigenem clip-path (siehe stelle.css bei .stl-platz). In
+     all diesen Faellen darf nichts unsichtbar haengen bleiben. Deshalb
+     prueft netz() nach jedem Rollen (gedrosselt auf 120 ms), nach dem Laden
+     und einmal nach 1,5 s, ob ein noch nicht erschienenes Ziel oberhalb
+     der Vorlaufkante steht — und setzt dann die Klasse selbst.
+
+     DAS IST KEIN ROLLHORCHER IM SINNE DES KOPFKOMMENTARS: hier wird nichts
+     animiert, nichts gemessen, nichts am Rollweg entlanggefuehrt. Es wird
+     einmal je Drosselintervall nachgesehen, ob etwas fehlt. Was einmal
+     `ist-da` traegt, wird aus der Liste genommen; die Liste wird also
+     mit jedem Schritt kuerzer und ist nach dem ersten vollen Durchrollen
+     leer. */
+  var offen = ziele.slice();
+  function netz() {
+    var kante = window.innerHeight + 160;
+    for (var k = offen.length - 1; k >= 0; k--) {
+      var el = offen[k];
+      if (el.classList.contains('ist-da')) { offen.splice(k, 1); continue; }
+      if (el.getBoundingClientRect().top < kante) {
+        el.classList.add('ist-da');
+        beobachter.unobserve(el);
+        offen.splice(k, 1);
+      }
+    }
+  }
+  var netzZaehler = null;
+  window.addEventListener('scroll', function () {
+    if (netzZaehler || !offen.length) return;
+    netzZaehler = setTimeout(function () { netzZaehler = null; netz(); }, 120);
+  }, { passive: true });
+  window.addEventListener('load', netz);
+  setTimeout(netz, 1500);
 })();

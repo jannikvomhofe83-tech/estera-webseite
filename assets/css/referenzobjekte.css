@@ -346,12 +346,18 @@
 /* Vorlage: Navy-Scheibe d 78 mit weissem Dreieck, dahinter ein goldener Ring
    d 114, nach links oben versetzt. Beides in einem SVG, damit der Versatz
    bleibt, wie er ist. */
+/* MITTIG, AUF DEN BILDPUNKT — 01.09.2026, Optimierungsbriefing, Abschnitt
+   09 (P0). Der Knopf war um 53 Prozent nach links gezogen, um den
+   versetzten Ring der Vorlage optisch auszugleichen; Ring und Scheibe
+   haben seit heute dieselbe Mitte (siehe Markup), also 50 Prozent.
+   Der SVG-Kasten ist jetzt quadratisch; Breite und Hoehe des Knopfes sind
+   damit gleich, und sein Mittelpunkt ist der des Rings. */
 .robj__play {
   position: absolute;
   z-index: 2;
   left: 50%;
   top: 50%;
-  transform: translate(-53%, -50%);
+  transform: translate(-50%, -50%);
   display: grid;
   place-items: center;
   padding: 0;
@@ -363,7 +369,7 @@
 .robj__play[hidden] { display: none; }
 
 .robj__playsvg {
-  width: clamp(68px, 7vw, 101px);
+  width: clamp(72px, 7.4vw, 106px);
   height: auto;
 }
 
@@ -372,7 +378,7 @@
   stroke: #A8874F;
   stroke-width: 1;
   transition: stroke 0.3s var(--ease), transform 0.4s var(--ease);
-  transform-origin: 57.5px 57px;
+  transform-origin: 60px 60px;
 }
 .robj__scheibe {
   fill: var(--r-navy);
@@ -661,11 +667,13 @@
   clip-path: inset(105% 0 0 0);
   transform: translateY(0.35em);
 }
+/* 900 ms und 110/220 ms Staffel -> 500 ms und 60/120 ms — Optimierungs-
+   briefing 01.09.2026, P0. Die Geste bleibt, der Kopf steht nach 620 ms. */
 .is-ready .robj__head[data-seen='true'] > * {
-  animation: robj-kante 900ms var(--ease-soft) both;
+  animation: robj-kante 500ms var(--ease-soft) both;
 }
-.is-ready .robj__head[data-seen='true'] .robj__regel { animation-delay: 110ms; }
-.is-ready .robj__head[data-seen='true'] .robj__sub   { animation-delay: 220ms; }
+.is-ready .robj__head[data-seen='true'] .robj__regel { animation-delay: 60ms; }
+.is-ready .robj__head[data-seen='true'] .robj__sub   { animation-delay: 120ms; }
 
 @keyframes robj-kante {
   from { clip-path: inset(105% 0 0 0); transform: translateY(0.35em); }

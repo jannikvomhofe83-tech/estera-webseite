@@ -88,9 +88,12 @@
      Sekunde und die Stufe waere lange nach dem Blick des Lesers noch
      beschaeftigt.
      ======================================================================= */
-  var TEMPO    = 620;   /* sichtbare Pixel je Sekunde   */
-  var KUERZEST = 0.34;  /* Sekunden                     */
-  var LAENGST  = 0.95;  /* Sekunden                     */
+  /* 620 / 0,34 / 0,95 -> 900 / 0,3 / 0,6 am 01.09.2026 — Optimierungs-
+     briefing P0: keine Bewegung ueber 600 ms. Die S-Zuege sind seit dem
+     Umbau der Grafik am selben Tag ausserdem kuerzer. */
+  var TEMPO    = 900;   /* sichtbare Pixel je Sekunde   */
+  var KUERZEST = 0.3;   /* Sekunden                     */
+  var LAENGST  = 0.6;   /* Sekunden                     */
 
   var messen = function () {
     var bilder = netz.querySelectorAll('.wnetz__bild');
@@ -164,17 +167,21 @@
               Zielkasten in das noch einlaufende zweite Paar hinein. Der
               Schlusspunkt soll ein eigener Schritt bleiben, kein Teil der
               Welle davor.                                                 */
-  var ABSTAND = 260;
-  var STUFE2  = 650;
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     260 / 650 -> 80 / 160 ms am 01.09.2026 — Optimierungsbriefing P0:
+     „kaum Verzoegerung zwischen Elementen". Die Reihenfolge der drei Stufen
+     bleibt erzwungen (sie ist die Dramaturgie, die der Kunde bestellt hat),
+     aber niemand wartet mehr auf sie: die ganze Grafik steht nach rund
+     einer Sekunde statt nach zwei. Die Rechnung von oben gilt sinngemaess
+     mit den neuen Zahlen aus auswahl.css (--wn-takt 0,06 s).
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  var ABSTAND = 80;
+  var STUFE2  = 160;
 
   var bis = 0;            /* wie weit gescrollt wurde (0..3)               */
   var naechste = 0;       /* Index der naechsten zu startenden Stufe       */
   var startZeit = [0, 0, 0];
   var uhr = null;
-  /* Steht auf true, sobald die LETZTE Stufe angelaufen ist. Ab da setzt
-     nichts mehr zurueck — die Folge laeuft genau ein Mal, siehe der
-     ausfuehrliche Vermerk am Rahmenbeobachter weiter unten. */
-  var fertig = false;
 
   var pumpe = function () {
     if (uhr || naechste >= bis) return;
@@ -187,7 +194,6 @@
       startZeit[i] = Date.now();
       naechste = i + 1;
       netz.setAttribute('data-s' + (i + 1), 'true');
-      if (naechste >= STUFEN) fertig = true;
       pumpe();
     }, warte);
   };
@@ -199,63 +205,78 @@
     if (i + 1 > bis) { bis = i + 1; pumpe(); }
   };
 
-  var zuruecksetzen = function () {
-    window.clearTimeout(uhr);
-    uhr = null;
-    bis = 0;
-    naechste = 0;
-    startZeit = [0, 0, 0];
-    for (var i = 1; i <= STUFEN; i++) netz.removeAttribute('data-s' + i);
-  };
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     DER RUECKSETZER IST AM 01.09.2026 ERSATZLOS ENTFALLEN.
 
-  /* Die drei Marken. Der untere Rand ist um 22 Prozent eingezogen: eine
-     Stufe soll ausloesen, wenn ihre Gruppe wirklich im Blick ist, und nicht
-     schon, wenn sie unten am Fensterrand auftaucht. */
+     Bis dahin galt: verlaesst die Grafik das Fenster, bevor die dritte
+     Stufe angelaufen ist, wird alles zurueckgenommen und laeuft beim
+     naechsten Hereinscrollen von vorn (`zuruecksetzen`, `rahmenBeob`,
+     `fertig`). Der Gedanke war, eine halb gelaufene Folge nicht in der
+     Mitte stehen zu lassen.
+
+     Das Optimierungsbriefing (P0, „Scroll-Animationen und weisse Flaechen")
+     hat genau das als Fehler benannt: „Inhalte duerfen nie dauerhaft mit
+     opacity: 0 verbleiben. Alle Inhalte muessen auch bei schnellem
+     Scrollen sofort zuverlaessig sichtbar sein." Nachgemessen bei 1440 x
+     900 nach schnellem Durchrollen: 31 Elemente dieser Grafik standen nach
+     600 ms Ruhe auf Deckkraft 0 — die Marken hatten beim Durchrollen
+     gemeldet, der Rahmenbeobachter hatte beim Verlassen alles wieder
+     zurueckgenommen, und wer dann zurueckrollte, fand einen leeren
+     Abschnitt, bis eine Marke erneut ins Bild kam.
+
+     Jetzt gilt: was einmal gezeigt ist, bleibt. Die Folge laeuft genau
+     einmal, so wie es der Kunde am 31.08. verlangt hat („und dann STEHEN")
+     — und sie laeuft auch dann zu Ende, wenn man sie nicht ansieht.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+  /* Die drei Marken. FRUEH — Optimierungsbriefing P0: der Beobachter meldet
+     beim ersten Bildpunkt und schon 10 Prozent UNTER der Fensterkante.
+     Vorher war der untere Rand um 22 Prozent EINGEZOGEN, damit eine Stufe
+     erst im Blick auslöst; das hiess aber auch, dass ein Fuenftel des
+     Fensters leer blieb, waehrend man auf sie zusah. */
   var markenBeob = new IntersectionObserver(function (eintraege) {
     for (var i = 0; i < eintraege.length; i++) {
       if (!eintraege[i].isIntersecting) continue;
       melde((parseInt(eintraege[i].target.getAttribute('data-stufe'), 10) || 1) - 1);
     }
-  }, { rootMargin: '0px 0px -22% 0px', threshold: 0 });
+  }, { rootMargin: '0px 0px 10% 0px', threshold: 0 });
 
   var marken = netz.querySelectorAll('.wnetz__marke');
   for (var m = 0; m < marken.length; m++) markenBeob.observe(marken[m]);
 
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     DIE FOLGE LAEUFT NUR NOCH EIN EINZIGES MAL — 31.08.2026
-
-     Bis heute galt: verlaesst die Grafik das Fenster VOLLSTAENDIG, faengt
-     die Folge beim naechsten Hereinscrollen von vorn an. Wer zweimal daran
-     vorbeirollte, sah die Drehung des Zielkastens zweimal — und wer beim
-     Lesen ein Stueck zurueckging und wieder vor, oefter.
-
-     Kundenwortlaut vom 31.08.2026: „Ihre Immobilie als Kapitalanlage"
-     dreht sich beim Hereinkommen mehrfach; es soll sich genau einmal,
-     langsam drehen und dann STEHEN. „Dann stehen" heisst: auch beim
-     zweiten Vorbeikommen steht es.
-
-     `fertig` merkt sich, dass die letzte Stufe angelaufen ist. Danach
-     setzt nichts mehr zurueck, und die Grafik bleibt in ihrem Endzustand.
-     Der Ruecksetzer selbst bleibt erhalten: er greift weiterhin, solange
-     die Folge noch nicht durch ist — wer waehrend des Einlaufs wieder
-     wegrollt, bekommt sie beim naechsten Mal von vorn und nicht in der
-     Mitte angefangen.
-     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  var rahmenBeob = new IntersectionObserver(function (eintraege) {
-    for (var i = 0; i < eintraege.length; i++) {
-      if (!eintraege[i].isIntersecting && bis > 0 && !fertig) zuruecksetzen();
+  /* SICHERHEITSNETZ BEIM ROLLEN — 01.09.2026. Ein IntersectionObserver
+     rechnet nur an Bildwechseln; bei 900 px je Radschritt kann eine Marke
+     zwischen zwei Bildern durch das ganze Fenster springen, ohne je
+     „drin" gewesen zu sein. Deshalb prueft jeder Rollvorgang (gedrosselt
+     auf einen Bildwechsel) selbst, welche Marken bereits oberhalb der
+     Kante von 110 Prozent Fensterhoehe liegen, und meldet die hoechste.
+     Sind alle drei Stufen gemeldet, haengt sich der Lauscher aus. */
+  var ticket = 0;
+  var nachsehen = function () {
+    ticket = 0;
+    if (bis >= STUFEN) { window.removeEventListener('scroll', anfordern); return; }
+    var grenze = (window.innerHeight || document.documentElement.clientHeight) * 1.1;
+    var hoechste = -1;
+    for (var k = 0; k < marken.length; k++) {
+      if (marken[k].getBoundingClientRect().top < grenze) {
+        var st = (parseInt(marken[k].getAttribute('data-stufe'), 10) || 1) - 1;
+        if (st > hoechste) hoechste = st;
+      }
     }
-  }, { threshold: 0 });
-  rahmenBeob.observe(netz);
+    if (hoechste >= 0) melde(hoechste);
+  };
+  var anfordern = function () { if (!ticket) ticket = requestAnimationFrame(nachsehen); };
+  window.addEventListener('scroll', anfordern, { passive: true });
+  window.addEventListener('pageshow', anfordern);
 
   /* Notbremse. Sollte kein Beobachter je ausloesen, obwohl die Grafik im
-     Bild steht, laeuft die Folge nach sechs Sekunden von allein an. Die
-     Bedingung ist wichtig: ohne sie liefe die Animation auch dann ab, wenn
-     der Abschnitt nie gesehen wurde — und der Puls waere verschenkt. */
+     Bild steht, laeuft die Folge nach zwei Sekunden von allein an (vorher
+     sechs — 01.09.2026). Die Bedingung ist wichtig: ohne sie liefe die
+     Animation auch dann ab, wenn der Abschnitt nie gesehen wurde. */
   window.setTimeout(function () {
     if (bis > 0) return;
     var r = netz.getBoundingClientRect();
     var h = window.innerHeight || document.documentElement.clientHeight;
-    if (r.top < h && r.bottom > 0) melde(STUFEN - 1);
-  }, 6000);
+    if (r.top < h * 1.1 && r.bottom > 0) melde(STUFEN - 1);
+  }, 2000);
 })();

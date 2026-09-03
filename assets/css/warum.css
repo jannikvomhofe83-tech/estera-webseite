@@ -542,19 +542,49 @@
    Feld darunter, wo die Symbole ebenfalls in einem eigenen Feld sitzen.
    Die Tafel ist Flaeche, kein Knopf: kein Rand, kein Schatten, kein
    Radius aus der Knopffamilie. */
+/* ===========================================================================
+   GROESSER, WEIL BESCHRIFTET — 01.09.2026, Optimierungsbriefing, Abschnitt
+   04 („Bilder als Mechanismus"). Die Abbildungen tragen jetzt Beschriftung
+   (drei Zufluesse rechts, die Sparrate links) und zwei Haeuser, deren
+   Groessenunterschied die Aussage ist. Auf 132 px waere eine Beschriftung
+   nicht zu lesen; der Deckel geht auf 250 px, die Untergrenze auf 170.
+   Beide Zeichnungen haben dieselbe Leinwand (300 x 210) — die Tafeln sind
+   damit gleich hoch, und die beiden Kaesten bleiben gleich hoch
+   (`align-items: stretch` am Band).
+   Die Tafel bleibt: Sand und Navy brauchen einen hellen Grund, und die
+   Zeichnung soll einen Platz haben, nicht lose im dunklen Kasten liegen.
+   Gemessen bei 1440: Kasten 638 px breit, Tafel 250 + Polster, dem Text
+   bleiben 340 px — die drei Stichpunkte stehen weiterhin einzeilig bis
+   zweizeilig, der Kasten waechst nicht ueber 360 px.
+   =========================================================================== */
 .wi__vgl {
   margin: 0;
-  width: clamp(78px, 11vw, 132px);
-  padding: clamp(0.35rem, 0.7vw, 0.6rem);
+  width: clamp(170px, 19vw, 250px);
+  padding: clamp(0.4rem, 0.8vw, 0.7rem);
   background: var(--wi-grund);
   border-radius: 14px;
 }
-.wi__vgl picture { display: block; }
-.wi__vgl img {
+.wi__vgl svg {
   display: block;
   width: 100%;
   height: auto;
+  overflow: visible;
 }
+/* Die Beschriftung IM SVG. Jost wie die uebrige Bedienschrift des
+   Abschnitts; Grade in SVG-Einheiten, sie skalieren mit der Zeichnung.
+   Farben gegen die Tafel #F7F3F0 gemessen: Navy #102949 13,3:1, Grau
+   #5F6E85 4,9:1; die Pillenschrift Weiss auf #08294D 14,6:1; der Anteil
+   Navy auf Sand #D9B485 rund 7,5:1. */
+.wi__vgl text {
+  font-family: var(--wi-sans);
+  font-weight: 500;
+  fill: var(--wi-navy);
+}
+.wi__vgl .vgl-t--quelle { font-size: 13px; }
+.wi__vgl .vgl-t--weg    { font-size: 12px; font-weight: 400; fill: var(--wi-grau); }
+.wi__vgl .vgl-t--wert   { font-size: 13px; }
+.wi__vgl .vgl-t--pille  { font-size: 13px; fill: #FFFFFF; }
+.wi__vgl .vgl-t--anteil { font-size: 12px; fill: var(--wi-navy); }
 
 /* Trenner: nur noch die senkrechte Haarlinie. Der Kreis mit „VS", der auf
    der Vorlage darauf sass (Mittelpunkt y=281, r=36), ist am 30.08.2026
@@ -1111,22 +1141,58 @@
   color: var(--wi-grau);
   margin-top: 0.45cqw;
 }
+/* Der lange Kurztext der Steuerkachel — 01.09.2026, Optimierungsbriefing,
+   Abschnitt 05. „Abschreibungen reduzieren dein zu versteuerndes
+   Einkommen." hat 58 Zeichen, die drei anderen Kacheln 30 bis 35. Eine
+   Stufe kleiner (15,6 statt 17 px bei 1240 — ueber der 15-px-Marke fuer
+   Kartenzeilen) und enger im Zeilenabstand: drei Zeilen statt vier, und
+   die Kachel bleibt bei ihren 148 px. Der Wortlaut ist unangetastet. */
+.wi__karte-s--lang {
+  font-size: 1.26cqw;           /* 15,6px bei 1240 */
+  line-height: 1.26;
+}
 /* Nur auf der aktiven Vorlage zu sehen; hier steht sie in beiden
    Zustaenden, weil man der Karte sonst nicht ansieht, dass sie sich
    antippen laesst. */
+/* HOCHWERTIGER — 01.09.2026, Optimierungsbriefing, Abschnitt 05: „Der
+   Text erhaelt einen kleinen Pfeil nach unten beziehungsweise einen
+   animierten Chevron. Beim Hover bewegt sich der Pfeil dezent um wenige
+   Pixel. Keine dauerhaft hektische Animation." Beschriftung „MEHR
+   ERFAHREN ↓": Versalien, Sperrung, Schnitt 500 — dieselbe Sprache wie
+   der Kartentitel darueber, eine Stufe kleiner. Der Winkel bewegt sich NUR
+   beim Ueberfahren (3 px nach unten) und beim Oeffnen (Drehung), sonst
+   steht er. Die ganze Karte ist der Link; diese Zeile ist nur ihr
+   Hinweis. */
 .wi__karte-mehr {
   display: flex;
   align-items: center;
-  gap: 1.05cqw;
+  gap: 0.75cqw;
   margin-top: 1.05cqw;
   font-family: var(--wi-sans);
-  font-weight: 400;
-  font-size: 1.29cqw;           /* 16px bei 1240 */
+  font-weight: 500;
+  font-size: 1.05cqw;           /* 13px bei 1240 — Versalien tragen groesser */
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   line-height: 1.2;
   color: var(--wi-navy);
   white-space: nowrap;
 }
-.wi__karte-mehr svg { width: 2.1cqw; height: auto; flex: 0 0 auto; }
+.wi__karte-mehr svg {
+  width: 1.15cqw;
+  height: auto;
+  flex: 0 0 auto;
+  transition: transform 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .wi__karte:hover .wi__karte-mehr svg { transform: translateY(3px); }
+}
+/* Die geoeffnete Karte: der Winkel zeigt nach oben — „Der Pfeil dreht sich
+   beim Oeffnen oder zeigt anschliessend nach oben." Auch beim Ueberfahren
+   der offenen Karte bleibt er oben; sonst wippte er hin und her. */
+.wi__karte[aria-expanded='true'] .wi__karte-mehr svg,
+.wi__karte[aria-expanded='true']:hover .wi__karte-mehr svg {
+  transform: rotate(180deg);
+}
 
 /* ---------------------------------------------------------------------------
    7  DIE VIER ERKLAERTEXTE
@@ -1150,21 +1216,27 @@
    Die drei Werte des clamp sind gleichmaessig um denselben Faktor
    angehoben (0,9 -> 1,7rem; 1,9 -> 3,3vh; 1,5 -> 2,6rem), damit sich das
    Verhaeltnis ueber alle Fensterhoehen nicht verschiebt. */
+/* ENGER — 01.09.2026, Optimierungsbriefing, Abschnitt 06: „Zwischen Grafik,
+   Detailtext und CTA deutlich weniger vertikalen Abstand einsetzen." Der
+   „Tick tiefer" vom 31.08. (30 px bei 1440) geht auf 16 px zurueck; die
+   Pille am Feldrand nimmt davon weiterhin 7,5 px, es bleiben 8,5 px Luft
+   zwischen Pille und Tafel — sie beruehren sich nicht. Gemessen vorher /
+   nachher steht im Bericht vom 01.09.2026. */
 .wi__texte {
   width: 100%;
   max-width: 1240px;
-  margin: clamp(1.7rem, 3.3vh, 2.6rem) auto 0;
+  margin: clamp(0.9rem, 1.8vh, 1.2rem) auto 0;
   container-type: inline-size;
 }
 .wi__texte li + li { margin-top: clamp(0.7rem, 1.4vh, 1.1rem); }
 
 .wi__panel {
   display: grid;
-  /* Die Vorlage misst den Kasten 164 Feldeinheiten hoch, der Kunde gibt
-     hoechstens 180 Punkte vor. Alle vier Texte sind so gesetzt, dass sie
-     in dieses Fenster passen — deshalb steht hier eine Mindesthoehe und
-     KEINE Hoechsthoehe: eine Hoechsthoehe wuerde schneiden statt fuehren. */
-  min-height: 180px;
+  /* KEINE MINDESTHOEHE MEHR — 01.09.2026, Optimierungsbriefing, Abschnitt
+     06: „Der aktive Detailbereich darf den Nutzer nicht in eine lange leere
+     Flaeche fuehren." Die 180 px stammten aus der Vorlage (164 Einheiten)
+     und hielten die Tafel auch dann hoch, wenn der Text zwei Zeilen hatte;
+     der Rest war Flaeche. Jetzt gibt der Inhalt die Hoehe vor. */
   grid-template-columns: 13.7cqw minmax(0, 1fr) 29.9cqw;
   align-items: center;
   column-gap: 1.4cqw;
@@ -1226,6 +1298,12 @@
   text-wrap: balance;
 }
 .wi__panel-kern > span { display: block; max-width: 20.2cqw; }
+/* Die Tafel ohne Merksatz — 01.09.2026. Bei „Mieteinnahmen" ist der
+   Callout in den Detailtext eingegangen (Optimierungsbriefing, Abschnitt
+   05); die dritte Spalte waere dort eine leere Flaeche von 30 cqw. Sie
+   klappt zu, der Text bekommt die Breite. */
+.wi__panel--ohne-kern { grid-template-columns: 13.7cqw minmax(0, 1fr); }
+.wi__panel--ohne-kern .wi__panel-text { max-width: 52em; }
 
 /* Mit Javascript steht im Ruhezustand keiner der vier Texte offen — so
    wie auf der ruhenden Vorlage. */
@@ -1276,7 +1354,12 @@
   justify-items: center;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3.2rem);
-  margin-top: clamp(1.6rem, 3.6vh, 2.6rem);
+  /* ENGER — 01.09.2026, Optimierungsbriefing, Abschnitt 06 („deutlich
+     weniger vertikalen Abstand" zwischen Detailtext und CTA). Aussen- und
+     Innenabstand zusammen standen bei 1440 auf 32 + 27 = 59 px; jetzt
+     16 + 12 = 28 px. Der Knopf bleibt ein eigener Absatz, klebt aber nicht
+     mehr eine halbe Tafelhoehe unter der Tafel. */
+  margin-top: clamp(0.9rem, 1.8vh, 1.2rem);
   /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      DIE HAARLINIE IST AM 31.08.2026 ERSATZLOS ENTFALLEN.
      Kundenwortlaut zum Strich zwischen der Tafel („01 · BANKKAPITAL …")
@@ -1297,7 +1380,7 @@
      weiter. Ohne ihn ruecke der Knopf um bis zu 1,8rem an die Tafel heran
      — der Kunde hat den Strich beanstandet, nicht den Abstand.
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  padding-top: clamp(0.9rem, 1.9vw, 1.8rem);
+  padding-top: clamp(0.5rem, 0.85vw, 0.8rem);
 }
 
 .wi__reiter { min-width: 0; }
@@ -1371,8 +1454,9 @@
   .wi__karte      { gap: 1.7cqw; }
   .wi__karte-t    { font-size: max(11.5px, 1.35cqw); letter-spacing: 0.04em; }
   .wi__karte-s    { font-size: max(13px, 1.55cqw); }
-  .wi__karte-mehr { font-size: max(12px, 1.42cqw); gap: 0.8cqw; }
-  .wi__karte-mehr svg { width: 1.7cqw; }
+  .wi__karte-s--lang { font-size: max(12.5px, 1.4cqw); }
+  .wi__karte-mehr { font-size: max(11px, 1.15cqw); gap: 0.6cqw; }
+  .wi__karte-mehr svg { width: 1.2cqw; }
   .wi__schild     { font-size: max(11.5px, 1.45cqw); }
   .wi__blase-t, .wi__blase-s { font-size: max(11px, 1.35cqw); }
   .wi__panel-nr   { font-size: max(11.5px, 1.4cqw); }
@@ -1452,11 +1536,11 @@
   .wi__karte-s { font-size: clamp(0.94rem, 3.2vw, 1.06rem); margin-top: 0.22rem; }
   .wi__karte-s br { display: none; }
   .wi__karte-mehr {
-    font-size: clamp(0.9rem, 3vw, 1rem);
-    gap: 0.6rem;
+    font-size: clamp(0.76rem, 2.6vw, 0.84rem);
+    gap: 0.5rem;
     margin-top: 0.55rem;
   }
-  .wi__karte-mehr svg { width: 20px; }
+  .wi__karte-mehr svg { width: 12px; }
 
   .wi__panel {
     grid-template-columns: clamp(56px, 15vw, 84px) minmax(0, 1fr);
@@ -1511,6 +1595,11 @@
   }
   .wi__band-linie { display: none; }
   .wi__band-marke { margin-bottom: clamp(0.8rem, 3vw, 1.2rem); }
+  /* Einspaltig auch IM Kasten — 01.09.2026: neben 250 px Zeichnung bliebe
+     dem Text auf einem Telefon nichts. Die Tafel steht unter dem Text,
+     mittig, hoechstens 320 px breit. */
+  .wi__band-halb { grid-template-columns: minmax(0, 1fr); }
+  .wi__vgl { width: min(100%, 320px); margin: 0.4rem auto 0; }
 
   .wi__reiter ol { flex-wrap: wrap; gap: 0.2rem 0; padding-top: 0.9rem; }
   .wi__reiter li { flex: 1 1 46%; justify-content: flex-start; padding: 0.35rem 0; }
@@ -1668,15 +1757,39 @@
   stroke-dasharray: var(--len);
   stroke-dashoffset: var(--len);
 }
+/* ===========================================================================
+   DER TAKT IST AM 01.09.2026 GESTRAFFT — Optimierungsbriefing P0: „Animationen
+   maximal ca. 400 bis 600 ms, geringe Bewegung von etwa 12 bis 20 px, kaum
+   Verzoegerung zwischen Elementen." Die Reihenfolge der Geste (Adern, dann
+   die Zeichnung des Hauses, dann das Foto, dann Karten und Schild) ist
+   unveraendert — sie hat dem Kunden ausdruecklich gefallen. Nur der Takt:
+
+                              vorher                jetzt
+     Adern                    1000 ms, Versatz 120  600 ms, Versatz 60
+     Zeichnung des Hauses     1250 ms ab 200        500 ms ab 0
+     Striche weg / Foto auf   600 / 700 ab 1450     300 / 400 ab 380
+     Schild                   620 ms ab 1900        500 ms ab 260
+     Karten 01..04            620 ms ab 1990..2260  500 ms ab 320..500
+     alles steht nach         2880 ms               1000 ms
+
+   Das ist mehr als eine Geschmacksfrage: nach schnellem Rollen wurden bei
+   1440 x 900 die vier Karten und das Schild nach 600 ms Ruhe mit
+   Deckkraft 0 gemessen (Bericht 01.09.2026) — sie warteten noch auf ihren
+   Vorlauf von zwei Sekunden, und der Leser sah eine leere Flaeche mit
+   einem Haus darin. Jetzt sind sie nach 600 ms zu mehr als der Haelfte da
+   und nach einer Sekunde ganz.
+   `--d` schreibt site.js als Vielfaches von 120 an jede Ader; hier wird
+   es halbiert, statt site.js anzufassen — die Datei gehoert allen Seiten.
+   =========================================================================== */
 .wi__feld[data-seen='true'] .wi__adern path,
 .wi__feld[data-seen='true'] .wi__ring-vorn path {
-  animation: wi-ader 1000ms var(--ease-soft) both;
-  animation-delay: calc(var(--d, 0) * 1ms);
+  animation: wi-ader 600ms var(--ease-soft) both;
+  animation-delay: calc(var(--d, 0) * 0.5ms);
 }
 /* Die goldenen Anschlusspunkte setzen erst auf, wenn ihre Ader angekommen ist. */
 .is-ready .wi__adern circle { opacity: 0; }
 .is-ready .wi__feld[data-seen='true'] .wi__adern circle {
-  animation: wi-punkt 420ms var(--ease-soft) 900ms forwards;
+  animation: wi-punkt 300ms var(--ease-soft) 450ms forwards;
 }
 
 /* --- Das Haus: erst die Zeichnung, dann das Gebaeude ---------------------- */
@@ -1698,11 +1811,11 @@
 
 .is-ready .wi__feld[data-seen='true'] .wi__haus-strich {
   animation:
-    wi-strich-lauf 1250ms 200ms linear both,
-    wi-strich-weg   600ms 1450ms var(--ease-soft) forwards;
+    wi-strich-lauf 500ms 0ms linear both,
+    wi-strich-weg  300ms 380ms var(--ease-soft) forwards;
 }
 .is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
-  animation: wi-foto-ein 700ms 1450ms var(--ease-soft) both;
+  animation: wi-foto-ein 400ms 380ms var(--ease-soft) both;
 }
 
 /* --- Die vier Kaesten und das Schild laufen nach -------------------------- */
@@ -1710,13 +1823,13 @@
 .is-ready .wi__schild { opacity: 0; }
 .is-ready .wi__feld[data-seen='true'] .wi__karte,
 .is-ready .wi__feld[data-seen='true'] .wi__schild {
-  animation: wi-nachlauf 620ms var(--ease-soft) both;
+  animation: wi-nachlauf 500ms var(--ease-soft) both;
 }
-.is-ready .wi__feld[data-seen='true'] .wi__schild            { animation-delay: 1900ms; }
-.is-ready .wi__feld[data-seen='true'] .wi__karte--01 { animation-delay: 1990ms; }
-.is-ready .wi__feld[data-seen='true'] .wi__karte--02 { animation-delay: 2080ms; }
-.is-ready .wi__feld[data-seen='true'] .wi__karte--03 { animation-delay: 2170ms; }
-.is-ready .wi__feld[data-seen='true'] .wi__karte--04 { animation-delay: 2260ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__schild            { animation-delay: 260ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--01 { animation-delay: 320ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--02 { animation-delay: 380ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--03 { animation-delay: 440ms; }
+.is-ready .wi__feld[data-seen='true'] .wi__karte--04 { animation-delay: 500ms; }
 
 @keyframes wi-ader        { to   { stroke-dashoffset: 0; } }
 @keyframes wi-punkt       { from { opacity: 0; transform: scale(0.6); }
@@ -1841,4 +1954,11 @@
   text-align: center;
   text-wrap: pretty;
   color: var(--ink-mute);
+}
+
+/* MOBIL, 01.09.2026 — Briefing 19: Knopf volle Breite, Microcopy nicht
+   unter 15 px (war 12,5). */
+@media (max-width: 899px) {
+  .wi__knopf { width: 100%; justify-content: center; min-height: 48px; }
+  .wi__knopf-hinweis { font-size: 0.9375rem; }
 }

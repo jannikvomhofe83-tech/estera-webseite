@@ -119,7 +119,14 @@
   --stl-t-titel:  clamp(1.25rem, 1.24vw, 1.49rem);
   --stl-t-gross2: clamp(1.19rem, 1.24vw, 1.49rem);
   --stl-t-text:   clamp(1.06rem, 0.99vw, 1.19rem);
-  --stl-t-klein:  clamp(0.95rem, 0.87vw, 1.04rem);
+  /* UNTERGRENZE 16 px STATT 15,2 px — 01.09.2026, Optimierungsbriefing,
+     Abschnitt 19: „kein Fliesstext unter 16 px, Kartenzeilen ≥ 15 px".
+     Dieser Grad traegt die Kastentexte in „Dein Profil" und „Dein System"
+     und die leise Zeile im Abschluss. Bei 1440 lag er auf 15,2 px (die
+     Untergrenze griff, 0,87vw sind dort 12,5 px). Der Deckel steigt im
+     gleichen Verhaeltnis mit, damit die Leiter ihre Stufen behaelt.
+     Vorher: clamp(0.95rem, 0.87vw, 1.04rem) */
+  --stl-t-klein:  clamp(1.00rem, 0.87vw, 1.06rem);
 }
 
 /* Sprungmarke — sichtbar erst beim Antabben. Die Vorlage hat dieselbe
@@ -1102,7 +1109,12 @@
 .stl-erwartet {
   --stl-erw-nr:     clamp(0.95rem, 1.16vw, 1.16rem);
   --stl-erw-titel:  clamp(1.12rem, 1.46vw, 1.46rem);
-  --stl-erw-satz:   clamp(0.94rem, 1.09vw, 1.09rem);
+  /* UNTERGRENZE 16 px — 01.09.2026, Optimierungsbriefing, Abschnitt 19
+     („kein Fliesstext unter 16 px"). Bei 1440 stand der Satz auf 15,7 px.
+     Der Deckel bleibt: die Bedingung „alle Stufen bei 1440 x 900 im
+     Fenster" haengt an der Zeilenzahl, nicht an 0,3 px Grad.
+     Vorher: clamp(0.94rem, 1.09vw, 1.09rem) */
+  --stl-erw-satz:   clamp(1.00rem, 1.09vw, 1.09rem);
   --stl-erw-bronze: #8A5A20;
 }
 
@@ -1369,6 +1381,15 @@
     grid-template-columns: 1fr;
     row-gap: clamp(36px, 6vw, 56px);
   }
+  /* KEINE ZEILENFUGE IN „DEIN SYSTEM" — 03.09.2026, Mobiloptimierung.
+     Die Fuge oben war fuer Text neben Bild gedacht; seit dem 31.08.2026
+     steht in diesem Abschnitt kein Bild mehr, sondern der Kopf ueber dem
+     Kastenraster, und die Trennlinie dazwischen bringt ihren eigenen
+     Abstand mit. Gemessen bei 390 px: Trennlinie -> erster Kasten 81 px
+     (22 Linienabstand + 36 Fuge + 6 Rasterabstand + Ueberschriftsrest),
+     mit 0 Fuge 45 px. Das Briefing (Abschnitt 19) nennt genau solche
+     Loecher; Grenze hier 72 px. */
+  .stl-zwei--bieten { row-gap: 0; }
 
   /* HIER LOESTE EINE REGEL DAS KLEBEN DES BILDFELDES FUER DEN
      EINSPALTIGEN FALL. Seit dem 31.08.2026 klebt es ueberhaupt nicht mehr,
@@ -1578,12 +1599,41 @@
 
 /* --- Die Bewegungen ------------------------------------------------------- */
 
+/* ===========================================================================
+   P0 — SCROLL-ANIMATIONEN UND WEISSE FLAECHEN, 01.09.2026
+   Optimierungsbriefing, Abschnitt 02, woertlich: „Inhalte dürfen nie
+   dauerhaft mit opacity: 0 oder visibility: hidden verbleiben. Animationen
+   maximal ca. 400 bis 600 ms, geringe Bewegung von etwa 12 bis 20 px, kaum
+   Verzögerung zwischen Elementen und vollständige Deaktivierung bei
+   prefers-reduced-motion."
+
+   WAS SICH DAMIT GEAENDERT HAT — Zahl fuer Zahl, alte Werte in Klammern:
+     Weg        16 px  (22, 26, 200 % Zeilenhoehe, 8 % Bildhoehe)
+     Dauer      0,5 s  (0,8 / 0,9 / 1,2 s), Bildfelder 0,55 s (1,15 s)
+     Staffelung 0,06 s je Element (0,09 / 0,1 s), Summe je Gruppe ≤ 0,4 s
+     Kopfbereich als Folge 0 / 0,08 / 0,24 / 0,32 s (0,15 / 0,3 / 0,85 / 1 s)
+   Die sechs Symbolgesten (Sand, Hut, Schloss, Waage, Haken, Sprechblasen)
+   behalten ihre Laenge: sie sind Inhalt, kein Einblenden. Nur ihr Auftritt
+   (stl-grafik) ist kuerzer geworden, und damit ruecken sie frueher an.
+
+   DIE ZEILENGESTE DER UEBERSCHRIFTEN IST GEBLIEBEN, ABER KLEINER. Bis heute
+   fuhr jedes Wort 200 % seiner Zeilenhoehe hinter einer Kante hervor —
+   bei der H1 ueber 80 px Weg in 1,2 s. Jetzt steigt jede Zeile 16 px und
+   blendet dabei ein; die Kante (.stl-zg, clip-path) bleibt stehen und
+   schneidet die ersten Bildpunkte des Wegs unten ab, sodass die Zeile
+   weiterhin AUS ihrer Grundlinie kommt statt zu schweben. Dieselbe Geste,
+   ein Fuenftel des Wegs, weniger als die Halbe Zeit.
+
+   DAZU IN stelle.js: Beobachter mit threshold 0 und 160 px Vorlauf nach
+   unten, ein Sicherheitsnetz beim Rollen und nach dem Laden — nichts
+   bleibt unsichtbar, auch wenn jemand springt oder rast.
+   =========================================================================== */
 @keyframes stl-zeile {
-  from { transform: translateY(200%); }
-  to   { transform: translateY(0); }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes stl-steigt {
-  from { opacity: 0; transform: translateY(22px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 /* Der Strich zieht sich aus dem Nichts. --len ist die ECHTE Pfadlänge und
@@ -1616,7 +1666,11 @@
    also nie ein. Deshalb braucht es hier KEINE Vergrößerung als
    Sicherheitsreserve; das Bild bleibt in seinem Maßstab. */
 @keyframes stl-nach {
-  from { transform: translateY(-8%); }
+  /* 16 px statt 8 % — P0, 01.09.2026: 8 % waren am 718 px hohen Bildfeld
+     57 px Weg. Die Luecken-Rechnung oben gilt mit 16 px unveraendert: die
+     Kante steht bei t · H, die Bildunterkante bei H − 16 (1 − t) px, und
+     t · H ≤ H − 16 (1 − t) ist fuer jedes t ≤ 1 erfuellt. */
+  from { transform: translateY(-16px); }
   to   { transform: translateY(0); }
 }
 /* Der Kasten wächst aus seiner Grundlinie. inset(100% 0 0 0) heißt: die
@@ -1627,7 +1681,7 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 @keyframes stl-hebt {
-  from { opacity: 0; transform: translateY(26px); }
+  from { opacity: 0; transform: translateY(16px); }   /* P0: vorher 26 px */
   to   { opacity: 1; transform: translateY(0); }
 }
 /* Die Grafik im Kasten, wenn sie zum ersten Mal ins Bild kommt: sie setzt
@@ -2075,7 +2129,9 @@
 .stl-zg__i { display: inline-block; }
 
 [data-stl-js] .stl-geteilt { opacity: 1; }
-[data-stl-js] .stl-geteilt .stl-zg__i { transform: translateY(200%); }
+/* P0, 01.09.2026: 16 px und durchsichtig statt 200 % Zeilenhoehe — siehe
+   den P0-Block bei den Bewegungen. */
+[data-stl-js] .stl-geteilt .stl-zg__i { opacity: 0; transform: translateY(16px); }
 
 /* DIE ABSCHLUSSUEBERSCHRIFT WIRD ALS EINZIGE NICHT GETEILT — nachzulesen in
    stelle.js, hier steht der Grund.
@@ -2109,7 +2165,7 @@
 /* Die Kartenziffer bekommt dieselbe Kante. .stl-zi ist die Hülle, die
    stelle.js um den Ziffernsatz legt. */
 [data-stl-js] .stl-stufe__nr { clip-path: inset(-100% -0.4em -0.14em -0.4em); }
-[data-stl-js] .stl-stufe__nr .stl-zi { display: inline-block; transform: translateY(200%); }
+[data-stl-js] .stl-stufe__nr .stl-zi { display: inline-block; opacity: 0; transform: translateY(16px); }   /* P0: vorher 200 % */
 
 /* Strichzeichnungen: --len setzt stelle.js aus der echten Pfadlänge. */
 [data-stl-js] .stl-zeichnet path {
@@ -2127,14 +2183,16 @@
    das <figure>, einmal ueber das Bild selbst) und der Weg waere doppelt so
    weit wie gedacht. */
 [data-stl-js] .stl-aus__kasten { clip-path: inset(100% 0 0 0); }
-[data-stl-js] .stl-aus__kasten > *:not(.stl-aus__bild) { opacity: 0; transform: translateY(26px); }
+[data-stl-js] .stl-aus__kasten > *:not(.stl-aus__bild) { opacity: 0; transform: translateY(16px); }   /* P0: vorher 26 px */
 [data-stl-js] .stl-aus__bild picture { opacity: 0; transform: translateY(18px) scale(0.94); }
 [data-stl-js] .stl-haken__text { opacity: 0; transform: translateY(14px); }
-/* Titel und Satz des Schrittes steigen, die Ziffer faehrt aus ihrer Kante —
-   drei getrennte Elemente, damit sich keine zwei Bewegungen auf einem
-   Element ueberschreiben. */
+/* Zeitangabe, Titel und Satz des Schrittes steigen, die Ziffer faehrt aus
+   ihrer Kante — getrennte Elemente, damit sich keine zwei Bewegungen auf
+   einem Element ueberschreiben. .stl-stufe__zeit ist seit dem 01.09.2026
+   dabei (Back-Office-Seite, siehe Block am Ende der Datei). */
+[data-stl-js] .stl-stufe__zeit,
 [data-stl-js] .stl-stufe__titel,
-[data-stl-js] .stl-stufe__text { opacity: 0; transform: translateY(18px); }
+[data-stl-js] .stl-stufe__text { opacity: 0; transform: translateY(16px); }
 
 /* Das leere Bildfenster zieht seinen Rahmen auf.
 
@@ -2170,7 +2228,7 @@
 [data-stl-js] .stl-bilder picture,
 [data-stl-js] .stl-schluss__medium picture { clip-path: inset(0 0 100% 0); }
 [data-stl-js] .stl-bilder img,
-[data-stl-js] .stl-schluss__medium img { transform: translateY(-8%); }
+[data-stl-js] .stl-schluss__medium img { transform: translateY(-16px); }   /* P0: vorher −8 % */
 
 /* Die Bänder stehen still, bis ihr Abschnitt eintritt. animation-play-state
    hält auch die Verzögerung an, die Rechnung des Anlaufs bleibt also
@@ -2182,7 +2240,7 @@
    .ist-da setzt der IntersectionObserver in stelle.js, einmalig. */
 
 [data-stl-js] [data-stl-auf].ist-da {
-  animation: stl-steigt 0.8s var(--stl-e-raus) both;
+  animation: stl-steigt 0.5s var(--stl-e-raus) both;   /* P0: vorher 0,8 s */
 }
 /* Die Bausteine, die ihre Bewegung an ihre Teile weitergeben, tragen selbst
    keine. */
@@ -2193,65 +2251,78 @@
 
 /* 1 — Überschriften zeilenweise. --z ist die Zeilennummer aus stelle.js. */
 [data-stl-js] .stl-geteilt.ist-da .stl-zg__i {
-  animation: stl-zeile 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-  animation-delay: calc(var(--z, 0) * 0.1s);
+  animation: stl-zeile 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) both;   /* P0: vorher 1,2 s */
+  animation-delay: calc(var(--z, 0) * 0.06s);                             /* P0: vorher 0,1 s je Zeile */
 }
 
 /* Der Kopfbereich läuft als Folge: Vorzeile, Überschrift, Unterzeile, Knopf.
    Alle vier sind beim Laden im Bild, treten also im selben Augenblick ein —
-   die Reihenfolge steckt deshalb ausschließlich in den Verzögerungen. */
-[data-stl-js] .stl-hero__vor.ist-da   { animation-delay: 0.15s; }
+   die Reihenfolge steckt deshalb ausschließlich in den Verzögerungen.
+   P0, 01.09.2026: die Folge endet nach 0,32 s statt nach 1 s, das letzte
+   Element steht nach 0,82 s. Vorher 0,15 / 0,3 + 0,1 je Zeile / 0,85 / 1 s. */
+[data-stl-js] .stl-hero__vor.ist-da   { animation-delay: 0s; }
 [data-stl-js] .stl-hero__h1.ist-da .stl-zg__i {
-  animation-delay: calc(0.3s + var(--z, 0) * 0.1s);
+  animation-delay: calc(0.08s + var(--z, 0) * 0.06s);
 }
-[data-stl-js] .stl-hero__unter.ist-da { animation-delay: 0.85s; }
-[data-stl-js] .stl-hero__btn.ist-da   { animation-delay: 1s; }
+[data-stl-js] .stl-hero__unter.ist-da { animation-delay: 0.24s; }
+[data-stl-js] .stl-hero__btn.ist-da   { animation-delay: 0.32s; }
 
-/* Die Trennlinie wächst aus ihrer Mitte, das Akzentstück darauf danach. */
+/* Die Trennlinie wächst aus ihrer Mitte, das Akzentstück darauf danach.
+   P0: 0,5 s und 0,4 s ab 0,15 s (vorher 0,8 s und 0,55 s ab 0,35 s). */
 [data-stl-js] .stl-trenn.ist-da {
-  animation: stl-linie 0.8s var(--stl-e-raus) both;
+  animation: stl-linie 0.5s var(--stl-e-raus) both;
 }
 [data-stl-js] .stl-trenn.ist-da::before {
-  animation: stl-linie-mitte 0.55s var(--stl-e-raus) 0.35s both;
+  animation: stl-linie-mitte 0.4s var(--stl-e-raus) 0.15s both;
 }
 
 /* 2 — die Häuser in „Was wir bieten". Die Liste wird als GRUPPE beobachtet,
    damit der Versatz gegen den Eintritt der Reihe läuft und nicht gegen den
    jeder einzelnen Zeile. --i ist die Nummer der Zeile, --dz die des
    Striches innerhalb des Symbols; beide setzt stelle.js. */
+/* SEIT DEM 01.09.2026 STEHT DIE HAKENLISTE AUF KEINER DER BEIDEN SEITEN
+   MEHR IM MARKUP (Optimierungsbriefing 13/14 und 16: sechs Kaesten statt
+   Liste). Die Regeln bleiben fuer den Fall, dass sie zurueckkommt, und
+   tragen die P0-Werte (0,5 s, 0,06 s je Zeile; vorher 0,9 / 0,7 s, 0,1 s). */
 [data-stl-js] .stl-haken.ist-da li .stl-zeichnet path {
-  animation: stl-zieht 0.9s var(--stl-e-weich) both;
-  animation-delay: calc(var(--i, 0) * 0.1s + var(--dz, 0) * 0.12s);
+  animation: stl-zieht 0.5s var(--stl-e-weich) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + var(--dz, 0) * 0.08s);
 }
 [data-stl-js] .stl-haken.ist-da .stl-haken__text {
-  animation: stl-steigt 0.7s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.1s + 0.2s);
+  animation: stl-steigt 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + 0.1s);
 }
 
-/* Das leere Bildfenster daneben. */
+/* Das leere Bildfenster daneben — seit dem 01.09.2026 nicht mehr im Markup,
+   Regel bleibt (P0: 0,5 s, vorher 0,9 s). */
 [data-stl-js] .stl-zwei--bieten.ist-da .stl-platz {
-  animation: stl-blende 0.9s var(--stl-e-weich) both;
+  animation: stl-blende 0.5s var(--stl-e-weich) both;
 }
 
-/* 4 — die sechs Kaesten in „Das macht dich aus".
-   Der Kasten waechst aus seiner Grundlinie, Ueberschrift, Haarstrich und
-   Satz ruecken darin nach, und die GRAFIK kommt zuletzt — sie ist das
-   Einzige, was in diesem Kasten eine eigene Bewegung verdient. */
+/* 4 — die sechs Kaesten in „Das macht dich aus" UND, seit dem 01.09.2026,
+   die sechs Kaesten in „Dein System" / „Dein Arbeitsumfeld" (.stl-aus--system,
+   ohne Grafik). Der Kasten waechst aus seiner Grundlinie, Ueberschrift,
+   Haarstrich und Satz ruecken darin nach, und die GRAFIK kommt zuletzt —
+   sie ist das Einzige, was in diesem Kasten eine eigene Bewegung verdient.
+   P0, 01.09.2026: 0,5 s und 0,06 s je Kasten (vorher 0,9 s und 0,09 s) —
+   der sechste Kasten steht damit nach 0,3 + 0,05 + 0,5 = 0,85 s, vorher
+   nach 1,43 s. */
 [data-stl-js] .stl-aus.ist-da .stl-aus__kasten {
-  animation: stl-waechst 0.9s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.09s);
+  animation: stl-waechst 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s);
 }
 [data-stl-js] .stl-aus.ist-da .stl-aus__kasten > *:not(.stl-aus__bild) {
-  animation: stl-hebt 0.9s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.09s + 0.08s);
+  animation: stl-hebt 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + 0.05s);
 }
 /* DIE GRAFIK, WENN SIE ZUM ERSTEN MAL INS BILD KOMMT.
-   Ruhig und kurz: 0,85 s, 18 px Weg und 6 Prozent Groesse. Sie sitzt auf
-   <picture>, damit das Bild darin frei bleibt fuer das Ueberfahren — zwei
-   Bewegungen auf einem Element wuerden sich gegenseitig ausloeschen. */
+   Ruhig und kurz: 0,5 s (P0; vorher 0,85 s), 18 px Weg und 6 Prozent
+   Groesse. Sie sitzt auf <picture>, damit das Bild darin frei bleibt fuer
+   das Ueberfahren — zwei Bewegungen auf einem Element wuerden sich
+   gegenseitig ausloeschen. */
 [data-stl-js] .stl-aus.ist-da .stl-aus__bild picture {
-  animation: stl-grafik 0.85s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.09s + 0.22s);
+  animation: stl-grafik 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + 0.1s);
 }
 
 /* --- 4b  DIE SECHS SYMBOLGESTEN -------------------------------------------
@@ -2259,14 +2330,14 @@
    Bildfolgen. Hier steht nur, WANN sie laufen.
 
    EINE GEMEINSAME UHR FUER ALLE SECHS: --auf ist der Zeitpunkt, zu dem das
-   Symbol seinen Auftritt (stl-grafik, 0,85 s ab --i · 0,09 s + 0,22 s)
+   Symbol seinen Auftritt (stl-grafik, seit P0 0,5 s ab --i · 0,06 s + 0,1 s)
    hinter sich hat. Erst dann faengt die eigene Geste an — sonst liefen
    Auftritt und Geste uebereinander und man saehe beides nicht.
-       --i · 0,09 s + 0,22 s + 0,85 s ≈ --i · 0,09 s + 1,05 s
-   Aufgerundet auf 1,1 s. Die sechs Kaesten starten damit nacheinander im
-   Abstand von 0,09 s, so wie ihr Auftritt auch. */
+       --i · 0,06 s + 0,1 s + 0,5 s = --i · 0,06 s + 0,6 s
+   Aufgerundet auf 0,65 s (vorher --i · 0,09 s + 1,1 s). Die Gesten selbst
+   behalten ihre Laenge — sie sind Inhalt, kein Einblenden (P0, 01.09.2026). */
 [data-stl-js] .stl-aus.ist-da .stl-aus__bild {
-  --auf: calc(var(--i, 0) * 0.09s + 1.1s);
+  --auf: calc(var(--i, 0) * 0.06s + 0.65s);
 }
 
 /* 01  die zweite Sprechblase kommt nach */
@@ -2370,27 +2441,32 @@
    Karte (.stl-karte__zeichen), und das ist am 31.08.2026 mit den Karten
    entfallen. `stl-zieht` laeuft weiter — aber nur noch in „Was wir bieten",
    wo es die Haeuser zeichnet. */
-[data-stl-js] .stl-folge.ist-da .stl-stufe__nr .stl-zi {
-  animation: stl-zeile 0.9s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.1s + 0.06s);
+/* P0, 01.09.2026: 0,5 s je Teil, 0,06 s je Stufe, innerhalb der Stufe
+   0 / 0,05 / 0,1 s (vorher 0,9 / 0,8 s, 0,1 s je Stufe, 0,06 / 0,14 / 0,22).
+   Fuenf Stufen: der letzte Satz steht nach 0,24 + 0,1 + 0,5 = 0,84 s.
+   Die Zeitangabe (.stl-stufe__zeit, Back-Office) laeuft mit der Ziffer. */
+[data-stl-js] .stl-folge.ist-da .stl-stufe__nr .stl-zi,
+[data-stl-js] .stl-folge.ist-da .stl-stufe__zeit {
+  animation: stl-zeile 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s);
 }
 [data-stl-js] .stl-folge.ist-da .stl-stufe__titel {
-  animation: stl-steigt 0.8s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.1s + 0.14s);
+  animation: stl-steigt 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + 0.05s);
 }
 [data-stl-js] .stl-folge.ist-da .stl-stufe__text {
-  animation: stl-steigt 0.8s var(--stl-e-raus) both;
-  animation-delay: calc(var(--i, 0) * 0.1s + 0.22s);
+  animation: stl-steigt 0.5s var(--stl-e-raus) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + 0.1s);
 }
 
-/* Die zwei Bildfelder entstehen. */
+/* Die zwei Bildfelder entstehen. P0: 0,55 s (vorher 1,15 s). */
 [data-stl-js] .stl-bilder.ist-da picture,
 [data-stl-js] .stl-schluss__medium.ist-da picture {
-  animation: stl-blende 1.15s var(--stl-e-weich) both;
+  animation: stl-blende 0.55s var(--stl-e-weich) both;
 }
 [data-stl-js] .stl-bilder.ist-da img,
 [data-stl-js] .stl-schluss__medium.ist-da img {
-  animation: stl-nach 1.15s var(--stl-e-weich) both;
+  animation: stl-nach 0.55s var(--stl-e-weich) both;
 }
 
 /* 5 — die zwei Laufbänder fahren an. */
@@ -2436,6 +2512,9 @@
   /* --- Jeder Anfangszustand des Bewegungsabschnitts, zurueckgenommen ------ */
   [data-stl-js] [data-stl-auf],
   [data-stl-js] .stl-haken__text,
+  [data-stl-js] .stl-geteilt .stl-zg__i,
+  [data-stl-js] .stl-stufe__nr .stl-zi,
+  [data-stl-js] .stl-stufe__zeit,
   [data-stl-js] .stl-stufe__titel,
   [data-stl-js] .stl-stufe__text,
   [data-stl-js] .stl-aus__bild picture,
@@ -2454,6 +2533,7 @@
   [data-stl-js] .stl-geteilt .stl-zg__i,
   [data-stl-js] .stl-stufe__nr .stl-zi,
   [data-stl-js] .stl-haken__text,
+  [data-stl-js] .stl-stufe__zeit,
   [data-stl-js] .stl-stufe__titel,
   [data-stl-js] .stl-stufe__text,
   [data-stl-js] .stl-aus__kasten > *,
@@ -2539,6 +2619,7 @@
   [data-stl-js] .stl-aus.ist-da .stl-aus__kasten > *,
   [data-stl-js] .stl-aus.ist-da .stl-aus__bild picture,
   [data-stl-js] .stl-folge.ist-da .stl-stufe__nr .stl-zi,
+  [data-stl-js] .stl-folge.ist-da .stl-stufe__zeit,
   [data-stl-js] .stl-folge.ist-da .stl-stufe__titel,
   [data-stl-js] .stl-folge.ist-da .stl-stufe__text,
   [data-stl-js] .stl-bilder.ist-da picture,
@@ -2605,3 +2686,328 @@
    HTML) sind das zwei voneinander unabhaengige Ursachen fuer dasselbe
    Symptom gewesen. Beide muessen behoben bleiben. */
 .stl-schluss__medium picture { display: block; }
+
+/* ===========================================================================
+   „DEIN SYSTEM" / „DEIN ARBEITSUMFELD" ALS SECHS KAESTEN — 01.09.2026
+   Optimierungsbriefing, Abschnitt 13/14 (Berater) und 16 (Back-Office),
+   DESIGN, woertlich: „Sechs Vorteile als geschlossenes System: Alle sechs
+   Blöcke in einer konsistenten Anordnung zeigen. Nicht beim Scrollen
+   einzeln über große Höhen verteilen. Idealerweise 3 x 2 Karten auf
+   Desktop und eine Karte pro Zeile auf Mobil."
+
+   KEIN NEUER STIL. Die Kaesten sind .stl-aus__kasten — Haarlinie, 14 px
+   Radius, Hauch Sand, Titel, Goldstrich, Satz, Gold beim Ueberfahren —
+   genau die Machart, die „Dein Profil" auf beiden Seiten schon traegt.
+   Nur das Symbolbild fehlt (es gibt zu diesen sechs Punkten keine
+   passenden Grafiken, und erfunden wird nichts). Dieser Block aendert
+   deshalb ausschliesslich die ANORDNUNG:
+
+     ab 992 px       3 x 2, gleich hohe Kaesten (grid-auto-rows: 1fr)
+     760 bis 991 px  2 x 3
+     unter 760 px    eine Karte je Zeile
+
+   WARUM NICHT DAS VERSETZTE RASTER DES PROFILS: das Briefing verlangt hier
+   „eine konsistente Anordnung" — sechs gleiche Kaesten, damit die sechs
+   Vorteile als EIN System gelesen werden. Das versetzte Raster lebt vom
+   Ungleichen und bleibt dem Profil vorbehalten; so unterscheiden sich die
+   beiden Abschnitte, obwohl sie dieselbe Kastenmachart tragen.
+
+   DIE PLATZIERUNGEN DES VERSETZTEN RASTERS (nth-child, grid-column /
+   grid-row, oben bei .stl-aus und in den zwei Medienabfragen) muessen hier
+   ausdruecklich aufgehoben werden — daher `> .stl-aus__kasten:nth-child(n)`
+   mit drei Klassen Gewicht, das sticht jede der nth-child-Regeln, egal wo
+   sie in der Datei steht.
+
+   DAS RASTER STEHT AUSSERHALB DER 68ch-SPALTE. Der Block „Einspaltig und
+   mittig" oben begrenzt jedes Kind von .stl-zwei--bieten auf 68ch, damit
+   Ueberschrift und Liste lesbar bleiben. Fuer drei Kaesten nebeneinander
+   sind 68ch (rund 650 px) zu wenig; das Raster hebt die Grenze fuer sich
+   auf und nimmt die Containerbreite.
+
+   ABSTAND ZUR TRENNLINIE: .stl-aus bringt oben clamp(34..58 px) mit, die
+   Trennlinie darueber schon clamp(22..36 px) — zusammen bis 94 px Leere,
+   und genau solche Loecher nennt das Briefing (Abschnitt 19, „vertikaler
+   Rhythmus"). Hier deshalb nur ein kleiner Rest.
+   =========================================================================== */
+.stl-zwei--bieten > .stl-aus--system {
+  max-width: none;
+  width: 100%;
+  margin-top: clamp(6px, 0.8vw, 14px);
+}
+.stl-aus--system {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+}
+.stl-aus--system > .stl-aus__kasten:nth-child(n) {
+  grid-column: auto;
+  grid-row: auto;
+}
+/* Ohne Grafik traegt der Kasten nur Titel, Strich und Satz. Damit die
+   sechs auch bei verschieden langen Saetzen als eine Reihe stehen, sitzt
+   der Inhalt oben (der Kasten selbst wird vom Raster gestreckt). */
+.stl-aus--system > .stl-aus__kasten { justify-content: flex-start; }
+
+@media (max-width: 991px) {
+  .stl-aus--system { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 759px) {
+  .stl-aus--system { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
+}
+
+/* ===========================================================================
+   DIE ZEITANGABE DER SCHRITTLISTE — 01.09.2026, Back-Office-Seite
+   Optimierungsbriefing, Abschnitt 17 (DESIGN): „Alle vier Stufen in
+   gleichartig gestalteten Karten oder einer klaren Timeline. Zeitangabe,
+   Überschrift und ein kurzer Text erhalten immer dieselbe Hierarchie."
+
+   Bis heute steckte die Zeit im Titel („WOCHE 1 – ÜBERBLICK"). Jetzt ist
+   sie ein eigenes Feld ueber dem Titel — als Kleinzeile, in der Schrift
+   und Sperrung der Kleinzeilen dieser Seite (.stl-kleinzeile: Jost,
+   Versalien, --track-wide) und in der Bronze der Ziffernspalte
+   (--stl-erw-bronze, 5,41:1 auf Weiss), die die Berater-Seite an derselben
+   Stelle fuehrt. Beide Seiten lesen sich damit gleich: links der Marker
+   (dort Ziffer, hier Zeit), dann Titel, dann Satz.
+   Die Ziffernspalte selbst kommt dafuer NICHT zurueck: sie ist
+   clamp(2.0rem, 2.7vw, 2.6rem) breit, „Woche 2 bis 4" passt da nicht
+   hinein, und eine Ziffer VOR einer Zeitangabe waere dieselbe Sache
+   zweimal gezaehlt.
+   Kein Fliesstext, deshalb darf der Grad unter 16 px liegen (Etikett wie
+   .stl-kleinzeile, 12,8 bis 15,2 px).
+   =========================================================================== */
+.stl-stufe__zeit {
+  margin: 0 0 clamp(4px, 0.4vw, 7px);
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: clamp(0.80rem, 0.86vw, 0.95rem);
+  line-height: 1.4;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--stl-erw-bronze);
+}
+
+/* ===========================================================================
+   TELEFON — 03.09.2026, Mobiloptimierung vor dem Livegang
+   Optimierungsbriefing, Abschnitt 19 („Mobile"): Karten einspaltig, Knoepfe
+   volle Breite, keine Mini-Schriften, keine abgeschnittenen Ticker; dazu
+   „Vertikaler Rhythmus: Grosse weisse Felder reduzieren".
+
+   ALLES HIER IST GEMESSEN (Playwright, 360 / 390 / 430 x 800 und quer
+   844 x 390, deviceScaleFactor 2), die Zahl steht bei jeder Regel. Es wird
+   kein Wortlaut und keine Struktur angefasst, keine neue Farbe, keine neue
+   Schrift. Der Umbruchpunkt 620 px ist der, den diese Datei fuer den
+   schmalen Fall schon fuehrt (Container, Hakenzeichen, Knopfbreite).
+
+   WAS VOR DIESEM BLOCK SCHON STIMMTE und deshalb hier NICHT steht: Ueberlauf
+   0 px an allen Breiten; die zwoelf Kaesten stehen einspaltig (Raster unter
+   700 bzw. 760 px) mit 18 bis 20 px Innenabstand; der Abschlussknopf ist
+   seit dem 30.08. auf voller Breite; Kartentitel 20 px, Kartentext 16 px,
+   Stufensatz 16 px, Fliesstext 17 bis 19 px; die Kleinzeilen (12,8 px,
+   Versalien) messen 5,13 bis 9,98 : 1.
+
+   ZWEI ABFRAGEN, EIN BLOCK: hochkant (bis 620 px) UND quer (Hoehe bis
+   500 px). Das Telefon quer ist 844 px breit und fiele sonst in den
+   Tablet-Fall — gemessen dort: Naht Onboarding -> Abschluss 101 px,
+   „Zurueck zur Uebersicht" 31 px hoch, Onboarding 34 % leer. Nur der
+   Hero-Knopf auf voller Breite bleibt dem Hochformat vorbehalten (unten,
+   eigener Block): 796 px Knopf quer waere kein Knopf mehr.
+   =========================================================================== */
+@media (max-width: 620px), (max-height: 500px) and (orientation: landscape) {
+  /* ABSCHNITTSLUFT. Gemessen bei 390 px, Inhalt zu Inhalt ueber die Naht:
+       Kopf -> Dein System          36 + 40 =  76 px
+       Onboarding -> Abschluss      44 + 56 = 100 px
+       Abschluss -> Fuss            44 + 62 = 106 px
+     Grenze aus dem Auftrag: 72 px. Die Untergrenzen der fuenf Luftwerte
+     sinken deshalb auf 32 bis 40 px; die Rechnung danach:
+       Kopf -> Dein System          32 + 32 =  64
+       Dein System -> Band A             40
+       Band A -> Dein Profil             32
+       Dein Profil -> Band B             40
+       Band B -> Onboarding              36
+       Onboarding -> Abschluss      32 + 40 =  72
+     Die Deckel (vw-Anteil, Maximum) bleiben, oberhalb von 620 px aendert
+     sich nichts. */
+  .stl {
+    --stl-luft-130: 40px;
+    --stl-luft-104: 36px;
+    --stl-luft-91:  32px;
+    --stl-luft-85:  32px;
+    --stl-luft-60:  32px;
+  }
+  /* Der Fuss darunter hat dieselbe Flaeche (Navy-900) und bringt selbst
+     62 px Luft mit (schluss.css, nicht Teil dieses Auftrags). Mit 32 px
+     hier waeren es 94 px durchgehend dunkle Leere zwischen dem Bild und
+     der Wortmarke des Fusses, mit 24 px 86 — der Pruefer hat 86 als zu
+     viel gemeldet (Grenze 72). Also 10 px: 10 + 62 = 72. Der Abschnitt
+     endet mit dem Bild, und das Bild braucht keine eigene Luft unter sich,
+     wenn der Fuss sie bringt. Senkt der Fuss seine 62 px, bleibt hier
+     trotzdem nichts nachzuziehen — unter 40 px wird es erst bei einem
+     Fuss unter 30 px. */
+  .stl-schluss { padding-bottom: 10px; }
+
+  /* DIE GROSSE UEBERSCHRIFT („Wir suchen keine fertige Schablone …",
+     .stl-h2-gross). Pruefer, 360 px: „Entwicklungspotenzial." misst bei
+     36,8 px rund 330 px und stand 10 px vor der rechten Kante (links 20).
+     Bei 32 px (2,0 rem) sind es 287 px — 16 px Luft je Seite bei 360,
+     31 px bei 390. Silbentrennung war die andere Moeglichkeit; ein
+     getrenntes Wort in der lautesten Zeile der Seite ist die schlechtere. */
+  .stl { --stl-t-gross: 2.0rem; }
+
+  /* KLEINZEILEN MIT ZIFFER, die zweizeilig umbrechen („04 — BEREIT FUER
+     DEINE NAECHSTE STUFE?" bei 360 bis 430): die Ziffer stand mittig
+     neben zwei Zeilen. Oben ausgerichtet steht sie auf der ersten Zeile —
+     Ziffer und Wort haben dieselbe Zeilenhoehe (1,4), die Grundlinien
+     treffen sich. */
+  .stl-kleinzeile { align-items: flex-start; }
+
+  /* DIE VORZEILE IM KOPF. „Vollzeit · Immobilienabwicklung & Kunden-
+     betreuung" brach bei 360 px in drei Zeilen (Sperrung 0,24 em). Mit
+     0,16 em sind es zwei — der Grad bleibt 12,8 px, die Versalien bleiben,
+     nur die Sperrung ist enger; der Kicker der Startseite steht bei
+     schmalen Fenstern ebenso enger. */
+  .stl-hero__vor { letter-spacing: 0.16em; }
+
+  /* ONBOARDING: der Abschnitt zeigte 27 % Leerflaeche (Grenze 25 %).
+     Ueberschrift -> erster Schritt 32 -> 24 px, Polster je Schritt
+     13,6 -> 9,6 px (das sind 19 statt 27 px zwischen zwei Schritten),
+     Liste -> Bild 36 -> 28 px. */
+  .stl-folge { margin-top: 24px; }
+  /* 0,6 rem und nicht 0,7: mit 0,7 stand die Back-Office-Fassung (vier
+     kurze Schritte) bei 390 px noch auf 26 % Leer, mit 0,6 rem (19 px
+     zwischen zwei Schritten) auf 24 %. */
+  .stl-stufe { padding-block: 0.6rem; }
+  .stl-zwei--erwartet,
+  .stl-zwei--schluss { row-gap: 28px; }
+
+  /* „ZURUECK ZUR UEBERSICHT" ist ein Verweis, steht aber im Knopfpaar des
+     Abschlusses. Gemessen 143 x 31 px — unter den 44 px Trefferhoehe, die
+     fuer alles im Knopfpaar gelten. Die Hoehe kommt ueber Innenabstand;
+     die Haarlinie unter dem Text wandert dabei NICHT mit dem Innenabstand
+     nach unten, sondern bleibt als Unterstreichung am Wort — deshalb
+     text-decoration statt border-bottom. */
+  .stl-schluss__aktionen { gap: 0.4rem; }
+  .stl-zurueck {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.5rem 0.15em;
+    border-bottom: 0;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--stl-zeichen);
+    text-underline-offset: 0.18em;
+  }
+  .stl-zurueck:hover { text-decoration-color: currentColor; }
+}
+
+/* HERO-KNOPF AUF VOLLER BREITE — nur hochkant. Gemessen 294 px von 350
+   (390 px Fenster), also 75 vw; das Briefing verlangt volle Breite. .btn ist
+   in base.css inline-flex, deshalb justify-content und nicht nur width. */
+@media (max-width: 620px) {
+  .stl-hero__btn { width: 100%; justify-content: center; }
+  /* „Zurueck zur Uebersicht" mittig unter dem Abschlussknopf: der Knopf hat
+     hier die volle Breite, die Mitte ist damit die Achse. Quer stehen beide
+     nebeneinander und bleiben links, wie der Text darueber. */
+  .stl-schluss__aktionen { justify-content: center; }
+
+  /* EINE AUSRICHTUNG FUER ALLE ABSCHNITTSKOEPFE — Pruefer, Runde 1: „01/02
+     zentriert, 03 linksbuendig, der Rhythmus kippt einmal je Seite."
+     Entscheidung: hochkant beginnt JEDER Abschnitt mittig — Kopfbereich,
+     Dein System und Dein Profil sind es schon; Onboarding und Abschluss
+     ziehen mit Kleinzeile, Ueberschrift, Absatz und Hinweis nach. Die
+     Schrittliste selbst bleibt linksbuendig: eine nummerierte Liste liest
+     sich von der Ziffer aus, mittig gesetzt haette sie keine Kante mehr.
+     Quer (zweispaltig, Text neben Bild) bleibt alles links wie am
+     Bildschirm — dort steht der Text neben etwas, nicht ueber etwas. */
+  .stl-erwartet .stl-kleinzeile,
+  .stl-schluss  .stl-kleinzeile { justify-content: center; text-align: center; }
+  .stl-erwartet .stl-h2,
+  .stl-schluss  .stl-h2,
+  .stl-schluss__text,
+  .stl-schluss__hinweis { text-align: center; margin-inline: auto; }
+
+  /* DAS SYMBOLFELD IN „DEIN PROFIL". Pruefer, 360 px: Feld 140 x 140, das
+     Symbol darin rund 50 px, also 45 px Luft oben und unten, die Karte
+     rund 300 px hoch. Die sechs Grafiken tragen ihren Rand in der Datei
+     (freigestellt auf voller Leinwand, siehe Bewegungsblock) — das Feld
+     muss ihn nicht noch einmal geben. 104 px bei 360, 109 bei 390, 120 bei
+     430; die Lagen und aufgelegten SVG rechnen sich aus der Feldhoehe mit
+     (height: min(100 %, 17 rem)). */
+  .stl-aus__bild { height: clamp(104px, 28vw, 140px); }
+}
+
+/* ---------------------------------------------------------------------------
+   TELEFON QUER (844 x 390 gemessen). Eine Hoehenabfrage, weil diese drei
+   Befunde an der Fensterhoehe haengen und mit keinem Breitenpunkt zu treffen
+   sind — bei 844 px Breite greift sonst der Tablet-Fall.
+     Band A 355 px = 91 % der Fensterhoehe, Band B 277 px = 71 %
+     Onboarding-Bild 422 px = 108 %, Abschlussbild Back-Office 892 px = 229 %
+     Kopfbereich 520 px = 133 % — der Text lag unter der ersten Bildschirmkante
+   Grenze aus dem Auftrag: 60 % der Fensterhoehe.
+--------------------------------------------------------------------------- */
+@media (max-height: 500px) and (orientation: landscape) {
+  /* Die Baender auf die halbe Hoehe (178 / 139 px = 46 / 36 % bei 390 px).
+     Die Bildbreiten rechnen sich aus der Hoehe, der Satz wird also ebenso
+     halb so breit; der Umlauf bleibt eine Satzbreite je Dauer und laeuft
+     damit mit 30 statt 60 px/s — ruhiger, nicht schneller. Entfernt wird
+     nichts. */
+  .stl-band--a { --stl-band-h: 178px; }
+  .stl-band--b { --stl-band-h: 139px; }
+  /* Die zwei Bildfelder: hoechstens 60 % der Fensterhoehe; object-fit: cover
+     steht schon an beiden, der Beschnitt bleibt mittig. */
+  .stl-bilder img,
+  .stl-schluss__medium img { max-height: 60vh; }
+  /* Der Kopf fuellt genau eine Bildschirmhoehe; der Textblock (Vorzeile,
+     Ueberschrift, vier Zeilen Unterzeile, Knopf) misst bei 844 px rund
+     350 px und passt unter die Kopfleiste. Waechst der Text, waechst der
+     Kopf mit (min-height, nicht height). */
+  .stl-hero { min-height: 100vh; min-height: 100svh; }
+  /* ONBOARDING UND ABSCHLUSS ZWEISPALTIG — Pruefer, Runde 1: quer 27 bis
+     30 % bzw. 26 % Leerflaeche (Grenze 25). Einspaltig stand das Bild unter
+     der Liste und die Luecken der Liste summierten sich ueber die ganze
+     Hoehe. Bei 844 px ist der Container 750 px breit — zwei Spalten zu
+     359 px sind dieselbe Anordnung wie am Bildschirm ab 992 px (dort
+     597/597), nur enger. Das Bild steht dann NEBEN der Liste, die Fugen
+     zwischen den Schritten liegen auf Bildhoehe, und kein Abschnitt zeigt
+     mehr Leere als Inhalt. Die Bildhoehe bleibt auf 60 vh gedeckelt. */
+  .stl-zwei--erwartet,
+  .stl-zwei--schluss {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    align-items: center;
+  }
+  /* Und enger zwischen den Schritten: bei 359 px Spaltenbreite bricht
+     jeder Satz in zwei bis drei Zeilen, die Fuge trennt also weniger als
+     am Bildschirm; 0,5 rem (16 px zwischen zwei Schritten) reicht. */
+  .stl-stufe { padding-block: 0.5rem; }
+}
+
+/* ---------------------------------------------------------------------------
+   DER SCHLEIER AUF DEM TELEFON — 03.09.2026, GEGEN ECHTE FILMBILDER GERECHNET
+   Die Rechnung oben (bei .stl-hero__schleier) gilt fuer 1920 x 816: dort
+   sitzt der Text im unteren Drittel, wo der Verlauf 0,79 bis 0,88 traegt.
+   Auf dem Telefon ist der Textblock hoeher (Ueberschrift zwei Zeilen,
+   Unterzeile sechs) und beginnt bei 26 % der Kopfhoehe — im Bereich, in dem
+   der Verlauf nur 0,50 traegt. Mit ffmpeg in 16 Einzelbildern (alle 0,5 s)
+   im Telefon-Beschnitt (cover, 50 % 62 %) nachgerechnet, schlechtester
+   Bildpunkt unter der Schrift:
+       390 x 800   Vorzeile (Sand)  2,33 : 1   H1  5,02   Unterzeile  5,97
+       360 x 800   Vorzeile         2,70 : 1   H1  6,00   Unterzeile  7,75
+       844 x 390   Vorzeile         2,36 : 1   H1  5,08   Unterzeile  5,91
+   Die Vorzeile reisst die 4,5 : 1. Deshalb zieht der Verlauf auf dem
+   Telefon schon ab 20 % Hoehe auf 0,80 (unter der Kopfleiste, 0 bis 12 %,
+   bleibt er wie am Bildschirm). Unter 0,18 + 0,80 Navy wird reines Weiss zu
+   rgb(52, 65, 82); Sand darauf misst 5,8 : 1, Weiss 8,5 : 1. Nachgemessen
+   nach der Aenderung, Werte im Bericht vom 03.09.2026.
+--------------------------------------------------------------------------- */
+@media (max-width: 620px), (max-height: 500px) and (orientation: landscape) {
+  .stl-hero__schleier {
+    background:
+      linear-gradient(to bottom,
+        rgba(10, 25, 46, 0.58) 0%,
+        rgba(10, 25, 46, 0.62) 12%,
+        rgba(10, 25, 46, 0.80) 20%,
+        rgba(10, 25, 46, 0.85) 60%,
+        rgba(10, 25, 46, 0.88) 100%),
+      linear-gradient(rgba(10, 25, 46, 0.18), rgba(10, 25, 46, 0.18));
+  }
+}

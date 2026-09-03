@@ -219,7 +219,9 @@
 
   /* ===== BEWEGUNG ==========================================================
      Zeiten und Kurve aus dem Projekt (--ease-soft steht in base.css). */
-  --faq-ms:   0.42s;
+  /* 0,42 -> 0,36 s — Optimierungsbriefing 01.09.2026, Abschnitt 10
+     („Antwort ruhig einblenden", 300 bis 400 ms). */
+  --faq-ms:   0.36s;
   --faq-ease: var(--ease-soft, cubic-bezier(0.33, 0, 0.15, 1));
 
   position: relative;
@@ -401,7 +403,10 @@
      Kastenhoehen unter seiner Zeile, das allein setzt die Antwort zu dicht
      unter die Frage. Unten mehr, damit der Kasten nicht auf dem letzten
      Buchstaben endet. */
-  padding: calc(var(--faq-hoehe) * 0.10) var(--faq-innen) calc(var(--faq-innen) * 1.15);
+  /* Oben 0,10 -> 0,16 Kastenhoehen — 01.09.2026, Optimierungsbriefing,
+     Abschnitt 10: „ausreichend Abstand zwischen Frage, Antwort und
+     naechstem Eintrag". Bei 82 px Kastenhoehe sind das 13 statt 8 px. */
+  padding: calc(var(--faq-hoehe) * 0.16) var(--faq-innen) calc(var(--faq-innen) * 1.15);
   /* Die Antwort endet dort, wo auf der Vorlage der Winkel beginnt — sie
      laeuft also nicht unter ihn, sondern haelt dieselbe Fluchtlinie wie
      der Fragetext. */
@@ -418,10 +423,29 @@
      Auftrag — dort greift naemlich schon die Untergrenze der Kastenhoehe,
      und alles, was daran haengt, hoert auf zu schrumpfen. */
   font-size: max(calc(var(--faq-frage) * 0.82), 1.2rem);
-  line-height: 1.62;
+  /* 1,62 -> 1,75 und ein Satzspiegel — 01.09.2026, Optimierungsbriefing,
+     Abschnitt 10 (DESIGN geoeffnete Antworten): „Antwortbreite begrenzen,
+     deutlich mehr Zeilenabstand verwenden und entscheidende Begriffe
+     visuell hervorheben." 62ch sind bei 23,5 px rund 730 px und damit
+     knapp ueber der Textbreite im Kasten (615 px bei 1440) — die Grenze
+     greift also erst auf sehr breiten Fenstern und haelt die Zeile dort
+     unter 70 Zeichen. Die Schrift bleibt: 23,5 px Cormorant bei 1440,
+     19,2 px auf dem Telefon, beides ueber der 16-px-Marke. */
+  line-height: 1.75;
+  max-width: 62ch;
 }
 .faq__antwort p { margin: 0; }
 .faq__antwort p + p { margin-top: 0.7em; }
+/* Die hervorgehobenen Begriffe. Ruhig: Schnitt 600 in der Frageschrift-
+   Farbe (#EDF1F8, 14,02:1 / 10,75:1 gegen die beiden Kanten des
+   Verlaufs) statt der leiseren Antwortfarbe — kein Gold, keine
+   Unterstreichung, kein Kasten. Das ist die „ruhige Auszeichnung": man
+   sieht die Begriffe beim Ueberfliegen, ohne dass der Satz in Stuecke
+   faellt. */
+.faq__antwort strong {
+  font-weight: 600;
+  color: var(--faq-schrift);
+}
 
 /* --- Schaltbetrieb: erst mit Javascript ------------------------------------
    Muster aus warum.css: das Fach ist ein einzelliges Raster, dessen Zeile
@@ -621,9 +645,12 @@
 .is-ready .faq__liste[data-reveal] .faq__punkt {
   clip-path: inset(0 100% 0 0 round var(--faq-radius));
 }
+/* 760 ms und 90 ms je Kasten -> 500 ms und 40 ms — Optimierungsbriefing
+   01.09.2026, P0. Zehn Kaesten: der letzte startet nach 360 ms und steht
+   nach 860 ms; vorher stand der neunte erst nach 1,48 s. */
 .is-ready .faq__liste[data-seen='true'] .faq__punkt {
-  animation: faq-auf 760ms var(--ease-soft) both;
-  animation-delay: calc(var(--i, 0) * 90ms);
+  animation: faq-auf 500ms var(--ease-soft) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
 }
 @keyframes faq-auf {
   from { clip-path: inset(0 100% 0 0 round var(--faq-radius)); }

@@ -82,7 +82,11 @@
     /* Die Fehlermeldungen sind wortgleich aus dem abgeloesten
        assets/js/kontakt.js uebernommen, damit die Seite in der Sache
        weiterspricht wie bisher. */
-    fehltName:   'Bitte trag deinen Namen ein.',
+    /* Das Feld heisst seit dem 01.09.2026 „Vor- und Nachname"
+       (Optimierungsbriefing, Abschnitt 12) — die Meldung sagt dasselbe Wort
+       wie die Beschriftung, sonst sucht man ein Feld, das es nicht gibt.
+       Vorher: 'Bitte trag deinen Namen ein.' */
+    fehltName:   'Bitte trag deinen Vor- und Nachnamen ein.',
     fehltVor:    'Bitte trag deinen Vornamen ein.',
     fehltNach:   'Bitte trag deinen Nachnamen ein.',
     fehltMail:   'Bitte trag deine E-Mail-Adresse ein.',
@@ -98,7 +102,15 @@
        VON ESTERA BESTAETIGEN LASSEN. */
     fehltBereich:'In welchem Bereich warst du tätig? Ein Stichwort genügt.',
     fehltAufgab: 'Beschreib kurz, was du in dieser Stelle gemacht hast.',
-    fehltAllg:   'Diese Angabe wird gebraucht.'
+    fehltAllg:   'Diese Angabe wird gebraucht.',
+    /* Neu am 01.09.2026 — Optimierungsbriefing, Abschnitt 18: „Fehler direkt
+       unter dem betroffenen Feld anzeigen." Bis dahin bekam eine Radiogruppe
+       ohne Kreuz gar keine Meldung: der Fokus sprang auf die erste Kachel, und
+       die Begruendung stand nur unsichtbar am Weiterknopf (aria-describedby).
+       Wer sieht, sah nichts passieren. Jetzt steht der Satz unter den Kacheln,
+       im Behaelter .kf__fehler--gruppe des Schritts.
+       VON ESTERA BESTAETIGEN LASSEN. */
+    fehltWahl:   'Bitte wähl eine Antwort aus.'
   };
 
   /* Ein Werkzeug, kein Vorgriff: erspart zehn createElement-Dreizeiler. */
@@ -583,6 +595,44 @@
       feld.removeAttribute('aria-invalid');
     }
 
+    /* --- Fehlermeldung an einer Radiogruppe --------------------------------
+       01.09.2026, Optimierungsbriefing, Abschnitt 18. Eine Gruppe hat kein
+       einzelnes Feld, unter das die Meldung koennte — der Behaelter steht
+       deshalb im HTML unter den Kacheln des Schritts (.kf__fehler--gruppe).
+       aria-describedby wird an ALLE Radios der Gruppe gehaengt, nicht nur an
+       das erste: welches davon die Vorlesesoftware als naechstes anfaehrt,
+       entscheidet der Nutzer, und die Begruendung soll an jedem haengen.
+       Der Behaelter traegt role="alert" und wird deshalb beim Fuellen von
+       selbst angesagt. */
+    function gruppenBehaelter(stufe) {
+      return stufe.querySelector('.kf__fehler--gruppe');
+    }
+
+    function gruppenFehlerZeigen(stufe, radio) {
+      var b = gruppenBehaelter(stufe);
+      if (!b) return;
+      b.textContent = TEXT.fehltWahl;
+      Array.prototype.forEach.call(
+        form.querySelectorAll('input[type="radio"][name="' + radio.name + '"]'),
+        function (r) {
+          r.setAttribute('aria-describedby', b.id);
+          r.setAttribute('aria-invalid', 'true');
+        }
+      );
+    }
+
+    function gruppenFehlerWeg(stufe, radio) {
+      var b = gruppenBehaelter(stufe);
+      if (b) b.textContent = '';
+      Array.prototype.forEach.call(
+        form.querySelectorAll('input[type="radio"][name="' + radio.name + '"]'),
+        function (r) {
+          r.removeAttribute('aria-describedby');
+          r.removeAttribute('aria-invalid');
+        }
+      );
+    }
+
     /* --- Anzeigen ---------------------------------------------------------- */
     function ruhen(bild, ruht) {
       if (ruht) {
@@ -717,7 +767,10 @@
            der Grund steht schon unter dem Knopf. */
         var luecke = pflichtfelder(stufe).filter(fehlt)[0];
         if (luecke) {
-          if (luecke.type !== 'radio') fehlerZeigen(luecke);
+          /* Textfeld: Meldung darunter. Radiogruppe: Meldung unter den
+             Kacheln (seit 01.09.2026, vorher blieb sie stumm). */
+          if (luecke.type === 'radio') gruppenFehlerZeigen(stufe, luecke);
+          else fehlerZeigen(luecke);
           luecke.focus();
         }
         return;
@@ -803,7 +856,11 @@
        statt einer pro Feld: die Ereignisse steigen ohnehin auf. */
     form.addEventListener('change', function (ev) {
       if (ev.target && ev.target.getAttribute('aria-invalid') === 'true' && !fehlt(ev.target)) {
-        fehlerWeg(ev.target);
+        /* Ein Kreuz in einer angemahnten Gruppe nimmt die Meldung unter den
+           Kacheln wieder weg — an allen Radios der Gruppe, nicht nur am
+           angekreuzten. */
+        if (ev.target.type === 'radio') gruppenFehlerWeg(stufen[pos], ev.target);
+        else fehlerWeg(ev.target);
       }
       navSetzen();
     });

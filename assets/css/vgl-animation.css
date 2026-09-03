@@ -4,173 +4,107 @@
    Gehoert zu <figure class="wi__vgl" data-vgl="ab|auf"> im Vergleichsband
    von #warum-immobilien und zu assets/js/vgl-animation.js.
 
-   KUNDENWUNSCH VOM 31.08.2026, WOERTLICH
-     „Die Abbildungen sollen einmal mit dem Fall nach unten und einmal mit
-      dem Fall nach oben animiert sein. Man kommt auf die Section — und
-      auch wenn man mit der Maus druebergeht — sollen die Pfeile aufgebaut
-      werden. Die Pfeile werden immer laenger."
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   NEU GESCHRIEBEN AM 01.09.2026 — Optimierungsbriefing, Abschnitt 04,
+   „Bilder als Mechanismus". Die beiden Abbildungen waren Rasterbilder
+   (vgl-klassisch.png, vgl-immobilie.png: fallende und wachsende Balken
+   mit Pfeil) und wurden ueber eine wandernde Verlaufsmaske laengs der
+   Pfeilachse freigegeben — die ganze Rechnung dazu (Achsen 125 und 55
+   Grad, Saum 26 %, Front 7 -> 120 %, @property --vgl-front) steht in der
+   Versionsgeschichte. Sie ist gegenstandslos: die Abbildungen sind jetzt
+   Inline-SVG mit echten Pfaden, und ein Pfad laesst sich ziehen, statt
+   dass man ihn unter einer Maske hervorholen muesste.
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   WARUM EINE MASKE UND KEIN `clip-path`
-   Beide Dateien sind Rasterbilder, kein SVG. Einzelne Teile lassen sich
-   darin nicht bewegen; es bleibt nur, die Flaeche nach und nach
-   freizugeben. Ein `clip-path` gibt sie mit einer harten Kante frei, und
-   eine harte Kante schneidet die Balken mitten durch — genau das soll
-   nicht passieren. Eine Verlaufsmaske hat statt der Kante einen weichen
-   Saum. Nichts wirkt abgeschnitten, die Zeichnung entsteht.
+   KUNDENWUNSCH VOM 31.08.2026 GILT WEITER: „Man kommt auf die Section — und
+   auch wenn man mit der Maus druebergeht — sollen die Pfeile aufgebaut
+   werden. Die Pfeile werden immer laenger." Dieselbe Geste, jetzt auf
+   echten Pfaden: `stroke-dashoffset` von 1 auf 0 bei pathLength="1".
 
-   AN DEN DATEIEN GEMESSEN, NICHT GESCHAETZT
-   Beide Bilder wurden Spalte fuer Spalte ausgewertet (Pfeilfarbe gegen
-   Balkenfarbe). Ergebnis: in JEDER Spalte liegt der Pfeil vollstaendig
-   ueber den Balken, und er laeuft in beiden Bildern von links nach
-   rechts — nur einmal fallend und einmal steigend.
+   WAS SICH BEWEGT, in der Reihenfolge
+     0   ms   Haus (Vermoegenswert) blendet auf              300 ms
+     0   ms   Pfeil 1 zieht                                   500 ms
+     70  ms   Pfeil 2 zieht  (nur rechts)                     500 ms
+     140 ms   Pfeil 3 zieht  (nur rechts)                     500 ms
+     ~420 ms  die Pfeilspitzen erscheinen, jede wenn ihr Pfeil steht
+     350 ms   der Eigentumsanteil im Haus waechst von unten   450 ms
+     800 ms   fertig
+   Alles innerhalb der P0-Vorgabe desselben Briefings: keine Einzelbewegung
+   ueber 600 ms, Staffelung 70 ms je Element, in Summe 140 ms.
 
-     vgl-klassisch.png  1214 x 1295
-       Pfeil   x 16.3 .. 94.4 %   y  4.6 .. 62.4 %   faellt nach rechts
-       Balken  x  7.2 .. 92.0 %   y  4.7 .. 93.9 %
-       Achse des Pfeils: 35.5 Grad unter der Waagerechten
+   DIE DREI ZUSTAENDE, gesetzt allein vom Skript ueber `data-vgl-lauf`:
+     (kein Attribut)  Ruhezustand, alles vollstaendig sichtbar
+     bereit           Startlage: Pfeile auf Laenge 0, Spitzen und Haus
+                      unsichtbar, Anteil auf Hoehe 0
+     lauf             die Bewegung laeuft; am Ende nimmt das Skript das
+                      Attribut weg, und es gilt wieder der Ruhezustand
 
-     vgl-immobilie.png  1222 x 1287
-       Pfeil   x  4.8 .. 94.0 %   y  4.1 .. 72.7 %   steigt nach rechts
-       Balken  x  7.9 .. 95.2 %   y 29.4 .. 95.6 %
-       Achse des Pfeils: 34.6 Grad ueber der Waagerechten
+   DER RUHEZUSTAND STEHT NICHT HIER. Es gibt bewusst KEINE Grundregel, die
+   etwas verbirgt. Ohne JavaScript, bei abgeschalteter Bewegung und nach
+   dem Lauf steht die Abbildung deshalb immer ganz da — genau die
+   Bedingung aus dem P0 des Briefings: „Inhalte duerfen nie dauerhaft mit
+   opacity: 0 verbleiben."
 
-   Daraus die zwei Achsen unten: 125deg und 55deg. Der Saum laeuft also
-   GENAU LAENGS DES PFEILES — er beginnt an seinem Ende und endet an
-   seiner Spitze. Der Pfeil wird dadurch wirklich laenger, statt nur
-   sichtbar zu werden. Weil die Achse beim steigenden Bild von unten
-   links kommt, wachsen dort zugleich die Balken aus ihrer Standlinie
-   heraus; das ist die Leserichtung eines Balkendiagramms.
-
-   WARUM DER SAUM NICHT BEI 0 ANFAENGT UND NICHT BEI 100 AUFHOERT
-   Auf dieselben Achsen projiziert liegt die wirklich bemalte Flaeche
-   (Alpha ueber 60) zwischen 12.7 % und 91.4 % der Achse beim fallenden
-   Bild und zwischen 8.4 % und 93.6 % beim steigenden — die Ecken der
-   Kachel sind leer. Liefe der Saum ueber die volle Achse, verginge fast
-   ein Drittel der Dauer damit, leere Ecken freizugeben. Die erste
-   Fassung tat das, und an den Aufnahmen war es nachzumessen: die ersten
-   160 ms passierte nichts, ab 640 ms auch nicht mehr. Der Saum laeuft
-   deshalb von 7 % bis 120 % — bei 7 % steht er noch vollstaendig vor der
-   Zeichnung, bei 120 % deckt er sie bis 94 % ab und damit ganz.
-
-   DER RUHEZUSTAND STEHT NICHT HIER
-   Es gibt bewusst KEINE Grundregel fuer `.wi__vgl img`. Ohne das Attribut
-   `data-vgl-lauf`, das allein das Skript setzt, liegt keine Maske auf dem
-   Bild — es steht vollstaendig da. Ohne JavaScript, bei abgeschalteter
-   Bewegung und nach dem Lauf ist das Bild deshalb immer ganz zu sehen.
-   Wer den Anfangszustand in die Grundregel schreibt, laesst genau in
-   diesen Faellen ein angeschnittenes Bild stehen.
-
-   Groesse, Lage, Abstand und Aussehen im Ruhezustand stehen unveraendert
-   in assets/css/warum.css. Hier kommt nur Bewegung dazu.
+   Groesse, Lage und Tafel der Abbildung stehen in assets/css/warum.css;
+   hier steht nur Bewegung.
    =========================================================================== */
 
-/* ---------------------------------------------------------------------------
-   1  DIE LAUFVARIABLE
-
-   `--vgl-front` ist die Vorderkante des Saums, gemessen laengs der Achse:
-   0% ist die Ecke, an der der Pfeil beginnt, 100% die gegenueberliegende.
-   Sie ist als Prozentwert angemeldet, damit der Browser sie WEICH
-   rechnen kann. Eine nicht angemeldete Variable springt in der Mitte der
-   Bewegung um, statt zu laufen — das ist der uebliche Grund, warum eine
-   solche Maske ruckelt.
-
-   Der Anfangswert 130% liegt hinter dem Bild: faellt die Anmeldung aus,
-   ist das Bild vollstaendig sichtbar und nicht etwa leer.
---------------------------------------------------------------------------- */
-@property --vgl-front {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 130%;
-}
-
 .wi__vgl {
-  /* Breite des weichen Saums, gemessen laengs derselben Achse. 26% ist an
-     den Bildern abgewogen: schmal genug, dass man eine Front sieht und
-     nicht das ganze Bild gleichmaessig einblendet; breit genug, dass kein
-     Balken eine sichtbare Schnittkante bekommt. */
-  --vgl-saum: 26%;
-
-  /* Dauer und Kurve. Beide Griffe liegen innerhalb von 0..1 — die Kurve
-     kann deshalb nicht ueber das Ziel hinausschiessen und nicht federn.
-     Sie zieht weich an und setzt weich ab, bleibt dazwischen aber nahe
-     an einer gleichmaessigen Fahrt: eine Zeichnung, die entsteht, will
-     mit ruhiger Hand gezogen werden. Ausgerechnet ergibt diese Kurve
-     ueber der bemalten Flaeche: ab 13 % der Dauer ist etwas zu sehen,
-     bei 43 % ist die Haelfte gezeichnet, bei 95 % steht alles.
-     Kurven mit sehr spaetem zweiten Griff (etwa 0.12) waeren hier
-     falsch — dann ist die Zeichnung nach einem Drittel der Zeit fertig
-     und der Rest der Dauer steht still. Genau daran ist die erste
-     Fassung gescheitert. */
-  --vgl-dauer: 1000ms;
+  --vgl-dauer: 500ms;
   --vgl-kurve: cubic-bezier(0.42, 0.05, 0.40, 0.98);
+  --vgl-takt:  70ms;
 }
 
-/* Die zwei Achsen. 125deg zeigt nach rechts UNTEN, 55deg nach rechts
-   OBEN — beide 35 Grad gegen die Waagerechte, wie oben gemessen.
-   `data-vgl` steht im Markup und ist der einzige Anker dafuer. */
-.wi__vgl[data-vgl='ab']  { --vgl-achse: 125deg; }
-.wi__vgl[data-vgl='auf'] { --vgl-achse:  55deg; }
-
 /* ---------------------------------------------------------------------------
-   2  DIE MASKE
-
-   Nur unter `data-vgl-lauf` — das Attribut setzt allein das Skript.
-   Der Verlauf hat zwei Halte: deckend bis `--vgl-front` minus Saum,
-   durchsichtig ab `--vgl-front`. Dazwischen der weiche Uebergang.
-   Weil beide Halte an derselben Variablen haengen, wandert der Saum als
-   Ganzes ueber das Bild, ohne seine Breite zu aendern.
+   1  STARTLAGE — nur unter `bereit` und `lauf`
 --------------------------------------------------------------------------- */
-.wi__vgl[data-vgl-lauf] img {
-  -webkit-mask-image: linear-gradient(var(--vgl-achse),
-                        #000 calc(var(--vgl-front) - var(--vgl-saum)),
-                        transparent var(--vgl-front));
-          mask-image: linear-gradient(var(--vgl-achse),
-                        #000 calc(var(--vgl-front) - var(--vgl-saum)),
-                        transparent var(--vgl-front));
-  /* Ein Verlauf, nicht gekachelt, genau auf das Bild gelegt. Die drei
-     Angaben sind ausgeschrieben, weil `mask-repeat` von Haus aus
-     `repeat` ist: die Halte des Verlaufs liegen mit -19% und 120%
-     ausserhalb des Bildes, eine Kachelung wuerde daraus mehrere Saeume
-     machen. Die Kurzform `mask` wuerde alle drei mit zuruecksetzen —
-     darum stehen sie einzeln. */
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
-  -webkit-mask-position: 0 0;
-          mask-position: 0 0;
+.wi__vgl[data-vgl-lauf] .vgl-pfeil {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.wi__vgl[data-vgl-lauf] .vgl-spitze,
+.wi__vgl[data-vgl-lauf] .vgl-haus { opacity: 0; }
+.wi__vgl[data-vgl-lauf] .vgl-anteil {
+  transform: scaleY(0);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
 }
 
-/* Scharf gestellt, aber noch nicht losgelaufen: das Skript setzt diesen
-   Zustand schon beim Laden, solange die Abbildung weit unterhalb des
-   Fensters steht. Sonst saehe man sie erst fertig und dann verschwinden.
-   Bei 7% steht der Saum vollstaendig vor der bemalten Flaeche. */
-.wi__vgl[data-vgl-lauf='bereit'] img { --vgl-front: 7%; }
-
 /* ---------------------------------------------------------------------------
-   3  DER LAUF
+   2  DER LAUF
+   `--n` steht an jedem Pfeil und seiner Spitze im Markup (0, 1, 2) und
+   staffelt sie. Die Spitze wartet, bis ihr Pfeil steht: Dauer plus Takt
+   minus ein kleiner Vorgriff, damit sie nicht nach dem Pfeil aufblitzt,
+   sondern mit ihm ankommt.
 --------------------------------------------------------------------------- */
-@keyframes vgl-aufbau {
-  from { --vgl-front:   7%; }   /* Saum vor der Zeichnung, nichts zu sehen */
-  to   { --vgl-front: 120%; }   /* Saum hinter der Zeichnung, alles zu sehen */
+.wi__vgl[data-vgl-lauf='lauf'] .vgl-haus {
+  animation: vgl-auf 300ms var(--vgl-kurve) both;
+}
+.wi__vgl[data-vgl-lauf='lauf'] .vgl-pfeil {
+  animation: vgl-zug var(--vgl-dauer) var(--vgl-kurve) both;
+  animation-delay: calc(var(--n, 0) * var(--vgl-takt));
+}
+.wi__vgl[data-vgl-lauf='lauf'] .vgl-spitze {
+  animation: vgl-auf 150ms linear both;
+  animation-delay: calc(var(--n, 0) * var(--vgl-takt) + var(--vgl-dauer) - 80ms);
+}
+.wi__vgl[data-vgl-lauf='lauf'] .vgl-anteil {
+  animation: vgl-anteil 450ms 350ms var(--vgl-kurve) both;
 }
 
-.wi__vgl[data-vgl-lauf='lauf'] img {
-  animation: vgl-aufbau var(--vgl-dauer) var(--vgl-kurve) both;
-}
+@keyframes vgl-zug    { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes vgl-auf    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vgl-anteil { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
 /* ---------------------------------------------------------------------------
-   4  BEWEGUNG AUS
-
+   3  BEWEGUNG AUS
    Das Skript ruehrt die Abbildungen bei `reduce` gar nicht erst an. Der
-   Block hier faengt den zweiten Fall ab: jemand stellt die Einstellung
-   um, waehrend die Seite offen ist. Dann faellt die Maske weg und das
-   Bild steht sofort vollstaendig da — nicht halb aufgebaut, nicht leer.
+   Block faengt den zweiten Fall ab: jemand stellt die Einstellung um,
+   waehrend die Seite offen ist. Dann steht sofort alles.
 --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  .wi__vgl[data-vgl-lauf] img {
-    -webkit-mask-image: none;
-            mask-image: none;
-    animation: none;
-  }
+  .wi__vgl[data-vgl-lauf] .vgl-pfeil { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+  .wi__vgl[data-vgl-lauf] .vgl-spitze,
+  .wi__vgl[data-vgl-lauf] .vgl-haus { opacity: 1; animation: none; }
+  .wi__vgl[data-vgl-lauf] .vgl-anteil { transform: none; animation: none; }
 }

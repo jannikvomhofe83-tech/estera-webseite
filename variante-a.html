@@ -256,7 +256,10 @@
     </script>
   </figure>
 
-  <div class="heroA__panel" data-anim style="--d:260">
+  <!-- --d von 260 auf 80 — 01.09.2026, Optimierungsbriefing P0 („kaum
+       Verzoegerung"). Der Kasten wartete eine Viertelsekunde, bevor er
+       ueberhaupt anfing. -->
+  <div class="heroA__panel" data-anim style="--d:80">
     <span class="heroA__rahmen" aria-hidden="true"></span>
     <!-- =================================================================
          WORTLAUT AUS DEM WORDING-MASTER, ABSCHNITT 2
@@ -346,8 +349,16 @@
            Davor:  "Aus Einkommen wird Eigentum, aus Eigentum wird Vermögen."
            Die alte Zeile war vom Kunden am 30.08. als endgueltig bezeichnet
            worden; er hat sie mit dem Dokument selbst wieder freigegeben. -->
+      <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 03
+           („um ein Wort gestrafft"). „Nicht umgekehrt." steht als eigene
+           Zeile und in Gold — das Briefing laesst beides zu, hier ist beides
+           gesetzt, weil die Zeile sonst hinter der langen ersten optisch
+           verschwindet. Der Ton ist --gold-text (#86693A, 5,13:1 auf dem
+           weissen Kasten); der Sand des Knopfes traegt als Schrift nicht.
+           Vorher: "Kapitalanlageimmobilien, die zu deiner Situation passen. Nicht umgekehrt." -->
       <h1 class="display heroA__h1">
-        Kapitalanlageimmobilien, die zu deiner Situation passen. Nicht umgekehrt.
+        Kapitalanlageimmobilien, die zu dir passen.
+        <span class="heroA__h1-schluss">Nicht umgekehrt.</span>
         <!-- Die wechselnde Nutzenzeile („Vermögen aufbauen." / „Steuerpotenziale
              nutzen." / „Zusätzliches Einkommen schaffen.") stand hier bis zum
              24.08.2026 und ist auf Kundenwunsch entfernt. Sie steht weiterhin so
@@ -369,10 +380,13 @@
            Leerzeichen ist ein Artefakt der PDF-Ausgabe, kein Satzzeichen —
            gemeint und im ganzen uebrigen Dokument gesetzt ist der
            Halbgeviertstrich. Die Seite setzt ihn ueberall so. -->
+      <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 03,
+           „Subline". Kuerzer: „Prozess – vom Erstgespraech" ist raus, aus
+           „Objekten" werden „Immobilien".
+           Vorher: "Wir prüfen deine Ausgangslage, wählen passende Off-Market-Objekte aus, bereiten deine Finanzierung vor und begleiten dich durch den gesamten Prozess – vom Erstgespräch bis nach dem Kauf." -->
       <p class="heroA__lead">
-        Wir prüfen deine Ausgangslage, wählen passende Off-Market-Objekte aus,
-        bereiten deine Finanzierung vor und begleiten dich durch den gesamten
-        Prozess – vom Erstgespräch bis nach dem Kauf.
+        Wir prüfen deine Ausgangslage, wählen passende Off-Market-Immobilien aus,
+        bereiten deine Finanzierung vor und begleiten dich bis nach dem Kauf.
       </p>
 
       <!-- NEU 30.08.2026 — Kundenwunsch. Vorher stand hier nichts.
@@ -431,9 +445,12 @@
               steuerliche Einordnung erfolgt durch Fachberatung. Er ist also
               nicht verschwunden, nur nicht mehr in dieser Zeile.
               DEM KUNDEN GEGENUEBER FESTGEHALTEN. -->
+      <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 03,
+           „Mechanismen". Das nachgestellte „mit" faellt.
+           Vorher: "Der Mieter zahlt mit" -->
       <p class="heroA__marken">
         <span>Die Bank finanziert</span>
-        <span>Der Mieter zahlt mit</span>
+        <span>Der Mieter zahlt</span>
         <span>Du senkst deine Steuerlast</span>
       </p>
 
@@ -1195,7 +1212,10 @@
           <ul class="wi__band-liste">
             <li class="wi__band-text">Du investierst aus deinem bereits versteuerten Einkommen.</li>
             <li class="wi__band-text">Dein Vermögensaufbau hängt von deiner eigenen Sparrate ab.</li>
-            <li class="wi__band-text">Für jeden weiteren Schritt musst du neues Kapital ansparen.</li>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 04
+                 (der einzige geaenderte Stichpunkt der linken Karte).
+                 Vorher: "Für jeden weiteren Schritt musst du neues Kapital ansparen." -->
+            <li class="wi__band-text">Für den nächsten Vermögenswert musst du erneut eigenes Kapital ansparen.</li>
           </ul>
         </div>
 
@@ -1227,13 +1247,68 @@
         <!-- data-vgl="ab": die Abbildung baut sich beim Erreichen des
              Abschnitts auf, der Pfeil waechst nach UNTEN. Was das genau
              heisst, steht in assets/css/vgl-animation.css. -->
+        <!-- =============================================================
+             DAS BILD ERKLAERT, ES SCHMUECKT NICHT — 01.09.2026,
+             Optimierungsbriefing, Abschnitt 04 (DESIGN, P2): „links eine
+             kleine eigene Sparrate und langsamer Kapitalaufbau … Die Bilder
+             sollen den Unterschied erklaeren, nicht nur dekorieren. Maximal
+             drei klar beschriftete Zufluesse. Keine komplizierten
+             Diagramme. Pfeile und Groessenunterschiede muessen auch ohne
+             Begleittext verstaendlich sein."
+
+             INLINE-SVG STATT RASTERBILD. Ein Bildgenerator-Schluessel liegt
+             nicht vor; die Zeichnung steht deshalb als Pfad im Markup — in
+             der Farbwelt der Seite (Navy, Sand, Gold), flach, ohne Filter.
+             Die alten Dateien assets/img/warum/vgl-klassisch.{png,webp}
+             bleiben auf der Platte und werden nirgends mehr geholt.
+
+             LINKS: EIN Zufluss (die eigene Sparrate als Muenzstapel), ein
+             duenner Pfeil „langsamer Aufbau", ein KLEINES Haus, darin ein
+             schmaler Sockel Eigentum. Beide Zeichnungen teilen dieselbe
+             Leinwand (300 x 210) und dieselbe Standlinie, damit der
+             Groessenunterschied der beiden Haeuser unmittelbar lesbar ist:
+             rechts rund das Vierfache der Flaeche.
+
+             DIE SCHRIFT STEHT IM SVG. Die Regel dieses Abschnitts (Text als
+             HTML neben dem Bild) stammt aus der Zeit der Rasterbilder und
+             galt der Schaerfe; bei Vektortext gibt es nichts zu rastern.
+             Grad und Farbe stehen in warum.css (.wi__vgl text): 13 bis 15
+             Einheiten Jost auf 250 px Anzeigebreite sind 11 bis 12,5 px —
+             Beschriftung einer Zeichnung, kein Fliesstext; die Aussage
+             steht daneben in der Liste.
+
+             `role="img"` mit aria-label: die Zeichnung sagt fuer
+             Vorlesesoftware in einem Satz, was sie zeigt. Die Beschriftungen
+             darin sind aria-hidden, sonst wuerden sie doppelt vorgelesen.
+
+             DIE BEWEGUNG (Pfeile ziehen, Haus blendet auf, Anteil waechst)
+             steht in vgl-animation.css; die Klassen vgl-pfeil, vgl-spitze,
+             vgl-haus und vgl-anteil sind ihre Griffe, --n staffelt.
+             ============================================================= -->
         <figure class="wi__vgl" data-vgl="ab">
-          <picture>
-            <source srcset="assets/img/warum/vgl-klassisch.webp?v=b24a" type="image/webp">
-            <img src="assets/img/warum/vgl-klassisch.png?v=b24a"
-                 alt="Balkendiagramm mit fallenden Balken und einem roten Pfeil nach unten"
-                 width="1214" height="1295" loading="lazy" decoding="async">
-          </picture>
+          <svg viewBox="0 0 300 210" role="img" focusable="false"
+               aria-label="Ohne Immobilie: Eine kleine eigene Sparrate führt über einen langsamen Aufbau zu einem kleinen Vermögenswert."
+               shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+            <!-- der eine Zufluss: die eigene Sparrate als Muenzstapel -->
+            <g class="vgl-quelle">
+              <rect x="30" y="140" width="52" height="9" rx="4.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
+              <rect x="30" y="129" width="52" height="9" rx="4.5" fill="#E6D5BC" stroke="#A8874F" stroke-width="1"/>
+              <rect x="30" y="118" width="52" height="9" rx="4.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
+              <text class="vgl-t vgl-t--quelle" x="56" y="170" text-anchor="middle" aria-hidden="true">Eigene Sparrate</text>
+            </g>
+            <!-- der Weg: duenn, gerade, beschriftet -->
+            <text class="vgl-t vgl-t--weg" x="134" y="122" text-anchor="middle" aria-hidden="true">langsamer Aufbau</text>
+            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M92 134 H168" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="vgl-spitze" style="--n:0" d="M164 129 L172 134 L164 139" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- der Vermoegenswert: klein -->
+            <g class="vgl-haus">
+              <rect class="vgl-anteil" x="191" y="146" width="58" height="13" fill="#D9B485"/>
+              <path d="M190 108 H250 V160 H190 Z" fill="none" stroke="#102949" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M186 110 L220 84 L254 110" fill="#FFFFFF" stroke="#102949" stroke-width="1.5" stroke-linejoin="round"/>
+              <text class="vgl-t vgl-t--wert" x="220" y="182" text-anchor="middle" aria-hidden="true">Kleinerer</text>
+              <text class="vgl-t vgl-t--wert" x="220" y="198" text-anchor="middle" aria-hidden="true">Vermögenswert</text>
+            </g>
+          </svg>
         </figure>
       </div>
 
@@ -1286,13 +1361,45 @@
              „Wertentwicklung" weiter unten im Feld — es ist derselbe
              Gedanke an zwei Stellen. -->
         <!-- data-vgl="auf": derselbe Aufbau, der Pfeil waechst nach OBEN. -->
+        <!-- RECHTS: DREI Zufluesse — Bankkapital, Miete, Steuervorteile —
+             als drei beschriftete Navy-Pillen, die breiteste fuer die
+             Bank; drei Pfeile laufen in EIN grosses Haus zusammen. Darin
+             der Sachwert (weiss) und unten der wachsende Eigentumsanteil
+             (Sand), der sich beim Aufbau von der Standlinie her fuellt.
+             Genau die drei Zufluesse des Briefings, nicht mehr.
+             Siehe den ausfuehrlichen Vermerk an der linken Abbildung. -->
         <figure class="wi__vgl" data-vgl="auf">
-          <picture>
-            <source srcset="assets/img/warum/vgl-immobilie.webp?v=b24a" type="image/webp">
-            <img src="assets/img/warum/vgl-immobilie.png?v=b24a"
-                 alt="Balkendiagramm mit wachsenden Balken und einem grünen Pfeil nach oben"
-                 width="1222" height="1287" loading="lazy" decoding="async">
-          </picture>
+          <svg viewBox="0 0 300 210" role="img" focusable="false"
+               aria-label="Mit Immobilie: Bankkapital, Miete und Steuervorteile fließen in einen deutlich größeren Sachwert, in dem dein Eigentumsanteil wächst."
+               shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+            <!-- die drei Zufluesse -->
+            <g class="vgl-quelle">
+              <rect x="10" y="44" width="98" height="26" rx="13" fill="#08294D"/>
+              <text class="vgl-t vgl-t--pille" x="59" y="62" text-anchor="middle" aria-hidden="true">Bankkapital</text>
+              <rect x="10" y="92" width="66" height="26" rx="13" fill="#08294D"/>
+              <text class="vgl-t vgl-t--pille" x="43" y="110" text-anchor="middle" aria-hidden="true">Miete</text>
+              <rect x="10" y="140" width="116" height="26" rx="13" fill="#08294D"/>
+              <text class="vgl-t vgl-t--pille" x="68" y="158" text-anchor="middle" aria-hidden="true">Steuervorteile</text>
+            </g>
+            <!-- die drei Wege laufen zusammen -->
+            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M116 57 C144 57 150 98 170 103" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="vgl-pfeil" style="--n:1" pathLength="1" d="M84 105 H170" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="vgl-pfeil" style="--n:2" pathLength="1" d="M134 153 C152 153 156 112 170 107" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="vgl-spitze" style="--n:0" d="M165 98 L173 103 L165 108" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vgl-spitze" style="--n:1" d="M166 100 L174 105 L166 110" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vgl-spitze" style="--n:2" d="M165 102 L173 107 L165 112" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- der Vermoegenswert: gross, mit wachsendem Eigentumsanteil -->
+            <g class="vgl-haus">
+              <rect class="vgl-anteil" x="181" y="131" width="108" height="28" fill="#D9B485"/>
+              <path d="M180 74 H290 V160 H180 Z" fill="none" stroke="#102949" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M174 78 L235 26 L296 78" fill="#FFFFFF" stroke="#102949" stroke-width="1.5" stroke-linejoin="round"/>
+              <text class="vgl-t vgl-t--wert" x="235" y="100" text-anchor="middle" aria-hidden="true">Größerer</text>
+              <text class="vgl-t vgl-t--wert" x="235" y="118" text-anchor="middle" aria-hidden="true">Sachwert</text>
+              <text class="vgl-t vgl-t--anteil" x="235" y="149" text-anchor="middle" aria-hidden="true">Eigentumsanteil</text>
+              <text class="vgl-t vgl-t--wert" x="235" y="182" text-anchor="middle" aria-hidden="true">wachsender</text>
+              <text class="vgl-t vgl-t--wert" x="235" y="198" text-anchor="middle" aria-hidden="true">Eigentumsanteil</text>
+            </g>
+          </svg>
         </figure>
       </div>
     </div>
@@ -1518,10 +1625,17 @@
                Kurztext laut Dokument: "Du kaufst heute mit Geld, das du
                nicht erst jahrelang selbst ansparen musst." -->
           <span class="wi__karte-s">Du kaufst heute,<br> statt anzusparen</span>
+          <!-- „MEHR ERFAHREN ↓" — 01.09.2026, Optimierungsbriefing, Abschnitt 05.
+               Aus dem Pfeil nach rechts wird ein Winkel nach UNTEN: der
+               Detailbereich liegt unter der Karte, nicht rechts von ihr.
+               Beim Ueberfahren rueckt der Winkel um wenige Bildpunkte nach
+               unten, bei der geoeffneten Karte zeigt er nach oben — beides
+               in warum.css. Versalien und Sperrung macht das Stylesheet;
+               das Markup bleibt lesbar. -->
           <span class="wi__karte-mehr">Mehr erfahren
-            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
-              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
-                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+            <svg viewBox="0 0 16 10" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M1.5 1.5 L8 8 L14.5 1.5" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                     vector-effect="non-scaling-stroke"/>
             </svg>
           </span>
@@ -1567,11 +1681,21 @@
                sich beim Antippen oeffnet.
                Kurztext laut Dokument: "Die Mieteinnahmen tragen Monat für
                Monat einen großen Teil deiner Finanzierung." -->
-          <span class="wi__karte-s">Die Miete trägt<br> Monat für Monat mit</span>
+          <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 05,
+               „Mieteinnahmen — Kurztext in der Karte".
+               Vorher: "Die Miete trägt Monat für Monat mit" -->
+          <span class="wi__karte-s">Dein Mieter zahlt<br> jeden Monat mit.</span>
+          <!-- „MEHR ERFAHREN ↓" — 01.09.2026, Optimierungsbriefing, Abschnitt 05.
+               Aus dem Pfeil nach rechts wird ein Winkel nach UNTEN: der
+               Detailbereich liegt unter der Karte, nicht rechts von ihr.
+               Beim Ueberfahren rueckt der Winkel um wenige Bildpunkte nach
+               unten, bei der geoeffneten Karte zeigt er nach oben — beides
+               in warum.css. Versalien und Sperrung macht das Stylesheet;
+               das Markup bleibt lesbar. -->
           <span class="wi__karte-mehr">Mehr erfahren
-            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
-              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
-                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+            <svg viewBox="0 0 16 10" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M1.5 1.5 L8 8 L14.5 1.5" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                     vector-effect="non-scaling-stroke"/>
             </svg>
           </span>
@@ -1612,11 +1736,28 @@
                sich beim Antippen oeffnet.
                Kurztext laut Dokument: "Abschreibungen, Zinsen und absetzbare
                Kosten senken dein zu versteuerndes Ergebnis." -->
-          <span class="wi__karte-s">Abschreibungen und<br> Zinsen wirken mit</span>
+          <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 05,
+               „Steuerlast senken — ‚Abschreibungen und Zinsen wirken mit'
+               vollstaendig ersetzen". Der Satz ist laenger als die zwei
+               Zeilen der uebrigen Kacheln: 58 Zeichen gegen 33. In der
+               Wortspalte (182 px bei 1440) braucht er drei Zeilen; ohne
+               festen Umbruch, damit der Browser an jeder Breite selbst
+               bricht, und in der Klasse --lang eine Stufe kleiner (warum.css)
+               — mit dem vollen Grad waren es vier Zeilen mit „reduzieren"
+               allein auf einer. Ueberlauf gemessen: 0 (Bericht 01.09.2026).
+               Vorher: "Abschreibungen und Zinsen wirken mit" -->
+          <span class="wi__karte-s wi__karte-s--lang">Abschreibungen reduzieren dein zu versteuerndes Einkommen.</span>
+          <!-- „MEHR ERFAHREN ↓" — 01.09.2026, Optimierungsbriefing, Abschnitt 05.
+               Aus dem Pfeil nach rechts wird ein Winkel nach UNTEN: der
+               Detailbereich liegt unter der Karte, nicht rechts von ihr.
+               Beim Ueberfahren rueckt der Winkel um wenige Bildpunkte nach
+               unten, bei der geoeffneten Karte zeigt er nach oben — beides
+               in warum.css. Versalien und Sperrung macht das Stylesheet;
+               das Markup bleibt lesbar. -->
           <span class="wi__karte-mehr">Mehr erfahren
-            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
-              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
-                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+            <svg viewBox="0 0 16 10" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M1.5 1.5 L8 8 L14.5 1.5" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                     vector-effect="non-scaling-stroke"/>
             </svg>
           </span>
@@ -1657,10 +1798,17 @@
                Restschuld. Zusätzlich zählt die langfristige Wertentwicklung
                deiner Immobilie." -->
           <span class="wi__karte-s">Die Restschuld sinkt<br> mit jeder Rate</span>
+          <!-- „MEHR ERFAHREN ↓" — 01.09.2026, Optimierungsbriefing, Abschnitt 05.
+               Aus dem Pfeil nach rechts wird ein Winkel nach UNTEN: der
+               Detailbereich liegt unter der Karte, nicht rechts von ihr.
+               Beim Ueberfahren rueckt der Winkel um wenige Bildpunkte nach
+               unten, bei der geoeffneten Karte zeigt er nach oben — beides
+               in warum.css. Versalien und Sperrung macht das Stylesheet;
+               das Markup bleibt lesbar. -->
           <span class="wi__karte-mehr">Mehr erfahren
-            <svg viewBox="0 0 26 12" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
-              <path d="M0 6 H24 M18.5 0.5 L24 6 L18.5 11.5" fill="none" stroke="currentColor"
-                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+            <svg viewBox="0 0 16 10" aria-hidden="true" focusable="false" shape-rendering="geometricPrecision">
+              <path d="M1.5 1.5 L8 8 L14.5 1.5" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                     vector-effect="non-scaling-stroke"/>
             </svg>
           </span>
@@ -1705,7 +1853,7 @@
         <p class="wi__panel-kern"><span>Du kaufst den Sachwert heute, statt jahrelang nur darauf hinzusparen.</span></p>
       </li>
 
-      <li class="wi__panel" id="wi-text-02" data-wi-text="02">
+      <li class="wi__panel wi__panel--ohne-kern" id="wi-text-02" data-wi-text="02">
         <span class="wi__panel-ikon" aria-hidden="true">
           <picture><source srcset="assets/img/warum/miete.webp?v=b24a" type="image/webp"><img src="assets/img/warum/miete.png?v=b24a" alt="" width="900" height="1350" loading="lazy" decoding="async"></picture>
         </span>
@@ -1720,12 +1868,20 @@
                VON ESTERA BESTAETIGEN LASSEN. -->
           <!-- Vorher: "Dein Mieter zahlt einen großen Teil deiner Rate."
                Davor:  "Die Mieteinnahmen decken einen wesentlichen Teil der laufenden Finanzierung." -->
-          <p class="wi__panel-text">Die laufenden Mieteinnahmen fließen direkt in Zins, Tilgung und laufende Kosten deiner Immobilie.</p>
+          <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 05,
+               „Mieteinnahmen — Detailtext". Der bisherige Callout-Satz ist
+               in den Text eingegangen.
+               Vorher: "Die laufenden Mieteinnahmen fließen direkt in Zins, Tilgung und laufende Kosten deiner Immobilie." -->
+          <p class="wi__panel-text">Die laufenden Mieteinnahmen fließen direkt in Zins, Tilgung und laufende Kosten deiner Immobilie. Dein Mieter trägt damit jeden Monat einen Teil deiner Rate.</p>
         </div>
-        <!-- „Callout" im Dokument.
-             Vorher: "Monat für Monat wächst dein Vermögen."
-             Davor:  "Monat für Monat fließt Geld in deinen Vermögensaufbau." -->
-        <p class="wi__panel-kern"><span>Dein Mieter trägt jeden Monat einen Teil deiner Rate.</span></p>
+        <!-- CALLOUT ENTFERNT 01.09.2026 — Optimierungsbriefing, Abschnitt 05.
+             Der Satz steht jetzt Wort fuer Wort als zweiter Satz im
+             Detailtext darueber; zweimal derselbe Satz in einer Tafel waere
+             doppelt. Die Tafel traegt deshalb die Klasse --ohne-kern, die
+             die dritte Rasterspalte zuklappt (warum.css).
+             Vorher: <p class="wi__panel-kern"><span>Dein Mieter trägt jeden Monat einen Teil deiner Rate.</span></p>
+             Davor (Callout-Fassungen): "Monat für Monat wächst dein Vermögen."
+                    "Monat für Monat fließt Geld in deinen Vermögensaufbau." -->
       </li>
 
       <li class="wi__panel" id="wi-text-03" data-wi-text="03">
@@ -1750,12 +1906,22 @@
                rechtliche Einschraenkung gesetzt; das Dokument schreibt den
                Indikativ. Der Vorbehalt steht dafuer im Fachhinweis am Fuss
                dieses Abschnitts, den das Dokument eigens vorgibt. -->
-          <h4 class="wi__panel-h">Du senkst deine Steuerlast und baust gleichzeitig Privatvermögen auf.</h4>
+          <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 05,
+               „Steuerlast senken — Detailheadline". Das Wort „gleichzeitig"
+               faellt. Kommentar des Briefings: „Interne Freigabe — die
+               endgueltige Steuerformulierung vor Veroeffentlichung
+               steuerlich/rechtlich freigeben."
+               Vorher: "Du senkst deine Steuerlast und baust gleichzeitig Privatvermögen auf." -->
+          <h4 class="wi__panel-h">Du senkst deine Steuerlast und baust Privatvermögen auf.</h4>
           <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch. Passiv aufgeloest.
                Vorher: "Abschreibung, Finanzierungszinsen und bestimmte Aufwendungen können steuerlich berücksichtigt werden."
                VON ESTERA BESTAETIGEN LASSEN. -->
           <!-- Vorher: "Abschreibung, Zinsen und bestimmte Kosten können deine Steuerlast senken." -->
-          <p class="wi__panel-text">Du machst Abschreibungen, Finanzierungszinsen und weitere abzugsfähige Aufwendungen steuerlich geltend. So reduzierst du dein zu versteuerndes Ergebnis und behältst mehr Liquidität für deinen Vermögensaufbau.</p>
+          <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 05,
+               „Steuerlast senken — Detailtext". Steuerlich/rechtlich vor
+               Veroeffentlichung freigeben (Briefing).
+               Vorher: "Du machst Abschreibungen, Finanzierungszinsen und weitere abzugsfähige Aufwendungen steuerlich geltend. So reduzierst du dein zu versteuerndes Ergebnis und behältst mehr Liquidität für deinen Vermögensaufbau." -->
+          <p class="wi__panel-text">Du machst Abschreibungen, Finanzierungszinsen und weitere abzugsfähige Aufwendungen steuerlich geltend. Dadurch sinkt dein zu versteuerndes Einkommen und dir bleibt mehr Liquidität für deinen Vermögensaufbau.</p>
         </div>
         <!-- „Callout" im Dokument. Vorher: "So kann dir mehr Netto vom Brutto bleiben." -->
         <p class="wi__panel-kern"><span>Du nutzt Steuervorteile, um Privatvermögen aufzubauen.</span></p>
@@ -1845,8 +2011,11 @@
            Unterschied ist gewollt und deshalb hier festgehalten, damit die
            Zeile nicht beim naechsten Durchgang als Widerspruch gestrichen
            wird. -->
+      <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 06
+           (BEIBEHALTEN, exakter Wortlaut): das Wort „konkreten" faellt.
+           Vorher: "Im Erstgespräch zeigen wir dir, wie diese vier Kräfte in deinem konkreten Fall zusammenspielen." -->
       <p class="wi__knopf-hinweis">Im Erstgespräch zeigen wir dir, wie diese vier Kräfte in
-        deinem konkreten Fall zusammenspielen.</p>
+        deinem Fall zusammenspielen.</p>
     </div>
 
     <!-- DER FACHHINWEIS MUSS HIER STEHEN und ist nicht verhandelbar.
@@ -1868,9 +2037,17 @@
                   durch qualifizierte Fachberatung."
          Der neue Wortlaut sagt zusaetzlich, dass die Wertentwicklung nicht
          garantiert ist — er ist also nicht schwaecher, sondern staerker. -->
-    <p class="wi__hinweis">Die konkrete Wirkung hängt von deiner persönlichen Situation, der
-      Finanzierung und dem Objekt ab. Steuerliche Angaben ersetzen keine individuelle
-      Steuerberatung; die Wertentwicklung einer Immobilie ist nicht garantiert.</p>
+    <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing, Abschnitt 06 (ENTFERNEN):
+         „der lange Disclaimer direkt darunter". Der Vorbehalt steht weiter
+         im Fuss der Seite (.fuss__risiko, Wording-Dokument Abschnitt 10) —
+         dort nennt er Finanzierung, Vermietbarkeit, Steuerwirkung und
+         Wertentwicklung ausdruecklich und sagt, dass nichts zugesichert
+         wird. Er ist also nicht verschwunden, nur nicht mehr doppelt.
+         Der Vermerk darueber („DER FACHHINWEIS MUSS HIER STEHEN") stammt
+         aus dem Wording-Master; das Optimierungsbriefing vom 01.09.2026 ist
+         die juengere Ansage des Kunden und gilt.
+         Vorher: <p class="wi__hinweis">Die konkrete Wirkung hängt von deiner persönlichen Situation, der Finanzierung und dem Objekt ab. Steuerliche Angaben ersetzen keine individuelle Steuerberatung; die Wertentwicklung einer Immobilie ist nicht garantiert.</p>
+         Die Regel .wi__hinweis bleibt in warum.css liegen. -->
 
   </div>
 </section>
@@ -2482,7 +2659,13 @@
       <h2 class="display wahl__h2">Viele Einzelthemen. Ein klarer Weg.</h2>
       <!-- Die Unterzeile stand hier bis heute gar nicht. Wortlaut aus dem
            Dokument, ungekuerzt. -->
-      <p class="wahl__sub">Wir verbinden Auswahl, Prüfung, Finanzierung und Abwicklung, damit du eine Entscheidung triffst, die du verstehst.</p>
+      <!-- HERVORHEBUNG — 01.09.2026, Optimierungsbriefing, Abschnitt 07
+           (DESIGN Subline): „die vier Begriffe Auswahl, Pruefung,
+           Finanzierung und Abwicklung farblich oder Semibold hervorheben;
+           Rest ruhig." Wortlaut unveraendert; <strong> traegt Schnitt und
+           Ton (auswahl.css). Es sind die vier Kaesten der Grafik darunter
+           in einem Satz. -->
+      <p class="wahl__sub">Wir verbinden <strong>Auswahl</strong>, <strong>Prüfung</strong>, <strong>Finanzierung</strong> und <strong>Abwicklung</strong>, damit du eine Entscheidung triffst, die du verstehst.</p>
     </header>
 
     <!-- DIE NETZGRAFIK, nach der Kundenvorlage vom 21.08. und den
@@ -2583,6 +2766,56 @@
          einer Stufe.
          Ausgeloest werden die Stufen von den drei unsichtbaren Marken
          .wnetz__marke; die Reihenfolge erzwingt assets/js/leistungen.js. -->
+    <!-- =================================================================
+         KOMPAKT — 01.09.2026, Optimierungsbriefing, Abschnitt 07 (P1) und
+         Abschnitt 08. Die Zeichnung darunter ist neu gesetzt; die Vermerke
+         darueber (Raster 1304 x 1080, 336er-Quadrate, Zielkasten 500 x
+         250, Kasteninnenraster mit 54 Einheiten) beschreiben den Stand vom
+         31.08.2026 und gelten in den MASSEN nicht mehr. Was weiter gilt:
+         Bauform der Linien, Radius 40, die drei Stufen, die Wortmarke in
+         zwei Haelften, die drei Regeln fuer das Innere der Kaesten.
+
+         DAS NEUE RASTER (viewBox 1304 x 612):
+           Off-Market       484|10,  336 x 264
+           Trabanten links   20|10 und  20|346, je 336 x 264
+           Trabanten rechts 948|10 und 948|346, je 336 x 264
+           Wortmarke        Grundlinie 374, Mitte 361 — dort treffen die S-Zuege
+           Zielkasten       402|462, 500 x 140
+           Pfeile           652: 282 -> 332 und 390 -> 452 (50 und 62 Einheiten)
+         Kasteninnen: Symbol 34, dann 27 bis zur ersten Titelgrundlinie, 25
+         je weiterer Titelzeile, 36 bis zum ersten Stichpunkt, 26 von Punkt
+         zu Punkt, 21 innerhalb eines umgebrochenen Punktes. Die Gruppe
+         steht senkrecht mittig, der Stichpunktblock waagerecht mittig.
+         Alle Koordinaten rechnet scratchpad/wi/opt-start/netz-bau.mjs aus
+         den im Browser gemessenen Textbreiten; getippt ist keine.
+
+         WORTLAUT GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitte
+         07 und 08 (gilt fuer beide Anordnungen, aria-label und <desc>):
+           Kasten „Kennenlernen und Einordnung"
+             vorher Titel: "Kennenlerngespräch und Einordnung"
+             vorher 4. Punkt: "Ob wir zueinander passen"
+             jetzt: "Prüfung, ob eine Immobilie zu dir passt"
+           Kasten „Objekt und Zahlen" — genau vier Punkte
+             vorher: "Lage" · "Zustand" · "Vermietbarkeit" · "Kosten" ·
+                     "Wirtschaftlichkeit"
+             jetzt:  "Lage und Vermietbarkeit" · "Zustand" · "Kaufpreis
+                     und laufende Kosten" · "Mieteinnahmen und monatlicher
+                     Eigenanteil"
+           Kasten „Langfristig begleiten"
+             vorher Titel: "Langfristige Begleitung" (Punkte unveraendert)
+           Zielkasten
+             vorher: "Deine Immobilie als Kapitalanlage" / "Du denkst in
+                     Jahrzehnten. Du baust heute vor."
+             jetzt:  "Deine langfristig geprüfte Kapitalanlage" /
+                     "Verständlich entschieden. Sauber finanziert.
+                     Langfristig begleitet."
+           Off-Market und Finanzierung: unveraendert (BEIBEHALTEN).
+           VORBEHALT, uebernommen aus dem frueheren Dokument: „Direkte
+           Bankkontakte bis auf Vorstandsebene" und „Zugriff auf ein Netzwerk
+           aus über 300 Bankfilialen" sind Aussagen ueber Estera, die nur
+           Estera bestaetigen kann. Sie stehen, weil das Briefing sie
+           beibehaelt; der Vorbehalt bleibt.
+         ================================================================= -->
     <div class="wnetz">
 
       <!-- DIE DREI MARKEN. Unsichtbar, ohne Hoehe im Fluss (absolut
@@ -2602,20 +2835,22 @@
            Sprechblasen zum Kennenlerngespraech, Kopfhoerer zur langfristigen
            Begleitung. -->
       <svg class="wnetz__sprite" aria-hidden="true" focusable="false" width="0" height="0">
-        <symbol id="wn-kasten" viewBox="0 0 280 280">
-          <path d="M34 0H246L280 34V246L246 280H34L0 246V34Z"/>
+        <symbol id="wn-kasten" viewBox="0 0 336 264">
+          <path d="M32 0H304L336 32V232L304 264H32L0 232V32Z"/>
         </symbol>
-        <!-- NUR FUER DEN ZIELKASTEN GANZ UNTEN. Kundenwunsch vom 21.08.:
-             „Er soll nicht zu lang rechteckig werden." Also 500 zu 250, ein
-             Verhaeltnis von 2 zu 1 und damit in der Mitte der Vorgabe von
-             1.8 bis 2.2. Der Eckschnitt ist derselbe wie ueberall: 45 Grad
-             und 30 Einheiten, also 12 Prozent der kuerzeren Kante. Ein
-             eigenes Symbol und kein gedehntes <use> des quadratischen —
-             beim Dehnen waere aus dem 45-Grad-Schnitt ein 27-Grad-Schnitt
-             geworden, und der Kasten haette sichtbar nicht mehr zur Familie
-             gehoert. -->
-        <symbol id="wn-kasten-quer" viewBox="0 0 500 250">
-          <path d="M30 0H470L500 30V220L470 250H30L0 220V30Z"/>
+        <!-- NUR FUER DEN ZIELKASTEN GANZ UNTEN, 500 zu 140 — quer, wie vom
+             Kunden am 21.08. verlangt („nicht zu lang rechteckig", hier
+             3,6 zu 1 statt 2 zu 1, weil der Kasten am 01.09.2026 in der
+             Hoehe geschrumpft ist, siehe den Vermerk an der Grafik). Der
+             Eckschnitt ist 12 Prozent der kuerzeren Kante bei 45 Grad. -->
+        <symbol id="wn-kasten-quer" viewBox="0 0 500 140">
+          <path d="M17 0H483L500 17V123L483 140H17L0 123V17Z"/>
+        </symbol>
+        <!-- Der Zielkasten der SCHMALEN Anordnung hat seit dem 01.09.2026
+             ein eigenes Symbol: 356 zu 140. Ein gedehntes <use> des
+             breiten Zielkastens haette den 45-Grad-Schnitt verzogen. -->
+        <symbol id="wn-kasten-quer-s" viewBox="0 0 356 140">
+          <path d="M17 0H339L356 17V123L339 140H17L0 123V17Z"/>
         </symbol>
         <symbol id="wn-haken" viewBox="0 0 20 20">
           <path d="m5 10.4 3.2 3.2L15 6.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2652,16 +2887,11 @@
            im <desc> UNGEBROCHEN — ein Umbruch ist Satz und keine Aussage.
            Vorher aria-label: "Schaubild: In der Mitte steht die Wortmarke Estera. Von links laufen zwei Kästen auf sie zu: Du siehst, wo du stehst und Du weißt, was du kaufst. Von rechts zwei weitere: Vorbereitet zur Bank und Einer bleibt an deiner Seite. Von oben führt ein Pfeil von Mehr Auswahl auf die Mitte, von der Mitte einer hinunter zum Ziel: Deine Immobilie als Kapitalanlage."
            Vorher desc: "Mehr Auswahl. Wir zeigen dir Wohnungen ohne Inserat. Estera. Du siehst, wo du stehst. Wir klären, was du willst. Wir prüfen, ob wir passen. Wir schätzen ehrlich ein. Auch ein Nein ist möglich. Du weißt, was du kaufst. Wir bewerten die Lage. Wir vergleichen den Markt. Wir prüfen den Zustand. Wir rechnen es dir vor. Vorbereitet zur Bank. Wir kennen die Banken. Wir prüfen vorab. Wir bereiten alles vor. Die Bank entscheidet. Einer bleibt an deiner Seite. Wir bringen alle zusammen. Wir gehen mit zum Notar. Du hast einen festen Kontakt. Wir bleiben nach dem Kauf. Deine Immobilie als Kapitalanlage. Du denkst in Jahrzehnten. Du baust heute vor." -->
-      <svg class="wnetz__bild wnetz__bild--breit" viewBox="0 0 1304 1080"
+      <svg class="wnetz__bild wnetz__bild--breit" viewBox="0 0 1304 612"
            role="img" focusable="false" aria-describedby="wn-text-b"
-           aria-label="Schaubild: In der Mitte steht die Wortmarke Estera. Von links laufen zwei Kästen auf sie zu: Kennenlerngespräch und Einordnung sowie Objekt und Zahlen. Von rechts zwei weitere: Finanzierung sowie Langfristige Begleitung. Von oben führt ein Pfeil von Ausgewählte Off-Market-Objekte auf die Mitte, von der Mitte einer hinunter zum Ziel: Deine Immobilie als Kapitalanlage.">
-        <desc id="wn-text-b">Ausgewählte Off-Market-Objekte. Zugang außerhalb öffentlicher Immobilienportale. Ausgewählte Objekte statt unübersichtlicher Suche. Passend zu deinem Finanzierungsrahmen. Estera. Kennenlerngespräch und Einordnung. Deine aktuelle Situation. Deine Wünsche und Ziele. Dein realistischer Finanzierungsrahmen. Ob wir zueinander passen. Objekt und Zahlen. Lage. Zustand. Vermietbarkeit. Kosten. Wirtschaftlichkeit. Finanzierung. Eine auf dich abgestimmte Finanzierung. Vollständig vorbereitete Bankunterlagen. Direkte Bankkontakte bis auf Vorstandsebene. Zugriff auf ein Netzwerk aus über 300 Bankfilialen. Langfristige Begleitung. Begleitung über den Kauf hinaus. Übergabe und Vermietung. Organisation der Immobilienverwaltung. Erreichbar, wenn Fragen entstehen. Deine Immobilie als Kapitalanlage. Du denkst in Jahrzehnten. Du baust heute vor.</desc>
+           aria-label="Schaubild: In der Mitte steht die Wortmarke Estera. Von links laufen zwei Kästen auf sie zu: Kennenlernen und Einordnung sowie Objekt und Zahlen. Von rechts zwei weitere: Finanzierung sowie Langfristig begleiten. Von oben führt ein Pfeil von Ausgewählte Off-Market-Objekte auf die Mitte, von der Mitte einer hinunter zum Ziel: Deine langfristig geprüfte Kapitalanlage.">
+        <desc id="wn-text-b">Ausgewählte Off-Market-Objekte. Zugang außerhalb öffentlicher Immobilienportale. Ausgewählte Objekte statt unübersichtlicher Suche. Passend zu deinem Finanzierungsrahmen. Estera. Kennenlernen und Einordnung. Deine aktuelle Situation. Deine Wünsche und Ziele. Dein realistischer Finanzierungsrahmen. Prüfung, ob eine Immobilie zu dir passt. Objekt und Zahlen. Lage und Vermietbarkeit. Zustand. Kaufpreis und laufende Kosten. Mieteinnahmen und monatlicher Eigenanteil. Finanzierung. Eine auf dich abgestimmte Finanzierung. Vollständig vorbereitete Bankunterlagen. Direkte Bankkontakte bis auf Vorstandsebene. Zugriff auf ein Netzwerk aus über 300 Bankfilialen. Langfristig begleiten. Begleitung über den Kauf hinaus. Übergabe und Vermietung. Organisation der Immobilienverwaltung. Erreichbar, wenn Fragen entstehen. Deine langfristig geprüfte Kapitalanlage. Verständlich entschieden. Sauber finanziert. Langfristig begleitet.</desc>
         <defs>
-          <!-- Die zwei Schattenlagen der Kaesten: eng fuer die Kante, weit
-               und schwach fuer die Hoehe. Das Fenster ist grosszuegig, weil
-               die weite Lage bei dy 10 und Streuung 11 rund 43 Einheiten
-               nach unten braucht; ein zu enges Filterfenster schneidet den
-               Schatten mit einer sichtbaren Kante ab. -->
           <filter id="wn-hebung-b" x="-25%" y="-25%" width="150%" height="160%"
                   color-interpolation-filters="sRGB">
             <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#102949" flood-opacity="0.13"/>
@@ -2669,211 +2899,113 @@
           </filter>
           <marker id="wn-spitze-b1" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
                   orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
-                  style="--wn-spitze-ab:0.50s">
+                  style="--wn-spitze-ab:0.42s">
             <path d="M0 2.5 14 7.5 0 12.5Z"/>
           </marker>
           <marker id="wn-spitze-b3" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
                   orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
-                  style="--wn-spitze-ab:0.38s">
+                  style="--wn-spitze-ab:0.34s">
             <path d="M0 2.5 14 7.5 0 12.5Z"/>
           </marker>
         </defs>
 
-        <!-- DIE LINIEN.
-             ENTFALLEN am 21.08.: die durchgehende Waagerechte auf
-             Mittelhoehe, die frueher von links nach rechts durch das ganze
-             Bild und durch beide Gabelungen lief. Kundenwunsch: „der Strich,
-             der von links nach rechts geht und auch durch die zwei Gabeln
-             durchgeht … soll weg." Ersatzlos.
-
-             AM 31.08.2026 NUR NACHGEFUEHRT, nicht umgezeichnet: die Zuege
-             setzen auf den Kanten der jetzt 336 Einheiten breiten Kaesten auf.
-             Bauform, Radius (40) und Reihenfolge der Stuecke sind
-             unveraendert — waagerecht heraus, gerundeter rechter Winkel,
-             senkrecht auf die Mittelhoehe, gerundeter rechter Winkel,
-             waagerecht bis vor die Wortmarke. Die vier senkrechten Stuecke
-             liegen auf x = 416 und x = 888, beide 236 Einheiten von der
-             Mittelachse — die S-Zuege sind also spiegelgleich.
-
-             pathLength="1" normiert jede Laenge auf 1; damit deckt
-             `stroke-dasharray: 1` den Zug unabhaengig von Massstab und
-             viewBox exakt ab (siehe assets/css/auswahl.css). -->
+        <!-- DIE LINIEN. Bauform unveraendert (waagerecht heraus, gerundeter
+             Winkel, senkrecht auf die Mitte der Wortmarke, gerundeter Winkel,
+             waagerecht bis vor die Wortmarke), Radius 40; nur die Endpunkte
+             sitzen auf den neuen Kastenkanten. pathLength="1" normiert jede
+             Laenge, siehe assets/css/auswahl.css. -->
         <g class="wnetz__zuege">
-          <!-- Keine Diagonalen, keine Bezierschwuenge, keine Pfeilspitzen —
-               so wie in der Vorlage. Die Boegen sind echte Kreisboegen (A),
-               keine quadratischen Beziers: deren Kruemmungsradius im
-               Scheitel betraegt nur r / Wurzel 2, der genannte Radius waere
-               also nicht der gezeichnete.
-               Jeder Zug traegt die Staffelziffer SEINES Kastens, damit Linie
-               und Kasten zusammen hereinkommen. -->
-          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M356 340H376A40 40 0 0 1 416 380V504A40 40 0 0 0 456 544H490"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M356 748H376A40 40 0 0 0 416 708V584A40 40 0 0 1 456 544H490"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M948 340H928A40 40 0 0 0 888 380V504A40 40 0 0 1 848 544H814"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M948 748H928A40 40 0 0 1 888 708V584A40 40 0 0 0 848 544H814"/>
-
-          <!-- Der senkrechte Weg: die Off-Market-Objekte hinunter auf die
-               Wortmarke (Stufe 1), die Wortmarke hinunter auf den Zielkasten
-               (Stufe 3). Nur diese beiden tragen Spitzen. Sie halten 18
-               Einheiten Abstand zur Schrift und 10 zur Kastenkante — eine
-               Spitze soll zeigen, nicht anstossen. -->
-          <path class="wnetz__zug wnetz__zug--weg" data-st="1" style="--auf:1" pathLength="1" marker-end="url(#wn-spitze-b1)" d="M652 360V510"/>
-          <path class="wnetz__zug wnetz__zug--weg" data-st="3" style="--auf:0" pathLength="1" marker-end="url(#wn-spitze-b3)" d="M652 575V800"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M356 142H376A40 40 0 0 1 416 182V321A40 40 0 0 0 456 361H490"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M356 470H376A40 40 0 0 0 416 430V401A40 40 0 0 1 456 361H490"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M948 142H928A40 40 0 0 0 888 182V321A40 40 0 0 1 848 361H814"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M948 470H928A40 40 0 0 1 888 430V401A40 40 0 0 0 848 361H814"/>
+          <path class="wnetz__zug wnetz__zug--weg" data-st="1" style="--auf:1" pathLength="1" marker-end="url(#wn-spitze-b1)" d="M652 282V332"/>
+          <path class="wnetz__zug wnetz__zug--weg" data-st="3" style="--auf:0" pathLength="1" marker-end="url(#wn-spitze-b3)" d="M652 390V452"/>
         </g>
 
         <g class="wnetz__platten">
-          <use class="wnetz__kasten" data-st="1" style="--auf:0" href="#wn-kasten" x="484" y="24" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="20" y="172" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="20" y="580" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="948" y="172" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="948" y="580" width="336" height="336"/>
-
-          <!-- DER ZIELKASTEN, zweimal aufgetragen. Der erste, randlose
-               Auftrag traegt NUR DEN SCHATTEN und steht still; der zweite
-               ist der sichtbare Kasten mit der gruenen Kontur und dreht
-               sich. Getrennt werden musste beides, weil `filter` eine
-               Gruppierungseigenschaft ist: mit Schatten am drehenden
-               Element waere es flach gerastert worden und von der
-               Perspektive nichts uebrig geblieben. Die Begruendung steht im
-               Abschnitt „DIE DREHUNG DES ZIELKASTENS" in
-               assets/css/auswahl.css. -->
-          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--zielschatten" data-st="3" style="--auf:3" href="#wn-kasten-quer" x="402" y="810" width="500" height="250"/>
+          <use class="wnetz__kasten" data-st="1" style="--auf:0" href="#wn-kasten" x="484" y="10" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="20" y="10" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="20" y="338" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="948" y="10" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="948" y="338" width="336" height="264"/>
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--zielschatten" data-st="3" style="--auf:3" href="#wn-kasten-quer" x="402" y="462" width="500" height="140"/>
         </g>
 
-        <!-- DIE SYMBOLE. Sie stehen mit Titel und Stichpunkten in EINER
-             Gruppe, und diese Gruppe steht senkrecht mittig im Quadrat —
-             deshalb sitzt das Symbol nicht in allen fuenf Kaesten auf
-             derselben Hoehe. Das ist gewollt: ein Kasten mit fuenf Zeilen
-             hat einen hoeheren Block als einer mit vier, und ein oben
-             angeklebter Block liesse unten eine leere Flaeche stehen.
-             Kundenbeanstandung vom 31.08.2026, woertlich: „Schau dir
-             ‚Objekt und Zahlen' an — das sieht richtig komisch aus, wie die
-             Unterpunkte darunter stehen." -->
         <g class="wnetz__symbole">
-          <use class="wnetz__symbol" data-st="1" style="--auf:0" href="#wn-i-off" x="632" y="64" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-erst" x="168" y="220" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-stand" x="168" y="628" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-finanz" x="1096" y="212" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-begl" x="1096" y="642" width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="1" style="--auf:0" href="#wn-i-off" x="635" y="31" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-erst" x="171" y="51.5" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-stand" x="171" y="369" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-finanz" x="1099" y="30.5" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-begl" x="1099" y="379.5" width="34" height="34"/>
         </g>
 
-        <!-- DIE WORTMARKE IN DER MITTE, IN ZWEI HAELFTEN GESETZT.
-             Kundenwunsch 21.08.: „Estera muss genau mittig zu den beiden
-             Pfeilen stehen … Die beiden Pfeile muessen zwischen T und E
-             sein." Genau das leistet die Aufteilung: „EST" endet an der
-             Achse, „ERA" beginnt an ihr, und weil beide um ein halbes
-             Sperrmass (0.18em) versetzt sind, liegt die Luecke zwischen T
-             und E mittig auf der Achse — unabhaengig von jeder
-             Glyphenbreite.
-
-             WARUM NICHT EIN <text> MIT EINEM AUSGLEICH: mit text-anchor
-             middle laesst sich nur die MITTE DER SCHRIFTFLAECHE auf die
-             Achse legen. Weil E, S, T anders breit sind als E, R, A, liegt
-             die Luecke zwischen T und E dann 5.15 Einheiten daneben —
-             nachgemessen, nicht geschaetzt. Ein fester Ausgleichswert wuerde
-             die Glyphenbreiten der Hausschrift einbacken und beim naechsten
-             Schriftwechsel still falsch. Die ausfuehrliche Herleitung steht
-             bei .wnetz__wort--marke in assets/css/auswahl.css.
-
-             DIE GROESSE IST AM 31.08.2026 UNVERAENDERT GEBLIEBEN (41
-             Einheiten). Nur die Kaesten mussten sich aendern; die Wortmarke
-             haette sonst ohne Grund ihr Verhaeltnis zum Seitenkopf verloren.
-
-             AUS DEMSELBEN GRUND SIND DIE LINIENENDEN UNGLEICH WEIT von der
-             Achse entfernt (56 links, 46 rechts): auf der Achse liegt die
-             Luecke zwischen T und E, und die sitzt 5.15 Einheiten links der
-             optischen Wortmitte. -->
         <g class="wnetz__schrift" text-anchor="middle">
-          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="end"   x="652" dx="0.18em" y="557">EST</text>
-          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="start" x="652" dx="0.18em" y="557">ERA</text>
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="end"   x="652" dx="0.18em" y="374">EST</text>
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="start" x="652" dx="0.18em" y="374">ERA</text>
 
-          <text class="wnetz__wort" data-st="1" style="--auf:0" x="652" y="134">Ausgewählte<tspan x="652" y="161">Off-Market-Objekte</tspan></text>
-          <text class="wnetz__wort" data-st="2" style="--auf:1" x="188" y="290">Kennenlerngespräch<tspan x="188" y="317">und Einordnung</tspan></text>
-          <text class="wnetz__wort" data-st="2" style="--auf:3" x="188" y="698">Objekt und Zahlen</text>
-          <text class="wnetz__wort" data-st="2" style="--auf:1" x="1116" y="282">Finanzierung</text>
-          <text class="wnetz__wort" data-st="2" style="--auf:3" x="1116" y="712">Langfristige Begleitung</text>
+          <text class="wnetz__wort" data-st="1" style="--auf:0" x="652" y="92">Ausgewählte<tspan x="652" y="117">Off-Market-Objekte</tspan></text>
+          <text class="wnetz__wort" data-st="2" style="--auf:1" x="188" y="112.5">Kennenlernen und Einordnung</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:3" x="188" y="430">Objekt und Zahlen</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:1" x="1116" y="91.5">Finanzierung</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:3" x="1116" y="440.5">Langfristig begleiten</text>
         </g>
 
-        <!-- DER ZIELKASTEN ALS EINE EINHEIT. Kontur, Symbol und beide
-             Zeilen stehen in EINER Gruppe, und die Gruppe dreht sich. -->
         <g class="wnetz__ziel" data-st="3" style="--auf:3" text-anchor="middle">
-          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--ziel" href="#wn-kasten-quer" x="402" y="810" width="500" height="250"/>
-          <use class="wnetz__symbol" href="#wn-i-kapital" x="632" y="858" width="40" height="40"/>
-          <!-- DER EINZIGE KASTEN, AN DEM AM 31.08.2026 KEIN WORT ZU AENDERN
-               WAR. Das Wording-Dokument (Abschnitt 05) gibt als
-               ERGEBNIS-HEADLINE „DEINE IMMOBILIE ALS KAPITALANLAGE" und als
-               ERGEBNIS-TEXT „Du denkst in Jahrzehnten. Du baust heute vor."
-               vor — beides stand hier schon Zeichen fuer Zeichen so. Die
-               Aufteilung des Textes auf zwei Ebenen ist rein typografisch;
-               kein Wort weggelassen, keins dazuerfunden. -->
-          <text class="wnetz__wort wnetz__wort--ziel" x="652" y="942">Deine Immobilie als Kapitalanlage</text>
-          <text class="wnetz__wort--erklaerung wnetz__wort--zielsub" x="652" y="982">Du denkst in Jahrzehnten.<tspan x="652" y="1006">Du baust heute vor.</tspan></text>
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--ziel" href="#wn-kasten-quer" x="402" y="462" width="500" height="140"/>
+          <use class="wnetz__symbol" href="#wn-i-kapital" x="635" y="476" width="34" height="34"/>
+          <text class="wnetz__wort wnetz__wort--ziel" x="652" y="536">Deine langfristig geprüfte Kapitalanlage</text>
+          <text class="wnetz__wort--erklaerung wnetz__wort--zielsub" x="652" y="562">Verständlich entschieden. Sauber finanziert. Langfristig begleitet.</text>
         </g>
 
         <g class="wnetz__punkte" text-anchor="start">
-          <!-- OFF: laengste Zeile 271.2 Einheiten, Block also
-               291.2 breit; im 336er-Quadrat bleiben links wie rechts
-               22.4 Einheiten — der Block steht mittig. -->
           <g data-st="1" style="--auf:0">
-            <use class="wnetz__haken" href="#wn-haken" x="506.42" y="204" width="13" height="13"/>
-            <text class="wnetz__punkt" x="526.42" y="215">Zugang außerhalb öffentlicher<tspan x="526.42" y="237">Immobilienportale</tspan></text>
-            <use class="wnetz__haken" href="#wn-haken" x="506.42" y="254" width="13" height="13"/>
-            <text class="wnetz__punkt" x="526.42" y="265">Ausgewählte Objekte statt<tspan x="526.42" y="287">unübersichtlicher Suche</tspan></text>
-            <use class="wnetz__haken" href="#wn-haken" x="506.42" y="304" width="13" height="13"/>
-            <text class="wnetz__punkt" x="526.42" y="315">Passend zu deinem Finanzierungsrahmen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="506.38" y="142" width="13" height="13"/>
+            <text class="wnetz__punkt" x="526.38" y="153">Zugang außerhalb öffentlicher<tspan x="526.38" y="174">Immobilienportale</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="506.38" y="189" width="13" height="13"/>
+            <text class="wnetz__punkt" x="526.38" y="200">Ausgewählte Objekte statt<tspan x="526.38" y="221">unübersichtlicher Suche</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="506.38" y="236" width="13" height="13"/>
+            <text class="wnetz__punkt" x="526.38" y="247">Passend zu deinem Finanzierungsrahmen</text>
           </g>
-          <!-- KENNEN: laengste Zeile 262.8 Einheiten, Block also
-               282.8 breit; im 336er-Quadrat bleiben links wie rechts
-               26.6 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:1">
-            <use class="wnetz__haken" href="#wn-haken" x="46.61" y="360" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.61" y="371">Deine aktuelle Situation</text>
-            <use class="wnetz__haken" href="#wn-haken" x="46.61" y="388" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.61" y="399">Deine Wünsche und Ziele</text>
-            <use class="wnetz__haken" href="#wn-haken" x="46.61" y="416" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.61" y="427">Dein realistischer Finanzierungsrahmen</text>
-            <use class="wnetz__haken" href="#wn-haken" x="46.61" y="444" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.61" y="455">Ob wir zueinander passen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="46.59" y="137.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66.59" y="148.5">Deine aktuelle Situation</text>
+            <use class="wnetz__haken" href="#wn-haken" x="46.59" y="163.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66.59" y="174.5">Deine Wünsche und Ziele</text>
+            <use class="wnetz__haken" href="#wn-haken" x="46.59" y="189.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66.59" y="200.5">Dein realistischer Finanzierungsrahmen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="46.59" y="215.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66.59" y="226.5">Prüfung, ob eine Immobilie zu dir passt</text>
           </g>
-          <!-- OBJEKT: laengste Zeile 120.6 Einheiten, Block also
-               140.6 breit; im 336er-Quadrat bleiben links wie rechts
-               97.7 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:3">
-            <use class="wnetz__haken" href="#wn-haken" x="117.72" y="741" width="13" height="13"/>
-            <text class="wnetz__punkt" x="137.72" y="752">Lage</text>
-            <use class="wnetz__haken" href="#wn-haken" x="117.72" y="769" width="13" height="13"/>
-            <text class="wnetz__punkt" x="137.72" y="780">Zustand</text>
-            <use class="wnetz__haken" href="#wn-haken" x="117.72" y="797" width="13" height="13"/>
-            <text class="wnetz__punkt" x="137.72" y="808">Vermietbarkeit</text>
-            <use class="wnetz__haken" href="#wn-haken" x="117.72" y="825" width="13" height="13"/>
-            <text class="wnetz__punkt" x="137.72" y="836">Kosten</text>
-            <use class="wnetz__haken" href="#wn-haken" x="117.72" y="853" width="13" height="13"/>
-            <text class="wnetz__punkt" x="137.72" y="864">Wirtschaftlichkeit</text>
+            <use class="wnetz__haken" href="#wn-haken" x="68.38" y="455" width="13" height="13"/>
+            <text class="wnetz__punkt" x="88.38" y="466">Lage und Vermietbarkeit</text>
+            <use class="wnetz__haken" href="#wn-haken" x="68.38" y="481" width="13" height="13"/>
+            <text class="wnetz__punkt" x="88.38" y="492">Zustand</text>
+            <use class="wnetz__haken" href="#wn-haken" x="68.38" y="507" width="13" height="13"/>
+            <text class="wnetz__punkt" x="88.38" y="518">Kaufpreis und laufende Kosten</text>
+            <use class="wnetz__haken" href="#wn-haken" x="68.38" y="533" width="13" height="13"/>
+            <text class="wnetz__punkt" x="88.38" y="544">Mieteinnahmen und monatlicher<tspan x="88.38" y="565">Eigenanteil</tspan></text>
           </g>
-          <!-- FINANZ: laengste Zeile 267.9 Einheiten, Block also
-               287.9 breit; im 336er-Quadrat bleiben links wie rechts
-               24.0 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:1">
-            <use class="wnetz__haken" href="#wn-haken" x="972.03" y="325" width="13" height="13"/>
-            <text class="wnetz__punkt" x="992.03" y="336">Eine auf dich abgestimmte Finanzierung</text>
-            <use class="wnetz__haken" href="#wn-haken" x="972.03" y="353" width="13" height="13"/>
-            <text class="wnetz__punkt" x="992.03" y="364">Vollständig vorbereitete Bankunterlagen</text>
-            <use class="wnetz__haken" href="#wn-haken" x="972.03" y="381" width="13" height="13"/>
-            <text class="wnetz__punkt" x="992.03" y="392">Direkte Bankkontakte bis auf<tspan x="992.03" y="414">Vorstandsebene</tspan></text>
-            <use class="wnetz__haken" href="#wn-haken" x="972.03" y="431" width="13" height="13"/>
-            <text class="wnetz__punkt" x="992.03" y="442">Zugriff auf ein Netzwerk aus<tspan x="992.03" y="464">über 300 Bankfilialen</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="972" y="116.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="992" y="127.5">Eine auf dich abgestimmte Finanzierung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="972" y="142.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="992" y="153.5">Vollständig vorbereitete Bankunterlagen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="972" y="168.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="992" y="179.5">Direkte Bankkontakte bis auf<tspan x="992" y="200.5">Vorstandsebene</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="972" y="215.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="992" y="226.5">Zugriff auf ein Netzwerk aus über 300<tspan x="992" y="247.5">Bankfilialen</tspan></text>
           </g>
-          <!-- BEGL: laengste Zeile 268.4 Einheiten, Block also
-               288.4 breit; im 336er-Quadrat bleiben links wie rechts
-               23.8 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:3">
-            <use class="wnetz__haken" href="#wn-haken" x="971.79" y="755" width="13" height="13"/>
-            <text class="wnetz__punkt" x="991.79" y="766">Begleitung über den Kauf hinaus</text>
-            <use class="wnetz__haken" href="#wn-haken" x="971.79" y="783" width="13" height="13"/>
-            <text class="wnetz__punkt" x="991.79" y="794">Übergabe und Vermietung</text>
-            <use class="wnetz__haken" href="#wn-haken" x="971.79" y="811" width="13" height="13"/>
-            <text class="wnetz__punkt" x="991.79" y="822">Organisation der Immobilienverwaltung</text>
-            <use class="wnetz__haken" href="#wn-haken" x="971.79" y="839" width="13" height="13"/>
-            <text class="wnetz__punkt" x="991.79" y="850">Erreichbar, wenn Fragen entstehen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="971.77" y="465.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="991.77" y="476.5">Begleitung über den Kauf hinaus</text>
+            <use class="wnetz__haken" href="#wn-haken" x="971.77" y="491.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="991.77" y="502.5">Übergabe und Vermietung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="971.77" y="517.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="991.77" y="528.5">Organisation der Immobilienverwaltung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="971.77" y="543.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="991.77" y="554.5">Erreichbar, wenn Fragen entstehen</text>
           </g>
         </g>
       </svg>
@@ -2909,16 +3041,11 @@
            Zeile.
            Vorher aria-label: "Schaubild: Von Mehr Auswahl führt ein Pfeil auf die Wortmarke Estera. Von dort geht es der Reihe nach durch vier Kästen: Du siehst, wo du stehst. Du weißt, was du kaufst. Vorbereitet zur Bank. Einer bleibt an deiner Seite. Von dort führt ein Pfeil zum Ziel: Deine Immobilie als Kapitalanlage."
            Vorher desc: "Mehr Auswahl. Wir zeigen dir Wohnungen ohne Inserat. Estera. Du siehst, wo du stehst. Wir klären, was du willst. Wir prüfen, ob wir passen. Wir schätzen ehrlich ein. Auch ein Nein ist möglich. Du weißt, was du kaufst. Wir bewerten die Lage. Wir vergleichen den Markt. Wir prüfen den Zustand. Wir rechnen es dir vor. Vorbereitet zur Bank. Wir kennen die Banken. Wir prüfen vorab. Wir bereiten alles vor. Die Bank entscheidet. Einer bleibt an deiner Seite. Wir bringen alle zusammen. Wir gehen mit zum Notar. Du hast einen festen Kontakt. Wir bleiben nach dem Kauf. Deine Immobilie als Kapitalanlage. Du denkst in Jahrzehnten. Du baust heute vor." -->
-      <svg class="wnetz__bild wnetz__bild--schmal" viewBox="0 0 380 2578"
+      <svg class="wnetz__bild wnetz__bild--schmal" viewBox="0 0 380 1836"
            role="img" focusable="false" aria-describedby="wn-text-s"
-           aria-label="Schaubild: Von Ausgewählte Off-Market-Objekte führt ein Pfeil auf die Wortmarke Estera. Von dort geht es der Reihe nach durch vier Kästen: Kennenlerngespräch und Einordnung. Objekt und Zahlen. Finanzierung. Langfristige Begleitung. Von dort führt ein Pfeil zum Ziel: Deine Immobilie als Kapitalanlage.">
-        <desc id="wn-text-s">Ausgewählte Off-Market-Objekte. Zugang außerhalb öffentlicher Immobilienportale. Ausgewählte Objekte statt unübersichtlicher Suche. Passend zu deinem Finanzierungsrahmen. Estera. Kennenlerngespräch und Einordnung. Deine aktuelle Situation. Deine Wünsche und Ziele. Dein realistischer Finanzierungsrahmen. Ob wir zueinander passen. Objekt und Zahlen. Lage. Zustand. Vermietbarkeit. Kosten. Wirtschaftlichkeit. Finanzierung. Eine auf dich abgestimmte Finanzierung. Vollständig vorbereitete Bankunterlagen. Direkte Bankkontakte bis auf Vorstandsebene. Zugriff auf ein Netzwerk aus über 300 Bankfilialen. Langfristige Begleitung. Begleitung über den Kauf hinaus. Übergabe und Vermietung. Organisation der Immobilienverwaltung. Erreichbar, wenn Fragen entstehen. Deine Immobilie als Kapitalanlage. Du denkst in Jahrzehnten. Du baust heute vor.</desc>
+           aria-label="Schaubild: Von Ausgewählte Off-Market-Objekte führt ein Pfeil auf die Wortmarke Estera. Von dort geht es der Reihe nach durch vier Kästen: Kennenlernen und Einordnung. Objekt und Zahlen. Finanzierung. Langfristig begleiten. Von dort führt ein Pfeil zum Ziel: Deine langfristig geprüfte Kapitalanlage.">
+        <desc id="wn-text-s">Ausgewählte Off-Market-Objekte. Zugang außerhalb öffentlicher Immobilienportale. Ausgewählte Objekte statt unübersichtlicher Suche. Passend zu deinem Finanzierungsrahmen. Estera. Kennenlernen und Einordnung. Deine aktuelle Situation. Deine Wünsche und Ziele. Dein realistischer Finanzierungsrahmen. Prüfung, ob eine Immobilie zu dir passt. Objekt und Zahlen. Lage und Vermietbarkeit. Zustand. Kaufpreis und laufende Kosten. Mieteinnahmen und monatlicher Eigenanteil. Finanzierung. Eine auf dich abgestimmte Finanzierung. Vollständig vorbereitete Bankunterlagen. Direkte Bankkontakte bis auf Vorstandsebene. Zugriff auf ein Netzwerk aus über 300 Bankfilialen. Langfristig begleiten. Begleitung über den Kauf hinaus. Übergabe und Vermietung. Organisation der Immobilienverwaltung. Erreichbar, wenn Fragen entstehen. Deine langfristig geprüfte Kapitalanlage. Verständlich entschieden. Sauber finanziert. Langfristig begleitet.</desc>
         <defs>
-          <!-- Die zwei Schattenlagen der Kaesten: eng fuer die Kante, weit
-               und schwach fuer die Hoehe. Das Fenster ist grosszuegig, weil
-               die weite Lage bei dy 10 und Streuung 11 rund 43 Einheiten
-               nach unten braucht; ein zu enges Filterfenster schneidet den
-               Schatten mit einer sichtbaren Kante ab. -->
           <filter id="wn-hebung-s" x="-25%" y="-25%" width="150%" height="160%"
                   color-interpolation-filters="sRGB">
             <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#102949" flood-opacity="0.13"/>
@@ -2926,147 +3053,108 @@
           </filter>
           <marker id="wn-spitze-s1" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
                   orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
-                  style="--wn-spitze-ab:0.50s">
+                  style="--wn-spitze-ab:0.42s">
             <path d="M0 2.5 14 7.5 0 12.5Z"/>
           </marker>
           <marker id="wn-spitze-s3" markerWidth="15" markerHeight="15" refX="14" refY="7.5"
                   orient="auto" markerUnits="userSpaceOnUse" overflow="visible"
-                  style="--wn-spitze-ab:0.38s">
+                  style="--wn-spitze-ab:0.34s">
             <path d="M0 2.5 14 7.5 0 12.5Z"/>
           </marker>
         </defs>
 
         <g class="wnetz__zuege">
-          <path class="wnetz__zug wnetz__zug--weg" data-st="1" style="--auf:1" pathLength="1" marker-end="url(#wn-spitze-s1)" d="M190 356V462"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M190 527V635"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:2" pathLength="1" d="M190 971V1061"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M190 1397V1487"/>
-          <path class="wnetz__zug" data-st="2" style="--auf:4" pathLength="1" d="M190 1823V1913"/>
-          <path class="wnetz__zug wnetz__zug--weg" data-st="3" style="--auf:0" pathLength="1" marker-end="url(#wn-spitze-s3)" d="M190 2249V2366"/>
+          <path class="wnetz__zug wnetz__zug--weg" data-st="1" style="--auf:1" pathLength="1" marker-end="url(#wn-spitze-s1)" d="M190 292V338"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:1" pathLength="1" d="M190 396V436"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:2" pathLength="1" d="M190 700V740"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:3" pathLength="1" d="M190 1004V1044"/>
+          <path class="wnetz__zug" data-st="2" style="--auf:4" pathLength="1" d="M190 1308V1348"/>
+          <path class="wnetz__zug wnetz__zug--weg" data-st="3" style="--auf:0" pathLength="1" marker-end="url(#wn-spitze-s3)" d="M190 1620V1666"/>
         </g>
 
         <g class="wnetz__platten">
-          <use class="wnetz__kasten" data-st="1" style="--auf:0" href="#wn-kasten" x="22" y="20" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="22" y="635" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:2" href="#wn-kasten" x="22" y="1061" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="22" y="1487" width="336" height="336"/>
-          <use class="wnetz__kasten" data-st="2" style="--auf:4" href="#wn-kasten" x="22" y="1913" width="336" height="336"/>
-
-          <!-- DER ZIELKASTEN, zweimal aufgetragen. Der erste, randlose
-               Auftrag traegt NUR DEN SCHATTEN und steht still; der zweite
-               ist der sichtbare Kasten mit der gruenen Kontur und dreht
-               sich. Getrennt werden musste beides, weil `filter` eine
-               Gruppierungseigenschaft ist: mit Schatten am drehenden
-               Element waere es flach gerastert worden und von der
-               Perspektive nichts uebrig geblieben. Die Begruendung steht im
-               Abschnitt „DIE DREHUNG DES ZIELKASTENS" in
-               assets/css/auswahl.css. -->
-          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--zielschatten" data-st="3" style="--auf:3" href="#wn-kasten-quer" x="12" y="2376" width="356" height="178"/>
+          <use class="wnetz__kasten" data-st="1" style="--auf:0" href="#wn-kasten" x="22" y="20" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:1" href="#wn-kasten" x="22" y="436" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:2" href="#wn-kasten" x="22" y="740" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:3" href="#wn-kasten" x="22" y="1044" width="336" height="264"/>
+          <use class="wnetz__kasten" data-st="2" style="--auf:4" href="#wn-kasten" x="22" y="1348" width="336" height="264"/>
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--zielschatten" data-st="3" style="--auf:3" href="#wn-kasten-quer-s" x="12" y="1676" width="356" height="140"/>
         </g>
 
-        <!-- DIE SYMBOLE. Sie stehen mit Titel und Stichpunkten in EINER
-             Gruppe, und diese Gruppe steht senkrecht mittig im Quadrat —
-             deshalb sitzt das Symbol nicht in allen fuenf Kaesten auf
-             derselben Hoehe. Das ist gewollt: ein Kasten mit fuenf Zeilen
-             hat einen hoeheren Block als einer mit vier, und ein oben
-             angeklebter Block liesse unten eine leere Flaeche stehen.
-             Kundenbeanstandung vom 31.08.2026, woertlich: „Schau dir
-             ‚Objekt und Zahlen' an — das sieht richtig komisch aus, wie die
-             Unterpunkte darunter stehen." -->
         <g class="wnetz__symbole">
-          <use class="wnetz__symbol" data-st="1" style="--auf:0" href="#wn-i-off" x="170" y="60" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-erst" x="170" y="683" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:2" href="#wn-i-stand" x="170" y="1109" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-finanz" x="170" y="1527" width="40" height="40"/>
-          <use class="wnetz__symbol" data-st="2" style="--auf:4" href="#wn-i-begl" x="170" y="1975" width="40" height="40"/>
+          <use class="wnetz__symbol" data-st="1" style="--auf:0" href="#wn-i-off" x="173" y="41" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:1" href="#wn-i-erst" x="173" y="477.5" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:2" href="#wn-i-stand" x="173" y="771" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:3" href="#wn-i-finanz" x="173" y="1064.5" width="34" height="34"/>
+          <use class="wnetz__symbol" data-st="2" style="--auf:4" href="#wn-i-begl" x="173" y="1389.5" width="34" height="34"/>
         </g>
 
-        <!-- Die Wortmarke in zwei Haelften, siehe die breite Anordnung. -->
         <g class="wnetz__schrift" text-anchor="middle">
-          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="end"   x="190" dx="0.18em" y="509">EST</text>
-          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="start" x="190" dx="0.18em" y="509">ERA</text>
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="end"   x="190" dx="0.18em" y="380">EST</text>
+          <text class="wnetz__wort--marke" data-st="2" style="--auf:0" text-anchor="start" x="190" dx="0.18em" y="380">ERA</text>
 
-          <text class="wnetz__wort" data-st="1" style="--auf:0" x="190" y="130">Ausgewählte<tspan x="190" y="157">Off-Market-Objekte</tspan></text>
-          <text class="wnetz__wort" data-st="2" style="--auf:1" x="190" y="753">Kennenlerngespräch<tspan x="190" y="780">und Einordnung</tspan></text>
-          <text class="wnetz__wort" data-st="2" style="--auf:2" x="190" y="1179">Objekt und Zahlen</text>
-          <text class="wnetz__wort" data-st="2" style="--auf:3" x="190" y="1597">Finanzierung</text>
-          <text class="wnetz__wort" data-st="2" style="--auf:4" x="190" y="2045">Langfristige Begleitung</text>
+          <text class="wnetz__wort" data-st="1" style="--auf:0" x="190" y="102">Ausgewählte<tspan x="190" y="127">Off-Market-Objekte</tspan></text>
+          <text class="wnetz__wort" data-st="2" style="--auf:1" x="190" y="538.5">Kennenlernen und Einordnung</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:2" x="190" y="832">Objekt und Zahlen</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:3" x="190" y="1125.5">Finanzierung</text>
+          <text class="wnetz__wort" data-st="2" style="--auf:4" x="190" y="1450.5">Langfristig begleiten</text>
         </g>
 
-        <!-- DER ZIELKASTEN ALS EINE EINHEIT. Kontur, Symbol und beide
-             Zeilen stehen in EINER Gruppe, und die Gruppe dreht sich. -->
         <g class="wnetz__ziel" data-st="3" style="--auf:3" text-anchor="middle">
-          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--ziel" href="#wn-kasten-quer" x="12" y="2376" width="356" height="178"/>
-          <use class="wnetz__symbol" href="#wn-i-kapital" x="172" y="2402" width="36" height="36"/>
-          <text class="wnetz__wort wnetz__wort--ziel" x="190" y="2472">Deine Immobilie als Kapitalanlage</text>
-          <text class="wnetz__wort--erklaerung wnetz__wort--zielsub" x="190" y="2502">Du denkst in Jahrzehnten.<tspan x="190" y="2524">Du baust heute vor.</tspan></text>
+          <use class="wnetz__kasten wnetz__kasten--quer wnetz__kasten--ziel" href="#wn-kasten-quer-s" x="12" y="1676" width="356" height="140"/>
+          <use class="wnetz__symbol" href="#wn-i-kapital" x="174" y="1690" width="32" height="32"/>
+          <text class="wnetz__wort wnetz__wort--ziel" x="190" y="1746">Deine langfristig geprüfte Kapitalanlage</text>
+          <text class="wnetz__wort--erklaerung wnetz__wort--zielsub" x="190" y="1772">Verständlich entschieden. Sauber finanziert.<tspan x="190" y="1794">Langfristig begleitet.</tspan></text>
         </g>
 
         <g class="wnetz__punkte" text-anchor="start">
-          <!-- OFF: laengste Zeile 271.2 Einheiten, Block also
-               291.2 breit; im 336er-Quadrat bleiben links wie rechts
-               22.4 Einheiten — der Block steht mittig. -->
           <g data-st="1" style="--auf:0">
-            <use class="wnetz__haken" href="#wn-haken" x="44.42" y="200" width="13" height="13"/>
-            <text class="wnetz__punkt" x="64.42" y="211">Zugang außerhalb öffentlicher<tspan x="64.42" y="233">Immobilienportale</tspan></text>
-            <use class="wnetz__haken" href="#wn-haken" x="44.42" y="250" width="13" height="13"/>
-            <text class="wnetz__punkt" x="64.42" y="261">Ausgewählte Objekte statt<tspan x="64.42" y="283">unübersichtlicher Suche</tspan></text>
-            <use class="wnetz__haken" href="#wn-haken" x="44.42" y="300" width="13" height="13"/>
-            <text class="wnetz__punkt" x="64.42" y="311">Passend zu deinem Finanzierungsrahmen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="44.38" y="152" width="13" height="13"/>
+            <text class="wnetz__punkt" x="64.38" y="163">Zugang außerhalb öffentlicher<tspan x="64.38" y="184">Immobilienportale</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="44.38" y="199" width="13" height="13"/>
+            <text class="wnetz__punkt" x="64.38" y="210">Ausgewählte Objekte statt<tspan x="64.38" y="231">unübersichtlicher Suche</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="44.38" y="246" width="13" height="13"/>
+            <text class="wnetz__punkt" x="64.38" y="257">Passend zu deinem Finanzierungsrahmen</text>
           </g>
-          <!-- KENNEN: laengste Zeile 262.8 Einheiten, Block also
-               282.8 breit; im 336er-Quadrat bleiben links wie rechts
-               26.6 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:1">
-            <use class="wnetz__haken" href="#wn-haken" x="48.61" y="823" width="13" height="13"/>
-            <text class="wnetz__punkt" x="68.61" y="834">Deine aktuelle Situation</text>
-            <use class="wnetz__haken" href="#wn-haken" x="48.61" y="851" width="13" height="13"/>
-            <text class="wnetz__punkt" x="68.61" y="862">Deine Wünsche und Ziele</text>
-            <use class="wnetz__haken" href="#wn-haken" x="48.61" y="879" width="13" height="13"/>
-            <text class="wnetz__punkt" x="68.61" y="890">Dein realistischer Finanzierungsrahmen</text>
-            <use class="wnetz__haken" href="#wn-haken" x="48.61" y="907" width="13" height="13"/>
-            <text class="wnetz__punkt" x="68.61" y="918">Ob wir zueinander passen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="48.59" y="563.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="68.59" y="574.5">Deine aktuelle Situation</text>
+            <use class="wnetz__haken" href="#wn-haken" x="48.59" y="589.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="68.59" y="600.5">Deine Wünsche und Ziele</text>
+            <use class="wnetz__haken" href="#wn-haken" x="48.59" y="615.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="68.59" y="626.5">Dein realistischer Finanzierungsrahmen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="48.59" y="641.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="68.59" y="652.5">Prüfung, ob eine Immobilie zu dir passt</text>
           </g>
-          <!-- OBJEKT: laengste Zeile 120.6 Einheiten, Block also
-               140.6 breit; im 336er-Quadrat bleiben links wie rechts
-               97.7 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:2">
-            <use class="wnetz__haken" href="#wn-haken" x="119.72" y="1222" width="13" height="13"/>
-            <text class="wnetz__punkt" x="139.72" y="1233">Lage</text>
-            <use class="wnetz__haken" href="#wn-haken" x="119.72" y="1250" width="13" height="13"/>
-            <text class="wnetz__punkt" x="139.72" y="1261">Zustand</text>
-            <use class="wnetz__haken" href="#wn-haken" x="119.72" y="1278" width="13" height="13"/>
-            <text class="wnetz__punkt" x="139.72" y="1289">Vermietbarkeit</text>
-            <use class="wnetz__haken" href="#wn-haken" x="119.72" y="1306" width="13" height="13"/>
-            <text class="wnetz__punkt" x="139.72" y="1317">Kosten</text>
-            <use class="wnetz__haken" href="#wn-haken" x="119.72" y="1334" width="13" height="13"/>
-            <text class="wnetz__punkt" x="139.72" y="1345">Wirtschaftlichkeit</text>
+            <use class="wnetz__haken" href="#wn-haken" x="70.38" y="857" width="13" height="13"/>
+            <text class="wnetz__punkt" x="90.38" y="868">Lage und Vermietbarkeit</text>
+            <use class="wnetz__haken" href="#wn-haken" x="70.38" y="883" width="13" height="13"/>
+            <text class="wnetz__punkt" x="90.38" y="894">Zustand</text>
+            <use class="wnetz__haken" href="#wn-haken" x="70.38" y="909" width="13" height="13"/>
+            <text class="wnetz__punkt" x="90.38" y="920">Kaufpreis und laufende Kosten</text>
+            <use class="wnetz__haken" href="#wn-haken" x="70.38" y="935" width="13" height="13"/>
+            <text class="wnetz__punkt" x="90.38" y="946">Mieteinnahmen und monatlicher<tspan x="90.38" y="967">Eigenanteil</tspan></text>
           </g>
-          <!-- FINANZ: laengste Zeile 267.9 Einheiten, Block also
-               287.9 breit; im 336er-Quadrat bleiben links wie rechts
-               24.0 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:3">
-            <use class="wnetz__haken" href="#wn-haken" x="46.03" y="1640" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.03" y="1651">Eine auf dich abgestimmte Finanzierung</text>
-            <use class="wnetz__haken" href="#wn-haken" x="46.03" y="1668" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.03" y="1679">Vollständig vorbereitete Bankunterlagen</text>
-            <use class="wnetz__haken" href="#wn-haken" x="46.03" y="1696" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.03" y="1707">Direkte Bankkontakte bis auf<tspan x="66.03" y="1729">Vorstandsebene</tspan></text>
-            <use class="wnetz__haken" href="#wn-haken" x="46.03" y="1746" width="13" height="13"/>
-            <text class="wnetz__punkt" x="66.03" y="1757">Zugriff auf ein Netzwerk aus<tspan x="66.03" y="1779">über 300 Bankfilialen</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="46" y="1150.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66" y="1161.5">Eine auf dich abgestimmte Finanzierung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="46" y="1176.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66" y="1187.5">Vollständig vorbereitete Bankunterlagen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="46" y="1202.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66" y="1213.5">Direkte Bankkontakte bis auf<tspan x="66" y="1234.5">Vorstandsebene</tspan></text>
+            <use class="wnetz__haken" href="#wn-haken" x="46" y="1249.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="66" y="1260.5">Zugriff auf ein Netzwerk aus über 300<tspan x="66" y="1281.5">Bankfilialen</tspan></text>
           </g>
-          <!-- BEGL: laengste Zeile 268.4 Einheiten, Block also
-               288.4 breit; im 336er-Quadrat bleiben links wie rechts
-               23.8 Einheiten — der Block steht mittig. -->
           <g data-st="2" style="--auf:4">
-            <use class="wnetz__haken" href="#wn-haken" x="45.79" y="2088" width="13" height="13"/>
-            <text class="wnetz__punkt" x="65.79" y="2099">Begleitung über den Kauf hinaus</text>
-            <use class="wnetz__haken" href="#wn-haken" x="45.79" y="2116" width="13" height="13"/>
-            <text class="wnetz__punkt" x="65.79" y="2127">Übergabe und Vermietung</text>
-            <use class="wnetz__haken" href="#wn-haken" x="45.79" y="2144" width="13" height="13"/>
-            <text class="wnetz__punkt" x="65.79" y="2155">Organisation der Immobilienverwaltung</text>
-            <use class="wnetz__haken" href="#wn-haken" x="45.79" y="2172" width="13" height="13"/>
-            <text class="wnetz__punkt" x="65.79" y="2183">Erreichbar, wenn Fragen entstehen</text>
+            <use class="wnetz__haken" href="#wn-haken" x="45.77" y="1475.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="65.77" y="1486.5">Begleitung über den Kauf hinaus</text>
+            <use class="wnetz__haken" href="#wn-haken" x="45.77" y="1501.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="65.77" y="1512.5">Übergabe und Vermietung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="45.77" y="1527.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="65.77" y="1538.5">Organisation der Immobilienverwaltung</text>
+            <use class="wnetz__haken" href="#wn-haken" x="45.77" y="1553.5" width="13" height="13"/>
+            <text class="wnetz__punkt" x="65.77" y="1564.5">Erreichbar, wenn Fragen entstehen</text>
           </g>
         </g>
       </svg>
@@ -3134,12 +3222,24 @@
          „EYEBROW") und stand hier keine Stunde. Ersatzlos.
          Vorher: <p class="cta__eyebrow">Der nächste Schritt</p>
          Die Regel .cta__eyebrow bleibt in schluss.css liegen. -->
-    <h2 class="cta__h2">Der nächste Schritt ist kein Kauf. Sondern Klarheit.</h2>
+    <!-- HERVORHEBUNG — 01.09.2026, Optimierungsbriefing, Abschnitt 08:
+         „Die Woerter ‚kein Kauf' und ‚Klarheit' deutlich groesser, farbig
+         oder in unterschiedlichen Schriftschnitten hervorheben." Der
+         Wortlaut ist unveraendert (BEIBEHALTEN); die beiden <em> tragen nur
+         die Auszeichnung — groesser, Schnitt 500, Gold. Kein <strong>: die
+         Betonung ist Aussage, nicht Warnung. -->
+    <h2 class="cta__h2">Der nächste Schritt ist <em class="cta__stark">kein Kauf</em>. Sondern <em class="cta__stark">Klarheit</em>.</h2>
+    <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 08,
+         „Subline". Der zweite Satz faellt, „für dich" kommt dazu.
+         Vorher: "Im unverbindlichen Erstgespräch klären wir, ob eine Kapitalanlageimmobilie zu deiner Situation passt und welcher nächste Schritt sinnvoll ist. Wenn es nicht passt, sagen wir das genauso offen." -->
     <p class="cta__text">Im unverbindlichen Erstgespräch klären wir, ob eine Kapitalanlageimmobilie
-      zu deiner Situation passt und welcher nächste Schritt sinnvoll ist. Wenn es nicht passt,
-      sagen wir das genauso offen.</p>
+      zu deiner Situation passt und welcher nächste Schritt für dich sinnvoll ist.</p>
     <a class="btn btn--sand" href="kontakt.html">Erstgespräch vereinbaren</a>
-    <p class="cta__micro">Unverbindlich · persönlich · ohne Kaufdruck</p>
+    <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing, Abschnitt 03 (ENTFERNEN
+         CTA-Microcopy). Die Zeile stammte aus dem Wording-Dokument vom
+         31.08.2026, Abschnitt 09.
+         Vorher: <p class="cta__micro">Unverbindlich · persönlich · ohne Kaufdruck</p>
+         Die Regel .cta__micro bleibt in schluss.css liegen. -->
     </div>
 
     <figure class="cta__bild">
@@ -3156,11 +3256,28 @@
            unten weg; der Schreibtisch mit dem Laptop liegt in der Mitte und
            bleibt vollstaendig im Ausschnitt. 1024 px Dateibreite gegen
            hoechstens 470 px Anzeigebreite: Faktor 2,2. -->
+      <!-- GETAUSCHT 01.09.2026 — Optimierungsbriefing, Abschnitt 08 (DESIGN):
+           „Das Bild mit leerem Buerostuhl ersetzen. Gewuenscht ist eine
+           hochwertige, glaubwuerdige Beratungssituation: Kunde und Berater
+           sitzen sich gegenueber."
+           Vorher: assets/img/karriere/stelle-berater.{webp,jpg}
+                   (1024 x 1280, „Aufgeräumter Schreibtisch mit Laptop und
+                   Ledermappe vor einem Bürofenster")
+           JETZT das naechste echte Motiv im Projekt: kar-beratung (1536 x
+           1024, Beratungsgespraech am Tisch, seit dem 26.08. auf der
+           Karriereseite). Es zeigt zwei Personen einander gegenueber am
+           Tisch mit Unterlagen — OHNE Gesichter, ohne Laecheln, ohne
+           Handschlag. Das Briefing nennt „Laecheln, Handschlag oder
+           Unterlagen" als Beispiele; nur das dritte ist abgebildet.
+           DEM KUNDEN GEGENUEBER FESTGEHALTEN: fuer ein Motiv mit Gesichtern
+           braucht es ein neues Foto; ein Bildgenerator-Schluessel liegt
+           nicht vor. Querformat 3:2 wie das Bildfenster — `object-fit`
+           schneidet hier praktisch nichts mehr weg. -->
       <picture>
-        <source srcset="assets/img/karriere/stelle-berater.webp?v=b24a" type="image/webp">
-        <img src="assets/img/karriere/stelle-berater.jpg?v=b24a"
-             alt="Aufgeräumter Schreibtisch mit Laptop und Ledermappe vor einem Bürofenster"
-             width="1024" height="1280" loading="lazy" decoding="async">
+        <source srcset="assets/img/karriere/kar-beratung.webp?v=b24a" type="image/webp">
+        <img src="assets/img/karriere/kar-beratung.png?v=b24a"
+             alt="Beratungsgespräch: Kunde und Berater sitzen sich am Tisch mit Unterlagen gegenüber"
+             width="1536" height="1024" loading="lazy" decoding="async">
       </picture>
     </figure>
   </div>
@@ -3435,11 +3552,24 @@
               <source src="assets/video/referenz-wohnung.mp4" type="video/mp4">
             </video>
 
+            <!-- EXAKT ZENTRIERT — 01.09.2026, Optimierungsbriefing, Abschnitt
+                 09 (P0): „Kreis, Icon und tatsaechlicher Klickbereich
+                 muessen exakt uebereinander und in der Bildmitte liegen."
+                 Vorher lag der goldene Ring nach der Vorlage vom 25.08.
+                 absichtlich versetzt zur Navy-Scheibe (Ring 57,5|57, Scheibe
+                 68|60 im 108-x-100-Kasten), der Knopf war um 53 statt 50
+                 Prozent verschoben. Gemessen bei 1440: Ring +0,2|+6,5,
+                 Scheibe +10,0|+9,3, Dreieck +14,0|+9,3 px gegen die
+                 Bildmitte. Jetzt ein quadratischer Kasten 120 x 120, Ring
+                 und Scheibe auf 60|60, das Dreieck mit seinem Umkasten
+                 (x 49..71) ebenfalls auf 60 — nicht mit dem Schwerpunkt,
+                 weil das Briefing die Deckung „exakt" verlangt und der
+                 Schwerpunkt eines Dreiecks nicht seine Mitte ist. -->
             <button class="robj__play" type="button" data-robj-play hidden aria-label="Objekt ansehen">
-              <svg class="robj__playsvg" viewBox="0 0 108 100" width="108" height="100" aria-hidden="true" focusable="false">
-                <circle class="robj__ring" cx="57.5" cy="57" r="56.5" vector-effect="non-scaling-stroke"/>
-                <circle class="robj__scheibe" cx="68" cy="60" r="39"/>
-                <path class="robj__dreieck" d="M61.5 47.4 83 60 61.5 72.6Z"/>
+              <svg class="robj__playsvg" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true" focusable="false">
+                <circle class="robj__ring" cx="60" cy="60" r="58" vector-effect="non-scaling-stroke"/>
+                <circle class="robj__scheibe" cx="60" cy="60" r="40"/>
+                <path class="robj__dreieck" d="M49 46 71 60 49 74Z"/>
               </svg>
             </button>
           </div>
@@ -3748,7 +3878,9 @@
             <!-- Schritt 01 — Wording-Dokument, Abschnitt 07.
                  Vorher: "Erstgespräch" / "Du erzählst uns dein Ziel. Wir klären deine Situation." -->
             <h3 class="abl__stufe-titel">Erstgespräch und Einordnung</h3>
-            <p class="abl__stufe-text">Wir klären dein Ziel, deine Situation und ob eine Kapitalanlageimmobilie grundsätzlich zu dir passt.</p>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 09, Schritt 01.
+                 Vorher: "Wir klären dein Ziel, deine Situation und ob eine Kapitalanlageimmobilie grundsätzlich zu dir passt." -->
+            <p class="abl__stufe-text">Wir klären deine Ziele, deine aktuelle Situation und ob eine Kapitalanlageimmobilie grundsätzlich zu dir passt.</p>
           </div>
         </li>
         <li class="abl__stufe">
@@ -3760,7 +3892,9 @@
             <!-- Schritt 02 — Wording-Dokument, Abschnitt 07.
                  Vorher: "Ersteinschätzung" / "Wir schätzen deine Lage offen ein. Auch ein Nein ist möglich." -->
             <h3 class="abl__stufe-titel">Finanzierung vorprüfen</h3>
-            <p class="abl__stufe-text">Wir prüfen frühzeitig, welcher Finanzierungsrahmen realistisch ist und welche Unterlagen benötigt werden.</p>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 09, Schritt 02.
+                 Vorher: "Wir prüfen frühzeitig, welcher Finanzierungsrahmen realistisch ist und welche Unterlagen benötigt werden." -->
+            <p class="abl__stufe-text">Wir ermitteln frühzeitig deine realistischen Finanzierungsmöglichkeiten und bereiten die benötigten Unterlagen mit dir vor.</p>
           </div>
         </li>
         <li class="abl__stufe">
@@ -3771,8 +3905,11 @@
                  VON ESTERA BESTAETIGEN LASSEN. -->
             <!-- Schritt 03 — Wording-Dokument, Abschnitt 07.
                  Vorher: "Objektauswahl" / "Wir prüfen Lage, Zustand und Zahlen. Du siehst nur das Passende." -->
-            <h3 class="abl__stufe-titel">Passendes Objekt auswählen</h3>
-            <p class="abl__stufe-text">Du erhältst ausgewählte Off-Market-Objekte, die zu deinem Rahmen und deiner Strategie passen.</p>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 09, Schritt 03.
+                 Vorher Titel: "Passendes Objekt auswählen"
+                 Vorher Text:  "Du erhältst ausgewählte Off-Market-Objekte, die zu deinem Rahmen und deiner Strategie passen." -->
+            <h3 class="abl__stufe-titel">Passende Immobilie auswählen</h3>
+            <p class="abl__stufe-text">Du erhältst ausgewählte Off-Market-Immobilien, die zu deinem finanziellen Rahmen und deinen langfristigen Zielen passen.</p>
           </div>
         </li>
         <li class="abl__stufe">
@@ -3783,8 +3920,11 @@
                  VON ESTERA BESTAETIGEN LASSEN. -->
             <!-- Schritt 04 — Wording-Dokument, Abschnitt 07.
                  Vorher: "Finanzierung" / "Wir bereiten alles auf. Unser Netzwerk ist darauf spezialisiert." -->
-            <h3 class="abl__stufe-titel">Objekt vorstellen und Zahlen verstehen</h3>
-            <p class="abl__stufe-text">Bevor wir dir ein Objekt vorstellen, prüfen wir Lage, Zustand, Vermietbarkeit, Kosten und Wirtschaftlichkeit. Du erhältst alle Zahlen verständlich aufbereitet und entscheidest in Ruhe.</p>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 09, Schritt 04.
+                 Vorher Titel: "Objekt vorstellen und Zahlen verstehen"
+                 Vorher Text:  "Bevor wir dir ein Objekt vorstellen, prüfen wir Lage, Zustand, Vermietbarkeit, Kosten und Wirtschaftlichkeit. Du erhältst alle Zahlen verständlich aufbereitet und entscheidest in Ruhe." -->
+            <h3 class="abl__stufe-titel">Objekt und Zahlen verstehen</h3>
+            <p class="abl__stufe-text">Wir stellen dir die Immobilie, ihre Lage, den Zustand, die Mieteinnahmen, alle relevanten Kosten und deinen monatlichen Eigenanteil verständlich vor. Du kennst die Zahlen und entscheidest in Ruhe.</p>
           </div>
         </li>
         <li class="abl__stufe">
@@ -3797,7 +3937,9 @@
             <!-- Schritt 05 — Wording-Dokument, Abschnitt 07.
                  Vorher: "Begleitung & Notar" / "Wir führen alle Beteiligten zusammen. Wir begleiten dich dabei." -->
             <h3 class="abl__stufe-titel">Finanzierung und Notar koordinieren</h3>
-            <p class="abl__stufe-text">Wir koordinieren Bank und Notar und begleiten dich persönlich bis zum Notartermin.</p>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 09, Schritt 05.
+                 Vorher: "Wir koordinieren Bank und Notar und begleiten dich persönlich bis zum Notartermin." -->
+            <p class="abl__stufe-text">Wir bereiten die Finanzierung vor, koordinieren Bank und Notar und begleiten dich bis zur Beurkundung.</p>
           </div>
         </li>
         <li class="abl__stufe">
@@ -3809,7 +3951,9 @@
             <!-- Schritt 06 — Wording-Dokument, Abschnitt 07.
                  Vorher: "Betreuung" / "Auch nach dem Notartermin sind wir für dich da." -->
             <h3 class="abl__stufe-titel">Übergabe und langfristige Begleitung</h3>
-            <p class="abl__stufe-text">Nach dem Kauf unterstützen wir dich bei Übergabe, Vermietung und Verwaltung. Auch danach bleiben wir für dich erreichbar.</p>
+            <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 09, Schritt 06.
+                 Vorher: "Nach dem Kauf unterstützen wir dich bei Übergabe, Vermietung und Verwaltung. Auch danach bleiben wir für dich erreichbar." -->
+            <p class="abl__stufe-text">Nach dem Kauf unterstützen wir dich bei Übergabe, Vermietung und Verwaltung. Auch langfristig bleiben wir für dich erreichbar.</p>
           </div>
         </li>
       </ol>
@@ -3860,8 +4004,12 @@
            wo steht ‚Beraten lassen'."
            Die Klasse `btn` genuegt — Sandflaeche und weisse Schrift kommen
            seit dem 31.08. zentral aus base.css. Kein eigener Knopfstil. -->
+      <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 10.
+           Der Knopf nennt jetzt den Schritt, den er ausloest — passend zur
+           Liste darueber, die bei 01 beginnt.
+           Vorher: "Beraten lassen" -->
       <p class="abl__hausknopf">
-        <a class="btn" href="kontakt.html?v=b24a">Beraten lassen</a>
+        <a class="btn" href="kontakt.html?v=b24a">Schritt 1: Erstgespräch vereinbaren</a>
       </p>
     </div>
 
@@ -4032,165 +4180,244 @@
          sind unveraendert. Neu sind allein die vier zusaetzlichen Kaesten,
          die dieselbe Machart haben wie die fuenf vorhandenen.
          =================================================================== -->
+    <!-- ===================================================================
+         ZEHN FRAGEN IN NEUER REIHENFOLGE — 01.09.2026, Optimierungsbriefing,
+         Abschnitt 10. Vorher neun (Wording-Dokument 31.08.2026).
+
+         WAS SICH GEAENDERT HAT, Frage fuer Frage:
+           01  „Wie viel Eigenkapital benötige ich?"   — Frage neu gefasst,
+               Antwort ist die bisherige zu „Brauche ich Eigenkapital?"
+           02  „Welches Einkommen brauche ich?"        — NEU, ohne Antwort
+               im Briefing; siehe Vermerk an der Frage
+           03  „Wie hoch ist mein monatlicher Eigenanteil?" — NEU, ohne
+               Antwort im Briefing; siehe Vermerk an der Frage
+           04  Finanzierung — der Satz „Die verbindliche Kreditentscheidung
+               trifft immer die jeweilige Bank." ist ENTFERNT (Briefing)
+           05  Auswahl — Antwort laut Briefing neu
+           06..08  unveraendert
+           09  „Welche Risiken gibt es?" — Titel ohne „– und wie werden sie
+               eingeordnet?", Antwort unveraendert
+           10  unveraendert
+
+         ENTFALLEN ist die bisherige erste Frage. Sie steht im Briefing
+         nicht mehr und wird hier aufbewahrt:
+           Frage:   "Für wen eignet sich eine Kapitalanlageimmobilie?"
+           Antwort: "Eine Kapitalanlageimmobilie kann zu dir passen, wenn du
+                     über ein stabiles Einkommen verfügst, langfristig
+                     Vermögen aufbauen möchtest und eine Finanzierung
+                     dauerhaft tragen kannst. Im Erstgespräch ordnen wir
+                     deine Ausgangslage ein und sagen dir offen, ob der
+                     nächste Schritt sinnvoll ist."
+
+         DIE <strong> IN DEN ANTWORTEN sind Auszeichnung, kein Wortlaut:
+         „entscheidende Begriffe visuell hervorheben" (Briefing, DESIGN
+         geoeffnete Antworten). Sie aendern kein Wort. Wie sie aussehen,
+         steht in faq.css (.faq__antwort strong).
+
+         Aufbau, Klassen, Nummerierung (--i, jetzt 0 bis 9) und die
+         Auf-und-Zu-Mechanik sind unveraendert. faq.js klappt beim Laden
+         alle zehn zu; ohne Javascript stehen sie offen.
+         =================================================================== -->
     <div class="faq__liste" data-reveal>
 
-      <!-- 1 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 1 von 10 — Optimierungsbriefing 01.09.2026, Abschnitt 10.
+           Vorher Frage: "Brauche ich Eigenkapital?" (Antwort unveraendert) -->
       <div class="faq__punkt" style="--i:0">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k1" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a1">
-            <span class="faq__fragetext">Für wen eignet sich eine Kapitalanlageimmobilie?</span>
+            <span class="faq__fragetext">Wie viel Eigenkapital benötige ich?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a1" data-offen="true" role="region" aria-labelledby="faq-k1">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Eine Kapitalanlageimmobilie kann zu dir passen, wenn du über ein stabiles Einkommen verfügst, langfristig Vermögen aufbauen möchtest und eine Finanzierung dauerhaft tragen kannst. Im Erstgespräch ordnen wir deine Ausgangslage ein und sagen dir offen, ob der nächste Schritt sinnvoll ist.</p>
+              <p>Das hängt von deiner <strong>Bonität</strong>, der Immobilie und der finanzierenden Bank ab. Je nach Ausgangslage kann eine Finanzierung <strong>mit wenig oder ohne eingesetztes Eigenkapital</strong> möglich sein; garantiert werden kann das nicht. Wir prüfen frühzeitig, welche Variante realistisch und langfristig tragfähig ist.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 2 von 10 — Optimierungsbriefing 01.09.2026, Abschnitt 10. NEU.
+           DAS BRIEFING NENNT DIE FRAGE, ABER KEINE ANTWORT. Erfunden wird
+           nichts: die einzige freigegebene Zahl im Projekt steht im
+           Kontaktformular (kontakt.html): „Für eine Immobilieninvestition
+           empfehlen wir ein Nettoeinkommen ab 2.500 €, damit es finanziell
+           entspannt und sinnvoll für dich funktioniert." Die Antwort ist
+           daraus formuliert, ohne jede weitere Zahl; der zweite und dritte
+           Satz nehmen den Wortlaut von Frage 04 (Einkommen, Verpflichtungen,
+           Ruecklagen) auf.
+           VON ESTERA BESTAETIGEN LASSEN. -->
       <div class="faq__punkt" style="--i:1">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k2" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a2">
-            <span class="faq__fragetext">Brauche ich Eigenkapital?</span>
+            <span class="faq__fragetext">Welches Einkommen brauche ich?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a2" data-offen="true" role="region" aria-labelledby="faq-k2">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Das hängt von deiner Bonität, der Immobilie und der finanzierenden Bank ab. Je nach Ausgangslage kann eine Finanzierung mit wenig oder ohne eingesetztes Eigenkapital möglich sein; garantiert werden kann das nicht. Wir prüfen frühzeitig, welche Variante realistisch und langfristig tragfähig ist.</p>
+              <p>Als Orientierung empfehlen wir ein <strong>Nettoeinkommen ab 2.500 €</strong> im Monat, damit eine Kapitalanlageimmobilie finanziell entspannt und sinnvoll für dich funktioniert. Entscheidend ist aber deine Gesamtsituation: Einkommen, bestehende Verpflichtungen und Rücklagen. Im Erstgespräch ordnen wir das gemeinsam ein.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 3 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 3 von 10 — Optimierungsbriefing 01.09.2026, Abschnitt 10. NEU.
+           DAS BRIEFING NENNT DIE FRAGE, ABER KEINE ANTWORT. Die Antwort
+           nennt bewusst KEINE Zahl: der Eigenanteil haengt am Objekt, und
+           es liegt kein freigegebener Wert vor. Sie sagt, woraus er sich
+           ergibt (dieselben vier Posten wie in Schritt 04 des Ablaufs) und
+           dass er im Erstgespraech fuer das konkrete Objekt vorgerechnet
+           wird.
+           VON ESTERA BESTAETIGEN LASSEN. -->
       <div class="faq__punkt" style="--i:2">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k3" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a3">
-            <span class="faq__fragetext">Wie wird geprüft, welche Finanzierung zu mir passt?</span>
+            <span class="faq__fragetext">Wie hoch ist mein monatlicher Eigenanteil?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a3" data-offen="true" role="region" aria-labelledby="faq-k3">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Wir betrachten Einkommen, bestehende Verpflichtungen, Rücklagen und die Eckdaten des Objekts. Daraus entsteht eine realistische Ersteinschätzung. Die verbindliche Kreditentscheidung trifft immer die jeweilige Bank.</p>
+              <p>Dein monatlicher Eigenanteil ergibt sich aus den <strong>Mieteinnahmen</strong> auf der einen Seite und <strong>Zins, Tilgung und laufenden Kosten</strong> auf der anderen. Wie hoch er bei dir ausfällt, hängt vom konkreten Objekt und deiner Finanzierung ab. Im Erstgespräch rechnen wir ihn dir für das jeweilige Objekt offen und nachvollziehbar vor.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 4 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 4 von 10 — Wording-Dokument 31.08.2026, Abschnitt 08.
+           GEKUERZT 01.09.2026, Optimierungsbriefing, Abschnitt 10 (ENTFERNEN):
+           Vorher stand als dritter Satz: "Die verbindliche Kreditentscheidung trifft immer die jeweilige Bank." -->
       <div class="faq__punkt" style="--i:3">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k4" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a4">
-            <span class="faq__fragetext">Wie wählt Estera die Immobilien aus?</span>
+            <span class="faq__fragetext">Wie wird geprüft, welche Finanzierung zu mir passt?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a4" data-offen="true" role="region" aria-labelledby="faq-k4">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Wir prüfen Lage, Zustand, Vermietbarkeit, Kaufpreis, laufende Kosten und die wirtschaftliche Gesamtsituation. Du erhältst nur Objekte, die zu deinem finanziellen Rahmen und deiner langfristigen Strategie passen.</p>
+              <p>Wir betrachten <strong>Einkommen, bestehende Verpflichtungen, Rücklagen</strong> und die Eckdaten des Objekts. Daraus entsteht eine realistische Ersteinschätzung.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 5 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 5 von 10 — WORDING GEAENDERT 01.09.2026, Optimierungsbriefing,
+           Abschnitt 10 (Antwort laut Briefing).
+           Vorher: "Wir prüfen Lage, Zustand, Vermietbarkeit, Kaufpreis, laufende Kosten und die wirtschaftliche Gesamtsituation. Du erhältst nur Objekte, die zu deinem finanziellen Rahmen und deiner langfristigen Strategie passen." -->
       <div class="faq__punkt" style="--i:4">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k5" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a5">
-            <span class="faq__fragetext">Kann ich auch außerhalb meiner Stadt investieren?</span>
+            <span class="faq__fragetext">Wie wählt Estera die Immobilien aus?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a5" data-offen="true" role="region" aria-labelledby="faq-k5">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Ja. Bei einer Kapitalanlage zählen vor allem die Qualität des Standorts und des Objekts. Besichtigung, Unterlagen, Finanzierung und Abwicklung können wir auch dann koordinieren, wenn die Immobilie nicht in deiner Stadt liegt.</p>
+              <p>Wir prüfen <strong>Lage, Zustand, Vermietbarkeit, Kaufpreis, laufende Kosten und Mieteinnahmen</strong>. Erst wenn Objekt und Zahlen zusammenpassen, stellen wir dir die Immobilie vor.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 6 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 6 von 10 — Wording-Dokument 31.08.2026, Abschnitt 08. Unveraendert. -->
       <div class="faq__punkt" style="--i:5">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k6" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a6">
-            <span class="faq__fragetext">Welche steuerlichen Vorteile sind möglich?</span>
+            <span class="faq__fragetext">Kann ich auch außerhalb meiner Stadt investieren?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a6" data-offen="true" role="region" aria-labelledby="faq-k6">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Abschreibung, Finanzierungszinsen und bestimmte Aufwendungen können steuerlich berücksichtigt werden. Wie stark sich das auswirkt, hängt von deinem Einkommen, dem Objekt und deiner individuellen steuerlichen Situation ab. Die konkrete Einordnung erfolgt mit qualifizierter steuerlicher Beratung.</p>
+              <p><strong>Ja.</strong> Bei einer Kapitalanlage zählen vor allem die Qualität des Standorts und des Objekts. Besichtigung, Unterlagen, Finanzierung und Abwicklung können wir auch dann koordinieren, wenn die Immobilie nicht in deiner Stadt liegt.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 7 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 7 von 10 — Wording-Dokument 31.08.2026, Abschnitt 08. Unveraendert. -->
       <div class="faq__punkt" style="--i:6">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k7" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a7">
-            <span class="faq__fragetext">Wie lange dauert der Weg bis zum Kauf?</span>
+            <span class="faq__fragetext">Welche steuerlichen Vorteile sind möglich?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a7" data-offen="true" role="region" aria-labelledby="faq-k7">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Die Dauer hängt vor allem von deiner Ausgangslage, der Objektverfügbarkeit, der Finanzierung und dem Notartermin ab. Nach der ersten Einordnung erhältst du einen klaren Überblick über die nächsten Schritte und den realistischen Zeitrahmen.</p>
+              <p><strong>Abschreibung, Finanzierungszinsen und bestimmte Aufwendungen</strong> können steuerlich berücksichtigt werden. Wie stark sich das auswirkt, hängt von deinem Einkommen, dem Objekt und deiner individuellen steuerlichen Situation ab. Die konkrete Einordnung erfolgt mit qualifizierter steuerlicher Beratung.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 8 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 8 von 10 — Wording-Dokument 31.08.2026, Abschnitt 08. Unveraendert. -->
       <div class="faq__punkt" style="--i:7">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k8" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a8">
-            <span class="faq__fragetext">Welche Risiken gibt es – und wie werden sie eingeordnet?</span>
+            <span class="faq__fragetext">Wie lange dauert der Weg bis zum Kauf?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a8" data-offen="true" role="region" aria-labelledby="faq-k8">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Zu den wesentlichen Risiken gehören unter anderem Leerstand, unerwartete Instandhaltungskosten, Zinsänderungen und eine schwächere Wertentwicklung. Deshalb prüfen wir nicht nur Chancen, sondern auch Belastbarkeit, Rücklagen und mögliche Schwachstellen des konkreten Objekts.</p>
+              <p>Die Dauer hängt vor allem von deiner Ausgangslage, der <strong>Objektverfügbarkeit, der Finanzierung und dem Notartermin</strong> ab. Nach der ersten Einordnung erhältst du einen klaren Überblick über die nächsten Schritte und den realistischen Zeitrahmen.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 9 von 9 — Wording-Dokument, Abschnitt 08 -->
+      <!-- 9 von 10 — Wording-Dokument 31.08.2026, Abschnitt 08.
+           TITEL GEKUERZT 01.09.2026, Optimierungsbriefing, Abschnitt 10.
+           Vorher: "Welche Risiken gibt es – und wie werden sie eingeordnet?" (Antwort unveraendert) -->
       <div class="faq__punkt" style="--i:8">
         <h3 class="faq__frage">
           <button class="faq__knopf" type="button" id="faq-k9" data-faq-knopf
                   aria-expanded="true" aria-controls="faq-a9">
-            <span class="faq__fragetext">Was passiert nach dem Kauf?</span>
+            <span class="faq__fragetext">Welche Risiken gibt es?</span>
             <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
           </button>
         </h3>
         <div class="faq__fach" id="faq-a9" data-offen="true" role="region" aria-labelledby="faq-k9">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Wir bleiben auch nach dem Notartermin dein Ansprechpartner und unterstützen dich bei Übergabe und den nächsten Schritten. Welche Leistungen konkret enthalten sind, klären wir transparent vor dem Kauf.</p>
+              <p>Zu den wesentlichen Risiken gehören unter anderem <strong>Leerstand, unerwartete Instandhaltungskosten, Zinsänderungen</strong> und eine schwächere Wertentwicklung. Deshalb prüfen wir nicht nur Chancen, sondern auch Belastbarkeit, Rücklagen und mögliche Schwachstellen des konkreten Objekts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 von 10 — Wording-Dokument 31.08.2026, Abschnitt 08. Unveraendert. -->
+      <div class="faq__punkt" style="--i:9">
+        <h3 class="faq__frage">
+          <button class="faq__knopf" type="button" id="faq-k10" data-faq-knopf
+                  aria-expanded="true" aria-controls="faq-a10">
+            <span class="faq__fragetext">Was passiert nach dem Kauf?</span>
+            <span class="faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#faq-winkel"/></svg></span>
+          </button>
+        </h3>
+        <div class="faq__fach" id="faq-a10" data-offen="true" role="region" aria-labelledby="faq-k10">
+          <div class="faq__fach-klappe">
+            <div class="faq__antwort">
+              <p>Wir bleiben auch nach dem Notartermin <strong>dein Ansprechpartner</strong> und unterstützen dich bei Übergabe und den nächsten Schritten. Welche Leistungen konkret enthalten sind, klären wir transparent vor dem Kauf.</p>
             </div>
           </div>
         </div>
@@ -4276,8 +4503,14 @@
       <p class="fuss__titel">Kontakt</p>
       <div class="fuss__liste">
         <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
-        <span>Telefon — folgt</span>
-        <span>Anschrift — folgt</span>
+        <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing, P0 „Footer-Platzhalter":
+             „'Telefon - folgt', 'Anschrift - folgt' und vergleichbare
+             Platzhalter vollstaendig entfernen. Sichtbar bleiben die
+             E-Mail-Adresse und die Links zu Impressum, Datenschutz,
+             Cookie-Einstellungen und Erstinformation. Die Anschrift wird
+             ausschliesslich im Impressum vollstaendig gefuehrt."
+             Vorher: <span>Telefon — folgt</span>
+                     <span>Anschrift — folgt</span> -->
         <!-- WORDING GEAENDERT 31.08.2026 — Wording-Dokument, Abschnitt 10,
              „PARTNERLINK". Vorher: "Für Partner" -->
         <a href="partner.html">Partner werden</a>
@@ -4315,7 +4548,8 @@
 
   <div class="fuss__unten">
     <span>© 2026 Estera GmbH</span>
-    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
+    <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing P0, Platzhalter:
+         <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span> -->
   </div>
 </footer>
 

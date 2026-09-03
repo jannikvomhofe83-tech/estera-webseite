@@ -143,3 +143,27 @@
   .stl-zwei--schluss { align-items: center; }
 }
 
+
+/* ---------------------------------------------------------------------------
+   DAS ABSCHLUSSBILD AUF DEM TELEFON QUER — 03.09.2026, Mobiloptimierung.
+
+   stelle.css deckelt beide Bildfelder quer (Hoehe bis 500 px) auf 60 vh, bei
+   844 x 390 also 234 px, und das Bild bleibt 750 px breit. Das Bild dieser
+   Seite ist hochkant (597 : 710, eine Person am Schreibtisch); aus einem
+   hochkanten Bild wird damit ein Streifen von 3,2 : 1, und `object-fit:
+   cover` mit der Voreinstellung 50 % 50 % zeigt die Bildmitte — gemessen und
+   im Bild gesehen: Augen an der Oberkante, Stirn und Haaransatz abgeschnitten.
+   DER WERT IST GERECHNET, NICHT GEGRIFFEN. Das Bild ist bei 750 px Breite
+   892 px hoch, sichtbar sind 234 px; der Ausschnitt kann also um 658 px
+   wandern. Das Gesicht sitzt (am Hochformat gemessen) bei 38 % der
+   Bildhoehe, also 339 px; damit es in der Mitte des Streifens steht, muss
+   der Ausschnitt bei 339 - 117 = 222 px beginnen, das sind 222 / 658 = 34 %.
+   Ein erster Versuch mit 18 % zeigte Stirn und Haaransatz, die Augen lagen
+   an der Unterkante — deshalb die Rechnung.
+   Hier und nicht in stelle.css, weil das Bild der Berater-Seite (597 : 299,
+   Haende am Tisch) mittig richtig sitzt. Nur quer: hochkant zeigt das Bild
+   sein volles Verhaeltnis, dort gibt es keinen Beschnitt.
+   --------------------------------------------------------------------------- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .stl-schluss__medium img { object-position: 50% 34%; }
+}

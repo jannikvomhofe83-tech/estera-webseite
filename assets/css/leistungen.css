@@ -217,7 +217,7 @@
   background: var(--line-gold);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1s var(--ease-soft) 0.25s;
+  transition: transform 0.6s var(--ease-soft) 0.1s;   /* 1 s -> 0,6 s, P0 01.09.2026 */
 }
 .lst__col--right .lst__title::after { transform-origin: right; }
 [data-seen='true'] .lst__title::after { transform: scaleX(1); }
@@ -243,10 +243,13 @@
 .lst__axis svg { width: 100%; height: auto; overflow: visible; display: block; }
 
 /* Linien zeichnen sich beim Scrollen selbst */
+/* 1,4 s -> 0,6 s, Versatz halbiert — Optimierungsbriefing 01.09.2026, P0.
+   site.js schreibt --d als Vielfaches von 120; hier 0,5 ms je Einheit,
+   also 60 ms Staffel. */
 [data-lines] path {
   stroke-dasharray: var(--len, 600);
   stroke-dashoffset: var(--len, 600);
-  transition: stroke-dashoffset 1.4s var(--ease-soft) calc(var(--d, 0) * 1ms);
+  transition: stroke-dashoffset 0.6s var(--ease-soft) calc(var(--d, 0) * 0.5ms);
 }
 [data-drawn='true'] path { stroke-dashoffset: 0; }
 /* Die Pfeilspitze selbst darf nie gestrichelt werden */
@@ -271,8 +274,11 @@ marker path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important
     0 0 0 7px var(--paper-warm),
     0 0 0 8px rgba(168, 135, 79, 0.55);
   opacity: 0;
-  transition: opacity 0.9s var(--ease-soft) 0.85s,
-              transform 0.9s var(--ease-soft) 0.85s;
+  /* 0,9 s nach 0,85 s -> 0,5 s nach 0,2 s — Optimierungsbriefing 01.09.2026,
+     P0. Das Siegel steht auf keiner Seite mehr im Markup; die Regel ist
+     nur noch Rueckweg. */
+  transition: opacity 0.5s var(--ease-soft) 0.2s,
+              transform 0.5s var(--ease-soft) 0.2s;
 }
 [data-drawn='true'] .lst__seal {
   opacity: 1;
@@ -366,17 +372,28 @@ marker path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important
    kurz weg. */
 .is-ready [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+  transform: translateY(14px);
+  /* 0,9 s -> 0,5 s, Optimierungsbriefing 01.09.2026 (P0): hoechstens
+     400-600 ms, 12-20 px Weg. */
+  transition: opacity 0.5s var(--ease-soft), transform 0.5s var(--ease-soft);
 }
 [data-reveal][data-seen='true'] {
   opacity: 1;
   transform: none;
-  transition-delay: calc(var(--i, 0) * 0.12s);
+  /* 0,12 s -> 0,06 s je Stufe — Optimierungsbriefing 01.09.2026, P0
+     („kaum Verzoegerung zwischen Elementen"). */
+  transition-delay: calc(var(--i, 0) * 0.06s);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1; transform: none; }
+  /* `.is-ready` steht mit im Selektor, sonst verliert diese Regel
+     (0,1,0) gegen den Startzustand `.is-ready [data-reveal]` (0,2,0)
+     darueber — nachgemessen am 01.09.2026: der Kopf der Kundenstimmen und
+     der Zwischen-CTA standen im Ruhemodus bis zum Aufdecken auf Deckkraft
+     0. Das Briefing verlangt bei `reduce` die vollstaendige Deaktivierung,
+     also: nichts ist je verborgen. */
+  [data-reveal],
+  .is-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
   [data-lines] path { stroke-dashoffset: 0; }
   .lst__seal { opacity: 1; transform: translate(-50%, -50%); }
 }

@@ -128,9 +128,11 @@
 .is-ready .schluss [data-reveal][data-seen='true'] {
   opacity: 1;
   translate: none;
+  /* 0,85 s / 90 ms -> 0,5 s / 60 ms — P0 01.09.2026. Die Klasse .schluss
+     steht auf keiner Seite mehr im Markup; Rueckweg. */
   transition:
-    opacity   0.85s var(--ease-soft) calc(var(--i, 0) * 0.09s),
-    translate 0.85s var(--ease-soft) calc(var(--i, 0) * 0.09s);
+    opacity   0.5s var(--ease-soft) calc(var(--i, 0) * 0.06s),
+    translate 0.5s var(--ease-soft) calc(var(--i, 0) * 0.06s);
 }
 
 /* ---------------------------------------------------------------------------
@@ -217,8 +219,8 @@
    beim Ueberfahren verschlucken. Deshalb hier alle vier Eigenschaften. */
 .is-ready .schluss .wissen__frage[data-seen='true'] {
   transition:
-    opacity    0.85s var(--ease-soft) calc(var(--i, 0) * 0.09s),
-    translate  0.85s var(--ease-soft) calc(var(--i, 0) * 0.09s),
+    opacity    0.5s var(--ease-soft) calc(var(--i, 0) * 0.06s),
+    translate  0.5s var(--ease-soft) calc(var(--i, 0) * 0.06s),
     box-shadow 0.5s var(--ease),
     transform  0.5s var(--ease);
 }
@@ -652,6 +654,27 @@
   color: var(--navy-800);
   text-wrap: balance;
 }
+/* „kein Kauf" und „Klarheit" — 01.09.2026, Optimierungsbriefing, Abschnitt
+   08: „deutlich groesser, farbig oder in unterschiedlichen Schriftschnitten
+   hervorheben." Alle drei Mittel, aber jedes massvoll: 1,18-fach groesser,
+   Schnitt 500 statt 300, --gold-text. Aufrecht, nicht kursiv — <em> ist
+   hier die Betonung im Sinn, nicht die Schraeglage; Cormorant kursiv laese
+   sich in einer Ueberschrift dieser Groesse wie ein Zitat.
+   FARBE: --gold-text #86693A misst 5,13:1 auf Weiss; bei 33 px und 500
+   gilt ohnehin die 3:1-Schwelle fuer grosse Schrift. Der Sand des Knopfes
+   darunter (1,94:1) kommt als Schrift nicht in Frage.
+   `line-height: 1` am <em>, damit die groessere Zeile den Zeilenabstand
+   der Ueberschrift nicht aufsprengt. */
+.cta__stark {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.18em;
+  line-height: 1;
+  color: var(--gold-text, #86693A);
+  /* „kein Kauf" bleibt zusammen: bei 1440 brach die Zeile genau zwischen
+     den beiden Woertern, und die Hervorhebung zerfiel in zwei Haelften. */
+  white-space: nowrap;
+}
 .cta__text {
   max-width: 52rem;
   margin: clamp(0.9rem, 1.7vw, 1.5rem) auto clamp(1.6rem, 3vw, 2.4rem);
@@ -741,4 +764,50 @@
     width: 100%;
     margin-top: clamp(1.6rem, 4vw, 2.6rem);
   }
+}
+
+/* ===========================================================================
+   FUSSZEILE: LESBARKEIT UND TREFFERFLAECHEN — 01.09.2026
+
+   Optimierungsbriefing, Abschnitt 19: „Textgrößen … vergrößern. Lesbarkeit
+   hat Vorrang vor extrem filigraner Boutique-Optik." und „Mobile: … keine
+   Mini-Schriften". Der Pruefer hat auf allen Seiten dieselben drei Befunde
+   gemessen: Haftungstext 12,8 px in Weiss 42 % = 4,04:1, Etiketten
+   „KONTAKT / RECHTLICHES" 11,5 px, die sechs Fusslinks 14,4 px und nur 22 px
+   hoch im 30-px-Raster — unter den 44 px, die ein Daumen braucht.
+
+   Die Regeln stehen hier am Ende, weil sie die oben stehenden bewusst
+   ueberschreiben: so bleibt oben die Herkunft der alten Werte lesbar.
+   =========================================================================== */
+.fuss__titel { font-size: 0.8rem; }                       /* 11,5 -> 12,8 px */
+.fuss__liste a, .fuss__liste span {
+  font-size: 1rem;                                          /* 14,4 -> 16 px */
+  color: rgba(255, 255, 255, 0.8);                          /* 8,4:1 auf Navy */
+}
+.fuss__risiko {
+  font-size: 0.9375rem;                                     /* 12,8 -> 15 px */
+  color: rgba(255, 255, 255, 0.64);                         /* 4,04 -> 6,4:1 */
+}
+.fuss__unten span { font-size: 0.9375rem; }                 /* 13,4 -> 15 px */
+
+/* Auf dem Telefon werden die Links zu Trefferflaechen: 44 px Hoehe ueber
+   Innenabstand statt ueber Zeilenabstand, damit der Text nicht auseinander-
+   ruecken muss; das Raster der Liste wird dafuer enger, damit die Spalte
+   nicht laenger wird als noetig. */
+@media (max-width: 899px) {
+  .fuss__liste { gap: 0; }
+  .fuss__liste a, .fuss__liste span {
+    display: block;
+    padding-block: 0.55rem;                                 /* 24 + 2*8,8 = 41,6 -> mit Zeile 44 */
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+}
+
+/* MOBIL, 01.09.2026 — Briefing 19 „Buttons volle Breite": der Knopf im
+   Zwischen-CTA stand bei 250 px in einer 342-px-Spalte. */
+@media (max-width: 899px) {
+  .cta .btn { width: 100%; }
+  .cta__inner { align-items: stretch; }
+  .cta__inner > * { text-align: center; }
 }

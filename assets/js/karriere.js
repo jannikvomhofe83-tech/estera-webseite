@@ -2,7 +2,7 @@
    ESTERA — KARRIERE (Übersichtsseite)
    Neu gebaut am 30.08.2026 zusammen mit Abschnitt 9 von karriere.css.
 
-   Diese Datei macht vier Dinge. Die eigentliche Bewegung steckt vollständig
+   Diese Datei macht fünf Dinge. Die eigentliche Bewegung steckt vollständig
    in karriere.css — hier wird nur vorbereitet und geschaltet. Es läuft
    keine einzige Bildfolge über Javascript, es hängt nichts am Bildlauf, und
    es gibt kein requestAnimationFrame.
@@ -31,6 +31,15 @@
    4  DIE KLASSE `ist-da` BEIM EINTRITT SETZEN
       Ein IntersectionObserver, einmalig; danach wird das Element nicht mehr
       beobachtet.
+      SEIT 01.09.2026 MIT SICHERHEITSNETZ (Optimierungsbriefing, Abschnitt
+      02, P0): threshold 0, nach unten 200 px vorgezogen, und beim Rollen
+      wird zusaetzlich alles aufgedeckt, was ueber der Fensterunterkante
+      steht. Ausfuehrlich unten bei Punkt 4.
+
+   5  DIE GANZE STELLENKARTE KLICKBAR (01.09.2026, Briefing Abschnitt 19)
+      Ein Klick auf die Kartenflaeche loest den Verweis „Mehr erfahren"
+      aus. Die Knoepfe selbst bleiben gewoehnliche Verweise; ohne Skript
+      fehlt nur die Flaeche, nicht der Weg. Laeuft auch bei „reduce".
 
    OHNE JAVASCRIPT
    steht die Seite vollständig da. Sämtliche Bewegungsregeln in karriere.css
@@ -72,6 +81,37 @@
                                           das pause() unten */ }
     video.addEventListener('loadeddata', function () {
       try { video.pause(); } catch (e) {}
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     5  Die ganze Stellenkarte klickbar — 01.09.2026, Briefing Abschnitt 19
+        („ganze Karten klickbar, Hover/Fokus sichtbar, tastaturbedienbar").
+
+     Steht VOR dem Ausstieg fuer „reduce", weil es mit Bewegung nichts zu
+     tun hat. Der Klick wird an den Verweis [data-karte-ziel] der Karte
+     weitergereicht („Mehr erfahren", die Stellenseite) — ueber dessen
+     eigenes click(), damit href, Verlauf und Tastenkombinationen so
+     funktionieren, wie der Browser sie fuer einen Verweis kennt.
+
+     NICHT weitergereicht wird, wenn der Klick ohnehin auf einem Verweis
+     landet (der zweite Knopf „Jetzt bewerben" fuehrt woandershin) oder
+     wenn jemand gerade Text in der Karte markiert hat — ein Klick zum
+     Markieren ist kein Klick zum Navigieren.
+
+     Tastatur: die Karte bekommt KEIN tabindex. Ihre zwei Knoepfe sind
+     bereits Tab-Stopps, und :focus-within in karriere.css zeigt den Fokus
+     auf der ganzen Karte an. Ein dritter Halt waere ein Umweg.
+     --------------------------------------------------------------------- */
+  var klickkarten = document.querySelectorAll('.kar-karte--klick');
+  for (var k = 0; k < klickkarten.length; k++) {
+    klickkarten[k].addEventListener('click', function (ev) {
+      if (ev.defaultPrevented) return;
+      if (ev.target.closest && ev.target.closest('a, button')) return;
+      var auswahl = window.getSelection && window.getSelection();
+      if (auswahl && String(auswahl).length) return;
+      var ziel = this.querySelector('[data-karte-ziel]');
+      if (ziel) ziel.click();
     });
   }
 
@@ -233,9 +273,40 @@
                        stimmt die Rechnung des Anlaufs nicht mehr.
        [data-auf]      alles Übrige, jedes für sich.
 
-     Ein Zehntel des Elements reicht als Auslöser. Ein rootMargin von
-     −40 px am Fuß verhindert, dass etwas losläuft, das gerade erst mit
-     einem Bildpunkt in den Ausschnitt ragt.
+     UMGEBAUT AM 01.09.2026 — Optimierungsbriefing, Abschnitt 02 (P0) und
+     11, CODE Karriere-Scrollverhalten: „Sections frueher einblenden und
+     keine Hoehe fuer noch unsichtbare Inhalte reservieren. Gerade ‚Mehr
+     als ein Arbeitsplatz', Teamstimmen und Rollenuebersicht duerfen beim
+     schnellen Scrollen nicht leer bleiben."
+
+     Bis dahin: threshold 0,1 und rootMargin −40 px unten. Beides hat beim
+     schnellen Rollen versagt, und zwar messbar: in 900-px-Schritten
+     gerollt standen 600 ms spaeter noch 117 Elemente unsichtbar im
+     Fenster. Zwei Ursachen. Erstens wurde etwas, das mit weniger als
+     einem Zehntel in den Ausschnitt ragte, nie gemeldet — bei einer
+     Kartenreihe von 1090 px reichte ein Schritt nicht, um das Zehntel zu
+     erreichen. Zweitens liefert der Beobachter seine Meldung erst nach
+     dem Rollen; wer weiterrollt, bevor sie kommt, hat das Element schon
+     wieder aus dem Fenster geschoben.
+
+     JETZT DREI SICHERUNGEN:
+       threshold 0        der erste Bildpunkt genuegt.
+       rootMargin +200 px die Beobachtung reicht 200 px UNTER die
+                          Fensterkante; ein Element wird aufgedeckt,
+                          bevor es ins Bild kommt, und ist beim Eintritt
+                          schon in Bewegung statt erst dann zu starten.
+       aufdecken()        beim Rollen und beim Groessenwechsel wird ohne
+                          Umweg ueber den Beobachter alles aufgedeckt,
+                          dessen Oberkante ueber der Fensterunterkante
+                          (+200 px) liegt. Das ist die Regel des
+                          Briefings woertlich: nichts, was im oder
+                          oberhalb des Fensters steht, darf unsichtbar
+                          bleiben — und sie greift auch, wenn der
+                          Beobachter eine Meldung schuldig bleibt.
+     aufdecken() laeuft ueber requestAnimationFrame gebuendelt, also
+     hoechstens einmal je Bild, und rechnet nur mit den Zielen, die noch
+     nicht aufgedeckt sind. Sind alle da, haengen die Ereignisse an einer
+     leeren Liste; abgemeldet werden sie zusaetzlich.
      --------------------------------------------------------------------- */
   var ziele = [];
   var liste = wurzel.querySelector('[data-stellen]');
@@ -244,13 +315,61 @@
   if (band) ziele.push(band);
   Array.prototype.push.apply(ziele, wurzel.querySelectorAll('[data-auf]'));
 
-  var beobachter = new IntersectionObserver(function (eintraege, selbst) {
+  var VORLAUF = 200;   /* px unter der Fensterunterkante, gilt fuer beide Wege */
+  var offen = ziele.slice();
+  var beobachter;      /* wird unten angelegt; aufdecke() laeuft erst danach */
+
+  function aufdecke(el) {
+    el.classList.add('ist-da');
+    beobachter.unobserve(el);
+    var p = offen.indexOf(el);
+    if (p > -1) offen.splice(p, 1);
+    if (!offen.length) {
+      window.removeEventListener('scroll', anfordern);
+      window.removeEventListener('resize', anfordern);
+    }
+  }
+
+  beobachter = new IntersectionObserver(function (eintraege) {
     for (var i = 0; i < eintraege.length; i++) {
       if (!eintraege[i].isIntersecting) continue;
-      eintraege[i].target.classList.add('ist-da');
-      selbst.unobserve(eintraege[i].target);
+      aufdecke(eintraege[i].target);
     }
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px ' + VORLAUF + 'px 0px' });
 
   for (i = 0; i < ziele.length; i++) beobachter.observe(ziele[i]);
+
+  var angefordert = false, bild = 0, uhr = 0;
+  function aufdecken() {
+    angefordert = false;
+    cancelAnimationFrame(bild);
+    clearTimeout(uhr);
+    var grenze = window.innerHeight + VORLAUF;
+    /* rueckwaerts, weil aufdecke() aus `offen` entfernt */
+    for (var i = offen.length - 1; i >= 0; i--) {
+      /* Oberkante ueber der Grenze — im Fenster, knapp darunter oder
+         laengst darueber hinweg gerollt: in allen drei Faellen aufdecken. */
+      if (offen[i].getBoundingClientRect().top < grenze) aufdecke(offen[i]);
+    }
+  }
+  /* Gebuendelt ueber requestAnimationFrame UND einen Zeitgeber von 120 ms —
+     wer zuerst kommt, rechnet, der andere wird abgesagt. Der Zeitgeber
+     ist der Rueckfall fuer den Fall, dass der Browser gerade keine Bilder
+     zeichnet (Tab im Hintergrund, gedrosselte Darstellung): dann bliebe
+     ein reines rAF liegen, und mit ihm das Aufdecken. Gemessen in der
+     Headless-Shell, in der ohne Eingabe kein Bild entsteht — dort fiel
+     auch der IntersectionObserver aus, der Zeitgeber nicht. */
+  function anfordern() {
+    if (angefordert) return;
+    angefordert = true;
+    bild = requestAnimationFrame(aufdecken);
+    uhr = setTimeout(aufdecken, 120);
+  }
+  window.addEventListener('scroll', anfordern, { passive: true });
+  window.addEventListener('resize', anfordern);
+  /* Einmal sofort: was beim Laden schon im Fenster steht, wartet nicht
+     auf die erste Meldung des Beobachters. Und einmal nach dem Laden, weil
+     die Bilder mit loading="lazy" die Hoehen noch verschieben koennen. */
+  anfordern();
+  window.addEventListener('load', anfordern);
 })();

@@ -157,7 +157,7 @@
 
   /* Bewegung des Einlaufs */
   --vtr-ease:  cubic-bezier(0.22, 1, 0.36, 1);
-  --vtr-dauer: 820ms;
+  --vtr-dauer: 500ms;   /* 820 -> 500, Optimierungsbriefing 01.09.2026, P0 */
   --vtr-weg:   12px;
 }
 

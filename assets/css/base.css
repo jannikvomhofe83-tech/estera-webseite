@@ -753,15 +753,21 @@ body.is-locked { overflow: hidden; }
 /* ===========================================================================
    Einlauf-Animation beim Laden
    =========================================================================== */
+/* OPTIMIERUNGSBRIEFING 01.09.2026, P0 „Scroll-Animationen und weisse
+   Flaechen", technische Mindestvorgabe: „Animationen maximal ca. 400 bis
+   600 ms, geringe Bewegung von etwa 12 bis 20 px, kaum Verzoegerung
+   zwischen Elementen." Vorher 1,15 s und 18 px; die Staffelung ueber --d
+   bleibt, die Seiten setzen sie in Millisekunden und muessen unter 200
+   bleiben. */
 [data-anim] {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(14px);
 }
 .is-ready [data-anim] {
   opacity: 1;
   transform: none;
-  transition: opacity 1.15s var(--ease-soft) calc(var(--d, 0) * 1ms),
-              transform 1.15s var(--ease-soft) calc(var(--d, 0) * 1ms);
+  transition: opacity 0.5s var(--ease-soft) calc(var(--d, 0) * 1ms),
+              transform 0.5s var(--ease-soft) calc(var(--d, 0) * 1ms);
 }
 
 @media (prefers-reduced-motion: reduce) {

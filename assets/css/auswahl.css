@@ -135,9 +135,19 @@
   position: relative;
   z-index: 1;
   background: var(--paper);
+  /* Der Abschnitt ist Sprungziel der Kopfleiste („Warum Estera" zeigt auf
+     #leistungen). Ohne diesen Rand landete der Kopf HINTER der festen
+     Leiste — und der ganze Sinn des Umbaus vom 01.09.2026 (alles in einem
+     Fenster) waere beim Klick aus der Navigation verspielt. Wie .wi und
+     .faq. */
+  scroll-margin-top: var(--header-h);
   /* Der Aussenabstand rechnet in vh, weil die Vorgabe eine Fensterhoehe ist
-     und keine Fensterbreite. */
-  padding: clamp(1.15rem, 2.7vh, 2.3rem) 0 clamp(1.3rem, 3vh, 2.6rem);
+     und keine Fensterbreite.
+     ENGER — 01.09.2026, Optimierungsbriefing, Abschnitt 07 (P1): „Weniger
+     Aussenabstand". Oben 24 -> 18 px bei 900 Fensterhoehe; unten bleibt,
+     dort grenzt der Zwischen-CTA an. Die Rechnung, was bei 1440 x 900 unter
+     die Kopfleiste passt, steht am Rahmen .wnetz. */
+  padding: clamp(1rem, 2vh, 1.8rem) 0 clamp(1.3rem, 3vh, 2.6rem);
 }
 
 .wahl__inner {
@@ -260,7 +270,8 @@
 }
 
 .wahl__h2 {
-  margin: clamp(1.05rem, 1.8vw, 1.75rem) 0 0;
+  /* 1,8vw -> 1,1vw — siehe .wahl__sub, 01.09.2026. */
+  margin: clamp(0.7rem, 1.1vw, 1.05rem) 0 0;
   font-size: clamp(1.85rem, 2.9vw, 3.15rem);
   line-height: 1.06;
   color: var(--navy-800);
@@ -268,14 +279,30 @@
 }
 
 .wahl__sub {
-  max-width: 44rem;
-  margin: clamp(1.1rem, 2.3vw, 2.2rem) 0 0;
+  /* 44 -> 54rem und engere Abstaende — 01.09.2026, Optimierungsbriefing,
+     Abschnitt 07 (P1): der ganze Abschnitt muss unter die Kopfleiste in
+     ein Fenster von 1440 x 900 passen. Der Kopf gibt dafuer 20 px ab
+     (Ueberschrift 28 -> 16, Unterzeile 33 -> 18 bei 1440); die breitere
+     Unterzeile bleibt bei 1440 zweizeilig, laeuft aber nicht mehr auf drei
+     Zeilen, wenn die Schrift am oberen Anschlag steht. */
+  max-width: 54rem;
+  margin: clamp(0.7rem, 1.25vw, 1.15rem) 0 0;
   font-family: var(--font-ui);
   font-weight: 400;
   font-size: clamp(1.06rem, 1.60vw, 1.46rem);
   line-height: 1.45;
   color: #5A6879;
   text-wrap: balance;
+}
+/* Die vier Begriffe der Grafik — 01.09.2026, Optimierungsbriefing,
+   Abschnitt 07 (DESIGN Subline): „farblich oder Semibold hervorheben;
+   Rest ruhig." Semibold UND Navy: #102949 misst 14,63:1 auf Weiss, der
+   Rest bleibt im Grau #5A6879 (5,61:1). Kein Gold — --gold-text neben
+   dem Grau saehe nach zwei Sorten Leise aus; Navy ist der Ton der
+   Kastentitel darunter, auf die die Begriffe zeigen. */
+.wahl__sub strong {
+  font-weight: 600;
+  color: var(--navy-800);
 }
 
 /* Dieselbe Stufe wie im Ablauf (dort @media max-width 760). Ohne sie stuende
@@ -351,9 +378,13 @@
      300 bis 400 ms liegen. Die Paare stehen auf Takt 1 und Takt 3, ihr
      Abstand ist also zwei Takte — 2 x 0.17 s = 340 ms, mitten im Fenster.
      Wer den Takt aendert, verschiebt damit auch den Paarabstand. */
-  --wn-takt: 0.17s;
+  /* 0,17 -> 0,06 s — Optimierungsbriefing 01.09.2026, P0 („kaum
+     Verzoegerung zwischen Elementen", je Element hoechstens 80 ms). Die
+     Paare (Takt 1 und 3) liegen damit 120 statt 340 ms auseinander; man
+     liest sie weiter als Folge, wartet aber nicht mehr darauf. */
+  --wn-takt: 0.06s;
   --wn-kasten-dauer: 0.44s; /* Kasten blendet ein und laeuft hoch           */
-  --wn-zug-dauer: 0.6s;     /* Ersatzwert, falls das Skript nicht misst     */
+  --wn-zug-dauer: 0.5s;     /* Ersatzwert, falls das Skript nicht misst     */
 
   /* ===== VON 1100 AUF 1320 px — 31.08.2026 ==============================
      Nicht breiter als die viewBox der breiten Zeichnung. Das ist keine
@@ -380,7 +411,39 @@
      grossen Fenstern 4.2rem (67.2 px) Seitenabstand, es bleiben also
      1385.6 px. Wer .wahl__inner enger stellt, muss hier mitziehen. */
   max-width: min(1240px, 100%);
-  margin: clamp(0.4rem, 1.4vh, 1.2rem) auto 0;
+  /* ===== ALLES IN EIN FENSTER — 01.09.2026, Optimierungsbriefing, Abschnitt
+     07 (P1): „Grafik, fuenf Bereiche und Ergebnis so verkleinern
+     beziehungsweise verdichten, dass alles auf einem ueblichen
+     Desktop-Viewport gleichzeitig sichtbar ist." Massstab 1440 x 900 unter
+     der festen Kopfleiste (104 px), also 796 px.
+
+     DIE ZEICHNUNG IST VON 1304 x 1080 AUF 1304 x 612 GESCHRUMPFT, und zwar
+     ohne die Schrift anzufassen — die Stichpunkte stehen weiter auf 17
+     Einheiten, bei 1240 px also 16,2 px (Untergrenze 14). Was sich
+     geaendert hat, ist die ANORDNUNG:
+       · die fuenf Kaesten sind 336 x 264 statt 336 x 336. Die Breite
+         bleibt (laengste einzeilige Zeile 271 + Haken 20 + 2 x 22), die
+         Hoehe ist der hoechste Inhalt (Finanzierung, 223) plus 2 x 20.
+         Sie sind damit nicht mehr quadratisch — die Vorgabe „mehr
+         viereckig" vom 21.08. weicht der juengeren Vorgabe, dass der
+         Abschnitt in ein Fenster passt.
+       · die vier Trabanten stehen auf derselben Hoehe wie Off-Market und
+         Zielkasten, statt in eine dritte Zeile darunter zu ragen. Die
+         S-Zuege sind dadurch kuerzer (senkrechter Teil 139 statt 124
+         Einheiten oben, 77 statt 124 unten), Bauform und Radius bleiben.
+       · die beiden senkrechten Pfeile sind 50 statt 150 und 225 Einheiten.
+       · der Zielkasten ist 500 x 140 statt 500 x 250.
+     Gerechnet und gesetzt wird das von scratchpad/wi/opt-start/netz-bau.mjs;
+     im Markup steht keine getippte Koordinate.
+
+     Bei 1240 px Breite ist die Zeichnung 582 px hoch. Mit Kopf (Eyebrow,
+     Ueberschrift, zweizeilige Unterzeile, rund 150 px), Aussenabstand
+     (18 px) und diesem Abstand (12 px) steht der Abschnitt bei 1440 x 900
+     vollstaendig unter der Kopfleiste im Fenster — nachgemessen im Bericht
+     vom 01.09.2026. Der Abstand hier ist von 1,4vh (12,6 px) auf einen
+     festen kleinen Wert gegangen; er war der einzige Posten, der ohne
+     Aussage Hoehe kostete. */
+  margin: 0.75rem auto 0;
   /* Bezug fuer die drei unsichtbaren Marken, siehe .wnetz__marke. */
   position: relative;
 }
@@ -414,9 +477,15 @@
   height: 1px;
   pointer-events: none;
 }
-.wnetz__marke--1 { top: 17.8%; }
-.wnetz__marke--2 { top: 50.4%; }
-.wnetz__marke--3 { top: 82%; }
+/* NACHGEFUEHRT 01.09.2026 auf die kompakte Zeichnung (1304 x 620):
+     breit   Stufe 1  Mitte des Off-Market-Kastens   142/612
+             Stufe 2  Mitte der Wortmarke            361/612
+             Stufe 3  Titelzeile des Zielkastens     536/612
+   Die Werte schreibt scratchpad/wi/opt-start/netz-bau.mjs mit der
+   Zeichnung zusammen aus (netz-info.json). */
+.wnetz__marke--1 { top: 23.2%; }
+.wnetz__marke--2 { top: 59%; }
+.wnetz__marke--3 { top: 87.6%; }
 
 /* Das Sprite traegt die Kastenform, den Haken der Stichpunkte und die sechs
    Symbole. Einmal abgelegt, per <use> geholt: die Kastenform zwoelfmal, die
@@ -534,8 +603,13 @@
    Das gilt fuer beide Anordnungen, weil die Kaesten dort gleich gross sind.
    Der quere Zielkasten hat sein eigenes Symbol und seinen eigenen Massstab;
    er ist deshalb ausgenommen. */
+/* SEIT DEM 01.09.2026 OHNE AUSGLEICH: die drei Symbole (wn-kasten,
+   wn-kasten-quer, wn-kasten-quer-s) tragen jetzt exakt die Masse, in denen
+   sie aufgetragen werden (336 x 264, 500 x 140, 356 x 140). Kein <use>
+   dehnt mehr, also waechst auch keine Strichstaerke mit. Der Kehrwert
+   1/1,2 von hier und 1/0,712 fuer den schmalen Zielkasten sind entfallen. */
 .wnetz__kasten:not(.wnetz__kasten--quer) {
-  stroke-width: calc(var(--wn-strich) / 1.2);
+  stroke-width: var(--wn-strich);
 }
 /* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
    weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
@@ -578,7 +652,7 @@
    von 400 auf 380 Einheiten geschrumpften viewBox ist er anteilig gleich
    breit geblieben.) */
 .wnetz__bild--schmal .wnetz__kasten--quer {
-  stroke-width: calc(var(--wn-strich) / 0.712);
+  stroke-width: var(--wn-strich);   /* eigenes Symbol seit 01.09.2026, kein Ausgleich */
 }
 
 
@@ -826,9 +900,11 @@
 
   /* Die Kette ist viel hoeher als das Feld; die Marken sitzen entsprechend
      anders. Siehe die Herleitung bei .wnetz__marke. */
-  .wnetz__marke--1 { top: 7.3%; }
-  .wnetz__marke--2 { top: 19.7%; }
-  .wnetz__marke--3 { top: 95.6%; }
+  /* schmal (380 x 1836), 01.09.2026: Off-Market-Mitte 152, Wortmarke 380,
+     Zielkasten-Mitte 1746 — jeweils durch 1836. */
+  .wnetz__marke--1 { top: 8.3%; }
+  .wnetz__marke--2 { top: 20.7%; }
+  .wnetz__marke--3 { top: 95.1%; }
 }
 
 
@@ -875,7 +951,7 @@
 .wnetz[data-bereit] .wnetz__schrift text,
 .wnetz[data-bereit] .wnetz__punkte > g {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(14px);   /* 18 -> 14, Optimierungsbriefing 01.09.2026, P0 */
 }
 .wnetz[data-bereit] .wnetz__zug {
   stroke-dasharray: 1;
@@ -959,7 +1035,24 @@
      verlassen hatte. Wer zweimal daran vorbeirollte, sah die Drehung
      zweimal. Das ist dort abgestellt.
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  --wn-dreh-dauer: 1.8s;
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     VON 1,8 s AUF 0,6 s — 01.09.2026, Optimierungsbriefing P0: „Animationen
+     maximal ca. 400 bis 600 ms." Das Briefing ist die juengere Ansage und
+     nennt die Grenze als technische Mindestvorgabe fuer alle Bewegungen
+     der Seite; die 1,8 s vom 31.08. fallen darunter.
+     DIE DREHUNG SELBST BLEIBT — sie ist ausdruecklich bestellt („Es soll
+     sich drehen … einmal um die Laengsachse") und das Briefing verlangt
+     ihre Abschaffung nicht. Der Kasten ist waehrend der Drehung sichtbar
+     (Deckkraft nach 0,22 s voll), es entsteht also keine leere Flaeche.
+     WAS DAMIT ZURUECKKOMMT: bei 0,6 s liegen die beiden Augenblicke, in
+     denen der flache Kasten hochkant zur Blickrichtung steht, 300 ms
+     auseinander — genau der Eindruck, den der Kunde am 31.08. als
+     „dreht sich mehrfach" beschrieben hat. DEM KUNDEN GEGENUEBER
+     FESTGEHALTEN: liest er das wieder so, ist der Ersatz ein kurzer
+     Einsprung (Massstab 0,94 -> 1, 500 ms) statt der Drehung; die
+     Keyframes darunter bleiben dafuer unangetastet.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  --wn-dreh-dauer: 0.6s;
 }
 
 .wnetz__kasten--ziel { stroke: var(--ziel-gruen); }

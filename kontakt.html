@@ -13,7 +13,11 @@
      steht.
      Vorher: "Was im Erstgespräch passiert, wie es danach weitergeht und wie du Estera erreichst."
      VON ESTERA BESTAETIGEN LASSEN. -->
-<meta name="description" content="Wähl dein Anliegen und schreib Estera: Kapitalanlage-Immobilie, Vertriebspartner oder Back-Office. Dazu die Kontaktwege.">
+<!-- NACHGEZOGEN 01.09.2026 — Optimierungsbriefing, Abschnitt 12: die Seite
+     spricht die Rollen konkret an, also auch hier.
+     Vorher: "Wähl dein Anliegen und schreib Estera: Kapitalanlage-Immobilie, Vertriebspartner oder Back-Office. Dazu die Kontaktwege."
+     VON ESTERA BESTAETIGEN LASSEN. -->
+<meta name="description" content="Wähl dein Anliegen und schreib Estera: Kapitalanlage-Immobilie, Bewerbung als Immobilienberater / Sales Manager (m/w/d) oder fürs Backoffice. Dazu die Kontaktwege.">
 <meta name="robots" content="noindex, nofollow">
 
 <link rel="preload" href="assets/fonts/CormorantGaramond-300-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -386,9 +390,21 @@
           </a>
         </li>
 
+        <!-- ROLLENBEZOGEN STATT „VERTRIEBSPARTNER" — 01.09.2026,
+             Optimierungsbriefing, Abschnitt 12: „Nicht ‚Du willst
+             Vertriebspartner werden?'. Die Seite und das Formular sprechen die
+             konkrete Rolle an." Der Kunde nennt den neuen Wortlaut selbst.
+             Vorher: „Du willst Vertriebspartner werden?"
+             Die Frage ist gut doppelt so lang wie die beiden anderen. Damit
+             sie den Kasten nicht in die Laenge zieht, ist die Spalte in
+             kontakt.css (.kf__wahl) nach oben gedeckelt — sie bricht dann um,
+             der Pfeil bleibt rechts stehen. -->
         <li>
           <a class="kf__karte" href="#kf-formular-2" data-oeffnet="kf-formular-2">
-            <span class="kf__karte__frage">Du willst Vertriebspartner werden?</span>
+            <!-- &nbsp; vor dem Schraegstrich: gemessen bei 1440 px brach die Zeile
+                 sonst VOR dem Strich um, und die zweite Zeile begann mit „/ Sales
+                 Manager". So bleibt der Strich am Wort davor haengen. -->
+            <span class="kf__karte__frage">Du möchtest dich als Immobilienberater&nbsp;/ Sales&nbsp;Manager (m/w/d) bewerben?</span>
             <span class="kf__karte__pfeil" aria-hidden="true">
               <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.2">
                 <path d="M0 6h24M18.5 1 24 6l-5.5 5"/>
@@ -397,9 +413,11 @@
           </a>
         </li>
 
+        <!-- GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 12, Wortlaut
+             des Kunden. Vorher: „Du willst Back-Office-Manager werden?" -->
         <li>
           <a class="kf__karte" href="#kf-formular-3" data-oeffnet="kf-formular-3">
-            <span class="kf__karte__frage">Du willst Back-Office-Manager werden?</span>
+            <span class="kf__karte__frage">Du möchtest dich für unser Backoffice bewerben?</span>
             <span class="kf__karte__pfeil" aria-hidden="true">
               <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.2">
                 <path d="M0 6h24M18.5 1 24 6l-5.5 5"/>
@@ -610,6 +628,14 @@
                     <label class="kf__kachel__label" for="f1-beruf-4">Sonstiges</label>
                   </div>
                 </div>
+                <!-- Leerer Fehlerbehaelter fuer die Radiogruppe — 01.09.2026,
+                     Optimierungsbriefing, Abschnitt 18: Fehler direkt unter dem
+                     betroffenen Feld. Bis dahin sprang bei fehlender Wahl nur
+                     der Fokus auf die erste Kachel, ohne ein Wort dazu.
+                     kontakt-funnel.js fuellt ihn und haengt ihn per
+                     aria-describedby an die Radios. Dasselbe in jedem
+                     Kachel-Schritt aller drei Strecken. -->
+                <span class="kf__fehler kf__fehler--gruppe" id="f1-beruf-f" role="alert"></span>
               </div>
             </fieldset>
 
@@ -633,41 +659,52 @@
                  kappt, nimmt der Seite eine Antwort, die der Kunde selbst
                  geschrieben hat.
 
-                 Die Spannen sind so geschrieben wie auf der Vorlage
-                 (Bindestrich, kein Abstand vor dem Eurozeichen). Typografisch
-                 richtig waere „2.000–2.500 €" mit Halbgeviert und geschuetztem
-                 Abstand. Geaendert wird es nicht, weil der Kunde „genau
-                 gleich" verlangt hat — auf ein Wort von Estera ist es eine
-                 Zeile Arbeit.
-                 VON ESTERA BESTAETIGEN LASSEN. -->
+                 SCHREIBWEISE VEREINHEITLICHT — 01.09.2026, Optimierungsbriefing,
+                 Abschnitt 12: „Einheitliche Tausenderpunkte, klare Euro-Angabe
+                 und ausreichend große Auswahlfelder." Bis dahin standen die
+                 Spannen wie auf der Vorlage Invenio (Bindestrich, kein Abstand
+                 vor dem Eurozeichen), weil der Kunde „genau gleich" verlangt
+                 hatte. Das Briefing hebt das auf. Jetzt: Halbgeviertstrich mit
+                 Leerzeichen, Leerzeichen vor dem Euro, „ueber" klein.
+                 Vorher (Beschriftung und value gleich):
+                   „2.000-2.500€" · „2.500-5.000€" · „5.000-7.500€" · „Über 7.500€"
+                 data-sprung="absage" haengt weiter am ersten Radio — an der
+                 Verzweigung aendert die Schreibweise nichts.
+
+                 .kf__kacheln--betrag: die Betraege stehen mittig, groesser und
+                 kraeftiger als gewoehnliche Antworten (kontakt.css). Der leere
+                 .kf__fehler--gruppe darunter ist der Behaelter fuer „Waehl eine
+                 Antwort", falls jemand ohne Kreuz auf Weiter drueckt
+                 (Abschnitt 18: Fehler direkt unter dem betroffenen Feld). -->
             <fieldset class="kf__stufe" data-stufe>
               <legend class="kf__stufe__legende">
                 <span class="kf__stufe__frage" data-frage tabindex="-1">Wie hoch ist dein monatliches Nettoeinkommen?</span>
               </legend>
               <div class="kf__stufe__inhalt">
-                <div class="kf__kacheln">
+                <div class="kf__kacheln kf__kacheln--betrag">
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-netto-1"
-                           name="nettoeinkommen" value="2.000-2.500€"
+                           name="nettoeinkommen" value="2.000 – 2.500 €"
                            data-sprung="absage" required>
-                    <label class="kf__kachel__label" for="f1-netto-1">2.000-2.500€</label>
+                    <label class="kf__kachel__label" for="f1-netto-1">2.000 – 2.500 €</label>
                   </div>
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-netto-2"
-                           name="nettoeinkommen" value="2.500-5.000€">
-                    <label class="kf__kachel__label" for="f1-netto-2">2.500-5.000€</label>
+                           name="nettoeinkommen" value="2.500 – 5.000 €">
+                    <label class="kf__kachel__label" for="f1-netto-2">2.500 – 5.000 €</label>
                   </div>
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-netto-3"
-                           name="nettoeinkommen" value="5.000-7.500€">
-                    <label class="kf__kachel__label" for="f1-netto-3">5.000-7.500€</label>
+                           name="nettoeinkommen" value="5.000 – 7.500 €">
+                    <label class="kf__kachel__label" for="f1-netto-3">5.000 – 7.500 €</label>
                   </div>
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-netto-4"
-                           name="nettoeinkommen" value="Über 7.500€">
-                    <label class="kf__kachel__label" for="f1-netto-4">Über 7.500€</label>
+                           name="nettoeinkommen" value="über 7.500 €">
+                    <label class="kf__kachel__label" for="f1-netto-4">über 7.500 €</label>
                   </div>
                 </div>
+                <span class="kf__fehler kf__fehler--gruppe" id="f1-netto-f" role="alert"></span>
               </div>
             </fieldset>
 
@@ -682,47 +719,65 @@
                 <span class="kf__stufe__frage" data-frage tabindex="-1">Wie viel Eigenkapital steht dir zur Verfügung?</span>
               </legend>
               <div class="kf__stufe__inhalt">
-                <div class="kf__kacheln">
+                <!-- Schreibweise wie beim Nettoeinkommen vereinheitlicht —
+                     01.09.2026, Optimierungsbriefing, Abschnitt 12.
+                     Vorher: „10.000-15.000€" · „15.000-50.000€" ·
+                             „50.000-100.000€" · „Über 100.000€" -->
+                <div class="kf__kacheln kf__kacheln--betrag">
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-ek-1"
-                           name="eigenkapital" value="10.000-15.000€" required>
-                    <label class="kf__kachel__label" for="f1-ek-1">10.000-15.000€</label>
+                           name="eigenkapital" value="10.000 – 15.000 €" required>
+                    <label class="kf__kachel__label" for="f1-ek-1">10.000 – 15.000 €</label>
                   </div>
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-ek-2"
-                           name="eigenkapital" value="15.000-50.000€">
-                    <label class="kf__kachel__label" for="f1-ek-2">15.000-50.000€</label>
+                           name="eigenkapital" value="15.000 – 50.000 €">
+                    <label class="kf__kachel__label" for="f1-ek-2">15.000 – 50.000 €</label>
                   </div>
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-ek-3"
-                           name="eigenkapital" value="50.000-100.000€">
-                    <label class="kf__kachel__label" for="f1-ek-3">50.000-100.000€</label>
+                           name="eigenkapital" value="50.000 – 100.000 €">
+                    <label class="kf__kachel__label" for="f1-ek-3">50.000 – 100.000 €</label>
                   </div>
                   <div class="kf__kachel">
                     <input class="kf__kachel__radio" type="radio" id="f1-ek-4"
-                           name="eigenkapital" value="Über 100.000€">
-                    <label class="kf__kachel__label" for="f1-ek-4">Über 100.000€</label>
+                           name="eigenkapital" value="über 100.000 €">
+                    <label class="kf__kachel__label" for="f1-ek-4">über 100.000 €</label>
                   </div>
                 </div>
+                <span class="kf__fehler kf__fehler--gruppe" id="f1-ek-f" role="alert"></span>
               </div>
             </fieldset>
 
             <!-- ===== Schritt 4 von 5 — Kontaktdaten =====
                  Alle drei Angaben sind Pflicht, so wie auf der Vorlage.
-                 Telefon und E-Mail stehen ab 600 px nebeneinander — das ist
-                 kein Selbstzweck: es macht diesen Schritt flacher, und die
-                 Buehne ist immer so hoch wie ihr hoechster Schritt.
+
+                 EIN FELD JE ZEILE — 01.09.2026, Optimierungsbriefing, Abschnitt
+                 18: „nur eine Frage pro visueller Zeile. Auf Mobilgeräten
+                 vollständig einspaltig." Telefon und E-Mail standen ab 600 px
+                 nebeneinander (.kf__reihe), um den Schritt flacher zu machen.
+                 Das Markup behaelt die Reihe, kontakt.css stellt sie an jeder
+                 Breite auf eine Spalte — so bleibt der Rueckweg eine Zeile CSS.
 
                  Der Stern hinter der Beschriftung ist aria-hidden. Dass ein
                  Feld Pflicht ist, sagt der Vorlesesoftware das Attribut
-                 `required`; ein vorgelesenes „Stern" waere Doppelung. -->
+                 `required`; ein vorgelesenes „Stern" waere Doppelung.
+
+                 BESCHRIFTUNGEN VEREINFACHT — 01.09.2026, Optimierungsbriefing,
+                 Abschnitt 12, Wortlaut des Kunden:
+                   „Name"                      -> „Vor- und Nachname"
+                   „Deine beste Telefonnummer" -> „Telefonnummer"
+                   „Deine beste E-Mail"        -> „E-Mail-Adresse"
+                 „Deine beste …" stammte von der Vorlage Invenio. Das Feld
+                 „name" bleibt EIN Feld (autocomplete="name"); nur die
+                 Beschriftung sagt jetzt, dass beides hineingehoert. -->
             <fieldset class="kf__stufe" data-stufe>
               <legend class="kf__stufe__legende">
                 <span class="kf__stufe__frage" data-frage tabindex="-1">Kontaktdaten</span>
               </legend>
               <div class="kf__stufe__inhalt">
                 <p class="kf__feld">
-                  <label for="f1-name">Name <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                  <label for="f1-name">Vor- und Nachname <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                   <input type="text" id="f1-name" name="name" autocomplete="name"
                          required aria-describedby="f1-name-f">
                   <span class="kf__fehler" id="f1-name-f" role="alert"></span>
@@ -730,13 +785,13 @@
 
                 <div class="kf__reihe">
                   <p class="kf__feld">
-                    <label for="f1-tel">Deine beste Telefonnummer <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <label for="f1-tel">Telefonnummer <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                     <input type="tel" id="f1-tel" name="telefon" autocomplete="tel"
                            required aria-describedby="f1-tel-f">
                     <span class="kf__fehler" id="f1-tel-f" role="alert"></span>
                   </p>
                   <p class="kf__feld">
-                    <label for="f1-mail">Deine beste E-Mail <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <label for="f1-mail">E-Mail-Adresse <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                     <input type="email" id="f1-mail" name="email" autocomplete="email"
                            required aria-describedby="f1-mail-f">
                     <span class="kf__fehler" id="f1-mail-f" role="alert"></span>
@@ -758,11 +813,23 @@
                  In <template>, siehe die lange Begruendung oben. -->
             <template data-funnel-ende="danke">
               <div class="kf__stufe kf__stufe--ende">
+                <!-- DER NAECHSTE SCHRITT STEHT DABEI — 01.09.2026,
+                     Optimierungsbriefing, Abschnitt 18: „Nach dem Absenden eine
+                     klare Bestätigung mit nächstem Schritt darstellen." Die
+                     Bestaetigung sagt jetzt, WER sich WIE meldet — ueber die
+                     angegebene Telefonnummer oder E-Mail-Adresse, also genau die
+                     beiden Angaben aus dem Schritt davor. Keine Frist: eine
+                     Antwortzeit hat Estera nicht genannt, und eine erfundene
+                     waere ein Versprechen, das niemand halten muss.
+                     Vorher: „Einer unserer Experten schaut sich nun deine Angaben
+                              an und meldet sich persönlich bei dir."
+                     VON ESTERA BESTAETIGEN LASSEN. -->
                 <h4 class="kf__ende__titel" data-frage tabindex="-1">Das hat geklappt!</h4>
                 <div class="kf__stufe__inhalt">
                   <p class="kf__stufe__text">
-                    Einer unserer Experten schaut sich nun deine Angaben an und
-                    meldet sich persönlich bei dir.
+                    Einer unserer Experten schaut sich deine Angaben an und
+                    meldet sich zeitnah persönlich bei dir — telefonisch oder per
+                    E-Mail, unter den Kontaktdaten, die du gerade angegeben hast.
                   </p>
                   <!-- GEKUERZT 31.08.2026. Entfallen ist die Zeile
                        „Deine Angaben sind bei uns eingegangen!" — sie sagt
@@ -892,14 +959,20 @@
         <form class="kf__formular" id="kf-formular-2" data-funnel tabindex="-1"
               action="" method="post" enctype="multipart/form-data"
               aria-labelledby="kf-t2">
-          <input type="hidden" name="anliegen" value="Vertriebspartner">
+          <!-- Wert und Dialogname heissen wie die Rolle im Kasten — 01.09.2026,
+               Optimierungsbriefing, Abschnitt 12. Der Empfaenger sieht spaeter im
+               Feld „anliegen" dieselbe Bezeichnung, die der Bewerber gedrueckt hat.
+               Vorher: value="Vertriebspartner" -->
+          <input type="hidden" name="anliegen" value="Immobilienberater / Sales Manager (m/w/d)">
 
           <div class="kf__formular__kopf">
             <!-- Nicht mehr zu sehen, nur noch der Name des Dialogs — die
                    ausfuehrliche Begruendung steht bei Strecke 1.
                    Frueherer sichtbarer Wortlaut: „Als Vertriebspartner bewerben".
                    VON ESTERA BESTAETIGEN LASSEN. -->
-              <h3 class="kf__formular__titel" id="kf-t2">Vertriebspartner</h3>
+            <!-- GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 12.
+                   Vorher: „Vertriebspartner" -->
+              <h3 class="kf__formular__titel" id="kf-t2">Bewerbung als Immobilienberater / Sales Manager (m/w/d)</h3>
           </div>
 
           <div class="kf__stufen" data-funnel-stufen>
@@ -924,6 +997,7 @@
                     <label class="kf__kachel__label" for="f2-erf-nein">Nein</label>
                   </div>
                 </div>
+                <span class="kf__fehler kf__fehler--gruppe" id="f2-erf-f" role="alert"></span>
               </div>
             </fieldset>
 
@@ -960,10 +1034,11 @@
                  Sie erklaerte die Frage, statt sie zu stellen. Zurueckholbar
                  ist sie ueber <span class="kf__stufe__zusatz"> in der Legende.
 
-                 Letzte Stelle und Bereich stehen ab 600 px nebeneinander.
-                 Das ist Hoehe, die dieser Schritt der ganzen Buehne
-                 aufzwingen wuerde — sie ist immer so hoch wie ihr hoechster
-                 Schritt.
+                 Letzte Stelle und Bereich standen ab 600 px nebeneinander, um
+                 diesem Schritt Hoehe zu nehmen. Seit dem 01.09.2026
+                 (Optimierungsbriefing, Abschnitt 18: „nur eine Frage pro
+                 visueller Zeile") stellt kontakt.css die .kf__reihe an jeder
+                 Breite einspaltig; das Markup ist unveraendert.
 
                  Die beiden neuen Pflichtfelder bekommen je einen leeren
                  Fehlerbehaelter und aria-describedby. Ohne ihn haette
@@ -1044,6 +1119,7 @@
                     <label class="kf__kachel__label" for="f2-start-3">In 3 Monaten</label>
                   </div>
                 </div>
+                <span class="kf__fehler kf__fehler--gruppe" id="f2-start-f" role="alert"></span>
               </div>
             </fieldset>
 
@@ -1080,13 +1156,17 @@
 
                 <div class="kf__reihe">
                   <p class="kf__feld">
-                    <label for="f2-tel">Telefon <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <!-- BESCHRIFTUNGEN VEREINFACHT — 01.09.2026, Optimierungsbriefing,
+                         Abschnitt 12: „Telefon" -> „Telefonnummer", „E-Mail" ->
+                         „E-Mail-Adresse". Vorname und Nachname bleiben getrennt und
+                         heissen weiter so. -->
+                    <label for="f2-tel">Telefonnummer <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                     <input type="tel" id="f2-tel" name="telefon" autocomplete="tel"
                            required aria-describedby="f2-tel-f">
                     <span class="kf__fehler" id="f2-tel-f" role="alert"></span>
                   </p>
                   <p class="kf__feld">
-                    <label for="f2-mail">E-Mail <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <label for="f2-mail">E-Mail-Adresse <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                     <input type="email" id="f2-mail" name="email" autocomplete="email"
                            required aria-describedby="f2-mail-f">
                     <span class="kf__fehler" id="f2-mail-f" role="alert"></span>
@@ -1112,6 +1192,13 @@
                  Text ist deshalb meiner, in der Du-Anrede der uebrigen Seite
                  und ohne Versprechen, das niemand halten kann — kein „binnen
                  24 Stunden", solange nicht feststeht, wer antwortet.
+                 VON ESTERA BESTAETIGEN LASSEN.
+
+                 ERGAENZT 01.09.2026 — Optimierungsbriefing, Abschnitt 18:
+                 „klare Bestätigung mit nächstem Schritt". Die Zeile sagt jetzt,
+                 auf welchem Weg die Antwort kommt. Weiterhin keine Frist.
+                 Vorher: „Wir sehen uns deine Bewerbung in Ruhe an und melden
+                          uns persönlich bei dir."
                  VON ESTERA BESTAETIGEN LASSEN. -->
             <template data-funnel-ende="danke">
               <div class="kf__stufe kf__stufe--ende">
@@ -1119,7 +1206,8 @@
                 <div class="kf__stufe__inhalt">
                   <p class="kf__stufe__text">
                     Wir sehen uns deine Bewerbung in Ruhe an und melden uns
-                    persönlich bei dir.
+                    zeitnah persönlich bei dir — telefonisch oder per E-Mail,
+                    unter den Kontaktdaten, die du gerade angegeben hast.
                   </p>
                   <!-- GEKUERZT 31.08.2026. Entfallen: „Deine Bewerbung ist bei
                        uns eingegangen." (sagt dasselbe wie die Ueberschrift)
@@ -1150,14 +1238,18 @@
         <form class="kf__formular" id="kf-formular-3" data-funnel tabindex="-1"
               action="" method="post" enctype="multipart/form-data"
               aria-labelledby="kf-t3">
-          <input type="hidden" name="anliegen" value="Back-Office-Manager">
+          <!-- Wie bei Strecke 2: Wert heisst wie die Rolle im Kasten — 01.09.2026,
+               Optimierungsbriefing, Abschnitt 12. Vorher: value="Back-Office-Manager" -->
+          <input type="hidden" name="anliegen" value="Backoffice">
 
           <div class="kf__formular__kopf">
             <!-- Nicht mehr zu sehen, nur noch der Name des Dialogs — die
                    ausfuehrliche Begruendung steht bei Strecke 1.
                    Frueherer sichtbarer Wortlaut: „Als Back-Office-Manager bewerben".
                    VON ESTERA BESTAETIGEN LASSEN. -->
-              <h3 class="kf__formular__titel" id="kf-t3">Back-Office-Manager</h3>
+            <!-- GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 12.
+                   Vorher: „Back-Office-Manager" -->
+              <h3 class="kf__formular__titel" id="kf-t3">Bewerbung fürs Backoffice</h3>
           </div>
 
           <div class="kf__stufen" data-funnel-stufen>
@@ -1188,6 +1280,7 @@
                     <label class="kf__kachel__label" for="f3-erf-nein">Nein</label>
                   </div>
                 </div>
+                <span class="kf__fehler kf__fehler--gruppe" id="f3-erf-f" role="alert"></span>
               </div>
             </fieldset>
 
@@ -1275,6 +1368,7 @@
                     <label class="kf__kachel__label" for="f3-start-3">In 3 Monaten</label>
                   </div>
                 </div>
+                <span class="kf__fehler kf__fehler--gruppe" id="f3-start-f" role="alert"></span>
               </div>
             </fieldset>
 
@@ -1304,13 +1398,15 @@
 
                 <div class="kf__reihe">
                   <p class="kf__feld">
-                    <label for="f3-tel">Telefon <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <!-- Wie bei Strecke 2 — 01.09.2026, Optimierungsbriefing, Abschnitt 12.
+                         Vorher: „Telefon" / „E-Mail". -->
+                    <label for="f3-tel">Telefonnummer <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                     <input type="tel" id="f3-tel" name="telefon" autocomplete="tel"
                            required aria-describedby="f3-tel-f">
                     <span class="kf__fehler" id="f3-tel-f" role="alert"></span>
                   </p>
                   <p class="kf__feld">
-                    <label for="f3-mail">E-Mail <span class="kf__feld__stern" aria-hidden="true">*</span></label>
+                    <label for="f3-mail">E-Mail-Adresse <span class="kf__feld__stern" aria-hidden="true">*</span></label>
                     <input type="email" id="f3-mail" name="email" autocomplete="email"
                            required aria-describedby="f3-mail-f">
                     <span class="kf__fehler" id="f3-mail-f" role="alert"></span>
@@ -1328,15 +1424,18 @@
               </div>
             </fieldset>
 
-            <!-- Wortlaut wie bei den Vertriebspartnern; er stammt nicht aus
-                 der Vorlage. VON ESTERA BESTAETIGEN LASSEN. -->
+            <!-- Wortlaut wie bei Strecke 2; er stammt nicht aus der Vorlage.
+                 Ergaenzt um den naechsten Schritt am 01.09.2026 (Optimierungs-
+                 briefing, Abschnitt 18), Vorher wie dort.
+                 VON ESTERA BESTAETIGEN LASSEN. -->
             <template data-funnel-ende="danke">
               <div class="kf__stufe kf__stufe--ende">
                 <h4 class="kf__ende__titel" data-frage tabindex="-1">Das hat geklappt!</h4>
                 <div class="kf__stufe__inhalt">
                   <p class="kf__stufe__text">
                     Wir sehen uns deine Bewerbung in Ruhe an und melden uns
-                    persönlich bei dir.
+                    zeitnah persönlich bei dir — telefonisch oder per E-Mail,
+                    unter den Kontaktdaten, die du gerade angegeben hast.
                   </p>
                   <!-- GEKUERZT 31.08.2026. Entfallen: „Deine Bewerbung ist bei
                        uns eingegangen." (sagt dasselbe wie die Ueberschrift)
@@ -1371,8 +1470,10 @@
      Beides steht nicht im Briefing und ist deshalb nicht erfunden. Eine
      falsche Rufnummer auf einer Kontaktseite ist der teuerste denkbare
      Platzhalter: sie kostet genau die Anfragen, fuer die die Seite gebaut
-     wurde. Die Platzhalter bleiben beim Umbau am 31.08.2026 unveraendert
-     stehen; es ist nichts dazuerfunden worden.
+     wurde. Die Platzhalter blieben beim Umbau am 31.08.2026 unveraendert
+     stehen; seit dem 01.09.2026 sind sie ganz weg (Optimierungsbriefing,
+     P0: nichts als Platzhalter veroeffentlichen) — der Wortlaut steht
+     unten an der Liste. Es ist weiterhin nichts dazuerfunden worden.
      Die E-Mail-Adresse ist die, die auch in der Fusszeile der Startseite
      steht. Sie stammt aus dem bestehenden Projekt, NICHT aus dem
      Briefing — Estera sollte sie bestaetigen.
@@ -1396,18 +1497,32 @@
       <h2 class="display sp-kopf__h2" id="ko-h-wege">Kontaktwege</h2>
     </div>
 
+    <!-- PLATZHALTER RAUS — 01.09.2026, Optimierungsbriefing, P0 „Footer-
+         Platzhalter", gilt woertlich auch hier: „Unbekannte Angaben werden
+         nicht erfunden oder als Platzhalter veröffentlicht. […] Keine
+         Telefonnummer oder Anschrift als Platzhalter. Die vollständige
+         Anschrift steht im Impressum."
+         Ersatzlos entfernt sind drei Eintraege:
+             <dt>Telefon</dt>
+             <dd><span class="sp-offen">Angabe folgt von Estera</span></dd>
+             <dt>Standort</dt>
+             <dd><span class="sp-offen">Angabe folgt von Estera</span></dd>
+             <dt>Firmierung</dt>
+             <dd>Estera GmbH</dd>
+         Die Firmierung war kein Platzhalter, aber allein neben der E-Mail
+         eine Zeile ohne Nutzen: sie steht im Fuss („© 2026 Estera GmbH") und
+         vollstaendig im Impressum. Sobald Estera Telefon und Anschrift
+         liefert, gehoeren die ersten beiden Eintraege mit echten Werten
+         zurueck — dann ohne .sp-offen.
+         Geblieben ist die E-Mail; dazu der Verweis auf das Impressum, weil
+         das Briefing die Anschrift ausdruecklich dorthin legt.
+         Der Verweistext ist meine Formulierung. VON ESTERA BESTAETIGEN LASSEN. -->
     <dl class="sp-daten" data-reveal>
       <dt>E-Mail</dt>
       <dd><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></dd>
 
-      <dt>Telefon</dt>
-      <dd><span class="sp-offen">Angabe folgt von Estera</span></dd>
-
-      <dt>Standort</dt>
-      <dd><span class="sp-offen">Angabe folgt von Estera</span></dd>
-
-      <dt>Firmierung</dt>
-      <dd>Estera GmbH</dd>
+      <dt>Anschrift</dt>
+      <dd><a href="impressum.html">Vollständig im Impressum</a></dd>
     </dl>
 
     <!-- ENTFERNT 31.08.2026 auf Kundenwunsch. Der Hinweis lautete:
@@ -1447,8 +1562,14 @@
       <p class="fuss__titel">Kontakt</p>
       <div class="fuss__liste">
         <a href="mailto:info@estera.immobilien">info@estera.immobilien</a>
-        <span>Telefon — folgt</span>
-        <span>Anschrift — folgt</span>
+        <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing, P0 „Footer-Platzhalter":
+             „'Telefon - folgt', 'Anschrift - folgt' und vergleichbare
+             Platzhalter vollstaendig entfernen. Sichtbar bleiben die
+             E-Mail-Adresse und die Links zu Impressum, Datenschutz,
+             Cookie-Einstellungen und Erstinformation. Die Anschrift wird
+             ausschliesslich im Impressum vollstaendig gefuehrt."
+             Vorher: <span>Telefon — folgt</span>
+                     <span>Anschrift — folgt</span> -->
         <a href="partner.html">Für Partner</a>
       </div>
     </div>
@@ -1474,7 +1595,8 @@
 
   <div class="fuss__unten">
     <span>© 2026 Estera GmbH</span>
-    <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span>
+    <!-- ENTFERNT 01.09.2026 — Optimierungsbriefing P0, Platzhalter:
+         <span>Firmierung, Anschrift, Register und Erlaubnis nach § 34c GewO folgen.</span> -->
   </div>
 </footer>
 

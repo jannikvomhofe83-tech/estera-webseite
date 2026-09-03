@@ -407,12 +407,39 @@
      weil hier nichts mehr zentriert ist. */
   padding-inline: var(--panel-pad);
   line-height: 1.1;
-  font-weight: 300;
+  /* STAERKER — 01.09.2026, Optimierungsbriefing, Abschnitt 03: „Headline
+     und Subline duerfen optisch nicht wie ein grosser Textblock wirken.
+     Headline staerker, Subline schmaler setzen." Die Ueberschrift stand
+     wie jede .display im Schnitt 300 und war damit kaum kraeftiger als die
+     Unterzeile darunter (400). 500 ist ein echter Schnitt von Cormorant
+     (fonts.css) und der kleinste Sprung, der die beiden Zeilen wirklich
+     trennt; 600 saehe nach Fett aus, und das traegt diese Seite nirgends
+     in Ueberschriften. */
+  font-weight: 500;
   max-width: 100%;
 }
 .heroA__h1 .accent {
   display: block;
   color: var(--accent);
+}
+/* DER ABSCHLUSS „Nicht umgekehrt." — 01.09.2026, Optimierungsbriefing,
+   Abschnitt 03: „kann in Gold oder durch einen deutlichen Zeilenumbruch
+   hervorgehoben werden." Hier ist es beides: eigene Zeile UND Gold. Die
+   erste Zeile ist lang, ein goldener Nachsatz in derselben Zeile ginge
+   hinter ihr unter.
+   FARBE: --gold-text #86693A, gemessen 5,13:1 auf dem weissen Kasten. Der
+   Sand des Knopfes (#D9B485) misst dort 1,94:1 und ist als Schrift
+   unbrauchbar; --gold (#A8874F) 3,36:1 traegt nur als Linie. Bei dieser
+   Zeilengroesse (42 px) gaelte zwar die 3:1-Schwelle fuer grosse Schrift,
+   aber unter 620 px faellt die Ueberschrift auf 23 px, und dann muss der
+   Ton 4,5:1 halten — also von Anfang an der tiefe Ton.
+   DIE UEBERSCHRIFT BLEIBT ZWEIZEILIG. Daran haengt die Lage des Bildes
+   rechts (margin-top: -2 x --h1-zeile an .heroA__figure): die erste Zeile
+   passt bei 1024 px und darueber in eine Zeile (gemessen), die zweite ist
+   dieser Block. */
+.heroA__h1-schluss {
+  display: block;
+  color: var(--gold-text);
 }
 
 /* DIE AUSZEICHNUNG IM KOPF IST ENTFALLEN — 30.08.2026.
@@ -473,7 +500,16 @@
      ohne sie stuende die Zeile bei 1920 px wieder bei 30 px. */
   font-size: clamp(1.18rem, 1.55vw, 1.6rem);
   line-height: 1.34;
-  font-weight: 400;
+  /* SCHMALER — 01.09.2026, Optimierungsbriefing, Abschnitt 03. Zwei
+     Massnahmen, beide gegen den „grossen Textblock": der Schnitt geht von
+     400 auf 300 (die Ueberschrift darueber ist auf 500 gegangen; der
+     Abstand zwischen beiden ist damit zwei Stufen statt einer), und der
+     Satzspiegel ist auf 30em gedeckelt — bei 22 px sind das 660 px, also
+     die bisherige Spaltenbreite bei 1440; auf breiteren Fenstern lief die
+     Zeile bisher bis 780 px und wurde zur Wand. Der Grad bleibt: die
+     Untergrenze von 18,9 px ist am Fliesstext der Seite geeicht. */
+  font-weight: 300;
+  max-width: 30em;
   color: var(--ink-black);
   text-wrap: pretty;
 }
@@ -660,7 +696,9 @@
      der Abdunklung — ihn stehen zu lassen haette den Auftrag nur halb
      erfuellt. */
   transform: scale(1.02);
-  transition: transform 2.2s var(--ease-soft);
+  /* 2,2 s -> 0,6 s — Optimierungsbriefing 01.09.2026, P0 (keine Bewegung
+     ueber 600 ms). Es ist nur der Zoom beim Ueberfahren. */
+  transition: transform 0.6s var(--ease-soft);
 }
 /* ENTFERNT am 30.08.2026 zusammen mit dem Filter oben — Kundenwunsch, das
    Bild in seiner vollen Farbe zu zeigen.
@@ -894,10 +932,17 @@
    OHNE JAVASCRIPT gibt es kein `.is-ready`: der Kasten steht sofort
    vollstaendig da. Bei `reduce` ebenso.
    =========================================================================== */
+/* KUERZER — 01.09.2026, Optimierungsbriefing P0: „Animationen maximal
+   ca. 400 bis 600 ms … kaum Verzoegerung." Vorher 1250 ms Dauer plus
+   120 ms plus --d 260 ms Vorlauf, der Kasten stand also erst nach 1,63 s
+   ganz. Jetzt 600 ms Dauer, 40 ms Vorlauf, --d im Markup auf 80: fertig
+   nach 720 ms. Die Geste selbst (Aufbau von unten) ist unveraendert; nur
+   der Takt. Die Bildratenmessung oben gilt weiter — ein kuerzerer
+   Beschnittlauf kostet nicht mehr je Bild als ein langer. */
 .is-ready .heroA__panel[data-anim] {
   clip-path: inset(100% -4% -4% -4%);
-  animation: heroA-aufbau 1250ms var(--ease-soft)
-             calc(var(--d, 0) * 1ms + 120ms) forwards;
+  animation: heroA-aufbau 600ms var(--ease-soft)
+             calc(var(--d, 0) * 1ms + 40ms) forwards;
 }
 @keyframes heroA-aufbau {
   from { clip-path: inset(100% -4% -4% -4%); }
@@ -909,4 +954,16 @@
     clip-path: none;
     animation: none;
   }
+}
+
+/* MOBIL, 01.09.2026 — Briefing 19 „keine Mini-Schriften": die Guetezeile
+   stand bei 13,8 px. */
+@media (max-width: 899px) {
+  .heroA__guete { font-size: 0.9375rem; }              /* 15 px */
+}
+/* Untereinander gestapelt hingen die Trennpunkte am Zeilenende
+   („DIE BANK FINANZIERT ·"). Sobald die Marken nicht mehr in einer Zeile
+   stehen, trennt nichts mehr — der Punkt entfaellt. 01.09.2026. */
+@media (max-width: 620px) {
+  .heroA__marken span:not(:last-child)::after { content: none; }
 }
