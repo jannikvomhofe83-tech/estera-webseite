@@ -3409,3 +3409,35 @@
       rgba(168, 135, 79, 0) 100%);
   opacity: 0.75;
 }
+
+/* ===========================================================================
+   DIE UNTERZEILE IM KOPFBEREICH: EIN SATZ JE ZEILE — 04.09.2026
+
+   Kundenwunsch: der erste Satz komplett in die erste Zeile, der zweite
+   komplett in die zweite. Warum es vorher um sieben Pixel scheiterte und
+   warum der Umbruch als <br> im Markup steht, ist dort erklaert.
+
+   SIEBEN PIXEL, UND ZWAR AN DER SCHRIFT ABGETRAGEN, NICHT AN DER SPALTE.
+   Der erste Weg war, die Spalte von 1088 auf 1140 px zu weiten. Das ging
+   nicht auf: die Spalte ist `min(100%, --kar-spalte)`, und die 100 %
+   beziehen sich auf .kar-mitte, das selbst bei 1088 px gedeckelt ist — der
+   groessere Wert lief ins Leere, GEMESSEN blieben es 1088 px. Die Zeile
+   haette die Spalte also verlassen muessen, um zu passen.
+
+   Stattdessen faellt die Unterzeile im Kopfbereich von 21,42 auf 21 px.
+   Das sind zwei Prozent und am Satzbild nicht zu sehen; die erste Zeile
+   misst damit 1073 statt 1095 px und hat 15 px Luft in der Spalte. Sie
+   bleibt damit im Raster der Seite, und die Ueberschrift darueber behaelt
+   ihren Vorsprung in der Groesse. 21 px liegen weit ueber der
+   Fliesstextgrenze von 16 px aus dem Optimierungsbriefing.
+
+   .kar-nur-breit IST EIN <br>, DAS VERSCHWINDEN KANN. Unter 1100 px passt
+   die erste Zeile nicht mehr in eine Zeile; ein erzwungener Umbruch wuerde
+   dort nur eine kurze Restzeile abschneiden. Die Grenze liegt bei 1100 px,
+   weil die Spalte dort auf die Fensterbreite faellt und die Rechnung oben
+   nicht mehr traegt.
+   =========================================================================== */
+.kar-kopf .kar-unterzeile--zweisatz { font-size: 21px; }
+@media (max-width: 1099px) {
+  .kar-nur-breit { display: none; }
+}
