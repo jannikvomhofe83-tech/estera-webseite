@@ -1831,11 +1831,24 @@
 .kar-karte picture { display: block; }
 /* Das Hochformat der Backoffice-Aufnahme im 4 : 3-Fenster: sichtbar sind
    60 % der Bildhoehe. Das Gesicht sitzt in der Datei zwischen 23 % und
-   50 % der Hoehe, der Laptop beginnt bei 67 %. Mit 18 % Lage zeigt das
-   Fenster den Bereich 7 % … 67 %: Kopf, Schultern, Haende auf der
-   Tastatur — der Arbeitsplatz bleibt lesbar, nichts wird am Kinn
-   abgeschnitten. */
-.kar-karte__bild--oben { object-position: 50% 18%; }
+   50 % der Hoehe, der Laptop beginnt bei 67 %.
+
+   NACHGEZOGEN 04.09.2026, Kundenwunsch: „Das Bild der Dame muss nach oben
+   verschoben werden, sodass man mehr von der Person sieht und nicht zu viel
+   Leerlauf oben beim Bild hat. Die Bildposition soll gleich bleiben, aber
+   das Bild musst du nach oben schieben, sodass der Kopf weiter oben am
+   Bildrand ist."
+
+   Die Rechnung: Bei `cover` und einem Bild, das hoeher ist als sein
+   Fenster, waehlt der zweite Wert den Ausschnitt — 0 % zeigt den oberen
+   Rand der Datei, 100 % den unteren. Sichtbar sind 60 % der Hoehe, der
+   Ausschnitt beginnt also bei Lage × 0,4.
+     18 %  ->  Ausschnitt  7,2 … 67,2 %  ->  Kopf 26 % unter der Bildkante
+     42 %  ->  Ausschnitt 16,8 … 76,8 %  ->  Kopf 10 % unter der Bildkante
+   Der Laptop (ab 67 %) bleibt im Ausschnitt, das Kinn wird nicht
+   angeschnitten — sichtbar ist jetzt mehr Person und weniger Wand.
+   Vorher: object-position: 50% 18% */
+.kar-karte__bild--oben { object-position: 50% 42%; }
 
 /* Abstände von oben nach unten wie gemessen: 20 · 10 · 20 · 26.
    Alle vier sind absolut, nicht mit der Kartenbreite skaliert — so hält es
