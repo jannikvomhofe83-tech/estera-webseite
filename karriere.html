@@ -287,11 +287,20 @@
            darum ist neu und steht am Ende von karriere.css begruendet —
            ohne sie zwaenge .kar-knopf { flex: 1 1 100% } beide Knoepfe
            ueber die volle Spaltenbreite von 1087 px untereinander.
-           Ziel des zweiten Knopfes ist ueber-estera.html: „Estera
-           kennenlernen" ist genau diese Seite. -->
+           ZIEL DES ZWEITEN KNOPFES GEAENDERT am 04.09.2026, Kundenwunsch:
+           „Bei ‚Estera kennenlernen' kommt man auf eine Seite, die es
+           eigentlich gar nicht mehr geben sollte. Du musst auf eine andere
+           Section verweisen."
+           Vorher: ueber-estera.html. Die Datei liegt zwar noch auf der
+           Platte und antwortet mit 200, steht aber in keiner Navigation
+           mehr — weder in der Kopfleiste noch im Klappmenue noch im Fuss.
+           Wer dort landet, kommt nur ueber den Ruecksprung zurueck.
+           Jetzt zeigt der Knopf auf „Mehr als ein Arbeitsplatz" auf dieser
+           Seite: der Abschnitt, der erklaert, was Estera ist — genau das,
+           was „Estera kennenlernen" verspricht. -->
       <p class="kar-kopf__knoepfe" data-auf>
         <a class="kar-knopf kar-knopf--voll" href="#kar-angebot-titel">Offene Positionen ansehen</a>
-        <a class="kar-knopf kar-knopf--linie" href="ueber-estera.html?v=b24a">Estera kennenlernen</a>
+        <a class="kar-knopf kar-knopf--linie" href="#mehr-als-ein-arbeitsplatz">Estera kennenlernen</a>
       </p>
 
       <!-- WORDING NEU 31.08.2026 — K01 VERTRAUENSZEILE.
@@ -360,7 +369,7 @@
      muss von der ersten Bildzeile an reines Weiss sein, weil die
      Kantenmaske des Laufbands dagegen ausblendet.
      Die Oberkante bleibt hart — darueber steht Navy 900. -->
-<section class="kar-wer fl-creme-nach-weiss" aria-labelledby="kar-wer-titel">
+<section class="kar-wer fl-creme-nach-weiss" id="mehr-als-ein-arbeitsplatz" aria-labelledby="kar-wer-titel">
   <div class="kar-mitte">
     <div class="kar-wer__raster">
 
@@ -443,7 +452,11 @@
              einordnen musst. Du bekommst klare Erwartungen, starke Prozesse und die
              Möglichkeit, dir mit wachsender Kompetenz mehr Verantwortung zu
              erarbeiten.</p>
-          <p><strong>Wir wollen der Ort sein, an dem starke Menschen ihre nächste
+          <!-- WORDING 04.09.2026, Kundenwunsch. Vorher: „Wir wollen der
+                 Ort sein, an dem starke Menschen ihre nächste Stufe
+                 erreichen." So stand er im Karriere-Wording-Dokument vom
+                 31.08.2026. Aus dem Wollen wird ein Sein. -->
+          <p><strong>Wir sind der Ort, an dem starke Menschen ihre nächste
              Stufe erreichen.</strong></p>
         </div>
 

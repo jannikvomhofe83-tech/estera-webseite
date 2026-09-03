@@ -3129,3 +3129,10 @@
    Haltepunkte ein; die Karte bleibt am Satzspiegel. Ohne Rollleiste
    (laufende Fassung) ist die Angabe wirkungslos. */
 .kar-band { scroll-padding-inline: var(--kar-rand); }
+
+/* Sprungziel „Estera kennenlernen" — 04.09.2026. Die Kopfleiste ist
+   `position: fixed` und 104 px hoch; ohne diesen Abstand landet die
+   Oberkante des Abschnitts genau darunter und die ersten Bildpunkte liegen
+   hinter der Leiste. Der Wert ist die gemessene Leistenhoehe plus etwas
+   Luft, damit der Abschnitt nicht angeschnitten beginnt. */
+#mehr-als-ein-arbeitsplatz { scroll-margin-top: 120px; }
