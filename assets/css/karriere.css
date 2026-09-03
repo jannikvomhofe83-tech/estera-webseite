@@ -3366,7 +3366,46 @@
   line-height: 1.18;
 }
 
-/* Der Strich sitzt in dieser Spalte am Zeilenanfang, nicht mittig — Etikett
-   und Ueberschrift daneben laufen linksbuendig. Sonst identisch zum Strich
-   am Fuss desselben Abschnitts. */
-.kar-goldstrich--links { margin-inline: 0; }
+/* ===========================================================================
+   DIE GOLDENE TRENNLINIE ZWISCHEN ZWEI ABSCHNITTEN — 04.09.2026
+
+   Kundenwunsch: „eine feine goldene Linie […] genau mittig zwischen den
+   zwei Sections." Sie sitzt zwischen „Mehr als ein Arbeitsplatz" und
+   „Das sagt unser Team"; die Begruendung und der Wortlaut stehen an der
+   Stelle im Markup.
+
+   BAUART WIE .vtr__linie AUF DER STARTSEITE — dieselbe Haarlinie von 1 px
+   in --gold, dieselbe weiche Ausblendung zum Rand, dieselbe Deckkraft von
+   0,75. Der einzige Unterschied ist die Symmetrie: dort geht die Linie nur
+   nach rechts aus, hier nach beiden Seiten, weil sie hier keine Bildkante
+   begleitet, sondern mittig zwischen zwei Abschnitten stehen soll. Die
+   volle Deckung liegt deshalb ueber der Mitte (30–70 %) und laeuft nach
+   links wie rechts auf Null.
+
+   DIE BREITE ist die Inhaltsbreite der Seite (--kar-cap plus Rand, wie
+   .kar-mitte) — die Linie steht damit genau so breit wie die Ueberschriften
+   darueber und darunter und nicht ueber die volle Fensterbreite.
+
+   DIE HOEHE steht in einem eigenen Element und nicht als border-top am
+   naechsten Abschnitt: der Abstand nach oben und unten muss GLEICH sein
+   („genau mittig"), und mit --kar-luft auf beiden Seiten ist das eine
+   Zeile statt einer Rechnung aus margin und padding zweier Nachbarn.
+   =========================================================================== */
+.kar-trenner {
+  width: 100%;
+  max-width: calc(var(--kar-cap) + 2 * var(--kar-rand));
+  margin-inline: auto;
+  padding-inline: var(--kar-rand);
+  margin-block: var(--kar-luft);
+}
+.kar-trenner::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg,
+      rgba(168, 135, 79, 0)  0%,
+      var(--gold)           30%,
+      var(--gold)           70%,
+      rgba(168, 135, 79, 0) 100%);
+  opacity: 0.75;
+}

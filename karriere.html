@@ -381,24 +381,6 @@
           <span class="kar-balken">MEHR ALS EIN ARBEITSPLATZ</span>
         </p>
 
-        <!-- GOLDENE HAARLINIE, 04.09.2026 — Kundenwunsch woertlich:
-             „Zwischen der Section ‚Mehr als ein Arbeitsplatz‘ und ‚Ein
-             Umfeld, in dem aus Ambitionen echte Entwicklung wird‘ soll eine
-             feine goldene Linie gezogen werden, wie wir sie schon ein paar
-             Mal haben auf der Landingpage."
-             Es ist DIESELBE Linie, kein Nachbau: dasselbe Inline-SVG und
-             dieselbe Klasse .kar-goldstrich, die weiter unten in diesem
-             Abschnitt schon steht und die auf der Startseite als
-             .abl__kopfstrich unter dem Eyebrow von „So läuft die
-             Zusammenarbeit ab" haengt. Inline-SVG statt border, damit die
-             Haarlinie auf jedem Bildschirm gestochen bleibt.
-             --links: der Strich unten steht mittig (margin: auto), hier
-             steht er am Zeilenanfang, weil Etikett und Ueberschrift dieser
-             Spalte linksbuendig laufen. -->
-        <svg class="kar-goldstrich kar-goldstrich--links" data-auf width="60" height="1" viewBox="0 0 60 1" aria-hidden="true" focusable="false">
-          <path d="M0 .5H60" stroke="currentColor" stroke-width="1"/>
-        </svg>
-
         <!-- Akzentregel der Vorlage, konsequent auf jeder Ueberschrift: die
              zweite Haelfte steht kursiv UND in der Akzentfarbe — nie nur
              eins von beidem (bericht.md, Abschnitt 8.3). -->
@@ -538,6 +520,37 @@
     </div>
   </div>
 </section>
+
+
+<!-- =====================================================================
+     DIE GOLDENE TRENNLINIE ZWISCHEN DEN ABSCHNITTEN — 04.09.2026
+
+     Kundenwunsch woertlich, im zweiten Anlauf praezisiert: „Du sollst eine
+     goldene Trennlinie einbauen. Die haben wir auch schon öfter mal
+     verwendet, auf der Landingpage zwischen den Sections. […] Da sagt
+     unser Team, dass dort so eine feine goldene Linie gezogen werden soll,
+     genau mittig zwischen den zwei Sections."
+
+     ICH HATTE SIE ZUERST FALSCH GESETZT: als kurzen Strich IN den Kopf von
+     „Mehr als ein Arbeitsplatz", zwischen Etikett und Ueberschrift. Gemeint
+     war die Grenze zwischen diesem Abschnitt und „Das sagt unser Team".
+     Der falsch gesetzte Strich ist entfernt; der kurze Strich am FUSS des
+     Abschnitts darueber ist ein anderer und bleibt, wo er war.
+
+     ES IST DIE LINIE VON DER STARTSEITE, nicht eine neue Erfindung:
+     .vtr__linie in vertrauen.css zieht dort dieselbe Haarlinie ueber die
+     Abschnittsbreite und laesst sie zum Rand hin ausgehen, statt sie hart
+     abzuschneiden — „ein hart abgeschnittener Strich mitten in der Flaeche
+     saehe aus wie ein Fehler". Der Unterschied hier: dort geht sie nur nach
+     RECHTS aus (sie sitzt an der Oberkante eines Fotos), hier nach BEIDEN
+     Seiten. Das ist genau das, was „genau mittig" verlangt — die volle
+     Deckung liegt in der Mitte zwischen den zwei Abschnitten, und links wie
+     rechts laeuft sie symmetrisch aus.
+
+     aria-hidden und ohne data-auf: reine Zierde. Eine Trennlinie, die auf
+     ein Skript wartet, waere eine Trennlinie, die manchmal fehlt.
+     ===================================================================== -->
+<div class="kar-trenner" aria-hidden="true"></div>
 
 
 <!-- =====================================================================
@@ -888,12 +901,21 @@
            Die Klasse --klick macht die ganze Karte klickbar (Briefing
            Abschnitt 19; Bauart in karriere.css und karriere.js). -->
       <li class="kar-karte kar-karte--klick" style="--i:0">
+        <!-- NEUE AUFNAHME 04.09.2026 — Kundenwunsch woertlich: „Wir brauchen
+             ein KI-generiertes Bild […] ultrarealistisch, Mitte 30, braune
+             Haare, brauner 3er Bart, vor einem MacBook, Headset, lächeln."
+             Erzeugt ueber kie.ai (gpt-image-2-text-to-image) am 04.09.2026,
+             1536 × 1024 — das 3,25-fache der Anzeigebreite von 472 px, also
+             auch auf dichten Bildschirmen scharf.
+             Vorher stand hier kar-beratung (Beratungsgespraech am Tisch);
+             die Dateien bleiben im Projekt liegen, falls zurueckgetauscht
+             werden soll. -->
         <picture>
-          <source srcset="assets/img/karriere/kar-beratung.webp?v=b24a" type="image/webp">
+          <source srcset="assets/img/karriere/kar-berater-headset.webp?v=b24a" type="image/webp">
           <img class="kar-karte__bild"
-               src="assets/img/karriere/kar-beratung.png?v=b24a"
+               src="assets/img/karriere/kar-berater-headset.jpg?v=b24a"
                width="1536" height="1024" loading="lazy" decoding="async"
-               alt="Beratungsgespräch am Tisch: ein Berater zeigt auf ein Tablet, gegenüber ein Kunde mit gefalteten Händen, davor Unterlagen mit Auswertungen">
+               alt="Immobilienberater Mitte dreißig mit Headset am Schreibtisch vor einem aufgeklappten Laptop, lächelnd im Gespräch">
         </picture>
         <div class="kar-karte__inhalt">
           <!-- WORDING ERSETZT 31.08.2026 — K04, Karte 1.
