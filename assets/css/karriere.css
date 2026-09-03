@@ -3315,13 +3315,18 @@
    Lesetext. 14 px in Versalien haben dieselbe Versalhoehe wie rund 19 px
    gemischt gesetzt.
 
-   NAEHER AN DIE STELLE. 8 px Abstand nach oben statt der 16 px, mit denen
+   NAEHER AN DIE STELLE. 14 px Abstand nach oben statt der 16 px, mit denen
    sie als Kleinzeile UEBER der Ueberschrift stand. Nach unten haelt der
    Knopfblock seine 24 px, damit die Zeile klar zur Ueberschrift gehoert
-   und nicht zwischen zwei Bloecken schwebt. */
+   und nicht zwischen zwei Bloecken schwebt.
+   NACHGESETZT am selben Tag, Kundenwunsch: „nur einen kleinen Ticken
+   weiter nach unten. Nicht viel, nur einen kleinen Ticken." Von 8 auf
+   14 px — sechs Pixel, und der Abstand nach oben bleibt kleiner als der
+   nach unten (24 px), die Zeile gehoert also weiterhin sichtbar zur
+   Stellenbezeichnung und nicht zum Knopfblock. */
 .kar-karte--klick .kar-karte__art {
   color: var(--ink-black);                        /* 12,76:1 */
-  margin-top: 8px;
+  margin-top: 14px;
   font-size: clamp(12.5px, 0.95vw, 14px);
   letter-spacing: 0.12em;
 }
