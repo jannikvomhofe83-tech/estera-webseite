@@ -3239,3 +3239,134 @@
    110 auf 304 px und stand mit 194 px Leere daneben. Nur die geoeffnete
    Karte waechst; geschlossen sind weiterhin alle gleich hoch. */
 .kar-liste[data-faq] { align-items: flex-start; }
+
+/* ===========================================================================
+   DIE ZWEI ROLLENKAESTEN AUF WEISS — 04.09.2026
+
+   Kundenwunsch woertlich: „Bei zwei Rollen ein gemeinsamer Anspruch: Die
+   beiden Kästen, einmal der von Immobilienberatern und einmal der von
+   Back-Office-Managern, sollen einen weißen Hintergrund bekommen. Die ganze
+   Section soll den blauen Hintergrund behalten, aber der Hintergrund der
+   jeweiligen beiden Kästen soll weiß sein."
+
+   Der Abschnitt bleibt also Navy; nur die zwei Kaesten kehren sich um. Der
+   Wahlhaken ist `.kar-karte--klick` — die Klasse tragen NUR diese beiden
+   Kaesten, die FAQ-Kaesten weiter unten fuehren sie nicht und bleiben
+   unveraendert dunkel.
+
+   JEDER TON IM KASTEN MUSS MITGEDREHT WERDEN. Die Werte darueber sind fuer
+   Weiss auf Navy gerechnet; unveraendert ergaeben sie auf Weiss:
+       Titel        #FFFFFF                    1,00:1  unlesbar
+       Fliesstext   rgba(255,255,255,0.82)     1,15:1  unlesbar
+       Kleinzeile   var(--sand) #D9B485        1,88:1  unlesbar
+       Linienknopf  Schrift und Kante in Weiss 1,00:1  unsichtbar
+   Deshalb steht hier jeder dieser vier Toene noch einmal.
+
+   DIE KLEINZEILE wird NICHT von Sand auf ein dunkleres Sand gezogen —
+   #D9B485 traegt auf Weiss keinen lesbaren Wert. Sie bekommt das Bronze,
+   das im Projekt schon die Fortschrittsschiene fuehrt (#8A5A20, 6,45:1 auf
+   Weiss). Damit bleibt der warme Akzent erhalten und die Zeile ist lesbar.
+
+   DER VOLLE KNOPF bleibt Sand mit weisser Schrift. Das ist die
+   ausdrueckliche, mehrfach bestaetigte Entscheidung des Kunden („wenn die
+   Hintergrundfarbe diesen Goldton hat, dann muss die Schriftfarbe weiss
+   sein") und gilt site-weit — auf dem weissen Kasten aendert sich an ihm
+   nichts.
+--------------------------------------------------------------------------- */
+/* CREME STATT WEISS — 04.09.2026, Kundenwunsch woertlich: „Die zwei Kästen
+   sollen nicht die weiße Hintergrundfarbe haben, sondern cremefarben."
+   Es ist der Cremeton, den das Projekt schon fuehrt (--fl-creme #F7F3F0,
+   base.css); es wird kein zweiter erfunden. Alle Kontrastwerte darunter
+   sind gegen ihn nachgerechnet und aendern sich gegenueber Weiss nur in
+   der zweiten Nachkommastelle — die Angaben bleiben gueltig.
+   Vorher: background: var(--paper); */
+.kar-karte--klick {
+  background: var(--fl-creme);
+  border-color: rgba(10, 25, 46, 0.14);
+}
+/* Ueberfahren: dieselbe Bauart wie oben, nur mit umgekehrtem Vorzeichen —
+   dort hellte die Flaeche auf, hier dunkelt sie leicht nach, und die Kante
+   tritt hervor (0,14 → 0,34 = 1,45:1 → 2,9:1 gegen Weiss; die Karte ist
+   keine Bedienflaeche mit eigener Kontrastanforderung, ihre zwei Knoepfe
+   sind es und tragen sie selbst). */
+.kar-karte--klick:hover,
+.kar-karte--klick:focus-within {
+  border-color: rgba(10, 25, 46, 0.34);
+  background-color: #F1EBE6;   /* eine Spur tiefer als --fl-creme */
+}
+.kar-karte--klick .kar-karte__art   { color: #8A5A20; }   /* 6,45:1 */
+.kar-karte--klick .kar-karte__titel { color: var(--navy-900); }   /* 16,4:1 */
+.kar-karte--klick .kar-karte__bereiche { color: var(--ink-mute); }   /* 5,20:1 */
+/* Der Linienknopf dreht mit: Schrift Navy, Kante Navy statt Weiss. Die
+   Kante steht bei 0,42 — das sind 3,03:1 gegen Weiss und damit ueber der
+   Anforderung von 3:1 fuer die Umrandung eines Bedienelements. */
+.kar-karte--klick .kar-knopf--linie {
+  color: var(--navy-900);
+  box-shadow: inset 0 0 0 2px rgba(10, 25, 46, 0.42);
+}
+.kar-karte--klick .kar-knopf--linie:hover {
+  box-shadow: inset 0 0 0 2px rgba(10, 25, 46, 0.70);
+  background: rgba(10, 25, 46, 0.05);
+}
+
+/* ===========================================================================
+   DIE ZWEI ROLLENKAESTEN: BREITER, FLACHER, MIT GROESSERER UEBERSCHRIFT
+   04.09.2026
+
+   Kundenwunsch woertlich: „Das, was in Gold steht […] soll raus. Dafür soll
+   die Headline, also Immobilienberater, Sales Manager, (m/w/d) und
+   Back-Office Manager, größer geschrieben werden. Das soll dann den Platz
+   einfüllen. Immobilienberater und Sales Manager kannst du dann auf zwei
+   Zeilen machen, Back-Office Manager auf eine Zeile, und du musst es größer
+   schreiben und noch dicker, sodass es noch prägnanter ist. […] Die
+   Bildgröße soll gleich bleiben. Beide Kästen ein bisschen breiter und
+   nicht so hoch."
+
+   Die goldene Kleinzeile ist aus dem Markup entfernt, nicht hier
+   ausgeblendet — sie stand in karriere.html und ist dort samt Wortlaut
+   auskommentiert. Ausblenden haette sie im Vorlesegeraet stehen lassen.
+
+   BREITER, ABER NUR HIER. .kar-liste traegt auch die FAQ-Kaesten weiter
+   unten, und deren Anordnung 2-2-1 hat der Kunde am 31.08. ausdruecklich so
+   bestellt. Die Breite haengt deshalb an :not([data-faq]) — die
+   Stellenliste ist die einzige ohne dieses Merkmal.
+       Liste  968 → 1080 px      Kasten  468 → 524 px
+   (2 × 524 + 32 Spalte = 1080; die Rechnung geht auf, beide Kaesten stehen
+   weiterhin nebeneinander und gleich breit.)
+
+   NICHT HOEHER TROTZ GROESSERER SCHRIFT. Drei Posten gegeneinander,
+   gemessen bei 1440 px:
+       Kleinzeile weg                        −29 px
+       Ueberschrift 23,8 → 30 px, 2 Zeilen   +15 px
+       Fliesstext in 476 statt 416 px Breite −30 px (eine Zeile weniger)
+   Der Kasten wird damit flacher, nicht hoeher.
+
+   DIE BILDGROESSE BLEIBT. Das Fenster stand auf 4:3 und waere im breiteren
+   Kasten von 416 × 312 auf 476 × 357 gewachsen — 45 px mehr Hoehe, genau
+   das Gegenteil der Ansage. Es steht deshalb jetzt auf 3:2 und misst
+   476 × 317: dieselbe Hoehe wie vorher, nur breiter angeschnitten. Der
+   Bildausschnitt bleibt ueber object-fit: cover unverzerrt.
+--------------------------------------------------------------------------- */
+.kar-liste:not([data-faq]) { max-width: 1080px; }
+.kar-karte--klick { flex-basis: 420px; max-width: 524px; }
+.kar-karte--klick .kar-karte__bild { aspect-ratio: 3 / 2; }
+
+/* Groesser und dicker: 600 → 700, und die Obergrenze von 23,8 auf 30 px.
+   Die Rechnung ist dieselbe Bauart wie --kar-fs-kartentitel oben
+   (min(Deckel, Grundwert + vw-Anteil)), damit die Zeile mit dem Fenster
+   mitgeht statt zu springen.
+   ZWEI ZEILEN UND EINE ZEILE ergeben sich aus der Breite, nicht aus einem
+   erzwungenen Umbruch: „Immobilienberater / Sales Manager (m/w/d)" braucht
+   bei 30 px mehr als die 476 px des Kastens und bricht am Schraegstrich,
+   „Backoffice Manager (m/w/d)" bleibt mit rund 360 px darunter. Gemessen
+   bei 1920, 1440, 1200 und 1024 px. */
+.kar-karte--klick .kar-karte__titel {
+  font-size: min(30px, calc(21px + 1.05vw));
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+/* Der Strich sitzt in dieser Spalte am Zeilenanfang, nicht mittig — Etikett
+   und Ueberschrift daneben laufen linksbuendig. Sonst identisch zum Strich
+   am Fuss desselben Abschnitts. */
+.kar-goldstrich--links { margin-inline: 0; }

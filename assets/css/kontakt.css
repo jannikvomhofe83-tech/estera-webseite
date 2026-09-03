@@ -1516,18 +1516,27 @@
    Die Bauteile darunter sind dieselben wie auf Weiss — nur ihre Toene
    kehren sich um. Jeder Wert ist oben im Kopf dieser Datei gemessen.
 --------------------------------------------------------------------------- */
+/* WEISS, 04.09.2026 — Ansage des Kunden: „Wenn ich auf ‚Du willst in
+   Immobilien investieren‘, ‚Du möchtest dich als Immobilienberater bewerben‘
+   oder ‚Du möchtest dich als Backoffice-Manager bewerben‘ klicke, soll die
+   Schriftart immer weiß sein. Auch bei Vor- und Nachnamen und der
+   Telefonnummer soll die Schriftfarbe immer weiß sein."
+   Die Ueberschrift der Strecke (.kf__formular__titel), ihre Unterzeile
+   (.kf__formular__zeile) und die Feldbeschriftungen (.kf__feld > label)
+   standen vorher auf #C9CCD1 beziehungsweise erbten es. Sie stehen jetzt
+   alle auf Weiss. 17,63:1 gegen den Navygrund des Vollbilds. */
 .kf__buehne .kf__formular__titel,
+.kf__buehne .kf__formular__zeile,
 .kf__buehne .kf__stufe__frage,
 .kf__buehne .kf__ende__titel,
-.kf__buehne .kf__ende__firma {
+.kf__buehne .kf__ende__firma,
+.kf__buehne .kf__feld > label {
   color: #FFFFFF;                                    /* 17,63:1 */
 }
 .kf__buehne .kf__stufe__frage--ruf { color: var(--sand); }   /* 9,06:1 */
 
-.kf__buehne .kf__formular__zeile,
 .kf__buehne .kf__stufe__text,
-.kf__buehne .kf__ende__tel,
-.kf__buehne .kf__feld > label {
+.kf__buehne .kf__ende__tel {
   color: #C9CCD1;                                    /* 10,95:1 */
 }
 

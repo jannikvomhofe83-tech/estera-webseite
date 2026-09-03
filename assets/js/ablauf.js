@@ -46,18 +46,34 @@
 (function () {
   'use strict';
 
-  var spur = document.querySelector('.abl__spur');
-  var liste = spur && spur.querySelector('.abl__folge');
-  var laeufer = spur && spur.querySelector('.abl__laeufer');
-  if (!spur || !liste || !laeufer) return;
-
-  var stufen = Array.prototype.slice.call(liste.querySelectorAll('.abl__stufe'));
-  if (stufen.length < 2) return;
-
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  /* MEHRERE SPUREN, 04.09.2026. Anfangs gab es nur die eine im Ablauf der
+     Startseite. Der Kunde wollte dieselbe Schiene auch im Onboarding der
+     Stellenseite („genau die gleiche Animation mit dem Strich … die Zahlen
+     1:1 genauso"). Statt das Skript zu verdoppeln, laeuft es jetzt ueber
+     alle `.abl__spur` auf der Seite. Die Ziffern heissen dort anders
+     (`.stl-stufe__nr` statt `.abl__stufe-nr`), deshalb sucht es beide. */
+  Array.prototype.forEach.call(document.querySelectorAll('.abl__spur'), aufbauen);
+
+  function aufbauen(spur) {
+  var liste = spur.querySelector('.abl__folge');
+  var laeufer = spur.querySelector('.abl__laeufer');
+  if (!liste || !laeufer) return;
+
+  var stufen = Array.prototype.slice.call(liste.children).filter(function (e) {
+    return e.tagName === 'LI';
+  });
+  if (stufen.length < 2) return;
+
+  /* Die Ziffer eines Schritts — auf der Startseite `.abl__stufe-nr`, auf
+     den Stellenseiten `.stl-stufe__nr`. Eine Abfrage, beide Faelle. */
+  function ziffer(stufe) {
+    return stufe.querySelector('.abl__stufe-nr, .stl-stufe__nr');
+  }
+
   spur.setAttribute('data-schiene', 'an');
-  laeufer.textContent = stufen[0].querySelector('.abl__stufe-nr').textContent.trim();
+  laeufer.textContent = ziffer(stufen[0]).textContent.trim();
 
   var ticket = 0;
   var letzte = -1;
@@ -66,8 +82,8 @@
      Groessenaenderung neu rechnen — Schriftgrade und Spaltenbreiten haengen
      an Fenstermassen. */
   function messen() {
-    var ersteNr = stufen[0].querySelector('.abl__stufe-nr');
-    var letzteNr = stufen[stufen.length - 1].querySelector('.abl__stufe-nr');
+    var ersteNr = ziffer(stufen[0]);
+    var letzteNr = ziffer(stufen[stufen.length - 1]);
     if (!ersteNr || !letzteNr) return null;
 
     var s = spur.getBoundingClientRect();
@@ -112,7 +128,7 @@
     var laufY = start + anteil * mass.hoehe;
     var aktiv = 0;
     for (var i = 0; i < stufen.length; i++) {
-      var nr = stufen[i].querySelector('.abl__stufe-nr');
+      var nr = ziffer(stufen[i]);
       if (!nr) continue;
       var r = nr.getBoundingClientRect();
       if (r.top + r.height / 2 <= laufY + 2) aktiv = i;
@@ -123,7 +139,7 @@
         if (j === aktiv) stufen[j].setAttribute('data-aktiv', 'true');
         else stufen[j].removeAttribute('data-aktiv');
       }
-      laeufer.textContent = stufen[aktiv].querySelector('.abl__stufe-nr').textContent.trim();
+      laeufer.textContent = ziffer(stufen[aktiv]).textContent.trim();
       /* Neu setzen erzwingt den Neustart der Bewegung — sonst liefe der
          Ring beim Zurueckrollen auf dieselbe Ziffer nicht noch einmal. */
       laeufer.removeAttribute('data-puls');
@@ -142,4 +158,5 @@
   window.addEventListener('load', anfordern);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(anfordern);
   anfordern();
+  }
 })();

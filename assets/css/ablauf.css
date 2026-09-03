@@ -1082,6 +1082,19 @@
    Spalte: dann stimmen beide, und die Spalte behaelt ihre Breite. */
 .abl__spur[data-schiene='an'] .abl__stufe-nr {
   text-align: center;
+  /* WEISSER RAUM HINTER DER ZIFFER — 04.09.2026, Kundenwunsch: „Der Strich
+     ist jetzt hinter der Zahl sichtbar. Wo die Zahl ist, soll dahinter
+     weiss sein, genauso wie wenn die Zahlen sich bewegen." Der Laeufer hat
+     diesen Grund von Anfang an; die festen Ziffern hatten ihn nicht, und
+     die Schiene lief mitten durch sie hindurch.
+     Der Grund ist die Flaeche des Abschnitts, nicht Weiss — der Abschnitt
+     steht auf #F6F4F1, ein reines Weiss waere ein heller Fleck.
+     `position: relative` und `z-index` heben die Ziffer ueber die Schiene;
+     ohne sie laege der Grund darunter und der Strich weiterhin darueber. */
+  position: relative;
+  z-index: 1;
+  background: var(--abl-grund, #F6F4F1);
+  padding-block: 0.18em;
 }
 
 /* Der kurze Effekt beim Ankommen: ein Ring laeuft einmal nach aussen.

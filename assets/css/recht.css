@@ -1,0 +1,110 @@
+/* ===========================================================================
+   ESTERA — Rechtstexte: Impressum, Datenschutz, Cookie-Einstellungen
+   Markenkern: Diskret. Strukturiert. Langfristig.
+
+   WOZU DIESE DATEI
+   Kopfleiste, Menue, Wortmarke, Fusszeile (base.css, schluss.css) und der
+   gemeinsame Seitenkopf samt Baendern (seiten.css: .sp-hero, .sp-band,
+   .sp-band__inner, .sp-kopf, .kicker) werden hier NICHT angefasst. Diese
+   Datei traegt ausschliesslich den Fliesstextsatz der drei Rechtsseiten:
+   Ueberschriftenstufen innerhalb eines Rechtstexts, Absatzabstand, die
+   Adressbloecke und die Zeilenlaenge. Aufzaehlungen holen sich weiterhin
+   .sp-punkte aus seiten.css — dafuer wird hier keine eigene Regel erfunden.
+
+   Kein neuer Farbwert, keine neue Schriftgroesse ausserhalb der Token aus
+   base.css (--ink-black, --ink-mute, --line-soft, --gold, --font-display).
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   DER TEXTKOERPER
+   70ch, nicht px: die Zeilenlaenge bleibt damit ueber jede Fensterbreite und
+   jede vw-Skalierung der Schrift hinweg lesbar, statt bei grosser Schrift zu
+   zerfallen oder bei kleiner Schrift auszuufern.
+--------------------------------------------------------------------------- */
+.recht {
+  max-width: 70ch;
+}
+
+/* --- Ueberschriften INNERHALB eines Rechtstexts ---------------------------
+   Die grosse Seitenueberschrift ("Impressum", "Datenschutzerklärung",
+   "Cookie-Einstellungen") ist bereits .sp-hero__h1 — dafuer gibt es hier
+   keine Regel. Was fehlt, sind die vielen wiederkehrenden Zwischentitel
+   dieser Texte ("Angaben gemäß § 5 TMG", "Hosting", "Cookies" …). */
+.recht h2 {
+  margin-top: clamp(2.4rem, 5vh, 3.4rem);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  line-height: 1.28;
+  color: var(--ink-black);
+}
+.recht > h2:first-child { margin-top: 0; }
+
+.recht h3 {
+  margin-top: clamp(1.7rem, 3.6vh, 2.3rem);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.14rem, 1.5vw, 1.32rem);
+  line-height: 1.32;
+  color: var(--ink-black);
+}
+
+/* --- Absatzabstand ---------------------------------------------------------
+   Mindestens 16px, wie im gesamten Projekt Untergrenze fuer Fliesstext. */
+.recht p {
+  margin-top: clamp(0.9rem, 2vh, 1.25rem);
+  font-size: 1rem;
+  line-height: 1.78;
+  color: var(--ink-black);
+}
+.recht h2 + p,
+.recht h3 + p {
+  margin-top: clamp(0.7rem, 1.5vh, 1rem);
+}
+
+/* --- Adressbloecke ----------------------------------------------------------
+   <address> traegt im Browser serienmaessig font-style:italic — das wird
+   hier zurueckgenommen, ein Rechtstext ist kein Zitat. Der Abstand ist
+   derselbe wie bei einem Absatz, damit die Adresse sich in den Lesefluss
+   einreiht statt wie ein Fremdkoerper zu wirken. */
+.recht address {
+  margin-top: clamp(0.9rem, 2vh, 1.25rem);
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1.78;
+  color: var(--ink-black);
+}
+
+/* --- Verweise im Fliesstext -------------------------------------------------
+   Dieselbe Geste wie bei der Datenliste der Kontaktseite (seiten.css,
+   .sp-daten dd a): eine Goldlinie statt Unterstreichung, damit die
+   Rechtstexte sich optisch nicht von den uebrigen Unterseiten loesen. */
+.recht a {
+  color: var(--navy-800);
+  border-bottom: 1px solid var(--line-gold);
+  transition: border-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+.recht a:hover,
+.recht a:focus-visible { border-bottom-color: var(--gold); color: var(--navy-900); }
+
+/* --- Aufzaehlungen -----------------------------------------------------------
+   Erben bewusst NUR die Abstaende von .sp-punkte (seiten.css); Farbe und
+   Goldstrich kommen von dort unveraendert mit. Hier steht nichts Eigenes. */
+.recht .sp-punkte {
+  margin-top: clamp(0.9rem, 2vh, 1.25rem);
+}
+
+/* --- Ankerziele --------------------------------------------------------------
+   #cookies in datenschutz.html ist ein Sprungziel von cookies.html und aus
+   der eigenen Fusszeile. Der Zuschlag haelt die Ueberschrift unter der fest
+   stehenden Kopfleiste frei, statt darunter zu verschwinden. */
+.recht [id] {
+  scroll-margin-top: calc(var(--header-h) + 1.4rem);
+}
+
+/* ---------------------------------------------------------------------------
+   SCHMALE FENSTER
+   Getestet bis 390px: 70ch laeuft dort ohnehin auf 100% der verfuegbaren
+   Breite zusammen (der Gutter aus .sp-band__inner begrenzt sie), es braucht
+   keine eigene Regel.
+--------------------------------------------------------------------------- */

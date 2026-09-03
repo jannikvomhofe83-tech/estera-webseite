@@ -994,10 +994,26 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
            Vorher Ueberschrift: "Das erwartet dich" -->
       <p class="stl-kleinzeile">
         <span class="stl-kleinzeile__num">03</span>Onboarding mit System</p>
-      <h2 class="stl-h2" id="t-erwartet">Du startest nicht allein. Du wirst
-         Schritt für Schritt sicher.</h2>
+      <!-- WORDING 04.09.2026, Kundenwunsch. Vorher: „Du startest nicht
+           allein. Du wirst Schritt für Schritt sicher." (so im
+           Karriere-Wording-Dokument vom 31.08.2026, V06).
+           Der Kunde hat „Wir überlassen deiner Entwicklung nicht dem
+           Zufall" diktiert; gesetzt ist der grammatisch richtige
+           Akkusativ „deine Entwicklung". VON ESTERA BESTAETIGEN LASSEN. -->
+      <h2 class="stl-h2" id="t-erwartet">Wir überlassen deine Entwicklung
+         nicht dem Zufall.</h2>
 
-      <ol class="stl-folge">
+      <!-- DIE SPUR — 04.09.2026, Kundenwunsch: „Du sollst genau die gleiche
+           Animation mit dem Strich verwenden wie bei ‚So läuft die
+           Zusammenarbeit ab. Sechs klare Schritte zu deiner Kapitalanlage'.
+           Die Zahlen sollen 1:1 genauso übernommen werden."
+           Aufbau, Klassennamen und Skript sind deshalb dieselben wie im
+           Ablauf der Startseite: eine Huelle, darin der wandernde Laeufer
+           und die Liste. Eine <ol> darf keine <span> enthalten, daher die
+           Huelle. Ohne Skript bleibt sie leer und faellt nicht auf. -->
+      <div class="abl__spur">
+        <span class="abl__laeufer" aria-hidden="true"></span>
+      <ol class="stl-folge abl__folge">
         <li class="stl-stufe">
           <p class="stl-stufe__nr">01</p>
           <div class="stl-stufe__wort">
@@ -1079,6 +1095,7 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
           </div>
         </li>
       </ol>
+      </div>
 
       <!-- ZUSATZ UNTER DEM ONBOARDING — 01.09.2026, Optimierungsbriefing,
            Abschnitt 15 (ÄNDERN): kein fester Zeitrahmen, stattdessen dieser
@@ -1086,9 +1103,10 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
            fuehrt (.stl-schluss__hinweis: kleiner Grad, gedaempfte Farbe,
            56ch) — keine neue Regel. Hier stand seit dem 31.08.2026 keine
            Zeile mehr (siehe Vermerk darunter). -->
-      <p class="stl-schluss__hinweis">Wie schnell du die einzelnen Phasen
-         durchläufst, hängt von deiner Vorerfahrung und davon ab, wie schnell
-         Beratungsqualität und Prozesssicherheit stimmen.</p>
+      <!-- DER ZUSATZ IST AM 04.09.2026 UNTER DAS BILD GEWANDERT —
+           Kundenwunsch: „Dieser Text soll unter dem Bild rechts stehen."
+           Er stand hier, unter der Schrittliste in der linken Spalte. Der
+           Wortlaut ist unveraendert; siehe die rechte Spalte. -->
 
       <!-- AUS V06 NICHT UEBERNOMMEN — woertlich aufbewahrt, im Bericht
            gemeldet:
@@ -1122,6 +1140,14 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
         <source srcset="assets/img/karriere/band/band-a-7.webp?v=b24a" type="image/webp">
         <img src="assets/img/karriere/band/band-a-7.jpg?v=b24a" alt="Leerer Besprechungsraum mit Blick ins Freie" loading="lazy" decoding="async" width="1536" height="1024">
       </picture>
+      <!-- HIERHER GEWANDERT am 04.09.2026, Kundenwunsch: „Dieser Text soll
+           unter dem Bild rechts stehen." Wortlaut unveraendert; er stammt
+           aus dem Optimierungsbriefing vom 01.09.2026, Abschnitt 15. Die
+           Zeile behaelt ihre Klasse und damit Grad, Farbe und Satzspiegel —
+           nur ihr Ort ist neu. -->
+      <p class="stl-schluss__hinweis stl-bilder__zeile">Wie schnell du die einzelnen Phasen
+         durchläufst, hängt von deiner Vorerfahrung und davon ab, wie schnell
+         Beratungsqualität und Prozesssicherheit stimmen.</p>
     </div>
 
   </div>
@@ -1510,5 +1536,9 @@ GEAENDERT AM 31.08.2026 — KUNDENWUNSCH, ZWEIMAL AN EINEM TAG.
      prefers-reduced-motion: reduce wirklich anhalten. Sichtbar ist es dort
      schon per CSS nicht mehr; ohne Javascript bleibt es dabei. -->
 <script src="assets/js/stelle.js?v=b24a"></script>
+<!-- Dieselbe Fortschrittsschiene wie im Ablauf der Startseite, unveraendert
+     nachgenutzt — 04.09.2026, Kundenwunsch. Das Skript sucht `.abl__spur`
+     und findet die Ziffern unter beiden Namen. -->
+<script src="assets/js/ablauf.js?v=b24a" defer></script>
 </body>
 </html>

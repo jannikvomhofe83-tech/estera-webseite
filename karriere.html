@@ -381,6 +381,24 @@
           <span class="kar-balken">MEHR ALS EIN ARBEITSPLATZ</span>
         </p>
 
+        <!-- GOLDENE HAARLINIE, 04.09.2026 — Kundenwunsch woertlich:
+             „Zwischen der Section ‚Mehr als ein Arbeitsplatz‘ und ‚Ein
+             Umfeld, in dem aus Ambitionen echte Entwicklung wird‘ soll eine
+             feine goldene Linie gezogen werden, wie wir sie schon ein paar
+             Mal haben auf der Landingpage."
+             Es ist DIESELBE Linie, kein Nachbau: dasselbe Inline-SVG und
+             dieselbe Klasse .kar-goldstrich, die weiter unten in diesem
+             Abschnitt schon steht und die auf der Startseite als
+             .abl__kopfstrich unter dem Eyebrow von „So läuft die
+             Zusammenarbeit ab" haengt. Inline-SVG statt border, damit die
+             Haarlinie auf jedem Bildschirm gestochen bleibt.
+             --links: der Strich unten steht mittig (margin: auto), hier
+             steht er am Zeilenanfang, weil Etikett und Ueberschrift dieser
+             Spalte linksbuendig laufen. -->
+        <svg class="kar-goldstrich kar-goldstrich--links" data-auf width="60" height="1" viewBox="0 0 60 1" aria-hidden="true" focusable="false">
+          <path d="M0 .5H60" stroke="currentColor" stroke-width="1"/>
+        </svg>
+
         <!-- Akzentregel der Vorlage, konsequent auf jeder Ueberschrift: die
              zweite Haelfte steht kursiv UND in der Akzentfarbe — nie nur
              eins von beidem (bericht.md, Abschnitt 8.3). -->
@@ -886,7 +904,16 @@
           <!-- WORDING ERSETZT 01.09.2026 — Optimierungsbriefing, Abschnitt 12,
                AENDERN Label der Vertriebsrolle.
                Vorher: "SELBSTSTÄNDIG · VERTRIEB" -->
-          <p class="kar-karte__art">SELBSTSTÄNDIG · UNTERNEHMERISCH</p>
+          <!-- KLEINZEILE ENTFERNT 04.09.2026 — Kundenwunsch woertlich:
+               „Das, was in Gold steht, also einmal selbstständig
+               unternehmerisch und beim anderen Vollzeit
+               Immobilienabwicklung und Kundenbetreuung, soll raus. Dafür
+               soll die Headline […] größer geschrieben werden. Das soll
+               dann den Platz einfüllen."
+               Sie stand hier:
+                   <p class="kar-karte__art">SELBSTSTÄNDIG · UNTERNEHMERISCH</p>
+               Die Klasse .kar-karte__art bleibt in karriere.css stehen —
+               die Vertrauenszeile im Kopfbereich benutzt sie ebenfalls. -->
           <!-- STELLENBEZEICHNUNG GEAENDERT 31.08.2026 — Kundenwunsch woertlich:
          „bei Immobilienberater steht: Immobilienberater / Sales-Manager".
          Vorher: "Immobilienberater" -->
@@ -967,8 +994,20 @@
                Vorher (Text):       "Bereiche: Immobilienabwicklung, After Sales"
                Vorher: <a class="kar-knopf kar-knopf--voll" href="kontakt.html">Jetzt bewerben</a>
                Vorher: <a class="kar-knopf kar-knopf--linie" href="karriere-backoffice.html">Mehr erfahren</a> -->
-          <p class="kar-karte__art">VOLLZEIT · IMMOBILIENABWICKLUNG &amp; KUNDENBETREUUNG</p>
-          <h3 class="kar-karte__titel">Backoffice Manager (m/w/d)</h3>
+          <!-- KLEINZEILE ENTFERNT 04.09.2026 — derselbe Kundenwunsch wie in
+               Karte 1, gleiche Begruendung. Sie stand hier:
+                   <p class="kar-karte__art">VOLLZEIT · IMMOBILIENABWICKLUNG &amp; KUNDENBETREUUNG</p> -->
+          <!-- UMBRUCH 04.09.2026 — Kundenwunsch woertlich: „Du sollst bei
+               Backoffice Manager das auch auf zwei Zeilen machen. Das
+               (m/w/d) soll unter Backoffice Manager stehen. Das bedeutet,
+               Backoffice Manager steht mittig im Kasten und (m/w/d) steht
+               mittig unter Backoffice Manager."
+               Der Umbruch steht als <br> im Markup und nicht als
+               erzwungene Breite im Stylesheet: er soll an genau dieser
+               Stelle liegen und an keiner anderen, auch nicht bei
+               groesserem Schriftgrad. Beide Zeilen stehen mittig, das
+               bringt .kar-karte__titel schon mit (text-align: center). -->
+          <h3 class="kar-karte__titel">Backoffice Manager<br>(m/w/d)</h3>
           <p class="kar-karte__bereiche">Du hältst Unterlagen, Fristen und Beteiligte zusammen und sorgst dafür, dass jeder Kauf von der Reservierung bis nach dem Notartermin sauber begleitet wird.</p>
           <p class="kar-karte__knoepfe">
             <a class="kar-knopf kar-knopf--voll" href="kontakt.html?v=b24a" aria-label="Als Backoffice Manager bewerben">Jetzt bewerben</a>

@@ -3011,3 +3011,231 @@
       linear-gradient(rgba(10, 25, 46, 0.18), rgba(10, 25, 46, 0.18));
   }
 }
+
+
+/* ===========================================================================
+   FORTSCHRITTSSCHIENE IM ONBOARDING — 04.09.2026
+
+   Kundenwunsch: „Du sollst genau die gleiche Animation mit dem Strich
+   verwenden wie bei ‚So läuft die Zusammenarbeit ab. Sechs klare Schritte
+   zu deiner Kapitalanlage'. Die Zahlen sollen 1:1 genauso übernommen
+   werden."
+
+   Aufbau, Klassennamen und Skript sind deshalb dieselben wie dort
+   (`.abl__spur`, `.abl__laeufer`, assets/js/ablauf.js). Nur die Farben und
+   der Schriftgrad kommen aus dieser Seite: die Onboarding-Ziffern stehen in
+   Bronze auf hellem Grund, in der dunklen Fassung in Sand auf Navy.
+
+   Die zwei Masse (Anfang und Laenge der Schiene) und der Fortschritt setzt
+   das Skript; es misst die tatsaechliche Lage der Ziffern und nicht eine
+   geschaetzte Zeilenhoehe.
+
+   OHNE SKRIPT und bei ruhiger Darstellung fehlt `data-schiene`: keine
+   Schiene, kein Laeufer, die Ziffern stehen gleichwertig da.
+   =========================================================================== */
+.abl__spur { position: relative; }
+
+.abl__spur[data-schiene='an']::before,
+.abl__spur[data-schiene='an']::after {
+  content: '';
+  position: absolute;
+  left: var(--abl-schiene-x, 0);
+  top: var(--abl-schiene-oben, 0);
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.abl__spur[data-schiene='an']::before {
+  height: var(--abl-schiene-hoehe, 0);
+  background: color-mix(in srgb, var(--stl-erw-bronze, #8A5A20) 18%, transparent);
+}
+.abl__spur[data-schiene='an']::after {
+  height: calc(var(--abl-schiene-hoehe, 0) * var(--abl-fortschritt, 0));
+  background: var(--stl-erw-bronze, #8A5A20);
+  transition: height 0.18s linear;
+}
+
+/* Die wandernde Ziffer — gleicher Schnitt und Grad wie die festen. */
+.abl__laeufer {
+  position: absolute;
+  left: var(--abl-schiene-x, 0);
+  top: var(--abl-schiene-oben, 0);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--stl-erw-nr);
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--stl-erw-bronze, #8A5A20);
+  background: var(--stl-grund, #FFFFFF);
+  padding: 0.18em 0.1em;
+  pointer-events: none;
+  opacity: 0;
+  transition: top 0.18s linear, opacity 0.25s var(--ease, ease);
+}
+.abl__spur[data-schiene='an'] .abl__laeufer { opacity: 1; }
+
+/* Die festen Ziffern: mittig ueber der Schiene, mit eigenem Grund, damit
+   der Strich nicht durch sie hindurchlaeuft — derselbe Fehler wie auf der
+   Startseite, dort am 04.09.2026 behoben. */
+.abl__spur[data-schiene='an'] .stl-stufe__nr {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  background: var(--stl-grund, #FFFFFF);
+  padding-block: 0.18em;
+}
+.abl__spur[data-schiene='an'] .stl-stufe[data-aktiv='true'] .stl-stufe__nr {
+  visibility: hidden;
+}
+
+.abl__laeufer[data-puls='true']::after {
+  content: '';
+  position: absolute;
+  inset: -0.35em -0.2em;
+  border-radius: 999px;
+  border: 2px solid var(--stl-erw-bronze, #8A5A20);
+  animation: abl-puls 520ms var(--ease-soft, ease-out) both;
+  pointer-events: none;
+}
+@keyframes abl-puls {
+  from { transform: scale(0.8); opacity: 0.9; }
+  to   { transform: scale(1.7); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abl__spur[data-schiene='an']::before,
+  .abl__spur[data-schiene='an']::after,
+  .abl__laeufer { display: none; }
+  .abl__spur[data-schiene='an'] .stl-stufe[data-aktiv='true'] .stl-stufe__nr {
+    visibility: visible;
+  }
+}
+
+/* Die Zeile unter dem Bild — 04.09.2026, Kundenwunsch: der Zusatz zum
+   Onboarding steht jetzt unter der Aufnahme rechts. Sie behaelt Grad und
+   Farbe von .stl-schluss__hinweis; hier nur der Abstand zum Bild und der
+   Verzicht auf den Satzspiegel jener Zeile, der fuer eine breitere Spalte
+   gedacht war. */
+.stl-bilder__zeile {
+  max-width: none;
+  margin-top: clamp(0.9rem, 1.8vw, 1.4rem);
+}
+
+/* ===========================================================================
+   ZEILENFALL DER UEBERSCHRIFTEN — 04.09.2026, Kundenwunsch
+
+     „Ein Umfeld, das dich stärker macht – nicht austauschbar." → zwei
+      Zeilen, nicht drei, und „Dein System" muss mitgesetzt werden zur
+      Headline.
+     „Klare Verantwortung, kurze Wege und Arbeit, deren Wirkung du jeden Tag
+      siehst." → auch zwei Zeilen.
+     „Wir suchen keine fertige Schablone. Wir suchen Substanz und
+      Entwicklungspotenzial." → zwei Zeilen, die Subline darunter drei.
+
+   Die Zeilenzahl haengt an der Satzbreite, nicht am Schriftgrad — deshalb
+   wird hier die Breite gesetzt und der Grad nicht angefasst. Gerechnet:
+   der laengste der beiden Saetze hat 78 Zeichen, zwei Zeilen sind 39
+   Zeichen; bei 36 px Cormorant sind das rund 700 px. 720 px gibt etwas
+   Reserve, ohne dass die kuerzere Zeile einzeilig umkippt.
+
+   `text-wrap: balance` verteilt die Zeichen gleichmaessig auf die Zeilen —
+   ohne das haengt bei zwei Zeilen oft ein einzelnes Wort unten.
+   =========================================================================== */
+/* Der Deckel sitzt an der Spalte, nicht an der Ueberschrift: seit die
+   Section einspaltig und mittig ist (01.09.2026), begrenzt
+   `.stl-zwei--bieten > *` den Satzspiegel auf 68ch = 519 px. Das ist fuer
+   den Fliesstext richtig und fuer eine 36-px-Ueberschrift zu eng — dort
+   entstehen daraus drei Zeilen. Die Ueberschrift und ihre Kleinzeile
+   bekommen deshalb einen eigenen, weiteren Deckel. */
+.stl-zwei--bieten > .stl-bieten__links { max-width: none; }
+.stl-zwei--bieten .stl-h2--mitte {
+  /* IN ZEICHEN, NICHT IN PIXELN. Der Schriftgrad waechst mit der
+     Fensterbreite (36 px bei 1440, 48 px bei 1920); ein Deckel in Pixeln
+     haelt den Zeilenfall deshalb nur bei einer Breite. In `ch` waechst der
+     Deckel mit — 40 Zeichen je Zeile ergeben bei beiden Ueberschriften
+     zwei Zeilen: „Ein Umfeld …" hat 56 Zeichen, „Klare Verantwortung …"
+     hat 78. */
+  max-width: 40ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+.stl-zwei--bieten .stl-kleinzeile--mitte,
+.stl-zwei--bieten .stl-trenn { margin-inline: auto; }
+/* Der Fliesstext behaelt seine 68ch — Lesbarkeit vor Breite. */
+.stl-zwei--bieten .stl-bieten__links > :not(.stl-h2--mitte):not(.stl-kleinzeile--mitte):not(.stl-trenn) {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+/* Die Kleinzeile gehoert optisch zur Ueberschrift und stand mit dem alten
+   Abstand wie ein eigener Block darueber. */
+.stl-kleinzeile--mitte { margin-bottom: clamp(0.6rem, 1.1vw, 0.9rem); }
+
+/* Die Fuehrungszeile unter „Dein Profil": vier Zeilen -> drei. 4 Zeilen à
+   19 px auf 545 px sind rund 62 Zeichen je Zeile; fuer drei Zeilen braucht
+   es rund 82, also gut 740 px. */
+.stl-macht__lead {
+  max-width: 80ch;                        /* drei Zeilen: 240 Zeichen / 3 = 80 */
+  text-wrap: pretty;
+}
+
+@media (max-width: 991px) {
+  /* Auf schmalen Fenstern gilt die Fensterbreite, nicht diese Deckel —
+     sonst stuende die Ueberschrift breiter als ihre Spalte. */
+  .stl-h2--mitte, .stl-macht__lead { max-width: none; }
+}
+
+
+/* ===========================================================================
+   ZWEI ZEILEN AUCH BEI DEN GROSSEN UEBERSCHRIFTEN — 04.09.2026
+
+   `.stl-h2-gross` („Wir suchen keine fertige Schablone. …", 81 Zeichen) und
+   die Onboarding-Ueberschrift stehen bei 1920 in drei Zeilen, weil ihr Grad
+   mit der Fensterbreite waechst. Kundenwunsch: zwei Zeilen, „du kannst die
+   Headline dann ein bisschen kleiner machen".
+   Beides zusammen: der Deckel in Zeichen haelt den Zeilenfall, und der Grad
+   waechst oberhalb von 1440 nicht weiter. */
+.stl-h2-gross {
+  max-width: 42ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+.stl-erwartet .stl-h2 {
+  max-width: 34ch;
+  text-wrap: balance;
+}
+/* Oberhalb von 1440 waechst der Grad weiter mit der Fensterbreite, die
+   Spalte aber nicht: die Onboarding-Spalte ist bei 1920 nur 597 px breit,
+   und 48 px Cormorant ergeben darin drei Zeilen statt zwei. Der Kunde:
+   „Du kannst die Headline dann ein bisschen kleiner machen, sodass die
+   Headline auf zwei Zeilen steht." Also ein Deckel oben — gemessen reichen
+   40 px fuer zwei Zeilen in 597 px. */
+@media (min-width: 1441px) {
+  .stl {
+    --stl-t-gross: 2.6rem;                /* 48 -> 41,6 px */
+    --stl-t-h2:    2.5rem;                /* 48 -> 40 px  */
+  }
+}
+
+/* ===========================================================================
+   DIE ZEITANGABE IM ONBOARDING — 04.09.2026, Kundenwunsch:
+     „Wie die 1, die 2, die 4 und die 3 da stehen, gefaellt mir ueberhaupt
+      nicht. Schreib einmal eine ganz normale 2 hinter Woche oder eine ganz
+      normale 1 — einfach die Zahlen ganz normal, ohne dieses kreative
+      Kleine, einfach ‚Woche 1' und die 1 ganz normal geschrieben."
+
+   Die Zeile stand in gesperrten Versalien: „WOCHE 1" mit 0,14 em Sperrung.
+   Bei Versalien wird die Ziffer auf Versalhoehe gesetzt und wirkt neben dem
+   gesperrten Wort wie ein eigenes kleines Zeichen — genau das hat er
+   gesehen. Jetzt normale Schreibung, keine Sperrung, dafuer etwas groesser
+   und in der Schrift des Fliesstextes, damit „Woche 1" wie eine gewoehnliche
+   Zeitangabe liest. Farbe und Abstand bleiben.
+   =========================================================================== */
+.stl-stufe__zeit {
+  font-size: clamp(0.95rem, 1.05vw, 1.06rem);
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant-numeric: lining-nums;
+}

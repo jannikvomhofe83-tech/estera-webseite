@@ -862,3 +862,108 @@ body.is-locked { overflow: hidden; }
    Bausteine machen die Naht ueberfluessig — sie ersetzen jede Blende. */
 .fl-creme-nach-weiss { background-image: linear-gradient(180deg, var(--fl-creme), var(--fl-weiss)); }
 .fl-weiss-nach-creme { background-image: linear-gradient(180deg, var(--fl-weiss), var(--fl-creme)); }
+
+/* ===========================================================================
+   DER SCHIMMER AUF DEN SANDKNOEPFEN — 04.09.2026
+
+   Kundenwunsch woertlich, mit der Vorlage dazu: „Wenn du dir jetzt diese
+   Seite ansiehst [estateanfrage-karriere.de], siehst du bei ‚Deiner Karriere
+   in sicheren Händen‘ bei den einzelnen Stellen bei ‚Jetzt bewerben‘ immer
+   alle 2 Sekunden einen Schimmer von links nach rechts, von der oberen
+   linken Ecke nach der unteren rechten Ecke, der sich so bewegt. […] baue
+   das dann bitte nach genau das gleiche. Das können wir dann für alle
+   CTA-Buttons auf der kompletten Webseite anwenden, die diese
+   Hintergrundfarbe haben."
+
+   NICHT NACHEMPFUNDEN, SONDERN ABGEMESSEN. Ich habe den Knopf der Vorlage
+   im Browser aufgemacht und seine gerechneten Werte ausgelesen, statt den
+   Eindruck nachzubauen. Die Vorlage legt eine eigene Lage in den Knopf
+   (<span class="con-kit-infinite-animation">, position:absolute, inset:0,
+   overflow:hidden) und schiebt in deren ::before einen Verlauf durch:
+
+       background: linear-gradient(120deg,
+           rgba(255,255,255,0) , rgba(255,255,255,0) 40%,
+           rgba(255,255,255,.3), rgba(255,255,255,.3) 60%,
+           rgba(255,255,255,0));
+       animation: 2.5s infinite blink-infinite;
+
+       @keyframes blink-infinite {
+           0%   { transform: translate3d(-100%,0,0) scale(2); opacity: 1 }
+           50%  { transform: translate3d( 100%,0,0);          opacity: 0 }
+           51%  { transform: translate3d(-100%,0,0);          opacity: 0 }
+           100% { transform: translate3d(-100%,0,0);          opacity: 1 }
+       }
+
+   Beides steht unten Zeichen fuer Zeichen so da. Drei Anmerkungen dazu:
+
+   ZWEI SEKUNDEN ODER ZWEIEINHALB. Der Kunde hat „alle 2 Sekunden" gesagt;
+   gemessen sind es 2,5 s. „Genau das gleiche" wiegt hier schwerer als die
+   geschaetzte Zahl im selben Satz — es bleibt bei 2,5 s.
+
+   DIE SCHRAEGE. 120deg ist es, was den Schein von links oben nach rechts
+   unten laufen laesst; die Bewegung selbst ist waagerecht. Wer den Winkel
+   anfasst, dreht die Richtung, die der Kunde beschrieben hat.
+
+   OHNE EIGENE LAGE IM MARKUP. Die Vorlage braucht ihren span, weil ihr
+   Knopf overflow:visible traegt. Unser .btn traegt seit jeher
+   overflow:hidden (weiter oben in dieser Datei) — der Knopf ist also
+   selbst die Maske, und ::after genuegt. An keinem Knopf im Projekt haengt
+   bereits ein ::after; ::before ist an .kar-knopf--voll belegt und bleibt
+   unangetastet.
+
+   WELCHE KNOEPFE. Gemessen ueber alle neun Seiten: Sandflaeche
+   (rgb(217,180,133)) tragen .btn (ohne die Varianten --ghost und --weiss,
+   die transparent beziehungsweise weiss sind), .kar-knopf--voll auf der
+   Karriereseite und .wi__knopf auf der Startseite. Die beiden letzten
+   holen sich den Schimmer in ihrer eigenen Datei, weil ihre Flaeche auch
+   dort gesetzt wird.
+
+   BEI reduce IST SCHLUSS. Ein Schein, der ohne Zutun alle 2,5 s ueber den
+   Knopf laeuft, ist genau die Dauerbewegung, die das Optimierungsbriefing
+   (Abschnitt P0) abschalten laesst.
+   =========================================================================== */
+@keyframes es-schimmer {
+  0%   { transform: translate3d(-100%, 0, 0) scale(2); opacity: 1; }
+  50%  { transform: translate3d(100%, 0, 0);           opacity: 0; }
+  51%  { transform: translate3d(-100%, 0, 0);          opacity: 0; }
+  100% { transform: translate3d(-100%, 0, 0);          opacity: 1; }
+}
+
+/* Der Schein selbst. Steht als eigener Baustein da, damit die drei
+   Knopfklassen unten nur noch darauf zeigen muessen. */
+.btn:not(.btn--ghost):not(.btn--weiss)::after,
+.kar-knopf--voll::after,
+.wi__knopf::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;   /* der Schein darf keinen Klick abfangen */
+  border-radius: inherit;
+  background: linear-gradient(120deg,
+      rgba(255, 255, 255, 0)    0%,
+      rgba(255, 255, 255, 0)   40%,
+      rgba(255, 255, 255, 0.3) 40%,
+      rgba(255, 255, 255, 0.3) 60%,
+      rgba(255, 255, 255, 0)   60%);
+  animation: es-schimmer 2.5s infinite;
+}
+/* .btn bringt overflow:hidden und position:relative schon mit; die beiden
+   anderen Klassen nicht ueberall — deshalb hier, und nur hier. */
+.kar-knopf--voll,
+.wi__knopf { position: relative; overflow: hidden; }
+
+/* GESPERRTE KNOEPFE SCHIMMERN NICHT. Gemessen im Kontaktvollbild: der
+   „Weiter"-Knopf steht dort bis zur ersten Antwort auf aria-disabled="true"
+   und ist dann durchsichtig (rgba(0,0,0,0)) statt sandfarben. Ohne diese
+   Zeile liefe der weisse Schein ueber den Navygrund des Vollbilds und
+   winkte an einem Knopf, den man noch gar nicht druecken kann. Sobald die
+   Sperre faellt, ist der Knopf wieder sandfarben und schimmert mit. */
+.btn[aria-disabled='true']::after,
+.btn:disabled::after { animation: none; opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:not(.btn--ghost):not(.btn--weiss)::after,
+  .kar-knopf--voll::after,
+  .wi__knopf::after { animation: none; opacity: 0; }
+}
