@@ -3294,7 +3294,16 @@
   border-color: rgba(10, 25, 46, 0.34);
   background-color: #F1EBE6;   /* eine Spur tiefer als --fl-creme */
 }
-.kar-karte--klick .kar-karte__art   { color: #8A5A20; }   /* 6,45:1 */
+/* SAND, 04.09.2026 — Kundenwunsch woertlich: „in der gleichen Farbe wie der
+   CTA-Button ‚Jetzt bewerben‘, aber nur die Schriftfarbe soll es sein."
+   Der Knopf traegt --sand als FLAECHE; hier traegt die Zeile denselben Ton
+   als SCHRIFT, ohne Flaeche und ohne Kasten.
+   GEMESSEN: #D9B485 auf dem Cremegrund der Karte (#F7F3F0) misst 1,88:1.
+   Vorher stand hier #8A5A20 mit 5,34:1 — derselbe warme Ton, nur tiefer.
+   Der Kunde hat die Knopffarbe ausdruecklich verlangt; die Entscheidung ist
+   seine und steht hier festgehalten, damit sie nicht spaeter als Versehen
+   zurueckgedreht wird. Wer sie zurueckdreht, setzt #8A5A20. */
+.kar-karte--klick .kar-karte__art   { color: var(--sand); }   /* 1,88:1 */
 .kar-karte--klick .kar-karte__titel { color: var(--navy-900); }   /* 16,4:1 */
 .kar-karte--klick .kar-karte__bereiche { color: var(--ink-mute); }   /* 5,20:1 */
 /* Der Linienknopf dreht mit: Schrift Navy, Kante Navy statt Weiss. Die
