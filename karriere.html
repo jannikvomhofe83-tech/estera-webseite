@@ -997,52 +997,118 @@
   </div>
 </section>
 
+<!-- =====================================================================
+     HAEUFIGE FRAGEN — SEIT DEM 04.09.2026 AUFKLAPPBAR
+
+     Kundenwunsch: „Die Anordnung der Kaesten soll so bleiben, aber es soll
+     so sein wie auf der Landingpage: Man sieht immer nur die Headline, dann
+     drueckt man auf den Pfeil und dann faehrt der Text darunter aus. Die
+     Anordnung 2-2-1 soll genauso bleiben. Nur die Funktion soll genauso
+     aussehen wie auf der FAQ-Section der Landingpage."
+
+     Also: dasselbe Raster, dieselben Kaesten, dieselbe Reihenfolge — nur
+     die Antwort liegt jetzt in einem Fach, das sich weich oeffnet.
+
+     DIE MECHANIK IST DIE DER STARTSEITE, Zeichen fuer Zeichen: assets/js/
+     faq.js sucht `[data-faq]`, darin `[data-faq-knopf]`, und findet das
+     Fach ueber `aria-controls`. Deshalb traegt die Liste hier dasselbe
+     Merkmal und dieselben Namen fuer Knopf und Fach. Kein zweites Skript.
+
+     OHNE JAVASCRIPT steht alles offen: `aria-expanded="true"`,
+     `data-offen="true"`, kein `hidden`. Die Zuklapp-Regeln haengen an
+     `[data-js='an']`, und das setzt erst das Skript. Faellt es aus, ist die
+     Section eine schlichte Liste aus Fragen und Antworten.
+
+     EINER OFFEN, NICHT MEHRERE — wie auf der Startseite. Bei fuenf
+     Antworten von drei bis vier Saetzen waere die Section sonst so lang wie
+     vorher, und der Sinn des Aufklappens waere weg.
+     ===================================================================== -->
 <section class="kar-stellen" aria-label="Haeufige Fragen zur Karriere bei Estera">
   <div class="kar-mitte">
-    <ul class="kar-liste" data-auf>
+    <ul class="kar-liste" data-auf data-faq>
 
-      <li class="kar-karte" style="--i:0">
+      <li class="kar-karte kar-karte--faq" style="--i:0">
         <div class="kar-karte__inhalt">
-          <h3 class="kar-karte__titel">Muss ich bereits aus der Immobilienbranche kommen?</h3>
-          <p class="kar-karte__bereiche">Nicht zwingend. Für beide Rollen zählt relevante Erfahrung, aber ebenso entscheidend sind Lernfähigkeit, Verlässlichkeit und der Anspruch, sich tief in das Thema einzuarbeiten. Welche Vorerfahrung konkret hilfreich ist, steht auf der jeweiligen Stellenseite.</p>
+          <h3 class="kar-karte__titel kar-faq__frage">
+            <button class="kar-faq__knopf" type="button" id="kar-faq-k1" data-faq-knopf
+                    aria-expanded="true" aria-controls="kar-faq-a1">
+              <span class="kar-faq__wort">Muss ich bereits aus der Immobilienbranche kommen?</span>
+              <span class="kar-faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+          </h3>
+          <div class="kar-faq__fach" id="kar-faq-a1" data-offen="true" role="region" aria-labelledby="kar-faq-k1">
+            <div class="kar-faq__klappe">
+              <p class="kar-karte__bereiche">Nicht zwingend. Für beide Rollen zählt relevante Erfahrung, aber ebenso entscheidend sind Lernfähigkeit, Verlässlichkeit und der Anspruch, sich tief in das Thema einzuarbeiten. Welche Vorerfahrung konkret hilfreich ist, steht auf der jeweiligen Stellenseite.</p>
+            </div>
+          </div>
         </div>
       </li>
 
-      <li class="kar-karte" style="--i:1">
+      <li class="kar-karte kar-karte--faq" style="--i:1">
         <div class="kar-karte__inhalt">
-          <h3 class="kar-karte__titel">Sind auch Quereinsteiger willkommen?</h3>
-          <p class="kar-karte__bereiche">Ja, wenn deine bisherigen Erfahrungen zur Rolle passen. Im Vertrieb können das zum Beispiel Beratung, Finanzierung, Versicherungen oder anspruchsvoller Verkauf sein. Im Backoffice helfen Erfahrungen aus Kundenservice, Sachbearbeitung, Finanzierung oder Immobilienabwicklung.</p>
+          <h3 class="kar-karte__titel kar-faq__frage">
+            <button class="kar-faq__knopf" type="button" id="kar-faq-k2" data-faq-knopf
+                    aria-expanded="true" aria-controls="kar-faq-a2">
+              <span class="kar-faq__wort">Sind auch Quereinsteiger willkommen?</span>
+              <span class="kar-faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+          </h3>
+          <div class="kar-faq__fach" id="kar-faq-a2" data-offen="true" role="region" aria-labelledby="kar-faq-k2">
+            <div class="kar-faq__klappe">
+              <p class="kar-karte__bereiche">Ja, wenn deine bisherigen Erfahrungen zur Rolle passen. Im Vertrieb können das zum Beispiel Beratung, Finanzierung, Versicherungen oder anspruchsvoller Verkauf sein. Im Backoffice helfen Erfahrungen aus Kundenservice, Sachbearbeitung, Finanzierung oder Immobilienabwicklung.</p>
+            </div>
+          </div>
         </div>
       </li>
 
-      <li class="kar-karte" style="--i:2">
+      <li class="kar-karte kar-karte--faq" style="--i:2">
         <div class="kar-karte__inhalt">
-          <!-- NACHSATZ DES DOKUMENTS BEWUSST NICHT UEBERNOMMEN.
-               Im Wording-Dokument steht hinter dieser Antwort noch der
-               Satz, eine konkrete Frist solle erst veroeffentlicht
-               werden, wenn sie im Alltag auch gehalten wird. Das ist
-               eine Anweisung AN Estera und kein Seitentext — auf der
-               Seite gelesen wuerde er den Besucher verwirren. Er steht
-               deshalb hier und nicht im Markup.
-               WAS DARAUS FOLGT: sobald Estera eine Frist zusagen kann
-               („innerhalb von X Werktagen"), gehoert sie in die Antwort
-               oben. Vorher nicht. -->
-          <h3 class="kar-karte__titel">Wie schnell bekomme ich eine Rückmeldung?</h3>
-          <p class="kar-karte__bereiche">Wir melden uns zeitnah nach Eingang deiner Bewerbung und sagen dir transparent, ob wir den Prozess gemeinsam fortsetzen.</p>
+          <h3 class="kar-karte__titel kar-faq__frage">
+            <button class="kar-faq__knopf" type="button" id="kar-faq-k3" data-faq-knopf
+                    aria-expanded="true" aria-controls="kar-faq-a3">
+              <span class="kar-faq__wort">Wie schnell bekomme ich eine Rückmeldung?</span>
+              <span class="kar-faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+          </h3>
+          <div class="kar-faq__fach" id="kar-faq-a3" data-offen="true" role="region" aria-labelledby="kar-faq-k3">
+            <div class="kar-faq__klappe">
+              <p class="kar-karte__bereiche">Wir melden uns zeitnah nach Eingang deiner Bewerbung und sagen dir transparent, ob wir den Prozess gemeinsam fortsetzen.</p>
+            </div>
+          </div>
         </div>
       </li>
 
-      <li class="kar-karte" style="--i:3">
+      <li class="kar-karte kar-karte--faq" style="--i:3">
         <div class="kar-karte__inhalt">
-          <h3 class="kar-karte__titel">Wie läuft die Einarbeitung ab?</h3>
-          <p class="kar-karte__bereiche">Du startest mit einem klaren Plan, lernst Leistung, Prozesse und Werkzeuge kennen und übernimmst Verantwortung schrittweise. Die Detailseiten zeigen den Ablauf je Rolle.</p>
+          <h3 class="kar-karte__titel kar-faq__frage">
+            <button class="kar-faq__knopf" type="button" id="kar-faq-k4" data-faq-knopf
+                    aria-expanded="true" aria-controls="kar-faq-a4">
+              <span class="kar-faq__wort">Wie läuft die Einarbeitung ab?</span>
+              <span class="kar-faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+          </h3>
+          <div class="kar-faq__fach" id="kar-faq-a4" data-offen="true" role="region" aria-labelledby="kar-faq-k4">
+            <div class="kar-faq__klappe">
+              <p class="kar-karte__bereiche">Du startest mit einem klaren Plan, lernst Leistung, Prozesse und Werkzeuge kennen und übernimmst Verantwortung schrittweise. Die Detailseiten zeigen den Ablauf je Rolle.</p>
+            </div>
+          </div>
         </div>
       </li>
 
-      <li class="kar-karte" style="--i:4">
+      <li class="kar-karte kar-karte--faq" style="--i:4">
         <div class="kar-karte__inhalt">
-          <h3 class="kar-karte__titel">Kann ich remote arbeiten?</h3>
-          <p class="kar-karte__bereiche">Das hängt von der Rolle und der Einarbeitungsphase ab. Die konkreten Präsenz- und Remote-Regelungen werden vor dem ersten Gespräch transparent ausgewiesen.</p>
+          <h3 class="kar-karte__titel kar-faq__frage">
+            <button class="kar-faq__knopf" type="button" id="kar-faq-k5" data-faq-knopf
+                    aria-expanded="true" aria-controls="kar-faq-a5">
+              <span class="kar-faq__wort">Kann ich remote arbeiten?</span>
+              <span class="kar-faq__winkel" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.64" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+          </h3>
+          <div class="kar-faq__fach" id="kar-faq-a5" data-offen="true" role="region" aria-labelledby="kar-faq-k5">
+            <div class="kar-faq__klappe">
+              <p class="kar-karte__bereiche">Das hängt von der Rolle und der Einarbeitungsphase ab. Die konkreten Präsenz- und Remote-Regelungen werden vor dem ersten Gespräch transparent ausgewiesen.</p>
+            </div>
+          </div>
         </div>
       </li>
 
@@ -1216,5 +1282,10 @@
      erst diese Datei; die Knoepfe in den Karten sind gewoehnliche
      Verweise und gehen auch ohne Skript. -->
 <script src="assets/js/karriere.js?v=b24a"></script>
+<!-- Derselbe Aufklapper wie auf der Startseite, unveraendert nachgenutzt —
+     04.09.2026. Er sucht `[data-faq]` und findet die Faecher ueber
+     `aria-controls`; beides traegt die Fragenliste dieser Seite. Kein
+     zweites Skript, keine Abwandlung. -->
+<script src="assets/js/faq.js?v=b24a"></script>
 </body>
 </html>

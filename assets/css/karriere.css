@@ -3149,3 +3149,93 @@
    hinter der Leiste. Der Wert ist die gemessene Leistenhoehe plus etwas
    Luft, damit der Abschnitt nicht angeschnitten beginnt. */
 #mehr-als-ein-arbeitsplatz { scroll-margin-top: 120px; }
+
+/* ===========================================================================
+   HAEUFIGE FRAGEN ALS AUFKLAPPER — 04.09.2026
+
+   Kundenwunsch: „Die Anordnung der Kaesten soll so bleiben, aber es soll so
+   sein wie auf der Landingpage: Man sieht immer nur die Headline, dann
+   drueckt man auf den Pfeil und dann faehrt der Text darunter aus. Die
+   Anordnung 2-2-1 soll genauso bleiben."
+
+   Das Raster (.kar-liste) und der Kasten (.kar-karte) sind unberuehrt — nur
+   der Inhalt eines Kastens ist jetzt Knopf plus Fach. Die weiche Hoehe
+   laeuft ueber `grid-template-rows: 0fr -> 1fr`, dasselbe Muster wie in der
+   FAQ der Startseite; eine gerechnete Pixelhoehe braeuchte einen
+   Rollhorcher und spraenge bei jedem Wortwechsel.
+
+   OHNE JAVASCRIPT fehlt `[data-js='an']` an der Liste: dann greift keine
+   dieser Regeln, alle Faecher stehen offen, und die Section ist eine
+   schlichte Fragenliste.
+   =========================================================================== */
+.kar-faq__frage { margin: 0; }
+.kar-faq__knopf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 44px;                    /* Trefferflaeche fuer den Daumen */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.kar-faq__knopf:focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.kar-faq__wort { flex: 1 1 auto; }
+
+/* Der Winkel dreht sich beim Oeffnen — dasselbe Zeichen und dieselbe
+   Drehung wie auf der Startseite. */
+.kar-faq__winkel {
+  flex: 0 0 auto;
+  display: inline-flex;
+  width: 1.15rem;
+  margin-top: 0.15em;
+  color: var(--sand);
+  transition: transform 0.3s var(--ease, ease);
+}
+.kar-faq__winkel svg { width: 100%; height: auto; }
+.kar-liste[data-js='an'] .kar-faq__knopf[aria-expanded='true'] .kar-faq__winkel {
+  transform: rotate(180deg);
+}
+
+/* Das Fach. Zugeklappt ist die Rasterzeile 0fr hoch, offen 1fr — dazwischen
+   blendet der Browser weich um. `min-height: 0` an der Klappe ist Pflicht,
+   sonst haelt der Rasterinhalt seine Mindesthoehe und nichts bewegt sich. */
+.kar-liste[data-js='an'] .kar-faq__fach {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.36s var(--ease, ease), opacity 0.28s var(--ease, ease);
+}
+.kar-liste[data-js='an'] .kar-faq__klappe { min-height: 0; overflow: hidden; }
+.kar-liste[data-js='an'] .kar-faq__fach[data-offen='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.kar-liste[data-js='an'] .kar-faq__fach .kar-karte__bereiche { margin-top: 0.9rem; }
+
+/* Beim Start einmal lautlos zufahren — der Besucher soll die Section nicht
+   erst zugehen sehen. Das Attribut setzt faq.js fuer zwei Bilddurchlaeufe. */
+.kar-liste[data-start] .kar-faq__fach,
+.kar-liste[data-start] .kar-faq__winkel { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kar-liste[data-js='an'] .kar-faq__fach,
+  .kar-liste[data-js='an'] .kar-faq__winkel { transition: none; }
+}
+
+/* Die Fragenkaesten duerfen sich NICHT gegenseitig mitziehen — 04.09.2026.
+   `.kar-liste` steht auf `align-items: stretch`; das ist bei den zwei
+   Rollenkarten richtig (sie sollen gleich hoch sein), bei einem Aufklapper
+   aber falsch: gemessen wuchs beim Oeffnen von Karte 1 auch Karte 2 von
+   110 auf 304 px und stand mit 194 px Leere daneben. Nur die geoeffnete
+   Karte waechst; geschlossen sind weiterhin alle gleich hoch. */
+.kar-liste[data-faq] { align-items: flex-start; }
