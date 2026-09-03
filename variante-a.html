@@ -4095,6 +4095,15 @@
 
       <!-- LINKE HAELFTE — die sechs Schritte, einfach untereinander.
            <ol>, weil die Reihenfolge Teil der Aussage ist. -->
+      <!-- DIE SPUR — 01.09.2026, Kundenwunsch: „Das 01 soll nicht in einem
+           Kreis sein und soll auf dem Strich nach unten fahren, bis es bei
+           02 ist. Die Zahl muss sich auf dem Strich bewegen."
+           Der Laeufer ist deshalb eine eigene, wandernde Ziffer und kein
+           Anstrich an den festen Zahlen. Er braucht eine Huelle, an der er
+           sich ausrichten kann — eine <ol> darf keine <span> enthalten.
+           Ohne Skript bleibt die Huelle leer und faellt nicht auf. -->
+      <div class="abl__spur">
+        <span class="abl__laeufer" aria-hidden="true"></span>
       <ol class="abl__folge">
         <li class="abl__stufe">
           <p class="abl__stufe-nr">01</p>
@@ -4190,6 +4199,7 @@
           </div>
         </li>
       </ol>
+      </div>
 
       <!-- RECHTE HAELFTE — EIN Bild ueber die volle Hoehe der Spalte.
            `alt=""` und `aria-hidden`: das Bild traegt keine Aussage, die

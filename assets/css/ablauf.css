@@ -988,95 +988,109 @@
 }
 
 /* ===========================================================================
-   DIE FORTSCHRITTSSCHIENE — 01.09.2026, Kundenwunsch:
-     „Verbinde die Punkte 01 bis 06 mit einem Strich, der immer mitgeht,
-      wenn man scrollt, sodass man immer weiss, bei welchem Punkt man
-      gerade ist. Die Punkte sollen nicht nacheinander aufploppen, sondern
-      schon gleich sichtbar sein. Das 01 faehrt beim Scrollen nach unten,
-      bis es an 02 stoesst, und wird dann zu 02 … Immer wenn man bei der
-      naechsten Zahl ist, gibt es einen kurzen Effekt."
+   DIE FORTSCHRITTSSCHIENE — 01.09.2026, zweite Fassung
 
-   AUFBAU
-     ::before  die ruhige Schiene, von der Mitte der 01 bis zur Mitte der 06
-     ::after   der gefuellte Teil; sein UNTERES ENDE ist der Laeufer
-   Beide sitzen in der Ziffernspalte, mittig unter den Zahlen. Die zwei
-   Masse (Anfang und Laenge) und der Fortschritt kommen aus ablauf.js —
-   sie haengen an der tatsaechlichen Lage der Ziffern und nicht an einer
-   geschaetzten Zeilenhoehe, sonst verruecken sie sich mit jedem Wortwechsel.
+   ERSTE FASSUNG UND WARUM SIE FALSCH WAR: dort wurde die Ziffer an Ort und
+   Stelle zur gefuellten Kreisscheibe, und der Strich lief durch die Mitte
+   der Ziffernspalte. Der Kunde hat beides beanstandet:
+     „Der Strich soll zentral bei den Punkten sein, mittig zwischen 01 und
+      02, zwischen 02 und 03."
+     „Das 01 soll nicht in einem Kreis sein. Das 01 soll auf dem Strich nach
+      unten fahren, bis es bei 02 ist. Die Zahl muss sich auf dem Strich
+      bewegen, bis es bei 02 ist, und dann immer so weiter."
 
-   DIE SCHRITTE BLEIBEN SICHTBAR. Hier wird nichts aufgedeckt und nichts
-   eingeblendet — der Kunde sagt das ausdruecklich. Die Schiene zeigt nur
-   an, wo man steht.
+   Also: keine Scheibe, und die WANDERNDE ZIFFER ist ein eigenes Element,
+   das auf der Schiene laeuft — `.abl__laeufer`. Die festen Ziffern bleiben
+   ruhig stehen; die, auf der der Laeufer gerade sitzt, wird verdeckt, damit
+   die Zahl nicht doppelt erscheint (`visibility`, nicht `display` — sonst
+   spraenge die Zeile).
 
-   OHNE SKRIPT und bei ruhiger Darstellung fehlt `data-schiene`; dann gibt
-   es weder Schiene noch Laeufer, und alle Ziffern stehen gleichwertig da.
+   DIE SCHIENE LIEGT AUF DER ZIFFERNMITTE, nicht auf der Spaltenmitte. Die
+   Ziffern stehen linksbuendig in einer breiteren Spalte; die Spaltenmitte
+   waere sichtbar daneben. Der Wert kommt deshalb gemessen aus ablauf.js.
+
+   OHNE SKRIPT und bei ruhiger Darstellung fehlt `data-schiene`: dann gibt
+   es weder Schiene noch Laeufer, und die sechs Ziffern stehen gleichwertig
+   da. Der Abschnitt ist ohne die Schiene vollstaendig lesbar.
    =========================================================================== */
-.abl__folge[data-schiene='an'] {
-  position: relative;
-  --abl-schiene-x: calc(clamp(2.0rem, 2.7vw, 2.6rem) / 2);
-}
-.abl__folge[data-schiene='an']::before,
-.abl__folge[data-schiene='an']::after {
+.abl__spur { position: relative; }
+
+.abl__spur[data-schiene='an']::before,
+.abl__spur[data-schiene='an']::after {
   content: '';
   position: absolute;
-  left: var(--abl-schiene-x);
+  left: var(--abl-schiene-x, 0);
   top: var(--abl-schiene-oben, 0);
   width: 2px;
   transform: translateX(-50%);
   border-radius: 2px;
   pointer-events: none;
 }
-.abl__folge[data-schiene='an']::before {
+/* die ruhige Schiene ueber die ganze Strecke */
+.abl__spur[data-schiene='an']::before {
   height: var(--abl-schiene-hoehe, 0);
-  background: rgba(138, 90, 32, 0.18);        /* Bronze, stark zurueckgenommen */
+  background: rgba(138, 90, 32, 0.18);
 }
-/* Der gefuellte Teil. Sein Ende traegt ueber den Schatten den Laeufer —
-   ein eigener Punkt braeuchte ein drittes Pseudoelement, das es nicht gibt. */
-.abl__folge[data-schiene='an']::after {
+/* der bereits zurueckgelegte Teil */
+.abl__spur[data-schiene='an']::after {
   height: calc(var(--abl-schiene-hoehe, 0) * var(--abl-fortschritt, 0));
   background: var(--abl-bronze, #8A5A20);
-  box-shadow: 0 0 0 3px rgba(138, 90, 32, 0.14);
   transition: height 0.18s linear;
 }
 
-/* Die Ziffer, an der der Laeufer steht: aus der Zahl wird eine gefuellte
-   Scheibe. Das ist der „kurze Effekt" und zugleich die dauerhafte Marke,
-   an der man sieht, wo man ist. */
-.abl__folge[data-schiene='an'] .abl__stufe-nr {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.9em;
-  height: 1.9em;
-  border-radius: 50%;
+/* DIE WANDERNDE ZIFFER. Sie sieht aus wie die festen Ziffern — gleicher
+   Schnitt, gleicher Grad, gleiche Sperrung —, steht aber kraeftiger und
+   traegt einen kleinen hellen Grund, damit die Schiene nicht durch sie
+   hindurchlaeuft. Kein Kreis, kein Rahmen. */
+.abl__laeufer {
+  position: absolute;
+  left: var(--abl-schiene-x, 0);
+  top: var(--abl-schiene-oben, 0);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--abl-fs-nr);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--abl-bronze, #8A5A20);
   background: var(--abl-grund, #F6F4F1);
-  transition: background 0.25s var(--ease, ease), color 0.25s var(--ease, ease);
+  padding: 0.18em 0.1em;
+  pointer-events: none;
+  opacity: 0;
+  transition: top 0.18s linear, opacity 0.25s var(--ease, ease);
 }
-.abl__folge[data-schiene='an'] .abl__stufe[data-aktiv='true'] .abl__stufe-nr {
-  background: var(--abl-bronze, #8A5A20);
-  color: #FFFFFF;                              /* 5,41:1 gegen Bronze */
+.abl__spur[data-schiene='an'] .abl__laeufer { opacity: 1; }
+
+/* Die feste Ziffer, auf der der Laeufer gerade sitzt, tritt zurueck —
+   sonst stuende die Zahl zweimal uebereinander. */
+.abl__spur[data-schiene='an'] .abl__stufe[data-aktiv='true'] .abl__stufe-nr {
+  visibility: hidden;
 }
-/* Der Wechsel selbst: ein einziger, kurzer Ring, der nach aussen laeuft.
-   Das Attribut setzt das Skript bei jedem Wechsel neu, damit die Bewegung
-   auch beim Zurueckrollen wieder laeuft. */
-.abl__folge[data-schiene='an'] .abl__stufe-nr[data-puls='true']::after {
+
+/* Der kurze Effekt beim Ankommen: ein Ring laeuft einmal nach aussen.
+   Das Attribut setzt das Skript bei jedem Wechsel neu, damit es auch beim
+   Zurueckrollen wieder laeuft. */
+.abl__laeufer[data-puls='true']::after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
+  inset: -0.35em -0.2em;
+  border-radius: 999px;
   border: 2px solid var(--abl-bronze, #8A5A20);
   animation: abl-puls 520ms var(--ease-soft, ease-out) both;
   pointer-events: none;
 }
 @keyframes abl-puls {
-  from { transform: scale(1);   opacity: 0.85; }
-  to   { transform: scale(1.9); opacity: 0; }
+  from { transform: scale(0.8); opacity: 0.9; }
+  to   { transform: scale(1.7); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .abl__folge[data-schiene='an']::before,
-  .abl__folge[data-schiene='an']::after,
-  .abl__folge[data-schiene='an'] .abl__stufe-nr[data-puls='true']::after { display: none; }
+  .abl__spur[data-schiene='an']::before,
+  .abl__spur[data-schiene='an']::after,
+  .abl__laeufer { display: none; }
+  .abl__spur[data-schiene='an'] .abl__stufe[data-aktiv='true'] .abl__stufe-nr {
+    visibility: visible;
+  }
 }
