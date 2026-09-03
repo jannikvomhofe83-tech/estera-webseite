@@ -2042,60 +2042,68 @@
 }
 
 /* ===========================================================================
-   DAS HAUS BAUT SICH AUF — 01.09.2026, Kundenwunsch:
-     „Wenn man auf die Section scrollt und die Section ganz sieht, soll das
-      Haus eine Animation bekommen, wie es sich aufbaut: von Fundament ueber
-      Erdgeschoss, ersten Stock, zweiten Stock, dritten Stock und Dach, so
-      lange, bis das ganze Haus steht. Nicht zu lange, 2 Sekunden."
+   DAS HAUS BAUT SICH AUF — 01.09.2026, zweite Fassung
 
-   WIE ES GEHT, OHNE NEUE BILDER: Das Haus liegt als EIN Foto vor
-   (haus-alt-1254), nicht in Ebenen. Der Aufbau entsteht deshalb ueber einen
-   Ausschnitt, der von unten nach oben waechst — aber nicht gleitend, sondern
-   in SECHS Stufen mit kurzem Halt dazwischen. Genau das liest das Auge als
-   „ein Geschoss kommt dazu", waehrend ein gleitender Vorhang nur wie ein
-   Wischer aussieht.
+   ERSTE FASSUNG UND WARUM SIE FALSCH WAR: Sie hat das FOTO in sechs Stufen
+   ueber `clip-path` freigegeben. Der Kunde, woertlich:
+     „Die Animation ist eine absolute Vollkatastrophe, weil man klar sieht,
+      dass du die Bilder einfach nur abgeschnitten und aneinandergefuegt
+      hast. Es soll aussehen wie die Animation davor, nur dass es einzelne
+      Stockwerke zuerst aufbaut und dann die Fassade draufkommt."
+   Er hat recht: ein harter Ausschnitt am Foto schneidet Mauerwerk, Fenster
+   und Dach mitten durch — das sieht nach Schnitt aus, nicht nach Bau.
 
-   Die sechs Halte sind an der Datei ausgemessen (sichtbarer Inhalt
-   y 77..959 von 1254, also 882 Einheiten Gebaeude plus Platte):
-     Fundament/Platte  bis 26 %   |  Erdgeschoss  bis 43 %
-     1. Stock          bis 58 %   |  2. Stock     bis 72 %
-     3. Stock          bis 86 %   |  Dach         bis 100 %
-   Prozent von unten gerechnet, deshalb `inset(X% 0 0 0)` mit fallendem X.
+   ZWEITE FASSUNG, wie er es beschreibt:
+   Es baut sich die ZEICHNUNG auf, nicht das Foto. Sie liegt als eigene Lage
+   vor (`haus-strich`) und wird ueber eine Maske mit WEICHER Kante
+   freigegeben — dieselbe Maske wie vor dem 01.09., nur bewegt sie sich
+   jetzt in sechs Stufen mit Halt dazwischen statt gleichmaessig. Weil die
+   Kante weich ist, waechst die Zeichnung heran, statt abgeschnitten zu
+   werden. Erst wenn das Dach steht, blendet die Fassade darueber auf.
 
-   ZEITEN: 1,9 s gesamt (der Kunde: „2 Sekunden"), jede Stufe rund 0,32 s,
-   davon etwa die Haelfte Halt. Das Foto blendet nicht mehr weich auf,
-   sondern steht sofort — sonst baute sich ein halbdurchsichtiges Haus auf.
-   Die Strichlage laeuft weiterhin voraus, damit der Bauplan-Eindruck bleibt.
+   DIE SECHS HALTE sind an der Datei ausgemessen (sichtbarer Inhalt
+   y 77..959 von 1254): Fundament und Sockelplatte, Erdgeschoss, erster,
+   zweiter, dritter Stock, Dach. Die Prozentwerte sind Maskenstaende, nicht
+   Bildhoehen — die Maske ist 340 Prozent hoch, damit die weiche Kante am
+   Anfang und am Ende ausserhalb des Bildes liegt.
 
-   OHNE JAVASCRIPT und bei ruhiger Darstellung steht das fertige Haus sofort;
-   der Endzustand ist der Grundzustand.
+   ZEITEN: Aufbau 1,5 s in sechs Stufen, danach 0,4 s Fassade — zusammen
+   1,9 s. Der Kunde hatte „nicht zu lange, 2 Sekunden" gesagt.
+
+   OHNE JAVASCRIPT und bei ruhiger Darstellung steht sofort die Fassade,
+   die Strichlage bleibt unsichtbar. Der Endzustand ist der Grundzustand.
    =========================================================================== */
-.is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
-  /* ersetzt das weiche Aufblenden von oben */
-  animation: wi-haus-bau 1900ms steps(1, end) 120ms both;
-  opacity: 1;
-}
-@keyframes wi-haus-bau {
-  0%    { clip-path: inset(100% 0 0 0); }
-  6%    { clip-path: inset(74% 0 0 0); }   /* Fundament und Sockelplatte */
-  22%   { clip-path: inset(57% 0 0 0); }   /* Erdgeschoss */
-  38%   { clip-path: inset(42% 0 0 0); }   /* erster Stock */
-  55%   { clip-path: inset(28% 0 0 0); }   /* zweiter Stock */
-  72%   { clip-path: inset(14% 0 0 0); }   /* dritter Stock */
-  88%   { clip-path: inset(0 0 0 0); }     /* Dach — das Haus steht */
-  100%  { clip-path: inset(0 0 0 0); }
-}
-/* Die Strichlage laeuft der Mauer voraus und ist weg, sobald das Dach sitzt. */
 .is-ready .wi__feld[data-seen='true'] .wi__haus-strich {
   animation:
-    wi-strich-lauf 1500ms 0ms linear both,
-    wi-strich-weg  320ms 1600ms var(--ease-soft) forwards;
+    wi-haus-stockwerke 1500ms steps(1, end) 0ms both,
+    wi-strich-weg      320ms var(--ease-soft) 1560ms forwards;
+}
+/* Die Maske faehrt in sechs Spruengen von unten nach oben. Zwischen den
+   Spruengen steht sie — das ist der Halt, der ein Stockwerk als fertig
+   lesbar macht. `steps(1, end)` haelt den Wert bis zum naechsten Schluessel. */
+@keyframes wi-haus-stockwerke {
+  0%   { -webkit-mask-position: 0% 0%;   mask-position: 0% 0%; }
+  8%   { -webkit-mask-position: 0% 26%;  mask-position: 0% 26%; }   /* Fundament, Sockelplatte */
+  25%  { -webkit-mask-position: 0% 43%;  mask-position: 0% 43%; }   /* Erdgeschoss */
+  42%  { -webkit-mask-position: 0% 58%;  mask-position: 0% 58%; }   /* erster Stock */
+  59%  { -webkit-mask-position: 0% 72%;  mask-position: 0% 72%; }   /* zweiter Stock */
+  76%  { -webkit-mask-position: 0% 86%;  mask-position: 0% 86%; }   /* dritter Stock */
+  92%  { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; }  /* Dach — das Haus steht */
+  100% { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; }
+}
+
+/* Die Fassade legt sich darueber, sobald das Dach sitzt. Kein Ausschnitt,
+   kein Schnitt — das ganze Bild blendet auf, so wie vor dem 01.09. */
+.is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
+  animation: wi-foto-ein 400ms var(--ease-soft) 1500ms both;
+  clip-path: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
     animation: none;
-    clip-path: none;
     opacity: 1;
+    clip-path: none;
   }
+  .is-ready .wi__feld[data-seen='true'] .wi__haus-strich { animation: none; opacity: 0; }
 }
