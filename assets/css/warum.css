@@ -1962,3 +1962,140 @@
   .wi__knopf { width: 100%; justify-content: center; min-height: 48px; }
   .wi__knopf-hinweis { font-size: 0.9375rem; }
 }
+
+/* ===========================================================================
+   „MEHR ERFAHREN" IN DER CTA-FARBE, UND EIN AUFTRITT BEIM OEFFNEN
+   01.09.2026, Kundenwunsch:
+     „Bei den vier Kaesten muss das ‚Mehr erfahren' in derselben Farbe sein
+      wie der ‚Erstgespraech vereinbaren'-CTA-Button. Und wir brauchen
+      irgendeine Animation, einen Effekt, sodass es besonderer wirkt und
+      sich was veraendert, wenn man draufklickt."
+
+   ZUR FARBE: Der CTA-Knopf traegt Sandflaeche mit weisser Schrift. Sand als
+   reine SCHRIFTFARBE auf dem hellen Kartengrund misst nur 1,94:1 und waere
+   nicht lesbar. „Dieselbe Farbe" ist deshalb als dieselbe FLAECHE umgesetzt:
+   aus der Zeile wird eine kleine Sandpille mit weisser Schrift — genau die
+   Anmutung des Knopfes, nur kleiner. Das Verhaeltnis Weiss auf Sand ist
+   dabei dasselbe wie am grossen Knopf; das ist die Entscheidung des Kunden
+   vom 31.08.2026 („wenn Gold, dann weisse Schrift"), hier nur konsequent
+   weitergefuehrt.
+
+   ZUM AUFTRITT: Beim Oeffnen passiert dreierlei zugleich — die Pille kippt
+   von Sand auf Navy (die Karte ist jetzt die aktive), der Winkel dreht sich
+   (stand schon), und die Tafel darunter faehrt mit einem goldenen Strich
+   auf, der von der Mitte nach aussen laeuft. Alles unter 600 ms und unter
+   20 px Weg, wie es das Optimierungsbriefing fuer Bewegungen vorschreibt.
+   =========================================================================== */
+.wi__karte-mehr {
+  align-self: flex-start;
+  padding: 0.55cqw 1.1cqw;
+  border-radius: 999px;
+  background: var(--sand);
+  border: 1px solid var(--gold);
+  color: #FFFFFF;
+  transition: background 0.28s var(--ease), border-color 0.28s var(--ease),
+              transform 0.28s var(--ease);
+}
+@media (hover: hover) {
+  .wi__karte:hover .wi__karte-mehr { background: var(--sand-tief, #C9A070); transform: translateY(-1px); }
+}
+/* Die geoeffnete Karte: die Pille kippt auf Navy und ist damit auf einen
+   Blick die aktive — das „es veraendert sich etwas", das der Kunde meint. */
+.wi__karte[aria-expanded='true'] .wi__karte-mehr,
+.wi__karte[aria-expanded='true']:hover .wi__karte-mehr {
+  background: var(--wi-navy, #10305C);
+  border-color: var(--wi-navy, #10305C);
+  transform: none;
+}
+
+/* Die Tafel faehrt auf, statt zu erscheinen. `.wi__panel` ist ein Raster;
+   die Bewegung liegt deshalb auf ihm selbst und nicht auf einer Huelle. */
+.wi[data-js='an'] .wi__panel:not([hidden]) {
+  animation: wi-tafel-auf 0.42s var(--ease) both;
+}
+@keyframes wi-tafel-auf {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+/* Der goldene Strich laeuft von der Mitte nach aussen ueber die Oberkante
+   der Tafel — das Zeichen, dass hier gerade etwas aufgegangen ist. */
+.wi[data-js='an'] .wi__panel:not([hidden])::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  animation: wi-strich 0.5s var(--ease) 0.12s both;
+}
+@keyframes wi-strich { to { width: 62%; } }
+.wi__panel { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wi[data-js='an'] .wi__panel:not([hidden]),
+  .wi[data-js='an'] .wi__panel:not([hidden])::before { animation: none; }
+  .wi[data-js='an'] .wi__panel:not([hidden])::before { width: 62%; }
+  .wi__karte-mehr { transition: none; }
+}
+
+/* ===========================================================================
+   DAS HAUS BAUT SICH AUF — 01.09.2026, Kundenwunsch:
+     „Wenn man auf die Section scrollt und die Section ganz sieht, soll das
+      Haus eine Animation bekommen, wie es sich aufbaut: von Fundament ueber
+      Erdgeschoss, ersten Stock, zweiten Stock, dritten Stock und Dach, so
+      lange, bis das ganze Haus steht. Nicht zu lange, 2 Sekunden."
+
+   WIE ES GEHT, OHNE NEUE BILDER: Das Haus liegt als EIN Foto vor
+   (haus-alt-1254), nicht in Ebenen. Der Aufbau entsteht deshalb ueber einen
+   Ausschnitt, der von unten nach oben waechst — aber nicht gleitend, sondern
+   in SECHS Stufen mit kurzem Halt dazwischen. Genau das liest das Auge als
+   „ein Geschoss kommt dazu", waehrend ein gleitender Vorhang nur wie ein
+   Wischer aussieht.
+
+   Die sechs Halte sind an der Datei ausgemessen (sichtbarer Inhalt
+   y 77..959 von 1254, also 882 Einheiten Gebaeude plus Platte):
+     Fundament/Platte  bis 26 %   |  Erdgeschoss  bis 43 %
+     1. Stock          bis 58 %   |  2. Stock     bis 72 %
+     3. Stock          bis 86 %   |  Dach         bis 100 %
+   Prozent von unten gerechnet, deshalb `inset(X% 0 0 0)` mit fallendem X.
+
+   ZEITEN: 1,9 s gesamt (der Kunde: „2 Sekunden"), jede Stufe rund 0,32 s,
+   davon etwa die Haelfte Halt. Das Foto blendet nicht mehr weich auf,
+   sondern steht sofort — sonst baute sich ein halbdurchsichtiges Haus auf.
+   Die Strichlage laeuft weiterhin voraus, damit der Bauplan-Eindruck bleibt.
+
+   OHNE JAVASCRIPT und bei ruhiger Darstellung steht das fertige Haus sofort;
+   der Endzustand ist der Grundzustand.
+   =========================================================================== */
+.is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
+  /* ersetzt das weiche Aufblenden von oben */
+  animation: wi-haus-bau 1900ms steps(1, end) 120ms both;
+  opacity: 1;
+}
+@keyframes wi-haus-bau {
+  0%    { clip-path: inset(100% 0 0 0); }
+  6%    { clip-path: inset(74% 0 0 0); }   /* Fundament und Sockelplatte */
+  22%   { clip-path: inset(57% 0 0 0); }   /* Erdgeschoss */
+  38%   { clip-path: inset(42% 0 0 0); }   /* erster Stock */
+  55%   { clip-path: inset(28% 0 0 0); }   /* zweiter Stock */
+  72%   { clip-path: inset(14% 0 0 0); }   /* dritter Stock */
+  88%   { clip-path: inset(0 0 0 0); }     /* Dach — das Haus steht */
+  100%  { clip-path: inset(0 0 0 0); }
+}
+/* Die Strichlage laeuft der Mauer voraus und ist weg, sobald das Dach sitzt. */
+.is-ready .wi__feld[data-seen='true'] .wi__haus-strich {
+  animation:
+    wi-strich-lauf 1500ms 0ms linear both,
+    wi-strich-weg  320ms 1600ms var(--ease-soft) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-ready .wi__feld[data-seen='true'] .wi__haus-foto {
+    animation: none;
+    clip-path: none;
+    opacity: 1;
+  }
+}
