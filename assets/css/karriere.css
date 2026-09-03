@@ -3294,16 +3294,37 @@
   border-color: rgba(10, 25, 46, 0.34);
   background-color: #F1EBE6;   /* eine Spur tiefer als --fl-creme */
 }
-/* SAND, 04.09.2026 — Kundenwunsch woertlich: „in der gleichen Farbe wie der
-   CTA-Button ‚Jetzt bewerben‘, aber nur die Schriftfarbe soll es sein."
-   Der Knopf traegt --sand als FLAECHE; hier traegt die Zeile denselben Ton
-   als SCHRIFT, ohne Flaeche und ohne Kasten.
-   GEMESSEN: #D9B485 auf dem Cremegrund der Karte (#F7F3F0) misst 1,88:1.
-   Vorher stand hier #8A5A20 mit 5,34:1 — derselbe warme Ton, nur tiefer.
-   Der Kunde hat die Knopffarbe ausdruecklich verlangt; die Entscheidung ist
-   seine und steht hier festgehalten, damit sie nicht spaeter als Versehen
-   zurueckgedreht wird. Wer sie zurueckdreht, setzt #8A5A20. */
-.kar-karte--klick .kar-karte__art   { color: var(--sand); }   /* 1,88:1 */
+/* DIE KLEINZEILE UNTER DER STELLENBEZEICHNUNG — 04.09.2026
+
+   Kundenwunsch woertlich: „Es soll darunter stehen […] unter dem (m/w/d).
+   Es soll in schwarz stehen, es soll kleiner stehen und es soll näher an
+   die Stelle ran."
+
+   Drei Aenderungen, alle nur hier — die Vertrauenszeile im Kopfbereich
+   (.kar-kopf .kar-karte__art) benutzt dieselbe Klasse und bleibt, wie sie
+   ist:
+
+   SCHWARZ. --ink-black #2B2E33 auf dem Cremegrund #F7F3F0 misst 12,76:1.
+   Vorher stand hier --sand (1,88:1) und davor #8A5A20 (5,34:1); die
+   Knopffarbe war eine Ansage von zwei Stunden vorher, „schwarz" ist die
+   juengere und geht vor.
+
+   KLEINER. 16,66 → clamp(12,5px, 0,95vw, 14px). Die Zeile traegt keinen
+   Fliesstext, sondern drei Schlagworte in Versalien mit Sperrung; die
+   16-px-Untergrenze aus Abschnitt 19 des Optimierungsbriefings gilt dem
+   Lesetext. 14 px in Versalien haben dieselbe Versalhoehe wie rund 19 px
+   gemischt gesetzt.
+
+   NAEHER AN DIE STELLE. 8 px Abstand nach oben statt der 16 px, mit denen
+   sie als Kleinzeile UEBER der Ueberschrift stand. Nach unten haelt der
+   Knopfblock seine 24 px, damit die Zeile klar zur Ueberschrift gehoert
+   und nicht zwischen zwei Bloecken schwebt. */
+.kar-karte--klick .kar-karte__art {
+  color: var(--ink-black);                        /* 12,76:1 */
+  margin-top: 8px;
+  font-size: clamp(12.5px, 0.95vw, 14px);
+  letter-spacing: 0.12em;
+}
 .kar-karte--klick .kar-karte__titel { color: var(--navy-900); }   /* 16,4:1 */
 .kar-karte--klick .kar-karte__bereiche { color: var(--ink-mute); }   /* 5,20:1 */
 /* Der Linienknopf dreht mit: Schrift Navy, Kante Navy statt Weiss. Die
