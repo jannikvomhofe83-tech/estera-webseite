@@ -137,17 +137,17 @@
   background: var(--paper);
   /* Der Abschnitt ist Sprungziel der Kopfleiste („Warum Estera" zeigt auf
      #leistungen). Ohne diesen Rand landete der Kopf HINTER der festen
-     Leiste — und der ganze Sinn des Umbaus vom 01.09.2026 (alles in einem
-     Fenster) waere beim Klick aus der Navigation verspielt. Wie .wi und
-     .faq. */
+     Leiste. Wie .wi und .faq. Das bleibt auch nach dem Rueckbau vom
+     01.09.2026 richtig — es ist eine Sprungmarke und keine Verdichtung. */
   scroll-margin-top: var(--header-h);
   /* Der Aussenabstand rechnet in vh, weil die Vorgabe eine Fensterhoehe ist
      und keine Fensterbreite.
-     ENGER — 01.09.2026, Optimierungsbriefing, Abschnitt 07 (P1): „Weniger
-     Aussenabstand". Oben 24 -> 18 px bei 900 Fensterhoehe; unten bleibt,
-     dort grenzt der Zwischen-CTA an. Die Rechnung, was bei 1440 x 900 unter
-     die Kopfleiste passt, steht am Rahmen .wnetz. */
-  padding: clamp(1rem, 2vh, 1.8rem) 0 clamp(1.3rem, 3vh, 2.6rem);
+     ZURUECK AUF DEN STAND VOM 31.08.2026 — 01.09.2026, Kundenansage: „Ich
+     will, dass es von der Struktur her so ist, wie die Section davor war."
+     Am selben Tag stand hier clamp(1rem, 2vh, 1.8rem) aus dem
+     Optimierungsbriefing (P1, „Weniger Aussenabstand"). Der Kunde hat den
+     Umbau zurueckgewiesen, also gilt wieder der weite Abstand. */
+  padding: clamp(1.15rem, 2.7vh, 2.3rem) 0 clamp(1.3rem, 3vh, 2.6rem);
 }
 
 .wahl__inner {
@@ -270,8 +270,8 @@
 }
 
 .wahl__h2 {
-  /* 1,8vw -> 1,1vw — siehe .wahl__sub, 01.09.2026. */
-  margin: clamp(0.7rem, 1.1vw, 1.05rem) 0 0;
+  /* ZURUECK AUF 1,8vw — siehe .wahl__sub, Rueckbau 01.09.2026. */
+  margin: clamp(1.05rem, 1.8vw, 1.75rem) 0 0;
   font-size: clamp(1.85rem, 2.9vw, 3.15rem);
   line-height: 1.06;
   color: var(--navy-800);
@@ -279,14 +279,15 @@
 }
 
 .wahl__sub {
-  /* 44 -> 54rem und engere Abstaende — 01.09.2026, Optimierungsbriefing,
-     Abschnitt 07 (P1): der ganze Abschnitt muss unter die Kopfleiste in
-     ein Fenster von 1440 x 900 passen. Der Kopf gibt dafuer 20 px ab
-     (Ueberschrift 28 -> 16, Unterzeile 33 -> 18 bei 1440); die breitere
-     Unterzeile bleibt bei 1440 zweizeilig, laeuft aber nicht mehr auf drei
-     Zeilen, wenn die Schrift am oberen Anschlag steht. */
-  max-width: 54rem;
-  margin: clamp(0.7rem, 1.25vw, 1.15rem) 0 0;
+  /* ZURUECK AUF 44rem UND DEN WEITEN ABSTAND — 01.09.2026, Kundenansage
+     zum Rueckbau (Zitat am .wahl-Rahmen und an der Grafik im Markup).
+     Am selben Tag standen hier 54rem und clamp(0.7rem, 1.25vw, 1.15rem),
+     damit der Kopf 20 px an die verdichtete Grafik abgibt; die
+     Verdichtung ist zurueckgenommen, der Kopf braucht nichts abzugeben.
+     Die Hervorhebung der vier Begriffe darunter bleibt — sie kostete
+     keine Hoehe und war nicht beanstandet. */
+  max-width: 44rem;
+  margin: clamp(1.1rem, 2.3vw, 2.2rem) 0 0;
   font-family: var(--font-ui);
   font-weight: 400;
   font-size: clamp(1.06rem, 1.60vw, 1.46rem);
@@ -411,39 +412,37 @@
      grossen Fenstern 4.2rem (67.2 px) Seitenabstand, es bleiben also
      1385.6 px. Wer .wahl__inner enger stellt, muss hier mitziehen. */
   max-width: min(1240px, 100%);
-  /* ===== ALLES IN EIN FENSTER — 01.09.2026, Optimierungsbriefing, Abschnitt
-     07 (P1): „Grafik, fuenf Bereiche und Ergebnis so verkleinern
-     beziehungsweise verdichten, dass alles auf einem ueblichen
-     Desktop-Viewport gleichzeitig sichtbar ist." Massstab 1440 x 900 unter
-     der festen Kopfleiste (104 px), also 796 px.
+  /* ===== RUECKBAU DER VERDICHTUNG — 01.09.2026 ==========================
+     Kundenansage, woertlich: „Was mir ueberhaupt nicht gefaellt: dass du bei
+     der Section ‚Warum Estera – Viele Einzelthemen, ein klarer Weg' so
+     komprimiert hast, dass du die Texte eventuell aendern musst. Das
+     verstehe ich aber. Ich will, dass es von der Struktur her so ist, wie
+     die Section davor war, mit der Positionierung der Kaesten so, wie es
+     davor war."
 
-     DIE ZEICHNUNG IST VON 1304 x 1080 AUF 1304 x 612 GESCHRUMPFT, und zwar
-     ohne die Schrift anzufassen — die Stichpunkte stehen weiter auf 17
-     Einheiten, bei 1240 px also 16,2 px (Untergrenze 14). Was sich
-     geaendert hat, ist die ANORDNUNG:
-       · die fuenf Kaesten sind 336 x 264 statt 336 x 336. Die Breite
-         bleibt (laengste einzeilige Zeile 271 + Haken 20 + 2 x 22), die
-         Hoehe ist der hoechste Inhalt (Finanzierung, 223) plus 2 x 20.
-         Sie sind damit nicht mehr quadratisch — die Vorgabe „mehr
-         viereckig" vom 21.08. weicht der juengeren Vorgabe, dass der
-         Abschnitt in ein Fenster passt.
-       · die vier Trabanten stehen auf derselben Hoehe wie Off-Market und
-         Zielkasten, statt in eine dritte Zeile darunter zu ragen. Die
-         S-Zuege sind dadurch kuerzer (senkrechter Teil 139 statt 124
-         Einheiten oben, 77 statt 124 unten), Bauform und Radius bleiben.
-       · die beiden senkrechten Pfeile sind 50 statt 150 und 225 Einheiten.
-       · der Zielkasten ist 500 x 140 statt 500 x 250.
-     Gerechnet und gesetzt wird das von scratchpad/wi/opt-start/netz-bau.mjs;
-     im Markup steht keine getippte Koordinate.
+     WAS DAMIT ZURUECKGENOMMEN IST. Am selben Tag war die Zeichnung auf
+     Verlangen des Optimierungsbriefings (Abschnitt 07, P1: „Grafik, fuenf
+     Bereiche und Ergebnis so verkleinern beziehungsweise verdichten, dass
+     alles auf einem ueblichen Desktop-Viewport gleichzeitig sichtbar ist")
+     auf 1304 x 612 gedrueckt: Kaesten 336 x 264 statt quadratisch, die vier
+     Trabanten in eine Zeile mit Off-Market und Zielkasten, Pfeile 50 und 62
+     statt 150 und 225 Einheiten, Zielkasten 500 x 140. Das ist alles
+     rueckgaengig. Es gilt wieder die Geometrie vom 31.08.2026:
+     1304 x 1080, QUADRATISCHE Kaesten 336 x 336 (Kundenvorgabe vom 21.08.,
+     „die muessen mehr viereckig sein"), zwei Reihen Trabanten um die
+     Wortmarke, Zielkasten 500 x 250.
 
-     Bei 1240 px Breite ist die Zeichnung 582 px hoch. Mit Kopf (Eyebrow,
-     Ueberschrift, zweizeilige Unterzeile, rund 150 px), Aussenabstand
-     (18 px) und diesem Abstand (12 px) steht der Abschnitt bei 1440 x 900
-     vollstaendig unter der Kopfleiste im Fenster — nachgemessen im Bericht
-     vom 01.09.2026. Der Abstand hier ist von 1,4vh (12,6 px) auf einen
-     festen kleinen Wert gegangen; er war der einzige Posten, der ohne
-     Aussage Hoehe kostete. */
-  margin: 0.75rem auto 0;
+     DER ABSCHNITT IST DAMIT WIEDER HOEHER ALS EIN BILDSCHIRM. Bei 1240 px
+     Breite ist die Zeichnung rund 1027 px hoch, bei 1440 x 900 passt sie
+     also nicht mit dem Kopf zusammen ins Fenster. DAS IST SO ENTSCHIEDEN
+     UND GEHT DEM BRIEFING-PUNKT P1 VOR. Wer den Abschnitt spaeter wieder
+     „auf eine Fensterhoehe optimiert", macht genau das rueckgaengig, was
+     der Kunde am 01.09.2026 ausdruecklich verlangt hat. Nicht ohne neue
+     Ansage von ihm anfassen.
+
+     NUR DER WORTLAUT IST der vom 01.09.2026 geblieben; er war nicht
+     beanstandet. Was er an der Zeichnung aendert, steht am Markup. */
+  margin: clamp(0.4rem, 1.4vh, 1.2rem) auto 0;
   /* Bezug fuer die drei unsichtbaren Marken, siehe .wnetz__marke. */
   position: relative;
 }
@@ -477,15 +476,16 @@
   height: 1px;
   pointer-events: none;
 }
-/* NACHGEFUEHRT 01.09.2026 auf die kompakte Zeichnung (1304 x 620):
-     breit   Stufe 1  Mitte des Off-Market-Kastens   142/612
-             Stufe 2  Mitte der Wortmarke            361/612
-             Stufe 3  Titelzeile des Zielkastens     536/612
-   Die Werte schreibt scratchpad/wi/opt-start/netz-bau.mjs mit der
-   Zeichnung zusammen aus (netz-info.json). */
-.wnetz__marke--1 { top: 23.2%; }
-.wnetz__marke--2 { top: 59%; }
-.wnetz__marke--3 { top: 87.6%; }
+/* ZURUECK AUF DIE ZEICHNUNG 1304 x 1080 — Rueckbau 01.09.2026, siehe den
+   Kundenzitat-Vermerk am Rahmen .wnetz. Die Werte sind wieder die vom
+   31.08.2026; die Zwischenwerte der kompakten Fassung (23.2 / 59 / 87.6,
+   gerechnet auf 612 Einheiten Hoehe) sind gegenstandslos.
+     breit   Stufe 1  Mitte des Off-Market-Kastens   192/1080
+             Stufe 2  Mitte der Wortmarke            544/1080
+             Stufe 3  kurz vor dem Zielkasten        886/1080 */
+.wnetz__marke--1 { top: 17.8%; }
+.wnetz__marke--2 { top: 50.4%; }
+.wnetz__marke--3 { top: 82%; }
 
 /* Das Sprite traegt die Kastenform, den Haken der Stichpunkte und die sechs
    Symbole. Einmal abgelegt, per <use> geholt: die Kastenform zwoelfmal, die
@@ -603,13 +603,13 @@
    Das gilt fuer beide Anordnungen, weil die Kaesten dort gleich gross sind.
    Der quere Zielkasten hat sein eigenes Symbol und seinen eigenen Massstab;
    er ist deshalb ausgenommen. */
-/* SEIT DEM 01.09.2026 OHNE AUSGLEICH: die drei Symbole (wn-kasten,
-   wn-kasten-quer, wn-kasten-quer-s) tragen jetzt exakt die Masse, in denen
-   sie aufgetragen werden (336 x 264, 500 x 140, 356 x 140). Kein <use>
-   dehnt mehr, also waechst auch keine Strichstaerke mit. Der Kehrwert
-   1/1,2 von hier und 1/0,712 fuer den schmalen Zielkasten sind entfallen. */
+/* DER AUSGLEICH IST WIEDER DA — Rueckbau 01.09.2026. Mit der quadratischen
+   Geometrie ist auch das 280er-Symbol zurueck, das per <use> auf 336
+   aufgetragen wird; ohne den Kehrwert 1/1,2 waere die Kontur um denselben
+   Faktor mitgewachsen. (Die kompakte Fassung hatte massgleiche Symbole und
+   brauchte den Ausgleich nicht.) */
 .wnetz__kasten:not(.wnetz__kasten--quer) {
-  stroke-width: var(--wn-strich);
+  stroke-width: calc(var(--wn-strich) / 1.2);
 }
 /* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
    weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
@@ -652,7 +652,7 @@
    von 400 auf 380 Einheiten geschrumpften viewBox ist er anteilig gleich
    breit geblieben.) */
 .wnetz__bild--schmal .wnetz__kasten--quer {
-  stroke-width: var(--wn-strich);   /* eigenes Symbol seit 01.09.2026, kein Ausgleich */
+  stroke-width: calc(var(--wn-strich) / 0.712);   /* Rueckbau 01.09.2026: 356 aus dem 500er-Symbol */
 }
 
 
@@ -900,11 +900,11 @@
 
   /* Die Kette ist viel hoeher als das Feld; die Marken sitzen entsprechend
      anders. Siehe die Herleitung bei .wnetz__marke. */
-  /* schmal (380 x 1836), 01.09.2026: Off-Market-Mitte 152, Wortmarke 380,
-     Zielkasten-Mitte 1746 — jeweils durch 1836. */
-  .wnetz__marke--1 { top: 8.3%; }
-  .wnetz__marke--2 { top: 20.7%; }
-  .wnetz__marke--3 { top: 95.1%; }
+  /* ZURUECK AUF DIE KETTE 380 x 2578 — Rueckbau 01.09.2026: Off-Market-Mitte
+     188, Wortmarke 509, Zielkasten-Mitte 2465 — jeweils durch 2578. */
+  .wnetz__marke--1 { top: 7.3%; }
+  .wnetz__marke--2 { top: 19.7%; }
+  .wnetz__marke--3 { top: 95.6%; }
 }
 
 

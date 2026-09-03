@@ -17,7 +17,12 @@
      wurde („Das Bild bleibt genau in derselben Position. Das ist sehr
      gut."). Er ist der Bezugspunkt und darf nicht mitwandern, wenn die
      Ueberschrift groesser gestellt wird. */
-  --h1-groesse: clamp(2rem, 2.95vw, 2.95rem);
+  /* EIN TICK KLEINER — 01.09.2026, Kundenwunsch nach dem Livegang: „Die
+     Headline ragt leicht in das Bild hinein." Die neue Ueberschrift aus dem
+     Briefing ist zweizeilig und laenger als die alte; 2,95 -> 2,7.
+     Der Bildzug (.heroA__figure, -2 Zeilen) haengt an derselben Variable
+     und rechnet sich von selbst nach. */
+  --h1-groesse: clamp(1.9rem, 2.7vw, 2.7rem);
   --h1-fest:    clamp(1.9rem, 2.75vw, 2.75rem);
   --h1-zeile:      calc(1.1 * var(--h1-groesse));
   --h1-zeile-fest: calc(1.1 * var(--h1-fest));
