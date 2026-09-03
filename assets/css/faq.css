@@ -690,3 +690,11 @@
   color: var(--ink-mute);
   text-wrap: balance;
 }
+
+/* Betraege und Einheiten duerfen nicht auseinanderbrechen — 01.09.2026,
+   Kundenwunsch: „2.500 stand in der ersten Zeile und das Eurozeichen in der
+   zweiten. Das Eurozeichen muss direkt hinter der 2.500 in derselben Zeile
+   stehen." Das geschuetzte Leerzeichen im Markup haelt Zahl und Zeichen
+   zusammen; diese Regel haelt zusaetzlich die ganze Fuegung „ab 2.500 €"
+   in einer Zeile, damit nicht das „ab" allein oben haengenbleibt. */
+.faq__zusammen { white-space: nowrap; }

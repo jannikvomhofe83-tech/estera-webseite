@@ -986,3 +986,97 @@
   margin: clamp(1.4rem, 3vw, 2.4rem) 0 0;
   text-align: center;
 }
+
+/* ===========================================================================
+   DIE FORTSCHRITTSSCHIENE — 01.09.2026, Kundenwunsch:
+     „Verbinde die Punkte 01 bis 06 mit einem Strich, der immer mitgeht,
+      wenn man scrollt, sodass man immer weiss, bei welchem Punkt man
+      gerade ist. Die Punkte sollen nicht nacheinander aufploppen, sondern
+      schon gleich sichtbar sein. Das 01 faehrt beim Scrollen nach unten,
+      bis es an 02 stoesst, und wird dann zu 02 … Immer wenn man bei der
+      naechsten Zahl ist, gibt es einen kurzen Effekt."
+
+   AUFBAU
+     ::before  die ruhige Schiene, von der Mitte der 01 bis zur Mitte der 06
+     ::after   der gefuellte Teil; sein UNTERES ENDE ist der Laeufer
+   Beide sitzen in der Ziffernspalte, mittig unter den Zahlen. Die zwei
+   Masse (Anfang und Laenge) und der Fortschritt kommen aus ablauf.js —
+   sie haengen an der tatsaechlichen Lage der Ziffern und nicht an einer
+   geschaetzten Zeilenhoehe, sonst verruecken sie sich mit jedem Wortwechsel.
+
+   DIE SCHRITTE BLEIBEN SICHTBAR. Hier wird nichts aufgedeckt und nichts
+   eingeblendet — der Kunde sagt das ausdruecklich. Die Schiene zeigt nur
+   an, wo man steht.
+
+   OHNE SKRIPT und bei ruhiger Darstellung fehlt `data-schiene`; dann gibt
+   es weder Schiene noch Laeufer, und alle Ziffern stehen gleichwertig da.
+   =========================================================================== */
+.abl__folge[data-schiene='an'] {
+  position: relative;
+  --abl-schiene-x: calc(clamp(2.0rem, 2.7vw, 2.6rem) / 2);
+}
+.abl__folge[data-schiene='an']::before,
+.abl__folge[data-schiene='an']::after {
+  content: '';
+  position: absolute;
+  left: var(--abl-schiene-x);
+  top: var(--abl-schiene-oben, 0);
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.abl__folge[data-schiene='an']::before {
+  height: var(--abl-schiene-hoehe, 0);
+  background: rgba(138, 90, 32, 0.18);        /* Bronze, stark zurueckgenommen */
+}
+/* Der gefuellte Teil. Sein Ende traegt ueber den Schatten den Laeufer —
+   ein eigener Punkt braeuchte ein drittes Pseudoelement, das es nicht gibt. */
+.abl__folge[data-schiene='an']::after {
+  height: calc(var(--abl-schiene-hoehe, 0) * var(--abl-fortschritt, 0));
+  background: var(--abl-bronze, #8A5A20);
+  box-shadow: 0 0 0 3px rgba(138, 90, 32, 0.14);
+  transition: height 0.18s linear;
+}
+
+/* Die Ziffer, an der der Laeufer steht: aus der Zahl wird eine gefuellte
+   Scheibe. Das ist der „kurze Effekt" und zugleich die dauerhafte Marke,
+   an der man sieht, wo man ist. */
+.abl__folge[data-schiene='an'] .abl__stufe-nr {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9em;
+  height: 1.9em;
+  border-radius: 50%;
+  background: var(--abl-grund, #F6F4F1);
+  transition: background 0.25s var(--ease, ease), color 0.25s var(--ease, ease);
+}
+.abl__folge[data-schiene='an'] .abl__stufe[data-aktiv='true'] .abl__stufe-nr {
+  background: var(--abl-bronze, #8A5A20);
+  color: #FFFFFF;                              /* 5,41:1 gegen Bronze */
+}
+/* Der Wechsel selbst: ein einziger, kurzer Ring, der nach aussen laeuft.
+   Das Attribut setzt das Skript bei jedem Wechsel neu, damit die Bewegung
+   auch beim Zurueckrollen wieder laeuft. */
+.abl__folge[data-schiene='an'] .abl__stufe-nr[data-puls='true']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--abl-bronze, #8A5A20);
+  animation: abl-puls 520ms var(--ease-soft, ease-out) both;
+  pointer-events: none;
+}
+@keyframes abl-puls {
+  from { transform: scale(1);   opacity: 0.85; }
+  to   { transform: scale(1.9); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abl__folge[data-schiene='an']::before,
+  .abl__folge[data-schiene='an']::after,
+  .abl__folge[data-schiene='an'] .abl__stufe-nr[data-puls='true']::after { display: none; }
+}

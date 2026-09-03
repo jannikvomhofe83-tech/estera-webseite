@@ -3908,9 +3908,10 @@
 <!-- =====================================================================
      UNSER ABLAUF — NACHBAU DER KUNDENVORLAGE (Bilder/referenz-neu-B.png,
      1558 x 1010 px). Neu am 25.08.2026.
-     Regeln: assets/css/ablauf.css. Eine Steuerung gibt es seit dem
-     31.08.2026 nicht mehr — assets/js/ablauf.js ist ausgehaengt, der
-     Abschnitt kommt ohne Javascript aus.
+     Regeln: assets/css/ablauf.css. Seit dem 01.09.2026 gibt es wieder ein
+     Skript: assets/js/ablauf.js fuehrt den Laeufer auf der
+     Fortschrittsschiene durch die sechs Ziffern. Ohne Javascript bleibt
+     der Abschnitt vollstaendig lesbar — die Schiene ist Zugabe.
 
      WAS AUF DER VORLAGE STEHT
      Heller, warm getoenter Grund (#F6F4F1) mit feiner Marmorierung. Oben
@@ -4465,7 +4466,15 @@
         <div class="faq__fach" id="faq-a1" data-offen="true" role="region" aria-labelledby="faq-k1">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Das hängt von deiner <strong>Bonität</strong>, der Immobilie und der finanzierenden Bank ab. Je nach Ausgangslage kann eine Finanzierung <strong>mit wenig oder ohne eingesetztes Eigenkapital</strong> möglich sein; garantiert werden kann das nicht. Wir prüfen frühzeitig, welche Variante realistisch und langfristig tragfähig ist.</p>
+              <!-- WORDING 01.09.2026, Kundenwunsch: der Halbsatz
+                   „; garantiert werden kann das nicht." ist gestrichen — der
+                   Satz endet nach „möglich sein". So stand er im
+                   Wording-Dokument vom 31.08.2026.
+                   ACHTUNG: das war der einzige ausdrueckliche Vorbehalt in
+                   dieser Antwort. Ihn traegt jetzt allein das „kann" in
+                   „kann eine Finanzierung … möglich sein".
+                   DEM KUNDEN GEGENUEBER FESTGEHALTEN. -->
+              <p>Das hängt von deiner <strong>Bonität</strong>, der Immobilie und der finanzierenden Bank ab. Je nach Ausgangslage kann eine Finanzierung <strong>mit wenig oder ohne eingesetztes Eigenkapital</strong> möglich sein. Wir prüfen frühzeitig, welche Variante realistisch und langfristig tragfähig ist.</p>
             </div>
           </div>
         </div>
@@ -4492,7 +4501,15 @@
         <div class="faq__fach" id="faq-a2" data-offen="true" role="region" aria-labelledby="faq-k2">
           <div class="faq__fach-klappe">
             <div class="faq__antwort">
-              <p>Als Orientierung empfehlen wir ein <strong>Nettoeinkommen ab 2.500 €</strong> im Monat, damit eine Kapitalanlageimmobilie finanziell entspannt und sinnvoll für dich funktioniert. Entscheidend ist aber deine Gesamtsituation: Einkommen, bestehende Verpflichtungen und Rücklagen. Im Erstgespräch ordnen wir das gemeinsam ein.</p>
+              <!-- WORDING 01.09.2026, Kundenwunsch, zwei Dinge:
+                   1. „2.500 €" darf nicht umbrechen — der Betrag stand am
+                      Zeilenende, das Eurozeichen rutschte in die naechste
+                      Zeile. Geschuetztes Leerzeichen zwischen Zahl und
+                      Zeichen, dazu `white-space: nowrap` am <strong>, damit
+                      auch „ab 2.500 €" als Einheit umbricht.
+                   2. „Entscheidend ist aber deine Gesamtsituation" -> ohne
+                      „aber". -->
+              <p>Als Orientierung empfehlen wir ein <strong class="faq__zusammen">Nettoeinkommen ab 2.500&nbsp;€</strong> im Monat, damit eine Kapitalanlageimmobilie finanziell entspannt und sinnvoll für dich funktioniert. Entscheidend ist deine Gesamtsituation: Einkommen, bestehende Verpflichtungen und Rücklagen. Im Erstgespräch ordnen wir das gemeinsam ein.</p>
             </div>
           </div>
         </div>
@@ -4905,6 +4922,7 @@
      Das Skript trieb allein deren Laufband; es hat sonst keine Aufgabe. -->
 <script src="assets/js/warum.js?v=b24a"></script>
 <script src="assets/js/vgl-animation.js?v=b24a" defer></script>
+<script src="assets/js/ablauf.js?v=b24a" defer></script>
 <script src="assets/js/faq.js?v=b24a"></script>
 <script src="assets/js/vertrauen.js?v=b24a"></script>
 </body>
