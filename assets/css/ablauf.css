@@ -1069,6 +1069,21 @@
   visibility: hidden;
 }
 
+/* DIE FESTEN ZIFFERN MITTIG IN IHRE SPALTE — 01.09.2026, Kundenwunsch:
+   „Die Zahl, die sich bewegt, ist mittig zum Strich. Aber die Zahlen, die
+    sich nicht bewegen, stehen links vom Strich. Die muessen genauso mittig
+    auf dem Strich stehen."
+   Der Grund war ein Messfehler in der ersten Fassung: die Schiene wurde auf
+   die Mitte der Ziffern SPALTE gelegt (clamp(2,0rem, 2,7vw, 2,6rem) breit),
+   die Ziffern standen darin aber linksbuendig. Der wandernde Laeufer sitzt
+   ueber `translateX(-50%)` auf der Schiene und war deshalb richtig, die
+   festen Ziffern lagen daneben.
+   Statt die Schiene zu verschieben, ruecken die Ziffern in die Mitte ihrer
+   Spalte: dann stimmen beide, und die Spalte behaelt ihre Breite. */
+.abl__spur[data-schiene='an'] .abl__stufe-nr {
+  text-align: center;
+}
+
 /* Der kurze Effekt beim Ankommen: ein Ring laeuft einmal nach aussen.
    Das Attribut setzt das Skript bei jedem Wechsel neu, damit es auch beim
    Zurueckrollen wieder laeuft. */
