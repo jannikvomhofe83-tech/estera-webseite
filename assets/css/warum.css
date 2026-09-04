@@ -2307,3 +2307,88 @@
   margin-right: 0.6em;
   vertical-align: 0.22em;
 }
+
+/* ===========================================================================
+   DIE VIER KARTEN RUECKEN HOEHER — 04.09.2026
+
+   Kundenwunsch woertlich: „‚Dein Eigentum wächst‘ kann in dem Fall raus,
+   und die vier Kästen mit ‚Geld der Bank‘, ‚Mieteinnahmen‘, ‚Steuerlast‘
+   etc. kannst du höher setzen, unter die abgebildete Immobilie."
+
+   WAS DAS SCHILD BELEGT HAT. Es sass bei `top: 88,24 %` und war 14,09 %
+   hoch — seine Unterkante lag damit bei 102,3 % des Feldes, also KNAPP
+   AUSSERHALB. Das Feld selbst haelt sein Seitenverhaeltnis von 1240 : 323
+   aus der Vorlage; die untersten Karten enden bei 54,36 % plus ihrer Hoehe,
+   gemessen bei rund 72 %. Zwischen Kartenunterkante und Feldunterkante
+   standen also rund 28 % Feldhoehe — 90 CSS-Punkte bei 1240 px Breite —,
+   und die trug allein das Schild.
+
+   DIE KARTEN SELBST WERDEN NICHT VERSCHOBEN, und das ist Absicht: ihre
+   vier Lagen sind auf den Punkt genau die Ansatzstellen der gebogenen
+   Verbindungslinien (.wi__adern, .wi__ring-*). Wer eine Karte um ein
+   Prozent verschiebt, muss vier handgezeichnete Pfade nachziehen. Statt
+   dessen wird DAS FELD kuerzer: sein Seitenverhaeltnis geht von 1240 : 323
+   auf 1240 : 295. Die Karten sitzen weiterhin bei denselben Prozentwerten,
+   ruecken damit aber zusammen mit dem Haus um gemessene 28 Punkte nach
+   oben, und der leere Streifen, den das Schild hinterlassen hat, ist weg.
+   Die Verbindungslinien gehen unveraendert mit, weil sie im selben Feld
+   und in denselben Prozentwerten rechnen.
+   =========================================================================== */
+.wi__feld { aspect-ratio: 1240 / 295; }
+
+/* ALLE VIER KNOEPFE GLEICH BREIT — 04.09.2026, Kundenwunsch woertlich: „Bei
+   der nächsten Section ist wichtig, dass du die Buttons mit ‚Mehr erfahren‘
+   genau gleich groß machst. Du hast die Buttons bei ‚Mehr erfahren‘ nicht
+   gleich groß gemacht. Die müssen gleich lang sein und auch eine eins zu
+   eins gleiche Größe haben."
+   GEMESSEN bei 1440 px: 175 / 175 / 182 / 175 px. Die 182 gehoerten der
+   Karte, deren Rahmen im aufgeklappten Zustand um ein Haar breiter ist —
+   der Knopf ist eine Flexzeile und wuchs mit. `width: 12.6cqw` ist die
+   Breite des breitesten der vier, in derselben Einheit gerechnet wie der
+   Rest der Karte (cqw = Prozent der Feldbreite), damit sie beim Skalieren
+   gleich bleibt; `justify-content: space-between` haelt Wort und Winkel an
+   ihren Plaetzen. */
+/* 14,9cqw und nicht 12,6: bei 1238 px Feldbreite ist 1cqw = 12,38 px, der
+   breiteste der vier Knoepfe mass 182 px = 14,7cqw. Mit 12,6cqw (156 px)
+   war der Kasten SCHMALER als sein Inhalt, und der Winkel rechts stand auf
+   der Kante statt darin — gemessen und im Bild gesehen. 14,9 laesst zwei
+   Punkte Luft.
+
+   NUR AB 1001 px, und zwar aus demselben Grund: unter 1000 px stellt sich
+   der Abschnitt um (siehe den Block bei @media max-width: 1000px), das Feld
+   wird schmal, und 14,9cqw waren dort GEMESSEN 52 px — schmaler als das
+   Wort „Mehr erfahren". Unterhalb bemisst sich der Knopf wieder nach seinem
+   Inhalt; ungleich lange Knoepfe gab es dort ohnehin nicht, weil sie
+   untereinander stehen. */
+@media (min-width: 1001px) {
+  .wi__karte-mehr {
+    width: 14.9cqw;
+    justify-content: space-between;
+  }
+}
+
+/* Unter 1001 px stehen die vier Kaesten untereinander, und der Knopf bemass
+   sich nach seinem Wort: GEMESSEN bei 390 px 207 / 220 / 243 / 219 px. Der
+   Kunde will sie „eins zu eins gleich groß" — hier ist die volle Kartenbreite
+   das einzige Mass, das an jeder Fensterbreite fuer alle vier dasselbe ist.
+   `space-between` haelt das Wort links und den Winkel rechts, wie oben. */
+@media (max-width: 1000px) {
+  /* `width: 100%` allein reichte NICHT, und das war der Fehler im ersten
+     Anlauf: der Knopf steckt in .wi__karte-wort, und die Textspalte richtet
+     sich in der Flexzeile der Karte nach ihrem Inhalt — GEMESSEN bei 390 px
+     243 px in einer 350 px breiten Karte, je nach Textlaenge unterschiedlich.
+     100 % davon sind also weiterhin vier verschiedene Werte. Erst wenn die
+     Textspalte den Rest der Karte fuellt (flex: 1), ist sie in allen vier
+     Karten gleich breit, und der Knopf darin ebenfalls. */
+  .wi__karte-wort { flex: 1; min-width: 0; }
+  .wi__karte-mehr {
+    width: 100%;
+    /* Ein Deckel, damit die Pille kein Banner wird: bei 900 px war die
+       Karte 678 px breit, und ein 678 px langer Knopf mit zwei Woertern
+       darin liest sich nicht mehr als Knopf. 22rem sind 352 px; darunter
+       (390 px Fenster: 243 px) greift der Deckel nicht, und alle vier
+       bleiben gleich. */
+    max-width: 22rem;
+    justify-content: space-between;
+  }
+}

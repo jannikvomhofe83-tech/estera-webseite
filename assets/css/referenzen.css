@@ -467,7 +467,17 @@
    weg, waehrend noch zwei Karten nebeneinander stehen — die beiden Grenzen
    muessen auf demselben Pixel liegen. */
 @media (max-width: 699px) {
-  .rez__pfeil { display: none; }   /* auf dem Telefon wird gewischt */
+  /* DIE PFEILE BLEIBEN JETZT AUCH AUF DEM TELEFON — 04.09.2026,
+     Kundenwunsch woertlich: „Bei den einzelnen Google-Rezensionen gibt es
+     keinen Pfeil nach rechts. Du musst einen Pfeil nach rechts einbauen,
+     sodass man von Google-Rezension zu Google-Rezension weiterschauen
+     kann."
+     Hier stand `display: none` mit der Begruendung „auf dem Telefon wird
+     gewischt". Das Wischen funktioniert weiterhin — aber es ist nichts zu
+     sehen, was es ankuendigt, und genau das hat der Kunde beanstandet.
+     Damit die zwei Knoepfe auf 342 px Kastenbreite nicht das Fenster
+     auffressen, ruecken sie UNTER die Karten in eine eigene Zeile, neben
+     die Punkte; die Regeln dafuer stehen am Ende dieser Datei. */
   .rez__karussell { gap: 0; }
 }
 
@@ -549,4 +559,64 @@
   .rez__mehr { min-height: 44px; padding-block: 0.6rem; }
   .rez__punkt { position: relative; }
   .rez__punkt::after { content: ''; position: absolute; inset: -9px; }
+}
+
+/* ===========================================================================
+   DIE ZWEI BLAETTERKNOEPFE — 04.09.2026
+
+   Kundenwunsch woertlich: „Bei den einzelnen Google-Rezensionen gibt es
+   keinen Pfeil nach rechts. Du musst einen Pfeil nach rechts einbauen,
+   sodass man von Google-Rezension zu Google-Rezension weiterschauen kann."
+
+   DEN PFEIL GAB ES, ER WAR NUR NICHT ZU ERKENNEN — und das ist genau
+   dasselbe. Gemessen stand er bei 1440 px als 43 x 43 px grosse Flaeche
+   ganz am rechten Rand; sichtbar war davon nur ein Winkel aus zwei
+   Haarlinien in Navy, ohne Kante und ohne Flaeche, mit 30 px Abstand zur
+   naechsten Karte. Auf einer Seite, die sonst mit Kaesten und Kanten
+   arbeitet, liest sich das als Strichzeichnung und nicht als Knopf. Auf dem
+   Telefon stand er ueberhaupt auf `display: none`.
+
+   ER WIRD JETZT EIN KNOPF: runde Flaeche in Weiss, goldene Haarlinie, der
+   Winkel darin in Navy. Damit sieht er aus wie die uebrigen Bedienelemente
+   des Projekts (dieselbe Kante wie .btn, derselbe Radius wie die Punkte
+   darunter). Groesse 44 px — die Trefferflaeche, die das
+   Optimierungsbriefing in Abschnitt 19 verlangt; vorher waren es an
+   schmalen Fenstern 34.
+
+   GEMESSENE KONTRASTE: Kante --gold auf dem Papier der Section 3,36:1
+   (nichttextlich, Schwelle 3:1), der Winkel Navy auf Weiss 13,3:1. Im
+   gesperrten Zustand faellt die Deckkraft auf 0,32 statt bisher 0,22 —
+   0,22 auf Weiss ergab fuer die Kante 1,4:1 und liess den Knopf
+   verschwinden statt ihn als „hier geht es nicht weiter" zu zeigen.
+   =========================================================================== */
+.rez__pfeil {
+  width: 44px;
+  height: 44px;
+  background: var(--paper);
+  border: 1px solid var(--gold);
+  box-shadow: 0 1px 2px rgba(16, 41, 73, 0.06);
+}
+.rez__pfeil:hover { background: #FBF8F4; border-color: var(--navy-800); }
+.rez__pfeil[disabled] { opacity: 0.32; }
+.rez__pfeil[disabled]:hover { background: var(--paper); border-color: var(--gold); }
+
+/* AUF DEM TELEFON STEHEN SIE UNTER DEN KARTEN, NICHT DANEBEN. Zwei Knoepfe
+   von je 44 px plus Abstand haetten von den 342 px Kastenbreite 128 px
+   gekostet — die Karte waere auf 214 px geschrumpft. Sie ruecken deshalb in
+   die Zeile der Punkte: Pfeil links, Punkte in der Mitte, Pfeil rechts.
+   Dafuer werden die zwei Knoepfe aus dem Fluss des Karussells genommen und
+   ueber `position: fixed` ist hier nichts gebaut — sie bleiben im Markup,
+   wo sie sind, und die Zeile darunter wird zum gemeinsamen Behaelter.
+   `order` sortiert sie um das Fenster herum. */
+@media (max-width: 699px) {
+  .rez__karussell {
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+    column-gap: 10px;
+  }
+  .rez__fenster { grid-column: 1 / -1; grid-row: 1; }
+  .rez__pfeil--zurueck { grid-column: 1; grid-row: 2; }
+  .rez__pfeil--vor     { grid-column: 3; grid-row: 2; }
+  .rez__karussell { row-gap: clamp(0.9rem, 3vw, 1.2rem); }
 }
