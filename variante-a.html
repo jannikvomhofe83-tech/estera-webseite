@@ -1344,67 +1344,132 @@
              steht in vgl-animation.css; die Klassen vgl-pfeil, vgl-spitze,
              vgl-haus und vgl-anteil sind ihre Griffe, --n staffelt.
              ============================================================= -->
-        <figure class="wi__vgl" data-vgl="ab">
-          <svg viewBox="0 0 300 210" role="img" focusable="false"
+        <!-- =============================================================
+             DIE LINKE ABBILDUNG — NEU GEZEICHNET 04.09.2026
+
+             Kundenwunsch mit Bildvorlage: „Ich will, dass du die Section
+             ‚Warum Immobilien‘ und die Abbildungen genau eins zu eins so
+             darstellst, wie auf dem Screenshot […] Ich will, dass die
+             Abbildungen auch keinen weißen Hintergrund bekommen, sondern
+             eins zu eins genauso integriert werden […] ohne Immobilie ist
+             die Abbildung leicht ausgeblasst und bei mit Immobilie ist sie
+             wirklich gold und kräftig."
+
+             DREI DINGE HABEN SICH GEAENDERT:
+             1  Die Tafel ist weg. .wi__vgl trug eine cremefarbene Flaeche
+                mit 14 px Radius; die Zeichnung liegt jetzt unmittelbar auf
+                dem Navy des Kastens.
+             2  Damit kehren sich ALLE Toene um. Navy auf Creme war lesbar,
+                Navy auf Navy ist es nicht. Die Werte stehen in warum.css
+                unter „DIE ZWEI ABBILDUNGEN AUF NAVY" und sind dort
+                gemessen.
+             3  Die Zeichnung steht nicht mehr rechts neben dem Text,
+                sondern darunter ueber die ganze Kastenbreite. Der Kunde
+                hat das ausdruecklich freigestellt („Es kann natürlich
+                sein, dass die Abbildung bei mit Immobilie zu breit ist
+                […] aber das siehst du ja am besten"), und die rechte
+                Zeichnung braucht es: vier Pillen, ein Haus und vier
+                Saeulen in 250 px waeren nicht mehr zu lesen. Die Vorlage
+                zeigt beide Abbildungen ebenfalls unter dem Text.
+
+             AUSGEBLASST HEISST GRAU, NICHT DURCHSICHTIG. Die Muenzen
+             tragen einen entsaettigten Silberton (#9AA0A9 / #6F757F). Eine
+             abgesenkte Deckkraft haette dasselbe Bild ergeben, aber jeden
+             Wert unkontrolliert verschoben; so steht jeder Ton fest.
+
+             Die Klassen vgl-quelle / vgl-pfeil / vgl-spitze / vgl-haus /
+             vgl-anteil sind die Griffe der Bewegung in vgl-animation.css
+             und bleiben unveraendert — die Zeichnung ist neu, ihr Ablauf
+             nicht.
+             ============================================================= -->
+        <figure class="wi__vgl wi__vgl--ohne wi__vgl--weit" data-vgl="ab">
+          <svg viewBox="0 0 640 196" role="img" focusable="false"
                aria-label="Ohne Immobilie: Eine kleine eigene Sparrate führt über einen langsamen Aufbau zu einem kleinen Vermögenswert."
                shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-            <!-- der eine Zufluss: die eigene Sparrate als Muenzstapel -->
+            <!-- der eine Zufluss: die eigene Sparrate, drei Muenzlagen -->
             <g class="vgl-quelle">
-              <rect x="30" y="140" width="52" height="9" rx="4.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
-              <rect x="30" y="129" width="52" height="9" rx="4.5" fill="#E6D5BC" stroke="#A8874F" stroke-width="1"/>
-              <rect x="30" y="118" width="52" height="9" rx="4.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
-              <text class="vgl-t vgl-t--quelle" x="56" y="170" text-anchor="middle" aria-hidden="true">Eigene Sparrate</text>
-            </g>
-            <!-- der Weg: duenn, gerade, beschriftet -->
-            <text class="vgl-t vgl-t--weg" x="134" y="122" text-anchor="middle" aria-hidden="true">langsamer Aufbau</text>
-            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M92 134 H168" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
-            <path class="vgl-spitze" style="--n:0" d="M164 129 L172 134 L164 139" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- DER VERMOEGENSWERT: EIN MUENZSTAPEL, KEIN HAUS — 04.09.2026
-
-                 Kundenwunsch woertlich: „Es macht keinen Sinn, dass bei
-                 ‚Ohne Immobilie‘ auf der Abbildung ein Haus zu sehen ist.
-                 Rechts passt es bei ‚Mit Immobilie‘, dort ist die Abbildung
-                 perfekt, aber bei ‚Ohne Immobilie‘ macht es keinen Sinn,
-                 wenn ein Haus zu sehen ist."
-
-                 Er hat recht, und es war ein Denkfehler von mir: die linke
-                 Seite ist der Weg OHNE Immobilie, und am Ende stand
-                 trotzdem ein Haus. Hier stand:
-                     <rect class="vgl-anteil" x="191" y="146" width="58" height="13" fill="#D9B485"/>
-                     <path d="M190 108 H250 V160 H190 Z" …/>          <!- Wand ->
-                     <path d="M186 110 L220 84 L254 110" …/>          <!- Dach ->
-
-                 WAS JETZT DASTEHT: derselbe Muenzstapel wie am Anfang der
-                 Zeile, nur groesser — fuenf Lagen statt drei, 68 statt
-                 52 px breit. Das ist die ganze Aussage dieser Seite:
-                 Geld geht hinein, Geld kommt heraus, gebaut wird nichts.
-                 Dieselbe Zeichensprache wie die Quelle links (dieselben
-                 Toene #D9B485 / #E6D5BC, dieselbe Kante #A8874F, dieselbe
-                 abgerundete Lage), damit die beiden als dasselbe Ding
-                 lesbar sind.
-
-                 KLEINER ALS RECHTS, UND ZWAR GEMESSEN: der Stapel ist
-                 55 px hoch, das Haus gegenueber 76 px. Die Kleinzeile
-                 „Kleinerer Vermögenswert" steht damit nicht nur da, sie
-                 stimmt auch.
-
-                 ZU DEN KLASSEN: .vgl-haus ist der GRIFF DER ANIMATION in
-                 vgl-animation.css (Einblenden), nicht die Beschreibung des
-                 Motivs — die Klasse bleibt deshalb, obwohl hier kein Haus
-                 mehr steht; .vgl-muenzen sagt daneben, was es wirklich ist.
-                 .vgl-anteil sitzt jetzt am inneren <g>: der Stapel waechst
-                 von der Standlinie nach oben, wie rechts der
-                 Eigentumsanteil im Haus. -->
-            <g class="vgl-haus vgl-muenzen">
-              <g class="vgl-anteil">
-                <rect x="186" y="148" width="68" height="11" rx="5.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
-                <rect x="186" y="137" width="68" height="11" rx="5.5" fill="#E6D5BC" stroke="#A8874F" stroke-width="1"/>
-                <rect x="186" y="126" width="68" height="11" rx="5.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
-                <rect x="186" y="115" width="68" height="11" rx="5.5" fill="#E6D5BC" stroke="#A8874F" stroke-width="1"/>
-                <rect x="186" y="104" width="68" height="11" rx="5.5" fill="#D9B485" stroke="#A8874F" stroke-width="1"/>
+              <g class="vgl-muenze">
+                <path d="M104 120 v8 a46 9.5 0 0 0 92 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="150" cy="120" rx="46" ry="9.5" fill="#9AA0A9"/>
+                <path d="M104 108.5 v8 a46 9.5 0 0 0 92 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="150" cy="108.5" rx="46" ry="9.5" fill="#A8AEB6"/>
+                <path d="M104 97 v8 a46 9.5 0 0 0 92 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="150" cy="97" rx="46" ry="9.5" fill="#9AA0A9"/>
               </g>
-              <text class="vgl-t vgl-t--wert" x="220" y="182" text-anchor="middle" aria-hidden="true">Kleinerer</text>
-              <text class="vgl-t vgl-t--wert" x="220" y="198" text-anchor="middle" aria-hidden="true">Vermögenswert</text>
+              <text class="vgl-t vgl-t--quelle" x="150" y="164" text-anchor="middle" aria-hidden="true">Eigene Sparrate</text>
+            </g>
+
+            <!-- der Weg: duenn, gerade, beschriftet -->
+            <text class="vgl-t vgl-t--weg" x="300" y="96" text-anchor="middle" aria-hidden="true">langsamer Aufbau</text>
+            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M214 110 H386" fill="none" stroke="#7E848E" stroke-width="1.8" stroke-linecap="round"/>
+            <path class="vgl-spitze" style="--n:0" d="M380 104 L390 110 L380 116" fill="none" stroke="#7E848E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- der Vermoegenswert: derselbe Stapel, nur hoeher. Kein Haus —
+                 das ist die Seite OHNE Immobilie. -->
+            <g class="vgl-haus">
+              <g class="vgl-anteil">
+                <path d="M418 120 v9 a52 11 0 0 0 104 0 v-9 z" fill="#6F757F"/>
+                <ellipse cx="470" cy="120" rx="52" ry="11" fill="#9AA0A9"/>
+                <path d="M418 107 v9 a52 11 0 0 0 104 0 v-9 z" fill="#6F757F"/>
+                <ellipse cx="470" cy="107" rx="52" ry="11" fill="#A8AEB6"/>
+                <path d="M418 94 v9 a52 11 0 0 0 104 0 v-9 z" fill="#6F757F"/>
+                <ellipse cx="470" cy="94" rx="52" ry="11" fill="#9AA0A9"/>
+                <path d="M418 81 v9 a52 11 0 0 0 104 0 v-9 z" fill="#6F757F"/>
+                <ellipse cx="470" cy="81" rx="52" ry="11" fill="#A8AEB6"/>
+                <path d="M418 68 v9 a52 11 0 0 0 104 0 v-9 z" fill="#6F757F"/>
+                <ellipse cx="470" cy="68" rx="52" ry="11" fill="#9AA0A9"/>
+                <path d="M418 55 v9 a52 11 0 0 0 104 0 v-9 z" fill="#6F757F"/>
+                <ellipse cx="470" cy="55" rx="52" ry="11" fill="#A8AEB6"/>
+              </g>
+              <text class="vgl-t vgl-t--wert" x="470" y="164" text-anchor="middle" aria-hidden="true">kleiner</text>
+              <text class="vgl-t vgl-t--wert" x="470" y="184" text-anchor="middle" aria-hidden="true">Vermögenswert</text>
+            </g>
+          </svg>
+        </figure>
+
+        <!-- DIESELBE ZEICHNUNG FUER SCHMALE FENSTER. Unter 768 px ist der
+             Kasten rund 306 px breit; die weite Fassung mit 640 Einheiten
+             schrumpfte dort auf den Faktor 0,48 — GEMESSEN kam die
+             Beschriftung mit 7,2 px an und war nicht mehr zu lesen. Diese
+             Fassung rechnet in 320 Einheiten, kommt also fast eins zu eins
+             an (Faktor 0,96) und traegt dieselbe Schrift bei 13,4 px.
+             Beide Fassungen stehen im Markup und werden in warum.css
+             gegeneinander ein- und ausgeblendet — nicht mit Javascript,
+             damit ohne Skript keine Luecke entsteht. -->
+        <figure class="wi__vgl wi__vgl--ohne wi__vgl--schmal" data-vgl="ab" aria-hidden="true">
+          <svg viewBox="0 0 320 176" focusable="false" aria-hidden="true"
+               shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+            <g class="vgl-quelle">
+              <g>
+                <path d="M22 106 v7 a38 8 0 0 0 76 0 v-7 z" fill="#6F757F"/>
+                <ellipse cx="60" cy="106" rx="38" ry="8" fill="#9AA0A9"/>
+                <path d="M22 96 v7 a38 8 0 0 0 76 0 v-7 z" fill="#6F757F"/>
+                <ellipse cx="60" cy="96" rx="38" ry="8" fill="#A8AEB6"/>
+                <path d="M22 86 v7 a38 8 0 0 0 76 0 v-7 z" fill="#6F757F"/>
+                <ellipse cx="60" cy="86" rx="38" ry="8" fill="#9AA0A9"/>
+              </g>
+              <text class="vgl-t vgl-t--quelle" x="60" y="146" text-anchor="middle">Eigene Sparrate</text>
+            </g>
+            <text class="vgl-t vgl-t--weg" x="136" y="80" text-anchor="middle">langsamer Aufbau</text>
+            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M104 96 H176" fill="none" stroke="#7E848E" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="vgl-spitze" style="--n:0" d="M175 91 L184 96 L175 101" fill="none" stroke="#7E848E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <g class="vgl-haus">
+              <g class="vgl-anteil">
+                <path d="M200 106 v8 a40 9 0 0 0 80 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="240" cy="106" rx="40" ry="9" fill="#9AA0A9"/>
+                <path d="M200 95 v8 a40 9 0 0 0 80 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="240" cy="95" rx="40" ry="9" fill="#A8AEB6"/>
+                <path d="M200 84 v8 a40 9 0 0 0 80 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="240" cy="84" rx="40" ry="9" fill="#9AA0A9"/>
+                <path d="M200 73 v8 a40 9 0 0 0 80 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="240" cy="73" rx="40" ry="9" fill="#A8AEB6"/>
+                <path d="M200 62 v8 a40 9 0 0 0 80 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="240" cy="62" rx="40" ry="9" fill="#9AA0A9"/>
+                <path d="M200 51 v8 a40 9 0 0 0 80 0 v-8 z" fill="#6F757F"/>
+                <ellipse cx="240" cy="51" rx="40" ry="9" fill="#A8AEB6"/>
+              </g>
+              <text class="vgl-t vgl-t--wert" x="240" y="146" text-anchor="middle">kleiner</text>
+              <text class="vgl-t vgl-t--wert" x="240" y="166" text-anchor="middle">Vermögenswert</text>
             </g>
           </svg>
         </figure>
@@ -1466,36 +1531,290 @@
              (Sand), der sich beim Aufbau von der Standlinie her fuellt.
              Genau die drei Zufluesse des Briefings, nicht mehr.
              Siehe den ausfuehrlichen Vermerk an der linken Abbildung. -->
-        <figure class="wi__vgl" data-vgl="auf">
-          <svg viewBox="0 0 300 210" role="img" focusable="false"
-               aria-label="Mit Immobilie: Bankkapital, Miete und Steuervorteile fließen in einen deutlich größeren Sachwert, in dem dein Eigentumsanteil wächst."
+        <!-- =============================================================
+             DIE RECHTE ABBILDUNG — NEU GEZEICHNET 04.09.2026
+
+             Dieselbe Ansage wie links, mit dem Zusatz „bei mit Immobilie
+             ist sie wirklich gold und kräftig". Die Zeichnung traegt
+             deshalb den vollen Goldverlauf und einen weichen Schein um das
+             Haus (filter #vgl-schein), waehrend die linke in Silbergrau
+             steht. Der Unterschied zwischen den beiden Seiten liegt damit
+             nicht mehr nur im Text, sondern auch im Bild.
+
+             VIER ZUFLUESSE STATT DREI. Bis heute standen hier Bankkapital,
+             Miete und Steuervorteile, mit dem Vermerk „Genau die drei
+             Zufluesse des Briefings, nicht mehr". Die Bildvorlage des
+             Kunden zeigt VIER Pillen — Eigenkapital, Bankkapital,
+             Mieteinnahmen, Steuervorteile — und die Ansage lautet „eins zu
+             eins". „Eigenkapital" kommt also hinzu; es widerspricht dem
+             Briefing nicht (eingebracht wird es ohnehin), erweitert es
+             aber. FALLS ESTERA DAS ANDERS WILL, ist es eine Pille und ein
+             Pfeil weniger.
+
+             DER RECHTE TEIL IST NEU: aus dem einen Haus mit Anteilsbalken
+             sind zwei Bilder geworden — das Haus als Sachwert und daneben
+             vier steigende Muenzsaeulen mit einer Kurve darueber. Die
+             Vorlage zeigt es so; die alte Beschriftung „Groesserer
+             Sachwert / wachsender Eigentumsanteil" ist in „wachsendes
+             Eigenkapital" und „groesserer Sachwert" aufgegangen.
+             ============================================================= -->
+        <figure class="wi__vgl wi__vgl--mit wi__vgl--weit" data-vgl="auf">
+          <svg viewBox="0 0 640 258" role="img" focusable="false"
+               aria-label="Mit Immobilie: Eigenkapital, Bankkapital, Mieteinnahmen und Steuervorteile fließen in eine Immobilie; daraus wachsen Eigenkapital und Sachwert."
                shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-            <!-- die drei Zufluesse -->
+            <defs>
+              <!-- Der Schein um das Haus. stdDeviation 5 ist der Wert, bei
+                   dem der Schein auf dem Navy noch als Licht und nicht als
+                   Unschaerfe liest. -->
+              <filter id="vgl-schein" x="-45%" y="-45%" width="190%" height="190%">
+                <feGaussianBlur stdDeviation="5" result="weich"/>
+                <feMerge><feMergeNode in="weich"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- die vier Zufluesse als Pillen mit je einem Zeichen -->
             <g class="vgl-quelle">
-              <rect x="10" y="44" width="98" height="26" rx="13" fill="#08294D"/>
-              <text class="vgl-t vgl-t--pille" x="59" y="62" text-anchor="middle" aria-hidden="true">Bankkapital</text>
-              <rect x="10" y="92" width="66" height="26" rx="13" fill="#08294D"/>
-              <text class="vgl-t vgl-t--pille" x="43" y="110" text-anchor="middle" aria-hidden="true">Miete</text>
-              <rect x="10" y="140" width="116" height="26" rx="13" fill="#08294D"/>
-              <text class="vgl-t vgl-t--pille" x="68" y="158" text-anchor="middle" aria-hidden="true">Steuervorteile</text>
+              <g>
+                <rect x="6" y="8" width="186" height="38" rx="19" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <circle cx="32" cy="23" r="5" fill="none" stroke="#D9B485" stroke-width="1.6"/>
+                <path d="M23 35 a9 9 0 0 1 18 0" fill="none" stroke="#D9B485" stroke-width="1.6" stroke-linecap="round"/>
+                <text class="vgl-t vgl-t--pille" x="56" y="32" aria-hidden="true">Eigenkapital</text>
+              </g>
+              <g>
+                <rect x="6" y="54" width="186" height="38" rx="19" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <path d="M22 79 H42 M25 79 V68 M31 79 V68 M37 79 V68 M20 68 L32 60 L44 68" fill="none" stroke="#D9B485" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <text class="vgl-t vgl-t--pille" x="56" y="78" aria-hidden="true">Bankkapital</text>
+              </g>
+              <g>
+                <rect x="6" y="100" width="186" height="38" rx="19" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <path d="M21 125 L28 117 L34 122 L44 109" fill="none" stroke="#D9B485" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M38 109 H44 V115" fill="none" stroke="#D9B485" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <text class="vgl-t vgl-t--pille" x="56" y="124" aria-hidden="true">Mieteinnahmen</text>
+              </g>
+              <g>
+                <rect x="6" y="146" width="186" height="38" rx="19" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <path d="M24 170 L40 156" fill="none" stroke="#D9B485" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="26" cy="159" r="3.4" fill="none" stroke="#D9B485" stroke-width="1.6"/>
+                <circle cx="38" cy="168" r="3.4" fill="none" stroke="#D9B485" stroke-width="1.6"/>
+                <text class="vgl-t vgl-t--pille" x="56" y="170" aria-hidden="true">Steuervorteile</text>
+              </g>
             </g>
-            <!-- die drei Wege laufen zusammen -->
-            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M116 57 C144 57 150 98 170 103" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
-            <path class="vgl-pfeil" style="--n:1" pathLength="1" d="M84 105 H170" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
-            <path class="vgl-pfeil" style="--n:2" pathLength="1" d="M134 153 C152 153 156 112 170 107" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round"/>
-            <path class="vgl-spitze" style="--n:0" d="M165 98 L173 103 L165 108" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path class="vgl-spitze" style="--n:1" d="M166 100 L174 105 L166 110" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path class="vgl-spitze" style="--n:2" d="M165 102 L173 107 L165 112" fill="none" stroke="#A8874F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- der Vermoegenswert: gross, mit wachsendem Eigentumsanteil -->
+
+            <!-- die vier Wege laufen im Haus zusammen -->
+            <!-- DIE VIER WEGE FAECHERN AN DIE HAUSWAND, sie treffen sich
+                 NICHT in einem Punkt. Erste Fassung liess alle vier Spitzen
+                 auf dieselbe Stelle laufen; vier uebereinanderliegende
+                 Winkel ergaben dort ein Gekritzel. Jetzt kommt jeder Weg
+                 auf eigener Hoehe an — 116, 132, 148, 164 —, gleichmaessig
+                 ueber die Wand von 116 bis 178 verteilt. -->
+            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M198 27 C244 27 252 100 288 114" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+            <path class="vgl-pfeil" style="--n:1" pathLength="1" d="M198 73 C242 73 254 116 288 130" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+            <path class="vgl-pfeil" style="--n:2" pathLength="1" d="M198 119 C242 119 254 140 288 146" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+            <path class="vgl-pfeil" style="--n:3" pathLength="1" d="M198 165 C244 165 252 156 288 162" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+            <path class="vgl-spitze" style="--n:0" d="M283 110 L294 116 L283 122" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vgl-spitze" style="--n:1" d="M283 126 L294 132 L283 138" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vgl-spitze" style="--n:2" d="M283 142 L294 148 L283 154" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vgl-spitze" style="--n:3" d="M283 158 L294 164 L283 170" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
             <g class="vgl-haus">
-              <rect class="vgl-anteil" x="181" y="131" width="108" height="28" fill="#D9B485"/>
-              <path d="M180 74 H290 V160 H180 Z" fill="none" stroke="#102949" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M174 78 L235 26 L296 78" fill="#FFFFFF" stroke="#102949" stroke-width="1.5" stroke-linejoin="round"/>
-              <text class="vgl-t vgl-t--wert" x="235" y="100" text-anchor="middle" aria-hidden="true">Größerer</text>
-              <text class="vgl-t vgl-t--wert" x="235" y="118" text-anchor="middle" aria-hidden="true">Sachwert</text>
-              <text class="vgl-t vgl-t--anteil" x="235" y="149" text-anchor="middle" aria-hidden="true">Eigentumsanteil</text>
-              <text class="vgl-t vgl-t--wert" x="235" y="182" text-anchor="middle" aria-hidden="true">wachsender</text>
-              <text class="vgl-t vgl-t--wert" x="235" y="198" text-anchor="middle" aria-hidden="true">Eigentumsanteil</text>
+              <!-- das Haus: Umriss in Gold, mit Schein -->
+              <g filter="url(#vgl-schein)">
+                <path d="M310 116 H386 V178 H310 Z" fill="none" stroke="#E4C083" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M300 118 L348 76 L396 118" fill="none" stroke="#E4C083" stroke-width="2.4" stroke-linejoin="round"/>
+                <rect x="332" y="126" width="30" height="26" fill="none" stroke="#E4C083" stroke-width="2"/>
+                <path d="M347 126 V152 M332 139 H362" stroke="#E4C083" stroke-width="1.6"/>
+                <path d="M336 178 V158 h24 v20" fill="none" stroke="#E4C083" stroke-width="2" stroke-linejoin="round"/>
+              </g>
+
+              <!-- vom Haus zum Ergebnis -->
+              <path d="M400 148 H432" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M427 142 L437 148 L427 154" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- vier steigende Muenzsaeulen -->
+              <g class="vgl-anteil">
+                <path d="M443 190 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="462" cy="190" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M443 182 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="462" cy="182" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M443 174 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="462" cy="174" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M443 166 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="462" cy="166" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M491 190 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="510" cy="190" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M491 182 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="510" cy="182" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M491 174 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="510" cy="174" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M491 166 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="510" cy="166" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M491 158 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="510" cy="158" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M491 150 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="510" cy="150" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M539 190 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="190" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M539 182 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="182" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M539 174 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="174" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M539 166 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="166" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M539 158 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="158" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M539 150 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="150" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M539 142 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="142" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M539 134 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="558" cy="134" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M587 190 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="190" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M587 182 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="182" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M587 174 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="174" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M587 166 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="166" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M587 158 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="158" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M587 150 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="150" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M587 142 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="142" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M587 134 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="134" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M587 126 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="126" rx="19" ry="5" fill="#C9A057"/>
+                <path d="M587 118 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="118" rx="19" ry="5" fill="#E4C083"/>
+                <path d="M587 110 v5 a19 5 0 0 0 38 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="606" cy="110" rx="19" ry="5" fill="#C9A057"/>
+              </g>
+
+              <!-- die Kurve darueber, mit Funken an der Spitze -->
+              <!-- Die Kurve laeuft UEBER den Saeulen, nicht durch sie: die
+                   hoechste Saeule endet bei y 105, die Kurve bei y 78. -->
+              <path d="M452 176 C502 168 550 128 604 78" fill="none" stroke="#E4C083" stroke-width="2.2" stroke-linecap="round" filter="url(#vgl-schein)"/>
+              <path d="M589 79 L606 76 L603 93" fill="none" stroke="#E4C083" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#vgl-schein)"/>
+              <path d="M610 46 v16 M602 54 h16 M604 48 l12 12 M616 48 l-12 12" stroke="#F0D6A6" stroke-width="1.6" stroke-linecap="round" filter="url(#vgl-schein)"/>
+
+              <text class="vgl-t vgl-t--wert" x="486" y="224" text-anchor="middle" aria-hidden="true">wachsendes</text>
+              <text class="vgl-t vgl-t--wert" x="486" y="244" text-anchor="middle" aria-hidden="true">Eigenkapital</text>
+              <text class="vgl-t vgl-t--wert" x="588" y="224" text-anchor="middle" aria-hidden="true">größerer</text>
+              <text class="vgl-t vgl-t--wert" x="588" y="244" text-anchor="middle" aria-hidden="true">Sachwert</text>
+            </g>
+          </svg>
+        </figure>
+
+        <!-- Die schmale Fassung der rechten Zeichnung. Sie ist nicht
+             zusammengestaucht, sondern UMGESTELLT: die vier Zufluesse
+             stehen untereinander, darunter das Haus, darunter das
+             Ergebnis. Die Zeichen in den Pillen entfallen — bei 292
+             Einheiten Pillenbreite braucht die Schrift den Platz, und das
+             Wort sagt ohnehin, was das Zeichen zeigt. -->
+        <figure class="wi__vgl wi__vgl--mit wi__vgl--schmal" data-vgl="auf" aria-hidden="true">
+          <svg viewBox="0 0 320 452" focusable="false" aria-hidden="true"
+               shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+            <g class="vgl-quelle">
+              <g>
+                <rect x="14" y="6" width="292" height="34" rx="17" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <text class="vgl-t vgl-t--pille" x="42" y="28">Eigenkapital</text>
+              </g>
+              <g>
+                <rect x="14" y="46" width="292" height="34" rx="17" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <text class="vgl-t vgl-t--pille" x="42" y="68">Bankkapital</text>
+              </g>
+              <g>
+                <rect x="14" y="86" width="292" height="34" rx="17" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <text class="vgl-t vgl-t--pille" x="42" y="108">Mieteinnahmen</text>
+              </g>
+              <g>
+                <rect x="14" y="126" width="292" height="34" rx="17" fill="#111C2E" stroke="#A8874F" stroke-width="1.2"/>
+                <text class="vgl-t vgl-t--pille" x="42" y="148">Steuervorteile</text>
+              </g>
+            </g>
+            <path class="vgl-pfeil" style="--n:0" pathLength="1" d="M160 166 V190" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+            <path class="vgl-spitze" style="--n:0" d="M154 185 L160 194 L166 185" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <g class="vgl-haus">
+              <g filter="url(#vgl-schein)">
+                <path d="M128 234 H192 V288 H128 Z" fill="none" stroke="#E4C083" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M118 236 L160 200 L202 236" fill="none" stroke="#E4C083" stroke-width="2.4" stroke-linejoin="round"/>
+                <rect x="146" y="242" width="28" height="24" fill="none" stroke="#E4C083" stroke-width="2"/>
+                <path d="M160 242 V266 M146 254 H174" stroke="#E4C083" stroke-width="1.6"/>
+                <path d="M152 288 V270 h16 v18" fill="none" stroke="#E4C083" stroke-width="2" stroke-linejoin="round"/>
+              </g>
+              <path d="M160 296 V320" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M154 315 L160 324 L166 315" fill="none" stroke="#A8874F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <g class="vgl-anteil">
+                <path d="M42 396 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="62" cy="396" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M42 388 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="62" cy="388" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M42 380 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="62" cy="380" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M42 372 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="62" cy="372" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M92 396 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="112" cy="396" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M92 388 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="112" cy="388" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M92 380 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="112" cy="380" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M92 372 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="112" cy="372" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M92 364 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="112" cy="364" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M92 356 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="112" cy="356" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M142 396 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="396" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M142 388 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="388" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M142 380 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="380" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M142 372 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="372" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M142 364 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="364" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M142 356 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="356" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M142 348 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="348" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M142 340 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="162" cy="340" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M194 396 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="396" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M194 388 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="388" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M194 380 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="380" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M194 372 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="372" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M194 364 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="364" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M194 356 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="356" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M194 348 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="348" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M194 340 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="340" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M194 332 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="332" rx="20" ry="5" fill="#C9A057"/>
+                <path d="M194 324 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="324" rx="20" ry="5" fill="#E4C083"/>
+                <path d="M194 316 v5 a20 5 0 0 0 40 0 v-5 z" fill="#8A6520"/>
+                <ellipse cx="214" cy="316" rx="20" ry="5" fill="#C9A057"/>
+              </g>
+              <!-- Die Kurve laeuft UEBER den Saeulen: die hoechste endet bei
+                   y 316, die Kurve liegt dort bei rund y 300. -->
+              <path d="M36 380 C108 364 172 328 252 286" fill="none" stroke="#E4C083" stroke-width="2.2" stroke-linecap="round" filter="url(#vgl-schein)"/>
+              <path d="M238 288 L254 284 L252 300" fill="none" stroke="#E4C083" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#vgl-schein)"/>
+              <path d="M276 252 v14 M269 259 h14 M271 254 l10 10 M281 254 l-10 10" stroke="#F0D6A6" stroke-width="1.6" stroke-linecap="round" filter="url(#vgl-schein)"/>
+              <text class="vgl-t vgl-t--wert" x="96" y="424" text-anchor="middle">wachsendes</text>
+              <text class="vgl-t vgl-t--wert" x="96" y="444" text-anchor="middle">Eigenkapital</text>
+              <text class="vgl-t vgl-t--wert" x="232" y="424" text-anchor="middle">größerer</text>
+              <text class="vgl-t vgl-t--wert" x="232" y="444" text-anchor="middle">Sachwert</text>
             </g>
           </svg>
         </figure>

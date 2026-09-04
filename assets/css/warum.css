@@ -1571,7 +1571,9 @@
   .wi__knopf { width: 100%; justify-content: center; }
 }
 
-@media (max-width: 760px) {
+/* UMBRUCHPUNKT 760 -> 1023 px, 04.09.2026. Begruendung und Messwerte
+   stehen am Ende dieser Datei unter „ZWEI FASSUNGEN JE ZEICHNUNG". */
+@media (max-width: 1199px) {
   /* Einspaltig. Der Aussenabstand des Bandes traegt hier keinen eigenen
      Innenabstand mehr — den tragen seit dem 31.08.2026 die beiden weissen
      Kaesten selbst. */
@@ -2107,3 +2109,143 @@
   }
   .is-ready .wi__feld[data-seen='true'] .wi__haus-strich { animation: none; opacity: 0; }
 }
+
+/* ===========================================================================
+   DIE ZWEI ABBILDUNGEN AUF NAVY — 04.09.2026
+
+   Kundenwunsch mit Bildvorlage: „Ich will, dass die Abbildungen auch keinen
+   weißen Hintergrund bekommen, sondern eins zu eins genauso integriert
+   werden, wie du auf dem Screenshot siehst. […] ohne Immobilie ist die
+   Abbildung leicht ausgeblasst und bei mit Immobilie ist sie wirklich gold
+   und kräftig."
+
+   DIE TAFEL FAELLT WEG. .wi__vgl trug oben eine cremefarbene Flaeche
+   (var(--wi-grund)) mit 14 px Radius und Innenabstand. Beides ist hier
+   zurueckgenommen; die Zeichnungen liegen unmittelbar auf dem Navy des
+   Kastens (#262C39).
+
+   DAMIT KEHREN SICH ALLE SCHRIFTTOENE UM. Der Block oben faerbt jeden Text
+   im SVG mit --wi-navy und misst gegen die Creme-Tafel — auf #262C39 waere
+   das 1,1:1 und damit unsichtbar. Neu gemessen gegen #262C39:
+
+       #C9CCD1   Beschriftungen              9,74:1
+       #9AA0A9   „langsamer Aufbau"          5,45:1
+       #E4C083   Pillenschrift, Ergebnis     8,63:1
+
+   Alle drei liegen ueber 4,5:1. Die Zeichnungselemente (Muenzen, Pfeile,
+   Hausumriss) sind nichttextlich; fuer sie gilt 3:1, und der schwaechste
+   Wert ist der graue Pfeil links mit 3,42:1.
+
+   UNTER DEM TEXT STATT DANEBEN. Am 31.08.2026 sind die Zeichnungen auf
+   Kundenwunsch in eine schmale Spalte rechts gewandert („Die Grafiken
+   müssen viel, viel kleiner sein"), damit die Kaesten flach werden. Die
+   neue Vorlage zeigt sie wieder unter dem Text ueber die ganze Breite, und
+   der Kunde hat das freigestellt. Der Grund ist rechnerisch: die rechte
+   Zeichnung fuehrt vier Pillen, ein Haus und vier Saeulen nebeneinander —
+   in den 250 px der schmalen Spalte waere die Pillenschrift bei 5 px
+   gelandet. Die Kaesten werden dadurch wieder hoeher; das ist der Preis,
+   und er ist hier bewusst bezahlt.
+   =========================================================================== */
+.wi__band-halb {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+.wi__vgl {
+  width: 100%;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  margin-top: clamp(1.2rem, 2.2vw, 1.9rem);
+}
+/* Die Beschriftung IM SVG, jetzt auf Navy. Die Grade steigen leicht: die
+   Zeichnung ist breiter geworden, die Schrift skaliert mit und wuerde sonst
+   im Verhaeltnis schrumpfen. */
+.wi__vgl--ohne text,
+.wi__vgl--mit  text { fill: #C9CCD1; }                      /* 9,74:1 */
+.wi__vgl--ohne .vgl-t--quelle,
+.wi__vgl--mit  .vgl-t--quelle { font-size: 17px; }
+.wi__vgl--ohne .vgl-t--weg    { font-size: 16px; font-weight: 400; fill: #9AA0A9; }  /* 5,45:1 */
+.wi__vgl--ohne .vgl-t--wert   { font-size: 17px; }
+.wi__vgl--mit  .vgl-t--wert   { font-size: 17px; fill: #E4C083; }   /* 8,63:1 */
+.wi__vgl--mit  .vgl-t--pille  { font-size: 17px; fill: #E4C083; }   /* auf #111C2E 9,9:1 */
+
+/* DIE ZEICHNUNG BEKOMMT EINEN DECKEL. Sobald die Kaesten untereinander
+   stehen, hat sie ueber 1000 px zur Verfuegung — bei 640 Einheiten
+   Bezugsbreite waere die Beschriftung dann bei 27 px gelandet und haette
+   die Ueberschrift des Kastens ueberholt. 680 px halten sie bei 18 px.
+   Nach oben deckelt der Kasten selbst: nebeneinander misst die Zeichnung
+   575 px (1440) beziehungsweise 479 px (1200), die Beschriftung 15,3 und
+   12,7 px. Die Vorlage des Kunden setzt ihre Beschriftung ebenfalls
+   deutlich unter den Fliesstext; die 16-px-Grenze aus Abschnitt 19 gilt
+   dem Lesetext, nicht der Beschriftung einer Zeichnung. */
+.wi__vgl--weit   { max-width: 680px; margin-inline: auto; }
+.wi__vgl--schmal { max-width: 380px; margin-inline: auto; }
+
+/* Auf schmalen Fenstern wird die Zeichnung sonst zur Briefmarke: unter
+   700 px steht die rechte Fassung mit vier Pillen nebeneinander nicht mehr
+   lesbar. Der Kasten selbst bleibt unveraendert. */
+@media (max-width: 699px) {
+  .wi__vgl { margin-top: clamp(1rem, 3vw, 1.4rem); }
+}
+
+/* Die Textspalte laeuft nicht ueber die ganze Kastenbreite. Seit die
+   Zeichnung unter den Text gerueckt ist, hat der Satz die vollen rund
+   900 px zur Verfuegung — das sind ueber 100 Zeichen je Zeile und damit
+   weit jenseits der 60 bis 75, die sich noch lesen lassen. 62ch in ch und
+   nicht in px, weil die Schrift mit dem Fenster mitwaechst. Die Vorlage
+   des Kunden zeigt denselben Aufbau: schmaler Satz oben, breite Zeichnung
+   darunter. */
+.wi__band-satz { max-width: 62ch; }
+
+/* SATZ OBEN, ZEICHNUNG UNTEN — und dazwischen die Luft, die uebrig ist.
+   Ohne diese Zeile verteilt das Raster die freie Hoehe auf BEIDE Reihen
+   (align-content steht von Haus aus auf stretch): die Textreihe wuchs mit,
+   und die linke Zeichnung stand dadurch rund 100 px tiefer als die rechte,
+   obwohl ihr Text kuerzer ist. Gemessen bei 1440 px. Mit space-between
+   sitzt der Satz oben, die Zeichnung unten — auf beiden Seiten auf
+   derselben Linie, wie in der Vorlage des Kunden. */
+.wi__band-halb { align-content: space-between; }
+
+/* ===========================================================================
+   ZWEI FASSUNGEN JE ZEICHNUNG — 04.09.2026
+
+   WARUM ES ZWEI SIND, GEMESSEN. Die weite Fassung rechnet in 640
+   SVG-Einheiten. Wie gross ihre Schrift beim Betrachter ankommt, haengt
+   allein davon ab, wie breit der Kasten ist:
+
+       Fenster   Kasten   Faktor   Beschriftung
+        1440     575 px   0,90     13,5 px
+        1024     409 px   0,64      9,6 px
+         768     297 px   0,46      7,0 px
+         390     306 px   0,48      7,2 px
+
+   Unter 1024 px war sie damit nicht mehr zu lesen. Zwei Griffe dagegen:
+
+   1  DIE KAESTEN BRECHEN FRUEHER UM. Bis heute standen sie bis 760 px
+      nebeneinander; jetzt bis 1023 px. Dazwischen bekommt jeder Kasten die
+      volle Zeilenbreite, die Zeichnung wird rund doppelt so breit, und die
+      Beschriftung kommt bei 20 px an statt bei 9,6.
+
+   2  EINE ZWEITE, SCHMALE FASSUNG fuer alles unter 768 px. Sie rechnet in
+      320 Einheiten und ist nicht zusammengestaucht, sondern umgestellt:
+      rechts stehen die vier Zufluesse untereinander, darunter das Haus,
+      darunter das Ergebnis. Faktor 0,96, Beschriftung 13,4 px.
+
+   BEIDE STEHEN IM MARKUP, umgeschaltet wird hier und nicht mit Javascript
+   — ohne Skript soll keine Luecke entstehen. Die schmale traegt
+   aria-hidden, die weite die aria-label: sonst laese ein Vorlesegeraet
+   beide Fassungen nacheinander vor.
+   =========================================================================== */
+.wi__vgl--schmal { display: none; }
+@media (max-width: 767px) {
+  .wi__vgl--weit   { display: none; }
+  .wi__vgl--schmal { display: block; }
+}
+/* Die schmale Fassung rechnet in 320 statt 640 Einheiten — dieselbe
+   Schriftgroesse in Einheiten waere dort doppelt so gross auf dem Schirm.
+   Die Grade sind deshalb halbiert und dann auf den Zielwert von rund
+   13,5 px zurueckgerechnet. */
+.wi__vgl--schmal .vgl-t--quelle,
+.wi__vgl--schmal .vgl-t--wert,
+.wi__vgl--schmal .vgl-t--pille { font-size: 14px; }
+.wi__vgl--schmal .vgl-t--weg   { font-size: 13px; }
