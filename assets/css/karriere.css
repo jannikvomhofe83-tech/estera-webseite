@@ -399,7 +399,7 @@
    sich nur der Block darin — nach unten, so wie gewuenscht.
    Vorher: padding-top: 298px (der Wert der Bauaufnahme bei 1920). */
 @media (min-width: 900px) {
-  .kar-kopf { padding-top: 330px; min-height: 1013.7px; }
+  .kar-kopf { padding-top: 298px; min-height: 1013.7px; }
 }
 
 /* --- Der Grund: Video, darunter das Standbild ------------------------------
@@ -3529,3 +3529,31 @@
    der Kunde beschwert hat. Mit dem Wegfall greift die Telefonregel wieder
    wie vorgesehen: 18 px unter 900 px, 21,42 px darueber.
    =========================================================================== */
+
+
+/* ===========================================================================
+   ZWEI FASSUNGEN DER UNTERZEILE — 04.09.2026, ZWEITE RUNDE
+
+   Kundenwunsch woertlich: „Die Subline bei der Karriere-Hero-Section hast du
+   viel kürzer gemacht, als sie ursprünglich war. […] Bei der Desktop-Ansicht
+   sollte es aber genauso bleiben, wie es davor war, sondern nur bei der
+   mobilen Ansicht solltest du weniger Text verwenden."
+
+   Ich hatte den Text im Markup gekuerzt — damit stand er ueberall kuerzer,
+   auch dort, wo er nie zu lang war. Er steht jetzt zweimal in DEMSELBEN
+   Absatz: die lange, urspruengliche Fassung fuer breite Fenster, die kurze
+   fuer schmale. Umgeschaltet wird ueber `display`, und was auf display:none
+   steht, faellt auch aus dem Vorlesebaum — es wird also nie beides gelesen.
+
+   767 px ist die Grenze, weil dort auch die uebrigen mobilen Umstellungen
+   dieses Tages ansetzen (Kopfbereich der Startseite, Vergleichsbilder).
+   Zurueckgenommen ist ausserdem der Abstand, um den ich den Kopfblock nach
+   unten gerueckt hatte: 330 px sind wieder 298, der Wert der Bauaufnahme.
+   Auf dem Telefon bleibt er bei header-h + 48 px — dort war der Platz das
+   Problem, das der Kunde beschrieben hat.
+   =========================================================================== */
+.nur-schmal { display: none; }
+@media (max-width: 767px) {
+  .nur-breit  { display: none; }
+  .nur-schmal { display: inline; }
+}

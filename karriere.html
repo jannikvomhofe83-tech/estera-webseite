@@ -330,7 +330,7 @@
            dem Telefon ueberschrieben und dort 21 px erzwungen. Das war der
            zweite Grund fuer die sieben Zeilen. Ohne die Klasse gilt wieder
            21,42 px auf breiten Fenstern und 18 px unter 900 px. -->
-      <p class="kar-angebot__unterzeile" data-auf>Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du entwickelst dich fachlich und unternehmerisch weiter.</p>
+      <p class="kar-angebot__unterzeile" data-auf><span class="nur-breit">Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du baust an einem neuen Standard für Kapitalanlageimmobilien mit. Du entwickelst dich zu einem Berater, der fachlich wie unternehmerisch Maßstäbe setzt.</span><span class="nur-schmal">Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du entwickelst dich fachlich und unternehmerisch weiter.</span></p>
 
       <!-- WORDING NEU 31.08.2026 — K01 CTAs.
            HIERMIT FAELLT EINE FRUEHERE ENTSCHEIDUNG: der Kommentar oben am
@@ -1370,7 +1370,27 @@
 </footer>
 
 <!-- =====================================================================
-     MENÜ-OVERLAY — dieselben Punkte wie in der Kopfleiste.
+     NAVIGATIONSVORHANG — auf allen neun Seiten zeichengleich.
+
+     UMGEBAUT 04.09.2026 nach den Ansagen des Kunden. Er faehrt jetzt von
+     rechts ein und bedeckt rund 70 % des Fensters, statt sich ueber die
+     ganze Seite zu legen. Die Regeln dazu stehen in assets/css/base.css
+     unter „NAVIGATIONSVORHANG", das Verhalten in assets/js/site.js.
+
+     WARUM DIESER BLOCK IN ALLEN NEUN DATEIEN ZEICHENGLEICH IST: er stand
+     vorher in neun Fassungen da, die sich in Kleinigkeiten unterschieden —
+     `#warum-immobilien` auf der Startseite gegen
+     `variante-a.html#warum-immobilien` sonst, ein Cache-Anhaengsel
+     `?v=b24a` nur auf den drei Karriereseiten, `aria-current="page"` je
+     nach Seite an anderer Stelle, und unter „Naechster Schritt" zwei
+     verschiedene Wortlaute. Wer eine Zeile aenderte, musste neun Stellen
+     treffen — und hat es nachweislich nicht immer getan.
+     Alles, was sich von Seite zu Seite unterscheiden MUSS, setzt jetzt
+     site.js zur Laufzeit:
+       - `aria-current="page"` auf dem Verweis, der auf die eigene Seite
+         zeigt
+       - Verweise auf Abschnitte der EIGENEN Seite werden zu reinen
+         `#`-Sprungmarken, damit sie die Seite nicht neu laden
      ===================================================================== -->
 <nav class="menu" id="hauptmenue" data-menu data-open="false" aria-hidden="true" aria-label="Hauptmenü">
 
@@ -1379,71 +1399,124 @@
       <span class="wordmark__name">ESTERA</span>
       <span class="wordmark__sub">Immobilien</span>
     </span>
-    <button class="menu__close" type="button" data-menu-close>
-      Schließen
-      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-        <line x1="2" y1="2" x2="16" y2="16"></line>
-        <line x1="16" y1="2" x2="2" y2="16"></line>
+    <!-- NUR NOCH EIN KREUZ — Kundenwunsch 04.09.2026, woertlich:
+         „Statt ‚Schliessen‘ ist einfach nur ein X oben rechts."
+         Vorher stand hier das Wort „Schließen" und rechts daneben
+         dasselbe Kreuz. Das Wort ist weg; der Name des Knopfes wandert
+         deshalb nach aria-label — ohne das waere er im Vorlesegeraet
+         stumm. Gezeichnet sind es zwei Linien im SVG, kein Buchstabe „X"
+         und kein Zeichen aus einer Symbolschrift. Die Trefferflaeche
+         haelt base.css bei 44 x 44 px. -->
+    <button class="menu__close" type="button" data-menu-close aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true" focusable="false">
+        <line x1="5" y1="5" x2="19" y2="19"></line>
+        <line x1="19" y1="5" x2="5" y2="19"></line>
       </svg>
     </button>
   </div>
 
   <div class="menu__body">
-    <!-- „Auf dieser Seite" fuehrt hier zu den Abschnitten der STARTSEITE.
-         Die Punkte muessen auf allen Seiten dieselben sein — deshalb bleiben
-         sie stehen und bekommen die Startseite vorangestellt. -->
-    <!-- Dieselbe Aenderung wie in der Kopfleiste, damit beide Wege zur
-         selben Seite dieselben Punkte anbieten: „Eigentumsaufbau" und
-         „Ueber Estera" heraus, „Ablauf" neu. Die Ziffern laufen in jeder
-         Gruppe wieder bei 01 los, deshalb ist „Karriere" jetzt 01. -->
-    <!-- UMSORTIERT 31.08.2026 wie die Kopfleiste: „Ablauf" ist aus der
-         ersten Gruppe in die zweite gewandert und steht dort vor
-         „Karriere". Die Ziffern laufen in jeder Gruppe wieder bei 01 los,
-         beide Gruppen sind deshalb neu gezaehlt.
-         VERMERK: „Ablauf" zeigt weiterhin auf einen Abschnitt der
-         STARTSEITE und steht jetzt unter der Ueberschrift „Seiten" —
-         die Reihenfolge folgt der Kopfleiste, die Gruppenbezeichnung
-         passt dazu nicht mehr genau. Das ist gemeldet und nicht
-         eigenmaechtig umbenannt worden. -->
-    <p class="menu__gruppe">Auf der Startseite</p>
+    <!-- EINE LISTE STATT ZWEIER GRUPPEN — Kundenwunsch 04.09.2026,
+         woertlich: „Seite: ‚Warum Immobilien‘ kann komplett raus. Du
+         stellst einfach nur die einzelnen Seiten dar, und das machst du
+         wie folgt: ‚Warum Immobilien‘, ‚Estera‘ und ‚Ablauf‘ ohne Zahl
+         davor, ohne Striche dazwischen. Du machst das einfach mit dick,
+         und dann laesst du einen kleinen Abstand." Und weiter:
+         „‚Karriere‘ und ‚Kontakt‘ schliessen oben an."
+
+         Vorher standen hier ZWEI Listen mit je einer Rubrik darueber —
+         <p class="menu__gruppe">Auf dieser Seite</p> (auf den Unterseiten
+         „Auf der Startseite") und <p class="menu__gruppe">Seiten</p> —
+         und jeder Eintrag trug eine vorangestellte Ziffer:
+         <span class="num">01</span>. Rubriken und Ziffern sind ersatzlos
+         weg, die Trennstriche zwischen den Zeilen ebenfalls (base.css).
+         Die fuenf Punkte stehen in genau der Reihenfolge, in der sie
+         vorher untereinander standen.
+
+         VERMERK ZU DEN BESCHRIFTUNGEN: der Kunde nennt den zweiten Punkt
+         „Estera"; im Projekt heisst er seit jeher „Warum Estera" und
+         steht so auch in der Kopfleiste. Umbenannt ist er hier NICHT —
+         die Ansage galt erkennbar der Darstellung (keine Zahl, keine
+         Striche, dick), und eine Beschriftung, die an zwei Stellen
+         verschieden heisst, waere ein neuer Fehler. Zur Klaerung
+         vorgelegt. -->
     <ul class="menu__nav">
-      <li><a class="menu__link" href="variante-a.html?v=b24a#warum-immobilien"><span class="num">01</span> Warum Immobilien</a></li>
-      <li><a class="menu__link" href="variante-a.html?v=b24a#leistungen"><span class="num">02</span> Warum Estera</a></li>
-    </ul>
-    <p class="menu__gruppe">Seiten</p>
-    <ul class="menu__nav">
-      <li><a class="menu__link" href="variante-a.html?v=b24a#ablauf"><span class="num">01</span> Ablauf</a></li>
-      <li><a class="menu__link" href="karriere.html?v=b24a" aria-current="page"><span class="num">02</span> Karriere</a></li>
-      <li><a class="menu__link" href="kontakt.html?v=b24a"><span class="num">03</span> Kontakt</a></li>
+      <li><a class="menu__link" href="variante-a.html#warum-immobilien">Warum Immobilien</a></li>
+      <li><a class="menu__link" href="variante-a.html#leistungen">Warum Estera</a></li>
+      <li><a class="menu__link" href="variante-a.html#ablauf">Ablauf</a></li>
+      <li><a class="menu__link" href="karriere.html">Karriere</a></li>
+      <li><a class="menu__link" href="kontakt.html">Kontakt</a></li>
     </ul>
 
     <aside class="menu__aside">
       <div>
         <p class="kicker">Nächster Schritt</p>
-        <!-- WORDING GEKUERZT 30.08.2026 — Kundenwunsch. Anrede auf Du vereinheitlicht.
-             Dieser Block steht wortgleich im Menue JEDER Seite.
-             Vorher: "Ein Erstgespräch klärt zuerst, ob eine Kapitalanlageimmobilie überhaupt zu Ihrer Situation passt. Erst danach sprechen wir über Objekte."
-             VON ESTERA BESTAETIGEN LASSEN. -->
-        <p>Im Erstgespräch klären wir erst deine Situation.
+        <!-- WORDING 04.09.2026 — Kundenwunsch, woertlich vorgegeben:
+             „Erst pruefen wir, ob deine Kapitalanlage zu dir passt.
+              Danach sprechen wir ueber Objekte."
+             Vorher standen im Projekt ZWEI Fassungen nebeneinander:
+             auf der Startseite "Erst prüfen wir, ob eine Immobilie zu dir
+             passt. Danach sprechen wir über Objekte." und auf allen acht
+             uebrigen Seiten noch die aeltere "Im Erstgespräch klären wir
+             erst deine Situation. Danach sprechen wir über Objekte."
+             Beide sind ersetzt. Der Satz steht mittig — ebenfalls
+             Kundenwunsch: „Das muss mittig stehen." -->
+        <p>Erst prüfen wir, ob deine Kapitalanlage zu dir passt.
            Danach sprechen wir über Objekte.</p>
       </div>
+      <!-- „Unterhalb kommt der CTA ‚Erstgespraech vereinbaren‘." —
+           Kundenwunsch 04.09.2026. Der Knopf stand vorher schon an dieser
+           Stelle; die Reihenfolge ist damit bestaetigt. Neu ist, dass er
+           mittig unter dem Satz sitzt statt linksbuendig in einer
+           Beispalte. -->
       <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
       <div>
         <p class="kicker">Kontakt</p>
         <p><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></p>
+        <!-- HIERHER GEZOGEN 04.09.2026 — Kundenwunsch, woertlich: „Bei
+             ‚Kontakt‘ und der E-Mail muessen auch ‚Datenschutz‘ und
+             ‚Cookie-Einstellungen‘ mittig stehen, auch dick."
+             Vorher standen beide unten in .menu__foot neben „Impressum",
+             in gesperrten Versalien und Gewicht 500. -->
+        <ul class="menu__recht">
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="cookies.html">Cookie-Einstellungen</a></li>
+        </ul>
       </div>
     </aside>
   </div>
 
   <div class="menu__foot">
     <span>Diskret. Strukturiert. Langfristig.</span>
+    <!-- Hier bleibt nur „Impressum". Datenschutz und Cookie-Einstellungen
+         sind am 04.09.2026 nach oben in den Kontaktblock gewandert (siehe
+         dort). Impressum bleibt stehen: der Kunde hat es nicht genannt,
+         und der Verweis ist gesetzlich gefordert — ihn stillschweigend
+         aus dem Menue zu nehmen waere mehr, als hier verlangt ist.
+         AUF DER STARTSEITE standen an dieser Stelle bis heute drei
+         Verweise, die ins Leere zeigten: href="#impressum",
+         href="#datenschutz" und href="#cookies". Diese Sprungmarken gibt
+         es auf variante-a.html nicht, die Verweise haben schlicht nichts
+         getan. Sie zeigen jetzt wie ueberall sonst auf die echten
+         Seiten. -->
     <ul>
       <li><a href="impressum.html">Impressum</a></li>
-      <li><a href="datenschutz.html">Datenschutz</a></li>
-      <li><a href="cookies.html">Cookie-Einstellungen</a></li>
     </ul>
   </div>
 </nav>
+
+<!-- ABDUNKELNDE LAGE HINTER DEM VORHANG — neu am 04.09.2026. Sie folgt
+     aus dem Kundenwunsch „Ich will, dass die Navigationsbar nicht
+     komplett aufmacht, sondern nur circa 70 % von rechts nach links diese
+     Seite bedeckt": weil die Seite links neben dem Vorhang stehen bleibt,
+     legt sich diese Lage darueber und nimmt ihr den Kontrast, damit der
+     Text dahinter das Menue nicht stoert. Ein Klick darauf schliesst das
+     Menue (site.js) — die Escape-Taste tut das wie bisher.
+     Sie steht bewusst NACH dem Vorhang im Markup: base.css liest ihren
+     Zustand ueber `.menu[data-open='true'] ~ .menu-schleier`, und der
+     Geschwister-Wahlschalter greift nur vorwaerts. z-index haelt sie
+     trotzdem unter dem Vorhang (89 gegen 90). -->
+<div class="menu-schleier" data-menu-schleier></div>
 
 <!-- Der Varianten-Umschalter der Startseite gehoert hier nicht hin: er ist
      ein Werkzeug der internen Abstimmung zwischen zwei Startseitenentwuerfen

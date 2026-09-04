@@ -521,17 +521,19 @@ ul, ol { list-style: none; }
   .site-header .burger { display: none; }
 }
 
-/* Gruppentitel im Overlay-Menue */
-.menu__gruppe {
-  margin-bottom: clamp(0.7rem, 1.6vh, 1.1rem);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-indent: 0.28em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.42);
-}
-.menu__gruppe + .menu__nav { margin-bottom: clamp(1.6rem, 4vh, 2.6rem); }
+/* ENTFERNT 04.09.2026 — die Gruppentitel im Menue. Kundenwunsch,
+   woertlich: „Seite: ‚Warum Immobilien‘ kann komplett raus. Du stellst
+   einfach nur die einzelnen Seiten dar."  Gemeint sind die beiden Rubriken
+   „Auf dieser Seite" / „Auf der Startseite" und „Seiten", die ueber den
+   Listen standen. Sie sind aus allen neun Seiten heraus, damit sind auch
+   diese beiden Regeln gegenstandslos. Sie lauteten:
+       .menu__gruppe {
+         margin-bottom: clamp(0.7rem, 1.6vh, 1.1rem);
+         font-size: 0.72rem; font-weight: 500;
+         letter-spacing: 0.28em; text-indent: 0.28em;
+         text-transform: uppercase; color: rgba(255,255,255,0.42);
+       }
+       .menu__gruppe + .menu__nav { margin-bottom: clamp(1.6rem, 4vh, 2.6rem); } */
 
 /* Wortmarke */
 .wordmark {
@@ -601,24 +603,86 @@ ul, ol { list-style: none; }
 .burger:hover .burger__label { color: var(--navy-800); }
 
 /* ===========================================================================
-   MENÜ-OVERLAY  (bewusster dunkler Spannungsmoment)
+   NAVIGATIONSVORHANG  (bewusster dunkler Spannungsmoment)
+
+   UMGEBAUT 04.09.2026 — Kundenwunsch, woertlich:
+     „Ich will, dass die Navigationsbar nicht komplett aufmacht, sondern nur
+      circa 70 % von rechts nach links diese Seite bedeckt. Sie soll nicht
+      die komplette Seite bedecken."
+   NACHGESCHAERFT am selben Tag, ebenfalls woertlich:
+     „Die Navbar darf nicht 75 % bedecken, sondern nur 60 % von der Seite."
+   Damit steht die Breite auf 60 %, nicht mehr auf den zuerst genannten
+   70 %. Gemessen bei 1440 px Fenster: 864 px Vorhang, 576 px Seite bleibt
+   daneben sichtbar.
+
+   Vorher stand hier:
+       position: fixed; inset: 0; padding: 0 var(--gutter);
+       clip-path: inset(0 0 100% 0);
+       transition: clip-path 0.9s var(--ease-soft), visibility 0.9s;
+       .menu[data-open='true'] { clip-path: inset(0 0 0 0); }
+   Das war eine FLAECHE ueber dem ganzen Fenster, die von oben nach unten
+   aufblendete (clip-path). Beides faellt weg: der Vorhang haengt jetzt nur
+   noch rechts (`inset: 0 0 0 auto`), ist 60 % breit und faehrt seitwaerts
+   ein (`transform: translateX(100%)`). Seitwaerts statt clip-path, weil
+   translate auf dem Verbundlayer laeuft und nicht bei jedem Bild neu
+   zugeschnitten werden muss.
+
+   Der Innenabstand ist ein EIGENER Wert und nicht mehr --gutter. --gutter
+   ist auf die volle Fensterbreite gerechnet (bis 5rem = 80 px); in einem
+   Vorhang, der bei 390 px nur noch 343 px misst, frisst das den Text auf.
    =========================================================================== */
 .menu {
   position: fixed;
-  inset: 0;
+  /* rechts angeschlagen, links offen — dort bleibt die Seite sichtbar */
+  inset: 0 0 0 auto;
+  /* Vorher 70 % (erste Ansage), davor 100 %. 60 % ist die zweite,
+     genauere Ansage des Kunden: „nicht 75 %, sondern nur 60 %". */
+  width: 60%;
   z-index: 90;
   background: var(--navy-900);
   color: #fff;
   display: grid;
   grid-template-rows: var(--header-h) 1fr auto;
-  padding: 0 var(--gutter);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.9s var(--ease-soft), visibility 0.9s;
+  padding: 0 clamp(1.25rem, 3vw, 2.75rem);
+  transform: translateX(100%);
+  transition: transform 0.72s var(--ease-soft), visibility 0.72s;
   visibility: hidden;
   overflow-y: auto;
+  /* Der Vorhang scrollt fuer sich; das Rad soll nicht auf die Seite
+     dahinter durchschlagen, sobald sein Ende erreicht ist. */
+  overscroll-behavior: contain;
+  /* Kante zur Seite dahinter: eine Haarlinie und ein weicher Schlagschatten.
+     Ohne beides steht die dunkle Flaeche vor der abgedunkelten Seite ohne
+     erkennbaren Rand. */
+  box-shadow: -1px 0 0 rgba(255, 255, 255, 0.14),
+              -34px 0 80px rgba(10, 25, 46, 0.45);
 }
 .menu[data-open='true'] {
-  clip-path: inset(0 0 0 0);
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* ABDUNKELNDE LAGE HINTER DEM VORHANG — neu am 04.09.2026.
+   Sie folgt zwingend aus dem Kundenwunsch oben: sobald der Vorhang nur noch
+   60 % bedeckt, steht links die Seite mit ihrem eigenen Text daneben und
+   konkurriert mit dem Menue. Die Lage nimmt ihr den Kontrast weg und ist
+   gleichzeitig die Schliessflaeche — Klick darauf schliesst (site.js),
+   zusaetzlich zur Escape-Taste, die es schon vorher gab.
+   Sie steht im Markup NACH dem Vorhang, damit sie ihn per
+   Geschwister-Wahl (`~`) lesen kann; z-index 89 haelt sie trotzdem
+   darunter. Der Kopf der Seite liegt auf 60, also darunter. */
+.menu-schleier {
+  position: fixed;
+  inset: 0;
+  z-index: 89;
+  background: rgba(10, 25, 46, 0.66);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.72s var(--ease-soft), visibility 0.72s;
+  cursor: pointer;
+}
+.menu[data-open='true'] ~ .menu-schleier {
+  opacity: 1;
   visibility: visible;
 }
 
@@ -630,68 +694,150 @@ ul, ol { list-style: none; }
 .menu__bar .wordmark__name { color: #fff; }
 .menu__bar .wordmark__sub  { color: rgba(255,255,255,0.42); }
 
+/* SCHLIESSKNOPF — NUR NOCH EIN KREUZ. 04.09.2026, Kundenwunsch woertlich:
+   „Statt ‚Schliessen‘ ist einfach nur ein X oben rechts."
+   Vorher stand im Markup das Wort „Schließen" und daneben das Kreuz; die
+   Regel hier war entsprechend auf eine Textzeile gebaut:
+       display: flex; gap: 0.9rem; padding-left: 0.9rem;
+       font-size: 0.83rem; font-weight: 500; letter-spacing: 0.22em;
+       text-transform: uppercase;
+   Das Wort ist raus, damit auch die Schriftregeln. Was bleiben MUSS: die
+   Trefferflaeche. Ohne Text schrumpfte der Knopf sonst auf die 18 px des
+   Zeichens — deshalb feste 44 x 44 px. Den Namen traegt jetzt
+   aria-label="Menü schließen" im Markup, sonst waere der Knopf im
+   Vorlesegeraet stumm. */
 .menu__close {
   grid-column: 3;
   justify-self: end;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
   min-height: 44px;
-  padding-left: 0.9rem;
-  font-size: 0.83rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.72);
+  /* der optische Ausgleich: 44 px Flaeche, aber buendig zur Aussenkante */
+  margin-right: -0.35rem;
+  color: rgba(255,255,255,0.78);
   transition: color 0.4s var(--ease);
 }
 .menu__close:hover { color: #fff; }
-.menu__close svg { width: 18px; height: 18px; }
+/* Das Kreuz ist gezeichnet, kein Buchstabe und kein Zeichen aus einer
+   Symbolschrift — zwei Linien im SVG, die jede Schriftart ueberleben. */
+.menu__close svg { width: 22px; height: 22px; }
 .menu__close svg line { transition: transform 0.5s var(--ease); }
 .menu__close:hover svg { transform: rotate(90deg); transition: transform 0.6s var(--ease); }
 
+/* EINE SPALTE STATT ZWEI — 04.09.2026.
+   Vorher: grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+           gap: clamp(2rem, 6vw, 6rem); max-width: var(--measure);
+   Zwei Gruende fuer den Rueckbau. Erstens ist der Vorhang nur noch 60 %
+   breit, zwei Spalten stehen darin auf Kante. Zweitens war die alte Regel
+   ohnehin defekt: die direkten Kinder waren Ueberschrift, Liste,
+   Ueberschrift, Liste, Beiblock — das Raster hat sie abwechselnd nach
+   links und rechts verteilt, die Ueberschriften standen einsam in der
+   linken Spalte und der Beiblock rutschte in eine dritte Zeile. Gemessen
+   bei 1280 px: die Liste begann bei x=867, links davon 760 px leer.
+   `max-width: var(--measure)` (1440 px) ist ebenfalls gegenstandslos —
+   der Vorhang selbst ist schmaler. */
 .menu__body {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
-  gap: clamp(2rem, 6vw, 6rem);
   align-content: center;
-  padding: clamp(2.5rem, 6vh, 5rem) 0;
-  max-width: var(--measure);
+  gap: clamp(1.6rem, 4vh, 2.6rem);
+  /* Vorher clamp(2.5rem, 6vh, 5rem), beim Umbau zunaechst
+     clamp(1.6rem, 4vh, 3rem). Beides war zu viel: gemessen bei 1440 x 900
+     stand der Inhalt des Vorhangs auf 913 px in einem 900 px hohen
+     Fenster — „Impressum" lag 13 px unter der Kante und war nur nach dem
+     Rollen zu sehen. Mit diesem Wert sind es 889 px, der Vorhang steht
+     ohne Rollen. */
+  padding: clamp(1.1rem, 3.2vh, 2.4rem) 0;
   width: 100%;
-  margin: 0 auto;
 }
 
-.menu__nav li { border-top: 1px solid rgba(255,255,255,0.1); }
-.menu__nav li:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+/* DIE LISTE — 04.09.2026, Kundenwunsch woertlich:
+   „Du stellst einfach nur die einzelnen Seiten dar, und das machst du wie
+    folgt: ‚Warum Immobilien‘, ‚Estera‘ und ‚Ablauf‘ ohne Zahl davor, ohne
+    Striche dazwischen. Du machst das einfach mit dick, und dann laesst du
+    einen kleinen Abstand." — und: „‚Karriere‘ und ‚Kontakt‘ schliessen
+    oben an."
+   Vorher:
+       .menu__nav li { border-top: 1px solid rgba(255,255,255,0.1); }
+       .menu__nav li:last-child { border-bottom: 1px solid ...; }
+   Die Striche sind ersatzlos weg, der Abstand macht die Trennung. Ebenso
+   weg sind die beiden Rubriken „Auf dieser Seite" / „Seiten" im Markup —
+   alle fuenf Punkte stehen jetzt in EINER Liste. */
+.menu__nav {
+  display: grid;
+  /* „ein kleiner Abstand" — knapp gehalten, die Zeilen sollen als ein
+     Block lesbar bleiben und nicht als fuenf Einzelposten. */
+  gap: clamp(0.1rem, 0.5vh, 0.35rem);
+  /* MITTIG — Kundenwunsch 04.09.2026, woertlich: „Die einzelnen
+     Unterpunkte bei der Navbar, wenn sie ausfaehrt, sollst du in der
+     mobilen Ansicht mittig machen. Jetzt sind sie linksbuendig. Sie sollen
+     aber mittig sein."
+     Der Kunde nennt ausdruecklich das Telefon. Die Regel steht hier
+     trotzdem OHNE Breitenbedingung, gilt also auch am grossen Fenster —
+     und das ist eine Entscheidung, keine Nachlaessigkeit: alles andere im
+     Vorhang steht auf seine Ansage hin schon mittig (der Satz unter
+     „Naechster Schritt", der Knopf, Kontakt, E-Mail, Datenschutz,
+     Cookie-Einstellungen). Eine einzige linksbuendige Gruppe mitten in
+     einem sonst mittigen Vorhang waere ein Bruch, und der Vorhang ist am
+     breiten Fenster mit 864 px keine Textspalte, in der Linksbuendigkeit
+     das Lesen erleichtern wuerde — es sind fuenf kurze Zeilen. */
+  text-align: center;
+}
 
+/* Vorher: font-weight: 300 und eine Zeile aus Ziffer + Wort
+   (display:flex; align-items:baseline; gap:1.6rem).
+   Die Ziffer ist raus, also auch das Nebeneinander. „mit dick" ist 600 —
+   das ist das Gewicht, das das Projekt fuer Hervorhebungen schon fuehrt
+   (.btn, .btn--weiss, .btn--sand), kein neu erfundener Wert. Cormorant
+   Garamond liegt in 300/400/500/600/700 im Projekt, 600 ist also ein
+   echter Schnitt und keine gerechnete Fettung. */
 .menu__link {
   display: flex;
-  align-items: baseline;
-  gap: 1.6rem;
-  padding: clamp(0.55rem, 1.4vh, 0.95rem) 0;
+  align-items: center;
+  /* zur Mitte, passend zu `text-align: center` auf der Liste */
+  justify-content: center;
+  /* 44 px Trefferflaeche auch dort, wo die Schrift kleiner wird */
+  min-height: 44px;
+  padding: clamp(0.15rem, 0.6vh, 0.4rem) 0;
   font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.6rem, 3.3vw, 2.9rem);
-  line-height: 1.16;
-  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+  color: rgba(255,255,255,0.92);
   transition: color 0.45s var(--ease), transform 0.55s var(--ease);
 }
-.menu__link:hover { color: #fff; transform: translateX(14px); }
-.menu__link .num {
-  font-family: var(--font-ui);
-  font-size: 0.83rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--gold-soft);
-  opacity: 0.95;
-}
+/* Beim Ueberfahren nur noch die Farbe. Vorher schob sich die Zeile um
+   12 px nach rechts (`transform: translateX(12px)`) — das war die Geste
+   einer LINKSBUENDIGEN Liste, die aus ihrer Kante heraustritt. An einer
+   mittigen Liste sieht dasselbe aus, als sei die Zeile verrutscht.
+   Kundenwunsch 04.09.2026: die Punkte stehen mittig. */
+.menu__link:hover { color: #fff; }
+/* `.menu__link .num` stand hier bis zum 04.09.2026 und setzte die
+   vorangestellte Ziffer in Gold. Der Kunde will „ohne Zahl davor" — die
+   Spans sind aus allen neun Seiten entfernt, die Regel damit
+   gegenstandslos. */
 
+/* DER MITTIGE UNTERBLOCK — 04.09.2026, zwei Kundensaetze woertlich:
+   „‚Naechster Schritt‘: ‚Erst pruefen wir, ob deine Kapitalanlage zu dir
+    passt. Danach sprechen wir ueber Objekte.‘ Das muss mittig stehen."
+   „Bei ‚Kontakt‘ und der E-Mail muessen auch ‚Datenschutz‘ und
+    ‚Cookie-Einstellungen‘ mittig stehen, auch dick."
+   Vorher war das eine rechte Beispalte:
+       align-self: center; gap: 2.4rem;
+       border-left: 1px solid rgba(255,255,255,0.1);
+       padding-left: clamp(1.5rem, 3vw, 3rem);
+   Die senkrechte Trennlinie ist eine waagerechte geworden, weil der Block
+   jetzt unter der Liste steht und nicht mehr daneben. */
 .menu__aside {
-  align-self: center;
   display: grid;
-  gap: 2.4rem;
-  border-left: 1px solid rgba(255,255,255,0.1);
-  padding-left: clamp(1.5rem, 3vw, 3rem);
+  justify-items: center;
+  text-align: center;
+  gap: clamp(1rem, 2.4vh, 1.7rem);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: clamp(1.3rem, 3vh, 2.1rem);
 }
 .menu__aside .kicker { color: rgba(255,255,255,0.42); }
 /* Bewusst NICHT `.menu__aside a` — das würde die Button-Schriftfarbe
@@ -716,12 +862,46 @@ ul, ol { list-style: none; }
   border-color: var(--gold);
 }
 
+/* DATENSCHUTZ UND COOKIE-EINSTELLUNGEN — 04.09.2026 neu an dieser Stelle.
+   Kundenwunsch woertlich: „Bei ‚Kontakt‘ und der E-Mail muessen auch
+   ‚Datenschutz‘ und ‚Cookie-Einstellungen‘ mittig stehen, auch dick."
+   Vorher standen beide unten in `.menu__foot`, in Versalien, 0.86rem und
+   Gewicht 500 — eine Fusszeile neben „Impressum". Sie sind jetzt in den
+   Kontaktblock gewandert und stehen dort mittig und in 600, also im
+   selben Gewicht wie die Menuepunkte. Keine Versalien mehr: bei „dick"
+   und gesperrten Versalien nebeneinander gewinnt die Sperrung optisch,
+   der Kunde meint die Fettung.
+   „Impressum" bleibt unten stehen — der Kunde hat nur diese beiden
+   genannt, und der Verweis ist gesetzlich gefordert; ihn stillschweigend
+   aus dem Menue zu nehmen waere mehr, als hier verlangt ist. */
+.menu__recht {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0 1.4rem;
+  margin-top: 0.2rem;
+}
+.menu__recht a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  /* 1rem = 16 px, die Untergrenze fuer Fliesstext in diesem Projekt */
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  transition: color 0.4s var(--ease);
+}
+.menu__recht a:hover { color: #fff; }
+
 .menu__foot {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem 2rem;
-  padding: 1.6rem 0 2rem;
+  /* Vorher 1.6rem 0 2rem. Um 9,6 px gekuerzt, damit der Vorhang bei
+     1440 x 900 ohne Rollen steht — siehe die Rechnung bei .menu__body. */
+  padding: 1.4rem 0 1.6rem;
   border-top: 1px solid rgba(255,255,255,0.1);
   font-size: 0.86rem;
   font-weight: 500;
@@ -777,6 +957,27 @@ body.is-locked { overflow: hidden; }
     scroll-behavior: auto !important;
   }
   [data-anim] { opacity: 1; transform: none; }
+
+  /* ERGAENZT 04.09.2026 — beim Vermessen des Vorhangs aufgefallen.
+     Die Regel oben setzt nur die DAUER auf null, nicht die VERZOEGERUNG.
+     Der gestaffelte Einlauf der Menuezeilen laeuft aber ueber
+     `transition-delay: calc(0.26s + var(--i) * 0.055s)` — gemessen war
+     der erste Listeneintrag 60 ms nach dem Oeffnen noch auf opacity 0,
+     die letzte Zeile haette rund 0,8 s gebraucht. Wer Bewegung abbestellt
+     hat, sah also einen leeren Vorhang, der sich ruckartig fuellt. Hier
+     stehen die Zeilen ohne Umweg sofort da.
+     Bewusst nur auf den Vorhang gemuenzt und nicht global — eine
+     `transition-delay: 0 !important`-Regel auf `*` wuerde in die uebrigen
+     Stylesheets hineinregieren. */
+  .menu, .menu-schleier { transition: none !important; }
+  .menu__nav li, .menu__aside > *, .menu__foot > *,
+  .menu[data-open='true'] .menu__nav li,
+  .menu[data-open='true'] .menu__aside > *,
+  .menu[data-open='true'] .menu__foot > * {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s !important;
+  }
 }
 
 /* Der Varianten-Umschalter stand hier bis zum 24.08.2026 — eine feste Pille
@@ -786,9 +987,56 @@ body.is-locked { overflow: hidden; }
    verdeckt; das faellt mit weg. */
 
 @media (max-width: 860px) {
-  .menu__body { grid-template-columns: 1fr; align-content: start; }
-  .menu__aside { border-left: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-left: 0; padding-top: 2rem; }
+  /* Bis zum 04.09.2026 standen hier zwei Regeln, die das zweispaltige
+     Menue auf schmalen Fenstern flachlegten:
+         .menu__body { grid-template-columns: 1fr; align-content: start; }
+         .menu__aside { border-left: 0; border-top: 1px solid ...;
+                        padding-left: 0; padding-top: 2rem; }
+     Der Vorhang ist inzwischen ueberall einspaltig und der Beiblock
+     traegt seine waagerechte Linie schon in der Grundregel — beide
+     Ausnahmen sind gegenstandslos. `.burger__label` bleibt. */
   .burger__label { display: none; }
+}
+
+/* DER VORHANG AUF SCHMALEN FENSTERN — 04.09.2026.
+   60 % sind der Kundenwunsch, aber unterhalb von 620 px rechnen sie sich
+   nicht mehr auf. Gemessen bei 390 px Fensterbreite:
+     60 %  = 234 px, minus 2 x 20 px Innenabstand = 194 px Textbreite.
+             „Erstgespräch vereinbaren" braucht im Knopf 231 px, der Knopf
+             mit seinen 2 x 20 px Innenabstand also 271 px — er stuende weit
+             ueber den Rand hinaus. Auch „Cookie-Einstellungen" (127 px)
+             neben „Datenschutz" (86 px) passte in keine Zeile mehr, und
+             „Warum Immobilien" (198 px bei 24 px Schrift) braeche um.
+     88 %  = 343 px, minus 2 x 20 px = 303 px. Der Knopf steht mit 271 px
+             darin, die beiden Rechtsverweise stehen mit 86 + 22 + 127 =
+             235 px nebeneinander. Kein Querlauf, keine Silbentrennung.
+   620 px als Umschaltpunkt, weil dort 60 % noch 372 px ergeben — abzueglich
+   Innenabstand 332 px und damit reichlich fuer den breitesten Posten
+   (271 px). Darunter greift die breitere Fassung.
+   Die Seite dahinter bleibt auch bei 88 % sichtbar: 47 px Streifen links
+   plus die abgedunkelte Lage, das genuegt als Hinweis, dass man
+   danebentippen kann, um zu schliessen. */
+@media (max-width: 620px) {
+  .menu { width: 88%; }
+
+  /* Der Vorhang soll auf dem Telefon in EINEM Blick stehen. Gemessen bei
+     390 x 800 mit dem Stand von vorhin: 927 px Inhalt in 800 px Fenster —
+     „Impressum" lag 97 px unter der Kante. Vier Kuerzungen bringen ihn
+     hoch, zusammen 157 px:
+       Markenzeile aus           -87 px  (sie bricht hier auf zwei Zeilen)
+       Fusszeilen-Innenabstand   -22 px
+       Rumpf-Innenabstand        -35 px
+       Rumpf-Abstand             -13 px
+     Damit stehen 770 px in 800 px, ohne Rollen.
+     Die Markenzeile „Diskret. Strukturiert. Langfristig." faellt hier weg
+     und nicht der Impressumsverweis: sie ist Schmuck und steht ohnehin im
+     Fuss jeder Seite, der Verweis ist gesetzlich gefordert. */
+  .menu__foot > span { display: none; }
+  /* Ohne die Markenzeile bleibt nur „Impressum" uebrig. `space-between`
+     schoebe es an die linke Kante — als einzige linksbuendige Zeile in
+     einem sonst durchgehend mittigen Vorhang. Deshalb hier mittig. */
+  .menu__foot { padding: 1rem 0 1.2rem; justify-content: center; }
+  .menu__body { padding: 0.9rem 0; gap: 1.2rem; }
 }
 
 /* Zwischen 1340 und 1560 px steht die Waagerechte enger. Kleinerer Grad,

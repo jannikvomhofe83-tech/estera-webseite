@@ -3269,3 +3269,19 @@
   text-transform: none;
   font-variant-numeric: lining-nums;
 }
+
+/* ===========================================================================
+   ZWEI FASSUNGEN DER UNTERZEILE IM KOPFBEREICH — 04.09.2026
+
+   Dieselbe Regel wie in karriere.css, und sie steht bewusst ein zweites Mal
+   hier: die beiden Stellenseiten laden karriere.css nicht. Wortlaut des
+   Kunden und die Begruendung stehen dort ausfuehrlich; kurz: die lange
+   Unterzeile ist die urspruengliche und gilt weiter auf dem Desktop, die
+   kurze gilt nur auf dem Telefon.
+   WER EINE DER BEIDEN REGELN AENDERT, MUSS DIE ANDERE MITAENDERN.
+   =========================================================================== */
+.nur-schmal { display: none; }
+@media (max-width: 767px) {
+  .nur-breit  { display: none; }
+  .nur-schmal { display: inline; }
+}

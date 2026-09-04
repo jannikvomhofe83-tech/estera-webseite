@@ -2392,3 +2392,46 @@
     justify-content: space-between;
   }
 }
+
+/* ===========================================================================
+   BEIDE KOEPFE EINZEILIG, BEIDE ZEICHNUNGEN AUF EINER MITTE — 04.09.2026
+
+   Kundenwunsch woertlich: „Bei dem Kasten mit ‚Mit Immobilie‘ steht in der
+   Headline ‚Fremdkapital, Miete und Steuervorteile arbeiten für dich‘ in
+   EINER Zeile. Das kannst du genauso machen wie bei ‚Ohne Immobilie‘, dort
+   steht ‚Du baust nur mit deinem eigenen Kapital auf‘ in einer Zeile, und
+   danach kommen die Unterpunkte. […] Die Unterpunkte stehen genau parallel
+   wie bei ‚Ohne Immobilie‘ auf gleicher Höhe. Die Abbildung ‚Eigene
+   Sparrate‘ und ‚kleiner Vermögenswert‘ muss ein bisschen weiter nach oben.
+   Die Abbildung soll quasi mittig sein zu der Abbildung bei ‚Mit
+   Immobilie‘."
+
+   ERSTENS, DIE ZEILE. Gemessen brach die rechte Ueberschrift NUR AUF
+   BREITEN FENSTERN um:
+       1920 px   19,04 px Schrift, 62ch = 473 px Spalte   -> zwei Zeilen
+       1600 px   19,04 px                                 -> zwei Zeilen
+       1440 px   17,86 px                                 -> eine Zeile
+       1280 px   15,87 px                                 -> eine Zeile
+   Der Grund ist die Spalte, nicht der Text: 62ch sind ein fester Wert, die
+   Schrift waechst aber mit der Fensterbreite weiter. Bei 19,04 px braucht
+   die Zeile 504 px. 68ch geben ihr 519 px und damit 15 px Luft — und die
+   Stichpunkte darunter beginnen dadurch links wie rechts auf derselben
+   Hoehe, weil beide Koepfe gleich hoch sind.
+
+   ZWEITENS, DIE MITTE. Die zwei Zeichnungen sind unterschiedlich hoch
+   (links 640 : 196, rechts 470 : 212) und stehen beide am Fuss ihres
+   Kastens. GEMESSEN bei 1440 px lag die Mitte der linken bei y 837, die der
+   rechten bei y 796 — 41 px Versatz, und genau den sieht der Kunde. Beide
+   Rahmen bekommen deshalb DASSELBE Seitenverhaeltnis (das der hoeheren,
+   rechten) und stellen ihre Zeichnung darin mittig. Die flachere linke
+   ruecht damit um die halbe Differenz nach oben, und beide Mitten liegen
+   auf einer Linie — ohne einen einzigen festen Pixelwert, der beim
+   naechsten Fenster wieder falsch waere.
+   =========================================================================== */
+.wi__band-satz { max-width: 68ch; }
+.wi__vgl--weit {
+  aspect-ratio: 470 / 212;
+  display: grid;
+  place-items: center;
+}
+.wi__vgl--weit svg { width: 100%; }

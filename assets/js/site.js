@@ -11,6 +11,13 @@
   var menu   = document.querySelector('[data-menu]');
   var open   = document.querySelector('[data-menu-open]');
   var close  = document.querySelector('[data-menu-close]');
+  /* ERGAENZT 04.09.2026 — die abdunkelnde Lage hinter dem Vorhang. Sie ist
+     erst noetig, seit der Vorhang nur noch rund 60 % des Fensters bedeckt
+     (Kundenwunsch: „Ich will, dass die Navigationsbar nicht komplett
+     aufmacht, sondern nur circa 70 % von rechts nach links diese Seite
+     bedeckt."). Vorher lag das Menue ueber der ganzen Seite, danebentippen
+     war gar nicht moeglich. */
+  var schleier = document.querySelector('[data-menu-schleier]');
   var lastFocus = null;
 
   if (menu) {
@@ -37,6 +44,13 @@
 
     if (open)  open.addEventListener('click', function () { setMenu(true); });
     if (close) close.addEventListener('click', function () { setMenu(false); });
+
+    /* Klick auf die abdunkelnde Lage schliesst — 04.09.2026 ergaenzt.
+       Der Fokus geht dabei auf den Oeffner zurueck (kein dritter
+       Parameter), genau wie beim Schliessknopf und bei Escape: wer
+       danebentippt, will das Menue weg und muss es mit derselben Taste
+       wieder erreichen koennen. */
+    if (schleier) schleier.addEventListener('click', function () { setMenu(false); });
 
     /* --- Ein Verweis im Menue schliesst es ---------------------------------
        ERGAENZT 22.08.2026. Vorher blieb das Overlay offen, wenn man darin
@@ -435,6 +449,56 @@
       verweis.addEventListener('click', function (e) { e.preventDefault(); });
     }
   );
+
+  /* --- Navigationsvorhang: was sich von Seite zu Seite unterscheidet ------
+     ERGAENZT 04.09.2026. Der Vorhang steht seit heute in allen neun Seiten
+     ZEICHENGLEICH im Markup — vorher gab es neun Fassungen, die sich in
+     Kleinigkeiten unterschieden (`#leistungen` gegen
+     `variante-a.html#leistungen`, das Anhaengsel `?v=b24a` nur auf den
+     Karriereseiten, `aria-current="page"` je nach Seite woanders) und
+     dadurch beim Aendern regelmaessig auseinanderliefen.
+
+     Zwei Dinge MUESSEN sich aber unterscheiden. Beide setzt dieser Block
+     zur Laufzeit, nicht die Datei:
+
+     1. Verweise auf Abschnitte der EIGENEN Seite. Im Markup steht ueberall
+        `variante-a.html#warum-immobilien`. Auf der Startseite selbst waere
+        das ein vollstaendiger Neuaufbau der Seite statt eines Sprungs —
+        deshalb bleibt dort nur die Sprungmarke stehen. Der Browser rollt
+        dann weich hin (`scroll-behavior: smooth` in base.css).
+     2. `aria-current="page"`. Es sagt dem Vorlesegeraet, welcher Punkt die
+        gerade offene Seite ist. Gesetzt wird es nur auf Verweisen OHNE
+        Sprungmarke — die drei Abschnittsverweise zeigen zwar auch auf die
+        Startseite, meinen aber eine Stelle darin und nicht „du bist hier".
+
+     `normalisiere` von oben schneidet fuehrenden Schraegstrich, `./`,
+     Abfrage, Sprungmarke und `.html` ab. Das ist hier genauso noetig wie
+     bei der Sperre darueber: Netlify liefert `karriere.html` unter
+     `/karriere` aus, ein roher Vergleich schluege dort fehl. */
+  var eigeneSeite = normalisiere(location.pathname) || 'variante-a';
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.menu__link, .menu__recht a, .menu__foot a'),
+    function (verweis) {
+      var ziel = verweis.getAttribute('href') || '';
+      if (ziel.charAt(0) === '#' || ziel.indexOf(':') !== -1) return;   /* mailto: und reine Sprungmarken */
+      if (normalisiere(ziel) !== eigeneSeite) return;
+
+      var marke = ziel.indexOf('#') === -1 ? '' : ziel.slice(ziel.indexOf('#'));
+      if (marke) verweis.setAttribute('href', marke);
+      else verweis.setAttribute('aria-current', 'page');
+    }
+  );
+
+  /* Die beiden Stellenseiten stehen selbst nicht im Menue — sie haengen
+     unter „Karriere". Vorher trugen sie im Markup `aria-current="page"`
+     auf dem Karriere-Punkt; das war streng genommen falsch, „page" meint
+     genau die offene Seite. Richtig ist `aria-current="true"`: der Punkt
+     gehoert zum aktuellen Bereich, ist aber nicht die aktuelle Seite. Die
+     Wegmarke geht damit nicht verloren und behauptet nichts Falsches. */
+  if (eigeneSeite.indexOf('karriere-') === 0) {
+    var karrierePunkt = document.querySelector('.menu__link[href="karriere.html"]');
+    if (karrierePunkt) karrierePunkt.setAttribute('aria-current', 'true');
+  }
 
   /* --- Referenzen-Akkordeon ----------------------------------------------
      Eine Spalte faehrt auf, die anderen schrumpfen. Bewusst ueber Attribute

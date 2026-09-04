@@ -657,17 +657,7 @@
      Gedanke wie am 24.08.: „zieh das Bild um die Hoehe der Ueberschrift
      nach oben, damit es nicht erst unter ihr beginnt."
      Vorher: calc(-1 * var(--h1-zeile)) */
-  /* NACHGEZOGEN 04.09.2026. Seit die Ueberschrift mittig steht, laeuft sie
-     nicht mehr ueber beide Spalten, sondern nur noch ueber die Textspalte
-     (grid-column: 1 / 2) — sie bildet also keine eigene Rasterzeile mehr
-     ueber dem Bild, sondern steht neben ihm. Der Zug um ZWEI Zeilen war
-     genau um diese eine weggefallene Zeile zu viel: GEMESSEN sass die
-     Bildoberkante danach 156 px unter der Kastenkante statt der 191 px, die
-     der Kunde ausdruecklich behalten wollte („Das Bild bleibt genau in
-     derselben Position. Das ist sehr gut."). Eine Zeile weniger stellt sie
-     zurueck.
-     Vorher: calc(-2 * var(--h1-zeile)) */
-  margin-top: calc(-1 * var(--h1-zeile));
+  margin-top: calc(-2 * var(--h1-zeile));
 }
 
 /* Die Kleinzeile sitzt seit dem 31.08. IM Bildblock (Begruendung steht im
@@ -828,15 +818,6 @@
     margin-top: 0;
   }
   .heroA__h1 { font-size: clamp(1.95rem, 5.2vw, 2.5rem); }
-  /* .heroA__kopf FAELLT HIER EBENFALLS AUF EINE SPALTE — 04.09.2026.
-     Der Kopfblock traegt dasselbe Raster 58fr / 42fr wie der Kasten
-     darunter; solange die Ueberschrift ueber beide Spalten lief
-     (grid-column: 1 / -1), fiel das nicht auf. Seit sie mittig steht und
-     dafuer in Spalte 1 sitzt, hiess das auf schmalen Fenstern: GEMESSEN
-     bei 390 px war ihr Kasten 184 px breit statt der verfuegbaren 342, und
-     „Kapitalanlageimmobilien," wurde mitten im Wort getrennt. Der Kasten
-     selbst steht hier schon auf einer Spalte; der Kopfblock zieht nach. */
-  .heroA__kopf { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
@@ -992,134 +973,71 @@
   .heroA__marken span:not(:last-child)::after { content: none; }
 }
 
-/* ===========================================================================
-   DER TEXTKASTEN DES HEROS STEHT MITTIG — 04.09.2026
 
-   Kundenwunsch woertlich: „Du musst auf der Hero-Section die Headline
-   mittig machen. Das ist ganz wichtig. ‚Kapitalanlageimmobilien‘ steht
-   mittig in dem Kasten. Darunter steht ‚die zu dir passen‘ mittig, mit
-   einem ganz kleinen Abstand." Und fuer die zwei Zeilen darunter: „‚Du
-   senkst deine Steuerlast‘ mittig unter ‚Die Bank finanziert‘ […] Genau
-   das Gleiche bei ‚Diskret ausgewählt…‘. ‚Langfristig begleitet‘ muss auch
-   mittig stehen."
-
-   WAS DAMIT FAELLT. Die Ueberschrift stand seit dem 24.08.2026 als Block
-   mittig, INNEN aber linksbuendig — „beide Zeilen beginnen auf derselben
-   Kante, dieselbe Kante, an der auch Subline, Knoepfe und Guetezeile
-   fluchten". Diese gemeinsame linke Kante gibt es jetzt nicht mehr; sie war
-   der Grund fuer `text-align: left` und `width: max-content` und ist mit
-   dieser Ansage ueberholt. Der ganze Textkasten steht mittig, also auch
-   Subline, Marken, Knoepfe und Guetezeile — sonst haette man eine mittige
-   Ueberschrift ueber einem linksbuendigen Block, und das saehe nach
-   Versehen aus.
-
-   DER UMBRUCH DER UEBERSCHRIFT steht als <br> im Markup und nicht als
-   Breitendeckel: er soll hinter dem Komma liegen und nirgendwo sonst.
-   `text-wrap` wird dafuer auf `wrap` zurueckgestellt — `balance` aus
-   .display verteilt die Zeilen gleichmaessig und wuerde den festen Umbruch
-   uebergehen.
-
-   DER KLEINE ABSTAND zwischen den zwei Zeilen: die Zeilenhoehe steigt von
-   1,1 auf 1,18. Bei 42 px Schriftgrad sind das gemessen 3,4 px mehr Luft
-   zwischen den beiden Zeilen — „ein ganz kleiner Abstand", nicht mehr.
-   =========================================================================== */
-.heroA__h1 {
-  width: auto;
-  /* DAS `margin-inline: auto` MUSS WEG, und das ist der Grund:
-     In einem Raster nehmen automatische Aussenabstaende den freien Platz
-     fuer sich und setzen `justify-self: stretch` ausser Kraft. Die
-     Ueberschrift war dadurch nicht so breit wie ihre Spalte, sondern nur so
-     breit wie ihr Inhalt — was sie mittig stellte, solange sie
-     linksbuendig gesetzt war. Zusammen mit `overflow-wrap: break-word`
-     unter 620 px hiess das: GEMESSEN bei 390 px war der Kasten der
-     Ueberschrift 184 px breit statt der verfuegbaren 342, und
-     „Kapitalanlageimmobilien," wurde mitten im Wort getrennt.
-     Jetzt zentriert `text-align: center` den Satz, und der Kasten ist so
-     breit wie die Spalte. */
-  margin-inline: 0;
-  max-width: 100%;
-  text-align: center;
-  text-wrap: wrap;
-  line-height: 1.18;
-}
-.heroA__text {
-  text-align: center;
-  /* Der linke Innenabstand trug die gemeinsame Kante. Mittig gesetzt muss er
-     auf beiden Seiten gleich sein, sonst steht die Mitte des Satzes nicht
-     ueber der Mitte des Kastens. */
-  padding: 0 var(--panel-pad) var(--panel-pad);
-}
-/* Die Knoepfe standen linksbuendig in einer Flexzeile. */
-.heroA__actions { justify-content: center; }
-/* Die drei Marken: zwei oben, die dritte mittig darunter. `flex-basis: 100%`
-   erzwingt den Umbruch VOR der dritten; `justify-content: center` stellt
-   beide Zeilen mittig. Der Mittelpunkt haengt an der Marke davor (Regel
-   weiter oben) und steht damit zwischen den ersten beiden — hinter der
-   zweiten steht keiner mehr, weil dort die Zeile endet. */
-.heroA__marken { justify-content: center; }
-.heroA__marken-um { flex-basis: 100%; text-align: center; }
-/* Die Haarlinie ueber der Guetezeile lief ueber die volle Spaltenbreite und
-   endete damit an einer Kante, die es nicht mehr gibt. Sie ist jetzt so
-   breit wie die Zeile darunter und steht mittig. */
-.heroA__guete {
-  width: fit-content;
-  margin-inline: auto;
-  text-align: center;
-}
-
-/* Die Ueberschrift bleibt in der TEXTSPALTE. Sie lief bisher ueber beide
-   Spalten (grid-column: 1 / -1); das ging, solange sie linksbuendig stand
-   und ihr Text die Spalte nie ausfuellte — so steht es auch im Vermerk an
-   .heroA__figure: „Die Ueberschrift steht links und ist deutlich schmaler
-   als ihre Spalte; ihr Text kollidiert deshalb nicht mit dem Bild."
-   Mittig gesetzt gilt das nicht mehr: GEMESSEN lief „Nicht umgekehrt." bei
-   1440 px 118 px weit unter das Bild. Mit `grid-column: 1 / 2` steht sie in
-   derselben Spalte wie der Text darunter, und beide haben dieselbe Mitte. */
-.heroA__h1 { grid-column: 1 / 2; }
-/* Der Mittelpunkt steht NUR zwischen den ersten beiden Marken. Die zweite
-   ist zwar nicht `:last-child`, aber das Ende ihrer Zeile — ein Punkt
-   dahinter haengt in der Luft. */
-.heroA__marken span:nth-child(2)::after { content: none; }
 
 /* ===========================================================================
-   DER HERO AUF SCHMALEN FENSTERN — 04.09.2026
+   DER HERO AUF SCHMALEN FENSTERN — 04.09.2026, ZWEITE FASSUNG
 
-   Kundenwunsch woertlich: „Bei der mobilen Ansicht geht es jetzt nur um die
-   mobile Ansicht. Die Desktop-Version lässt du unangetastet. Das
-   ausgewählte ‚Kapitalanlageimmobilien‘ streichst du, und das Bild der
-   Immobilie kommt direkt unter die zwei CTA-Buttons. ‚Diskret ausgewählt,
-   strukturiert geprüft, langfristig begleitet‘ steht unter dem Bild."
+   ERSTE FASSUNG WAR FALSCH ABGEGRENZT, und der Kunde hat es sofort gesehen:
+   „Ich habe dir doch gesagt, dass du die Änderungen nur auf der mobilen
+   Version anpassen sollst. Jetzt hast du die Änderungen auch auf der
+   Desktop-Version angepasst. […] Setze die Desktop-Version wieder zurück,
+   so wie sie war."
 
-   Drei Griffe, alle innerhalb dieses Medienblocks — oberhalb von 767 px
-   aendert sich nichts:
+   Ich hatte den mittigen Satz fuer ALLE Breiten gesetzt, weil die Ansage
+   zur Ueberschrift („mittig machen, das ist ganz wichtig") ohne Angabe
+   einer Breite kam. Der Satz danach — „Bei der mobilen Ansicht geht es
+   jetzt nur um die mobile Ansicht. Die Desktop-Version lässt du
+   unangetastet" — gilt fuer den ganzen Kopfbereich. Zurueckgenommen sind
+   deshalb auf dem Desktop:
+       text-align: center an .heroA__h1 und .heroA__text
+       grid-column: 1 / 2 an der Ueberschrift  (wieder 1 / -1)
+       line-height 1.18                        (wieder 1.1)
+       margin-top -1 x --h1-zeile am Bild      (wieder -2)
+       justify-content: center an Knoepfen und Marken
+       der Umbruch nach „Kapitalanlageimmobilien," und in der Guetezeile
 
-   1  Die Kleinzeile ueber dem Bild faellt weg. Sie ist nicht nur
-      ausgeblendet, sondern `display: none` — eine unsichtbare Zeile wuerde
-      im Vorlesegeraet weiterhin gelesen.
-   2  Das Bild folgt unmittelbar auf die Knopfreihe. Dafuer muss nichts
-      umsortiert werden: der Bildblock steht im Markup ohnehin hinter dem
-      Textblock, und der Textblock endet mit den Knoepfen, sobald seine
-      eigene Guetezeile ausgeblendet ist.
-   3  Die Guetezeile steht unter dem Bild — es ist das zweite Vorkommen aus
-      dem Bildblock. Begruendung im HTML.
-
-   767 px ist derselbe Punkt, an dem der Kasten von zwei Spalten auf eine
-   faellt; darueber stuende das Bild neben dem Text und „unter den Knoepfen"
-   ergaebe keinen Sinn.
+   Alles davon steht jetzt in diesem Block und gilt nur bis 767 px.
    =========================================================================== */
-.heroA__guete--mobil { display: none; }
+.nur-mobil { display: none; }
+
 @media (max-width: 767px) {
+  /* Der Umbruch im Markup wird erst hier wirksam. Ein <br> auf display:none
+     bricht nicht — deshalb genuegt das Umschalten der Anzeige, und das
+     Markup bleibt fuer beide Faelle dasselbe. */
+  .nur-mobil { display: inline; }
+
+  .heroA__h1 {
+    text-align: center;
+    text-wrap: wrap;          /* balance aus .display wuerde den festen Umbruch uebergehen */
+    line-height: 1.18;        /* der „ganz kleine Abstand" zwischen den zwei Zeilen */
+    margin-inline: 0;         /* automatische Raender machen ein Rasterkind schmaler als seine Spalte */
+    width: auto;
+  }
+  /* Der Kopfblock traegt dasselbe Raster 58fr / 42fr wie der Kasten; hier
+     gibt es nur noch eine Spalte zu fuellen. Ohne das mass die Ueberschrift
+     bei 390 px 184 px statt 342, und das lange Wort wurde getrennt. */
+  .heroA__kopf { grid-template-columns: 1fr; }
+
+  .heroA__text    { text-align: center; padding: 0 var(--panel-pad) var(--panel-pad); }
+  .heroA__actions { justify-content: center; }
+  .heroA__marken  { justify-content: center; }
+  /* Zwei Marken oben, die dritte mittig darunter. Der Mittelpunkt haengt an
+     der Marke davor; hinter der zweiten steht keiner, weil dort die Zeile
+     endet. */
+  .heroA__marken-um { flex-basis: 100%; text-align: center; }
+  .heroA__marken span:nth-child(2)::after { content: none; }
+  .heroA__guete { width: fit-content; margin-inline: auto; text-align: center; }
+
+  /* Die drei Griffe aus der ersten Fassung, unveraendert: Kleinzeile ueber
+     dem Bild weg, Bild unmittelbar unter die Knopfreihe, Guetezeile
+     darunter (zweites Vorkommen aus dem Bildblock). */
   .heroA__figure .heroA__eyebrow { display: none; }
   .heroA__text .heroA__guete     { display: none; }
   .heroA__guete--mobil {
     display: block;
-    /* Dieselben Masse wie das erste Vorkommen; nur der Abstand nach oben
-       richtet sich jetzt nach dem Bild statt nach der Knopfreihe. */
     margin-top: 20px;
     padding-top: 16px;
   }
-  /* Ohne die Kleinzeile darueber braucht der Bildblock seinen eigenen
-     Abstand zur Knopfreihe. 24 px ist derselbe Wert, den die Kleinzeile
-     vorher mitgebracht hat. */
   .heroA__figure { margin-top: 24px; }
 }
