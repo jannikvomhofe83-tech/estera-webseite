@@ -2166,8 +2166,21 @@
 .wi__vgl--mit  .vgl-t--quelle { font-size: 17px; }
 .wi__vgl--ohne .vgl-t--weg    { font-size: 16px; font-weight: 400; fill: #9AA0A9; }  /* 5,45:1 */
 .wi__vgl--ohne .vgl-t--wert   { font-size: 17px; }
-.wi__vgl--mit  .vgl-t--wert   { font-size: 17px; fill: #E4C083; }   /* 8,63:1 */
-.wi__vgl--mit  .vgl-t--pille  { font-size: 17px; fill: #E4C083; }   /* auf #111C2E 9,9:1 */
+/* Die rechte Zeichnung rechnet seit dem Rueckbau in 470 statt 640
+   Einheiten — dieselbe Zahl waere dort ein Drittel groesser auf dem
+   Schirm. Die Grade sind deshalb eigene:
+       weit    470 Einheiten, 575 px Kasten -> Faktor 1,22 -> 12 px = 14,7 px
+       schmal  320 Einheiten, 306 px Kasten -> Faktor 0,96 -> 14 px = 13,4 px
+   „Eigentumsanteil" steht kleiner, weil das Wort in den 108 Einheiten des
+   Sandbalkens Platz finden muss. */
+.wi__vgl--mit.wi__vgl--weit .vgl-t--wert  { font-size: 12px; }
+.wi__vgl--mit.wi__vgl--weit .vgl-t--pille { font-size: 12px; }
+.wi__vgl--mit.wi__vgl--weit .vgl-t--anteil{ font-size: 10px; }
+/* Die Toene der rechten Zeichnung auf Navy. „Eigentumsanteil" bleibt Navy —
+   es steht auf dem Sandbalken, nicht auf dem Kasten: 7,54:1. */
+.wi__vgl--mit .vgl-t--wert   { fill: #E4C083; }     /* 8,63:1 auf #262C39 */
+.wi__vgl--mit .vgl-t--pille  { fill: #FFFFFF; }     /* 14,6:1 auf #08294D */
+.wi__vgl--mit .vgl-t--anteil { fill: #102949; }     /* 7,54:1 auf #D9B485 */
 
 /* DIE ZEICHNUNG BEKOMMT EINEN DECKEL. Sobald die Kaesten untereinander
    stehen, hat sie ueber 1000 px zur Verfuegung — bei 640 Einheiten
@@ -2249,3 +2262,48 @@
 .wi__vgl--schmal .vgl-t--wert,
 .wi__vgl--schmal .vgl-t--pille { font-size: 14px; }
 .wi__vgl--schmal .vgl-t--weg   { font-size: 13px; }
+.wi__vgl--schmal .vgl-t--anteil { font-size: 11px; }
+
+/* ===========================================================================
+   DER SATZ STEHT MITTIG — 04.09.2026
+
+   Kundenwunsch woertlich: „Ohne Immobilie muss mittig stehen und der Text
+   darunter muss auch mittig stehen. Das Gleiche gilt für Mit Immobilie."
+
+   Das ist die Rueckkehr zu dem Aufbau, den der Abschnitt bis zum
+   31.08.2026 hatte. Damals wanderte der Satz nach links, weil die Zeichnung
+   daneben stand — „mittiger Satz neben einem Bild haette zwei linke
+   Kanten", so steht es oben bei .wi__band-halb. Seit die Zeichnung wieder
+   UNTER dem Satz steht, faellt dieser Grund weg: es gibt keine zweite
+   Spalte mehr, an der sich der Satz ausrichten muesste.
+
+   VIER DINGE MUESSEN DAFUER MIT. Die Marke traegt eine Haarlinie, die an
+   ihrer linken Kante haengt; sie wird ueber left/right/margin mittig
+   gesetzt. Die Stichpunkte tragen ihren Punkt in einem absoluten ::before
+   am linken Rand — bei mittigem Satz saesse er neben der laengsten Zeile
+   statt neben dem Text. Sie werden deshalb auf Fluss umgestellt: der Punkt
+   wird ein inline-block VOR dem Text und wandert mit. Und der Satzblock
+   selbst bekommt margin-inline: auto, sonst klebte seine 62ch breite
+   Spalte weiter links.
+   =========================================================================== */
+.wi__band-satz {
+  text-align: center;
+  margin-inline: auto;
+}
+.wi__band-marke::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Der Punkt laeuft im Fluss mit, statt links zu kleben. margin-right traegt
+   den Abstand, den vorher padding-left am <li> getragen hat; vertical-align
+   setzt ihn auf die Mitte der Zeile — dieselbe Lage wie vorher ueber
+   `top: calc(0.8em - 2px)`. */
+.wi__band-liste > li {
+  padding-left: 0;
+}
+.wi__band-liste > li::before {
+  position: static;
+  display: inline-block;
+  margin-right: 0.6em;
+  vertical-align: 0.22em;
+}
