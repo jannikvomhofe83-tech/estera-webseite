@@ -514,6 +514,29 @@
   display: none;
 }
 
+/* DIE KOMPAKTE ANORDNUNG — neu am 03.09.2026, und sie gilt NUR unter 768 px.
+   Kundenansage, woertlich: „Du musst auf der mobilen Version endlich mal die
+   Kaesten bei ‚Warum Estera' viel kleiner darstellen. Es soll so sein, dass
+   die Kaesten so klein sind, dass du teilweise sogar Kaesten nebeneinander
+   bekommst. Mache endlich die Kaesten kleiner. Das sage ich dir jetzt zum
+   zehnten Mal."
+
+   VORHER GALT UNTER 768 px DIESELBE SENKRECHTE KETTE wie zwischen 768 und
+   1259 px: sechs Kaesten untereinander, die fuenf oberen 336 Einheiten im
+   Quadrat, auf dem Telefon 309.5 x 309.5 Bildpunkte, die Zeichnung 2374 px
+   hoch. Jetzt sind es 155er-Quadrate (146 Bildpunkte), paarweise
+   nebeneinander, und die Zeichnung ist 906 px hoch.
+
+   AB 768 px AENDERT SICH NICHTS. Die Kette steht dort unveraendert; die
+   breite Zeichnung ab 1260 px ebenso. Der Kunde hat am selben Tag zweimal
+   beanstandet, dass am Schreibtisch etwas anders aussah, was er nicht
+   bestellt hatte — deshalb ist der Umschaltpunkt 767 und nicht hoeher.
+   Das Markup der neuen Zeichnung steht in variante-a.html, dort auch das
+   Raster und die Herleitung jeder Koordinate. */
+.wnetz__bild--kompakt {
+  display: none;
+}
+
 
 /* --- Die Kaesten ----------------------------------------------------------
    EINE Form fuer alle sechs. Die fuenf quadratischen sind gleich gross und
@@ -611,6 +634,17 @@
 .wnetz__kasten:not(.wnetz__kasten--quer) {
   stroke-width: calc(var(--wn-strich) / 1.2);
 }
+/* KEIN AUSGLEICH IN DER KOMPAKTEN ANORDNUNG — 03.09.2026. Ihre drei
+   Kastenformen (#wn-k-off, #wn-k-feld, #wn-k-ziel) tragen genau die Masse,
+   mit denen sie aufgetragen werden; der Massstab ist also ueberall 1 und es
+   gibt nichts zurueckzustellen. Ohne diese Regel bekaemen die vier
+   Paarkaesten den Kehrwert 1/1.2 der 336er-Kaesten ab und stuenden mit einer
+   um 20 Prozent zu duennen Kontur da. Die queren Kaesten (Off-Market und
+   Ziel) sind von der Regel darueber ohnehin ausgenommen und stehen damit
+   richtig auf --wn-strich. */
+.wnetz__bild--kompakt .wnetz__kasten:not(.wnetz__kasten--quer) {
+  stroke-width: var(--wn-strich);
+}
 /* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
    weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
    Vorlage, der auf Weiss nicht zu sehen waere.
@@ -624,8 +658,9 @@
    die Perspektive seiner Drehung faellt in sich zusammen. Seinen Schatten
    traegt deshalb eine unbewegte Kopie darunter, siehe
    .wnetz__kasten--zielschatten. */
-.wnetz__bild--breit  .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-b); }
-.wnetz__bild--schmal .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-s); }
+.wnetz__bild--breit   .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-b); }
+.wnetz__bild--schmal  .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-s); }
+.wnetz__bild--kompakt .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-k); }
 
 /* DER EINE QUERE KASTEN — der Zielkasten ganz unten.
    Kundenwunsch vom 21.08.: „Er soll nicht zu lang rechteckig werden." Also
@@ -826,6 +861,36 @@
 .wnetz__haken { color: var(--wn-akzent); }
 
 
+/* --- Die Schriftgrade der kompakten Anordnung -----------------------------
+   03.09.2026. Sie haengen NICHT an einer Medienabfrage, sondern an der
+   Zeichnung selbst: die kompakte Zeichnung ist nur unter 768 px eingeblendet,
+   also gelten ihre Grade genau dort und nirgends sonst. Damit kann keine
+   Umstellung der Umschaltpunkte sie versehentlich auf den Schreibtisch
+   tragen.
+
+   ES SIND KEINE NEUEN GRADE, SONDERN KLEINERE: die Zeichnung ist 370 statt
+   1304 Einheiten breit, ihre Einheiten sind also grob dreieinhalbmal so
+   gross. Umgerechnet auf 350 Bildpunkte Darstellung (390 px Fenster minus
+   zweimal 20 px Seitenabstand):
+     Stichpunkte     17 Einh.  ->  16.08 px   (Kette: 15.66 px)
+     Titel           19 Einh.  ->  17.97 px
+     Zielueberschr.  19 Einh.  ->  17.97 px
+     Unterzeile      17 Einh.  ->  16.08 px
+     Wortmarke       26 Einh.  ->  24.59 px
+   Die Projektgrenze fuer Fliesstext ist 16 px; der kleinste Grad liegt mit
+   16.08 px darueber, die Kette lag mit 15.66 px knapp darunter. Wer die
+   viewBox verbreitert, faellt zurueck.
+
+   DIE WORTMARKE STEHT AUF 26 STATT 41 EINHEITEN. Das ist nicht willkuerlich:
+   24.59 px auf dem Telefon sind genau die 24 px, die .wordmark__name im
+   Seitenkopf traegt. Die Mitte der Zeichnung spricht damit auf dem Telefon
+   in derselben Groesse wie das Logo darueber. Bei 41 Einheiten waeren es
+   38.8 px gewesen, und die Wortmarke waere breiter als ein Paarkasten. */
+.wnetz__bild--kompakt .wnetz__wort         { font-size: 19px; }
+.wnetz__bild--kompakt .wnetz__wort--ziel   { font-size: 19px; }
+.wnetz__bild--kompakt .wnetz__wort--marke  { font-size: 26px; }
+
+
 /* ===========================================================================
    SCHMALE FENSTER
    Bis 1259 px gilt die Anordnung der Vorlage, darunter die senkrechte Kette:
@@ -905,6 +970,44 @@
   .wnetz__marke--1 { top: 7.3%; }
   .wnetz__marke--2 { top: 19.7%; }
   .wnetz__marke--3 { top: 95.6%; }
+}
+
+
+/* ===========================================================================
+   TELEFON — DIE KOMPAKTE ANORDNUNG, unter 768 px
+   ===========================================================================
+   Kundenansage vom 03.09.2026, woertlich und nach seiner Zaehlung zum
+   zehnten Mal: „Du musst auf der mobilen Version endlich mal die Kaesten bei
+   ‚Warum Estera' viel kleiner darstellen. Es soll so sein, dass die Kaesten
+   so klein sind, dass du teilweise sogar Kaesten nebeneinander bekommst."
+   Und: „So sind die Kaesten viel zu gross und man muss viel zu weit nach
+   unten scrollen."
+
+   WAS HIER BIS ZUM 03.09.2026 STAND: nichts. Unter 768 px galt einfach der
+   Block darueber weiter, also die senkrechte Kette mit ihren sechs Kaesten
+   untereinander.
+
+   WARUM DER UMSCHALTPUNKT AUF 767 px LIEGT UND NICHT HOEHER. Er koennte
+   technisch hoeher liegen — die kompakte Anordnung saehe auch auf einem
+   Tablett gut aus. Er tut es nicht, weil der Kunde am selben Tag zweimal
+   beanstandet hat, dass sich am Schreibtisch etwas geaendert hat, was er
+   nicht bestellt hatte. Bestellt war die MOBILE Ansicht. 768 px ist die
+   Grenze, ab der diese Seite ueberall sonst „nicht mehr Telefon" rechnet.
+   Wer den Punkt hebt, aendert damit Fenster, ueber die nie gesprochen wurde.
+
+   DIE MARKEN DER STUFENANIMATION. Sie stehen in Prozent der Zeichnungshoehe,
+   und die ist jetzt 984 statt 2578 Einheiten:
+     Stufe 1   Mitte des Off-Market-Kastens   (8 + 125) / 984  = 13.5 %
+     Stufe 2   optische Mitte der Wortmarke        515 / 984   = 52.3 %
+     Stufe 3   Mitte des Zielkastens        (800 + 87.5) / 984 = 90.2 %
+   =========================================================================== */
+@media (max-width: 767px) {
+  .wnetz__bild--schmal  { display: none; }
+  .wnetz__bild--kompakt { display: block; }
+
+  .wnetz__marke--1 { top: 13.5%; }
+  .wnetz__marke--2 { top: 52.3%; }
+  .wnetz__marke--3 { top: 90.2%; }
 }
 
 
@@ -1207,10 +1310,16 @@
    zu frueh oder viel zu spaet.
 -------------------------------------------------------------------------- */
 .wnetz[data-bereit] .wnetz__bild marker path { opacity: 0; }
+/* Die Spitzen der kompakten Anordnung (k1, k3) sind am 03.09.2026
+   dazugekommen. Ohne sie in dieser Liste blieben die beiden Pfeile auf dem
+   Telefon ohne Spitze stehen — die Regel darueber setzt jede Markerspitze
+   erst einmal auf 0. */
 .wnetz[data-s1] #wn-spitze-b1 path,
 .wnetz[data-s1] #wn-spitze-s1 path,
+.wnetz[data-s1] #wn-spitze-k1 path,
 .wnetz[data-s3] #wn-spitze-b3 path,
-.wnetz[data-s3] #wn-spitze-s3 path {
+.wnetz[data-s3] #wn-spitze-s3 path,
+.wnetz[data-s3] #wn-spitze-k3 path {
   opacity: 1;
   transition: opacity 0.2s linear var(--wn-spitze-ab);
 }
