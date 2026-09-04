@@ -376,8 +376,30 @@
   flex-direction: column;
   background-color: var(--navy-900);
 }
+/* DER GANZE STAPEL RUECKT 32 PX NACH UNTEN — KUNDENWUNSCH 04.09.2026.
+   Woertlich, im selben Satz wie die Kuerzung der Unterzeile: „… und setze
+   alles weiter, von dem Estera-Logo beginnend, weiter nach unten, weil
+   dann ein bisschen Platz frei wird."
+
+   DER FREIE PLATZ IST GEMESSEN UND KEINE SCHAETZUNG. Die gekuerzte
+   Unterzeile faellt bei 1440 px von zwei Zeilen auf eine; das sind
+   32,13 px Zeilenhoehe, die im Kopfbereich frei werden. Die Mindesthoehe
+   von 1013,7 px bleibt unangetastet, also landet der freie Platz UNTEN:
+   der Abstand zwischen Vertrauenszeile und Kopfunterkante wuchs von
+   155,8 auf 186,7 px, der Block ist damit rechnerisch nach oben gerutscht.
+
+   Die 32 px gehen deshalb genau dorthin zurueck, wo sie herkommen — vor
+   die Wortmarke. Gemessen bei 1440 x 900:
+
+       Luft ueber der Marke        298,0  ->  330,0 px
+       Luft unter der Vertrauenszeile 186,7  ->  154,7 px
+
+   154,7 px sind wieder die 155,8 px von heute frueh: der Fuss des
+   Kopfbereichs steht also so, wie er den ganzen Tag stand, und bewegt hat
+   sich nur der Block darin — nach unten, so wie gewuenscht.
+   Vorher: padding-top: 298px (der Wert der Bauaufnahme bei 1920). */
 @media (min-width: 900px) {
-  .kar-kopf { padding-top: 298px; min-height: 1013.7px; }
+  .kar-kopf { padding-top: 330px; min-height: 1013.7px; }
 }
 
 /* --- Der Grund: Video, darunter das Standbild ------------------------------
@@ -3002,8 +3024,32 @@
      breite Fenster; auf dem Telefon traegt der Inhalt die Hoehe selbst,
      quer (844 x 390) zwang sie den Kopf auf 921 px = 2,4 Bildschirme.
      Jetzt: Kopfleiste (--header-h, 72 px) plus 16 px, unten 44 px. */
+  /* AUS DEN 16 PX WERDEN 48 — KUNDENWUNSCH 04.09.2026, woertlich: „… und
+     setze alles weiter, von dem Estera-Logo beginnend, weiter nach unten,
+     weil dann ein bisschen Platz frei wird."
+
+     AUF DEM TELEFON WAR ES AM DRINGENDSTEN. Die 16 px waren der einzige
+     sichtbare Abstand zwischen der Wortmarke in der Kopfleiste und der
+     grossen Wortmarke im Kopfbereich — zweimal „ESTERA" fast auf Tuchfuehlung.
+     Gemessen bei 390 x 800:
+
+         sichtbare Luft ueber der Marke (unter der Kopfleiste)  16  ->  48 px
+         Luft unter der Vertrauenszeile                         44  ->  44 px
+         Hoehe des Kopfbereichs                              723,1 -> 755,1 px
+
+     48 gegen 44 px: der Block steht damit fast genau mittig zwischen
+     Kopfleiste und Naht, mit dem Tick mehr oben, den ein Textblock braucht,
+     um nicht abgesackt zu wirken.
+
+     DER KOPF BLEIBT UNTER EINEM BILDSCHIRM. 755,1 von 800 px sind 0,94
+     Bildschirme; vor der Kuerzung waren es 862,6 px und damit 1,08. Die
+     32 px sind also aus dem Ueberschuss bezahlt, den die Kuerzung von
+     sieben auf drei Zeilen gebracht hat (139,5 px), nicht aus dem Bildschirm.
+     Es ist DERSELBE WERT wie auf breiten Fenstern (dort 298 -> 330 px);
+     eine zweite Zahl fuer denselben Kundenwunsch waere nur Ballast.
+     Vorher: padding-top: calc(var(--header-h) + 16px). */
   .kar-kopf {
-    padding-top: calc(var(--header-h) + 16px);
+    padding-top: calc(var(--header-h) + 48px);
     padding-bottom: 44px;
     min-height: 0;
   }
@@ -3012,9 +3058,15 @@
      einem 34-px-Schriftzug. */
   .kar-kopf__marke { height: auto; padding-top: 0; }
   .kar-kopf__sterne { margin-top: 16px; }
-  /* Unterzeile: 21,42 px ergaben bei 390 px SIEBEN Zeilen (225 px). In
-     18 px sind es fuenf, und 18 px liegt ueber der Fliesstextgrenze von
-     16 px. Weiss 82 % auf dem Schleier bleibt dieselbe Farbe. */
+  /* Unterzeile: 21,42 px ergaben bei 390 px mit dem alten, langen Text
+     SIEBEN Zeilen (225 px). In 18 px waren es fuenf, und 18 px liegt ueber
+     der Fliesstextgrenze von 16 px. Weiss 82 % auf dem Schleier bleibt
+     dieselbe Farbe.
+     NACHTRAG 04.09.2026: Diese Regel war eine Zeit lang wirkungslos — die
+     inzwischen entfallene Regel .kar-kopf .kar-unterzeile--zweisatz stand
+     weiter hinten in der Datei, wog gleich schwer und hat die 18 px mit
+     21 px ueberschrieben. Mit dem gekuerzten Text und ohne jene Regel sind
+     es hier GEMESSEN drei Zeilen (Fuellung 94 / 99 / 50 %). */
   .kar-kopf .kar-angebot__unterzeile {
     margin-top: 16px;
     font-size: 18px;
@@ -3446,33 +3498,34 @@
 }
 
 /* ===========================================================================
-   DIE UNTERZEILE IM KOPFBEREICH: EIN SATZ JE ZEILE — 04.09.2026
+   HIER STAND BIS ZUM 04.09.2026 „DIE UNTERZEILE IM KOPFBEREICH: EIN SATZ
+   JE ZEILE" — ZWEI REGELN, BEIDE ERSATZLOS ENTFALLEN:
 
-   Kundenwunsch: der erste Satz komplett in die erste Zeile, der zweite
-   komplett in die zweite. Warum es vorher um sieben Pixel scheiterte und
-   warum der Umbruch als <br> im Markup steht, ist dort erklaert.
+       .kar-kopf .kar-unterzeile--zweisatz { font-size: 21px; }
+       @media (max-width: 1099px) { .kar-nur-breit { display: none; } }
 
-   SIEBEN PIXEL, UND ZWAR AN DER SCHRIFT ABGETRAGEN, NICHT AN DER SPALTE.
-   Der erste Weg war, die Spalte von 1088 auf 1140 px zu weiten. Das ging
-   nicht auf: die Spalte ist `min(100%, --kar-spalte)`, und die 100 %
-   beziehen sich auf .kar-mitte, das selbst bei 1088 px gedeckelt ist — der
-   groessere Wert lief ins Leere, GEMESSEN blieben es 1088 px. Die Zeile
-   haette die Spalte also verlassen muessen, um zu passen.
+   Sie waren am Vormittag desselben Tages entstanden, weil die alte, lange
+   Unterzeile bei 21,42 px um sieben Pixel breiter war als die Spalte
+   (1095 gegen 1088 px) und deshalb „mit." allein in die zweite Zeile
+   rutschte. Die 21 px trugen genau diese sieben Pixel ab; das <br>
+   .kar-nur-breit erzwang den Umbruch nach „mit." und verschwand unter
+   1100 px wieder.
 
-   Stattdessen faellt die Unterzeile im Kopfbereich von 21,42 auf 21 px.
-   Das sind zwei Prozent und am Satzbild nicht zu sehen; die erste Zeile
-   misst damit 1073 statt 1095 px und hat 15 px Luft in der Spalte. Sie
-   bleibt damit im Raster der Seite, und die Ueberschrift darueber behaelt
-   ihren Vorsprung in der Groesse. 21 px liegen weit ueber der
-   Fliesstextgrenze von 16 px aus dem Optimierungsbriefing.
+   BEIDE GRUENDE SIND MIT DER KUERZUNG WEG (Kundenwunsch 04.09.2026:
+   „Kuerze die Subline auf der Hero-Section bei Karriere. Es sind aktuell
+   7 Zeilen. Kuerze es bitte auf 3 Zeilen, nur das Wichtigste"). Der neue,
+   kuerzere Text steht bei 1440 px in EINER Zeile — es gibt keine zweite
+   mehr, in die etwas rutschen koennte, und nichts mehr umzubrechen.
 
-   .kar-nur-breit IST EIN <br>, DAS VERSCHWINDEN KANN. Unter 1100 px passt
-   die erste Zeile nicht mehr in eine Zeile; ein erzwungener Umbruch wuerde
-   dort nur eine kurze Restzeile abschneiden. Die Grenze liegt bei 1100 px,
-   weil die Spalte dort auf die Fensterbreite faellt und die Rechnung oben
-   nicht mehr traegt.
+   DIE 21-PX-REGEL WAR AUSSERDEM SCHAEDLICH. Sie stand am Ende der Datei
+   und damit HINTER der Telefonregel in @media (max-width: 899px):
+
+       .kar-kopf .kar-angebot__unterzeile { font-size: 18px; ... }
+
+   Beide Selektoren wiegen gleich schwer (zwei Klassen). Die spaetere
+   gewann und hat die 18 px auf dem Telefon ueberschrieben — GEMESSEN
+   standen bei 390 px 21 px statt der gebauten 18 px, und das war neben
+   der Textlaenge der zweite Grund fuer die sieben Zeilen, ueber die sich
+   der Kunde beschwert hat. Mit dem Wegfall greift die Telefonregel wieder
+   wie vorgesehen: 18 px unter 900 px, 21,42 px darueber.
    =========================================================================== */
-.kar-kopf .kar-unterzeile--zweisatz { font-size: 21px; }
-@media (max-width: 1099px) {
-  .kar-nur-breit { display: none; }
-}

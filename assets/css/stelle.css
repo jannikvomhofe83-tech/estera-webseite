@@ -1179,10 +1179,40 @@
 
 .stl-stufe__wort { min-width: 0; }
 
+/* HALBFETT STATT MAGER — KUNDENWUNSCH 04.09.2026, woertlich:
+   „Bei ‚Onboarding mit System‘ / ‚Wir überlassen deine Entwicklung nicht dem
+    Zufall‘: Die einzelnen Punkte, also ‚Orientierung‘, ‚Produkt- und
+    Prozesswissen‘, ‚Gesprächssystem‘ und so weiter, musst du dick machen.
+    Die Begriffe sind einfach nur dick, damit sie sich hervorheben, und dann
+    folgt der Text, der sie erklaert."
+
+   AM MARKUP WAR NICHTS ZU TRENNEN. Schlagwort und Erklaerung stehen auf
+   beiden Stellenseiten schon in getrennten Elementen — <h3
+   class="stl-stufe__titel"> und <p class="stl-stufe__text"> — und nicht in
+   einem gemeinsamen Textknoten. Es kam also weder ein <b> noch ein <span>
+   noch eine neue Klasse dazu; geaendert hat sich genau ein Wert.
+
+   500 UND NICHT MEHR. Das ist das Gewicht, das dieses Projekt fuer
+   Hervorhebungen in der Antiqua schon fuehrt: in warum.css steht
+   `.wi__band-text b { font-weight: 500 }`, in base.css tragen die
+   Ueberschriften dieselbe 500, und auch in dieser Datei ist 500 der
+   schwerste vorkommende Wert. 600 oder 700 waeren ein neues Gewicht.
+   Cormorant Garamond 500 liegt als eigene Schriftdatei bei
+   (assets/fonts/CormorantGaramond-500-latin.woff2, in fonts.css
+   angemeldet) — der Browser rechnet also nichts kuenstlich fett, sondern
+   nimmt den echten Schnitt.
+
+   Der erklaerende Satz darunter bleibt unangetastet auf 400 in der
+   Grotesk; der Abstand von zwei Gewichtsstufen ist der Kontrast, den der
+   Kunde meint. Betroffen sind beide Stellenseiten (fuenf Stufen auf
+   karriere-immobilienberater.html, vier auf karriere-backoffice.html) und
+   ausschliesslich der Onboarding-Abschnitt — .stl-stufe kommt auf keiner
+   der beiden Seiten ein zweites Mal vor (nachgezaehlt).
+   Vorher: font-weight: 300. */
 .stl-stufe__titel {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: var(--stl-erw-titel);
   line-height: 1.14;
   letter-spacing: -0.004em;

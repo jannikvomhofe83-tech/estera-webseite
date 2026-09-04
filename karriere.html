@@ -280,30 +280,57 @@
            gekennzeichnet; der Kunde hat ihn danach geaendert.
            „persönlich" faellt damit weg — es bleiben fachlich und
            unternehmerisch. Die Beschreibung im Seitenkopf ist mitgezogen. -->
-      <!-- UMBRUCH 04.09.2026 — Kundenwunsch woertlich: „Bei der Subline
-           musst du schauen: Es gibt zwei Sätze. […] der erste Satz soll
-           komplett in der ersten Zeile stehen. Das ‚mit.‘ steht aktuell noch
-           in der zweiten Zeile. Das ‚mit‘ soll aber hoch in die erste Zeile.
-           Dann steht der komplette Satz in der ersten Zeile und der zweite
-           Satz steht komplett in der zweiten Zeile."
+      <!-- GEKUERZT 04.09.2026 — Kundenwunsch woertlich: „Bei Karriere ist
+           wichtig: Du musst jetzt hier den Zeilenumbruch richtig machen.
+           Erstens muss es ein bisschen weniger Text werden. Kuerze die
+           Subline auf der Hero-Section bei Karriere. Es sind aktuell
+           7 Zeilen. Kuerze es bitte auf 3 Zeilen, nur das Wichtigste, und
+           setze alles weiter, von dem Estera-Logo beginnend, weiter nach
+           unten, weil dann ein bisschen Platz frei wird."
 
-           GEMESSEN, WARUM ES VORHER NICHT PASSTE: die erste Zeile misst bei
-           21,42 px Schriftgroesse 1095 px, die Spalte war 1088 px breit —
-           es fehlten SIEBEN Pixel, und deshalb rutschte „mit." allein in
-           die zweite Zeile. Statt die Schrift zu verkleinern (21,28 px
-           haetten gereicht, aber die Rechnung stuende dann auf sieben Pixel
-           Kante und kippte beim naechsten Schriftwechsel) bekommt die
-           Unterzeile 1140 px Spaltenbreite. Sie steht mittig, der
-           Unterschied ist am Satzbild nicht zu sehen.
+           DER ALTE WORTLAUT, VOLLSTAENDIG UND WOERTLICH:
+             „Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du
+              baust an einem neuen Standard für Kapitalanlageimmobilien mit.
+              Du entwickelst dich zu einem Berater, der fachlich wie
+              unternehmerisch Maßstäbe setzt."
+           VON ESTERA BESTAETIGEN LASSEN. Der Satz stammt aus
+           Estera_Karriere_Wording.pdf (K01) und ist heute schon einmal vom
+           Kunden geaendert worden; die Kuerzung ist die zweite Aenderung am
+           selben Tag und braucht eine Freigabe des Wortlauts.
 
-           Der Umbruch selbst steht als <br> hier und nicht als erzwungene
-           Breite: er soll GENAU nach „mit." liegen. Mit 1140 px Spalte
-           passte sonst auch noch das „Du" des naechsten Satzes hinter
-           „mit." (1131 px) — dann waere der Umbruch wieder an der falschen
-           Stelle. Unter 1100 px Fensterbreite wird das <br> ausgeblendet
-           (siehe .kar-nur-breit in karriere.css); dort ist fuer die erste
-           Zeile ohnehin kein Platz und der Text laeuft frei um. -->
-      <p class="kar-angebot__unterzeile kar-unterzeile--zweisatz" data-auf>Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du baust an einem neuen Standard für Kapitalanlageimmobilien mit.<br class="kar-nur-breit"> Du entwickelst dich zu einem Berater, der fachlich wie unternehmerisch Maßstäbe setzt.</p>
+           GEBLIEBEN IST DER KERN: Estera ist kein gewoehnlicher
+           Arbeitsplatz (Satz 1, woertlich wie vorher), und du entwickelst
+           dich fachlich und unternehmerisch weiter (Satz 2, verdichtet).
+           WEGGEFALLEN ist der Mittelsatz „Du baust an einem neuen Standard
+           für Kapitalanlageimmobilien mit." — er ist der laengste der drei
+           und wiederholt, was die Ueberschrift darueber schon sagt („Baue
+           mit uns die Immobilienberatung, an der sich die Branche misst.").
+
+           GEMESSEN, NICHT GESCHAETZT (Range.getClientRects, 04.09.2026):
+             390 px Fenster, Spalte 342 px: vorher 7 Zeilen, jetzt 3.
+                     Fuellung der drei Zeilen 94 % / 99 % / 50 % — die
+                     halbe letzte Zeile ist die Reserve gegen einen
+                     spaeteren Schriftwechsel.
+            1440 px Fenster, Spalte 1088 px: vorher 2 Zeilen, jetzt 1
+                     (1001 von 1088 px, 92 %).
+
+           DAS <br class="kar-nur-breit"> IST ENTFALLEN, UND ZWAR MIT GRUND.
+           Es stand hier seit heute frueh, damit auf breiten Fenstern je ein
+           Satz je Zeile steht. Der gekuerzte Text passt bei 1440 px
+           vollstaendig in EINE Zeile; ein erzwungener Umbruch wuerde daraus
+           wieder zwei machen und damit genau den Platz zurueckholen, den
+           der Kunde freihaben will.
+
+           AUCH .kar-unterzeile--zweisatz IST ENTFALLEN. Die Klasse setzte
+           die Schrift auf 21 px, weil die alte erste Zeile bei 21,42 px um
+           sieben Pixel zu breit war. Diese Rechnung gibt es nicht mehr.
+           Schlimmer: die Regel stand in karriere.css HINTER der
+           Telefonregel `.kar-kopf .kar-angebot__unterzeile { font-size:
+           18px }` und hatte dieselbe Spezifitaet — sie hat die 18 px auf
+           dem Telefon ueberschrieben und dort 21 px erzwungen. Das war der
+           zweite Grund fuer die sieben Zeilen. Ohne die Klasse gilt wieder
+           21,42 px auf breiten Fenstern und 18 px unter 900 px. -->
+      <p class="kar-angebot__unterzeile" data-auf>Bei Estera arbeitest du nicht einfach in einem Unternehmen. Du entwickelst dich fachlich und unternehmerisch weiter.</p>
 
       <!-- WORDING NEU 31.08.2026 — K01 CTAs.
            HIERMIT FAELLT EINE FRUEHERE ENTSCHEIDUNG: der Kommentar oben am

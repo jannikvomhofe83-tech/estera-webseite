@@ -356,8 +356,18 @@
            verschwindet. Der Ton ist --gold-text (#86693A, 5,13:1 auf dem
            weissen Kasten); der Sand des Knopfes traegt als Schrift nicht.
            Vorher: "Kapitalanlageimmobilien, die zu deiner Situation passen. Nicht umgekehrt." -->
+      <!-- UMBRUCH UND MITTE — 04.09.2026, Kundenwunsch woertlich: „Du musst
+           auf der Hero-Section die Headline mittig machen. Das ist ganz
+           wichtig. ‚Kapitalanlageimmobilien‘ steht mittig in dem Kasten.
+           Darunter steht ‚die zu dir passen‘ mittig, mit einem ganz kleinen
+           Abstand."
+           Die Zeile stand bis heute in EINER Zeile und linksbuendig; der
+           Umbruch fiel dorthin, wo die Spalte endete. Er steht jetzt als
+           <br> fest hinter dem Komma — dort, wo auch der Sinn bricht. Der
+           dritte Teil („Nicht umgekehrt.") ist unveraendert ein eigener
+           Block in Gold. -->
       <h1 class="display heroA__h1">
-        Kapitalanlageimmobilien, die zu dir passen.
+        Kapitalanlageimmobilien,<br>die zu dir passen.
         <span class="heroA__h1-schluss">Nicht umgekehrt.</span>
         <!-- Die wechselnde Nutzenzeile („Vermögen aufbauen." / „Steuerpotenziale
              nutzen." / „Zusätzliches Einkommen schaffen.") stand hier bis zum
@@ -448,10 +458,20 @@
       <!-- WORDING GEAENDERT 01.09.2026 — Optimierungsbriefing, Abschnitt 03,
            „Mechanismen". Das nachgestellte „mit" faellt.
            Vorher: "Der Mieter zahlt mit" -->
+      <!-- ZWEI ZEILEN STATT EINER — 04.09.2026, Kundenwunsch woertlich:
+           „Bei ‚Die Bank finanziert‘ kommt ein Punkt dazwischen, und dann
+           kommt ‚Der Mieter zahlt‘. Darunter kommt ‚Du senkst deine
+           Steuerlast‘ mittig unter ‚Die Bank finanziert‘, und ‚Der Mieter
+           zahlt‘ steht auch mittig im Kasten."
+           Die drei Marken standen nebeneinander in einer Zeile. Jetzt
+           stehen zwei oben mit dem Mittelpunkt dazwischen und die dritte
+           mittig darunter. Der Umbruch steht nicht im Markup, sondern in
+           hero-a.css als `flex-basis: 100%` an der dritten Marke — so
+           bleibt die Reihenfolge im Vorlesegeraet dieselbe. -->
       <p class="heroA__marken">
         <span>Die Bank finanziert</span>
         <span>Der Mieter zahlt</span>
-        <span>Du senkst deine Steuerlast</span>
+        <span class="heroA__marken-um">Du senkst deine Steuerlast</span>
       </p>
 
       <div class="heroA__actions">
@@ -468,7 +488,10 @@
         <a class="btn btn--weiss" href="#ablauf">So arbeiten wir</a>
       </div>
 
-      <p class="heroA__guete">Diskret ausgewählt. Strukturiert geprüft. Langfristig begleitet.</p>
+      <!-- UMBRUCH — 04.09.2026, Kundenwunsch: „Genau das Gleiche bei
+           ‚Diskret ausgewählt, strukturiert geprüft, langfristig begleitet‘.
+           ‚Langfristig begleitet‘ muss auch mittig stehen." -->
+      <p class="heroA__guete">Diskret ausgewählt. Strukturiert geprüft.<br>Langfristig begleitet.</p>
     </div>
 
     <figure class="heroA__figure">
@@ -494,6 +517,27 @@
              Versalienzeile auf einem dunklen Verlauf im unteren Bilddrittel;
              die Regeln dafuer schlafen in hero-a.css. -->
       </div>
+
+      <!-- DIE GUETEZEILE EIN ZWEITES MAL, NUR FUER SCHMALE FENSTER —
+           04.09.2026, Kundenwunsch woertlich: „Bei der mobilen Ansicht […]
+           das ausgewählte ‚Kapitalanlageimmobilien‘ streichst du, und das
+           Bild der Immobilie kommt direkt unter die zwei CTA-Buttons.
+           ‚Diskret ausgewählt, strukturiert geprüft, langfristig begleitet‘
+           steht unter dem Bild."
+
+           WARUM ZWEIMAL UND NICHT UMSORTIERT. Die Guetezeile steht im
+           Textblock, das Bild in einem Nachbarblock — zwei verschiedene
+           Eltern. `order` sortiert nur Geschwister; um sie gegeneinander zu
+           verschieben, haette der Textblock auf `display: contents` gesetzt
+           werden muessen, und damit waeren sein Innenabstand und seine
+           Mitte weg. Ein zweites Vorkommen, das per CSS gegen das erste
+           getauscht wird, ist der kleinere Eingriff. Es traegt aria-hidden
+           und ist im Vorlesegeraet damit nicht doppelt vorhanden.
+
+           NUR MOBIL: Auf dem Desktop bleibt alles, wie es ist — der Kunde
+           hat das ausdruecklich gesagt („Die Desktop-Version lässt du
+           unangetastet"). -->
+      <p class="heroA__guete heroA__guete--mobil" aria-hidden="true">Diskret ausgewählt. Strukturiert geprüft.<br>Langfristig begleitet.</p>
     </figure>
   </div>
 
