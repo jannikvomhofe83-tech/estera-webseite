@@ -3285,3 +3285,49 @@
   .nur-breit  { display: none; }
   .nur-schmal { display: inline; }
 }
+
+/* ===========================================================================
+   DER KOPFBEREICH AUF DEM TELEFON — 04.09.2026
+
+   Kundenwunsch woertlich: „Bei der Hero-Section bei Immobilienberater und
+   Backoffice-Manager kannst du die Sublines entfernen, und die CTA-Buttons
+   sollen kleiner gemacht werden. Nur auf der mobilen Version. Die
+   Desktop-Version bleibt unangetastet."
+
+   DIE UNTERZEILE IST NICHT GEKUERZT, SONDERN AUSGEBLENDET. Heute Vormittag
+   hatte ich sie im Markup gekuerzt — damit stand sie auch auf dem Desktop
+   kuerzer, und genau das hat der Kunde zweimal beanstandet. Sie steht jetzt
+   wieder im urspruenglichen Wortlaut da und faellt unter 768 px per
+   `display: none` weg. Was auf display:none steht, faellt auch aus dem
+   Vorlesebaum — auf dem Telefon liest sie also niemand vor, und das ist
+   gewollt: der Kunde will dort weniger Text, nicht versteckten Text.
+
+   DER KNOPF wird kleiner, nicht kleiner als erlaubt: 44 px Mindesthoehe
+   sind die Trefferflaeche aus Abschnitt 19 des Optimierungsbriefings, und
+   16 px ist die Untergrenze fuer Bedienschrift. Vorher: 48 px hoch,
+   1,19rem Schrift, 0 20px Innenabstand.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .stl-hero__unter { display: none; }
+  .stl-hero__btn {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 1rem;
+    /* Die Unterzeile trug bisher den Abstand zum Knopf mit; ohne sie sitzt
+       er sonst an der Ueberschrift. */
+    margin-top: 1.4rem;
+  }
+}
+
+/* Die Ueberschrift des Schlussabschnitts einen Grad kleiner — Kundenwunsch:
+   „die Headline kannst du einen Ticken kleiner machen." Sie steht seit dem
+   Wegfall ihrer Unterzeile allein ueber dem Knopf und wirkte dadurch
+   groesser als vorher, obwohl sich an ihr nichts geaendert hatte. 0,92 ist
+   ein Achtel weniger und laesst den Satz weiterhin die groesste Zeile des
+   Abschnitts sein. */
+/* NICHT `0.92em` — der erste Versuch stand so da und war falsch: `em`
+   rechnet gegen die Schriftgroesse des ELTERNELEMENTS, nicht gegen die
+   eigene. Die Ueberschrift fiel damit GEMESSEN von 36 auf 14,72 px, weil
+   der Elter die 16 px des Fliesstextes fuehrt. Gerechnet wird gegen
+   denselben Token, den .stl-h2 selbst benutzt. */
+.stl-h2--schluss { font-size: calc(var(--stl-t-h2) * 0.92); }

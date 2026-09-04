@@ -3557,3 +3557,29 @@
   .nur-breit  { display: none; }
   .nur-schmal { display: inline; }
 }
+
+/* ===========================================================================
+   DER KOPFBEREICH DER KARRIERESEITE AUF DEM TELEFON — 04.09.2026
+
+   Kundenwunsch woertlich: „Bei der Karriere-Hero-Section will ich, dass du
+   die komplette Subline entfernst, aber nur auf der mobilen Version. Die
+   Desktop-Version soll wieder unangetastet bleiben. Die CTA-Buttons sollen
+   ein bisschen kleiner gemacht werden."
+
+   Wie auf den beiden Stellenseiten: die Unterzeile steht im
+   urspruenglichen Wortlaut im Markup und faellt hier per `display: none`
+   weg — nicht gekuerzt, damit der Desktop unberuehrt bleibt. Die zwei
+   Knoepfe werden kleiner, aber nicht kleiner als die 44 px Trefferflaeche
+   und 16 px Schrift, die das Optimierungsbriefing setzt.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .kar-kopf .kar-angebot__unterzeile { display: none; }
+  .kar-kopf__knoepfe .kar-knopf,
+  .kar-kopf__knoepfe .btn {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 1rem;
+  }
+  /* Die Unterzeile trug den Abstand zur Knopfreihe. */
+  .kar-kopf__knoepfe { margin-top: 20px; }
+}

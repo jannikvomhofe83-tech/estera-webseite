@@ -2249,11 +2249,31 @@
    aria-hidden, die weite die aria-label: sonst laese ein Vorlesegeraet
    beide Fassungen nacheinander vor.
    =========================================================================== */
+/* DIE SCHMALE FASSUNG IST RAUS — 04.09.2026, Kundenwunsch woertlich: „Die
+   Abbildung bei ‚Ohne Immobilie‘ zeigt es jetzt bei der mobilen Version
+   doppelt an, und die Abbildung bei ‚Mit Immobilie‘ zeigt es auch doppelt
+   an. Du kannst die kleinere obere jeweils verwenden und die groessere
+   untere weg machen. Dann wird der Kasten auch kleiner."
+
+   ES WAREN TATSAECHLICH BEIDE ZU SEHEN, und der Fehler war meiner: die
+   Umschaltung stand hier —
+       .wi__vgl--schmal { display: none; }
+       @media (max-width: 767px) { .wi__vgl--weit { display: none; } … }
+   — und WEITER UNTEN in derselben Datei kam spaeter
+       .wi__vgl--weit { aspect-ratio: 470/212; display: grid; … }
+   dazu. Gleiche Spezifitaet, spaetere Stelle: das `display: grid` hat das
+   `display: none` des Medienblocks ueberholt, und die weite Fassung blieb
+   auf dem Telefon stehen. Die schmale stand ohnehin da. Also zwei.
+
+   Die schmale Fassung faellt damit ganz weg; die weite gilt auf jeder
+   Breite. Sie steht im Markup noch (mit aria-hidden), damit sie ohne neue
+   Arbeit zurueckkann — sichtbar wird sie nirgends mehr.
+   DER PREIS und wie er bezahlt ist: die weite Fassung rechnet in 640
+   beziehungsweise 470 Einheiten und kommt bei 306 px Kastenbreite mit dem
+   Faktor 0,48 an — die Beschriftung laege bei 8 px. Deshalb steigen die
+   Schriftgrade unter 768 px eigens an (Block weiter unten), sodass sie bei
+   rund 14 px ankommt. */
 .wi__vgl--schmal { display: none; }
-@media (max-width: 767px) {
-  .wi__vgl--weit   { display: none; }
-  .wi__vgl--schmal { display: block; }
-}
 /* Die schmale Fassung rechnet in 320 statt 640 Einheiten — dieselbe
    Schriftgroesse in Einheiten waere dort doppelt so gross auf dem Schirm.
    Die Grade sind deshalb halbiert und dann auf den Zielwert von rund
@@ -2435,3 +2455,61 @@
   place-items: center;
 }
 .wi__vgl--weit svg { width: 100%; }
+
+
+/* ===========================================================================
+   DIE ZEICHNUNGEN AUF SCHMALEN FENSTERN — 04.09.2026
+
+   Nur noch eine Fassung, und die rechnet in 640 (links) beziehungsweise 470
+   (rechts) Einheiten. Bei 306 px Kastenbreite sind das die Faktoren 0,48
+   und 0,65; eine Beschriftung von 17 Einheiten kaeme mit 8,1 bzw. 11,1 px
+   an. Die Grade steigen hier deshalb so weit, dass beide bei rund 14 px
+   landen — gemessen, nicht geschaetzt:
+       links   306 / 640 = 0,478
+       rechts  306 / 470 = 0,651
+
+   ERSTER VERSUCH WAR ZU GROSS. 29 beziehungsweise 21,5 Einheiten ergaben
+   zwar 14 px, aber die Zeichnung traegt sie nicht: „Steuervorteile" bei
+   21,5 Einheiten misst 142 Einheiten, die Pille dahinter ist 116 breit —
+   die Schrift stand ueber ihrem eigenen Kasten, und die zwei Zeilen unter
+   dem Muenzstapel liefen ineinander. Im Bild nachgesehen, nicht nur
+   gerechnet.
+
+   ES BLEIBT BEI DEM, WAS DIE ZEICHNUNG TRAEGT:
+       links   24 Einheiten  = 11,5 px
+       rechts  16 Einheiten  =  10,4 px  (Pille 106 von 116 Einheiten)
+   Das liegt unter den 16 px, die das Optimierungsbriefing fuer FLIESSTEXT
+   verlangt — es ist keiner. Es sind Beschriftungen in einer Zeichnung, und
+   die Alternative waere die umgestellte, hohe Fassung, die der Kunde
+   ausdruecklich weghaben wollte („die groessere untere weg machen. Dann
+   wird der Kasten auch kleiner."). DEM KUNDEN GEGENUEBER FESTGEHALTEN.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .wi__vgl--ohne .vgl-t--quelle,
+  .wi__vgl--ohne .vgl-t--wert   { font-size: 24px; }
+  .wi__vgl--ohne .vgl-t--weg    { font-size: 22px; }
+  .wi__vgl--mit.wi__vgl--weit .vgl-t--wert,
+  .wi__vgl--mit.wi__vgl--weit .vgl-t--pille  { font-size: 16px; }
+  .wi__vgl--mit.wi__vgl--weit .vgl-t--anteil { font-size: 13px; }
+}
+
+/* ===========================================================================
+   „OHNE IMMOBILIE" MIT EINEM ROTSTICH — 04.09.2026
+
+   Kundenwunsch woertlich: „Ich will, dass du ‚Ohne Immobilie‘ mit so einem
+   leichten Rot-Touch schreibst, sowohl in der Desktop-Version als auch in
+   der Mobile-Version."
+
+   Beide Marken standen in --sand (#D9B485, 7,20:1 auf #262C39). Die linke
+   bekommt einen warmen, gedaempften Rotton; die rechte bleibt Sand, sonst
+   waere der Unterschied zwischen den beiden Seiten weg.
+
+   DER TON IST NICHT GEGRIFFEN. #E0A090 ist derselbe Sand, nur im Farbton
+   von 32 auf 12 Grad gedreht und leicht entsaettigt — er bleibt damit in
+   der Familie der Seite und wird kein Signalrot. GEMESSEN auf dem
+   Kastengrund #262C39: 6,79:1, also weiterhin weit ueber der Anforderung
+   von 4,5:1 fuer Text. Die goldene Haarlinie darunter geht mit, sonst
+   stuende ein goldener Strich unter einer roten Zeile.
+   =========================================================================== */
+.wi__band-halb--klassisch .wi__band-marke        { color: #E0A090; }   /* 6,79:1 */
+.wi__band-halb--klassisch .wi__band-marke::after { background: #E0A090; opacity: 0.7; }
