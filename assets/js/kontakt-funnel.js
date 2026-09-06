@@ -863,7 +863,71 @@
         else fehlerWeg(ev.target);
       }
       navSetzen();
+      selbstWeiter(ev.target);
     });
+
+    /* ------------------------------------------------------------------------
+       EINE ANTWORT, EIN SCHRITT — 06.09.2026
+
+       Kundenwunsch woertlich: „Wenn man sich bei Kontakt bewirbt und einen der
+       drei auswaehlt, muss man immer auf ‚Weiter‘ druecken. […] Dieses
+       ‚Weiter‘ soll wegfallen. Sobald man darauf drueckt, kommt man sofort
+       weiter."
+
+       ES GILT NUR FUER REINE WAHLSCHRITTE, und die Bedingungen dafuer sind
+       eng gesetzt:
+         1  Das Ereignis kommt von einem Radioknopf.
+         2  ALLE Pflichtangaben des Schritts sind Radios — auf einem Schritt
+            mit einem Textfeld daneben duerfte nichts von selbst
+            weiterlaufen, sonst springt er dem Besucher unter den Fingern
+            weg, bevor er getippt hat.
+         3  Sie gehoeren zu EINER Gruppe. Zwei Fragen auf einem Schritt
+            waeren nach der ersten Antwort noch nicht beantwortet.
+         4  Der Schritt ist erfuellt und ist nicht der letzte — abgesendet
+            wird nie von allein.
+
+       DIE VERZOEGERUNG VON 260 ms IST ABSICHT. Ohne sie verschwindet die
+       Kachel, bevor man sie ausgewaehlt gesehen hat; die Bestaetigung „ich
+       habe das getroffen, was ich wollte" faellt dann weg. 260 ms ist die
+       Dauer, die das Aufleuchten der Kachel in kontakt.css braucht.
+       Bei prefers-reduced-motion geht es ohne Warten weiter — dort leuchtet
+       nichts auf, worauf man warten muesste.
+
+       DER WEITERKNOPF BLEIBT STEHEN. Er ist der Weg fuer alle, die mit der
+       Tastatur mit den Pfeiltasten durch die Kacheln gehen: dort loest jede
+       Bewegung ein `change` aus, und ein Schritt, der beim Durchblaettern
+       davonspringt, waere unbedienbar. Deshalb springt nur weiter, wer mit
+       Zeiger oder Fingerkuppe getippt hat — `ev.detail` und die Bauart des
+       Ereignisses geben das nicht her, also merkt sich der Zeigerhorcher
+       darunter, ob die Auswahl aus einem echten Tippen kam.
+    ------------------------------------------------------------------------ */
+    var ausTippen = false;
+    form.addEventListener('pointerdown', function (ev) {
+      ausTippen = !!(ev.target && ev.target.closest && ev.target.closest('label, .kf__kachel'));
+    });
+    form.addEventListener('keydown', function () { ausTippen = false; });
+
+    function selbstWeiter(ziel) {
+      if (!ausTippen) return;
+      if (!ziel || ziel.type !== 'radio') return;
+      var stufe = stufen[pos];
+      if (pos === stufen.length - 1) return;
+      var p = pflichtfelder(stufe);
+      if (!p.length) return;
+      var eineGruppe = p.every(function (f) {
+        return f.type === 'radio' && f.name === ziel.name;
+      });
+      if (!eineGruppe) return;
+      if (!erfuellt(stufe)) return;
+      ausTippen = false;
+      if (reduziert()) { vor(); return; }
+      window.setTimeout(function () {
+        /* Zwischenzeitlich koennte jemand zurueckgegangen sein oder das
+           Vollbild geschlossen haben — dann ist der Schritt nicht mehr der,
+           auf den sich der Klick bezog. */
+        if (stufen[pos] === stufe && erfuellt(stufe)) vor();
+      }, 260);
+    }
     form.addEventListener('input', function (ev) {
       /* Eine Meldung, die stehen bleibt, obwohl der Fehler behoben ist,
          liest sich wie ein Vorwurf. */
