@@ -533,9 +533,6 @@
    bestellt hatte — deshalb ist der Umschaltpunkt 767 und nicht hoeher.
    Das Markup der neuen Zeichnung steht in variante-a.html, dort auch das
    Raster und die Herleitung jeder Koordinate. */
-.wnetz__bild--kompakt {
-  display: none;
-}
 
 
 /* --- Die Kaesten ----------------------------------------------------------
@@ -642,9 +639,6 @@
    um 20 Prozent zu duennen Kontur da. Die queren Kaesten (Off-Market und
    Ziel) sind von der Regel darueber ohnehin ausgenommen und stehen damit
    richtig auf --wn-strich. */
-.wnetz__bild--kompakt .wnetz__kasten:not(.wnetz__kasten--quer) {
-  stroke-width: var(--wn-strich);
-}
 /* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
    weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
    Vorlage, der auf Weiss nicht zu sehen waere.
@@ -660,7 +654,6 @@
    .wnetz__kasten--zielschatten. */
 .wnetz__bild--breit   .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-b); }
 .wnetz__bild--schmal  .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-s); }
-.wnetz__bild--kompakt .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-k); }
 
 /* DER EINE QUERE KASTEN — der Zielkasten ganz unten.
    Kundenwunsch vom 21.08.: „Er soll nicht zu lang rechteckig werden." Also
@@ -826,7 +819,14 @@
 }
 .wnetz__punkt {
   font-family: var(--font-ui);
-  font-size: 17px;
+  /* 17,4 STATT 17 EINHEITEN — 06.09.2026. Die Kette rechnet in 380
+     Einheiten und steht bei 390 px Fensterbreite auf 350 px, also mit dem
+     Faktor 0,921. 17 Einheiten kamen damit GEMESSEN mit 15,66 px an und
+     lagen unter den 16 px, die das Optimierungsbriefing fuer Fliesstext
+     setzt. 17,4 ergeben 16,03 px. Der laengste Stichpunkt („Organisation
+     der Immobilienverwaltung") waechst dadurch um 2,4 Prozent und bleibt
+     mit Abstand im Kasten — nachgemessen. */
+  font-size: 17.4px;
   fill: var(--wn-punkt);
 }
 
@@ -861,36 +861,8 @@
 .wnetz__haken { color: var(--wn-akzent); }
 
 
-/* --- Die Schriftgrade der kompakten Anordnung -----------------------------
-   03.09.2026. Sie haengen NICHT an einer Medienabfrage, sondern an der
-   Zeichnung selbst: die kompakte Zeichnung ist nur unter 768 px eingeblendet,
-   also gelten ihre Grade genau dort und nirgends sonst. Damit kann keine
-   Umstellung der Umschaltpunkte sie versehentlich auf den Schreibtisch
-   tragen.
-
-   ES SIND KEINE NEUEN GRADE, SONDERN KLEINERE: die Zeichnung ist 370 statt
-   1304 Einheiten breit, ihre Einheiten sind also grob dreieinhalbmal so
-   gross. Umgerechnet auf 350 Bildpunkte Darstellung (390 px Fenster minus
-   zweimal 20 px Seitenabstand):
-     Stichpunkte     17 Einh.  ->  16.08 px   (Kette: 15.66 px)
-     Titel           19 Einh.  ->  17.97 px
-     Zielueberschr.  19 Einh.  ->  17.97 px
-     Unterzeile      17 Einh.  ->  16.08 px
-     Wortmarke       26 Einh.  ->  24.59 px
-   Die Projektgrenze fuer Fliesstext ist 16 px; der kleinste Grad liegt mit
-   16.08 px darueber, die Kette lag mit 15.66 px knapp darunter. Wer die
-   viewBox verbreitert, faellt zurueck.
-
-   DIE WORTMARKE STEHT AUF 26 STATT 41 EINHEITEN. Das ist nicht willkuerlich:
-   24.59 px auf dem Telefon sind genau die 24 px, die .wordmark__name im
-   Seitenkopf traegt. Die Mitte der Zeichnung spricht damit auf dem Telefon
-   in derselben Groesse wie das Logo darueber. Bei 41 Einheiten waeren es
-   38.8 px gewesen, und die Wortmarke waere breiter als ein Paarkasten. */
-.wnetz__bild--kompakt .wnetz__wort         { font-size: 19px; }
-.wnetz__bild--kompakt .wnetz__wort--ziel   { font-size: 19px; }
-.wnetz__bild--kompakt .wnetz__wort--marke  { font-size: 26px; }
-
-
+/* Der Kommentarblock zu den Schriftgraden der gefalteten Anordnung stand
+   hier und ist am 06.09.2026 mit ihr entfallen. */
 /* ===========================================================================
    SCHMALE FENSTER
    Bis 1259 px gilt die Anordnung der Vorlage, darunter die senkrechte Kette:
@@ -967,9 +939,12 @@
      anders. Siehe die Herleitung bei .wnetz__marke. */
   /* ZURUECK AUF DIE KETTE 380 x 2578 — Rueckbau 01.09.2026: Off-Market-Mitte
      188, Wortmarke 509, Zielkasten-Mitte 2465 — jeweils durch 2578. */
-  .wnetz__marke--1 { top: 7.3%; }
-  .wnetz__marke--2 { top: 19.7%; }
-  .wnetz__marke--3 { top: 95.6%; }
+  /* NACHGERECHNET 06.09.2026, weil die Kette von 2578 auf 2170 Einheiten
+     geschrumpft ist: Off-Market-Mitte 188, Wortmarke 479, Ziel-Mitte 2057 —
+     jeweils durch 2170. Vorher: 7.3 / 19.7 / 95.6 Prozent von 2578. */
+  .wnetz__marke--1 { top: 8.7%; }
+  .wnetz__marke--2 { top: 22.1%; }
+  .wnetz__marke--3 { top: 94.8%; }
 }
 
 
@@ -1001,14 +976,42 @@
      Stufe 2   optische Mitte der Wortmarke        515 / 984   = 52.3 %
      Stufe 3   Mitte des Zielkastens        (800 + 87.5) / 984 = 90.2 %
    =========================================================================== */
-@media (max-width: 767px) {
-  .wnetz__bild--schmal  { display: none; }
-  .wnetz__bild--kompakt { display: block; }
+/* ===========================================================================
+   ZURUECK AUF DIE KETTE — 06.09.2026
 
-  .wnetz__marke--1 { top: 13.5%; }
-  .wnetz__marke--2 { top: 52.3%; }
-  .wnetz__marke--3 { top: 90.2%; }
-}
+   Kundenwunsch woertlich: „Ich will, dass du die Kaesten doch wieder so
+   machst wie davor, in der gleichen Anordnung. Auch immer mit den
+   Stichpunkten darunter, unter den Headlines, genauso wie davor, nur
+   kleiner als davor. Davor war es zu gross. Also genau die gleiche
+   Anordnung wie davor: die Kaesten alle untereinander, aber nur kleiner.
+   Ich rede jetzt nur von der mobilen Ansicht."
+
+   Hier stand die Umschaltung auf die gefaltete Fassung (.wnetz__bild--
+   kompakt, zwei Kaesten nebeneinander) samt eigener Markenhoehen. Sie ist
+   mitsamt ihrem Markup entfernt; unter 768 px gilt wieder dieselbe Kette
+   wie zwischen 768 und 1259 px, und deshalb braucht es hier gar keinen
+   Block mehr.
+
+   KLEINER GEWORDEN IST DIE KETTE SELBST, und zwar an der Stelle, an der
+   Platz verschenkt war: die fuenf Kaesten waren QUADRATISCH (336 x 336
+   Einheiten), obwohl ihr Inhalt die Hoehe nicht braucht. Gemessen stand
+   zwischen dem letzten Stichpunkt und der Kastenunterkante bis zu 66
+   Einheiten Leere. Sie sind jetzt Rechtecke von 336 x 272 bis 336 x 314 —
+   die Breite bleibt, weil an ihr die Zeilenumbrueche der Stichpunkte
+   haengen. Dazu sind die Verbindungslinien von 90 bis 117 auf 55 bis 85
+   Einheiten gekuerzt. Die Zeichnung misst dadurch 2170 statt 2578
+   Einheiten.
+
+   DER ERSTE KASTEN BLEIBT QUADRATISCH: seine drei Stichpunkte sind
+   zweizeilig, zwischen letzter Zeile und Unterkante stehen nur 39
+   Einheiten. Da ist nichts zu holen.
+
+   DIE KAESTEN SIND JETZT PFADE STATT <use>. Das quadratische <symbol>
+   haette in einem rechteckigen Rahmen entweder eingepasst (der Kasten waere
+   schmaler geworden statt flacher) oder mit preserveAspectRatio="none" den
+   45-Grad-Schnitt an den Ecken verzerrt. Der Schnitt wird jetzt je Kasten
+   gerechnet: 12 Prozent der KUERZEREN Kante, also der Hoehe.
+   =========================================================================== */
 
 
 /* ===========================================================================
