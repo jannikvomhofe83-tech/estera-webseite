@@ -440,6 +440,46 @@
      der Kunde am 01.09.2026 ausdruecklich verlangt hat. Nicht ohne neue
      Ansage von ihm anfassen.
 
+     ===== DIE NEUE ANSAGE IST DA — 06.09.2026 =============================
+     Woertlich: „Bei der Desktop-Ansicht will ich bei der Section ‚Warum
+     Estera? Viele Einzelthemen, ein klarer Weg' das ein bisschen kompakter
+     haben. Ich will eigentlich nicht, dass die Kaesten naeher zusammen
+     sind, sondern der Abstand ist schon ganz gut. Ich will irgendwie, dass
+     die Kaesten kleiner sind, sodass alles auf einen Blick sichtbar ist."
+
+     UMGESETZT: die Kaesten sind kleiner (Rechnung am Markup), die Abstaende
+     stehen unveraendert. Die Zeichnung misst 1304 x 957 statt 1304 x 1080,
+     bei 1240 px Breite also 910 statt 1027 px. Der Abschnitt ist damit
+     1162 statt 1279 px hoch.
+
+     ER PASST TROTZDEM NICHT IN 1440 x 900, und das ist keine Nachlaessigkeit,
+     sondern Arithmetik — der Kunde soll sie kennen, bevor er das naechste
+     Mal fragt. Die HOEHE DER ZEICHNUNG IST DIE MITTELSPALTE: Off-Market-
+     Kasten, Pfeil, Wortmarke, Pfeil, Zielkasten. Die vier seitlichen
+     Kaesten haengen daneben und tragen zur Hoehe gar nichts bei — sie
+     kleiner zu machen bringt fuer die Fensterhoehe exakt null. In der
+     Mittelspalte stehen (in viewBox-Einheiten):
+       Rand oben                        20
+       Off-Market-Kasten               283   Inhalt 239 + 2 x 22 Innenrand
+       Pfeil auf die Wortmarke         150   ABSTAND, bleibt
+       Wortmarke                        65
+       Pfeil auf den Zielkasten        225   ABSTAND, bleibt
+       Luft vor dem Zielkasten          10
+       Zielkasten                      184
+       Rand unten                       20
+                                       ---
+                                       957
+     375 der 957 Einheiten, also 39 Prozent, sind die beiden Pfeile. Selbst
+     wenn jeder Kasten auf seinen blanken Text zusammenfiele, blieben rund
+     640 Einheiten = 609 px Zeichnung; mit dem Kopf (188 px) und den
+     Abstaenden des Abschnitts waeren das noch immer ueber 860 px, und ins
+     Fenster von 900 px passt der Abschnitt erst bei rund 810 px.
+     ES GIBT GENAU EINEN HEBEL, DER REICHT: die beiden Pfeile kuerzen. Das
+     ist wortwoertlich das „Kaesten naeher zusammen", das der Kunde nicht
+     will. Deshalb bleiben sie, und der Abschnitt bleibt hoeher als ein
+     Fenster. Wer das aendern will, braucht eine Ansage vom Kunden, die
+     genau diesen Punkt aufhebt.
+
      NUR DER WORTLAUT IST der vom 01.09.2026 geblieben; er war nicht
      beanstandet. Was er an der Zeichnung aendert, steht am Markup. */
   margin: clamp(0.4rem, 1.4vh, 1.2rem) auto 0;
@@ -476,16 +516,16 @@
   height: 1px;
   pointer-events: none;
 }
-/* ZURUECK AUF DIE ZEICHNUNG 1304 x 1080 — Rueckbau 01.09.2026, siehe den
-   Kundenzitat-Vermerk am Rahmen .wnetz. Die Werte sind wieder die vom
-   31.08.2026; die Zwischenwerte der kompakten Fassung (23.2 / 59 / 87.6,
-   gerechnet auf 612 Einheiten Hoehe) sind gegenstandslos.
-     breit   Stufe 1  Mitte des Off-Market-Kastens   192/1080
-             Stufe 2  Mitte der Wortmarke            544/1080
-             Stufe 3  kurz vor dem Zielkasten        886/1080 */
-.wnetz__marke--1 { top: 17.8%; }
-.wnetz__marke--2 { top: 50.4%; }
-.wnetz__marke--3 { top: 82%; }
+/* NACHGERECHNET 06.09.2026, weil die breite Zeichnung von 1080 auf 957
+   Einheiten geschrumpft ist (kleinere Kaesten, gleiche Abstaende):
+     breit   Stufe 1  Mitte des Off-Market-Kastens   161.5/957 = 16.9 %
+             Stufe 2  Mitte der Wortmarke              487/957 = 50.9 %
+             Stufe 3  kurz nach der Oberkante des
+                      Zielkastens (753 + 0.30 x 184)   808/957 = 84.5 %
+   Vorher: 17.8 / 50.4 / 82 Prozent von 1080. */
+.wnetz__marke--1 { top: 16.9%; }
+.wnetz__marke--2 { top: 50.9%; }
+.wnetz__marke--3 { top: 84.5%; }
 
 /* Das Sprite traegt die Kastenform, den Haken der Stichpunkte und die sechs
    Symbole. Einmal abgelegt, per <use> geholt: die Kastenform zwoelfmal, die
@@ -569,13 +609,39 @@
    VIER DER ZWANZIG PUNKTE STEHEN AUF ZWEI ZEILEN (303 bis 340 Einheiten).
    Gekuerzt oder umformuliert ist keiner.
 
-   IN DER HOEHE zaehlt: Symbol 40, 30 bis zur ersten Titelgrundlinie, 27 je
-   weiterer Titelzeile, dann der IMMER GLEICHE Abstand von 54 Einheiten von
-   der LETZTEN Titelgrundlinie zur ersten Stichpunktgrundlinie, danach 28 von
-   Punkt zu Punkt und 22 innerhalb eines umgebrochenen Punktes. Der hoechste
-   Block ist „Finanzierung" mit 257 Einheiten, der niedrigste „Langfristige
-   Begleitung" mit 213. Beide passen in 336, und beide stehen SENKRECHT
-   MITTIG — nicht oben angeklebt.
+   IN DER HOEHE ZAEHLT SEIT DEM 06.09.2026 dieses Raster, und es gilt in
+   BEIDEN Zeichnungen Zeichen fuer Zeichen gleich:
+     Symbolkante                                    40   (unveraendert)
+     Symbolunterkante -> erste Titelgrundlinie      26   (war 30)
+     je weiterer Titelzeile                         27   (unveraendert)
+     letzte Titelgrundlinie -> erster Stichpunkt    44   (war 54)
+     Stichpunkt -> Stichpunkt                       26   (war 28)
+     Umbruch innerhalb eines Stichpunktes           22   (unveraendert)
+     Reserve unter der letzten Grundlinie            6
+     Innenrand oben und unten                       22   (war 40 bzw. 28)
+   Daraus fallen die Kastenhoehen von selbst heraus:
+     Off-Market            Inhalt 239  ->  336 x 283
+     Kennenlernen          Inhalt 194  ->  336 x 238
+     Objekt und Zahlen     Inhalt 216  ->  336 x 260
+     Finanzierung          Inhalt 238  ->  336 x 282
+     Langfristig begleiten Inhalt 194  ->  336 x 238
+
+   DIE KAESTEN SIND DAMIT KEINE QUADRATE MEHR. Das ist die Kundenansage vom
+   06.09.2026 — Desktop: „Ich will irgendwie, dass die Kaesten kleiner sind,
+   sodass alles auf einen Blick sichtbar ist"; Telefon: „Bei der mobilen
+   Ansicht sollen die Kaesten jetzt nur viel kleiner dargestellt werden."
+   Sie sticht die Vorgabe vom 21.08. („die muessen mehr viereckig sein"),
+   die bis dahin galt. Die BREITE bleibt bei 336 Einheiten, weil an ihr die
+   Zeilenumbrueche der Stichpunkte haengen — die Kaesten sind flacher
+   geworden, nicht schmaler, und kein Punkt bricht anders um als vorher.
+
+   WAS BEWUSST NICHT KLEINER WIRD: die Symbolkante (40) und der
+   Titelzeilenabstand (27). An der ersten haengt die Strichstaerke der
+   goldenen Symbole (1.1 im 24er-Raster, also 1.83 Einheiten bei 40) und
+   damit ihr gemessener Kontrast von 3.36:1 — mit 0.36 Reserve ueber der
+   Schwelle 3:1 ist da nichts zu holen. Der Umbruch innerhalb eines Punktes
+   (22 bei 17.4 Einheiten Schrift) ist schon der engste lesbare
+   Zeilenabstand.
 
    WER DIE ZEILEN VERLAENGERT ODER DIE SCHRIFT VERGROESSERT, muss den Kasten
    mitwachsen lassen UND die Obergrenze von .wnetz sowie den Umschaltpunkt
@@ -589,7 +655,9 @@
    jeweiligen Headline und den darunter aufgelisteten Punkten."
 
    1. DER ABSTAND TITEL -> ERSTER PUNKT WIRD AB DER LETZTEN TITELZEILE
-      GEMESSEN und ist in allen fuenf Kaesten derselbe: 54 Einheiten. Vorher
+      GEMESSEN und ist in allen fuenf Kaesten derselbe: 44 Einheiten seit
+      dem 06.09.2026, vorher 54 — die Regel ist dieselbe geblieben, nur
+      enger. Vorher
       begannen die Stichpunkte auf einer FESTEN Hoehe im Kasten; unter einem
       einzeiligen Titel klaffte dadurch eine Zeilenhoehe mehr Luft als unter
       einem zweizeiligen. Genau das hat der Kunde gesehen. Ein zweizeiliger
@@ -604,41 +672,42 @@
       und Zahlen", dessen fuenf sehr kurze Woerter vorher weit links an einer
       fremden Kante klebten.
 
-   3. SYMBOL, TITEL UND LISTE SIND EINE GRUPPE, und die Gruppe steht
-      SENKRECHT MITTIG im Quadrat. Deshalb sitzt das Symbol nicht in allen
-      fuenf Kaesten auf derselben Hoehe — der Preis dafuer, dass unten keine
-      leere Flaeche stehenbleibt. Die Rasterpunkte rechnet
-      scratchpad/lst/bau.py aus; getippt ist keine einzige Koordinate.
+   3. SYMBOL, TITEL UND LISTE SIND EINE GRUPPE. Bis zum 06.09.2026 stand
+      diese Gruppe SENKRECHT MITTIG im Quadrat, damit unten keine leere
+      Flaeche stehenblieb. Das ist hinfaellig: der Kasten ist jetzt genau so
+      hoch wie seine Gruppe plus 22 Einheiten Innenrand, es bleibt gar
+      nichts mehr uebrig, was man ausgleichen muesste. Das Symbol sitzt
+      deshalb in allen fuenf Kaesten auf derselben Hoehe unter der
+      Oberkante — die Beanstandung des Kunden ist damit staerker erfuellt
+      als vorher, nicht schwaecher.
+      Getippt ist keine einzige Koordinate; beide Zeichnungen kommen aus
+      EINEM Rechenskript (scratchpad/wi/bau/netz.py, Stand 06.09.2026).
 --------------------------------------------------------------------------- */
 .wnetz__kasten {
   fill: var(--wn-flaeche);
   stroke: var(--wn-kontur);
   stroke-width: var(--wn-strich);
 }
-/* DIE KONTUR DARF NICHT MITWACHSEN. Das <symbol> rechnet in seinem eigenen
-   Koordinatensystem (280 zu 280); ein <use> auf 336 zu 336 dehnt alles darin
-   um den Faktor 1.2 — auch die Strichstaerke. Aus 1.25 Einheiten waeren
-   1.5 geworden, und aus der Haarlinie der Vorlage eine gezogene Kante. Der
-   Kehrwert stellt sie zurueck.
-   Das gilt fuer beide Anordnungen, weil die Kaesten dort gleich gross sind.
-   Der quere Zielkasten hat sein eigenes Symbol und seinen eigenen Massstab;
-   er ist deshalb ausgenommen. */
-/* DER AUSGLEICH IST WIEDER DA — Rueckbau 01.09.2026. Mit der quadratischen
-   Geometrie ist auch das 280er-Symbol zurueck, das per <use> auf 336
-   aufgetragen wird; ohne den Kehrwert 1/1,2 waere die Kontur um denselben
-   Faktor mitgewachsen. (Die kompakte Fassung hatte massgleiche Symbole und
-   brauchte den Ausgleich nicht.) */
-.wnetz__kasten:not(.wnetz__kasten--quer) {
-  stroke-width: calc(var(--wn-strich) / 1.2);
-}
-/* KEIN AUSGLEICH IN DER KOMPAKTEN ANORDNUNG — 03.09.2026. Ihre drei
-   Kastenformen (#wn-k-off, #wn-k-feld, #wn-k-ziel) tragen genau die Masse,
-   mit denen sie aufgetragen werden; der Massstab ist also ueberall 1 und es
-   gibt nichts zurueckzustellen. Ohne diese Regel bekaemen die vier
-   Paarkaesten den Kehrwert 1/1.2 der 336er-Kaesten ab und stuenden mit einer
-   um 20 Prozent zu duennen Kontur da. Die queren Kaesten (Off-Market und
-   Ziel) sind von der Regel darueber ohnehin ausgenommen und stehen damit
-   richtig auf --wn-strich. */
+/* DER AUSGLEICH DER STRICHSTAERKE IST ERSATZLOS ENTFALLEN — 06.09.2026.
+   Hier standen zwei Regeln, die einen Massstab zurueckstellten:
+     .wnetz__kasten:not(.wnetz__kasten--quer) { stroke-width: --wn-strich/1.2 }
+       — weil das <symbol> in 280 zu 280 rechnete und per <use> auf 336
+         aufgetragen wurde, also alles darin um 1.2 dehnte.
+     .wnetz__bild--schmal .wnetz__kasten--quer { stroke-width: /0.712 }
+       — weil der quere Zielkasten aus dem 500er-Symbol auf 356 kam.
+   Seit dem 06.09.2026 traegt JEDER Kasten in BEIDEN Zeichnungen seine
+   Kontur als eigenen <path> in den Koordinaten der jeweiligen viewBox. Der
+   Massstab ist damit ueberall 1, es gibt nichts mehr zurueckzustellen, und
+   alle sechs Kaesten stehen auf denselben 1.25 Einheiten.
+
+   DAS WAR ZULETZT SOGAR FALSCH: die fuenf Kaesten der Kette sind schon seit
+   dem Vormittag des 06.09.2026 Pfade, wurden von der ersten Regel aber
+   weiter getroffen und standen deshalb auf 1.042 statt 1.25 Einheiten —
+   eine um ein Sechstel zu duenne Kontur gegenueber ihrem eigenen
+   Zielkasten. Mit dem Wegfall ist auch das behoben.
+
+   DIE KLASSE .wnetz__kasten--quer IST DAMIT AUS DEM MARKUP VERSCHWUNDEN:
+   sie hat ausser diesen beiden Regeln nichts getragen. */
 /* Zwei Schattenlagen, wie bei jeder Karte im Projekt: eng fuer die Kante,
    weit und schwach fuer die Hoehe. Sie ersetzen den inneren Schein der
    Vorlage, der auf Weiss nicht zu sehen waere.
@@ -655,33 +724,29 @@
 .wnetz__bild--breit   .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-b); }
 .wnetz__bild--schmal  .wnetz__kasten:not(.wnetz__kasten--ziel) { filter: url(#wn-hebung-s); }
 
-/* DER EINE QUERE KASTEN — der Zielkasten ganz unten.
-   Kundenwunsch vom 21.08.: „Er soll nicht zu lang rechteckig werden." Also
-   500 zu 250, ein Verhaeltnis von 2 zu 1 und damit in der Mitte der Vorgabe
-   von 1.8 bis 2.2. Er ist der einzige; Off-Market und die vier seitlichen
-   Kaesten bleiben quadratisch. Seine Form kommt aus einem EIGENEN Symbol
-   (#wn-kasten-quer) mit demselben 45-Grad-Schnitt von 12 Prozent der
-   kuerzeren Kante — ein gedehntes <use> des quadratischen Symbols haette den
-   Schnitt mitgedehnt und ihn aus der Familie fallen lassen.
+/* DER QUERE KASTEN — der Zielkasten ganz unten.
+   Kundenwunsch vom 21.08.: „Er soll nicht zu lang rechteckig werden." Das
+   Verhaeltnis muss zwischen 1.8 und 2.2 liegen; alles Weitere ist gerechnet
+   und nicht gewaehlt.
 
-   IN DER BREITEN ANORDNUNG IST ER AM 31.08.2026 UNVERAENDERT GEBLIEBEN,
-   waehrend die fuenf anderen Kaesten gewachsen sind. Das ist Absicht: sein
-   Wortlaut hat sich als einziger nicht geaendert, also gab es nichts
-   anzupassen. Zwischen den beiden unteren Trabanten bleiben ihm weiterhin
-   46 Einheiten Luft auf jeder Seite — genau so viel wie vorher. Er steht
-   dort im Massstab 1 und braucht deshalb keinen Ausgleich der
-   Strichstaerke.
+   SEIT DEM 06.09.2026 IST ER KLEINER — Kundenansage „die Kaesten kleiner":
+     breite Anordnung   500 x 250  ->  402 x 184   Verhaeltnis 2.19
+     schmale Anordnung  356 x 178  ->  356 x 172   Verhaeltnis 2.07
+   Die Breite in der breiten Anordnung folgt der Ueberschrift: gemessene
+   357.11 Einheiten bei 23 plus 22.4 Innenrand je Seite = 402. Die Hoehe
+   folgt dem Inhalt (128 Einheiten) — und wo das Verhaeltnis sonst ueber 2.2
+   kaeme, waechst der Innenrand statt der Kasten: 28 statt 22 Einheiten.
+   In der schmalen Anordnung begrenzt die viewBox (380 Einheiten) die
+   Breite; deshalb steht die Ueberschrift dort auf 20 statt 23 Einheiten
+   (siehe .wnetz__wort--ziel).
 
-   ZUR STRICHSTAERKE IN DER SCHMALEN ANORDNUNG: dort steht dasselbe Symbol auf
-   356 zu 178, also im Massstab 0.712. Eine Strichstaerke von 1.25 im
-   Symbolraum kaeme dort nur als 0.89 Einheiten an. Der Kehrwert gleicht das
-   aus, damit die Kontur so stark bleibt wie an jedem anderen Kasten.
-   (Bis zum 31.08.2026 stand er dort auf 360 zu 180, Massstab 0.72; mit der
-   von 400 auf 380 Einheiten geschrumpften viewBox ist er anteilig gleich
-   breit geblieben.) */
-.wnetz__bild--schmal .wnetz__kasten--quer {
-  stroke-width: calc(var(--wn-strich) / 0.712);   /* Rueckbau 01.09.2026: 356 aus dem 500er-Symbol */
-}
+   Zwischen ihm und den beiden unteren Kaesten der breiten Anordnung bleiben
+   95 Einheiten Luft auf jeder Seite (vorher 46) — der Kasten ist schmaler
+   geworden, die Kaesten daneben stehen unveraendert.
+
+   Seine Kontur ist wie die aller anderen ein eigener <path> in den
+   Koordinaten der viewBox; der frueher noetige Ausgleich der Strichstaerke
+   ist damit entfallen, siehe den Vermerk weiter oben. */
 
 
 /* --- Die Linien -----------------------------------------------------------
@@ -785,13 +850,18 @@
 
    DIE UNTERGRENZE IST AM 31.08.2026 VON 12 AUF 15 px ANGEHOBEN, und daran
    haengt seither die halbe Geometrie dieses Abschnitts. Gemessen, nicht
-   gerechnet, an den vier Fensterbreiten, nach denen gefragt wird:
-     1920 px   Zeichnung 1240 px, Massstab 0.951   ->  16.2 px
-     1440 px   Zeichnung 1240 px, Massstab 0.951   ->  16.2 px
-     1280 px   Zeichnung 1178 px, Massstab 0.903   ->  15.4 px  (schmalstes
+   gerechnet, STAND 06.09.2026 (Stichpunkte auf 17.4 Einheiten):
+     1920 px   Zeichnung 1240 px, Massstab 0.951   ->  16.55 px
+     1440 px   Zeichnung 1240 px, Massstab 0.951   ->  16.55 px
+     1280 px   Zeichnung 1178 px, Massstab 0.903   ->  15.71 px (schmalstes
                                                                  breites)
-     1024 px   schmale Kette, 430 px auf 380 Einh. ->  19.2 px
-      390 px   schmale Kette, 350 px auf 380 Einh. ->  15.7 px
+     1024 px   schmale Kette, 400 px auf 380 Einh. ->  18.32 px
+      390 px   schmale Kette, 308 px auf 380 Einh. ->  14.10 px
+   DIE LETZTE ZEILE IST DIE AUSNAHME und sie ist erklaerungsbeduerftig: sie
+   liegt unter 15 px und unter den 16 px des Optimierungsbriefings. Sie
+   steht dort auf ausdrueckliche, dreimal wiederholte Kundenansage vom
+   06.09.2026; die Herleitung samt harter Untergrenze von 14 px steht im
+   Block „TELEFON" weiter unten und bei .wnetz__punkt.
    Die Schriftgroessen selbst sind UNVERAENDERT geblieben — 17 fuer die
    Stichpunkte, 23 fuer die Titel, 41 fuer die Wortmarke. Angepasst sind nur
    die Masse der Zeichnung um sie herum.
@@ -819,13 +889,25 @@
 }
 .wnetz__punkt {
   font-family: var(--font-ui);
-  /* 17,4 STATT 17 EINHEITEN — 06.09.2026. Die Kette rechnet in 380
-     Einheiten und steht bei 390 px Fensterbreite auf 350 px, also mit dem
-     Faktor 0,921. 17 Einheiten kamen damit GEMESSEN mit 15,66 px an und
-     lagen unter den 16 px, die das Optimierungsbriefing fuer Fliesstext
-     setzt. 17,4 ergeben 16,03 px. Der laengste Stichpunkt („Organisation
-     der Immobilienverwaltung") waechst dadurch um 2,4 Prozent und bleibt
-     mit Abstand im Kasten — nachgemessen. */
+  /* 17,4 STATT 17 EINHEITEN — 06.09.2026, frueher Stand des Tages. Die
+     Kette rechnet in 380 Einheiten und stand bei 390 px Fensterbreite auf
+     350 px, also mit dem Faktor 0,921. 17 Einheiten kamen damit GEMESSEN
+     mit 15,66 px an und lagen unter den 16 px, die das Optimierungsbriefing
+     fuer Fliesstext setzt. 17,4 ergaben 16,03 px.
+
+     NACHTRAG VOM SELBEN TAG, UND ER AENDERT DAS ERGEBNIS: die Kette steht
+     unter 768 px jetzt auf 308 statt 350 px. Dieselben 17,4 Einheiten
+     kommen dort GEMESSEN als 14,10 px an und liegen damit unter den 16 px
+     des Briefings. Der Grund ist eine Kundenansage, die er dreimal
+     wiederholt hat („viel kleiner dargestellt … du musst es viel kleiner
+     darstellen … das ist sehr wichtig"); die vollstaendige Herleitung
+     samt harter Untergrenze von 14 px steht im Block „TELEFON" weiter
+     unten. AN DEM WERT HIER NICHTS DREHEN, ohne dort nachzulesen: der
+     laengste Stichpunkt („Organisation der Immobilienverwaltung") sitzt bei
+     17,4 Einheiten passgenau im 336er-Kasten, jede Erhoehung bricht ihn um.
+
+     Am Schreibtisch bleibt es unveraendert: 16,55 px in der breiten
+     Zeichnung, 18,32 px in der Kette zwischen 768 und 1259 px. */
   font-size: 17.4px;
   fill: var(--wn-punkt);
 }
@@ -928,23 +1010,28 @@
 
   /* DIE UNTERZEILE DES ZIELKASTENS STAND HIER BIS ZUM 31.08.2026 AUF 15
      EINHEITEN. Bei 380 Einheiten viewBox und 350 px Darstellung waeren das
-     13.8 px gewesen, also unter der Untergrenze. Sie steht jetzt auf
-     denselben 17 Einheiten wie ueberall sonst — 15.7 px auf dem Telefon.
-     Platz ist dafuer da: die laengere der beiden Zeilen misst bei 17
-     Einheiten 173 Einheiten, der Kasten haelt 356 und laesst ihr 92 auf
-     jeder Seite. */
-  .wnetz__wort--zielsub { font-size: 17px; }
+     13.8 px gewesen, also unter der Untergrenze.
+     VON 17 AUF 17.4 EINHEITEN — 06.09.2026. Sie steht damit auf demselben
+     Grad wie die Stichpunkte, und das muss sie: unter 768 px steht die
+     Kette jetzt auf 308 statt 350 px (Massstab 0.8105), 17 Einheiten kaemen
+     dort als 13.78 px an und die Zeile faellt unter die harte Grenze von
+     14 px. 17.4 ergeben 14.10 px — genau so viel wie die Stichpunkte.
+     Platz ist dafuer da: die laengere der beiden Zeilen misst bei 17.4
+     Einheiten rund 292, der Kasten haelt 356 und laesst ihr 32 auf jeder
+     Seite. */
+  .wnetz__wort--zielsub { font-size: 17.4px; }
 
   /* Die Kette ist viel hoeher als das Feld; die Marken sitzen entsprechend
      anders. Siehe die Herleitung bei .wnetz__marke. */
-  /* ZURUECK AUF DIE KETTE 380 x 2578 — Rueckbau 01.09.2026: Off-Market-Mitte
-     188, Wortmarke 509, Zielkasten-Mitte 2465 — jeweils durch 2578. */
-  /* NACHGERECHNET 06.09.2026, weil die Kette von 2578 auf 2170 Einheiten
-     geschrumpft ist: Off-Market-Mitte 188, Wortmarke 479, Ziel-Mitte 2057 —
-     jeweils durch 2170. Vorher: 7.3 / 19.7 / 95.6 Prozent von 2578. */
+  /* NACHGERECHNET 06.09.2026, zweite Runde: die Kette ist von 2170 auf 1848
+     Einheiten geschrumpft (engeres Innenraster, kuerzere Verbinder).
+       Stufe 1  Mitte des Off-Market-Kastens   161.5/1848 =  8.7 %
+       Stufe 2  Grundlinie der Wortmarke         400/1848 = 21.6 %
+       Stufe 3  Mitte des Zielkastens           1742/1848 = 94.3 %
+     Vorher: 8.7 / 22.1 / 94.8 Prozent von 2170. */
   .wnetz__marke--1 { top: 8.7%; }
-  .wnetz__marke--2 { top: 22.1%; }
-  .wnetz__marke--3 { top: 94.8%; }
+  .wnetz__marke--2 { top: 21.6%; }
+  .wnetz__marke--3 { top: 94.3%; }
 }
 
 
@@ -1002,16 +1089,65 @@
    Einheiten gekuerzt. Die Zeichnung misst dadurch 2170 statt 2578
    Einheiten.
 
-   DER ERSTE KASTEN BLEIBT QUADRATISCH: seine drei Stichpunkte sind
-   zweizeilig, zwischen letzter Zeile und Unterkante stehen nur 39
-   Einheiten. Da ist nichts zu holen.
-
    DIE KAESTEN SIND JETZT PFADE STATT <use>. Das quadratische <symbol>
    haette in einem rechteckigen Rahmen entweder eingepasst (der Kasten waere
    schmaler geworden statt flacher) oder mit preserveAspectRatio="none" den
    45-Grad-Schnitt an den Ecken verzerrt. Der Schnitt wird jetzt je Kasten
    gerechnet: 12 Prozent der KUERZEREN Kante, also der Hoehe.
    =========================================================================== */
+
+/* ===========================================================================
+   TELEFON — NOCH EINMAL KLEINER, unter 768 px          NEU AM 06.09.2026
+   ===========================================================================
+   Kundenansage, woertlich: „Bei der mobilen Ansicht sollen die Kaesten jetzt
+   nur viel kleiner dargestellt werden. Es soll immer noch die Headline mit
+   allen einzelnen Haekchen darunter mit den Punkten darunter sein, aber du
+   musst es viel kleiner darstellen. Das ist sehr wichtig, sodass man die
+   Section nicht auf dem Handy 10 Minuten scrollen muss, sondern dass du es
+   WEITER WEG VON DEN RAENDERN einfach kleiner darstellst."
+
+   ZUERST DIE GEOMETRIE, DANN DIE BREITE — in dieser Reihenfolge, weil jede
+   Einheit, die aus dem Innenraster kommt, die Schrift NICHT verkleinert.
+   Aus dem Innenraster (Rechnung am Markup und bei den Kaesten weiter oben)
+   kommen 2170 -> 1848 Einheiten, also 15 Prozent, ohne einen einzigen
+   Schriftgrad anzufassen. Erst was dann noch fehlte, kommt aus der Breite.
+
+   DIE BREITE: 308 px STATT 350 px, und die Zahl ist eine Untergrenze und
+   kein Geschmack.
+     Die Kette rechnet in 380 Einheiten; ihr Massstab ist Darstellungsbreite
+     geteilt durch 380. Die Stichpunkte stehen auf 17.4 Einheiten.
+     Bei 350 px  Massstab 0.9211  ->  16.03 px
+     Bei 308 px  Massstab 0.8105  ->  14.10 px
+     Bei 306 px  Massstab 0.8053  ->  14.01 px   <- die Grenze
+   308 px ist also der kleinste Wert mit noch etwas Luft ueber 14 px.
+
+   ===== ZUR SCHRIFTGROESSE, UND DAS IST EINE BEWUSSTE ABWEICHUNG =========
+   DIE STICHPUNKTE STEHEN AUF DEM TELEFON JETZT AUF 14.10 px UND DAMIT UNTER
+   DEN 16 px, die das Optimierungsbriefing vom 01.09.2026 fuer Fliesstext
+   setzt. Bis heute waren es gemessene 16.03 px — genau auf der Grenze.
+   Das ist keine Unachtsamkeit, sondern die Folge einer Kundenansage, die er
+   im selben Gespraech DREIMAL wiederholt hat („viel kleiner dargestellt",
+   „du musst es viel kleiner darstellen", „das ist sehr wichtig") und die er
+   ausdruecklich mit dem Scrollweg begruendet. Zwei Dinge liessen sich nicht
+   gleichzeitig halten; die juengere und ausdrueckliche Ansage sticht.
+   HARTE UNTERGRENZE IST 14 px, und die steht. Wer die Kette weiter
+   verschmaelert, faellt darunter — dann muss stattdessen die Schriftgroesse
+   in Einheiten steigen, und mit ihr brechen die Stichpunkte neu um.
+   Betroffen sind die Stichpunkte und die Unterzeile des Zielkastens
+   (beide 17.4 Einheiten). Ueberschriften (23), die Ergebnis-Ueberschrift
+   (20) und die Wortmarke (41) liegen mit 18.6, 16.2 und 33.2 px weiter
+   deutlich darueber.
+
+   „WEITER WEG VON DEN RAENDERN" IST DAMIT WOERTLICH ERFUELLT: bei 390 px
+   Fenster stehen links und rechts je 41 px frei statt 20, bei 360 px je 26.
+
+   AB 768 px AENDERT SICH NICHTS. Dort gilt weiter min(400px, 100%) — der
+   Kunde hat wiederholt beanstandet, wenn sich am Schreibtisch etwas
+   aenderte, was er nicht bestellt hatte. Bestellt war die MOBILE Ansicht.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .wnetz { max-width: min(308px, 100%); }
+}
 
 
 /* ===========================================================================
