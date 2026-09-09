@@ -108,3 +108,31 @@
    Breite zusammen (der Gutter aus .sp-band__inner begrenzt sie), es braucht
    keine eigene Regel.
 --------------------------------------------------------------------------- */
+
+/* ===========================================================================
+   TREFFERFLAECHEN AUF DEM TELEFON — 09.09.2026
+
+   Die Verweise im Fliesstext der Rechtsseiten sind Zeilen im Satz und
+   damit nur so hoch wie die Zeile: GEMESSEN 21 px. Fuer Text ist das
+   richtig, fuer etwas, das man mit der Fingerkuppe trifft, nicht — das
+   Optimierungsbriefing (Abschnitt 19) setzt 44 px.
+
+   Betroffen sind die Verweise, die man WIRKLICH antippt: die Telefonnummer
+   und die E-Mail-Adresse. Die zwei Verweise auf Gesetzestexte und die IHK
+   bleiben Zeilen im Satz — sie sind Belege, keine Handlungen, und ein
+   44 px hoher Kasten mitten im Absatz risse den Satz auseinander.
+
+   `display: inline-block` statt `block`: der Verweis bleibt in seiner
+   Zeile stehen. Der senkrechte Innenabstand wird ueber die Zeilenhoehe
+   getragen, damit die Zeilen des Absatzes nicht auseinanderrutschen.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .recht__inhalt a[href^="tel:"],
+  .recht__inhalt a[href^="mailto:"],
+  main a[href^="tel:"],
+  main a[href^="mailto:"] {
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
+  }
+}
