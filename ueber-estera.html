@@ -824,7 +824,25 @@
            mittig unter dem Satz sitzt statt linksbuendig in einer
            Beispalte. -->
       <a class="btn" href="kontakt.html">Erstgespräch vereinbaren</a>
-      <div>
+      <!-- DIESER BLOCK FAELLT AUF DEM TELEFON WEG — 09.09.2026, Kundenwunsch
+           woertlich: „In der NavBar, die sich oeffnet, soll auf der mobilen
+           Ansicht Kontakt, also info@estera.immobilien, raus … Dann Kontakt /
+           info@estera.immobilien kann raus."
+           Er bleibt im Markup und faellt unter 768 px per `display: none`
+           (base.css, .menu__kontakt) — nicht geloescht, weil er am breiten
+           Fenster unveraendert stehen bleiben soll. Was auf display:none
+           steht, faellt auch aus dem Vorlesebaum; auf dem Telefon liest ihn
+           also niemand vor.
+           DIE E-MAIL-ADRESSE BLEIBT ERREICHBAR. Nachgesehen, nicht
+           angenommen: sie steht in der Fusszeile JEDER der neun Seiten
+           (.fuss__liste, erster Eintrag unter „Kontakt") und zusaetzlich im
+           Fliesstext von kontakt.html und impressum.html. Der Vorhang war
+           nie ihr einziger Ort.
+           MIT IHM WANDERN Datenschutz und Cookie-Einstellungen: sie stehen
+           seit dem 04.09.2026 in diesem Block und muessen auf dem Telefon
+           nach unten. Sie sind deshalb weiter unten in .menu__foot ein
+           zweites Mal angelegt — siehe die Begruendung dort. -->
+      <div class="menu__kontakt">
         <p class="kicker">Kontakt</p>
         <p><a href="mailto:info@estera.immobilien">info@estera.immobilien</a></p>
         <!-- HIERHER GEZOGEN 04.09.2026 — Kundenwunsch, woertlich: „Bei
@@ -853,8 +871,28 @@
          es auf variante-a.html nicht, die Verweise haben schlicht nichts
          getan. Sie zeigen jetzt wie ueberall sonst auf die echten
          Seiten. -->
+    <!-- DREI VERWEISE IN EINER REIHE — 09.09.2026, Kundenwunsch woertlich:
+         „Und dann steht unten: Impressum, Datenschutz, Cookie-Einstellungen."
+         Bis heute stand hier NUR „Impressum"; Datenschutz und
+         Cookie-Einstellungen standen seit dem 04.09.2026 oben im
+         Kontaktblock. Der faellt auf dem Telefon weg (siehe dort), die
+         beiden Verweise muessen also mit nach unten.
+
+         WARUM SIE HIER EIN ZWEITES MAL STEHEN und nicht umgezogen sind:
+         der Kontaktblock oben bleibt am breiten Fenster unveraendert, dort
+         gehoeren sie weiterhin hinein — das war die Ansage vom 04.09. Ein
+         Umzug haette den Desktop veraendert, und der hat unangetastet zu
+         bleiben. Die zwei Fassungen schliessen sich per `display` gegen-
+         seitig aus: unter 768 px steht diese Reihe und der Kontaktblock ist
+         aus, ab 768 px umgekehrt. Es ist also immer genau EINE sichtbar,
+         und weil `display: none` auch aus dem Vorlesebaum nimmt, liest ein
+         Vorlesegeraet die beiden Verweise nie doppelt.
+         Die Klasse steht am <li>, nicht am <a>: das <li> ist das Kind der
+         Flexzeile, an ihm haengt die Umschaltung. -->
     <ul>
       <li><a href="impressum.html">Impressum</a></li>
+      <li class="menu__foot-mobil"><a href="datenschutz.html">Datenschutz</a></li>
+      <li class="menu__foot-mobil"><a href="cookies.html">Cookie-Einstellungen</a></li>
     </ul>
   </div>
 </nav>

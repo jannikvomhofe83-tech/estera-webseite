@@ -3331,3 +3331,170 @@
    der Elter die 16 px des Fliesstextes fuehrt. Gerechnet wird gegen
    denselben Token, den .stl-h2 selbst benutzt. */
 .stl-h2--schluss { font-size: calc(var(--stl-t-h2) * 0.92); }
+
+
+/* ===========================================================================
+   DIE BEWERBUNGSKNOEPFE WERDEN SCHMALER — 09.09.2026
+
+   Kundenwunsch woertlich: „Der Button ‚Als Immobilienberater bewerben‘ und
+   der Button ‚Als Backoffice Manager bewerben‘ sollen auch kleiner werden,
+   also nicht zu viel von der Breite ausfuellen."
+
+   ES SIND ZWEI STELLEN JE SEITE, nicht eine — nachgezaehlt: der Knopf im
+   Kopfbereich (.stl-hero__btn) und der Knopf im Schlussabschnitt
+   (.stl-schluss__aktionen .btn). Beide tragen dieselbe Beschriftung, beide
+   standen bei 390 px GEMESSEN auf 350 von 390 px, also 90 % der
+   Fensterbreite.
+
+   WORAUF DAS AUFBAUT, statt danebenzustehen: der Mobilblock vom 04.09.2026
+   weiter oben in dieser Datei setzt an .stl-hero__btn schon min-height
+   44px, padding 0 16px und font-size 1rem. Diese drei Werte bleiben
+   unangetastet und gelten weiter — hier kommt allein die Breite dazu.
+   Zurueckgenommen werden zwei Regeln, beide aus @media (max-width: 620px):
+       .stl-hero__btn             { width: 100%; justify-content: center; }
+       .stl-schluss__aktionen .btn { width: 100%; justify-content: center; }
+   Sie stammen aus dem Optimierungsbriefing vom 01.09.2026 („Buttons volle
+   Breite"); der Kunde hat das jetzt ausdruecklich anders entschieden.
+   Beide alten Regeln BLEIBEN STEHEN, sind aber nach dieser Aenderung ohne
+   Wirkung: 620 px liegen vollstaendig innerhalb der 767 px dieser Abfrage,
+   und diese Regel steht spaeter in der Datei und wiegt gleich schwer.
+   Geloescht werden sie trotzdem nicht — an ihnen haengt die Herkunft der
+   vollen Breite, und der naechste Durchgang soll sie lesen koennen.
+   Zwischen 621 und 767 px hatten die Knoepfe ohnehin nie volle Breite;
+   dort werden sie durch diesen Block erstmals auf 44/16 gesetzt, was sie
+   kleiner macht und dem Kundenwunsch entspricht.
+   `justify-content: center` wird NICHT zurueckgenommen: die Beschriftung
+   soll im Knopf mittig stehen, auch wenn der Knopf schmal ist.
+
+   DER SCHLUSSKNOPF BEKOMMT DIE MASSE DES KOPFKNOPFES. Er stand bei 390 px
+   auf 48 px Hoehe und 19,04 px Schrift, also groesser als der Knopf oben
+   auf derselben Seite — zwei verschiedene Groessen fuer dieselben zwei
+   Woerter. 44 px und 16 px sind hier wie dort die Untergrenzen aus dem
+   Optimierungsbriefing (Trefferflaeche, Bedienschrift); darunter geht es
+   ausdruecklich nicht.
+
+   GEMESSEN nach der Aenderung bei 390 px (Satzspiegel 350 px):
+     Immobilienberater  Kopf    „Als Immobilienberater bewerben"  253,7 px
+                                (73 % statt 100 %)
+                        Schluss „Als Immobilienberater bewerben"  253,7 px
+     Back-Office        Kopf    „Als Backoffice Manager bewerben" 258,7 px
+                                (74 % statt 100 %)
+                        Schluss „Jetzt fuers Backoffice bewerben" 235,8 px
+                                (67 % statt 100 %)
+   Alle vier stehen mittig, Mittelachse 195,0 px = Behaeltermitte.
+   Die zwei Beschriftungen der Back-Office-Seite sind verschieden — das ist
+   der Bestand und nicht Gegenstand dieser Aenderung; der Kunde nennt den
+   Kopfknopf („Als Backoffice Manager bewerben"), der Schlussknopf heisst
+   seit jeher anders und bleibt so.
+   20 px Innenabstand je Seite statt 16: ohne volle Breite braucht die
+   Beschriftung wieder ihre eigene Luft an den Kanten.
+
+   „ZURUECK ZUR UEBERSICHT" steht unter dem Schlussknopf und bleibt, wo es
+   ist: .stl-schluss__aktionen traegt seit dem 04.09. `justify-content:
+   center` unter 620 px, die Achse ist also weiterhin die Mitte. Mit dem
+   schmaleren Knopf stehen beide untereinander und mittig — 249,9 + 28,8 +
+   181,4 px passen nicht nebeneinander in 350 px, `flex-wrap: wrap` traegt
+   den Umbruch.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .stl-hero__btn,
+  .stl-schluss__aktionen .btn {
+    width: auto;
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: 1rem;
+    justify-content: center;
+  }
+}
+
+
+/* ===========================================================================
+   DAS ONBOARDING STEHT AUF DEM TELEFON MITTIG — 09.09.2026
+
+   Kundenwunsch woertlich: „Bei ‚Onboarding mit klarem Plan‘ sollen die
+   einzelnen Wochen auch mittig sein und nicht linksbuendig."
+
+   „ONBOARDING MIT KLAREM PLAN" IST DIE BACK-OFFICE-SEITE. Nachgesehen, nicht
+   geraten: karriere-backoffice.html traegt die Kleinzeile „Onboarding mit
+   klarem Plan" und darunter vier Punkte mit den Zeitangaben „Woche 1",
+   „Woche 2 bis 4", „Monat 2", „Ab Monat 3" — das sind die „Wochen", die der
+   Kunde meint. Auf karriere-immobilienberater.html heisst derselbe
+   Abschnitt „Onboarding mit System" und hat fuenf nummerierte Punkte ohne
+   Zeitangabe. Beide werden umgestellt: es ist derselbe Baustein
+   (.stl-stufe) und derselbe Abschnitt auf zwei Seiten, und eine Seite
+   mittig und die Schwester daneben linksbuendig waere ein neuer Bruch.
+
+   DIE ZWEI SEITEN SIND VERSCHIEDEN GEBAUT, deshalb zwei Regeln:
+
+   1) BACK-OFFICE — <ul class="stl-folge stl-folge--ohne-nr">. Ohne
+      Ziffernspalte ist .stl-stufe ein einspaltiges Raster ueber die volle
+      Behaelterbreite; GEMESSEN bei 390 px stehen Zeitangabe, Titel und Text
+      alle drei auf x 20 mit 350 px Breite. Ein `text-align: center` genuegt,
+      die Mittelachse ist danach exakt die Behaeltermitte (195 px).
+
+   2) IMMOBILIENBERATER — <ol class="stl-folge abl__folge"> in einer
+      <div class="abl__spur">. Hier haengt die FORTSCHRITTSSCHIENE dran
+      (assets/js/ablauf.js, .abl__spur / .abl__laeufer). .stl-stufe ist dort
+      ein ZWEISPALTIGES Raster: Ziffer links (clamp(2rem, 2.7vw, 2.6rem),
+      bei 390 px auf 32 px gedeckelt), dann die Fuge
+      (clamp(0.7rem, 1.15vw, 1.15rem), bei 390 px 11,2 px), dann der Text.
+      GEMESSEN vorher: Ziffer x 20 bis 52, Text x 63,2 bis 370.
+
+      DIE SCHIENE DARF NICHT WANDERN. ablauf.js misst ihre waagerechte Lage
+      als Mitte der ERSTEN ZIFFER (`x = (a.left - s.left) + a.width / 2`,
+      Zeile 97) und setzt sie als --abl-schiene-x; die festen Ziffern
+      stehen mit `text-align: center` und eigenem Grund darauf. Wer die
+      Ziffer verschiebt, verschiebt die Schiene und den Laeufer mit.
+      Deshalb bleibt die Ziffernspalte, wie sie ist, und mittig gesetzt
+      werden nur Titel und Text.
+
+      DAS ALLEIN WAERE ABER FALSCH MITTIG: die Textspalte beginnt erst bei
+      x 63,2, ihre eigene Mitte liegt bei 216,6 px — 21,6 px rechts von der
+      Behaeltermitte (195 px). Der Satz staende zwar mittig in seiner
+      Spalte, aber sichtbar aus der Achse des Abschnitts. Deshalb bekommt
+      .stl-stufe__wort auf der rechten Seite genau so viel Polster, wie
+      links die Ziffernspalte samt Fuge einnimmt — dieselben beiden clamp()
+      noch einmal, damit die Rechnung an jeder Fensterbreite aufgeht:
+          links  32 + 11,2 = 43,2 px
+          rechts 43,2 px
+          Mitte  63,2 + (306,8 - 43,2) / 2 = 195,0 px  = Behaeltermitte
+      Der Satz wird dadurch um 43,2 px schmaler (306,8 -> 263,6 px); bei
+      16 px Schrift sind das rund 8 Zeichen je Zeile weniger. Das ist der
+      Preis dafuer, dass Schiene und Satzachse gleichzeitig stimmen, und er
+      ist bewusst bezahlt.
+
+   NACHGEMESSEN NACH DEM UMBAU (390 px, karriere-immobilienberater.html),
+   alle Werte in Koordinaten der Spur:
+     --abl-schiene-x        16 px    vorher 16 px   unveraendert
+     Ziffernmitte 01 .. 05  16 px    vorher 16 px   alle fuenf unveraendert
+     Mitte des Laeufers     16 px    vorher 16 px   unveraendert
+     data-schiene           „an"     vorher „an"    unveraendert
+   Der Laeufer sitzt damit weiterhin mittig auf dem Strich, und der Strich
+   steht weiterhin mittig unter den Ziffern.
+   DIE SCHIENE IST AUF DEM TELEFON SICHTBAR — nachgesehen im Bild bei
+   390 px, nicht nur gerechnet: der bronzefarbene Strich laeuft links neben
+   den fuenf Punkten, die gefuellte Haelfte waechst beim Rollen mit.
+   Auf der Back-Office-Seite gibt es keine Schiene und keinen Laeufer
+   (kein .abl__spur im Markup, nachgesehen) — dort ist nichts nachzumessen.
+
+   DIE ZEITANGABE bleibt in ihrem Grad und ihrer Sperrung; nur die
+   Ausrichtung aendert sich. `text-wrap: balance` an .stl-stufe__titel und
+   `text-wrap: pretty` an .stl-stufe__text bleiben ebenfalls — bei mittigem
+   Satz arbeiten beide erst richtig.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .stl-stufe__zeit,
+  .stl-stufe__titel,
+  .stl-stufe__text {
+    text-align: center;
+  }
+  /* Der Deckel von 44em an .stl-stufe__text greift auf dem Telefon nie
+     (350 px sind rund 22em) — er braucht kein margin-inline. */
+
+  /* Nur die nummerierte Fassung: Polster rechts in der Breite der
+     Ziffernspalte samt Fuge, damit die Satzachse auf der Abschnittsmitte
+     liegt. Die Werte sind zeichengleich die aus .stl-stufe. */
+  .stl-folge:not(.stl-folge--ohne-nr) .stl-stufe__wort {
+    padding-right: calc(clamp(2.0rem, 2.7vw, 2.6rem) + clamp(0.7rem, 1.15vw, 1.15rem));
+  }
+}

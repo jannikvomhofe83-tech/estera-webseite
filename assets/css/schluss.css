@@ -811,3 +811,87 @@
   .cta__inner { align-items: stretch; }
   .cta__inner > * { text-align: center; }
 }
+
+
+/* ===========================================================================
+   DER FUSS STEHT AUF DEM TELEFON DURCHGEHEND MITTIG — 09.09.2026
+
+   Kundenwunsch woertlich: „Im Fusszeilenbereich soll Kontakt und Rechtliches
+   alles auch mittig sein und nicht linksbuendig. Das musst du ueberall im
+   Fuss so umsetzen."
+
+   „UEBERALL IM FUSS" IST WOERTLICH GENOMMEN. Betroffen sind nicht nur die
+   zwei genannten Spalten, sondern jeder Baustein, der links stand —
+   nachgezaehlt und GEMESSEN bei 390 px auf karriere.html:
+
+     .fuss__titel      „KONTAKT" / „RECHTLICHES"     text-align: start
+     .fuss__liste a    fuenf Verweise, je 44 px hoch text-align: start
+     .fuss__risiko     vier Zeilen Haftungstext      text-align: start
+     .fuss__unten      Flexzeile, space-between      text-align: start
+     .fuss__unten span „© 2026 Estera GmbH"          Mitte bei x 86,3
+     .fuss__marke      Wortmarke + Ankerzeile        stand schon mittig
+
+   Die Wortmarke und „Diskret. Strukturiert. Langfristig." sind seit dem
+   31.08.2026 mittig (Kundenwunsch von damals, .fuss__marke) und bleiben es;
+   sie standen als einziger Block schon so da, und genau daran war zu sehen,
+   dass der Rest daneben abfiel.
+
+   ES GILT FUER ALLE NEUN SEITEN. schluss.css traegt die Fusszeile fuer das
+   ganze Projekt; die neun HTML-Dateien binden sie ein und keine bringt
+   einen eigenen Fussstil mit (nachgesehen). Am Markup ist nichts zu
+   aendern — die Ausrichtung ist vollstaendig eine Sache der CSS.
+
+   DIE GRENZE IST 767 px UND NICHT 899. Der Fuss hat weiter oben in dieser
+   Datei schon einen Mobilblock bei 899 px (die 44-px-Trefferflaechen der
+   Verweise). Der bleibt, wie er ist; die Mittigkeit setzt erst unter
+   768 px an, weil der Auftrag ausdruecklich und wiederholt die mobile
+   Ansicht meint und der Desktop unangetastet zu bleiben hat.
+
+   OFFEN GESAGT, weil es beim Nachmessen auffaellt: zwischen 561 und 767 px
+   steht .fuss__inner noch ZWEISPALTIG (die Umstellung auf eine Spalte
+   greift erst bei 560 px). Dort stehen „Kontakt" und „Rechtliches"
+   nebeneinander und ihr Satz ist jetzt in beiden Spalten mittig. Das ist
+   hingenommen und nicht uebersehen: es sind zwei Spalten mit je zwei bis
+   vier kurzen Verweisen, keine Textspalten, in denen eine gerade linke
+   Kante das Lesen traegt. Auf den Geraetebreiten, um die es geht — 360,
+   390, 430 px — ist der Fuss ohnehin einspaltig. Wer die Zweispalte
+   ausnehmen will, setzt diesen Block auf `max-width: 560px`.
+
+   ZWEI EINZELHEITEN, die ein blosses `text-align: center` nicht erledigt:
+
+   1) .fuss__titel traegt `letter-spacing: 0.28em` und dazu
+      `text-indent: 0.28em`. Der Einzug ist der Ausgleich fuer die
+      Sperrung, die HINTER dem letzten Buchstaben noch einmal auftraegt —
+      bei linksbuendigem Satz gehoert er nach vorn. Bei mittigem Satz
+      verteilt sich die ueberschuessige Sperrung auf beide Seiten, der
+      Einzug schoebe das Wort dann um 0,28em = 3,6 px nach rechts.
+      Er wird deshalb auf 0 gesetzt und der Ausgleich ueber
+      `margin-right: -0.28em` gefuehrt, der die Randbox um genau die
+      nachlaufende Sperrung kuerzt. GEMESSEN danach: Wortmitte 195,0 px
+      = Behaeltermitte.
+
+   2) .fuss__unten ist eine Flexzeile mit `justify-content: space-between`.
+      Sie traegt seit dem 01.09.2026 nur noch EIN Kind („© 2026 Estera
+      GmbH"), und `space-between` schiebt ein einzelnes Kind an die linke
+      Kante — GEMESSEN Mitte bei 86,3 statt 195 px. `center` an der Achse
+      ist der Fix; `text-align: center` allein haette daran nichts
+      geaendert, weil das Kind ein Flexelement ist. Dasselbe Muster steht
+      schon in base.css bei `.menu__foot` unter 620 px.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .fuss__titel {
+    text-align: center;
+    /* Sperrungsausgleich, siehe Rechnung oben. */
+    text-indent: 0;
+    margin-right: -0.28em;
+  }
+  .fuss__liste a,
+  .fuss__liste span,
+  .fuss__risiko {
+    text-align: center;
+  }
+  .fuss__unten {
+    justify-content: center;
+    text-align: center;
+  }
+}

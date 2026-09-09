@@ -1215,3 +1215,155 @@ body.is-locked { overflow: hidden; }
   .kar-knopf--voll::after,
   .wi__knopf::after { animation: none; opacity: 0; }
 }
+
+
+/* ===========================================================================
+   DER NAVIGATIONSVORHANG AUF DEM TELEFON — 09.09.2026
+
+   Kundenwunsch woertlich: „In der NavBar, die sich oeffnet, soll auf der
+   mobilen Ansicht Kontakt, also info@estera.immobilien, raus, und
+   Datenschutz und Cookie-Einstellungen runter. Man sieht dann nur oben das
+   Estera-Immobilien-Logo, dann: Warum Immobilien, Warum Estera, Ablauf,
+   Karriere, Kontakt. Dann Naechster Schritt — und da kannst du den Text auf
+   drei Zeilen schreiben, dass er nicht so breit wird, sondern auch mittig
+   ist. Erstgespraech-vereinbaren-Knopf. Dann Kontakt / info@estera.immobilien
+   kann raus. Und dann steht unten: Impressum, Datenschutz,
+   Cookie-Einstellungen."
+
+   DIE REIHENFOLGE ERGIBT SICH VON SELBST. Der Vorhang steht im Markup schon
+   in genau dieser Folge — Kopfzeile, Liste, Beiblock (Naechster Schritt,
+   Knopf, Kontakt), Fusszeile. Es war KEIN `order` noetig und keine
+   Umsortierung: es reicht, den Kontaktblock auszublenden und die beiden
+   Rechtsverweise unten sichtbar zu machen. Damit steht unter 768 px:
+
+       Wortmarke oben, Kreuz rechts
+       Warum Immobilien · Warum Estera · Ablauf · Karriere · Kontakt
+       Kleinzeile „Naechster Schritt"
+       der Satz, dreizeilig und mittig
+       Knopf „Erstgespraech vereinbaren"
+       Impressum · Datenschutz · Cookie-Einstellungen
+
+   DIE E-MAIL-ADRESSE IST DAMIT IM VORHANG NICHT MEHR ERREICHBAR — und das
+   ist geprueft und nicht angenommen. Sie steht weiterhin in der Fusszeile
+   JEDER der neun Seiten (.fuss__liste, erster Eintrag unter „Kontakt",
+   16 px, 44 px Trefferflaeche) und zusaetzlich im Fliesstext von
+   kontakt.html und impressum.html. Kein Weg zur Adresse geht verloren, es
+   faellt nur der zweite Weg auf demselben Bildschirm weg.
+
+   1) DER KONTAKTBLOCK. `display: none` statt Loeschen — am breiten Fenster
+      bleibt er unveraendert stehen, das ist die Auflage. Mit ihm
+      verschwindet auch .menu__recht, das seit dem 04.09.2026 in ihm steckt;
+      dafuer stehen die beiden Verweise unten ein zweites Mal im Markup.
+
+   2) DIE DREI VERWEISE UNTEN. `.menu__foot-mobil` sind die zwei zusaetzlichen
+      <li> im Markup. Sie stehen in der Grundregel auf `display: none` und
+      kommen erst hier dazu — der Desktop sieht sie nie.
+
+      IN EINER ZEILE STEHEN SIE BEI 390 px NICHT, und das ist gerechnet, nicht
+      uebersehen. Der Vorhang misst dort 88 % von 390 = 343,2 px, abzueglich
+      2 x 20 px Innenabstand bleiben 303,2 px Satzbreite. Die drei Woerter
+      messen in der Bedienschrift des Projekts (16 px, dieselbe Untergrenze
+      wie ueberall) GEMESSEN 69,5 + 78,4 + 134,4 = 282,3 px, dazu zwei Fugen
+      zu 22,4 px = 327,1 px. Das passt in keine 303,2 px. Sie brechen
+      deshalb um: „Impressum · Datenschutz" in der ersten Zeile,
+      „Cookie-Einstellungen" in der zweiten, beide Zeilen mittig. Der
+      einzige Weg zu einer einzigen Zeile waere ein Grad unter 16 px — das
+      verbietet die Regel fuer Bedienschrift, und der Verzicht darauf ist
+      hier die richtige Entscheidung.
+      AB 430 px STEHEN SIE IN EINER ZEILE. Nachgemessen ueber vier
+      Geraetebreiten, Fusszeile des Vorhangs:
+          360 px  Vorhang 316,8  Satzbreite 276,8  -> zwei Zeilen
+          390 px  Vorhang 343,2  Satzbreite 303,2  -> zwei Zeilen
+          430 px  Vorhang 378,4  Satzbreite 338,4  -> EINE Zeile
+          767 px  Vorhang 460,2  Satzbreite 414,2  -> EINE Zeile
+      Der Umbruch ist also der schmalen Geraeteklasse geschuldet und keine
+      Eigenschaft der Loesung.
+
+      OHNE VERSALIEN UND OHNE SPERRUNG. Die Fusszeile des Vorhangs steht in
+      0,86rem = 13,76 px, gesperrten Versalien und Gewicht 500. Beides faellt
+      hier weg, und zwar aus zwei Gruenden: 13,76 px liegen unter der
+      16-px-Grenze fuer Bedienschrift, und die zwei Verweise, die hier
+      dazukommen, standen bis heute oben in .menu__recht — dort hat der
+      Kunde am 04.09.2026 ausdruecklich „auch dick" und keine Versalien
+      verlangt. Sie bringen ihre Erscheinung also mit; „Impressum" zieht
+      nach, damit die Reihe nicht aus zwei verschiedenen Schriftbildern
+      besteht. Gewicht 600 ist dasselbe wie in .menu__recht.
+      Versalien mit 0,14 em Sperrung waeren ausserdem rund 30 % breiter —
+      die Reihe braeche auf drei Zeilen statt auf zwei.
+
+   3) DER SATZ AUF DREI ZEILEN. „Erst pruefen wir, ob deine Kapitalanlage zu
+      dir passt. Danach sprechen wir ueber Objekte." stand bei 390 px auf
+      303,2 px Breite in ZWEI Zeilen (GEMESSEN 61,6 px hoch bei 30,8 px
+      Zeilenhoehe). Der Kunde will drei und ausdruecklich „nicht so breit".
+      DER DECKEL IST AUSGEMESSEN, NICHT GESCHAETZT. Der Satz steht bei
+      32ch — GEMESSEN 261,3 px, also 86 % der Satzbreite. Die Spanne, in
+      der er drei Zeilen ergibt, ist mit einer Messreihe abgesucht worden:
+          21ch = 171,5 px .. 28ch = 228,6 px   vier Zeilen
+          29ch = 236,8 px .. 36ch = 294,0 px   DREI Zeilen
+          37ch = 302,1 px und breiter          zwei Zeilen
+      32ch liegt in der Mitte dieser Spanne, mit rund 25 px Reserve nach
+      jeder Seite. Der erste Anlauf stand auf 21ch und ergab VIER Zeilen —
+      nachgemessen und korrigiert, nicht gerechnet und geglaubt.
+      Die drei Zeilen messen zusammen 92,4 px bei 30,8 px Zeilenhoehe.
+      Bei 360 px Fensterbreite (Vorhang 316,8 px, Satzbreite 276,8 px) und
+      bei 767 px (Vorhang 60 % = 460 px, Satzbreite 414 px) traegt derselbe
+      Deckel — nachgerechnet, er ist in beiden Faellen der engere Wert.
+      `margin-inline: auto` haelt die schmalere Spalte in der Mitte;
+      `text-align: center` traegt .menu__aside schon in seiner Grundregel,
+      der Satz war nie linksbuendig.
+      ch UND NICHT px, weil der Grad des Satzes selbst in rem steht: waechst
+      die Schrift beim Nutzer, waechst der Deckel mit und es bleiben drei
+      Zeilen. Ein fester Pixelwert haette dort vier oder fuenf ergeben.
+
+   NICHTS DAVON GILT AB 768 px. Alle Regeln stehen in einer Breitenabfrage,
+   und die Grundregel darueber setzt nur die neue Klasse auf `display: none`
+   — ein Zustand, den es vor heute gar nicht gab. Am breiten Fenster ist der
+   Vorhang damit zeichengleich der von gestern.
+   =========================================================================== */
+
+/* Grundzustand: die zwei zusaetzlichen Verweise unten gibt es nur auf dem
+   Telefon. Steht ausserhalb jeder Abfrage, damit sie auch dort verborgen
+   sind, wo keine Medienabfrage greift (Druck, alte Browser). */
+.menu__foot-mobil { display: none; }
+
+@media (max-width: 767px) {
+  /* Kontakt, E-Mail und die zwei Rechtsverweise darin — raus. */
+  .menu__kontakt { display: none; }
+
+  /* Dafuer die zwei Verweise unten, neben „Impressum". */
+  .menu__foot-mobil { display: block; }
+
+  /* Die Fusszeile des Vorhangs wird eine Reihe aus drei gleichwertigen
+     Verweisen. `justify-content: center` steht schon in @media
+     (max-width: 620px); hier noch einmal, weil dieser Block auch den
+     Streifen 621 bis 767 px traegt, wo jene Regel nicht greift. */
+  .menu__foot {
+    justify-content: center;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1rem;
+  }
+  .menu__foot ul {
+    justify-content: center;
+    /* 1,4rem ist die Fuge, die .menu__recht zwischen „Datenschutz" und
+       „Cookie-Einstellungen" haelt — dieselbe Reihe, dieselbe Fuge. */
+    gap: 0 1.4rem;
+  }
+  .menu__foot a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;          /* Trefferflaeche */
+    padding: 0;                /* die 0,82rem oben sind mit min-height ersetzt */
+    font-size: 1rem;           /* 16 px, Untergrenze fuer Bedienschrift */
+    font-weight: 600;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.8);   /* 8,4:1 auf Navy 900 */
+  }
+  .menu__foot a:hover { color: #fff; }
+
+  /* Der Satz unter „Naechster Schritt" auf drei Zeilen. */
+  .menu__aside > div:first-child > p:not(.kicker) {
+    max-width: 32ch;
+    margin-inline: auto;
+  }
+}

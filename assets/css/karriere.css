@@ -3583,3 +3583,121 @@
   /* Die Unterzeile trug den Abstand zur Knopfreihe. */
   .kar-kopf__knoepfe { margin-top: 20px; }
 }
+
+
+/* ===========================================================================
+   DER KOPFBEREICH NOCH EINEN GRAD ZURUECK — 09.09.2026
+
+   Kundenwunsch woertlich: „Bei der Karriere-Seite auf der Hero-Section soll
+   ‚Baue mit uns die Immobilienberatung, an der sich die Branche misst‘
+   kleiner geschrieben werden. Die Schriftgroesse soll kleiner sein, und die
+   zwei CTA-Buttons darunter, ‚Offene Positionen ansehen‘ und ‚Estera
+   kennenlernen‘, sollen auch kleiner sein. Die sollen nicht zu viel von der
+   Breite ausfuellen, damit man mehr von dem Hintergrundvideo erkennen kann."
+
+   NUR UNTER 768 px. Der Desktop bleibt unangetastet — das ist die Auflage,
+   die dreimal gestellt wurde. Alles hier steht in einer Breitenabfrage.
+
+   1) DIE UEBERSCHRIFT. Der Projektwert --kar-fs-titel rechnet
+      min(57,12px, 11,14px + 5,986vw); bei 390 px sind das
+      11,14 + 23,35 = 34,49 px, gemessen ueber vier Zeilen 122,2 px hoch.
+      Der neue Wert clamp(26px, 7.2vw, 30px) ergibt
+        360 px -> 25,92 -> auf 26 gedeckelt
+        390 px -> 28,08 px   (das sind 81 % des alten Grades)
+        767 px -> 55,2  -> auf 30 gedeckelt
+      Die Ueberschrift ist KEIN Fliesstext und keine Bedienschrift, die
+      16-px-Untergrenze gilt fuer sie nicht; 26 px sind trotzdem weit
+      darueber. Der Zeilenabstand bleibt --kar-lh-titel, er rechnet
+      relativ und geht mit.
+
+   2) DIE ZWEI KNOEPFE. Sie standen seit dem 04.09. auf `flex: 1 1 100%`
+      (Regel in @media max-width: 899px), also mit 342 von 390 px = 88 %
+      der Fensterbreite als zwei volle Balken vor dem Film. Hier gehen sie
+      zurueck auf ihre Inhaltsbreite — `flex: 0 1 auto` ist der Wert, den
+      .kar-kopf__knoepfe .kar-knopf am breiten Fenster ohnehin traegt; die
+      Mindestbreite von dort (240 px) wird auf 0 gesetzt, damit der
+      kuerzere der beiden nicht kuenstlich mitwaechst.
+      GEMESSEN danach bei 390 px: „Offene Positionen ansehen" 207,9 px und
+      „Estera kennenlernen" 168,5 px — 61 % und 49 % des Satzspiegels von
+      342 px, statt vorher zweimal 100 %. Beide stehen mittig (Mittelachse
+      195,0 px = Behaeltermitte).
+      Die 20 px Innenabstand je Seite sind 4 px mehr
+      als die 16 px vom 04.09. — ohne volle Breite braucht der Text wieder
+      seine eigene Luft an den Kanten.
+      Hoehe und Schriftgrad bleiben bei 44 px und 1rem = 16 px, den beiden
+      Untergrenzen aus dem Optimierungsbriefing (Trefferflaeche und
+      Bedienschrift). Kleiner geht ausdruecklich nicht.
+      `flex-wrap: wrap` an .kar-kopf__knoepfe steht schon in der Grundregel:
+      207,9 + 12 + 168,5 = 388,4 px passen nicht in 342 px, die beiden
+      stehen also weiterhin untereinander — jetzt aber mittig und schmal
+      statt randvoll.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .kar-kopf__titel { font-size: clamp(26px, 7.2vw, 30px); }
+
+  .kar-kopf__knoepfe .kar-knopf,
+  .kar-kopf__knoepfe .btn {
+    flex: 0 1 auto;
+    min-width: 0;
+    width: auto;
+    padding: 0 20px;
+  }
+}
+
+
+/* ===========================================================================
+   „MEHR ALS EIN ARBEITSPLATZ" STEHT AUF DEM TELEFON MITTIG — 09.09.2026
+
+   Kundenwunsch woertlich: „Bei ‚Mehr als ein Arbeitsplatz / Ein Umfeld, in
+   dem aus Ambition echte Entwicklung wird‘ ist der Text linksbuendig, aber
+   er soll mittig sein. Der ganze Text soll mittig sein."
+
+   WAS VORHER LINKS STAND — und was schon mittig war. Etikett und
+   Ueberschrift sind seit dem 31.08.2026 mittig (.kar-wer__etikett,
+   .kar-wer .kar-titel). LINKS stand allein der Fliesstext, und zwar durch
+   die Regel `.kar-wer__text { text-align: left }` im Block
+   @media (max-width: 899px). Die stammt vom 04.09.2026 und war damals
+   begruendet: drei Absaetze mit 90 Woertern mittig gesetzt lassen das Auge
+   bei jedem Zeilenanfang suchen. Der Kunde hat das jetzt ausdruecklich
+   anders entschieden — seine Ansage sticht die Begruendung.
+
+   DIE ALTE REGEL BLEIBT STEHEN und wird nicht geloescht: sie gilt weiter
+   im Streifen 768 bis 899 px (Tablet hochkant und Telefon quer, 844 x 390),
+   wo die Zeile 66 Zeichen traegt und das Argument von damals unveraendert
+   zutrifft. Der Kunde spricht von der mobilen Ansicht; die Grenze dafuer
+   ist in diesem Projekt 767 px. Diese Regel hier steht spaeter in der
+   Datei, wiegt gleich schwer und gewinnt deshalb unterhalb von 768 px.
+
+   `margin-inline` braucht es nicht: der Satzspiegel-Deckel
+   min(66ch, 707.1px) traegt schon `margin: 28px auto 0` aus der
+   Grundregel, und die Ausnahme `margin-inline: 0` gilt erst ab 900 px.
+   GEMESSEN bei 390 px: der Block ist 342 px breit und damit ohnehin
+   schmaler als sein Deckel — er kann gar nicht seitlich haengen.
+
+   AUFZAEHLUNGSPUNKTE GIBT ES IN DIESEM ABSCHNITT KEINE. Nachgezaehlt: die
+   drei Bausteine sind <p>-Absaetze, kein <ul> und kein <li>. Die
+   Umstellung, die in warum.css unter „DER SATZ STEHT MITTIG" noetig war —
+   der Punkt aus dem absoluten ::before zurueck in den Fluss — hat hier
+   also keinen Gegenstand. Kommt spaeter eine Liste dazu, ist das Muster
+   dort nachzulesen und mitzunehmen.
+
+   DIE HAARLINIE UNTER DEM ETIKETT ist in diesem Abschnitt keine Linie,
+   sondern der Sandbalken .kar-balken. Er traegt einen Auslauf von 1,6 em
+   RECHTS neben der Schrift (`inset: 0 -1.6em 0 0` an .kar-balken::before),
+   der als Pseudoelement ausserhalb der Elementbreite liegt. Die Mitte, auf
+   die `text-align: center` ausrichtet, ist deshalb NICHT die Mitte des
+   sichtbaren Balkens: GEMESSEN bei 390 px lief die Schrift von x 53,6 bis
+   336,4, der Auslauf bis 363,1 — sichtbare Mitte 208,4 gegen Behaeltermitte
+   195, also 13,4 px zu weit rechts. `margin-right: 1.6em` nimmt den
+   Auslauf in die Randbox auf; die Mittelachse verschiebt sich damit um
+   0,8 em = 13,3 px nach links und der Balken steht sichtbar mittig.
+   Die Einblendgeste bleibt unberuehrt — sie arbeitet mit clip-path an der
+   Elementbox, und clip-path rechnet nicht gegen Raender.
+   NUR IN .kar-wer: dasselbe Etikett steht ein zweites Mal in .kar-angebot
+   („FINDE DEINE ROLLE") auf Navygrund, das ist ein anderer Abschnitt und
+   nicht Gegenstand der Ansage.
+   =========================================================================== */
+@media (max-width: 767px) {
+  .kar-wer__text { text-align: center; }
+  .kar-wer .kar-wer__etikett .kar-balken { margin-right: 1.6em; }
+}
