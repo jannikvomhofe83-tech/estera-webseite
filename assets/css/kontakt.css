@@ -1855,9 +1855,34 @@
    ohnehin schon weg (visibility: hidden). Ohne Javascript gibt es kein
    [data-funnel-aktiv] und damit keinen Unterschied.
 --------------------------------------------------------------------------- */
-@media (max-width: 900px) {
-  .kf__formular[data-funnel-aktiv] .kf__stufe:not([data-aktiv]) { display: none; }
-}
+/* NACHTRAG 09.09.2026 — DIE GRENZE VON 900 px FAELLT.
+
+   Kundenwunsch woertlich: „Bei den Schritten, wo die Weiter-Buttons noch
+   drin bleiben — bei ‚berufliche Erfahrung‘ drei Felder, bei ‚Kontakt‘ drei
+   Felder — ist wichtig, dass der Knopf sofort sichtbar ist auf der mobilen
+   Ansicht UND auf der Desktop-Ansicht. Man muss nicht erst runterscrollen,
+   um den Button zu sehen."
+
+   Der Block oben hat das Problem auf dem Telefon geloest und am
+   Schreibtisch stehen lassen — die Regel haengt an der FENSTERBREITE, das
+   Problem aber an der FENSTERHOEHE. GEMESSEN am 09.09.2026 im Schritt
+   „Welche beruflichen Erfahrungen hast du gesammelt?" (drei Felder):
+
+       1440 x 900   Buehne 790 px hoch, aktiver Schritt 426 px
+                    -> 364 px Leere, der Knopf endet 15 px unter der Kante
+        390 x 800   Buehne = Schritt (die alte Regel greift)  -> passt
+        390 x 667   58 px darunter (der Kanal rollt 10 px)
+
+   Die 364 px Leere sind die ruhenden Schritte, die im selben Rasterfeld
+   liegen. Ihr einziger Zweck war, dass die Fussleiste zwischen den
+   Schritten nicht springt. Das ist ein Komfort; ein Knopf, den man nicht
+   sieht, ist ein Fehler. Die Regel gilt deshalb jetzt ohne Breitengrenze.
+
+   WAS DER SPRUNG KOSTET: die Fussleiste sitzt je Schritt unterschiedlich
+   hoch. Der Kanal rollt beim Schrittwechsel ohnehin nach oben
+   (kontakt-funnel.js, inSicht), damit jeder Schritt oben beginnt — der
+   Wechsel ist also ohnehin eine Bewegung und kein Standbild. */
+.kf__formular[data-funnel-aktiv] .kf__stufe:not([data-aktiv]) { display: none; }
 
 /* ---------------------------------------------------------------------------
    DAS DATEIFELD ALS KNOPF — Pruefer, Runde 1: „nackter Browser-Dateiknopf
@@ -1898,3 +1923,61 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+
+/* ===========================================================================
+   FLACHE FENSTER — 09.09.2026
+
+   Nachdem die ruhenden Schritte auch am Schreibtisch aus dem Fluss sind,
+   passt der Knopf bei 1440 x 900 und bei 390 x 800. GEMESSEN fehlten auf
+   einem kurzen Telefon (390 x 667, das Mass eines iPhone SE) weiterhin
+   58 px.
+
+   Die 58 px kommen NICHT aus der Schrift und nicht aus den Feldern — die
+   drei Felder messen zusammen 303 px und bleiben unangetastet. Sie kommen
+   aus den Abstaenden zwischen den Bloecken:
+
+       Fortschrittsbalken nach unten   40,5 -> 20 px    -20,5
+       Buehne nach oben                31,5 -> 16 px    -15,5
+       Abstand zwischen zwei Feldern     18 -> 12 px    -12,0  (zweimal)
+       Fussleiste nach oben              18 -> 10 px     -8,0
+                                                        ------
+                                                        -56,0
+
+   Dazu die zwei Punkte, die der Kanal ohnehin rollt. Die Grenze liegt bei
+   700 px Fensterhoehe: darueber steht der Trichter luftig wie bisher,
+   darunter zaehlt jeder Punkt. Schriftgroessen und Trefferflaechen sind
+   nicht angefasst — 48 px hohe Felder und 16 px Schrift bleiben.
+   =========================================================================== */
+@media (max-height: 700px) {
+  .kf__voll .kf__buehne     { margin-top: 16px; }
+  .kf__voll .kf__fortschritt { margin-bottom: 20px; }
+  /* Der Abstand zwischen zwei Feldern liegt NICHT am Feld, sondern als
+     row-gap an .kf__stufe__inhalt und .kf__reihe (je 14,4 px) — der erste
+     Anlauf hat mit `margin-top` am Feld ins Leere gegriffen und nur 9 der
+     58 Pixel geholt. */
+  .kf__voll .kf__stufe__inhalt,
+  .kf__voll .kf__reihe { row-gap: 9px; }
+  /* Die Zeile zwischen Beschriftung und Feld: 7,2 -> 4 px. */
+  .kf__voll .kf__feld { row-gap: 4px; }
+  /* Die Ueberschrift der Strecke und ihre Unterzeile tragen im Vollbild
+     zusammen rund 60 px. Auf einem kurzen Fenster steht die Frage des
+     Schritts unmittelbar darunter und sagt dasselbe noch einmal. */
+  .kf__voll .kf__formular__zeile { display: none; }
+  /* Das Textfeld stand auf 8,5rem = 136 px, also gut vier Zeilen. Auf einem
+     667 px hohen Fenster sind das die letzten 17 Pixel, die zwischen dem
+     Knopf und der Bildkante stehen. 5,5rem = 88 px zeigen weiterhin knapp
+     drei Zeilen, und das Feld waechst weiter mit (resize: vertical bleibt). */
+  /* Drei Klassen, nicht zwei: `.kf__stufe .kf__feld textarea` weiter oben in
+     dieser Datei wiegt schwerer als `.kf__voll .kf__feld textarea` und hat
+     den ersten Anlauf ueberholt — das Feld blieb GEMESSEN bei 134 px. */
+  .kf__voll .kf__stufe .kf__feld textarea {
+    /* `min-height` allein hat nichts bewirkt, und das war der zweite
+       Fehlgriff: die Hoehe des Textfeldes kommt aus seinem rows-Attribut,
+       nicht aus dem Mindestmass — GEMESSEN blieben es 134 px, obwohl das
+       Mindestmass auf 88 stand. Deshalb hier beides. `resize: vertical`
+       bleibt, das Feld waechst also weiter mit, wenn jemand daran zieht. */
+    min-height: 5.5rem;
+    height: 5.5rem;
+  }
+  .kf__voll .kf__nav        { margin-top: 10px; }
+}
