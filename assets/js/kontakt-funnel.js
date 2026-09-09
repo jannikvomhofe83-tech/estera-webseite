@@ -710,7 +710,17 @@
       var stufe = stufen[pos];
       var letzte = pos === stufen.length - 1;
 
-      weiter.hidden = letzte;
+      /* DER WEITERKNOPF FAELLT AUF REINEN WAHLSCHRITTEN WEG — 09.09.2026,
+         Kundenwunsch woertlich: „Das mit dem automatisch Weiter funktioniert
+         schon, aber der Weiter-Button ist immer noch ueberall da. Der soll
+         heraus, sowohl auf mobiler Ansicht als auch auf Desktop-Ansicht."
+         Er stand bis hierher auch dort, weil er der Weg fuer die Tastatur
+         war: mit den Pfeiltasten wandert die Auswahl, und ein Schritt, der
+         dabei davonspringt, waere unbedienbar. Dieser Weg ist nicht
+         weggefallen, er ist umgezogen — die Leertaste und die Eingabetaste
+         gehen jetzt weiter (siehe den Horcher weiter unten). Auf Schritten
+         mit Textfeldern und auf dem letzten Schritt bleibt der Knopf. */
+      weiter.hidden = letzte || !!nurWahl(stufe);
       if (senden) senden.hidden = !letzte;
 
       weiter.textContent = stufe.getAttribute('data-weiter') || TEXT.weiter;
@@ -905,19 +915,49 @@
     form.addEventListener('pointerdown', function (ev) {
       ausTippen = !!(ev.target && ev.target.closest && ev.target.closest('label, .kf__kachel'));
     });
-    form.addEventListener('keydown', function () { ausTippen = false; });
+    form.addEventListener('keydown', function (ev) {
+      ausTippen = false;
+      /* DER TASTATURWEG OHNE KNOPF. Die Pfeiltasten waehlen weiter aus, wie
+         es sich fuer eine Radiogruppe gehoert — erst Leertaste oder
+         Eingabetaste sind die Entscheidung, und die geht weiter. Ohne das
+         waere ein reiner Wahlschritt ohne Weiterknopf mit der Tastatur eine
+         Sackgasse.
+         preventDefault an der Eingabetaste: sonst schickt der Browser das
+         Formular ab, statt einen Schritt weiterzugehen. */
+      if (ev.key !== 'Enter' && ev.key !== ' ' && ev.key !== 'Spacebar') return;
+      var ziel = ev.target;
+      if (!ziel || ziel.type !== 'radio') return;
+      var stufe = stufen[pos];
+      var gruppe = nurWahl(stufe);
+      if (!gruppe || gruppe !== ziel.name) return;
+      ev.preventDefault();
+      /* Die Leertaste waehlt die Kachel erst aus; das erledigen wir hier
+         selbst, weil preventDefault den Browser daran hindert. */
+      if (!ziel.checked) {
+        ziel.checked = true;
+        ziel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (erfuellt(stufe)) vor();
+    });
+
+    /* Ein Schritt, der NUR nach einer Antwort fragt — eine Gruppe Kacheln,
+       kein Textfeld daneben, und nicht der letzte Schritt. Nur hier faellt
+       der Weiterknopf weg und nur hier geht es von selbst weiter. */
+    function nurWahl(stufe) {
+      if (stufen.indexOf(stufe) === stufen.length - 1) return null;
+      var p = pflichtfelder(stufe);
+      if (!p.length) return null;
+      var name = p[0].name;
+      var eine = p.every(function (f) { return f.type === 'radio' && f.name === name; });
+      return eine ? name : null;
+    }
 
     function selbstWeiter(ziel) {
       if (!ausTippen) return;
       if (!ziel || ziel.type !== 'radio') return;
       var stufe = stufen[pos];
-      if (pos === stufen.length - 1) return;
-      var p = pflichtfelder(stufe);
-      if (!p.length) return;
-      var eineGruppe = p.every(function (f) {
-        return f.type === 'radio' && f.name === ziel.name;
-      });
-      if (!eineGruppe) return;
+      var gruppe = nurWahl(stufe);
+      if (!gruppe || gruppe !== ziel.name) return;
       if (!erfuellt(stufe)) return;
       ausTippen = false;
       if (reduziert()) { vor(); return; }
