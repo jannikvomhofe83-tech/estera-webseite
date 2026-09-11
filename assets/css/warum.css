@@ -2354,7 +2354,37 @@
    Die Verbindungslinien gehen unveraendert mit, weil sie im selben Feld
    und in denselben Prozentwerten rechnen.
    =========================================================================== */
-.wi__feld { aspect-ratio: 1240 / 295; }
+/* NUR AB 1001 px — BERICHTIGT 11.09.2026.
+
+   DER FEHLER, gemeldet vom Kunden auf seinem iPhone: „Wenn ich ‚Mehr
+   erfahren‘ klicke, zeigt es den zugehoerigen Text immer dahinter, hinter
+   den vier Kaesten. Man kann die 01 lesen. […] Auf dem Computer passt es,
+   aber auf dem Smartphone nicht."
+
+   DIE URSACHE war diese eine Zeile. Sie stand am 04.09.2026 OHNE
+   Medienblock hier am Dateiende. Der Block fuer schmale Fenster weiter oben
+   (@media max-width: 1000px) setzt fuer .wi__feld ausdruecklich
+   `aspect-ratio: auto`, weil dort die vier Karten untereinander stehen und
+   das Feld mit ihnen wachsen muss. Diese Zeile kam spaeter, hat dieselbe
+   Spezifitaet — und hat das `auto` damit auf dem Telefon ueberschrieben.
+
+   Das Feld hatte mobil also ein Seitenverhaeltnis von 1240 : 295: bei
+   350 px Breite 83 px hoch, obwohl die gestapelten Karten 717 px brauchen.
+   Chrome und aktuelle Safari-Versionen fangen das ab (die automatische
+   Mindesthoehe laesst das Feld trotzdem mit seinem Inhalt wachsen). Aeltere
+   iOS-Safari-Versionen tun das bei einem Element mit `container-type` nicht:
+   dort blieb das Feld 83 px hoch, die Karten liefen darueber hinaus, und
+   die Texttafel darunter begann bei 109 px — GEMESSEN 609 px unter den
+   Karten verdeckt. Deshalb sah es am Rechner richtig aus und auf dem
+   iPhone nicht.
+
+   NACHGESTELLT in WebKit mit dem Geraeteprofil „iPhone 13" und
+   abgeschalteter automatischer Mindesthoehe (so, wie aeltere iOS-Versionen
+   rechnen): vorher Feld 83 px / Tafel 609 px verdeckt, nachher siehe
+   Commit-Nachricht. */
+@media (min-width: 1001px) {
+  .wi__feld { aspect-ratio: 1240 / 295; }
+}
 
 /* ALLE VIER KNOEPFE GLEICH BREIT — 04.09.2026, Kundenwunsch woertlich: „Bei
    der nächsten Section ist wichtig, dass du die Buttons mit ‚Mehr erfahren‘
